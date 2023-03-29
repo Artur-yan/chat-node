@@ -8,6 +8,8 @@
 
 	let input = '';
 
+	let bottom: HTMLElement
+
 	let thinking = false;
 
 	const queryGPT = async (message: string) => {
@@ -28,11 +30,13 @@
 			console.log(data)		
 			messages = [...messages, data.message];
 			thinking = false;
+			bottom.scrollIntoView({ behavior: 'smooth' });
 		})
 		.catch((err) => {
 			thinking = false;
 			console.error(err);
 			messages = [...messages, "I'm sorry, something went wrong."];
+			bottom.scrollIntoView({ behavior: 'smooth' });
 		});
 	}
 
@@ -64,12 +68,17 @@
 </form>
 <div class="p-4 h-[70vh]">
 	<ChatWindow {messages} {theme}>
-		{#each messages as message, i}
-			<ChatBubble {message} side={i % 2 == 0 ? 'left' : 'right'} />
-		{/each}
-		{#if thinking}
-			<ChatBubble message="Thinking..." side="left" />
-		{/if}
-		<ChatInput bind:input on:submit={() => queryGPT(input)} />
+		<svelte:fragment slot="messages">
+			{#each messages as message, i}
+				<ChatBubble {message} side={i % 2 == 0 ? 'left' : 'right'} />
+			{/each}
+			{#if thinking}
+				<ChatBubble message="Thinking..." side="left" />
+			{/if}
+			<div bind:this={bottom}></div>
+		</svelte:fragment>
+		<div slot="input">
+			<ChatInput bind:input on:submit={() => queryGPT(input)} />
+		</div>
 	</ChatWindow>
 </div>

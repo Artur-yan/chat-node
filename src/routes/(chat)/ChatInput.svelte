@@ -2,7 +2,7 @@
 	export let input = '';
 </script>
 
-<form class="absolute bottom-2 left-2 right-2" on:submit>
+<form on:submit>
 	<input
 		type="text"
 		placeholder="type your message"

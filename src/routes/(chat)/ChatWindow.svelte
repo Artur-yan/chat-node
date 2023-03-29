@@ -9,7 +9,7 @@
 </script>
 
 <section
-	class="relative p-2 rounded-lg h-full flex flex-col items-start"
+	class="flex flex-col w-full justify-between p-2 rounded-lg h-full items-start"
 	style="
 		--bg: {theme.bg};
 		--gptBubble: {theme.gptBubble};
@@ -18,5 +18,10 @@
 		--userBubbleText: {theme.userBubbleText};
 		background-color: var(--bg)"
 >
-	<slot />
+	<div class="flex flex-col w-full gap-2 items-start overflow-scroll pb-4">
+		<slot name="messages" />
+	</div>
+	<div class="w-full">
+		<slot name="input" />
+	</div>
 </section>
