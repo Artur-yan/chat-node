@@ -8,9 +8,32 @@
 
 	let input = '';
 
-	function addMessage() {
+	let thinking = false;
+
+	// // Dummy function to add message to messages array
+	// function addMessage() {
+	// 	messages = [...messages, input];
+	// 	input = '';
+
+	// }
+
+	const queryGPT = async () => {
 		messages = [...messages, input];
 		input = '';
+		thinking = true;
+		await fetch(`https://chat-base-xxvbz.ondigitalocean.app/chat/${input}`, {
+			method: 'GET',
+		})
+		.then(res => res.json())
+		.then((data) => {
+			messages = [...messages, data.detail];
+			thinking = false;
+		})
+		.catch((err) => {
+			thinking = false;
+			console.error(err);
+			messages = [...messages, "I'm sorry, something went wrong."];
+		});
 	}
 
 	let theme = {
@@ -44,6 +67,9 @@
 		{#each messages as message, i}
 			<ChatBubble {message} side={i % 2 == 0 ? 'left' : 'right'} />
 		{/each}
-		<ChatInput bind:input on:submit={addMessage} />
+		{#if thinking}
+			<ChatBubble message="Thinking..." side="left" />
+		{/if}
+		<ChatInput bind:input on:submit={queryGPT} />
 	</ChatWindow>
 </div>
