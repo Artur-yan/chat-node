@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import ChatWindow from './ChatWindow.svelte';
 	import ChatBubble from './ChatBubble.svelte';
@@ -10,8 +10,9 @@
 
 	let thinking = false;
 
-	const queryGPT = async () => {
-		messages = [...messages, input];
+	const queryGPT = async (message: string) => {
+		input = '';
+		messages = [...messages, message];
 		thinking = true;
 		await fetch('https://chat-base-xxvbz.ondigitalocean.app/chat', {
 			method: 'POST',
@@ -19,12 +20,11 @@
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				message: input
+				message: message
 			})
 		})
 		.then(res => res.json())
-		.then((data) => {
-		input = '';
+		.then((data) => {		
 			messages = [...messages, data.detail];
 			thinking = false;
 		})
@@ -69,6 +69,6 @@
 		{#if thinking}
 			<ChatBubble message="Thinking..." side="left" />
 		{/if}
-		<ChatInput bind:input on:submit={queryGPT} />
+		<ChatInput bind:input on:submit={() => queryGPT(input)} />
 	</ChatWindow>
 </div>
