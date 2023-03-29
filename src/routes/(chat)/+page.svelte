@@ -10,22 +10,21 @@
 
 	let thinking = false;
 
-	// // Dummy function to add message to messages array
-	// function addMessage() {
-	// 	messages = [...messages, input];
-	// 	input = '';
-
-	// }
-
 	const queryGPT = async () => {
 		messages = [...messages, input];
-		input = '';
 		thinking = true;
-		await fetch(`https://chat-base-xxvbz.ondigitalocean.app/chat/${input}`, {
-			method: 'GET',
+		await fetch('https://chat-base-xxvbz.ondigitalocean.app/chat', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				message: input
+			})
 		})
 		.then(res => res.json())
 		.then((data) => {
+		input = '';
 			messages = [...messages, data.detail];
 			thinking = false;
 		})
@@ -57,7 +56,7 @@
 	}
 </script>
 
-<form class="flex bg-slate-200 p-4 m-4 gap-4 items-center">
+<form class="flex p-4 gap-4 items-center">
 	<ColorPicker bind:hex={theme.bg} label="Background Color" />
 	<ColorPicker bind:hsv={gptBubbleHSV} bind:hex={theme.gptBubble} label="GPT Bubble" />
 	<ColorPicker bind:hsv={userBubbleHSV} bind:hex={theme.userBubble} label="User Bubble" />
