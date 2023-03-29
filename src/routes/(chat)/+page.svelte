@@ -15,7 +15,9 @@
 	const queryGPT = async (message: string) => {
 		input = '';
 		messages = [...messages, message];
+		bottom.scrollIntoView({ behavior: 'smooth' });
 		thinking = true;
+		bottom.scrollIntoView({ behavior: 'smooth' });
 		await fetch('https://chat-base-xxvbz.ondigitalocean.app/chat', {
 			method: 'POST',
 			headers: {
@@ -29,6 +31,7 @@
 		.then((data) => {
 			console.log(data)		
 			messages = [...messages, data.message];
+			bottom.scrollIntoView({ behavior: 'smooth' });
 			thinking = false;
 			bottom.scrollIntoView({ behavior: 'smooth' });
 		})
