@@ -26,7 +26,7 @@
 		.then(res => res.json())
 		.then((data) => {
 			console.log(data)		
-			messages = [...messages, data.detail];
+			messages = [...messages, data.message];
 			thinking = false;
 		})
 		.catch((err) => {
