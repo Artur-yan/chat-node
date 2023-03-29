@@ -19,7 +19,6 @@
 		color: var({side == 'left'
 			? '--gptBubbleText'
 			: '--userBubbleText'});"
-	in:fade
 >
 	{message}
 </div>
