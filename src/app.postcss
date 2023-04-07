@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+@layer base{
+
+}
+
+
+@layer components{
+    .container{
+        @apply max-w-screen-2xl lg:px-10 mx-auto
+    }
+
+    button{
+        @apply !bg-secondary-400 !text-primary-700 rounded text-sm px-8 py-4;
+    }
+}
+
+input, textarea{
+    @apply text-secondary-100 !bg-transparent !border !border-primary-500
+}

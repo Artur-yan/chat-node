@@ -1,5 +1,6 @@
 <script>
 	export let input = '';
+	export let autofocus = true
 </script>
 
 <form on:submit>
@@ -7,7 +8,7 @@
 		type="text"
 		placeholder="type your message"
 		bind:value={input}
-		class="self-bottom w-full rounded-lg p-4"
-		autofocus
+		class="self-bottom w-full rounded-lg p-4 text-black"
+		{autofocus}
 	/>
 </form>

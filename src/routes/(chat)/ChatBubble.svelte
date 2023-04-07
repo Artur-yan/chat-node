@@ -1,24 +1,23 @@
 <script>
 	export let message = '';
-	export let side = 'left';
-	import { fade } from 'svelte/transition';
-
-	let classes = '';
-
-	if (side == 'right') {
-		classes = 'self-end';
-	}
+	export let sender = 'bot';
 </script>
 
 <div
-	class="p-4 rounded-lg max-w-2xl text-white {classes}"
+	class="p-4 rounded-lg max-w-2xl text-white {sender}"
 	style="
-		background-color: var({side == 'left'
+		background-color: var({sender == 'bot'
 			? '--gptBubble'
 			: '--userBubble'});
-		color: var({side == 'left'
+		color: var({sender == 'bot'
 			? '--gptBubbleText'
 			: '--userBubbleText'});"
 >
 	{message}
 </div>
+
+<style lang="postcss">
+	.user{
+		@apply self-end;
+	}
+</style>
