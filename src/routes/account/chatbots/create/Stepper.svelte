@@ -24,15 +24,17 @@
 
 <ol class="flex items-center">
     {#each steps as {title, icon}, i}
-        <li class="relative w-full mb-6">
-            <div class="flex items-center gap-2">
-                {#if step >= i}
-                    <Icon {icon} height={16} />
+        <li class="h-[1px] bg-primary-800 w-full"></li>
+        <li>
+            <div class="flex items-center gap-2 px-4 text-sm">
+                {#if step <= i}
+                    <Icon {icon} height={20} />
                 {:else}
                     <Icon icon="line-md:confirm-circle-twotone" height={20} />
                 {/if}
                 <h3>{title}</h3>
             </div>
         </li>
+        <li class="h-[1px] bg-primary-800 w-full"></li>
     {/each}
 </ol>

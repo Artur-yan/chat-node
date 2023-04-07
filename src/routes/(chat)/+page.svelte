@@ -59,15 +59,15 @@
 	<ChatWindow {messages} {theme}>
 		<svelte:fragment slot="messages">
 			{#each messages as message, i}
-				<ChatBubble message={message.text} sender={message.sender} />
+				<ChatBubble text={message.text} sender={message.sender} />
 			{/each}
 			{#if thinking}
-				<ChatBubble message="Thinking..." />
+				<ChatBubble text="Thinking..." />
 			{/if}
 			<div bind:this={bottom}></div>
 		</svelte:fragment>
 		<div slot="input">
-			<ChatInput bind:input on:submit={() => queryGPT(input)} />
+			<ChatInput bind:input on:submit={() => queryGPT(input)} disabled={thinking} />
 		</div>
 	</ChatWindow>
 

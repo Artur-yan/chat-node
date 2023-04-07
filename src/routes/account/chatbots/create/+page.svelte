@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { PUBLIC_CHAT_API_URL } from "$env/static/public";
+
     import ChatWindow from '../../../(chat)/ChatWindow.svelte';
     import ChatBubble from '../../../(chat)/ChatBubble.svelte';
     import ChatInput from '../../../(chat)/ChatInput.svelte';
@@ -15,10 +17,27 @@
 		gptBubbleText: '#222222',
 		userBubbleText: '#FFFFFF'
 	};
-	
-	let welcomeMsg = "What can I help you with?"
 
-	let step = 1;
+	let input: string
+	let chatInput: HTMLInputElement
+
+	let welcomeMessage = "What can I help you with?"
+
+	let messages = [
+		{
+			text: "I'm trying to build a chatbot!",
+			sender: 'user'
+		},
+		{
+			text: "Great, I can help you with that!",
+			sender: 'bot'
+		},
+		
+	]
+
+	let chatKey = '';
+
+	let step = 0;
 
 	let files: FileList | undefined
 
@@ -26,11 +45,35 @@
 	let training = false
 	let trainingMessage = "Training your chatbot";
 
-	$: console.log(files)
+	const addMessage = (message: string, sender = 'bot') => {
+		messages = [...messages, { text: message, sender: sender }];
+
+	}
+
+	const queryChat = async (chatKey: string, message: string) => {
+		addMessage(message, "user")
+		input= ""
+		try{
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/chat/${chatKey}`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				message: message
+			})
+		});
+		const data = await res.json();
+		console.log(data);
+		addMessage(data.message)
+		} catch(err) {
+			console.error(err)
+		}
+	}
 
 	const handleUpload = async (files) => {
 		training = true
-		step = 2
+		step++
 		try {
 			const res = await fetch('https://chat-base-xxvbz.ondigitalocean.app/new_model', {
 				method: 'POST',
@@ -57,7 +100,7 @@
 
 	const handleTextSubmit = async (text: string) => {
 		training = true
-		step = 2
+		step++
 		try {
 			const res = await fetch('https://chat-base-xxvbz.ondigitalocean.app/new_model', {
 				method: 'POST',
@@ -71,8 +114,12 @@
 				})
 			})
 			const data = await res.json()
+			console.log(data)
+			chatKey = data.chat_key
+
 			training = false
 			trainingMessage = "Your chatbot is ready to go!"
+			addMessage("I've been trained on your data and I'm ready to give you custom repsonses.")
 		} catch (err) {
 			console.error(err)
 		}
@@ -83,16 +130,15 @@
 
 <div class="container mt-10">
 	
-	
 		<div class="flex w-full justify-between items-center mb-10">
-			<h1 class="mb-6 font-bold w-1/4">Create a new chatbot</h1>
-			<div class="w-3/4">
+			<h1 class="font-bold whitespace-nowrap pr-4 text-primary-400">Create a new chatbot</h1>
+			<div class="w-full">
 				<Stepper {step} />
 			</div>
 		</div>
 		
 		<form method="POST">
-			{#if step == 1}
+			{#if step == 0}
 			<h2>How would you like to train your chatbot?</h2>
 
 				<div class="flex w-full justify-stretch text-center text-secondary-500 mb-10">
@@ -128,12 +174,12 @@
 					<p class="text-sm text-gray-500 dark:text-gray-400"><b>Settings:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 				</div> -->
 
-			{:else if step == 2}
+			{:else if step == 1}
 				<div class="grid grid-cols-2 gap-4">
 					<div>
 						<h2>Customize</h2>
 						<label for="welcome-msg">Welcome Message</label>
-						<input name="welcome-msg" bind:value={welcomeMsg} type="text" class="w-3/4" />
+						<input name="welcome-msg" bind:value={welcomeMessage} type="text" class="w-3/4" />
 						<!-- <fieldset class="p-6 pb-8 gap-2 mt-8 border border-primary-500 rounded-lg">
 							<legend class="label px-2">Customize colors</legend>
 							<ColorPicker bind:hex={theme.bg} label="Background Color" />
@@ -145,17 +191,13 @@
 						<div class="p-4 border border-slate-400 rounded-lg self-start">
 							<ChatWindow {theme}>
 								<svelte:fragment slot="messages">
-									{#if training}
-										<ChatBubble message={welcomeMsg} />
-										<ChatBubble message="I'm trying to build a chatbot!" sender="user" />
-										<ChatBubble message="Great, I can help you with that!"  />
-									{:else}
-										<ChatBubble message={welcomeMsg} />
-										<ChatBubble message="I've been trained and I'm ready to respond with your custom data. Type a message below to test it out." />
-									{/if}
+									<ChatBubble text={welcomeMessage}  />
+									{#each messages as {text, sender}}
+										<ChatBubble {text} {sender}  />
+									{/each}
 								</svelte:fragment>
 								<div slot="input">
-									<ChatInput autofocus={false} />
+									<ChatInput bind:this={chatInput} autofocus={false} on:submit={() => queryChat(chatKey, input)} bind:input />
 								</div>
 							</ChatWindow>
 						</div>
@@ -164,7 +206,7 @@
 			{/if}
 		</form>
 
-	<TrainingStatus visible={step == 2} {training} {trainingMessage} />
+	<TrainingStatus visible={step == 1} {training} {trainingMessage} />
 </div>
 
 <style lang="postcss">

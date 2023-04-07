@@ -1,5 +1,5 @@
 <script>
-	export let message = '';
+	export let text = '';
 	export let sender = 'bot';
 </script>
 
@@ -13,7 +13,7 @@
 			? '--gptBubbleText'
 			: '--userBubbleText'});"
 >
-	{message}
+	{text}
 </div>
 
 <style lang="postcss">
