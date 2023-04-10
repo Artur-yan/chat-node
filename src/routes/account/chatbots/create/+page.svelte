@@ -7,6 +7,7 @@
 	import { Dropzone, Tabs, TabItem } from 'flowbite-svelte';
 	import TrainingStatus from '$lib/components/TrainingStatus.svelte';
 	import { Prisma } from '@prisma/client';
+	import Icon from '@iconify/svelte';
 
 	export let data
 
@@ -17,7 +18,8 @@
 		gptBubble: '#E9E9E9',
 		userBubble: '#2C6BED',
 		gptBubbleText: '#222222',
-		userBubbleText: '#FFFFFF'
+		userBubbleText: '#FFFFFF',
+		inputText: '#000'
 	};
 
 	let method = 'text';
@@ -43,6 +45,8 @@
 	let step = 1;
 
 	let files: FileList | undefined;
+
+	$: console.log(files)
 
 	let textModel: string;
 	let training = false;
@@ -114,31 +118,32 @@
 		}
 	};
 
-	// const handleUpload = async (files) => {
-	// 	training = true;
-	// 	step++;
-	// 	try {
-	// 		const res = await fetch('https://chat-base-xxvbz.ondigitalocean.app/new_model', {
-	// 			method: 'POST',
-	// 			headers: {
-	// 				'Content-Type': 'application/json'
-	// 			},
-	// 			body: JSON.stringify({
-	// 				data_type: 'file',
-	// 				train_key: files[0],
-	// 				user_id: user.userId
-	// 			})
-	// 		});
-	// 		const data = await res.json();
-	// 		training = false;
-	// 		trainingMessage = 'Your chatbot is ready to go!';
-	// 		console.log(data);
-	// 	} catch (err) {
-	// 		console.error(err);
-	// 		training = true;
-	// 		trainingMessage = 'There was an error training your chatbot.';
-	// 	}
-	// };
+	const handleUpload = async (files) => {
+		training = true;
+		step++;
+		try {
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new_model`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					data_type: 'file',
+					train_key: files[0],
+					user_id: user.userId
+				})
+			});
+			const data = await res.json();
+
+		} catch (err) {
+			console.error(err);
+			training = true;
+			trainingMessage = 'There was an error training your chatbot.';
+		} finally {
+			training = false;
+			trainingMessage = 'Your chatbot is ready to go!';
+		}
+	};
 </script>
 
 <div class="container mt-10">
@@ -165,28 +170,16 @@
 		</TabItem>
 		<TabItem>
 			<span slot="title">Upload a File</span>
-			<Dropzone id="dropzone" bind:files>
-				<svg
-					aria-hidden="true"
-					class="mb-3 w-10 h-10 text-gray-400"
-					fill="none"
-					stroke="currentColor"
-					viewBox="0 0 24 24"
-					xmlns="http://www.w3.org/2000/svg"
-					><path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-					/></svg
-				>
-				<p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+			<Dropzone id="dropzone" bind:files class="p-10 border-primary-600 border cursor-pointer hover:bg-primary-900/50">
+				<Icon icon="line-md:cloud-upload-outline-loop" height="32" />
+				<p class="my-4 text-sm">
 					<span class="font-semibold">Click to upload</span> or drag and drop
 				</p>
-				<p class="text-xs text-gray-500 dark:text-gray-400">
-					SVG, PNG, JPG or GIF (MAX. 800x400px)
+				<p class="text-xs font-semibold">
+					.pdf or .txt allowed (300MB Max)
 				</p>
 			</Dropzone>
+			<button class="button mt-4" type="submit" on:click={() => handleUpload(files)}>Train Bot</button>
 		</TabItem>
 	</Tabs>
 

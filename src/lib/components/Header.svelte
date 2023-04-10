@@ -51,11 +51,11 @@
 					<a class="button" href="/register">Register</a>
 				{:else}
 					<a
-						href="/account/chatbots/create"
-						class="text-white bg-primary-500 hover:bg-secondary-300 hover:text-primary-600 focus:ring-4 focus:ring-primary-300 rounded text-sm px-4 py-3 lg:px-5 focus:outline-none transition-colors"
-						>+ Chatbot</a
+						href="/account/chatbots"
+						
+						>My chatbots</a
 					>
-					<button class="acs">
+					<button class="acs text-primary-400">
 						<Icon icon="mdi:account-circle-outline" width="32" />
 					</button>
 					<Dropdown triggeredBy=".acs" frameClass="bg-primary-900 px-6 py-4" placement="bottom-end">
@@ -63,10 +63,10 @@
 					<span class="block truncate text-sm font-medium"> name@flowbite.com </span>
 				  </div> -->
 				  		<div class="space-y-2">
-							<a href="/account/chatbots">Dashboard</a>
+							<a href="/account">account settings</a>
 
 							<form action="/logout" method="POST">
-								<button type="submit">Logout</button>
+								<button type="submit">sign out</button>
 							</form>
 						</div>
 					</Dropdown>

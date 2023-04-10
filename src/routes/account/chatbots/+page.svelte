@@ -1,32 +1,53 @@
 <script>
 	export let data
+
+
 </script>
 
 <div class="container">
-	<h1>Account</h1>
+	
+	
+	<div class="flex justify-between my-4 items-center">
+		<div>
 
-	<h2 class="text-3xl mb-2">Chatbots</h2>
+			<h1 class="text-sm">Account</h1>
+			<h2 class="text-2xl mb-2">Chatbots</h2>
+		</div>
+		<a href="/account/chatbots/create" class="button">
+			+ Create new chatbot
+		</a>
+	</div>
 
-	<div class="grid grid-cols-3 gap-4">
+	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 		{#each data.bots as bot}
-			<a href="chatbots/{bot.id}" class="rounded border border-primary-700 hover:no-underline p-4 text-secondary-400 divide-y divide-primary-800">
+			<a href="chatbots/{bot.id}" class="rounded border border-primary-700 hover:no-underline px-4 py-2 text-secondary-400 divide-y divide-primary-800 hover:bg-primary-900">
 				<div>
-					<span>{bot.id}</span>
+					<h4>id:</h4>
+					<p>{bot.id}</p>
 				</div>
 				<div>
-					<h4 class="inline text-primary-300">Trained with:</h4>
-					<span>{bot.data_source_type}</span>
+					<h4>Trained with:</h4>
+					<p>{bot.data_source_type}</p>
 				</div>
 				<div>
-					<h4 class="inline text-primary-300">Created on:</h4>
-					<span>{bot.created}</span>
+					<h4>Created on:</h4>
+					<p>{bot.created.toLocaleString('en-us')}</p>
 				</div>
 			</a>
 		{/each }
-		<a href="/account/chatbots/create" class="flex items-center justify-center rounded border border-primary-700 hover:no-underline p-4"><span class="text-4xl mr-2">+</span> New bot</a>
 	</div>
-
-
-
 	
 </div>
+
+<style lang="postcss">
+	h4{
+		@apply text-primary-600 text-xs;
+	}
+
+	.grid div{
+		@apply pt-2 pb-6 flex justify-between text-sm;
+	}
+
+	.grid p{
+	}
+</style>
