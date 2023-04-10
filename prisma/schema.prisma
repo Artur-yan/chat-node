@@ -44,7 +44,8 @@ model AuthKey {
 
 model Bots {
   id               String   @id @unique
-  auth_user        AuthUser @relation(references: [id], fields: [id])
+  user_id          String
+  auth_user        AuthUser @relation(references: [id], fields: [user_id])
   data_source_type String
   created          DateTime @default(now())
 

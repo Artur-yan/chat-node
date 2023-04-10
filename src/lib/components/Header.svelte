@@ -63,7 +63,7 @@
 					<span class="block truncate text-sm font-medium"> name@flowbite.com </span>
 				  </div> -->
 				  		<div class="space-y-2">
-							<a href="/account">Dashboard</a>
+							<a href="/account/chatbots">Dashboard</a>
 
 							<form action="/logout" method="POST">
 								<button type="submit">Logout</button>
