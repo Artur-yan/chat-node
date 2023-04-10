@@ -1,7 +1,7 @@
 <script>
 	export let input = '';
-	export let autofocus = true
-	export let disabled = false
+	export let autofocus = true;
+	export let disabled = false;
 </script>
 
 <form on:submit|preventDefault>
