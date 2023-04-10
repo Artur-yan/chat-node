@@ -12,6 +12,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
+		console.log(request)
 		const form = await request.formData();
 		const email = form.get('email');
 		const password = form.get('password');
@@ -36,6 +37,7 @@ export const actions: Actions = {
 			// database connection error
 			console.error(error);
 			return fail(500, {
+
 				message: 'Unknown error occurred'
 			});
 		}
