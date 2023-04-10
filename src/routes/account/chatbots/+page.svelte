@@ -1,6 +1,5 @@
 <script>
 	export let data
-	console.log(data)
 </script>
 
 <div class="container">
@@ -10,7 +9,7 @@
 
 	<div class="grid grid-cols-3 gap-4">
 		{#each data.bots as bot}
-			<a href="/" class="rounded border border-primary-700 hover:no-underline p-4 text-secondary-400 divide-y divide-primary-800">
+			<a href="chatbots/{bot.id}" class="rounded border border-primary-700 hover:no-underline p-4 text-secondary-400 divide-y divide-primary-800">
 				<div>
 					<span>{bot.id}</span>
 				</div>
