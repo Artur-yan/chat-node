@@ -12,9 +12,6 @@
 
 	let { user } = data.user
 
-
-	$: console.log(user)
-
 	let theme = {
 		bg: '#FFFFFF',
 		gptBubble: '#E9E9E9',
@@ -69,7 +66,6 @@
 				})
 			});
 			const data = await res.json();
-			console.log(data);
 			addMessage(data.message);
 		} catch (err) {
 			console.error(err);
@@ -106,7 +102,6 @@
 				})
 			});
 			const data = await res.json();
-			console.log(data);
 			chatKey = data.chat_key;
 
 			addBot(data.chat_key, 'text')
