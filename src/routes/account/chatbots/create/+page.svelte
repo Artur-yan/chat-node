@@ -9,9 +9,9 @@
 	import { Prisma } from '@prisma/client';
 	import Icon from '@iconify/svelte';
 
-	export let data
+	export let data;
 
-	let { user } = data.user
+	let { user } = data.user;
 
 	let theme = {
 		bg: '#FFFFFF',
@@ -27,7 +27,10 @@
 	let input: string;
 	let chatInput: HTMLInputElement;
 
-	let welcomeMessage = 'What can I help you with?';
+	let settings = {
+		greeting: 'What can I help you with?',
+		name: ''
+	}
 
 	let messages = [
 		{
@@ -46,7 +49,7 @@
 
 	let files: FileList | undefined;
 
-	$: console.log(files)
+	$: console.log(files);
 
 	let textModel: string;
 	let training = false;
@@ -76,19 +79,19 @@
 		}
 	};
 
-	const addBot = async (id: string, data_source_type: 'text' | 'file' | 'url') => {
+	const addBot = async (id: string, data_source_type: 'text' | 'file' | 'url', name) => {
 		const res = await fetch('/api/bots', {
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					id,
-					data_source_type
-				})
-			});
-
-	}
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				id,
+				data_source_type,
+				name
+			})
+		});
+	};
 
 	const handleTextSubmit = async (text: string) => {
 		training = true;
@@ -108,7 +111,7 @@
 			const data = await res.json();
 			chatKey = data.chat_key;
 
-			addBot(data.chat_key, 'text')
+			addBot(data.chat_key, 'text', settings.name);
 
 			training = false;
 			trainingMessage = 'Your chatbot is ready to go!';
@@ -134,7 +137,6 @@
 				})
 			});
 			const data = await res.json();
-
 		} catch (err) {
 			console.error(err);
 			training = true;
@@ -148,77 +150,82 @@
 
 <div class="container mt-10">
 	{#if step == 1}
-	<h2>How would you like to train your chatbot?</h2>
+		<h2>How would you like to train your chatbot?</h2>
 
-	<!-- <div class="flex w-full justify-stretch text-center text-secondary-500 mb-10">
+		<!-- <div class="flex w-full justify-stretch text-center text-secondary-500 mb-10">
 					<button type="button" class="border border-primary-500 w-1/3 p-4 rounded-l-xl bg-primary-900" on:click={() => method = "text"}>Paste Text</button>
 					<button type="button" class="border border-primary-500 w-1/3 p-4" on:click|preventDefault={() => method = "file"}>Upload File</button>
 					<button type="button" class="border border-primary-500 w-1/3 p-4 rounded-r-xl" on:click={() => method = "url"}>URL</button>
 				</div> -->
 
-	<Tabs style="full" contentClass="my-4" defaultClass="flex">
-		<TabItem open title="Copy/Paste Text">
-			<div>
-				<textarea
-					name="textModel"
-					class="h-80 max-h-screen text-xs w-full"
-					placeholder="Paste your text here"
-					bind:value={textModel}
-				/>
-				<button class="button mt-4" type="submit" on:click={() => handleTextSubmit(textModel)}>Train Bot</button>
-			</div>
-		</TabItem>
-		<TabItem>
-			<span slot="title">Upload a File</span>
-			<Dropzone id="dropzone" bind:files class="p-10 border-primary-600 border cursor-pointer hover:bg-primary-900/50">
-				<Icon icon="line-md:cloud-upload-outline-loop" height="32" />
-				<p class="my-4 text-sm">
-					<span class="font-semibold">Click to upload</span> or drag and drop
-				</p>
-				<p class="text-xs font-semibold">
-					.pdf or .txt allowed (300MB Max)
-				</p>
-			</Dropzone>
-			<button class="button mt-4" type="submit" on:click={() => handleUpload(files)}>Train Bot</button>
-		</TabItem>
-	</Tabs>
-
+		<Tabs style="full" contentClass="my-4" defaultClass="flex">
+			<TabItem open title="Copy/Paste Text">
+				<div>
+					<textarea
+						name="textModel"
+						class="h-80 max-h-screen text-xs w-full"
+						placeholder="Paste your text here"
+						bind:value={textModel}
+					/>
+					<button class="button mt-4" type="submit" on:click={() => handleTextSubmit(textModel)}
+						>Train Bot</button
+					>
+				</div>
+			</TabItem>
+			<TabItem>
+				<span slot="title">Upload a File</span>
+				<Dropzone
+					id="dropzone"
+					bind:files
+					class="p-10 border-primary-600 border cursor-pointer hover:bg-primary-900/50"
+				>
+					<Icon icon="line-md:cloud-upload-outline-loop" height="32" />
+					<p class="my-4 text-sm">
+						<span class="font-semibold">Click to upload</span> or drag and drop
+					</p>
+					<p class="text-xs font-semibold">.pdf or .txt allowed (300MB Max)</p>
+				</Dropzone>
+				<button class="button mt-4" type="submit" on:click={() => handleUpload(files)}
+					>Train Bot</button
+				>
+			</TabItem>
+		</Tabs>
 	{:else if step == 2}
-
-	<h2>Customize</h2>
-	<div class="grid grid-cols-2 gap-4">
-		<div>
-			<label for="welcome-msg">Welcome Message</label>
-			<input name="welcome-msg" bind:value={welcomeMessage} type="text" class="w-3/4" />
-			<!-- <fieldset class="p-6 pb-8 gap-2 mt-8 border border-primary-500 rounded-lg">
+		<h2>Customize</h2>
+		<div class="grid grid-cols-2 gap-4">
+			<div>
+				<label for="greeting">Greeting</label>
+				<input name="greeting" bind:value={settings.greeting} type="text" class="w-3/4" />
+				<label for="name">Name</label>
+				<input name="name" bind:value={settings.name} type="text" class="w-3/4" />
+				<!-- <fieldset class="p-6 pb-8 gap-2 mt-8 border border-primary-500 rounded-lg">
 						<legend class="label px-2">Customize colors</legend>
 						<ColorPicker bind:hex={theme.bg} label="Background Color" />
 						<ColorPicker bind:hex={theme.gptBubble} label="GPT Bubble" />
 						<ColorPicker bind:hex={theme.userBubble} label="User Bubble" />
 					</fieldset> -->
-		</div>
-		<div>
-			<div class="p-4 border border-slate-400 rounded-lg self-start">
-				<ChatWindow {theme}>
-					<svelte:fragment slot="messages">
-						<ChatBubble text={welcomeMessage} />
-						{#each messages as { text, sender }}
-							<ChatBubble {text} {sender} />
-						{/each}
-					</svelte:fragment>
-					<div slot="input">
-						<ChatInput
-							bind:this={chatInput}
-							autofocus={false}
-							on:submit={() => queryChat(chatKey, input)}
-							bind:input
-						/>
-					</div>
-				</ChatWindow>
+			</div>
+			<div>
+				<div class="p-4 border border-slate-400 rounded-lg self-start">
+					<ChatWindow {theme}>
+						<svelte:fragment slot="messages">
+							<ChatBubble text={settings.greeting} />
+							{#each messages as { text, sender }}
+								<ChatBubble {text} {sender} />
+							{/each}
+						</svelte:fragment>
+						<div slot="input">
+							<ChatInput
+								bind:this={chatInput}
+								autofocus={false}
+								on:submit={() => queryChat(chatKey, input)}
+								bind:input
+							/>
+						</div>
+					</ChatWindow>
+				</div>
 			</div>
 		</div>
-	</div>
-
 	{/if}
 
 	<TrainingStatus visible={step == 2} {training} {trainingMessage} />

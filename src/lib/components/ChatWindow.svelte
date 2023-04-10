@@ -6,8 +6,7 @@
 		gptBubbleText: '#222222',
 		userBubbleText: '#FFFFFF',
 		input: '#FFFFFF',
-		inputText: '#222222',
-
+		inputText: '#222222'
 	};
 </script>
 

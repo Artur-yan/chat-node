@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client"
-import { env } from "$env/dynamic/private"
+import { PrismaClient } from '@prisma/client';
+import { env } from '$env/dynamic/private';
 
 // const prisma = global.__prisma || new PrismaClient()
 

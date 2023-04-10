@@ -1,14 +1,7 @@
 <script>
 	export let user;
 
-	import {
-		Button,
-		Dropdown,
-		DropdownItem,
-		Avatar,
-		DropdownHeader,
-		DropdownDivider
-	} from 'flowbite-svelte';
+	import { Dropdown } from 'flowbite-svelte';
 	import Icon from '@iconify/svelte';
 
 	let links = [
@@ -50,11 +43,7 @@
 					<a href="/login">Sign in</a>
 					<a class="button" href="/register">Register</a>
 				{:else}
-					<a
-						href="/account/chatbots"
-						
-						>My chatbots</a
-					>
+					<a href="/account/chatbots">My chatbots</a>
 					<button class="acs text-primary-400">
 						<Icon icon="mdi:account-circle-outline" width="32" />
 					</button>
@@ -62,7 +51,7 @@
 						<!-- <div slot="header" class="px-4 py-2">
 					<span class="block truncate text-sm font-medium"> name@flowbite.com </span>
 				  </div> -->
-				  		<div class="space-y-2">
+						<div class="space-y-2">
 							<a href="/account">account settings</a>
 
 							<form action="/logout" method="POST">

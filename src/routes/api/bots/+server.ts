@@ -1,20 +1,34 @@
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
 export const PUT = async ({ request, locals }) => {
-
-    const { id, data_source_type } = await request.json();
+	const { id, data_source_type, name } = await request.json();
 
 	const session = await locals.auth.validate();
-    
-    const newBot = await prisma.bots.create({
-        data: {
-            id,
-            user_id: session.userId,
-            data_source_type
-        }
-    })
 
+	const newBot = await prisma.bots.create({
+		data: {
+			id,
+			user_id: session.userId,
+			data_source_type,
+		}
+	});
 
-    return new Response();
+	return new Response();
 };
+
+// export const UPDATE = async ({ request, locals }) => {
+// 	const { id, data_source_type, name } = await request.json();
+
+// 	const session = await locals.auth.validate();
+
+// 	const newBot = await prisma.bots.create({
+// 		data: {
+// 			id,
+// 			user_id: session.userId,
+// 			data_source_type,
+// 		}
+// 	});
+
+// 	return new Response();
+// }

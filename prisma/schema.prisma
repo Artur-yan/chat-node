@@ -44,10 +44,12 @@ model AuthKey {
 
 model Bots {
   id               String   @id @unique
+  name             String?
   user_id          String
   auth_user        AuthUser @relation(references: [id], fields: [user_id])
   data_source_type String
   created          DateTime @default(now())
+  greeting         String?
 
   @@map("bots")
 }
