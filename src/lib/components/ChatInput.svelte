@@ -10,6 +10,7 @@
 		placeholder="type your message"
 		bind:value={input}
 		class="self-bottom w-full rounded-lg p-4 text-black"
+		style="background-color: var(--input); color: var(--inputText);"
 		{autofocus}
 		{disabled}
 	/>
