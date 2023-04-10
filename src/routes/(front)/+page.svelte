@@ -14,7 +14,7 @@
 		/>
 		<div class="mt-4 md:mt-0">
 			<h2 class="mb-4 text-4xl tracking-tight font-extrabold">
-				Let's create more tools and ideas that brings us together.
+				Let's create more tools and ideas that bring us together.
 			</h2>
 			<p class="mb-6 font-light md:text-lg">
 				Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione quo dolorum culpa
