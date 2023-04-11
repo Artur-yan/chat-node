@@ -51,6 +51,7 @@
 
 	$: console.log(files);
 
+	let url
 	let textModel: string;
 	let training = false;
 	let trainingMessage = 'Training your chatbot';
@@ -121,6 +122,7 @@
 		}
 	};
 
+
 	const handleUpload = async (files) => {
 		training = true;
 		step++;
@@ -175,19 +177,32 @@
 			<TabItem>
 				<span slot="title">Upload a File</span>
 				<Dropzone
-					id="dropzone"
-					bind:files
-					class="p-10 border-primary-600 border cursor-pointer hover:bg-primary-900/50"
+				id="dropzone"
+				bind:files
+				class="p-10 border-primary-600 border cursor-pointer hover:bg-primary-900/50"
 				>
-					<Icon icon="line-md:cloud-upload-outline-loop" height="32" />
-					<p class="my-4 text-sm">
-						<span class="font-semibold">Click to upload</span> or drag and drop
-					</p>
-					<p class="text-xs font-semibold">.pdf or .txt allowed (300MB Max)</p>
-				</Dropzone>
-				<button class="button mt-4" type="submit" on:click={() => handleUpload(files)}
-					>Train Bot</button
+				<Icon icon="line-md:cloud-upload-outline-loop" height="32" />
+				<p class="my-4 text-sm">
+					<span class="font-semibold">Click to upload</span> or drag and drop
+				</p>
+				<p class="text-xs font-semibold">.pdf or .txt allowed (300MB Max)</p>
+			</Dropzone>
+			<button class="button mt-4" type="submit" on:click={() => handleUpload(files)}
+				>Train Bot</button
 				>
+			</TabItem>
+			<TabItem title="URL">
+				<div>
+					<textarea
+						name="url"
+						class="h-80 max-h-screen text-xs w-full"
+						placeholder="Paste your URL here"
+						bind:value={url}
+					/>
+					<button class="button mt-4" type="submit" on:click={() => handleURLSubmit(textModel)}
+						>Train Bot</button
+					>
+				</div>
 			</TabItem>
 		</Tabs>
 	{:else if step == 2}
