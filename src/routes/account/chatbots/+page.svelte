@@ -15,7 +15,7 @@
 		{#each data.bots as bot}
 			<a
 				href="chatbots/{bot.id}"
-				class="rounded border border-primary-700 hover:no-underline px-4 py-2 text-secondary-400 divide-y divide-primary-800 hover:bg-primary-900"
+				class="rounded border border-primary-700 hover:no-underline px-4 py-2 text-secondary-400 divide-y divide-primary-800 hover:bg-primary-900/50"
 			>
 				{#if bot.name}
 					<div>
