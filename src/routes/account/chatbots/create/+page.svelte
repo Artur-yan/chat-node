@@ -104,7 +104,7 @@
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					data_type: 'text',
+					data_type: 'text', // Todo: Should be depreceated
 					train_key: text,
 					user_id: user.userId
 				})
@@ -127,14 +127,13 @@
 		training = true;
 		step++;
 		try {
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new_model`, {
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new_model_with_upload`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					data_type: 'file',
-					train_key: files[0],
+					new_file: files[0],
 					user_id: user.userId
 				})
 			});
