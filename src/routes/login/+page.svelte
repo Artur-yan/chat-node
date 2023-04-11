@@ -20,7 +20,7 @@
 					</div>
 					<button type="submit" class="button w-full">Sign in</button>
 					<p class="text-sm">
-						Don't have an account? <a href="account/login" class="">Create an account</a>
+						Don't have an account? <a href="account/register" class="">Create an account</a>
 					</p>
 				</form>
 			</div>
