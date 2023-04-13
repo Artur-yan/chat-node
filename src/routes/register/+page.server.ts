@@ -38,10 +38,10 @@ export const actions: Actions = {
 			if (
 				error instanceof Prisma.PrismaClientKnownRequestError &&
 				error.code === 'P2002' &&
-				error.message?.includes('username')
+				error.message?.includes('email')
 			) {
 				return fail(400, {
-					message: 'Username already in use'
+					message: 'Email already in use'
 				});
 			}
 			if (error instanceof LuciaError && error.message === 'AUTH_DUPLICATE_KEY_ID') {
@@ -49,7 +49,6 @@ export const actions: Actions = {
 					message: 'Username already in use'
 				});
 			}
-			console.error(error);
 			return fail(500, {
 				message: 'Unknown error occurred'
 			});

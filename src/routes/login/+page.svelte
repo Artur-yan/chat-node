@@ -16,8 +16,11 @@
 					<div>
 						<label for="password">Password</label>
 						<input type="password" name="password" id="password" placeholder="••••••••" required />
-						<a href="account/forgot-password" class="text-sm py-2 inline-block">Forgot password?</a>
+						<a href="account/forgot-password" class="text-sm p1-2 inline-block">Forgot password?</a>
 					</div>
+					{#if form?.message}
+						<p class="text-red-400">{form.message || ''}</p>
+					{/if}
 					<button type="submit" class="button w-full">Sign in</button>
 					<p class="text-sm">
 						Don't have an account? <a href="account/register" class="">Create an account</a>
@@ -27,6 +30,3 @@
 		</div>
 	</div>
 </section>
-{#if form?.message}
-	<p class="error">{form.message || ''}</p>
-{/if}
