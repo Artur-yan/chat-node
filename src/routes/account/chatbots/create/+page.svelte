@@ -47,6 +47,7 @@
 
 	let step = 1;
 
+
 	let files: FileList | undefined;
 
 	$: console.log(files);
@@ -124,18 +125,15 @@
 
 
 	const handleUpload = async (files) => {
+		let bodyContent = new FormData();
+		bodyContent.append('file', files[0] /*, optional filename */)
+		bodyContent.append('user_id', user.userId)
 		training = true;
 		step++;
 		try {
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new_model_with_upload`, {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					new_file: files[0],
-					user_id: user.userId
-				})
+				body: bodyContent
 			});
 			const data = await res.json();
 		} catch (err) {
