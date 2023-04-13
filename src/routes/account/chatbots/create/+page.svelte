@@ -131,13 +131,13 @@
 		training = true;
 		step++;
 		try {
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new_model_with_upload`, {
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/upload`, {
 				method: 'POST',
 				body: bodyContent
 			});
 			const data = await res.json();
 			chatKey = data.chat_key;
-			addBot(data.chat_key, 'text', settings.name);
+			addBot(data.chat_key, 'file', settings.name);
 			training = false;
 			trainingMessage = 'Your chatbot is ready to go!';
 		} catch (err) {
