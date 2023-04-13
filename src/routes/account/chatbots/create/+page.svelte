@@ -126,7 +126,7 @@
 
 	const handleUpload = async (files) => {
 		let bodyContent = new FormData();
-		bodyContent.append('file', files[0] /*, optional filename */)
+		bodyContent.append('new_file', files[0] /*, optional filename */)
 		bodyContent.append('user_id', user.userId)
 		training = true;
 		step++;
@@ -136,13 +136,14 @@
 				body: bodyContent
 			});
 			const data = await res.json();
+			chatKey = data.chat_key;
+			addBot(data.chat_key, 'text', settings.name);
+			training = false;
+			trainingMessage = 'Your chatbot is ready to go!';
 		} catch (err) {
 			console.error(err);
 			training = true;
 			trainingMessage = 'There was an error training your chatbot.';
-		} finally {
-			training = false;
-			trainingMessage = 'Your chatbot is ready to go!';
 		}
 	};
 </script>
