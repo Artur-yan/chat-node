@@ -16,7 +16,7 @@
 					<div>
 						<label for="password">Password</label>
 						<input type="password" name="password" id="password" placeholder="••••••••" required />
-						<a href="account/forgot-password" class="text-sm p1-2 inline-block">Forgot password?</a>
+						<a href="account/forgot-password" class="text-sm py-2 inline-block">Forgot password?</a>
 					</div>
 					{#if form?.message}
 						<p class="text-red-400">{form.message || ''}</p>
