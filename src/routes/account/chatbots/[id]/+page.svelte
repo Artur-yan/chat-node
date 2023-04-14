@@ -2,19 +2,13 @@
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 
 	export let data;
-
-
-	console.log(data);
-
+	
 	import { page } from '$app/stores';
 	import ChatWindow from '$lib/components/ChatWindow.svelte';
 	import ChatBubble from '$lib/components/ChatBubble.svelte';
 	import ChatInput from '$lib/components/ChatInput.svelte';
-	import { Drawer, CloseButton } from 'flowbite-svelte';
 	import Icon from '@iconify/svelte';
 
-	let settingsDrawerOpen = true; 
-	let editingName = false;
 
 	const addMessage = (message: string, sender = 'bot') => {
 		messages = [...messages, { text: message, sender: sender }];
@@ -41,16 +35,15 @@
 	};
 
 	let theme = {
-		bg: '',
-		gptBubble: '#FFFDD1',
-		userBubble: '#511A4E',
+		bg: '#FFFFFF',
+		gptBubble: '#E9E9E9',
+		userBubble: '#2C6BED',
 		gptBubbleText: '#222222',
 		userBubbleText: '#FFFFFF',
-		input: '',
-		inputText: '#FFFDD1'
+		inputText: '#000'
 	};
 
-	let greeting = 'What can I help you with?';
+	let greeting = data.bot.greeting
 	let chatInput: HTMLInputElement;
 	let input: string;
 
@@ -63,10 +56,7 @@
 </script>
 
 <div class="container">
-	<div class="flex gap-2">
-		<h1 class="py-2" contenteditable={editingName}>{data.bot.name ? data.bot.name : data.bot.id}</h1>
-		<button on:click={() => editingName = true}><Icon icon="mdi:pencil-circle-outline" height="20" class="text-primary-400" /></button>
-	</div>
+	<h1 class="py-2">{data.bot.name ? data.bot.name : data.bot.id}</h1>
 	<ChatWindow {theme}>
 		<svelte:fragment slot="messages">
 			{#each messages as { text, sender }}
@@ -82,9 +72,4 @@
 			/>
 		</div>
 	</ChatWindow>
-
-	<Drawer transitionType="fly" bind:hidden={settingsDrawerOpen} id='settingsDrawer'>
-		<h2>Settings</h2>
-	
-	</Drawer>
 </div>
