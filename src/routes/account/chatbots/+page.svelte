@@ -1,5 +1,25 @@
-<script>
+<script lang="ts">
+	import { invalidateAll } from '$app/navigation';
+	import Icon from '@iconify/svelte';
+
 	export let data;
+
+	const deleteModel = async (id: string) => {
+		try {
+			await fetch('/api/models', {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					id
+				})
+			})
+			invalidateAll()
+		} catch(err) {
+			console.error(err)
+		}
+	}
 </script>
 
 <div class="container">
@@ -12,30 +32,39 @@
 	</div>
 
 	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-		{#each data.bots as bot}
-			<a
-				href="chatbots/{bot.id}"
-				class="rounded border border-primary-700 hover:no-underline px-4 py-2 text-secondary-400 divide-y divide-primary-800 hover:bg-primary-900/50"
-			>
-				{#if bot.name}
-					<div>
-						<h3 class="">{bot.name}</h3>
+		{#if data.bots.length > 0}
+			{#each data.bots as bot}
+				<section
+					class="rounded border border-primary-700 hover:no-underline text-secondary-400 hover:bg-primary-900/50"
+				>
+					<div class="flex justify-between">
+						<h3 class="p-4">{bot.name ? bot.name : 'Unnamed' }</h3>
+						<div class="hidden actions justify-end items-center">
+							<button class="text-white hover:text-red-400 p-4" on:click={() => deleteModel(bot.id)}><Icon icon="mdi:delete-outline" /></button>
+						</div>
 					</div>
-				{/if}
+					<a href="chatbots/{bot.id}" class="details block p-4">
+						<div>
+							<h4>Created on:</h4>
+							<p>{bot.created.toLocaleString('en-us')}</p>
+						</div>
+						<div>
+							<h4>Trained with:</h4>
+							<p>{bot.data_source_type}</p>
+						</div>
+						<div>
+							<h4>id:</h4>
+							<p class="truncate">{bot.id}</p>
+						</div>
+					</a>
+
+				</section>
+			{/each}
+		{:else}
 				<div>
-					<h4>id:</h4>
-					<p class="truncate">{bot.id}</p>
+					You haven't created any chatbots yet. <a href="/account/chatbots/create">Create one now.</a>
 				</div>
-				<div>
-					<h4>Trained with:</h4>
-					<p>{bot.data_source_type}</p>
-				</div>
-				<div>
-					<h4>Created on:</h4>
-					<p>{bot.created.toLocaleString('en-us')}</p>
-				</div>
-			</a>
-		{/each}
+		{/if}
 	</div>
 </div>
 
@@ -44,10 +73,14 @@
 		@apply text-primary-600 text-xs mr-2;
 	}
 
-	.grid div {
+	.details div {
 		@apply pt-2 pb-6 flex justify-between text-sm;
 	}
 
 	.grid p {
+	}
+
+	section:hover .actions {
+		@apply flex
 	}
 </style>
