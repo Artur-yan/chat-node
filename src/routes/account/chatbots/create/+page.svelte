@@ -3,11 +3,10 @@
 	import ChatWindow from '$lib/components/ChatWindow.svelte';
 	import ChatBubble from '$lib/components/ChatBubble.svelte';
 	import ChatInput from '$lib/components/ChatInput.svelte';
-	import ColorPicker from 'svelte-awesome-color-picker';
 	import { Dropzone, Tabs, TabItem } from 'flowbite-svelte';
 	import TrainingStatus from '$lib/components/TrainingStatus.svelte';
-	import { Prisma } from '@prisma/client';
 	import Icon from '@iconify/svelte';
+	import { goto } from '$app/navigation';
 
 	export let data;
 
@@ -28,8 +27,8 @@
 	let chatInput: HTMLInputElement;
 
 	let settings = {
-		greeting: 'What can I help you with?',
-		name: ''
+		name: null,
+		greeting: 'What can I help you with?'
 	}
 
 	let messages = [
@@ -43,29 +42,27 @@
 		}
 	];
 
-	let chatKey = '';
+	let modelKey = '';
+
+	$: console.log(modelKey);
 
 	let step = 1;
 
-
+	let textData: string;
 	let files: FileList | undefined;
 
-	$: console.log(files);
-
-	let url
-	let textModel: string;
-	let training = false;
+	let isTraining, training = false;
 	let trainingMessage = 'Training your chatbot';
 
 	const addMessage = (message: string, sender = 'bot') => {
 		messages = [...messages, { text: message, sender: sender }];
 	};
 
-	const queryChat = async (chatKey: string, message: string) => {
+	const queryModel = async (modelKey: string, message: string) => {
 		addMessage(message, 'user');
 		input = '';
 		try {
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/chat/${chatKey}`, {
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/chat/${modelKey}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -81,70 +78,98 @@
 		}
 	};
 
-	const addBot = async (id: string, data_source_type: 'text' | 'file' | 'url', name) => {
-		const res = await fetch('/api/bots', {
-			method: 'PUT',
+	const addModel = async (id: string, data_source_type: 'text' | 'file' | 'url', name: string) => {
+		const res = await fetch('/api/models', {
+			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
 				id,
-				data_source_type,
-				name
+				data_source_type
 			})
 		});
 	};
-
-	const handleTextSubmit = async (text: string) => {
-		training = true;
-		step++;
-		try {
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new_model`, {
-				method: 'POST',
+	const updateModel = async (id: string, settings: Object) => {
+		try{
+			const res = await fetch('/api/models', {
+				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					data_type: 'text', // Todo: Should be depreceated
-					train_key: text,
-					user_id: user.userId
+					id,
+					settings
 				})
 			});
-			const data = await res.json();
-			chatKey = data.chat_key;
-
-			addBot(data.chat_key, 'text', settings.name);
-
-			training = false;
-			trainingMessage = 'Your chatbot is ready to go!';
-			addMessage("I've been trained on your data and I'm ready to give you custom repsonses.");
 		} catch (err) {
-			console.error(err);
+			console.error(err)
+		} finally {
+			goto(`/account/chatbots/${id}`)
 		}
 	};
 
-
-	const handleUpload = async (files) => {
+	const handleFileTraining = async () => {
 		let bodyContent = new FormData();
 		bodyContent.append('new_file', files[0] /*, optional filename */)
 		bodyContent.append('user_id', user.userId)
+
+		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/upload`, {
+			method: 'POST',
+			body: bodyContent
+		});
+
+		const data = await res.json();
+
+		return data
+	}
+
+	const handleTextTraining = async () => {
+		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new_model`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				data_type: "text",
+				train_key: textData,
+				user_id: user.userId
+			})
+		});
+		const data = await res.json();
+		return data
+	}
+
+	const handleSubmit = async (modelDataType: 'text' | 'file' | 'url') => {
 		training = true;
 		step++;
-		try {
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/upload`, {
-				method: 'POST',
-				body: bodyContent
-			});
-			const data = await res.json();
-			chatKey = data.chat_key;
-			addBot(data.chat_key, 'file', settings.name);
-			training = false;
-			trainingMessage = 'Your chatbot is ready to go!';
-		} catch (err) {
-			console.error(err);
-			training = true;
-			trainingMessage = 'There was an error training your chatbot.';
+
+		switch (modelDataType) {
+			case 'text':
+				try {
+					const data = await handleTextTraining();
+					modelKey = data.chat_key;
+				} catch (err) {
+					training = false;
+					console.error(err);
+				} break;
+			case 'file':
+				try {
+					const data = await handleFileTraining();
+					modelKey = data.chat_key;
+				} catch (err) {
+					console.error(err);
+					training = true;
+					trainingMessage = 'There was an error training your chatbot.';
+				} break;
+			case 'url':
+				// statements
 		}
+
+		addModel(modelKey, modelDataType, settings);
+		trainingMessage = 'Your chatbot is ready to go!';
+		training = false;
+		addMessage("I've been trained on your data and I'm ready to give you custom repsonses.");
 	};
 </script>
 
@@ -159,37 +184,42 @@
 				</div> -->
 
 		<Tabs style="full" contentClass="my-4" defaultClass="flex">
-			<TabItem open title="Copy/Paste Text">
+			<TabItem open title="Upload a File">
+				<Dropzone
+					id="dropzone"
+					bind:files
+					class="p-10 border-primary-600 border cursor-pointer hover:bg-primary-900/50"
+				>
+				{#if files}
+					<p class="flex text-sm items-center gap-2">
+						<Icon icon="mdi:file-upload-outline" height="24" />
+						{files[0].name}
+					</p>
+				{:else}
+					<Icon icon="line-md:cloud-upload-outline-loop" height="32" />
+					<p class="my-4 text-sm">
+						<span class="font-semibold">Click to upload</span> or drag and drop
+					</p>
+					<p class="text-xs font-semibold">.pdf or .txt allowed (300MB Max)</p>
+				{/if}
+			</Dropzone>
+			<button class="button mt-4" type="submit" on:click={() => handleSubmit('file')}
+				>Train Bot</button>
+			</TabItem>
+			<TabItem title="Copy/Paste Text">
 				<div>
 					<textarea
 						name="textModel"
 						class="h-80 max-h-screen text-xs w-full"
 						placeholder="Paste your text here"
-						bind:value={textModel}
+						bind:value={textData}
 					/>
-					<button class="button mt-4" type="submit" on:click={() => handleTextSubmit(textModel)}
+					<button class="button mt-4" type="submit" on:click={() => handleSubmit('text')}
 						>Train Bot</button
 					>
 				</div>
 			</TabItem>
-			<TabItem>
-				<span slot="title">Upload a File</span>
-				<Dropzone
-				id="dropzone"
-				bind:files
-				class="p-10 border-primary-600 border cursor-pointer hover:bg-primary-900/50"
-				>
-				<Icon icon="line-md:cloud-upload-outline-loop" height="32" />
-				<p class="my-4 text-sm">
-					<span class="font-semibold">Click to upload</span> or drag and drop
-				</p>
-				<p class="text-xs font-semibold">.pdf or .txt allowed (300MB Max)</p>
-			</Dropzone>
-			<button class="button mt-4" type="submit" on:click={() => handleUpload(files)}
-				>Train Bot</button
-				>
-			</TabItem>
-			<TabItem title="URL">
+			<!-- <TabItem title="URL">
 				<div>
 					<textarea
 						name="url"
@@ -201,22 +231,21 @@
 						>Train Bot</button
 					>
 				</div>
-			</TabItem>
+			</TabItem> -->
 		</Tabs>
 	{:else if step == 2}
 		<h2>Customize</h2>
 		<div class="grid grid-cols-2 gap-4">
-			<div>
-				<label for="greeting">Greeting</label>
-				<input name="greeting" bind:value={settings.greeting} type="text" class="w-3/4" />
-				<label for="name">Name</label>
-				<input name="name" bind:value={settings.name} type="text" class="w-3/4" />
-				<!-- <fieldset class="p-6 pb-8 gap-2 mt-8 border border-primary-500 rounded-lg">
-						<legend class="label px-2">Customize colors</legend>
-						<ColorPicker bind:hex={theme.bg} label="Background Color" />
-						<ColorPicker bind:hex={theme.gptBubble} label="GPT Bubble" />
-						<ColorPicker bind:hex={theme.userBubble} label="User Bubble" />
-					</fieldset> -->
+			<div class="space-y-4">
+				<div>
+					<label for="name">Name</label>
+					<input name="name" bind:value={settings.name} type="text" class="w-3/4" />
+				</div>
+				<div>
+					<label for="greeting">Greeting</label>
+					<input name="greeting" bind:value={settings.greeting} type="text" class="w-3/4" />
+				</div>
+				<button type="submit" class="button" on:click={() => updateModel(modelKey, settings)}>Save</button>
 			</div>
 			<div>
 				<div class="p-4 border border-slate-400 rounded-lg self-start">
@@ -231,7 +260,7 @@
 							<ChatInput
 								bind:this={chatInput}
 								autofocus={false}
-								on:submit={() => queryChat(chatKey, input)}
+								on:submit={() => queryModel(modelKey, input)}
 								bind:input
 							/>
 						</div>
@@ -245,10 +274,6 @@
 </div>
 
 <style lang="postcss">
-	button[type='button'] {
-		@apply bg-transparent text-secondary-500;
-	}
-
 	h2 {
 		@apply text-xl font-light mb-4;
 	}
