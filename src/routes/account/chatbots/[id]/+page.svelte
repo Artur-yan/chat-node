@@ -96,11 +96,11 @@
 	</div>
 	<div class="drawer-side">
 		<label for="settings-drawer" class="drawer-overlay" />
-		<ul class="menu p-4 w-80 bg-base-100 text-base-content">
+		<ul class="menu p-4 w-full md:w-2/3 lg:w-1/2 bg-base-100 text-base-content">
 			<div class="flex items-center justify-between mb-4">
 				<h5>Settings</h5>
 			</div>
-			<form on:submit={updateModel(data.model.id, settings)} class="space-y-4 mb-10">
+			<form on:submit={updateModel(data.model.id, data.model.name, settings)} class="space-y-4 mb-10">
 				<div>
 					<label for="name" class="label">
 						<span class="label-text">Name</span>
