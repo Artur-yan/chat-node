@@ -1,7 +1,7 @@
 import { goto } from "$app/navigation";
 
 
-const addModel = async (id: string, data_source_type: 'text' | 'file' | 'url', name: string) => {
+const addModel = async (id: string, data_source_type: 'text' | 'file' | 'url', name: string, settings?: Object) => {
     const res = await fetch('/api/models', {
         method: 'POST',
         headers: {
@@ -10,12 +10,13 @@ const addModel = async (id: string, data_source_type: 'text' | 'file' | 'url', n
         body: JSON.stringify({
             id,
             data_source_type,
+            name,
             settings
         })
     });
 };
 
-const updateModel = async (id: string, settings: Object) => {
+const updateModel = async (id: string, name: string, settings?: Object) => {
     try{
         const res = await fetch('/api/models', {
             method: 'PATCH',
@@ -24,6 +25,7 @@ const updateModel = async (id: string, settings: Object) => {
             },
             body: JSON.stringify({
                 id,
+                name,
                 settings
             })
         });
