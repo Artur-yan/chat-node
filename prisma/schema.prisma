@@ -1,20 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model AuthUser {
-  id           String        @id @unique
-  auth_session AuthSession[]
-  auth_key     AuthKey[]
-  bots         Bots[]
-  email        String        @unique
-  // here you can add custom fields for your user
-  // e.g. name, email, username, roles, etc.
+  id                 String        @id @unique
+  email              String        @unique
+  stripe_customer_id String?       @unique
+  auth_key           AuthKey[]
+  auth_session       AuthSession[]
+  bots               Bots[]
 
   @@map("auth_user")
 }
@@ -24,7 +23,7 @@ model AuthSession {
   user_id        String
   active_expires BigInt
   idle_expires   BigInt
-  auth_user      AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  auth_user      AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
   @@map("auth_session")
@@ -36,7 +35,7 @@ model AuthKey {
   user_id         String
   primary_key     Boolean
   expires         BigInt?
-  auth_user       AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  auth_user       AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
   @@map("auth_key")
@@ -44,12 +43,12 @@ model AuthKey {
 
 model Bots {
   id               String   @id @unique
-  name             String?
-  user_id          String
-  auth_user        AuthUser @relation(references: [id], fields: [user_id])
-  data_source_type String
   created          DateTime @default(now())
-  greeting         String?
+  data_source_type String
+  user_id          String
+  name             String?
+  settings         Json?
+  auth_user        AuthUser @relation(fields: [user_id], references: [id])
 
   @@map("bots")
 }
