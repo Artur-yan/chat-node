@@ -3,7 +3,7 @@
 	import ChatWindow from '$lib/components/ChatWindow.svelte';
 	import ChatBubble from '$lib/components/ChatBubble.svelte';
 	import ChatInput from '$lib/components/ChatInput.svelte';
-	import { Dropzone, Tabs, TabItem } from 'flowbite-svelte';
+	import { Dropzone, Tabs, TabItem, Toggle } from 'flowbite-svelte';
 	import TrainingStatus from '$lib/components/TrainingStatus.svelte';
 	import Icon from '@iconify/svelte';
 	import {addModel, updateModel} from '$lib/models';
@@ -21,14 +21,14 @@
 		inputText: '#000'
 	};
 
-	let method = 'text';
-
 	let input: string;
 	let chatInput: HTMLInputElement;
 
+	let name = 'Untitled';
 	let settings = {
-		name: "Untitled",
-		greeting: 'What can I help you with?'
+		greeting: 'What can I help you with?',
+		public: false,
+		allowedUrls: []
 	}
 
 	let messages = [
@@ -42,9 +42,8 @@
 		}
 	];
 
-	let modelKey = '';
+	let id = '';
 
-	$: console.log(modelKey);
 
 	let step = 1;
 
@@ -58,11 +57,11 @@
 		messages = [...messages, { text: message, sender: sender }];
 	};
 
-	const queryModel = async (modelKey: string, message: string) => {
+	const queryModel = async (id: string, message: string) => {
 		addMessage(message, 'user');
 		input = '';
 		try {
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/chat/${modelKey}`, {
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/chat/${id}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -109,15 +108,15 @@
 		return data
 	}
 
-	const handleSubmit = async (modelDataType: 'text' | 'file' | 'url') => {
+	const handleSubmit = async (dataType: 'text' | 'file' | 'url') => {
 		training = true;
 		step++;
 
-		switch (modelDataType) {
+		switch (dataType) {
 			case 'text':
 				try {
 					const data = await handleTextTraining();
-					modelKey = data.chat_key;
+					id = data.chat_key;
 				} catch (err) {
 					training = false;
 					console.error(err);
@@ -125,7 +124,7 @@
 			case 'file':
 				try {
 					const data = await handleFileTraining();
-					modelKey = data.chat_key;
+					id = data.chat_key;
 				} catch (err) {
 					console.error(err);
 					training = true;
@@ -135,7 +134,7 @@
 				// statements
 		}
 
-		addModel(modelKey, modelDataType, settings);
+		addModel(id, dataType, name, settings);
 		trainingMessage = 'Your chatbot is ready to go!';
 		training = false;
 		addMessage("I've been trained on your data and I'm ready to give you custom repsonses.");
@@ -152,12 +151,13 @@
 					<button type="button" class="border border-primary-500 w-1/3 p-4 rounded-r-xl" on:click={() => method = "url"}>URL</button>
 				</div> -->
 
-		<Tabs style="full" contentClass="my-4" defaultClass="flex">
-			<TabItem open title="Upload a File">
+		<Tabs style="full" contentClass="my-4" defaultClass="flex" color="primary">
+			<TabItem open title="Upload a File" color="primary">
 				<Dropzone
 					id="dropzone"
 					bind:files
 					class="p-10 border-primary-600 border cursor-pointer hover:bg-primary-900/50"
+					color
 				>
 				{#if files}
 					<p class="flex text-sm items-center gap-2">
@@ -208,13 +208,17 @@
 			<div class="space-y-4">
 				<div>
 					<label for="name">Name</label>
-					<input name="name" bind:value={settings.name} type="text" class="w-3/4" />
+					<input name="name" bind:value={name} type="text" class="w-3/4" />
 				</div>
 				<div>
 					<label for="greeting">Greeting</label>
 					<input name="greeting" bind:value={settings.greeting} type="text" class="w-3/4" />
 				</div>
-				<button type="submit" class="button" on:click={() => updateModel(modelKey, settings)}>Save</button>
+				<div>
+					<!-- <Toggle value={settings.public} checked={settings.public}>Public?</Toggle> -->
+					<input type="checkbox" class="toggle toggle-success" bind:checked={settings.public} />
+				</div>
+				<button type="submit" class="button" on:click={() => updateModel(id, name, settings)}>Save</button>
 			</div>
 			<div>
 				<div class="p-4 border border-slate-400 rounded-lg self-start">
@@ -229,7 +233,7 @@
 							<ChatInput
 								bind:this={chatInput}
 								autofocus={false}
-								on:submit={() => queryModel(modelKey, input)}
+								on:submit={() => queryModel(id, input)}
 								bind:input
 							/>
 						</div>
