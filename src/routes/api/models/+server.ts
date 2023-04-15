@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const POST = async ({ request, locals }) => {
-	const { id, data_source_type, name } = await request.json();
+	const { id, data_source_type, settings } = await request.json();
 
 	const session = await locals.auth.validate();
 
@@ -11,6 +11,8 @@ export const POST = async ({ request, locals }) => {
 			id,
 			user_id: session.userId,
 			data_source_type,
+			name: settings.name,
+			greeting: settings.greeting
 		}
 	});
 
