@@ -4,29 +4,27 @@
 </script>
 
 <section>
-	<div class="container flex justify-center px-6 py-10">
-		<div class="w-full rounded-lg md:mt-0 sm:max-w-md">
-			<div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-				<h1 class="font-bold">Sign in</h1>
-				<form class="space-y-4 md:space-y-6" method="POST" use:enhance>
-					<div>
-						<label for="email">Your email</label>
-						<input type="email" name="email" id="email" placeholder="name@company.com" required />
-					</div>
-					<div>
-						<label for="password">Password</label>
-						<input type="password" name="password" id="password" placeholder="••••••••" required />
-						<a href="account/forgot-password" class="text-sm py-2 inline-block">Forgot password?</a>
-					</div>
-					{#if form?.message}
-						<p class="text-red-400">{form.message || ''}</p>
-					{/if}
-					<button type="submit" class="button w-full">Sign in</button>
-					<p class="text-sm">
-						Don't have an account? <a href="account/register" class="">Create an account</a>
-					</p>
-				</form>
-			</div>
+	<div class="card w-96 bg-neutral text-neutral-content mx-auto my-20">
+		<div class="card-body">
+			<h2 class="card-title">Sign in</h2>
+			<form class="form-control" method="POST" use:enhance>
+					<label class="label" for="email"><span class="label-text">Email</span></label>
+					<input class="input input-bordered" type="email" name="email" id="email" placeholder="name@company.com" required />
+	
+					<label class="label" for="email"><span class="label-text">Password</span></label>
+					<input class="input input-bordered" type="password" name="password" id="password" placeholder="••••••••" required />
+					
+					<a class="btn btn-ghost" href="account/forgot-password">Forgot password?</a>
+				{#if form?.message}
+					<p class="text-error">{form.message || ''}</p>
+				{/if}
+					<button type="submit" class="btn btn-primary w-full">Sign in</button>
+				<p class="text-sm mt-4">
+					Don't have an account?<br><a href="account/register" class="link">Create an account</a>
+				</p>
+			</form>
 		</div>
 	</div>
 </section>
+
+

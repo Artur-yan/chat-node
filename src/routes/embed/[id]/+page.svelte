@@ -3,14 +3,13 @@
 
 	export let data;
 
-	console.log(data)
-	
+	console.log(data);
+
 	import { page } from '$app/stores';
 	import ChatWindow from '$lib/components/ChatWindow.svelte';
 	import ChatBubble from '$lib/components/ChatBubble.svelte';
 	import ChatInput from '$lib/components/ChatInput.svelte';
 	import Icon from '@iconify/svelte';
-
 
 	const addMessage = (message: string, sender = 'bot') => {
 		messages = [...messages, { text: message, sender: sender }];
@@ -45,7 +44,7 @@
 		inputText: '#000'
 	};
 
-	let greeting = data.bot.greeting
+	let greeting = data.bot.greeting;
 	let chatInput: HTMLInputElement;
 	let input: string;
 

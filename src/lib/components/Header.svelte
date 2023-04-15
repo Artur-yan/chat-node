@@ -41,27 +41,25 @@
 				</div>
 			</div>
 
-			<div class="flex items-center lg:order-2 gap-6">
+			<div class="flex items-center lg:order-2">
 				{#if !user.session}
-					<a href="/login">Sign in</a>
-					<a class="button" href="/register">Register</a>
+					<a class="link link-primary mr-4" href="/login">Sign in</a>
+					<a class="btn btn-primary" href="/register">Register</a>
 				{:else}
-					<a href="/account/chatbots">My chatbots</a>
-					<button class="acs text-primary-400" on:click={() => accountDropdownIsOpen = !accountDropdownIsOpen }>
-						<Icon icon="mdi:account-circle-outline" width="32" />
-					</button>
-					<Dropdown triggeredBy=".acs" frameClass="bg-primary-900 px-6 py-4" placement="bottom-end">
-						<div slot="header" class="px-4 py-2">
-					<span class="block truncate text-sm font-medium"> name@flowbite.com </span>
-				  </div>
-						<div class="space-y-2">
-							<a href="/account">account settings</a>
-
-							<form action="/logout" method="POST">
-								<button type="submit">sign out</button>
-							</form>
-						</div>
-					</Dropdown> 
+					<a class="btn btn-secondary" href="/account/chatbots">My chatbots</a>
+					<div class="dropdown dropdown-end">
+						<label tabindex="0" class="btn btn-ghost m-1"
+							><Icon icon="mdi:account-circle-outline" width="32" /></label
+						>
+						<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+							<li><a href="/account">account settings</a></li>
+							<li>
+								<form action="/logout" method="POST">
+									<button type="submit">sign out</button>
+								</form>
+							</li>
+						</ul>
+					</div>
 				{/if}
 			</div>
 		</div>

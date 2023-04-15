@@ -20,7 +20,7 @@ export const POST = async ({ request, locals }) => {
 };
 
 export const PATCH = async ({ request, locals }) => {
-	const { id, name, settings  } = await request.json();
+	const { id, name, settings } = await request.json();
 
 	const session = await locals.auth.validate();
 
@@ -38,7 +38,7 @@ export const PATCH = async ({ request, locals }) => {
 };
 
 export const DELETE = async ({ request, locals }) => {
-	const { id  } = await request.json();
+	const { id } = await request.json();
 
 	const session = await locals.auth.validate();
 

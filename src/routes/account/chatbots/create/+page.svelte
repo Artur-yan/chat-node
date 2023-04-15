@@ -6,7 +6,7 @@
 	import { Dropzone, Tabs, TabItem, Toggle } from 'flowbite-svelte';
 	import TrainingStatus from '$lib/components/TrainingStatus.svelte';
 	import Icon from '@iconify/svelte';
-	import {addModel, updateModel} from '$lib/models';
+	import { addModel, updateModel } from '$lib/models';
 
 	export let data;
 
@@ -29,7 +29,7 @@
 		greeting: 'What can I help you with?',
 		public: false,
 		allowedUrls: []
-	}
+	};
 
 	let messages = [
 		{
@@ -44,13 +44,13 @@
 
 	let id = '';
 
-
 	let step = 1;
 
 	let textData: string;
 	let files: FileList | undefined;
 
-	let isTraining, training = false;
+	let isTraining,
+		training = false;
 	let trainingMessage = 'Training your chatbot';
 
 	const addMessage = (message: string, sender = 'bot') => {
@@ -79,8 +79,8 @@
 
 	const handleFileTraining = async () => {
 		let bodyContent = new FormData();
-		bodyContent.append('new_file', files[0] /*, optional filename */)
-		bodyContent.append('user_id', user.userId)
+		bodyContent.append('new_file', files[0] /*, optional filename */);
+		bodyContent.append('user_id', user.userId);
 
 		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/upload`, {
 			method: 'POST',
@@ -89,8 +89,8 @@
 
 		const data = await res.json();
 
-		return data
-	}
+		return data;
+	};
 
 	const handleTextTraining = async () => {
 		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new_model`, {
@@ -99,14 +99,14 @@
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				data_type: "text",
+				data_type: 'text',
 				train_key: textData,
 				user_id: user.userId
 			})
 		});
 		const data = await res.json();
-		return data
-	}
+		return data;
+	};
 
 	const handleSubmit = async (dataType: 'text' | 'file' | 'url') => {
 		training = true;
@@ -120,7 +120,8 @@
 				} catch (err) {
 					training = false;
 					console.error(err);
-				} break;
+				}
+				break;
 			case 'file':
 				try {
 					const data = await handleFileTraining();
@@ -129,9 +130,10 @@
 					console.error(err);
 					training = true;
 					trainingMessage = 'There was an error training your chatbot.';
-				} break;
+				}
+				break;
 			case 'url':
-				// statements
+			// statements
 		}
 
 		addModel(id, dataType, name, settings);
@@ -145,45 +147,30 @@
 	{#if step == 1}
 		<h2>How would you like to train your chatbot?</h2>
 
-		<!-- <div class="flex w-full justify-stretch text-center text-secondary-500 mb-10">
-					<button type="button" class="border border-primary-500 w-1/3 p-4 rounded-l-xl bg-primary-900" on:click={() => method = "text"}>Paste Text</button>
-					<button type="button" class="border border-primary-500 w-1/3 p-4" on:click|preventDefault={() => method = "file"}>Upload File</button>
-					<button type="button" class="border border-primary-500 w-1/3 p-4 rounded-r-xl" on:click={() => method = "url"}>URL</button>
-				</div> -->
-
 		<Tabs style="full" contentClass="my-4" defaultClass="flex" color="primary">
 			<TabItem open title="Upload a File" color="primary">
-				<Dropzone
-					id="dropzone"
-					bind:files
-					class="p-10 border-primary-600 border cursor-pointer hover:bg-primary-900/50"
-					color
-				>
-				{#if files}
-					<p class="flex text-sm items-center gap-2">
-						<Icon icon="mdi:file-upload-outline" height="24" />
-						{files[0].name}
-					</p>
-				{:else}
-					<Icon icon="line-md:cloud-upload-outline-loop" height="32" />
-					<p class="my-4 text-sm">
-						<span class="font-semibold">Click to upload</span> or drag and drop
-					</p>
-					<p class="text-xs font-semibold">.pdf or .txt allowed (300MB Max)</p>
-				{/if}
-			</Dropzone>
-			<button class="button mt-4" type="submit" on:click={() => handleSubmit('file')}
-				>Train Bot</button>
+				<div class="form-control">
+					<div class="input-group">
+						<input
+							type="file"
+							class="file-input file-input-bordered file-input-primary"
+							bind:files
+						/>
+						<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('file')}
+							>Train Bot</button
+						>
+					</div>
+				</div>
 			</TabItem>
 			<TabItem title="Copy/Paste Text">
 				<div>
 					<textarea
-						name="textModel"
-						class="h-80 max-h-screen text-xs w-full"
-						placeholder="Paste your text here"
+						placeholder="Paste Your Text Here"
+						class="textarea textarea-bordered textarea-sm w-full"
 						bind:value={textData}
 					/>
-					<button class="button mt-4" type="submit" on:click={() => handleSubmit('text')}
+
+					<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('text')}
 						>Train Bot</button
 					>
 				</div>
@@ -218,7 +205,9 @@
 					<!-- <Toggle value={settings.public} checked={settings.public}>Public?</Toggle> -->
 					<input type="checkbox" class="toggle toggle-success" bind:checked={settings.public} />
 				</div>
-				<button type="submit" class="button" on:click={() => updateModel(id, name, settings)}>Save</button>
+				<button type="submit" class="button" on:click={() => updateModel(id, name, settings)}
+					>Save</button
+				>
 			</div>
 			<div>
 				<div class="p-4 border border-slate-400 rounded-lg self-start">
@@ -245,18 +234,3 @@
 
 	<TrainingStatus visible={step == 2} {training} {trainingMessage} />
 </div>
-
-<style lang="postcss">
-	h2 {
-		@apply text-xl font-light mb-4;
-	}
-
-	label {
-		@apply text-sm block mb-1;
-	}
-
-	input,
-	textarea {
-		@apply p-2 rounded;
-	}
-</style>

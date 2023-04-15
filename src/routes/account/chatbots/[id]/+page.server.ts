@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	const session = await locals.auth.validate();
-    // session.userId
+	// session.userId
 
 	const model = await prisma.bots.findUnique({
 		where: {

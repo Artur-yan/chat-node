@@ -2,7 +2,7 @@
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 
 	export let data;
-	
+
 	import { page } from '$app/stores';
 	import ChatWindow from '$lib/components/ChatWindow.svelte';
 	import ChatBubble from '$lib/components/ChatBubble.svelte';
@@ -10,6 +10,7 @@
 	import Icon from '@iconify/svelte';
 	import { updateModel } from '$lib/models';
 	import { PUBLIC_SITE_URL } from '$env/static/public';
+	import { Toggle } from 'flowbite-svelte';
 
 	let drawerOpen = false;
 
@@ -48,10 +49,11 @@
 
 	let settings = {
 		name: data.model.name,
-		greeting: data.model.greeting
-	}
+		greeting: data.model.settings.greeting,
+		public: data.model.settings.public
+	};
 
-	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="border: none;"></iframe>`
+	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="border: none;"></iframe>`;
 
 	let chatInput: HTMLInputElement;
 	let input: string;
@@ -64,55 +66,79 @@
 	];
 </script>
 
-<div class="container">
-	<div class="flex items-center py-4 justify-between gap-4">
-		<div class="flex items-baseline">
-			<h1 class="mr-2">{settings.name}</h1>
-			<div class="text-xs text-primary-500">id:{data.model.id}</div>
+<div class="drawer drawer-end">
+	<input id="settings-drawer" type="checkbox" class="drawer-toggle" bind:checked={drawerOpen} />
+	<div class="drawer-content">
+		<div class="container">
+			<div class="flex items-center py-4 justify-between gap-4">
+				<div class="flex items-baseline">
+					<h1 class="mr-2">{settings.name}</h1>
+					<div class="text-xs text-primary-500">id:{data.model.id}</div>
+				</div>
+				<label for="settings-drawer" class="drawer-button btn btn-primary">Settings</label>
+			</div>
+			<ChatWindow {theme}>
+				<svelte:fragment slot="messages">
+					{#each messages as { text, sender }}
+						<ChatBubble {text} {sender} />
+					{/each}
+				</svelte:fragment>
+				<div slot="input">
+					<ChatInput
+						bind:this={chatInput}
+						autofocus={false}
+						on:submit={() => queryChat($page.params.id, input)}
+						bind:input
+					/>
+				</div>
+			</ChatWindow>
 		</div>
-		<button class="text-primary-400 p-2" on:click={() => drawerOpen = !drawerOpen}>
-			<Icon icon="mdi:settings" width="18" />
-		</button>
 	</div>
-	<ChatWindow {theme}>
-		<svelte:fragment slot="messages">
-			{#each messages as { text, sender }}
-				<ChatBubble {text} {sender} />
-			{/each}
-		</svelte:fragment>
-		<div slot="input">
-			<ChatInput
-				bind:this={chatInput}
-				autofocus={false}
-				on:submit={() => queryChat($page.params.id, input)}
-				bind:input
-			/>
-		</div>
-	</ChatWindow>
+	<div class="drawer-side">
+		<label for="settings-drawer" class="drawer-overlay" />
+		<ul class="menu p-4 w-80 bg-base-100 text-base-content">
+			<div class="flex items-center justify-between mb-4">
+				<h5>Settings</h5>
+			</div>
+			<form on:submit={updateModel(data.model.id, settings)} class="space-y-4 mb-10">
+				<div>
+					<label for="name" class="label">
+						<span class="label-text">Name</span>
+					</label>
+					<input
+						type="text"
+						bind:value={settings.name}
+						class="input input-bordered input-primary w-full"
+					/>
+				</div>
+				<div>
+					<label for="greeting" class="label">
+						<span class="label-text">Greeting</span>
+					</label>
+					<input
+						type="text"
+						bind:value={settings.greeting}
+						class="input input-bordered input-primary w-full"
+					/>
+				</div>
+				<div class="form-control w-64">
+					<label class="label cursor-pointer">
+						<span class="label-text">Private</span>
+						<input
+							type="checkbox"
+							class="toggle toggle-warning input-success"
+							bind:checked={settings.public}
+						/>
+						<span class="label-text">Public</span>
+					</label>
+				</div>
+				<button class="btn btn-primary" type="submit">Save</button>
+			</form>
 
-</div>
-<div class:hidden={!drawerOpen} id='sidebar1' class="fixed inset-0 left-auto w-1/2 max-w-2xl min-w-max h-full bg-black p-4">
-	<div class="flex items-center justify-between mb-4">
-	  <h5>Settings</h5>
-	  <button type="button" on:click={() => (drawerOpen = false)} class="p-2">
-		  <Icon icon="mdi:close" width="18" />
-	  </button>
-
-	</div>
-	<form on:submit={updateModel(data.model.id, settings)} class="space-y-4 mb-10">
-		<div>
-			<label for="greeting">Name</label>
-			<input type="text" bind:value={settings.name} class="w-full p-2 rounded-md border border-gray-300" />
-		</div>
-		<div>
-			<label for="greeting">Greeting</label>
-			<input type="text" bind:value={settings.greeting} class="w-full p-2 rounded-md border border-gray-300" />
-		</div>
-		<button class="button" type="submit">Save</button>
-	</form>
-
-	<h6>Embed Code</h6>
-	<div class="p-4 rounded bg-primary-950 border border-primary-800" bind:textContent={iframeEmbedCode} contenteditable="false">
-
+			<h6>Embed Code</h6>
+			<div class="mockup-code w-full">
+				<pre><code>{iframeEmbedCode}</code></pre>
+			</div>
+		</ul>
 	</div>
 </div>
