@@ -9,6 +9,7 @@
 	import ChatInput from '$lib/components/ChatInput.svelte';
 	import Icon from '@iconify/svelte';
 	import { updateModel } from '$lib/models';
+	import { PUBLIC_SITE_URL } from '$env/static/public';
 
 	let drawerOpen = false;
 
@@ -49,6 +50,8 @@
 		name: data.model.name,
 		greeting: data.model.greeting
 	}
+
+	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="border: none;"></iframe>`
 
 	let chatInput: HTMLInputElement;
 	let input: string;
@@ -96,7 +99,7 @@
 	  </button>
 
 	</div>
-	<form on:submit={updateModel(data.model.id, settings)} class="space-y-4">
+	<form on:submit={updateModel(data.model.id, settings)} class="space-y-4 mb-10">
 		<div>
 			<label for="greeting">Name</label>
 			<input type="text" bind:value={settings.name} class="w-full p-2 rounded-md border border-gray-300" />
@@ -107,4 +110,9 @@
 		</div>
 		<button class="button" type="submit">Save</button>
 	</form>
+
+	<h6>Embed Code</h6>
+	<div class="p-4 rounded bg-primary-950 border border-primary-800" bind:textContent={iframeEmbedCode} contenteditable="false">
+
+	</div>
 </div>
