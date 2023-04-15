@@ -1,25 +1,13 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
 	import Icon from '@iconify/svelte';
+	import { deleteModel } from '$lib/models';
 
 	export let data;
 
-	const deleteModel = async (id: string) => {
-		try {
-			await fetch('/api/models', {
-				method: 'DELETE',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					id
-				})
-			})
-			invalidateAll()
-		} catch(err) {
-			console.error(err)
-		}
-	}
+	console.log(data)
+
+
 </script>
 
 <div class="container">

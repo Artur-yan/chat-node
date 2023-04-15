@@ -34,4 +34,20 @@ const updateModel = async (id: string, settings: Object) => {
     }
 };
 
-export { addModel, updateModel };
+const deleteModel = async (id: string) => {
+    try {
+        await fetch('/api/models', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id
+            })
+        })
+    } catch(err) {
+        console.error(err)
+    }
+}
+
+export { addModel, updateModel, deleteModel };
