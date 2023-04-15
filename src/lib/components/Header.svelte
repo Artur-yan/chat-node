@@ -47,7 +47,7 @@
 					<a class="button" href="/register">Register</a>
 				{:else}
 					<a href="/account/chatbots">My chatbots</a>
-					<!-- <button class="text-primary-400" on:click={() => accountDropdownIsOpen = !accountDropdownIsOpen }>
+					<button class="acs text-primary-400" on:click={() => accountDropdownIsOpen = !accountDropdownIsOpen }>
 						<Icon icon="mdi:account-circle-outline" width="32" />
 					</button>
 					<Dropdown triggeredBy=".acs" frameClass="bg-primary-900 px-6 py-4" placement="bottom-end">
@@ -61,14 +61,7 @@
 								<button type="submit">sign out</button>
 							</form>
 						</div>
-					</Dropdown>  -->
-					<div class="dropdown dropdown-end">
-						<label tabindex="0" class="btn m-1"><Icon icon="mdi:account-circle-outline" width="32" /></label>
-						<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-						  <li><a>Item 1</a></li>
-						  <li><a>Item 2</a></li>
-						</ul>
-					  </div>
+					</Dropdown> 
 				{/if}
 			</div>
 		</div>
