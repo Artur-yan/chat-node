@@ -6,7 +6,7 @@
 	import { Dropzone, Tabs, TabItem } from 'flowbite-svelte';
 	import TrainingStatus from '$lib/components/TrainingStatus.svelte';
 	import Icon from '@iconify/svelte';
-	import { goto } from '$app/navigation';
+	import {addModel, updateModel} from '$lib/models';
 
 	export let data;
 
@@ -27,7 +27,7 @@
 	let chatInput: HTMLInputElement;
 
 	let settings = {
-		name: null,
+		name: "Untitled",
 		greeting: 'What can I help you with?'
 	}
 
@@ -75,37 +75,6 @@
 			addMessage(data.message);
 		} catch (err) {
 			console.error(err);
-		}
-	};
-
-	const addModel = async (id: string, data_source_type: 'text' | 'file' | 'url', name: string) => {
-		const res = await fetch('/api/models', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				id,
-				data_source_type
-			})
-		});
-	};
-	const updateModel = async (id: string, settings: Object) => {
-		try{
-			const res = await fetch('/api/models', {
-				method: 'PATCH',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					id,
-					settings
-				})
-			});
-		} catch (err) {
-			console.error(err)
-		} finally {
-			goto(`/account/chatbots/${id}`)
 		}
 	};
 
