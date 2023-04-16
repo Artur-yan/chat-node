@@ -46,12 +46,12 @@
 					<a class="link link-primary mr-4" href="/login">Sign in</a>
 					<a class="btn btn-primary" href="/register">Register</a>
 				{:else}
-					<a class="btn btn-secondary" href="/account/chatbots">My chatbots</a>
+					<a class="link-primary" href="/account/chatbots">My chatbots</a>
 					<div class="dropdown dropdown-end">
-						<label tabindex="0" class="btn btn-ghost m-1"
+						<label tabindex="0" class="btn btn-ghost ml-2 text-primary"
 							><Icon icon="mdi:account-circle-outline" width="32" /></label
 						>
-						<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+						<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-64">
 							<li><a href="/account">account settings</a></li>
 							<li>
 								<form action="/logout" method="POST">
