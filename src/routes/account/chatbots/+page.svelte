@@ -1,10 +1,29 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { deleteModel } from '$lib/models';
+	import { PUBLIC_SITE_URL } from '$env/static/public';
 
 	export let data;
 
-	console.log(data);
+	let deleteModalOpen = false
+	let embedModalOpen = false
+
+	let modalData = {
+		id: '',
+		name: ''
+	}
+
+	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${modalData.id}" width="100%" height="100%" style="border: none;"></iframe>`;
+
+	const openDeleteModal = (data: Object) => {
+		deleteModalOpen = true;
+		modalData = data;
+	}
+	const openEmbedModal = (data: Object) => {
+		embedModalOpen = true;
+		modalData = data;
+	}
+
 </script>
 
 <div class="container">
@@ -46,22 +65,27 @@
 						<h2 class="card-title">
 							{bot.name}
 						</h2>
-						<p>created: {bot.created.toLocaleString('en-us')}</p>
-						<div class="card-actions">
-							<div class="badge badge-primary">type: {bot.data_source_type}</div>
-							<div class="badge badge-outline">id: {bot.id}</div>
-						</div>
+						<p>
+							created <span class="badge badge-secondary">{bot.created.toLocaleString('en-us')}</span>
+						</p>
+						<p>
+							type <span class="badge badge-secondary">{bot.data_source_type}</span>
+						</p>
+						<p>
+							id <span class="badge badge-outline">{bot.id}</span>
+						</p>
+							
 						<div class="card-actions justify-end mt-10">
 							<div class="btn-group">
 								<a class="btn btn-primary" href="chatbots/{bot.id}">
 									<Icon icon="mdi:chat-outline" class="mr-2" width="20" /> Chat
 								</a>
-								<button class="btn btn-primary">
+								<button class="btn btn-primary" on:click={() => openDeleteModal({id: bot.id, name: bot.name})}>
 									<Icon icon="mdi:delete-outline" width="18" />
 								</button>
-								<label for="modalDeleteModel" class="btn btn-primary">
+								<button class="btn btn-primary" on:click={() => openEmbedModal({id: bot.id, name: bot.name})}>
 									<Icon icon="mdi:code" width="18" />
-								</label>
+								</button>
 							</div>
 						</div>
 					</div>
@@ -75,10 +99,24 @@
 	</div>
 </div>
 
-<input type="checkbox" id="modalDeleteModel" class="modal-toggle" />
-<label for="modalDeleteModel" class="modal cursor-pointer">
-  <label class="modal-box relative" for="">
-    <h3 class="text-lg font-bold">Are you sure you want to delete?</h3>
-    <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-  </label>
-</label>
+<div class="modal" class:modal-open={deleteModalOpen}>
+	<div class="modal-box">
+		<h3 class="font-bold text-lg">Are you sure you want to delete {modalData.name}</h3>
+		<div class="modal-action">
+			<button class="btn btn-secondary" on:click={() => deleteModalOpen = false}>cancel</button>
+			<button class="btn btn-error" on:click={() => { deleteModel(modalData.id); deleteModalOpen = false }}>Delete</button>
+		</div>
+	</div>
+</div>
+<div class="modal" class:modal-open={embedModalOpen}>
+	<div class="modal-box">
+		<h3 class="font-bold text-lg">Copy code to embed {modalData.name}</h3>
+		<div class="mockup-code w-full">
+			<pre><code>{iframeEmbedCode}</code></pre>
+		</div>
+		<div class="modal-action">
+			<button class="btn btn-secondary" on:click={() => embedModalOpen = false}>Done</button>
+	
+		</div>
+	</div>
+</div>
