@@ -3,27 +3,20 @@
 		class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6"
 	>
 		<img
-			class="w-full dark:hidden"
-			src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup.svg"
-			alt=""
-		/>
-		<img
-			class="w-full hidden dark:block"
+			class="w-full"
 			src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup-dark.svg"
 			alt=""
 		/>
-		<div class="mt-4 md:mt-0">
-			<h2 class="mb-4 text-4xl tracking-tight font-extrabold">
-				Let's create more tools and ideas that bring us together.
+		<div class="leading-loose">
+			<h2 class="mb-6 text-4xl tracking-tight font-extrabold">
+				GPT-4 meets the stength of your knowledge.
 			</h2>
-			<p class="mb-6 font-light md:text-lg">
-				Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione quo dolorum culpa
-				reprehenderit voluptas placeat! Quas recusandae illum doloremque aspernatur consequuntur
-				officiis odio, quo eveniet architecto quaerat, maxime, repudiandae delectus!
+			<p class="mb-10 font-light text-xl">
+				Train highly advanced AI interfaces on any text, file or website you choose. Use it internally or make it public facing to answer customer's questions.
 			</p>
 			<a
 				href="/"
-				class="button inline-flex items-center font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+				class="btn text-primary"
 			>
 				Get started
 				<svg
