@@ -12,6 +12,8 @@
 
 	let { user } = data.user;
 
+	let activeTab = 0;
+
 	let theme = {
 		bg: '#FFFFFF',
 		gptBubble: '#E9E9E9',
@@ -145,50 +147,49 @@
 
 <div class="container mt-10">
 	{#if step == 1}
-		<h2>How would you like to train your chatbot?</h2>
+	<h2 class="mb-6 text-2xl font-light">How would you like to train your chatbot?</h2>
+	<div class="tabs tabs-boxed mb-10">
+		<label class="tab tab-lg" class:tab-active={activeTab == 0}>
+			<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
+			Upload a file 
+		</label>
+		<label class="tab tab-lg" class:tab-active={activeTab == 1}>
+			<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
+			Copy/paste text
+		</label>
+		<label class="tab tab-lg" class:tab-active={activeTab == 2}>
+			<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
+			Scrape a URL
+		</label>
 
-		<Tabs style="full" contentClass="my-4" defaultClass="flex" color="primary">
-			<TabItem open title="Upload a File" color="primary">
-				<div class="form-control">
-					<div class="input-group">
-						<input
-							type="file"
-							class="file-input file-input-bordered file-input-primary"
-							bind:files
-						/>
-						<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('file')}
-							>Train Bot</button
-						>
-					</div>
-				</div>
-			</TabItem>
-			<TabItem title="Copy/Paste Text">
-				<div>
-					<textarea
-						placeholder="Paste Your Text Here"
-						class="textarea textarea-bordered textarea-sm w-full"
-						bind:value={textData}
+	  </div>
+
+		{#if activeTab == 0}
+			<div class="form-control">
+				<div class="input-group">
+					<input
+						type="file"
+						class="file-input file-input-bordered file-input-primary"
+						bind:files
 					/>
-
-					<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('text')}
+					<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('file')}
 						>Train Bot</button
 					>
 				</div>
-			</TabItem>
-			<!-- <TabItem title="URL">
-				<div>
-					<textarea
-						name="url"
-						class="h-80 max-h-screen text-xs w-full"
-						placeholder="Paste your URL here"
-						bind:value={url}
-					/>
-					<button class="button mt-4" type="submit" on:click={() => handleURLSubmit(textModel)}
-						>Train Bot</button
-					>
-				</div>
-			</TabItem> -->
-		</Tabs>
+			</div>
+		{:else if activeTab == 1}
+			<div>
+				<textarea
+					placeholder="Paste Your Text Here"
+					class="textarea textarea-bordered textarea-sm w-full"
+					bind:value={textData}
+				/>
+
+				<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('text')}
+					>Train Bot</button
+				>
+			</div>
+		{/if}
 	{:else if step == 2}
 		<h2>Customize</h2>
 		<div class="grid grid-cols-2 gap-4">
