@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 
 	export let data;
 
@@ -10,8 +9,6 @@
 
 	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="border: none;"></iframe>`;
 
-	let chatInput: HTMLInputElement;
-	let input: string;
 </script>
 
 <div class="drawer drawer-end h-full">
