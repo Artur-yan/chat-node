@@ -3,89 +3,31 @@
 
 	export let data;
 
-	import { page } from '$app/stores';
-	import ChatWindow from '$lib/components/ChatWindow.svelte';
-	import ChatBubble from '$lib/components/ChatBubble.svelte';
-	import ChatInput from '$lib/components/ChatInput.svelte';
 	import { PUBLIC_SITE_URL } from '$env/static/public';
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 
 	let drawerOpen = false;
 
-	const addMessage = (message: string, sender = 'bot') => {
-		messages = [...messages, { text: message, sender: sender }];
-	};
-
-	const queryChat = async (chatKey: string, message: string) => {
-		addMessage(message, 'user');
-		input = '';
-		try {
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/chat/${chatKey}`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					message: message
-				})
-			});
-			const data = await res.json();
-			addMessage(data.message);
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
-	let theme = {
-		bg: '#FFFFFF',
-		gptBubble: '#E9E9E9',
-		userBubble: '#2C6BED',
-		gptBubbleText: '#222222',
-		userBubbleText: '#FFFFFF',
-		inputText: '#000'
-	};
-
-	let settings = {
-		name: data.model.name,
-		greeting: data.model.settings.greeting,
-		public: data.model.settings.public,
-		allowedUrls: data.model.settings.allowedUrls
-	};
-	$:console.log(settings.allowedUrls);
-	const addUrl = (url: string) => {
-		settings.allowedUrls = [...settings.allowedUrls, url];
-	};
-
-	const removeUrl = (i: number) => {
-		settings.allowedUrls.splice(i, 1);
-		settings.allowedUrls = [...settings.allowedUrls];
-	};
 
 	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="border: none;"></iframe>`;
 
 	let chatInput: HTMLInputElement;
 	let input: string;
 
-	let messages = [
-		{
-			text: settings.greeting,
-			sender: 'bot'
-		}
-	];
 </script>
 
-<div class="drawer drawer-end">
+<div class="drawer drawer-end h-full">
 	<input id="settings-drawer" type="checkbox" class="drawer-toggle" bind:checked={drawerOpen} />
-	<div class="drawer-content">
-		<div class="container">
+	<div class="drawer-content h-full">
+		<div class="container h-full">
 			<div class="flex items-center py-4 justify-between gap-4">
 				<div class="flex items-baseline">
-					<h1 class="mr-2">{settings.name}</h1>
+					<h1 class="mr-2">{data.model.name}</h1>
 					<div class="text-xs text-primary-500">id:{data.model.id}</div>
 				</div>
 				<label for="settings-drawer" class="drawer-button btn btn-primary">Settings</label>
 			</div>
-			<iframe src="https://gpt-delta-henna.vercel.app/embed/{data.model.id}" width="100%" height="100%" style="border: none;" title="Chat Bot - {settings.name}"></iframe>
+			{@html iframeEmbedCode}
 		</div>
 	</div>
 	<div class="drawer-side">
@@ -95,63 +37,6 @@
 				<h5>Settings</h5>	
 			</div>
 			<ModelSettings id={data.model.id} name={data.model.name} settings={data.model.settings} />
-			<!-- <form
-				on:submit={updateModel(data.model.id, data.model.name, settings)}
-				class="space-y-4 mb-10"
-			>
-				<div>
-					<label for="name" class="label">
-						<span class="label-text">Name</span>
-					</label>
-					<input
-						type="text"
-						bind:value={settings.name}
-						class="input input-bordered input-primary w-full"
-					/>
-				</div>
-				<div>
-					<label for="greeting" class="label">
-						<span class="label-text">Greeting</span>
-					</label>
-					<input
-						type="text"
-						bind:value={settings.greeting}
-						class="input input-bordered input-primary w-full"
-					/>
-				</div>
-				<div class="form-control w-64">
-					<label class="label cursor-pointer">
-						<span class="label-text">Private</span>
-						<input
-							type="checkbox"
-							class="toggle toggle-warning input-success"
-							bind:checked={settings.public}
-						/>
-						<span class="label-text">Public</span>
-					</label>
-				</div>
-				{#if settings.public}
-					{#each settings.allowedUrls as url, i}
-						<div class="form-control w-full max-w-lg">
-							<div class="input-group">
-								<input
-									name="url-{i}"
-									bind:value={settings.allowedUrls[i]}
-									class="input input-bordered"
-								/>
-								<button class="btn text-red-400" on:click={() => removeUrl(i)}><Icon icon="mdi:minus-circle-outline" width="16" /></button>
-								
-							</div>
-						</div>
-					{/each}
-					<button
-						class="btn"
-						type="button"
-						on:click={() => addUrl('')}>+ add</button>
-				{/if}
-				<button class="btn btn-primary" type="submit">Save</button>
-			</form> -->
-
 			<h6>Embed Code</h6>
 			<div class="mockup-code w-full">
 				<pre><code>{iframeEmbedCode}</code></pre>
