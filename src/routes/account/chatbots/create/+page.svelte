@@ -3,10 +3,10 @@
 	import ChatWindow from '$lib/components/ChatWindow.svelte';
 	import ChatBubble from '$lib/components/ChatBubble.svelte';
 	import ChatInput from '$lib/components/ChatInput.svelte';
-	import { Dropzone, Tabs, TabItem, Toggle } from 'flowbite-svelte';
 	import TrainingStatus from '$lib/components/TrainingStatus.svelte';
 	import Icon from '@iconify/svelte';
 	import { addModel, updateModel } from '$lib/models';
+	import ModelSettings from '$lib/components/ModelSettings.svelte';
 
 	export let data;
 
@@ -51,8 +51,7 @@
 	let textData: string;
 	let files: FileList | undefined;
 
-	let isTraining,
-		training = false;
+	let isTraining = false
 	let trainingMessage = 'Training your chatbot';
 
 	const addMessage = (message: string, sender = 'bot') => {
@@ -95,7 +94,7 @@
 	};
 
 	const handleTextTraining = async () => {
-		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new_model`, {
+		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -111,7 +110,7 @@
 	};
 
 	const handleSubmit = async (dataType: 'text' | 'file' | 'url') => {
-		training = true;
+		isTraining = true;
 		step++;
 
 		switch (dataType) {
@@ -120,7 +119,7 @@
 					const data = await handleTextTraining();
 					id = data.chat_key;
 				} catch (err) {
-					training = false;
+					isTraining = false;
 					console.error(err);
 				}
 				break;
@@ -130,7 +129,7 @@
 					id = data.chat_key;
 				} catch (err) {
 					console.error(err);
-					training = true;
+					isTraining = true;
 					trainingMessage = 'There was an error training your chatbot.';
 				}
 				break;
@@ -140,7 +139,7 @@
 
 		addModel(id, dataType, name, settings);
 		trainingMessage = 'Your chatbot is ready to go!';
-		training = false;
+		isTraining = false;
 		addMessage("I've been trained on your data and I'm ready to give you custom repsonses.");
 	};
 </script>
@@ -161,7 +160,6 @@
 			<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
 			Scrape a URL
 		</label>
-
 	  </div>
 
 		{#if activeTab == 0}
@@ -193,7 +191,8 @@
 	{:else if step == 2}
 		<h2>Customize</h2>
 		<div class="grid grid-cols-2 gap-4">
-			<div class="space-y-4">
+			<ModelSettings {id} {name} {settings} />
+			<!-- <div class="space-y-4">
 				<div class="form-control w-full">
 					<label class="label" for="name">
 						<span class="label-text">Name</span>
@@ -227,10 +226,25 @@
 						<span class="label-text">Public</span>
 					</label>
 				</div>
+				{#if settings.public}
+					{#each settings.allowedUrls as url, i}
+						<div class="form-control w-full max-w-lg">
+							<input
+								name="url-{i}"
+								bind:value={settings.allowedUrls[i]}
+								class="input input-bordered"
+							/>
+						</div>
+					{/each}
+					<button
+						class="btn"
+						type="button"
+						on:click={() => addUrl('')}>+ add</button>
+				{/if}
 				<button type="submit" class="btn" on:click={() => updateModel(id, name, settings)}
 					>Save</button
 				>
-			</div>
+			</div> -->
 			<div>
 				<div class="p-4 border border-slate-400 rounded-lg self-start">
 					<ChatWindow {theme}>
@@ -254,5 +268,5 @@
 		</div>
 	{/if}
 
-	<TrainingStatus visible={step == 2} {training} {trainingMessage} />
+	<TrainingStatus visible={step == 2} {isTraining} {trainingMessage} />
 </div>

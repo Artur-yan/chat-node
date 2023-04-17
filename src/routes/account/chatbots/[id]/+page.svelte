@@ -11,6 +11,7 @@
 	import { updateModel } from '$lib/models';
 	import { PUBLIC_SITE_URL } from '$env/static/public';
 	import { Toggle } from 'flowbite-svelte';
+	import ModelSettings from '$lib/components/ModelSettings.svelte';
 
 	let drawerOpen = false;
 
@@ -50,7 +51,17 @@
 	let settings = {
 		name: data.model.name,
 		greeting: data.model.settings.greeting,
-		public: data.model.settings.public
+		public: data.model.settings.public,
+		allowedUrls: data.model.settings.allowedUrls
+	};
+	$:console.log(settings.allowedUrls);
+	const addUrl = (url: string) => {
+		settings.allowedUrls = [...settings.allowedUrls, url];
+	};
+
+	const removeUrl = (i: number) => {
+		settings.allowedUrls.splice(i, 1);
+		settings.allowedUrls = [...settings.allowedUrls];
 	};
 
 	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="border: none;"></iframe>`;
@@ -100,7 +111,8 @@
 			<div class="flex items-center justify-between mb-4">
 				<h5>Settings</h5>
 			</div>
-			<form
+			<ModelSettings id={data.model.id} name={data.model.name} settings={data.model.settings} />
+			<!-- <form
 				on:submit={updateModel(data.model.id, data.model.name, settings)}
 				class="space-y-4 mb-10"
 			>
@@ -135,8 +147,27 @@
 						<span class="label-text">Public</span>
 					</label>
 				</div>
+				{#if settings.public}
+					{#each settings.allowedUrls as url, i}
+						<div class="form-control w-full max-w-lg">
+							<div class="input-group">
+								<input
+									name="url-{i}"
+									bind:value={settings.allowedUrls[i]}
+									class="input input-bordered"
+								/>
+								<button class="btn text-red-400" on:click={() => removeUrl(i)}><Icon icon="mdi:minus-circle-outline" width="16" /></button>
+								
+							</div>
+						</div>
+					{/each}
+					<button
+						class="btn"
+						type="button"
+						on:click={() => addUrl('')}>+ add</button>
+				{/if}
 				<button class="btn btn-primary" type="submit">Save</button>
-			</form>
+			</form> -->
 
 			<h6>Embed Code</h6>
 			<div class="mockup-code w-full">
