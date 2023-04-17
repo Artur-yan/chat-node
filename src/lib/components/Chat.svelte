@@ -1,6 +1,7 @@
 <script lang="ts">
     import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 
+	export let modelId: string
 	export let theme = {
 		bg: 'transparent',
 		botBubbleBG: '#E9E9E9',
@@ -10,24 +11,32 @@
 		inputBG: '#FFFFFF',
 		inputText: '#000'
 	};
-	export let greeting = 'What can I help you with?';
-	export let messages = [
-		{
-			text: greeting,
-			sender: 'bot'
-		}
-	];
+	export let messages;
 	export let inputPlaceholder = 'Type your message';
 	let inputVal: string;
 	let disabled = false;
+	let isThinking = false;
+
+	let chatWindow: HTMLElement
+
 
 	const addMessage = (message: string, sender = 'bot') => {
 		messages = [...messages, { text: message, sender: sender }];
+
 	};
+
+	const scrollToBottom = () => {
+		setTimeout(() => {
+			chatWindow.scrollTop = chatWindow.scrollHeight;
+		}, 100)
+	}
+	
 
 	const queryModel = async (chatKey: string, message: string) => {
 		addMessage(message, 'user');
 		inputVal = '';
+		isThinking = true;
+		scrollToBottom()
 		try {
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/chat/${chatKey}`, {
 				method: 'POST',
@@ -39,14 +48,17 @@
 				})
 			});
 			const data = await res.json();
+			isThinking = false;
 			addMessage(data.message);
+			scrollToBottom()
 		} catch (err) {
-			console.error(err);BG
+			isThinking = false;
+			console.error(err);
 		}
 	};
 </script>
 
-<section 	style="
+<section style="
     --bg: {theme.bg};
     --botBubbleBG: {theme.botBubbleBG};
     --botBubbleText: {theme.botBubbleText};
@@ -54,16 +66,25 @@
     --userBubbleText: {theme.userBubbleText};
     --inputBG: {theme.inputBG};
     --inputText: {theme.inputText};
-    background-color: var(--bg)">
+    background-color: var(--bg)"
+	class="h-screen flex flex-col justify-between">
 
 
 
 
-{#each messages as msg}
-	<div class="chat {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
-		<div class="chat-bubble">{msg.text}</div>
-	</div>
-{/each}
+<div class="overflow-y-auto scroll-smooth" bind:this={chatWindow}>
+	{#each messages as msg}
+		<div class="chat {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
+			<div class="chat-bubble">{msg.text}</div>
+		</div>
+	{/each}
+	{#if isThinking}
+		<div class="chat chat-start">
+			<div class="chat-bubble"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="4" cy="12" r="3" fill="currentColor"><animate id="svgSpinners3DotsBounce0" attributeName="cy" begin="0;svgSpinners3DotsBounce1.end+0.25s" calcMode="spline" dur="0.6s" keySplines=".33,.66,.66,1;.33,0,.66,.33" values="12;6;12"/></circle><circle cx="12" cy="12" r="3" fill="currentColor"><animate attributeName="cy" begin="svgSpinners3DotsBounce0.begin+0.1s" calcMode="spline" dur="0.6s" keySplines=".33,.66,.66,1;.33,0,.66,.33" values="12;6;12"/></circle><circle cx="20" cy="12" r="3" fill="currentColor"><animate id="svgSpinners3DotsBounce1" attributeName="cy" begin="svgSpinners3DotsBounce0.begin+0.2s" calcMode="spline" dur="0.6s" keySplines=".33,.66,.66,1;.33,0,.66,.33" values="12;6;12"/></circle></svg></div>
+		</div>
+	{/if}
+	<div id="chat-bottom" class="h-1"></div>
+</div>
 
 <form on:submit|preventDefault={() => queryModel(modelId, inputVal)} class="form-control p-2">
 	<div class="input-group">
@@ -76,19 +97,7 @@
 			{disabled}
 		/>
 		<button class="btn btn-square" type="submit">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-6 w-6"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				><path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-				/></svg
-			>
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.912 12H4L2.023 4.135A.662.662 0 0 1 2 3.995c-.022-.721.772-1.221 1.46-.891L22 12L3.46 20.896c-.68.327-1.464-.159-1.46-.867a.66.66 0 0 1 .033-.186L3.5 15"/></svg>
 		</button>
 	</div>
 </form>

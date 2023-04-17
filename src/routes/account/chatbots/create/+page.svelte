@@ -192,59 +192,6 @@
 		<h2>Customize</h2>
 		<div class="grid grid-cols-2 gap-4">
 			<ModelSettings {id} {name} {settings} />
-			<!-- <div class="space-y-4">
-				<div class="form-control w-full">
-					<label class="label" for="name">
-						<span class="label-text">Name</span>
-					</label>
-					<input
-						type="text"
-						name="name"
-						class="input input-bordered w-full max-w-sm"
-						bind:value={name}
-					/>
-				</div>
-				<div class="form-control w-full max-w-lg">
-					<label class="label" for="name">
-						<span class="label-text">Greeting</span>
-					</label>
-					<input
-						name="greeting"
-						bind:value={settings.greeting}
-						type="text"
-						class="input input-bordered w-full"
-					/>
-				</div>
-				<div class="form-control">
-					<label class="label cursor-pointer justify-start gap-4">
-						<span class="label-text">Private</span>
-						<input
-							type="checkbox"
-							class="toggle toggle-warning input-success"
-							bind:checked={settings.public}
-						/>
-						<span class="label-text">Public</span>
-					</label>
-				</div>
-				{#if settings.public}
-					{#each settings.allowedUrls as url, i}
-						<div class="form-control w-full max-w-lg">
-							<input
-								name="url-{i}"
-								bind:value={settings.allowedUrls[i]}
-								class="input input-bordered"
-							/>
-						</div>
-					{/each}
-					<button
-						class="btn"
-						type="button"
-						on:click={() => addUrl('')}>+ add</button>
-				{/if}
-				<button type="submit" class="btn" on:click={() => updateModel(id, name, settings)}
-					>Save</button
-				>
-			</div> -->
 			<div>
 				<div class="p-4 border border-slate-400 rounded-lg self-start">
 					<ChatWindow {theme}>

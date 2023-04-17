@@ -7,10 +7,7 @@
 	import ChatWindow from '$lib/components/ChatWindow.svelte';
 	import ChatBubble from '$lib/components/ChatBubble.svelte';
 	import ChatInput from '$lib/components/ChatInput.svelte';
-	import Icon from '@iconify/svelte';
-	import { updateModel } from '$lib/models';
 	import { PUBLIC_SITE_URL } from '$env/static/public';
-	import { Toggle } from 'flowbite-svelte';
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 
 	let drawerOpen = false;
