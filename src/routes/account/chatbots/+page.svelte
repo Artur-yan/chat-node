@@ -5,25 +5,26 @@
 
 	export let data;
 
-	let deleteModalOpen = false
-	let embedModalOpen = false
+	let deleteModalOpen = false;
+	let embedModalOpen = false;
 
 	let modalData = {
 		id: '',
 		name: ''
-	}
+	};
 
-	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${modalData.id}" width="100%" height="100%" style="border: none;"></iframe>`;
+	let iframeEmbedCode = '';
+
+	$: iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${modalData.id}" width="100%" height="100%" style="border: none;"></iframe>`;
 
 	const openDeleteModal = (data: Object) => {
 		deleteModalOpen = true;
 		modalData = data;
-	}
+	};
 	const openEmbedModal = (data: Object) => {
 		embedModalOpen = true;
 		modalData = data;
-	}
-
+	};
 </script>
 
 <div class="container">
@@ -66,7 +67,9 @@
 							{bot.name}
 						</h2>
 						<p>
-							created <span class="badge badge-secondary">{bot.created.toLocaleString('en-us')}</span>
+							created <span class="badge badge-secondary"
+								>{bot.created.toLocaleString('en-us')}</span
+							>
 						</p>
 						<p>
 							type <span class="badge badge-secondary">{bot.data_source_type}</span>
@@ -74,16 +77,22 @@
 						<p>
 							id <span class="badge badge-outline">{bot.id}</span>
 						</p>
-							
+
 						<div class="card-actions justify-end mt-10">
 							<div class="btn-group">
 								<a class="btn btn-primary" href="chatbots/{bot.id}">
 									<Icon icon="mdi:chat-outline" class="mr-2" width="20" /> Chat
 								</a>
-								<button class="btn btn-primary" on:click={() => openDeleteModal({id: bot.id, name: bot.name})}>
+								<button
+									class="btn btn-primary"
+									on:click={() => openDeleteModal({ id: bot.id, name: bot.name })}
+								>
 									<Icon icon="mdi:delete-outline" width="18" />
 								</button>
-								<button class="btn btn-primary" on:click={() => openEmbedModal({id: bot.id, name: bot.name})}>
+								<button
+									class="btn btn-primary"
+									on:click={() => openEmbedModal({ id: bot.id, name: bot.name })}
+								>
 									<Icon icon="mdi:code" width="18" />
 								</button>
 							</div>
@@ -103,8 +112,14 @@
 	<div class="modal-box">
 		<h3 class="font-bold text-lg">Are you sure you want to delete {modalData.name}</h3>
 		<div class="modal-action">
-			<button class="btn btn-secondary" on:click={() => deleteModalOpen = false}>cancel</button>
-			<button class="btn btn-error" on:click={() => { deleteModel(modalData.id); deleteModalOpen = false }}>Delete</button>
+			<button class="btn btn-secondary" on:click={() => (deleteModalOpen = false)}>cancel</button>
+			<button
+				class="btn btn-error"
+				on:click={() => {
+					deleteModel(modalData.id);
+					deleteModalOpen = false;
+				}}>Delete</button
+			>
 		</div>
 	</div>
 </div>
@@ -115,8 +130,7 @@
 			<pre><code>{iframeEmbedCode}</code></pre>
 		</div>
 		<div class="modal-action">
-			<button class="btn btn-secondary" on:click={() => embedModalOpen = false}>Done</button>
-	
+			<button class="btn btn-secondary" on:click={() => (embedModalOpen = false)}>Done</button>
 		</div>
 	</div>
 </div>
