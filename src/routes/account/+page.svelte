@@ -2,8 +2,6 @@
 
 	export let data;
 
-	console.log(data)
-
 	let plan = data.plan.current_plan;
 
 	const updatePlan = async () => {
