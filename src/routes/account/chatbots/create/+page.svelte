@@ -193,19 +193,40 @@
 		<h2>Customize</h2>
 		<div class="grid grid-cols-2 gap-4">
 			<div class="space-y-4">
-				<div>
-					<label for="name">Name</label>
-					<input name="name" bind:value={name} type="text" class="w-3/4" />
+				<div class="form-control w-full">
+					<label class="label" for="name">
+						<span class="label-text">Name</span>
+					</label>
+					<input
+						type="text"
+						name="name"
+						class="input input-bordered w-full max-w-sm"
+						bind:value={name}
+					/>
 				</div>
-				<div>
-					<label for="greeting">Greeting</label>
-					<input name="greeting" bind:value={settings.greeting} type="text" class="w-3/4" />
+				<div class="form-control w-full max-w-lg">
+					<label class="label" for="name">
+						<span class="label-text">Greeting</span>
+					</label>
+					<input
+						name="greeting"
+						bind:value={settings.greeting}
+						type="text"
+						class="input input-bordered w-full"
+					/>
 				</div>
-				<div>
-					<!-- <Toggle value={settings.public} checked={settings.public}>Public?</Toggle> -->
-					<input type="checkbox" class="toggle toggle-success" bind:checked={settings.public} />
+				<div class="form-control">
+					<label class="label cursor-pointer justify-start gap-4">
+						<span class="label-text">Private</span>
+						<input
+							type="checkbox"
+							class="toggle toggle-warning input-success"
+							bind:checked={settings.public}
+						/>
+						<span class="label-text">Public</span>
+					</label>
 				</div>
-				<button type="submit" class="button" on:click={() => updateModel(id, name, settings)}
+				<button type="submit" class="btn" on:click={() => updateModel(id, name, settings)}
 					>Save</button
 				>
 			</div>
