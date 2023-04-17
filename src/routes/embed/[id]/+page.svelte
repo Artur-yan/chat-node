@@ -35,18 +35,10 @@
 		}
 	};
 
-	let theme = {
-		bg: '#FFFFFF',
-		gptBubble: '#E9E9E9',
-		userBubble: '#2C6BED',
-		gptBubbleText: '#222222',
-		userBubbleText: '#FFFFFF',
-		inputText: '#000'
-	};
-
-	let greeting = data.bot.greeting;
+	let greeting = data.bot.settings.greeting;
 	let chatInput: HTMLInputElement;
 	let input: string;
+	import Chat from '$lib/components/Chat.svelte';
 
 	let messages = [
 		{
@@ -56,21 +48,20 @@
 	];
 </script>
 
-<div class="container">
-	<h1 class="py-2">{data.bot.name ? data.bot.name : data.bot.id}</h1>
-	<ChatWindow {theme}>
-		<svelte:fragment slot="messages">
-			{#each messages as { text, sender }}
-				<ChatBubble {text} {sender} />
-			{/each}
-		</svelte:fragment>
-		<div slot="input">
-			<ChatInput
-				bind:this={chatInput}
-				autofocus={false}
-				on:submit={() => queryChat($page.params.id, input)}
-				bind:input
-			/>
-		</div>
-	</ChatWindow>
-</div>
+<!-- <ChatWindow {theme}>
+	<svelte:fragment slot="messages">
+		{#each messages as { text, sender }}
+			<ChatBubble {text} {sender} />
+		{/each}
+	</svelte:fragment>
+	<div slot="input">
+		<ChatInput
+			bind:this={chatInput}
+			autofocus={false}
+			on:submit={() => queryChat($page.params.id, input)}
+			bind:input
+		/>
+	</div>
+</ChatWindow> -->
+
+<Chat {messages} {greeting} />
