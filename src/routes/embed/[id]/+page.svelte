@@ -14,3 +14,11 @@
 </script>
 
 <Chat modelId={data.bot.id} {messages} />
+
+<div>
+	<style>
+		body{
+			background-color: transparent !important;
+		}
+	</style>
+</div>
