@@ -48,8 +48,9 @@
 
 	let step = 1;
 
-	let textData: string;
 	let files: FileList | undefined;
+	let textData: string;
+	let url: string;
 
 	let isTraining = false
 	let trainingMessage = 'Training your chatbot';
@@ -109,6 +110,21 @@
 		return data;
 	};
 
+	const handleUrlTraining = async () => {
+		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				urls: [url],
+				user_id: user.userId
+			})
+		});
+		const data = await res.json();
+		return data;
+	};
+
 	const handleSubmit = async (dataType: 'text' | 'file' | 'url') => {
 		isTraining = true;
 		step++;
@@ -126,6 +142,16 @@
 			case 'file':
 				try {
 					const data = await handleFileTraining();
+					id = data.chat_key;
+				} catch (err) {
+					console.error(err);
+					isTraining = true;
+					trainingMessage = 'There was an error training your chatbot.';
+				}
+				break;
+			case 'file':
+				try {
+					const data = await handleUrlTraining();
 					id = data.chat_key;
 				} catch (err) {
 					console.error(err);
@@ -184,6 +210,19 @@
 				/>
 
 				<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('text')}
+					>Train Bot</button
+				>
+			</div>
+		{:else if activeTab == 2}
+			<div class="input-group">
+				<input
+					type="text"
+					placeholder="example.com"
+					class="input input-bordered"
+					bind:value={url}
+				/>
+
+				<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('url')}
 					>Train Bot</button
 				>
 			</div>
