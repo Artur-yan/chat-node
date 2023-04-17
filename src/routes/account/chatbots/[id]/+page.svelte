@@ -85,28 +85,14 @@
 				</div>
 				<label for="settings-drawer" class="drawer-button btn btn-primary">Settings</label>
 			</div>
-			<ChatWindow {theme}>
-				<svelte:fragment slot="messages">
-					{#each messages as { text, sender }}
-						<ChatBubble {text} {sender} />
-					{/each}
-				</svelte:fragment>
-				<div slot="input">
-					<ChatInput
-						bind:this={chatInput}
-						autofocus={false}
-						on:submit={() => queryChat($page.params.id, input)}
-						bind:input
-					/>
-				</div>
-			</ChatWindow>
+			<iframe src="https://gpt-delta-henna.vercel.app/embed/{data.model.id}" width="100%" height="100%" style="border: none;" title="Chat Bot - {settings.name}"></iframe>
 		</div>
 	</div>
 	<div class="drawer-side">
 		<label for="settings-drawer" class="drawer-overlay" />
 		<ul class="menu p-4 w-full md:w-2/3 lg:w-1/2 bg-base-100 text-base-content">
 			<div class="flex items-center justify-between mb-4">
-				<h5>Settings</h5>
+				<h5>Settings</h5>	
 			</div>
 			<ModelSettings id={data.model.id} name={data.model.name} settings={data.model.settings} />
 			<!-- <form
