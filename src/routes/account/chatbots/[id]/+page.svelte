@@ -100,7 +100,10 @@
 			<div class="flex items-center justify-between mb-4">
 				<h5>Settings</h5>
 			</div>
-			<form on:submit={updateModel(data.model.id, data.model.name, settings)} class="space-y-4 mb-10">
+			<form
+				on:submit={updateModel(data.model.id, data.model.name, settings)}
+				class="space-y-4 mb-10"
+			>
 				<div>
 					<label for="name" class="label">
 						<span class="label-text">Name</span>

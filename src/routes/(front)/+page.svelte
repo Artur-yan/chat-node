@@ -12,12 +12,10 @@
 				GPT-4 meets the stength of your knowledge.
 			</h2>
 			<p class="mb-10 font-light text-xl">
-				Train highly advanced AI interfaces on any text, file or website you choose. Use it internally or make it public facing to answer customer's questions.
+				Train highly advanced AI interfaces on any text, file or website you choose. Use it
+				internally or make it public facing to answer customer's questions.
 			</p>
-			<a
-				href="/"
-				class="btn text-primary"
-			>
+			<a href="/" class="btn text-primary">
 				Get started
 				<svg
 					class="ml-2 -mr-1 w-5 h-5"
