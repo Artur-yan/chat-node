@@ -13,4 +13,4 @@
 	];
 </script>
 
-<Chat modelId={data.bot.id} {messages} />
+<Chat modelId={data.bot.id} {messages} />	

@@ -111,7 +111,7 @@
 	};
 
 	const handleUrlTraining = async () => {
-		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model`, {
+		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/urls`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -122,6 +122,7 @@
 			})
 		});
 		const data = await res.json();
+		console.log(data)
 		return data;
 	};
 
@@ -149,7 +150,7 @@
 					trainingMessage = 'There was an error training your chatbot.';
 				}
 				break;
-			case 'file':
+			case 'url':
 				try {
 					const data = await handleUrlTraining();
 					id = data.chat_key;
@@ -162,6 +163,7 @@
 			case 'url':
 			// statements
 		}
+
 
 		addModel(id, dataType, name, settings);
 		trainingMessage = 'Your chatbot is ready to go!';
@@ -215,16 +217,19 @@
 			</div>
 		{:else if activeTab == 2}
 			<div class="input-group">
-				<input
-					type="text"
-					placeholder="example.com"
-					class="input input-bordered"
-					bind:value={url}
-				/>
+				<form on:submit={() => handleSubmit('url')}>
 
-				<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('url')}
-					>Train Bot</button
-				>
+					<input
+						type="text"
+						placeholder="example.com"
+						class="input input-bordered"
+						bind:value={url}
+					/>
+	
+					<button class="btn btn-primary" type="submit"
+						>Train Bot</button
+					>
+				</form>
 			</div>
 		{/if}
 	{:else if step == 2}
