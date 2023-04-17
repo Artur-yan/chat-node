@@ -1,23 +1,21 @@
 <script lang="ts">
-
 	export let data;
 
 	let plan = data.plan.current_plan;
 
 	const updatePlan = async () => {
-		try{
-			await fetch ('/api/account/plan', {
+		try {
+			await fetch('/api/account/plan', {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({plan})
+				body: JSON.stringify({ plan })
 			});
-		} catch(err) {
+		} catch (err) {
 			console.error(err);
 		}
-	}
-
+	};
 </script>
 
 <form on:submit={updatePlan}>
@@ -82,7 +80,7 @@
 		@apply card-compact bg-neutral shadow-xl;
 	}
 
-	input:checked + .card .btn{
+	input:checked + .card .btn {
 		@apply btn-primary;
 	}
 

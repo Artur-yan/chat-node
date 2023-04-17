@@ -8,12 +8,10 @@
 
 	let drawerOpen = false;
 
-
 	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="border: none;"></iframe>`;
 
 	let chatInput: HTMLInputElement;
 	let input: string;
-
 </script>
 
 <div class="drawer drawer-end h-full">
@@ -34,7 +32,7 @@
 		<label for="settings-drawer" class="drawer-overlay" />
 		<ul class="menu p-4 w-full md:w-2/3 lg:w-1/2 bg-base-100 text-base-content">
 			<div class="flex items-center justify-between mb-4">
-				<h5>Settings</h5>	
+				<h5>Settings</h5>
 			</div>
 			<ModelSettings id={data.model.id} name={data.model.name} settings={data.model.settings} />
 			<h6>Embed Code</h6>

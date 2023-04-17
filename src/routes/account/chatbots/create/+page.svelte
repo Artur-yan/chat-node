@@ -52,7 +52,7 @@
 	let textData: string;
 	let url: string;
 
-	let isTraining = false
+	let isTraining = false;
 	let trainingMessage = 'Training your chatbot';
 
 	const addMessage = (message: string, sender = 'bot') => {
@@ -122,7 +122,7 @@
 			})
 		});
 		const data = await res.json();
-		console.log(data)
+		console.log(data);
 		return data;
 	};
 
@@ -164,7 +164,6 @@
 			// statements
 		}
 
-
 		addModel(id, dataType, name, settings);
 		trainingMessage = 'Your chatbot is ready to go!';
 		isTraining = false;
@@ -174,30 +173,26 @@
 
 <div class="container mt-10">
 	{#if step == 1}
-	<h2 class="mb-6 text-2xl font-light">How would you like to train your chatbot?</h2>
-	<div class="tabs tabs-boxed mb-10">
-		<label class="tab tab-lg" class:tab-active={activeTab == 0}>
-			<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
-			Upload a file 
-		</label>
-		<label class="tab tab-lg" class:tab-active={activeTab == 1}>
-			<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
-			Copy/paste text
-		</label>
-		<label class="tab tab-lg" class:tab-active={activeTab == 2}>
-			<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
-			Scrape a URL
-		</label>
-	  </div>
+		<h2 class="mb-6 text-2xl font-light">How would you like to train your chatbot?</h2>
+		<div class="tabs tabs-boxed mb-10">
+			<label class="tab tab-lg" class:tab-active={activeTab == 0}>
+				<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
+				Upload a file
+			</label>
+			<label class="tab tab-lg" class:tab-active={activeTab == 1}>
+				<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
+				Copy/paste text
+			</label>
+			<label class="tab tab-lg" class:tab-active={activeTab == 2}>
+				<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
+				Scrape a URL
+			</label>
+		</div>
 
 		{#if activeTab == 0}
 			<div class="form-control">
 				<div class="input-group">
-					<input
-						type="file"
-						class="file-input file-input-bordered file-input-primary"
-						bind:files
-					/>
+					<input type="file" class="file-input file-input-bordered file-input-primary" bind:files />
 					<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('file')}
 						>Train Bot</button
 					>
@@ -218,17 +213,14 @@
 		{:else if activeTab == 2}
 			<div class="input-group">
 				<form on:submit={() => handleSubmit('url')}>
-
 					<input
 						type="text"
 						placeholder="example.com"
 						class="input input-bordered"
 						bind:value={url}
 					/>
-	
-					<button class="btn btn-primary" type="submit"
-						>Train Bot</button
-					>
+
+					<button class="btn btn-primary" type="submit">Train Bot</button>
 				</form>
 			</div>
 		{/if}

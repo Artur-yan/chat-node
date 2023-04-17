@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-export const load = async ({locals}) => {
+export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
-	if(!session) return;
+	if (!session) return;
 
 	try {
 		const plan = await prisma.authUser.findUnique({
@@ -15,11 +15,8 @@ export const load = async ({locals}) => {
 			}
 		});
 
-		return {session, plan};
-
+		return { session, plan };
 	} catch (err) {
 		console.error(err);
 	}
-
-
 };
