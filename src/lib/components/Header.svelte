@@ -1,7 +1,6 @@
 <script>
 	export let user;
 
-	import { Dropdown } from 'flowbite-svelte';
 
 	import Icon from '@iconify/svelte';
 
