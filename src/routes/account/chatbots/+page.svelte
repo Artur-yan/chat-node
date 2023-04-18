@@ -2,21 +2,15 @@
 	import Icon from '@iconify/svelte';
 	import { deleteModel } from '$lib/models';
 	import { PUBLIC_SITE_URL } from '$env/static/public';
-	import { invalidateAll } from '$app/navigation';
-
+	import ModelSettings from '$lib/components/ModelSettings.svelte';
 	export let data;
 
-	let deleteModalOpen = false;
-	let embedModalOpen = false;
+	let deleteModalOpen = false
+	let embedModalOpen = false
+	let settingsModalOpen = false;
 
-	let modalData = {
-		id: '',
-		name: ''
-	};
-
-	let iframeEmbedCode = '';
-
-	$: iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${modalData.id}" width="100%" height="100%" style="border: none;"></iframe>`;
+	let modalData
+	let iframeEmbedCode
 
 	const openDeleteModal = (data: Object) => {
 		deleteModalOpen = true;
@@ -25,14 +19,18 @@
 	const openEmbedModal = (data: Object) => {
 		embedModalOpen = true;
 		modalData = data;
+		iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${modalData.id}" width="100%" height="100%" style="border: none;"></iframe>`;
+	};
+	const openSettingsModal = (data: Object) => {
+		settingsModalOpen = true;
+		modalData = data;
 	};
 </script>
 
 <div class="container">
 	<div class="flex justify-between my-4 items-center">
 		<div>
-			<h1 class="text-sm">Account</h1>
-			<h2 class="text-2xl mb-2">Chatbots</h2>
+			<h1 class="text-2xl mb-2">Chatbots</h1>
 		</div>
 		<a href="/account/chatbots/create" class="btn btn-primary"> + Create new chatbot </a>
 	</div>
@@ -57,22 +55,28 @@
 							id <span class="badge badge-outline">{bot.id}</span>
 						</p>
 
-						<div class="card-actions justify-end mt-10">
-							<div class="btn-group">
-								<a class="btn btn-primary" href="chatbots/{bot.id}">
-									<Icon icon="mdi:chat-outline" class="mr-2" width="20" /> Chat
-								</a>
+						<div class="card-actions justify-between mt-10">
+							<a class="btn btn-outline" href="chatbots/{bot.id}">
+								<Icon icon="mdi:chat-outline" class="mr-2" width="20" /> Chat
+							</a>
+							<div class="btn-group bg-base-100 rounded-lg">
 								<button
-									class="btn btn-primary"
+									class="btn btn-ghost"
 									on:click={() => openDeleteModal({ id: bot.id, name: bot.name })}
 								>
 									<Icon icon="mdi:delete-outline" width="18" />
 								</button>
 								<button
-									class="btn btn-primary"
+									class="btn btn-ghost"
 									on:click={() => openEmbedModal({ id: bot.id, name: bot.name })}
 								>
 									<Icon icon="mdi:code" width="18" />
+								</button>
+								<button
+									class="btn btn-ghost"
+									on:click={() => openSettingsModal({ id: bot.id, name: bot.name, settings: bot.settings })}
+								>
+									<Icon icon="mdi:settings" width="18" />
 								</button>
 							</div>
 						</div>
@@ -89,7 +93,7 @@
 
 <div class="modal" class:modal-open={deleteModalOpen}>
 	<div class="modal-box">
-		<h3 class="font-bold text-lg">Are you sure you want to delete {modalData.name}</h3>
+		<h3 class="font-bold text-lg">Are you sure you want to delete?</h3>
 		<div class="modal-action">
 			<button class="btn btn-secondary" on:click={() => (deleteModalOpen = false)}>cancel</button>
 			<button
@@ -105,7 +109,7 @@
 </div>
 <div class="modal" class:modal-open={embedModalOpen}>
 	<div class="modal-box">
-		<h3 class="font-bold text-lg">Copy code to embed {modalData.name}</h3>
+		<h3 class="font-bold text-lg">Copy code to embed {modalData}</h3>
 		<div class="mockup-code w-full">
 			<pre><code>{iframeEmbedCode}</code></pre>
 		</div>
@@ -114,3 +118,12 @@
 		</div>
 	</div>
 </div>
+
+{#if settingsModalOpen}
+	<div class="modal" class:modal-open={settingsModalOpen}>
+		<div class="modal-box">
+			<h3 class="font-bold text-lg">Settings for {modalData.id}</h3>
+			<ModelSettings id={modalData.id} name={modalData.name} settings={modalData.settings} />
+		</div>
+	</div>
+{/if}
