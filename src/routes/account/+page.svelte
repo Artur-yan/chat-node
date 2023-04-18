@@ -21,7 +21,7 @@
 <form on:submit={updatePlan}>
 	<div class="container my-20 grid grid-cols-3 gap-8">
 		<label>
-			<input class="peer hidden" type="radio" name="plan" value="FREE" bind:group={plan} />
+			<input class="peer hidden" type="radio" name="plan" value="free" bind:group={plan} />
 			<div class="card">
 				<h2 class="card-title p-4 bg-cyan-900 rounded-lg">FREE</h2>
 				<div class="card-body">
@@ -37,7 +37,7 @@
 			</div>
 		</label>
 		<label>
-			<input class="peer hidden" type="radio" name="plan" value="1" bind:group={plan} />
+			<input class="peer hidden" type="radio" name="plan" value="plus" bind:group={plan} />
 			<div class="card">
 				<h2 class="card-title p-4 bg-primary rounded-lg text-neutral">PLUS</h2>
 				<div class="card-body">
@@ -53,7 +53,7 @@
 			</div>
 		</label>
 		<label>
-			<input class="peer hidden" type="radio" name="plan" value="2" bind:group={plan} />
+			<input class="peer hidden" type="radio" name="plan" value="pro" bind:group={plan} />
 			<div class="card">
 				<h2 class="card-title p-4 bg-secondary rounded-lg text-neutral">PRO</h2>
 				<div class="card-body">
@@ -78,6 +78,10 @@
 <style lang="postcss">
 	.card {
 		@apply card-compact bg-neutral shadow-xl;
+	}
+
+	input:checked + .card .btn {
+		@apply btn-primary;
 	}
 
 	ul {
