@@ -1,5 +1,4 @@
 import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-import { redirect } from '@sveltejs/kit';
 
 export const PUT = async ({ request, locals }) => {
 	const { plan } = await request.json();
