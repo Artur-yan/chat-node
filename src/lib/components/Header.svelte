@@ -51,10 +51,10 @@
 							><Icon icon="mdi:account-circle-outline" width="32" /></label
 						>
 						<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-64">
-							<li><a href="/account">account settings</a></li>
+							<li><a href="/account">My account</a></li>
 							<li>
 								<form action="/logout" method="POST">
-									<button type="submit">sign out</button>
+									<button type="submit">Sign out</button>
 								</form>
 							</li>
 						</ul>
