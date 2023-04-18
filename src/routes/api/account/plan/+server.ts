@@ -10,11 +10,12 @@ export const PUT = async ({ request, locals }) => {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: {
+			body: JSON.stringify({
 				user_id: session.userId,
 				plan: plan
-			}
+			})
 		});
+		console.log(res)
 	} catch (err) {
 		return new Response('Error updating plan', { status: 500 });
 	}
