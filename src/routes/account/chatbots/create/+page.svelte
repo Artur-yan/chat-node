@@ -4,7 +4,6 @@
 	import ChatBubble from '$lib/components/ChatBubble.svelte';
 	import ChatInput from '$lib/components/ChatInput.svelte';
 	import TrainingStatus from '$lib/components/TrainingStatus.svelte';
-	import Icon from '@iconify/svelte';
 	import { addModel, updateModel } from '$lib/models';
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 
@@ -48,12 +47,11 @@
 
 	let step = 1;
 
+	let trainingStatus: null | 'training' | 'done' | 'error' = null;
+
 	let files: FileList | undefined;
 	let textData: string;
 	let url: string;
-
-	let isTraining = false;
-	let trainingMessage = 'Training your chatbot';
 
 	const addMessage = (message: string, sender = 'bot') => {
 		messages = [...messages, { text: message, sender: sender }];
@@ -127,7 +125,7 @@
 	};
 
 	const handleSubmit = async (dataType: 'text' | 'file' | 'url') => {
-		isTraining = true;
+		trainingStatus = 'training';
 		step++;
 
 		switch (dataType) {
@@ -136,7 +134,7 @@
 					const data = await handleTextTraining();
 					id = data.chat_key;
 				} catch (err) {
-					isTraining = false;
+					trainingStatus = 'error';
 					console.error(err);
 				}
 				break;
@@ -146,8 +144,7 @@
 					id = data.chat_key;
 				} catch (err) {
 					console.error(err);
-					isTraining = true;
-					trainingMessage = 'There was an error training your chatbot.';
+					trainingStatus = 'error';
 				}
 				break;
 			case 'url':
@@ -156,8 +153,7 @@
 					id = data.chat_key;
 				} catch (err) {
 					console.error(err);
-					isTraining = true;
-					trainingMessage = 'There was an error training your chatbot.';
+					trainingStatus = 'error';
 				}
 				break;
 			case 'url':
@@ -165,8 +161,7 @@
 		}
 
 		addModel(id, dataType, name, settings);
-		trainingMessage = 'Your chatbot is ready to go!';
-		isTraining = false;
+		trainingStatus = 'done';
 		addMessage("I've been trained on your data and I'm ready to give you custom repsonses.");
 	};
 </script>
@@ -248,5 +243,5 @@
 		</div>
 	{/if}
 
-	<TrainingStatus visible={step == 2} {isTraining} {trainingMessage} />
+	<TrainingStatus {trainingStatus} />
 </div>
