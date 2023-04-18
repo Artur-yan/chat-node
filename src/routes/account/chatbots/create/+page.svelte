@@ -190,20 +190,17 @@
 		</div>
 
 		{#if activeTab == 0}
-			<div class="form-control">
-				<div class="input-group">
 					<input type="file" class="file-input file-input-bordered file-input-primary" bind:files />
 					<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('file')}
 						>Train Bot</button
 					>
-				</div>
-			</div>
 		{:else if activeTab == 1}
 			<div>
 				<textarea
-					placeholder="Paste Your Text Here"
+					placeholder="Paste your text"
 					class="textarea textarea-bordered textarea-sm w-full"
 					bind:value={textData}
+					rows="8"
 				/>
 
 				<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('text')}
