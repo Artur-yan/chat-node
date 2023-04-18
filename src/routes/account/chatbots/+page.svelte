@@ -2,6 +2,7 @@
 	import Icon from '@iconify/svelte';
 	import { deleteModel } from '$lib/models';
 	import { PUBLIC_SITE_URL } from '$env/static/public';
+	import { invalidateAll } from '$app/navigation';
 
 	export let data;
 
@@ -39,7 +40,7 @@
 	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 		{#if data.bots.length > 0}
 			{#each data.bots as bot}
-				<div class="card shadow-xl bg-neutral">
+				<div class="bot-{bot.id} card shadow-xl bg-neutral">
 					<div class="card-body">
 						<h2 class="card-title">
 							{bot.name}
@@ -96,6 +97,7 @@
 				on:click={() => {
 					deleteModel(modalData.id);
 					deleteModalOpen = false;
+					document.querySelector(`.bot-${modalData.id}`).remove();
 				}}>Delete</button
 			>
 		</div>
