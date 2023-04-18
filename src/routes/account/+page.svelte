@@ -21,12 +21,37 @@
 			console.error(err);
 		}
 	};
+
+	const redirectToStripeBilling = async () => {
+		try {
+			const res = await fetch('/api/account/billing', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: ''
+			});
+			const url = await res.json();
+			console.log(url)
+			goto(url);
+		} catch (err) {
+			console.error(err);
+		}
+	};
 </script>
 
+<div class="container flex justify-between my-10">
+	<h1 class="font-bold text-lg text-secondary">Account</h1>
+	<div class="btn-group">
+		<a href="#" class="btn text-primary">Account settings</a>
+		<button class="btn text-primary" on:click={redirectToStripeBilling}>Billing history/Payment</button>
+	</div>
+</div>
+
 <form on:submit={updatePlan}>
-	<div class="container my-20 grid grid-cols-3 gap-8">
+	<div class="container grid grid-cols-3 gap-8">
 		<label>
-			<input class="peer hidden" type="radio" name="plan" value="free" bind:group={plan} />
+			<input class="peer hidden" type="radio" name="plan" value={0} bind:group={plan} />
 			<div class="card">
 				<h2 class="card-title p-4 bg-cyan-900 rounded-lg">FREE</h2>
 				<div class="card-body">
@@ -42,7 +67,7 @@
 			</div>
 		</label>
 		<label>
-			<input class="peer hidden" type="radio" name="plan" value="plus" bind:group={plan} />
+			<input class="peer hidden" type="radio" name="plan" value={1} bind:group={plan} />
 			<div class="card">
 				<h2 class="card-title p-4 bg-primary rounded-lg text-neutral">PLUS</h2>
 				<div class="card-body">
@@ -58,7 +83,7 @@
 			</div>
 		</label>
 		<label>
-			<input class="peer hidden" type="radio" name="plan" value="pro" bind:group={plan} />
+			<input class="peer hidden" type="radio" name="plan" value={2} bind:group={plan} />
 			<div class="card">
 				<h2 class="card-title p-4 bg-secondary rounded-lg text-neutral">PRO</h2>
 				<div class="card-body">
