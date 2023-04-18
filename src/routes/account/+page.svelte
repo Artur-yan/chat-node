@@ -80,10 +80,6 @@
 		@apply card-compact bg-neutral shadow-xl;
 	}
 
-	input:checked + .card .btn {
-		@apply btn-primary;
-	}
-
 	ul {
 		@apply divide-y divide-base-100 py-4;
 	}
