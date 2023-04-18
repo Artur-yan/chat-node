@@ -11,8 +11,9 @@ model AuthUser {
   id                 String        @id @unique
   email              String        @unique
   stripe_customer_id String?       @unique
-  current_plan       String        @default("FREE")
   remaining_msg      Int           @default(30)
+  bot_remaining      Int           @default(0) @db.SmallInt
+  current_plan       Int           @default(0) @db.SmallInt
   auth_key           AuthKey[]
   auth_session       AuthSession[]
   bots               Bots[]
