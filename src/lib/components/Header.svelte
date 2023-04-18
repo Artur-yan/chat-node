@@ -27,7 +27,7 @@
 		<div class="flex flex-wrap justify-between items-center">
 			<div class="flex items-center gap-10">
 				<a href="/" class="py-4">
-					<span class="text-xl">My.AI</span>
+					<span class="text-xl">GPTchatbot.ai</span>
 				</a>
 				<div class="hidden lg:flex">
 					<ul class="flex flex-col mt-4 lg:flex-row text-sm lg:space-x-8 lg:mt-0">
