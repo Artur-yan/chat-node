@@ -1,4 +1,5 @@
 import { PUBLIC_CHAT_API_URL } from '$env/static/public';
+import { redirect } from '@sveltejs/kit';
 
 export const PUT = async ({ request, locals }) => {
 	const { plan } = await request.json();
@@ -15,10 +16,10 @@ export const PUT = async ({ request, locals }) => {
 				plan: plan
 			})
 		});
-		console.log(res)
+		const { url } = await res.json()
+		return new Response(JSON.stringify(url), { status: 200 })
+		
 	} catch (err) {
-		return new Response('Error updating plan', { status: 500 });
+		return new Response('There was an error', { status: 500 });
 	}
-
-	return new Response();
 };

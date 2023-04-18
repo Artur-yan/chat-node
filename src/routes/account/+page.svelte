@@ -1,17 +1,22 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+
 	export let data;
 
 	let plan = data.plan.current_plan;
 
 	const updatePlan = async () => {
 		try {
-			await fetch('/api/account/plan', {
+			const res = await fetch('/api/account/plan', {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({ plan })
 			});
+			const url = await res.json();
+			goto(url);
+			
 		} catch (err) {
 			console.error(err);
 		}
