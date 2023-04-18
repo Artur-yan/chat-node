@@ -39,28 +39,6 @@
 	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 		{#if data.bots.length > 0}
 			{#each data.bots as bot}
-				<!-- <section
-					class="rounded border border-primary-700 hover:no-underline text-secondary-400 hover:bg-primary-900/50"
-				>
-					<div class="flex justify-between">
-						<h3 class="p-4">{bot.name ? bot.name : 'Unnamed' }</h3>
-
-					</div>
-					<a href="chatbots/{bot.id}" class="details block p-4">
-						<div>
-							<h4>Created on:</h4>
-							<p>{bot.created.toLocaleString('en-us')}</p>
-						</div>
-						<div>
-							<h4>Trained with:</h4>
-							<p>{bot.data_source_type}</p>
-						</div>
-						<div>
-							<h4>id:</h4>
-							<p class="truncate">{bot.id}</p>
-						</div>
-
-				</section> -->
 				<div class="card shadow-xl bg-neutral">
 					<div class="card-body">
 						<h2 class="card-title">
