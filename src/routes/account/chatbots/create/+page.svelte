@@ -175,15 +175,15 @@
 	{#if step == 1}
 		<h2 class="mb-6 text-2xl font-light">How would you like to train your chatbot?</h2>
 		<div class="tabs tabs-boxed mb-10">
-			<label class="tab tab-lg" class:tab-active={activeTab == 0}>
+			<label class="tab" class:tab-active={activeTab == 0}>
 				<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
 				Upload a file
 			</label>
-			<label class="tab tab-lg" class:tab-active={activeTab == 1}>
+			<label class="tab" class:tab-active={activeTab == 1}>
 				<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
 				Copy/paste text
 			</label>
-			<label class="tab tab-lg" class:tab-active={activeTab == 2}>
+			<label class="tab" class:tab-active={activeTab == 2}>
 				<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
 				Scrape a URL
 			</label>
