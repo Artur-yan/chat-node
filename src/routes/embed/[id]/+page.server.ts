@@ -18,7 +18,9 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
 			});
 			return { bot };
 		} else {
-			throw error(400, 'This bot is not public');
+			setHeaders({
+				'Content-Security-Policy': `frame-ancestors 'self'`
+			});
 		}
 	} catch (err) {
 		if (err.code == 'P2025') {
