@@ -1,14 +1,12 @@
 <script lang="ts">
+	import { PUBLIC_SITE_URL } from '$env/static/public';
+	import ModelSettings from '$lib/components/ModelSettings.svelte';
+	import Icon from '@iconify/svelte';
 
 	export let data;
 
-	import { PUBLIC_SITE_URL } from '$env/static/public';
-	import ModelSettings from '$lib/components/ModelSettings.svelte';
-
 	let drawerOpen = false;
-
-	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="border: none;"></iframe>`;
-
+	let iframeEmbedCode = `<iframe src="/embed/${data.model.id}" width="100%" height="100%" style="border: none;"></iframe>`;
 </script>
 
 <div class="drawer drawer-end h-3/4">
@@ -20,7 +18,16 @@
 					<h1 class="mr-2">{data.model.name}</h1>
 					<div class="text-xs text-primary-500">id:{data.model.id}</div>
 				</div>
-				<label for="settings-drawer" class="drawer-button btn btn-primary">Settings</label>
+				<div class="btn-group">
+					<button class="btn btn-sm">
+						<Icon icon="mdi:code" width="18" class="mr-2" />
+						Embed Code
+					</button>
+					<label for="settings-drawer" class="drawer-button btn btn-sm btn-primary">
+						<Icon icon="mdi:settings" width="18" />
+						Settings
+					</label>
+				</div>
 			</div>
 			{@html iframeEmbedCode}
 		</div>
@@ -32,10 +39,12 @@
 				<h5>Settings</h5>
 			</div>
 			<ModelSettings id={data.model.id} name={data.model.name} settings={data.model.settings} />
-			<h6>Embed Code</h6>
-			<div class="mockup-code w-full">
-				<pre><code>{iframeEmbedCode}</code></pre>
-			</div>
 		</ul>
 	</div>
+</div>
+
+
+<h6>Embed Code</h6>
+<div class="mockup-code w-full">
+	<pre><code>{iframeEmbedCode}</code></pre>
 </div>
