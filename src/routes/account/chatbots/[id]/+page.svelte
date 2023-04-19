@@ -11,10 +11,10 @@
 
 </script>
 
-<div class="drawer drawer-end h-full">
+<div class="drawer drawer-end h-3/4">
 	<input id="settings-drawer" type="checkbox" class="drawer-toggle" bind:checked={drawerOpen} />
-	<div class="drawer-content h-full">
-		<div class="container h-full">
+	<div class="drawer-content h-3/4">
+		<div class="container h-3/4">
 			<div class="flex items-center py-4 justify-between gap-4">
 				<div class="flex items-baseline">
 					<h1 class="mr-2">{data.model.name}</h1>
