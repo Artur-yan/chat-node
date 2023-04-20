@@ -4,6 +4,7 @@ import { Prisma } from '@prisma/client';
 import { redirect } from '@sveltejs/kit';
 import { LuciaError } from 'lucia-auth';
 import type { PageServerLoad } from './$types';
+import { prismaClient } from '$lib/server/prisma';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -33,8 +34,14 @@ export const actions: Actions = {
 				}
 			});
 			const session = await auth.createSession(user.userId);
+			await prismaClient.subscriptions.create({
+				data: {
+					user_id: user.userId,
+				}
+			});
 			locals.auth.setSession(session);
 		} catch (error) {
+			console.log(error)
 			if (
 				error instanceof Prisma.PrismaClientKnownRequestError &&
 				error.code === 'P2002' &&

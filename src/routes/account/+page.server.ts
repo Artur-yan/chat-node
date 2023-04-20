@@ -6,16 +6,13 @@ export const load = async ({ locals }) => {
 	if (!session) return;
 
 	try {
-		const plan = await prisma.authUser.findUnique({
+		const subscription = await prisma.subscriptions.findUnique({
 			where: {
-				id: session.userId
-			},
-			select: {
-				current_plan: true
+				user_id: session.userId
 			}
 		});
 
-		return { session, plan };
+		return { session, subscription };
 	} catch (err) {
 		console.error(err);
 	}

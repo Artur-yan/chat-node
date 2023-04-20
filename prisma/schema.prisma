@@ -8,14 +8,12 @@ datasource db {
 }
 
 model AuthUser {
-  id String @id @unique
-
-  email              String          @unique
-  stripe_customer_id String?         @unique
-  auth_key           AuthKey[]
-  auth_session       AuthSession[]
-  bots               Bots[]
-  subscription       Subscriptions[]
+  id           String         @id @unique
+  email        String         @unique
+  auth_key     AuthKey[]
+  auth_session AuthSession[]
+  bots         Bots[]
+  subscription Subscriptions?
 
   @@map("auth_user")
 }
@@ -63,7 +61,7 @@ model Subscriptions {
   max_msg         Int?      @default(30)
   plan            Int?      @default(0) @db.SmallInt
   last_reset_date DateTime? @default(dbgenerated("(now() AT TIME ZONE 'utc'::text)")) @db.Timestamptz(6)
-  AuthUser        AuthUser? @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  AuthUser        AuthUser  @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("subscriptions")
 }

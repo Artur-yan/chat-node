@@ -3,7 +3,8 @@
 
 	export let data;
 
-	let plan = data.plan.current_plan;
+
+	let plan = data.subscription.plan
 
 	const updatePlan = async () => {
 		try {
