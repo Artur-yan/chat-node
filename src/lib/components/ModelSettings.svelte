@@ -1,11 +1,15 @@
 <script lang="ts">
-	import { invalidateAll } from '$app/navigation';
-	import { updateModel } from '$lib/models';
+	import { updateModel, deleteModel } from '$lib/models';
+	import Modal from '$lib/components/Modal.svelte';
 	import Icon from '@iconify/svelte';
+	import { goto } from '$app/navigation';
 
 	export let id: string;
 	export let name: string;
 	export let settings: Object;
+	export let deleteEnabled = false
+
+	let deleteConfirmationModalOpen = false;
 
 	const addUrl = (url: string) => {
 		settings.allowedUrls = [...settings.allowedUrls, url];
@@ -69,6 +73,32 @@
 		{/each}
 		<button class="btn" type="button" on:click={() => addUrl('')}>+ Add URL</button>
 	{/if}
-	<br />
-	<button class="btn btn-primary" type="submit">Save</button>
+		<br />
+		
+	<div class="flex justify-between">
+		<button class="btn btn-primary" type="submit">Save</button>
+		{#if deleteEnabled}
+			<button class="btn hover:btn-error" type="button" on:click={() => deleteConfirmationModalOpen = true}>
+				<Icon icon="mdi:delete-outline" width="16" class="mr-2" />
+				Delete
+			</button>
+		{/if}
+	</div>
 </form>
+
+
+<Modal open={deleteConfirmationModalOpen}>
+	<h2 class="mb-4">Delete Model</h2>
+	<p class="mb-4">Are you sure you want to delete this model?</p>
+	<div class="flex justify-end">
+		<div class="modal-actions">
+
+			<button class="btn btn-warning" type="button" on:click={() => deleteConfirmationModalOpen = false}
+				>Cancel</button
+			>
+			<button class="btn btn-error" type="button" on:click={ () => { deleteModel(id); goto('/account/chatbots') } }
+				>Delete</button
+			>
+		</div>
+	</div>
+</Modal>

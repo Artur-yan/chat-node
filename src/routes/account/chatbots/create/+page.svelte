@@ -6,12 +6,17 @@
 	import TrainingStatus from '$lib/components/TrainingStatus.svelte';
 	import { addModel, updateModel } from '$lib/models';
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
+	import Chat from '$lib/components/Chat.svelte';
 
 	export let data;
+
+	console.log(data)
 
 	let { user } = data.user;
 
 	let activeTab = 0;
+
+	let modelId = '';
 
 	let theme = {
 		bg: '#FFFFFF',
@@ -22,9 +27,6 @@
 		inputText: '#000'
 	};
 
-	let input: string;
-	let chatInput: HTMLInputElement;
-
 	let name = 'Untitled';
 	let settings = {
 		greeting: 'What can I help you with?',
@@ -32,7 +34,13 @@
 		allowedUrls: []
 	};
 
+	$: messages[0].text = settings.greeting
+
 	let messages = [
+		{
+			text: settings.greeting,
+			sender: 'bot'
+		},
 		{
 			text: "I'm trying to build a chatbot!",
 			sender: 'user'
@@ -43,39 +51,15 @@
 		}
 	];
 
-	let id = '';
-
 	let step = 1;
+
+	$: messages = [...messages]
 
 	let trainingStatus: null | 'training' | 'done' | 'error' = null;
 
 	let files: FileList | undefined;
 	let textData: string;
 	let url: string;
-
-	const addMessage = (message: string, sender = 'bot') => {
-		messages = [...messages, { text: message, sender: sender }];
-	};
-
-	const queryModel = async (id: string, message: string) => {
-		addMessage(message, 'user');
-		input = '';
-		try {
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/chat/${id}`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					message: message
-				})
-			});
-			const data = await res.json();
-			addMessage(data.message);
-		} catch (err) {
-			console.error(err);
-		}
-	};
 
 	const handleFileTraining = async () => {
 		let bodyContent = new FormData();
@@ -132,7 +116,7 @@
 			case 'text':
 				try {
 					const data = await handleTextTraining();
-					id = data.chat_key;
+					modelId = data.chat_key;
 				} catch (err) {
 					trainingStatus = 'error';
 					console.error(err);
@@ -141,7 +125,7 @@
 			case 'file':
 				try {
 					const data = await handleFileTraining();
-					id = data.chat_key;
+					modelId = data.chat_key;
 				} catch (err) {
 					console.error(err);
 					trainingStatus = 'error';
@@ -150,7 +134,7 @@
 			case 'url':
 				try {
 					const data = await handleUrlTraining();
-					id = data.chat_key;
+					modelId = data.chat_key;
 				} catch (err) {
 					console.error(err);
 					trainingStatus = 'error';
@@ -160,9 +144,13 @@
 			// statements
 		}
 
-		addModel(id, dataType, name, settings);
+		addModel(modelId, dataType, name, settings);
 		trainingStatus = 'done';
-		addMessage("I've been trained on your data and I'm ready to give you custom repsonses.");
+
+		messages.push({
+			text: "I've been trained on your data and I'm ready to give you custom repsonses.",
+			sender: 'bot'
+		});
 	};
 </script>
 
@@ -219,10 +207,11 @@
 	{:else if step == 2}
 		<h2>Customize</h2>
 		<div class="grid grid-cols-2 gap-4">
-			<ModelSettings {id} {name} {settings} />
+			<ModelSettings id={modelId} {name} {settings} />
 			<div>
-				<div class="p-4 border border-slate-400 rounded-lg self-start">
-					<ChatWindow {theme}>
+				<div class="p-4 border border-slate-400 rounded-lg self-start h-full">
+					<Chat {modelId} {messages} disabled={trainingStatus != "done"} />
+					<!-- <ChatWindow {theme}>
 						<svelte:fragment slot="messages">
 							<ChatBubble text={settings.greeting} />
 							{#each messages as { text, sender }}
@@ -237,7 +226,7 @@
 								bind:input
 							/>
 						</div>
-					</ChatWindow>
+					</ChatWindow> -->
 				</div>
 			</div>
 		</div>

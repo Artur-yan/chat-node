@@ -1,33 +1,9 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import { deleteModel } from '$lib/models';
-	import { PUBLIC_SITE_URL } from '$env/static/public';
-	import ModelSettings from '$lib/components/ModelSettings.svelte';
-	import Modal from '$lib/components/Modal.svelte';
 
 	export let data;
 
-	let deleteModalOpen = false
-	let embedModalOpen = false
-	let settingsModalOpen = false;
-
-	let modalData
-	let iframeEmbedCode
-
-	let selectedModels
-
-	$: console.log(selectedModels)
-
-	const openDeleteModal = (data: Object) => {
-		deleteModalOpen = true;
-		modalData = data;
-	};
-	const openEmbedModal = (data: Object) => {
-		embedModalOpen = true;
-		modalData = data;
-		iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${modalData.id}" width="100%" height="100%" style="border: none;"></iframe>`;
-	};
-
+	let selectedModels: Array<string>
 </script>
 
 <div class="container">
@@ -66,28 +42,22 @@
 								</a>
 								<div class="btn-group bg-base-100 rounded-lg">
 									<div class="tooltip tooltip-error" data-tip="Delete">
-									<button
-										class="btn btn-ghost"
-										on:click={() => openDeleteModal({ id: bot.id, name: bot.name })}
-									>
-										<Icon icon="mdi:delete-outline" width="18" />
-									</button>
 									</div>
 									<div class="tooltip tooltip-info" data-tip="Get embed code">
-									<button
+									<a
 										class="btn btn-ghost"
-										on:click={() => openEmbedModal({ id: bot.id, name: bot.name })}
+										href="/account/chatbots/{bot.id}/embed"
 									>
 										<Icon icon="mdi:code" width="18" />
-									</button>
+									</a>
 									</div>
 									<div class="tooltip tooltip-secondary" data-tip="Edit settings">
-										<button
+										<a
 											class="btn btn-ghost"
-											on:click={() => settingsModalOpen = true}
+											href="/account/chatbots/{bot.id}/settings"
 										>
 											<Icon icon="mdi:settings" width="18" />
-										</button>
+										</a>
 									</div>
 								</div>
 							</div>
@@ -102,45 +72,3 @@
 		{/if}
 	</div>
 </div>
-
-<div class="modal" class:modal-open={deleteModalOpen}>
-	<div class="modal-box">
-		<h3 class="font-bold text-lg">Are you sure you want to delete?</h3>
-		<div class="modal-action">
-			<button class="btn btn-secondary" on:click={() => (deleteModalOpen = false)}>cancel</button>
-			<button
-				class="btn btn-error"
-				on:click={() => {
-					deleteModel(modalData.id);
-					deleteModalOpen = false;
-					document.querySelector(`.bot-${modalData.id}`).remove();
-				}}>Delete</button
-			>
-		</div>
-	</div>
-</div>
-<div class="modal" class:modal-open={embedModalOpen}>
-	<div class="modal-box">
-		<h3 class="font-bold text-lg">Copy code to embed {modalData}</h3>
-		<div class="mockup-code w-full">
-			<pre><code>{iframeEmbedCode}</code></pre>
-		</div>
-		<div class="modal-action">
-			<button class="btn btn-secondary" on:click={() => (embedModalOpen = false)}>Done</button>
-		</div>
-	</div>
-</div>
-
-<!-- {#if settingsModalOpen}
-	<div class="modal" class:modal-open={settingsModalOpen}>
-		<div class="modal-box">
-			<h3 class="font-bold text-lg">Settings for {modalData.id}</h3>
-			<ModelSettings id={modalData.id} name={modalData.name} settings={modalData.settings} />
-		</div>
-	</div>
-{/if} -->
-
-<!-- <Modal open={settingsModalOpen}>
-	Hi!
-	<ModelSettings id={modalData.id} name={modalData.name} settings={modalData.settings} />
-</Modal> -->

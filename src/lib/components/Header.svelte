@@ -47,11 +47,15 @@
 				{:else}
 					<a class="link-primary" href="/account/chatbots">My chatbots</a>
 					<div class="dropdown dropdown-end">
+						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+						<!-- svelte-ignore a11y-label-has-associated-control -->
 						<label tabindex="0" class="btn btn-ghost ml-2 text-primary"
-							><Icon icon="mdi:account-circle-outline" width="32" /></label
+						><Icon icon="mdi:account-circle-outline" width="32" /></label
 						>
+						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 						<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-64">
-							<li><a href="/account">My account</a></li>
+							<li><a href="/account">Dashboard</a></li>
+							<li><a href="/account/settings">Account Settings</a></li>
 							<li>
 								<form action="/logout" method="POST">
 									<button type="submit">Sign out</button>

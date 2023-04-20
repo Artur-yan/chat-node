@@ -13,8 +13,8 @@
 	};
 	export let messages;
 	export let inputPlaceholder = 'Type your message';
+	export let disabled = false;
 	let inputVal: string;
-	let disabled = false;
 	let isThinking = false;
 
 	let chatWindow: HTMLElement;
@@ -65,14 +65,16 @@
     --inputBG: {theme.inputBG};
     --inputText: {theme.inputText};
     background-color: var(--bg)"
-	class="h-screen flex flex-col justify-between"
+	class="h-full flex flex-col justify-between"
 >
 	<div class="overflow-y-auto scroll-smooth" bind:this={chatWindow}>
-		{#each messages as msg}
-			<div class="chat {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
-				<div class="chat-bubble">{msg.text}</div>
-			</div>
-		{/each}
+		<slot>
+			{#each messages as msg}
+				<div class="chat {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
+					<div class="chat-bubble">{msg.text}</div>
+				</div>
+			{/each}
+		</slot>
 		{#if isThinking}
 			<div class="chat chat-start">
 				<div class="chat-bubble">
