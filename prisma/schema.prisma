@@ -54,14 +54,15 @@ model Bots {
 }
 
 model Subscriptions {
-  user_id         String    @id
-  remaining_msg   Int?      @default(30)
-  remaining_bot   Int?      @default(1) @db.SmallInt
-  max_bot         Int?      @default(1) @db.SmallInt
-  max_msg         Int?      @default(30)
-  plan            Int?      @default(0) @db.SmallInt
-  last_reset_date DateTime? @default(dbgenerated("(now() AT TIME ZONE 'utc'::text)")) @db.Timestamptz(6)
-  AuthUser        AuthUser  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id            String    @id
+  remaining_msg      Int?      @default(30)
+  remaining_bot      Int?      @default(1) @db.SmallInt
+  max_bot            Int?      @default(1) @db.SmallInt
+  max_msg            Int?      @default(30)
+  plan               Int?      @default(0) @db.SmallInt
+  last_reset_date    DateTime? @default(dbgenerated("(now() AT TIME ZONE 'utc'::text)")) @db.Timestamptz(6)
+  stripe_customer_id String?
+  AuthUser           AuthUser  @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("subscriptions")
 }
