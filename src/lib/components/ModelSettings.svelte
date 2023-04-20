@@ -78,16 +78,14 @@
 	<div class="flex justify-between">
 		<button class="btn btn-primary" type="submit">Save</button>
 		{#if deleteEnabled}
-			<button class="btn hover:btn-error" type="button" on:click={() => deleteConfirmationModalOpen = true}>
-				<Icon icon="mdi:delete-outline" width="16" class="mr-2" />
-				Delete
-			</button>
+				
+				<label for="my-modal" class="btn"><Icon icon="mdi:delete-outline" width="16" class="mr-2" />Delete</label>
 		{/if}
 	</div>
 </form>
 
 
-<Modal open={deleteConfirmationModalOpen}>
+<!-- <Modal open={deleteConfirmationModalOpen}>
 	<h2 class="mb-4">Delete Model</h2>
 	<p class="mb-4">Are you sure you want to delete this model?</p>
 	<div class="flex justify-end">
@@ -101,4 +99,22 @@
 			>
 		</div>
 	</div>
-</Modal>
+</Modal> -->
+
+<!-- The button to open modal -->
+
+
+<!-- Put this part before </body> tag -->
+<input type="checkbox" id="my-modal" class="modal-toggle" />
+<div class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Are you sure you want to delete this model?</h3>
+    <p class="py-4">This can't be undone.</p>
+    <div class="modal-action">
+      <label for="my-modal" class="btn">Cancel</label>
+	  <button class="btn btn-error" type="button" on:click={ () => { deleteModel(id); goto('/account/chatbots') } }
+		>Delete</button
+	>
+    </div>
+  </div>
+</div>
