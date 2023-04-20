@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
 	import { updateModel } from '$lib/models';
 	import Icon from '@iconify/svelte';
 
@@ -14,9 +15,13 @@
 		settings.allowedUrls.splice(i, 1);
 		settings.allowedUrls = [...settings.allowedUrls];
 	};
+
+	const handleSubmit = () => {
+		updateModel(id, name, settings);
+	};
 </script>
 
-<form on:submit={updateModel(id, name, settings)} class="space-y-4 mb-10">
+<form on:submit={handleSubmit} class="space-y-4 mb-10">
 	<div>
 		<label for="name" class="label">
 			<span class="label-text">Name</span>
@@ -34,8 +39,8 @@
 			class="input input-bordered input-primary w-full"
 		/>
 	</div>
-	<div class="form-control w-64">
-		<label class="label cursor-pointer">
+	<div class="form-control">
+		<label class="label cursor-pointer flex justify-start gap-4">
 			<span class="label-text">Private</span>
 			<input
 				type="checkbox"
@@ -46,6 +51,7 @@
 		</label>
 	</div>
 	{#if settings.public}
+		<p class="text-sm">Add specific urls you would like to allow this chatbot to be displayed on.</p>
 		{#each settings.allowedUrls as url, i}
 			<div class="form-control w-full max-w-lg">
 				<div class="input-group">

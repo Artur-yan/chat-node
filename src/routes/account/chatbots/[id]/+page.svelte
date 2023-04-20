@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { PUBLIC_SITE_URL } from '$env/static/public';
+	import Modal from '$lib/components/Modal.svelte';
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 	import Icon from '@iconify/svelte';
 
 	export let data;
 
 	let drawerOpen = false;
+	let embedModalOpen = false;
 	let iframeEmbedCode = `<iframe src="/embed/${data.model.id}" width="100%" height="100%" style="border: none;"></iframe>`;
+
 </script>
 
 <div class="drawer drawer-end h-3/4">
@@ -19,7 +22,7 @@
 					<div class="text-xs text-primary-500">id:{data.model.id}</div>
 				</div>
 				<div class="btn-group">
-					<button class="btn btn-sm">
+					<button class="btn btn-sm" on:click={() => embedModalOpen = true}>
 						<Icon icon="mdi:code" width="18" class="mr-2" />
 						Embed Code
 					</button>
@@ -43,8 +46,10 @@
 	</div>
 </div>
 
+<Modal open={embedModalOpen}>
 
-<h6>Embed Code</h6>
-<div class="mockup-code w-full">
-	<pre><code>{iframeEmbedCode}</code></pre>
-</div>
+	<h6>Embed Code</h6>
+	<div class="mockup-code w-full">
+		<pre><code>{iframeEmbedCode}</code></pre>
+	</div>
+</Modal>

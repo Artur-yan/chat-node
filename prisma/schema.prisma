@@ -8,15 +8,17 @@ datasource db {
 }
 
 model AuthUser {
-  id                 String        @id @unique
-  email              String        @unique
-  stripe_customer_id String?       @unique
-  remaining_msg      Int           @default(30)
-  bot_remaining      Int           @default(0) @db.SmallInt
-  current_plan       Int           @default(0) @db.SmallInt
-  auth_key           AuthKey[]
-  auth_session       AuthSession[]
-  bots               Bots[]
+  id                                                        String          @id @unique
+  email                                                     String          @unique
+  stripe_customer_id                                        String?         @unique
+  remaining_msg                                             Int             @default(30)
+  bot_remaining                                             Int             @default(0) @db.SmallInt
+  current_plan                                              Int             @default(0) @db.SmallInt
+  auth_key                                                  AuthKey[]
+  auth_session                                              AuthSession[]
+  bots                                                      Bots[]
+  subscriptions_subscriptions_idToauth_user                 subscriptions?  @relation("subscriptions_idToauth_user")
+  subscriptions_subscriptions_stripe_customer_idToauth_user subscriptions[] @relation("subscriptions_stripe_customer_idToauth_user")
 
   @@map("auth_user")
 }
@@ -51,7 +53,19 @@ model Bots {
   user_id          String
   name             String?
   settings         Json?
-  auth_user        AuthUser @relation(fields: [user_id], references: [id])
+  auth_user        AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("bots")
+}
+
+model subscriptions {
+  id                                                    String    @id
+  stripe_customer_id                                    String?
+  remaining_msg                                         Int?      @default(30)
+  remaining_bot                                         Int?      @default(1) @db.SmallInt
+  max_bot                                               Int?      @default(1) @db.SmallInt
+  max_msg                                               Int?      @default(30)
+  last_reset_date                                       DateTime? @default(dbgenerated("(now() AT TIME ZONE 'utc'::text)")) @db.Timestamptz(6)
+  auth_user_subscriptions_idToauth_user                 AuthUser  @relation("subscriptions_idToauth_user", fields: [id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  auth_user_subscriptions_stripe_customer_idToauth_user AuthUser? @relation("subscriptions_stripe_customer_idToauth_user", fields: [stripe_customer_id], references: [stripe_customer_id], onDelete: Cascade, onUpdate: NoAction)
 }
