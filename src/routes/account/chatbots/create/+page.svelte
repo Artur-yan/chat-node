@@ -1,16 +1,10 @@
 <script lang="ts">
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-	import ChatWindow from '$lib/components/ChatWindow.svelte';
-	import ChatBubble from '$lib/components/ChatBubble.svelte';
-	import ChatInput from '$lib/components/ChatInput.svelte';
 	import TrainingStatus from '$lib/components/TrainingStatus.svelte';
-	import { addModel, updateModel } from '$lib/models';
+	import { addModel } from '$lib/models';
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 	import Chat from '$lib/components/Chat.svelte';
-
 	export let data;
-
-	console.log(data)
 
 	let { user } = data.user;
 
@@ -18,23 +12,12 @@
 
 	let modelId = '';
 
-	let theme = {
-		bg: '#FFFFFF',
-		gptBubble: '#E9E9E9',
-		userBubble: '#2C6BED',
-		gptBubbleText: '#222222',
-		userBubbleText: '#FFFFFF',
-		inputText: '#000'
-	};
-
 	let name = 'Untitled';
 	let settings = {
 		greeting: 'What can I help you with?',
 		public: false,
 		allowedUrls: []
 	};
-
-	$: messages[0].text = settings.greeting
 
 	let messages = [
 		{
@@ -53,13 +36,21 @@
 
 	let step = 1;
 
-	$: messages = [...messages]
-
 	let trainingStatus: null | 'training' | 'done' | 'error' = null;
 
+	let fileInput: HTMLInputElement;
 	let files: FileList | undefined;
 	let textData: string;
 	let url: string;
+
+	$: {
+		if(files && files[0].size >  1000) {
+			alert('This file is too large')
+			fileInput.value = ''
+		}
+	}
+
+	$: console.log(files)
 
 	const handleFileTraining = async () => {
 		let bodyContent = new FormData();
@@ -155,28 +146,35 @@
 </script>
 
 <div class="container mt-10">
+	<div class="text-sm breadcrumbs mb-6">
+		<ul>
+		  <li>Create Chatbot</li> 
+		  <li>Train</li> 
+		  <li>Customize</li>
+		</ul>
+	  </div>
 	{#if step == 1}
-		<h2 class="mb-6 text-2xl font-light">How would you like to train your chatbot?</h2>
 		<div class="tabs tabs-boxed mb-10">
-			<label class="tab" class:tab-active={activeTab == 0}>
+			<label class="tab text-primary" class:tab-active={activeTab == 0}>
 				<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
 				Upload a file
 			</label>
-			<label class="tab" class:tab-active={activeTab == 1}>
+			<label class="tab text-primary" class:tab-active={activeTab == 1}>
 				<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
 				Copy/paste text
 			</label>
-			<label class="tab" class:tab-active={activeTab == 2}>
+			<label class="tab text-primary" class:tab-active={activeTab == 2}>
 				<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
 				Scrape a URL
 			</label>
 		</div>
 
 		{#if activeTab == 0}
-					<input type="file" class="file-input file-input-bordered file-input-primary" bind:files />
-					<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('file')}
-						>Train Bot</button
-					>
+			<input type="file" class="file-input file-input-bordered file-input-primary" bind:files bind:this={fileInput} accept=".doc,.docx,.pdf,.txt" />
+			<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('file')}
+				>Train Bot</button
+			>
+			<p class="help">PDF, TXT or DOC files only (MAX 500MB)</p>
 		{:else if activeTab == 1}
 			<div>
 				<textarea
@@ -184,9 +182,11 @@
 					class="textarea textarea-bordered textarea-sm w-full"
 					bind:value={textData}
 					rows="8"
+					maxlength="5000"
 				/>
+				<p class="help">Max 5000 characters</p>
 
-				<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('text')}
+				<button class="btn btn-primary mt-10" type="submit" on:click={() => handleSubmit('text')}
 					>Train Bot</button
 				>
 			</div>
@@ -194,8 +194,8 @@
 			<div class="input-group">
 				<form on:submit={() => handleSubmit('url')}>
 					<input
-						type="text"
-						placeholder="example.com"
+						type="url"
+						placeholder="https://yourwebsite.com"
 						class="input input-bordered"
 						bind:value={url}
 					/>
@@ -203,6 +203,8 @@
 					<button class="btn btn-primary" type="submit">Train Bot</button>
 				</form>
 			</div>
+			<p class="help">Please be sure to include http:// or https://</p>
+
 		{/if}
 	{:else if step == 2}
 		<h2>Customize</h2>
@@ -218,3 +220,9 @@
 
 	<TrainingStatus {trainingStatus} />
 </div>
+
+<style lang="postcss">
+	.help{
+		@apply text-sm opacity-50 mt-2;
+	}	
+</style>
