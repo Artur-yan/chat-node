@@ -26,7 +26,7 @@
 </script>
 
 <form on:submit={updatePlan}>
-	<div class="container my-10 grid grid-cols-3 gap-8">
+	<div class="container my-10 grid md:grid-cols-3 gap-8">
 		<label>
 			<input class="peer hidden" type="radio" name="plan" value={0} bind:group={plan} />
 			<div class="card">
