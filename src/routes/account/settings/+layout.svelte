@@ -23,10 +23,10 @@
 <div class="container flex justify-between items-end">
 	<h1 class="font-bold text-lg text-secondary">Account</h1>
 	<div class="btn-group">
-		<a href="/account/settings" class="btn text-primary btn-sm">Account settings</a>
-		<a href="/account/settings/plan" class="btn text-primary btn-sm">Change Plan</a>
+		<a href="/account/settings" class="btn text-primary">Account settings</a>
+		<a href="/account/settings/plan" class="btn text-primary">Change Plan</a>
 
-		<button class="btn text-primary btn-sm" on:click={redirectToStripeBilling}>Billing history/Payment</button>
+		<button class="btn text-primary" on:click={redirectToStripeBilling}>Billing history/Payment</button>
 	</div>
 </div>
 
