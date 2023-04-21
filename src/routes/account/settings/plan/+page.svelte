@@ -33,7 +33,7 @@
 				<h2 class="card-title p-4 bg-cyan-900 rounded-lg">FREE</h2>
 				<div class="card-body">
 					<ul>
-						<li>30 chat repsonses / month</li>
+						<li>30 chat responses / month</li>
 						<li>Up to 3 Chatbots</li>
 						<li>Embed on your website using an iframe or JS plugin</li>
 					</ul>
@@ -49,7 +49,7 @@
 				<h2 class="card-title p-4 bg-primary rounded-lg text-neutral">PLUS</h2>
 				<div class="card-body">
 					<ul>
-						<li>30 chat repsonses / month</li>
+						<li>30 chat responses / month</li>
 						<li>Up to 3 Chatbots</li>
 						<li>Embed on your website using an iframe or JS plugin</li>
 					</ul>
@@ -65,7 +65,7 @@
 				<h2 class="card-title p-4 bg-secondary rounded-lg text-neutral">PRO</h2>
 				<div class="card-body">
 					<ul>
-						<li>30 chat repsonses / month</li>
+						<li>30 chat responses / month</li>
 						<li>Up to 3 Chatbots</li>
 						<li>Embed on your website using an iframe or JS plugin</li>
 					</ul>

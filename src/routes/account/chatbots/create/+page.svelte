@@ -139,7 +139,7 @@
 		trainingStatus = 'done';
 
 		messages.push({
-			text: "I've been trained on your data and I'm ready to give you custom repsonses.",
+			text: "I've been trained on your data and I'm ready to give you custom responses.",
 			sender: 'bot'
 		});
 	};
