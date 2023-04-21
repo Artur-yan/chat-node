@@ -14,10 +14,8 @@
 		<div>
 			<h1 class="text-xl font-bold text-secondary">Chatbots</h1>
 		</div>
-		{#if data.subscription.bot_count < data.subscription.max_bot}
+		{#if botUsage < 1}
 			<a href="/account/chatbots/create" class="btn btn-primary">Create <Icon icon="mdi:plus-box" class="ml-2" height="20" /></a>
-		{:else}
-			<a href="/account/settings/plan" class="btn btn-primary">Upgrade</a>
 		{/if}
 	</div>
 
@@ -34,9 +32,10 @@
 
 					<progress class="progress progress-secondary" class:progress-error={botUsage > .8} value={data.subscription.bot_count} max={data.subscription.max_bot}></progress>
 				</div>
+				{#if botUsage >= 1 || msgUsage > .75}
+					<a href="/account/settings/plan" class="btn btn-warning">Upgrade</a>
+				{/if}
 			</div>
-
-
 		</div>
 	</div>
 
