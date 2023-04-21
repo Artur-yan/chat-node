@@ -55,8 +55,8 @@ model Bots {
 
 model Subscriptions {
   user_id            String    @id
-  remaining_msg      Int?      @default(30)
-  remaining_bot      Int?      @default(1) @db.SmallInt
+  msg_count      Int      @default(0)
+  bot_count      Int      @default(0) @db.SmallInt
   max_bot            Int?      @default(1) @db.SmallInt
   max_msg            Int?      @default(30)
   plan               Int?      @default(0) @db.SmallInt
