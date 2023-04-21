@@ -182,9 +182,9 @@
 					class="textarea textarea-bordered textarea-sm w-full"
 					bind:value={textData}
 					rows="8"
-					maxlength="5000"
+					maxlength="50000"
 				/>
-				<p class="help">Max 5000 characters</p>
+				<p class="help">Max 50000 characters</p>
 
 				<button class="btn btn-primary mt-10" type="submit" on:click={() => handleSubmit('text')}
 					>Train Bot</button
