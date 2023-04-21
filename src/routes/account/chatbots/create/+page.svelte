@@ -44,7 +44,7 @@
 	let url: string;
 
 	$: {
-		if(files && files[0].size >  1000) {
+		if(files && files[0].size >  500 * 1024 * 1024) {
 			alert('This file is too large')
 			fileInput.value = ''
 		}
@@ -174,7 +174,7 @@
 			<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('file')}
 				>Train Bot</button
 			>
-			<p class="help">PDF, TXT or DOC files only (MAX 500MB)</p>
+			<p class="help">PDF, TXT or DOC files only (MAX 50MB)</p>
 		{:else if activeTab == 1}
 			<div>
 				<textarea
