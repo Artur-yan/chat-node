@@ -5,7 +5,7 @@
     export let data: LayoutData;
 </script>
 
-<div class="container flex items-center py-4 justify-between gap-4">
+<div class="container sm:flex items-center py-4 justify-between gap-4">
     <div class="text-sm breadcrumbs text-secondary">
         <ul>
           <li><a href="/account/chatbots">Chatbots</a></li> 
@@ -16,14 +16,14 @@
         <h1 class="mr-2">{data.model.name}</h1>
         <div class="text-xs text-primary-500">id:{data.model.id}</div>
     </div> -->
-    <div class="btn-group">
+    <div class="btn-group overflow-auto">
         <a href="/account/chatbots/{data.model.id}" class="btn btn-sm text-primary">
             <Icon icon="mdi:chat" width="18" class="mr-2" />
             Chat
         </a>
         <a href="/account/chatbots/{data.model.id}/embed" class="btn btn-sm text-primary">
             <Icon icon="mdi:code" width="18" class="mr-2" />
-            Embed Code
+            Embed
         </a>
         <a href="/account/chatbots/{data.model.id}/settings" class="btn btn-sm text-primary">
             <Icon icon="mdi:settings" width="18" class="mr-2" />
