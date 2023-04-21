@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { updateModel, deleteModel } from '$lib/models';
-	import Modal from '$lib/components/Modal.svelte';
 	import Icon from '@iconify/svelte';
 	import { goto } from '$app/navigation';
 
@@ -9,7 +8,6 @@
 	export let settings: Object;
 	export let deleteEnabled = false
 
-	let deleteConfirmationModalOpen = false;
 
 	const addUrl = (url: string) => {
 		settings.allowedUrls = [...settings.allowedUrls, url];
@@ -84,27 +82,6 @@
 	</div>
 </form>
 
-
-<!-- <Modal open={deleteConfirmationModalOpen}>
-	<h2 class="mb-4">Delete Model</h2>
-	<p class="mb-4">Are you sure you want to delete this model?</p>
-	<div class="flex justify-end">
-		<div class="modal-actions">
-
-			<button class="btn btn-warning" type="button" on:click={() => deleteConfirmationModalOpen = false}
-				>Cancel</button
-			>
-			<button class="btn btn-error" type="button" on:click={ () => { deleteModel(id); goto('/account/chatbots') } }
-				>Delete</button
-			>
-		</div>
-	</div>
-</Modal> -->
-
-<!-- The button to open modal -->
-
-
-<!-- Put this part before </body> tag -->
 <input type="checkbox" id="my-modal" class="modal-toggle" />
 <div class="modal">
   <div class="modal-box">
