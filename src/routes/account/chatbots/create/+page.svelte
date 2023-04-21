@@ -206,7 +206,7 @@
 		{/if}
 	{:else if step == 2}
 		<h2>Customize</h2>
-		<div class="grid grid-cols-2 gap-4">
+		<div class="grid md:grid-cols-2 gap-4">
 			<ModelSettings id={modelId} {name} {settings} />
 			<div>
 				<div class="p-4 border border-slate-400 rounded-lg self-start h-full">
