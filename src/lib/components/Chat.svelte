@@ -16,7 +16,6 @@
 	export let disabled = false;
 	let inputVal: string;
 	let isThinking = false;
-
 	let chatWindow: HTMLElement;
 
 	const addMessage = (message: string, sender = 'bot') => {
@@ -53,6 +52,22 @@
 			console.error(err);
 		}
 	};
+
+	const doubleMessage = () => {
+		addMessage('Please wait for me to finish thinking...');
+		scrollToBottom();
+	};
+
+	const submitQuery = () => {
+		if (isThinking) {
+			doubleMessage();
+			return;
+		} else if(inputVal.trim() === '') {
+			return;
+		} else {
+			queryModel(modelId, inputVal)
+		}
+	}
 </script>
 
 <section
@@ -71,7 +86,7 @@
 		<slot>
 			{#each messages as msg}
 				<div class="chat {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
-					<div class="chat-bubble">{msg.text}</div>
+					<div class="chat-bubble {msg.sender == 'bot' ? 'chat-bubble-secondary' : ''}">{msg.text}</div>
 				</div>
 			{/each}
 		</slot>
@@ -116,7 +131,7 @@
 		<div id="chat-bottom" class="h-1" />
 	</div>
 
-	<form on:submit|preventDefault={() => queryModel(modelId, inputVal)} class="form-control p-2">
+	<form on:submit|preventDefault={submitQuery} class="form-control p-2">
 		<div class="input-group">
 			<input
 				type="text"
