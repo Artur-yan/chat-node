@@ -20,18 +20,14 @@
 	</div>
 
 	<div class="card card-compact card-bordered border-neutral mb-4">
-		<div class="card-body ">			
-			<div class="flex justify-between gap-10">
-				<h3 class="card-title text-base">Usage</h3>
-				<div class="w-full">
-					<h4>Messages <span class="opacity-60">({data.subscription.msg_count}/{data.subscription.max_msg})</span></h4>
-					<progress class="progress progress-secondary" class:progress-error={msgUsage > .9} value={data.subscription.msg_count} max={data.subscription.max_msg}></progress>
-				</div>
-				<div class="w-full">
-					<h4>Bots <span class="opacity-60">({data.subscription.bot_count}/{data.subscription.max_bot})</span></h4>
-
-					<progress class="progress progress-secondary" class:progress-error={botUsage > .8} value={data.subscription.bot_count} max={data.subscription.max_bot}></progress>
-				</div>
+		<div class="card-body">			
+			<div class="flex justify-between items-center gap-2">
+				<h4>Messages</h4><span class="opacity-60">{data.subscription.msg_count}/{data.subscription.max_msg}</span>
+				<progress class="progress progress-secondary w-full bg-neutral" class:progress-error={msgUsage > .9} value={data.subscription.msg_count} max={data.subscription.max_msg}></progress>
+				<div class="w-16" />
+				<h4>Bots</h4><span class="opacity-60">{data.subscription.bot_count}/{data.subscription.max_bot}</span>
+				<progress class="progress progress-secondary w-full bg-neutral" class:progress-error={botUsage > .8} value={data.subscription.bot_count} max={data.subscription.max_bot}></progress>
+				<div class="w-16" />
 				{#if botUsage >= 1 || msgUsage > .75}
 					<a href="/account/settings/plan" class="btn btn-warning">Upgrade</a>
 				{/if}

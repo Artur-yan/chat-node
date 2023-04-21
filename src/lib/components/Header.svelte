@@ -45,12 +45,12 @@
 					<a class="link link-primary mr-4" href="/login">Sign in</a>
 					<a class="btn btn-primary" href="/register">Register</a>
 				{:else}
-					<a class="link-primary" href="/account/chatbots">My chatbots</a>
+					<a class="btn btn-ghost text-primary" href="/account/chatbots">My chatbots</a>
 					<div class="dropdown dropdown-end">
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 						<!-- svelte-ignore a11y-label-has-associated-control -->
-						<label tabindex="0" class="btn btn-ghost ml-2 text-primary"
-						><Icon icon="mdi:account-circle-outline" width="32" /></label
+						<label tabindex="0" class="btn btn-ghost text-primary"
+						><Icon icon="mdi:account-circle-outline" width="28" /></label
 						>
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 						<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-64">
