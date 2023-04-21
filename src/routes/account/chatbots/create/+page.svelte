@@ -146,12 +146,13 @@
 </script>
 
 <div class="container mt-10">
-	<div class="text-sm breadcrumbs mb-6">
-		<ul>
-		  <li>Create Chatbot</li> 
-		  <li>Train</li> 
-		  <li>Customize</li>
-		</ul>
+    <div class="text-sm breadcrumbs text-secondary mb-6 font-bold">
+        <ul>
+			<li><a href="/account/chatbots">&larr; Chatbots</a></li> 
+			<li>Create</li> 
+			<li class:active={step == 1}>Train</li> 
+			<li class:active={step == 2}>Customize</li> 
+		  </ul>
 	  </div>
 	{#if step == 1}
 		<div class="tabs tabs-boxed mb-10">
@@ -224,5 +225,9 @@
 <style lang="postcss">
 	.help{
 		@apply text-sm opacity-50 mt-2;
-	}	
+	}
+
+	.breadcrumbs .active{
+		@apply text-xl;
+	}
 </style>
