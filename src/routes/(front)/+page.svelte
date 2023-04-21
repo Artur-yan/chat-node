@@ -1,21 +1,48 @@
-<section class="">
+<script>
+	import Chat from "$lib/components/Chat.svelte";
+
+	let messages = [
+		{
+			text: "Hello, how can I help you?",
+			sender: "bot"
+		},
+		{
+			text: "I want to buy a new car",
+		},
+		{
+			text: "What kind of car do you want?",
+			sender: "bot"
+		},
+		{
+			text: "I want a red one",
+		},
+		{
+			text: "What is your budget?",
+			sender: "bot"
+		}
+	]
+</script>
+
+<section class=" bg-slate-950">
 	<div
-		class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6"
+		class="container gap-8 items-center py-8 px-4 mx-auto xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6"
 	>
-		<img
-			class="w-full"
-			src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup-dark.svg"
-			alt=""
-		/>
+	<div class="mockup-window border border-base-300 bg-base-100">
+		<div class="flex justify-center p-4 h-[50vh] border-t border-base-300">
+			<div class="w-full">
+				<Chat modelId="000" {messages} disabled />
+			</div>
+		</div>
+	  </div>
 		<div class="leading-loose">
-			<h2 class="mb-6 text-4xl tracking-tight font-extrabold">
-				GPT-4 meets your knowledge.
+			<h2 class="mb-6 text-2xl tracking-tight font-extrabold">
+				Chat GPT empowered with your data.
 			</h2>
 			<p class="mb-10 font-light text-xl">
-				Train highly advanced AI interfaces on any text, file or website you choose. Use it
-				internally or make it public facing to answer customer's questions.
+				Train thje highly advanced AI chat bot on any text, file or website you choose. Use it
+				internally or make or publish it to your website to answer your customers' questons.
 			</p>
-			<a href="/" class="btn text-primary">
+			<a href="/register" class="btn text-primary">
 				Get started
 				<svg
 					class="ml-2 -mr-1 w-5 h-5"
