@@ -3,14 +3,22 @@
 
 	export let data;
 
+
+	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
+	let botUsage: number = data.subscription.bot_count / data.subscription.max_bot;
+
 </script>
 
 <div class="container">
-	<div class="flex justify-between my-4 items-center">
+	<div class="flex justify-between my-2 items-center">
 		<div>
-			<h1 class="text-xl">Chatbots</h1>
+			<h1 class="text-xl font-bold text-secondary">Chatbots</h1>
 		</div>
-		<a href="/account/chatbots/create" class="btn btn-primary">Create <Icon icon="mdi:plus-box" class="ml-2" height="20" /></a>
+		{#if data.subscription.bot_count < data.subscription.max_bot}
+			<a href="/account/chatbots/create" class="btn btn-primary">Create <Icon icon="mdi:plus-box" class="ml-2" height="20" /></a>
+		{:else}
+			<a href="/account/settings/plan" class="btn btn-primary">Upgrade</a>
+		{/if}
 	</div>
 
 	<div class="card card-compact card-bordered border-neutral mb-4">
@@ -19,12 +27,12 @@
 				<h3 class="card-title text-base">Usage</h3>
 				<div class="w-full">
 					<h4>Messages <span class="opacity-60">({data.subscription.msg_count}/{data.subscription.max_msg})</span></h4>
-					<progress class="progress progress-secondary" value={data.subscription.msg_count} max={data.subscription.max_msg}></progress>
+					<progress class="progress progress-secondary" class:progress-error={msgUsage > .9} value={data.subscription.msg_count} max={data.subscription.max_msg}></progress>
 				</div>
 				<div class="w-full">
 					<h4>Bots <span class="opacity-60">({data.subscription.bot_count}/{data.subscription.max_bot})</span></h4>
 
-					<progress class="progress progress-secondary" value={data.subscription.bot_count} max={data.subscription.max_bot}></progress>
+					<progress class="progress progress-secondary" class:progress-error={botUsage > .8} value={data.subscription.bot_count} max={data.subscription.max_bot}></progress>
 				</div>
 			</div>
 
