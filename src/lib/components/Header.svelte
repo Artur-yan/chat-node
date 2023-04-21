@@ -6,15 +6,11 @@
 
 	let links = [
 		{
-			title: 'Features',
+			title: 'Pricing',
 			href: '/'
 		},
 		{
 			title: 'Company',
-			href: '/'
-		},
-		{
-			title: 'Contact',
 			href: '/'
 		}
 	];
@@ -25,15 +21,16 @@
 <header class="py-2">
 	<nav class="container">
 		<div class="flex flex-wrap justify-between items-center">
-			<div class="flex items-center gap-10">
-				<a href="/" class="py-4">
-					<span class="text-xl">GPTchatbot.ai</span>
+			<div class="flex items-center justify-center gap-10">
+				<a href="/" class="py-4 flex gap-3 items-center">
+					<span class="inline-block w-6 h-6 rounded-full bg-secondary"></span>
+					<span class="text-sm font-bold">GPTchatbot.ai</span>
 				</a>
 				<div class="hidden lg:flex">
-					<ul class="flex flex-col mt-4 lg:flex-row text-sm lg:space-x-8 lg:mt-0">
+					<ul class="flex flex-col mt-4 lg:flex-row text-sm lg:space-x-8 lg:mt-0 font-bold">
 						{#each links as { title, href }}
 							<li>
-								<a {href} class="block hover:bg-gray-5">{title}</a>
+								<a {href}>{title}</a>
 							</li>
 						{/each}
 					</ul>
