@@ -3,7 +3,6 @@
 
 	export let data;
 
-	let selectedModels: Array<string>
 </script>
 
 <div class="container">
@@ -11,7 +10,26 @@
 		<div>
 			<h1 class="text-2xl mb-2">Chatbots</h1>
 		</div>
-		<a href="/account/chatbots/create" class="btn btn-primary"> + Create new chatbot </a>
+		<a href="/account/chatbots/create" class="btn btn-primary">Create <Icon icon="mdi:plus-box" class="ml-2" height="20" /></a>
+	</div>
+
+	<div class="card card-compact card-bordered border-neutral mb-4">
+		<div class="card-body ">			
+			<div class="flex justify-between gap-10">
+				<h3 class="card-title text-base">Usage</h3>
+				<div class="w-full">
+					<h4>Messages <span class="opacity-60">({data.subscription.max_msg - data.subscription.remaining_msg}/{data.subscription.max_msg})</span></h4>
+					<progress class="progress progress-secondary" value={data.subscription.max_msg - data.subscription.remaining_msg} max={data.subscription.max_msg}></progress>
+				</div>
+				<div class="w-full">
+					<h4>Bots <span class="opacity-60">({data.subscription.max_bot - data.subscription.remaining_bot}/{data.subscription.max_bot})</span></h4>
+
+					<progress class="progress progress-secondary" value={data.subscription.max_bot - data.subscription.remaining_bot} max={data.subscription.max_bot}></progress>
+				</div>
+			</div>
+
+
+		</div>
 	</div>
 
 	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">

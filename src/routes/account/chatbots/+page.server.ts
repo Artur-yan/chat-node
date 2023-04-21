@@ -14,5 +14,11 @@ export const load: PageServerLoad = async ({ locals }) => {
 		}
 	});
 
-	return { bots };
+	const subscription = await prisma.subscriptions.findUnique({
+		where: {
+			user_id: session.userId
+		}
+	});
+
+	return { bots, subscription };
 };
