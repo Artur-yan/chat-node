@@ -6,7 +6,7 @@
 </script>
 
 <div class="container flex items-center py-4 justify-between gap-4">
-    <div class="text-sm breadcrumbs">
+    <div class="text-sm breadcrumbs text-secondary">
         <ul>
           <li><a href="/account/chatbots">Chatbots</a></li> 
           <li class="text-xl">{data.model.name}</li>
