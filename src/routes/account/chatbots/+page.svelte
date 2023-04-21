@@ -17,8 +17,6 @@
 	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 		{#if data.bots.length > 0}
 			{#each data.bots as bot}
-				<label>
-					<input type="radio" class="peer hidden" bind:group={selectedModels} value={bot.id} />
 					<div class="bot-{bot.id} card shadow-xl bg-neutral peer-checked:ring-2">
 						<div class="card-body">
 							<h2 class="card-title">
@@ -63,7 +61,6 @@
 							</div>
 						</div>
 					</div>
-				</label>
 			{/each}
 		{:else}
 			<div>
