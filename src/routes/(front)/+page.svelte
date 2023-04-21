@@ -9,7 +9,7 @@
 		/>
 		<div class="leading-loose">
 			<h2 class="mb-6 text-4xl tracking-tight font-extrabold">
-				GPT-4 meets the stength of your knowledge.
+				GPT-4 meets your knowledge.
 			</h2>
 			<p class="mb-10 font-light text-xl">
 				Train highly advanced AI interfaces on any text, file or website you choose. Use it
