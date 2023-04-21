@@ -211,22 +211,6 @@
 			<div>
 				<div class="p-4 border border-slate-400 rounded-lg self-start h-full">
 					<Chat {modelId} {messages} disabled={trainingStatus != "done"} />
-					<!-- <ChatWindow {theme}>
-						<svelte:fragment slot="messages">
-							<ChatBubble text={settings.greeting} />
-							{#each messages as { text, sender }}
-								<ChatBubble {text} {sender} />
-							{/each}
-						</svelte:fragment>
-						<div slot="input">
-							<ChatInput
-								bind:this={chatInput}
-								autofocus={false}
-								on:submit={() => queryModel(id, input)}
-								bind:input
-							/>
-						</div>
-					</ChatWindow> -->
 				</div>
 			</div>
 		</div>
