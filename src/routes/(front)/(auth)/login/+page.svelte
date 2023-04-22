@@ -28,13 +28,13 @@
 					required
 				/>
 
-				<a class="btn btn-ghost" href="account/forgot-password">Forgot password?</a>
+				<a class="btn btn-ghost" href="/forgot-password">Forgot password?</a>
 				{#if form?.message}
 					<p class="text-error">{form.message || ''}</p>
 				{/if}
 				<button type="submit" class="btn btn-primary w-full">Sign in</button>
 				<p class="text-sm mt-4">
-					Don't have an account?<br /><a href="account/register" class="link">Create an account</a>
+					Don't have an account?<br /><a href="/register" class="link">Create an account</a>
 				</p>
 			</form>
 		</div>
