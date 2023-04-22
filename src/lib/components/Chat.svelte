@@ -28,7 +28,7 @@
 		}, 100);
 	};
 
-	const queryModel = async (chatKey: string, message: string) => {
+	const queryModel = async (chatKey: string, sessionId: string, message: string) => {
 		addMessage(message, 'user');
 		inputVal = '';
 		isThinking = true;
@@ -40,7 +40,8 @@
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					message: message
+					message: message,
+					session_id: sessionId
 				})
 			});
 			const data = await res.json();
@@ -58,6 +59,11 @@
 		scrollToBottom();
 	};
 
+
+	// Generate a random ID
+	const sessionId = Math.random().toString(36).slice(2, 9) + '-' + Date.now();
+	console.log(sessionId);
+
 	const submitQuery = () => {
 		if (isThinking) {
 			doubleMessage();
@@ -65,9 +71,12 @@
 		} else if(inputVal.trim() === '') {
 			return;
 		} else {
-			queryModel(modelId, inputVal)
+			queryModel(modelId, sessionId, inputVal)
 		}
 	}
+
+
+
 </script>
 
 <section
