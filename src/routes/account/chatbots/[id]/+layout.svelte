@@ -16,7 +16,7 @@
         <h1 class="mr-2">{data.model.name}</h1>
         <div class="text-xs text-primary-500">id:{data.model.id}</div>
     </div> -->
-    <div class="btn-group max-xs:overflow-x-auto my-2">
+    <div class="btn-group max-sm:overflow-x-scroll my-2">
         <a href="/account/chatbots/{data.model.id}" class="btn text-primary">
             <Icon icon="mdi:chat" width="18" class="mr-2" />
             Chat
