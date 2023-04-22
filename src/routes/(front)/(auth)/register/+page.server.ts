@@ -17,6 +17,8 @@ export const actions: Actions = {
 		const form = await request.formData();
 		const email = form.get('email');
 		const password = form.get('password');
+		const promo = form.get('promo');
+
 		if (!email || !password || typeof email !== 'string' || typeof password !== 'string') {
 			return fail(400, {
 				message: 'Invalid input'
@@ -34,10 +36,17 @@ export const actions: Actions = {
 				}
 			});
 			const session = await auth.createSession(user.userId);
+
+			let subscriptionData = {
+				user_id: user.userId,
+			}
+
+			if (promo === 'beta_tester') {
+				subscriptionData.plan = 1
+			}
+
 			await prismaClient.subscriptions.create({
-				data: {
-					user_id: user.userId,
-				}
+				data: subscriptionData
 			});
 			locals.auth.setSession(session);
 		} catch (error) {
