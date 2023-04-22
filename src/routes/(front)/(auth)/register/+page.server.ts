@@ -43,6 +43,8 @@ export const actions: Actions = {
 
 			if (promo === 'beta_tester') {
 				subscriptionData.plan = 1
+				subscriptionData.max_bot = 5
+				subscriptionData.max_msg = 2000
 			}
 
 			await prismaClient.subscriptions.create({
