@@ -4,6 +4,7 @@
 	import { addModel } from '$lib/models';
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 	import Chat from '$lib/components/Chat.svelte';
+	import Error from '../../../embed/[id]/+error.svelte';
 	export let data;
 
 	let { user } = data.user;
@@ -51,93 +52,96 @@
 	}
 
 	const handleFileTraining = async () => {
-		let bodyContent = new FormData();
-		bodyContent.append('new_file', files[0] /*, optional filename */);
-		bodyContent.append('user_id', user.userId);
-
-		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/upload`, {
-			method: 'POST',
-			body: bodyContent
-		});
-
-		const data = await res.json();
-		return data;
+		try{
+			let bodyContent = new FormData();
+			bodyContent.append('new_file', files[0] /*, optional filename */);
+			bodyContent.append('user_id', user.userId);
+	
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/upload`, {
+				method: 'POST',
+				body: bodyContent
+			});
+	
+			const data = await res.json();
+			return data;
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	const handleTextTraining = async () => {
-		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				data_type: 'text',
-				train_key: textData,
-				user_id: user.userId
-			})
-		});
-		const data = await res.json();
-		return data;
+		try{
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					data_type: 'text',
+					train_key: textData,
+					user_id: user.userId
+				})
+			});
+			const data = await res.json();
+			return data;
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	const handleUrlTraining = async () => {
-		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/urls`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				urls: [url],
-				user_id: user.userId
-			})
-		});
-		const data = await res.json();
-		return data;
+		try{
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/urls`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					urls: [url],
+					user_id: user.userId
+				})
+			});
+			const data = await res.json();
+			console.log('OK 1')
+			return data;
+
+		} catch (err) {
+			throw ("Something went wrong");
+		}
 	};
 
 	const handleSubmit = async (dataType: 'text' | 'file' | 'url') => {
 		trainingStatus = 'training';
 		step++;
 
-		switch (dataType) {
-			case 'text':
-				try {
-					const data = await handleTextTraining();
-					modelId = data.chat_key;
-				} catch (err) {
-					trainingStatus = 'error';
-					console.error(err);
-				}
-				break;
-			case 'file':
-				try {
-					const data = await handleFileTraining();
-					modelId = data.chat_key;
-				} catch (err) {
-					console.error(err);
-					trainingStatus = 'error';
-				}
-				break;
-			case 'url':
-				try {
-					const data = await handleUrlTraining();
-					modelId = data.chat_key;
-				} catch (err) {
-					console.error(err);
-					trainingStatus = 'error';
-				}
-				break;
-			case 'url':
-			// statements
+		try{
+			if (dataType == 'text') {
+				const data = await handleTextTraining();
+			modelId = data.chat_key;
+
+			}
+			else if(dataType == 'file') {
+				const data = await handleFileTraining();
+			modelId = data.chat_key;
+
+			}
+			else if(dataType == 'url') {
+				const data = await handleUrlTraining();
+			modelId = data.chat_key;
+
+			}
+			addModel(modelId, dataType, name, settings);
+			trainingStatus = 'done';
+			messages.push({
+				text: "I've been trained on your data and I'm ready to give you custom responses.",
+				sender: 'bot'
+			});
+		} catch {
+				trainingStatus = 'error';
 		}
 
-		addModel(modelId, dataType, name, settings);
-		trainingStatus = 'done';
 
-		messages.push({
-			text: "I've been trained on your data and I'm ready to give you custom responses.",
-			sender: 'bot'
-		});
+
 	};
 </script>
 
