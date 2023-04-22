@@ -52,11 +52,11 @@
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 						<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-64">
 							<li><a href="/account/settings">Account Settings</a></li>
-							<li>
-								<form action="/logout" method="POST">
+							<form action="/logout" method="POST">
+								<li>
 									<button type="submit">Sign out</button>
-								</form>
-							</li>
+								</li>
+							</form>
 						</ul>
 					</div>
 				{/if}
