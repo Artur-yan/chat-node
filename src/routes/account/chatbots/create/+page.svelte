@@ -102,11 +102,10 @@
 				})
 			});
 			const data = await res.json();
-			console.log('OK 1')
 			return data;
 
 		} catch (err) {
-			throw ("Something went wrong");
+			throw (err);
 		}
 	};
 
@@ -134,8 +133,9 @@
 				text: "I've been trained on your data and I'm ready to give you custom responses.",
 				sender: 'bot'
 			});
-		} catch {
-				trainingStatus = 'error';
+		} catch(err) {
+			console.error(err)
+			trainingStatus = 'error';
 		}
 
 
