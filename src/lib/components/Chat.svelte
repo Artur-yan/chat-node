@@ -62,7 +62,6 @@
 
 	// Generate a random ID
 	const sessionId = Math.random().toString(36).slice(2, 9) + '-' + Date.now();
-	console.log(sessionId);
 
 	const submitQuery = () => {
 		if (isThinking) {
