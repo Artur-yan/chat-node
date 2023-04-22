@@ -117,18 +117,16 @@
 		try{
 			if (dataType == 'text') {
 				const data = await handleTextTraining();
-			modelId = data.chat_key;
-
+				modelId = data.chat_key;
 			}
 			else if(dataType == 'file') {
 				const data = await handleFileTraining();
-			modelId = data.chat_key;
+				modelId = data.chat_key;
 
 			}
 			else if(dataType == 'url') {
 				const data = await handleUrlTraining();
-			modelId = data.chat_key;
-
+				modelId = data.chat_key;
 			}
 			addModel(modelId, dataType, name, settings);
 			trainingStatus = 'done';
