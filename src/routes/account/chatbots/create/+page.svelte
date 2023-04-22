@@ -50,8 +50,6 @@
 		}
 	}
 
-	$: console.log(files)
-
 	const handleFileTraining = async () => {
 		let bodyContent = new FormData();
 		bodyContent.append('new_file', files[0] /*, optional filename */);
@@ -63,7 +61,6 @@
 		});
 
 		const data = await res.json();
-
 		return data;
 	};
 
@@ -95,7 +92,6 @@
 			})
 		});
 		const data = await res.json();
-		console.log(data);
 		return data;
 	};
 
