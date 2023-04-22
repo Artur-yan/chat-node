@@ -35,8 +35,8 @@
 		</div>
 	</div>
 
-	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-		{#if data.bots.length > 0}
+	{#if data.bots.length > 0}
+		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 			{#each data.bots as bot}
 					<div class="bot-{bot.id} card shadow-xl bg-neutral peer-checked:ring-2">
 						<div class="card-body">
@@ -83,10 +83,10 @@
 						</div>
 					</div>
 			{/each}
-		{:else}
-			<div>
-				You haven't created any chatbots yet. <a href="/account/chatbots/create">Create one now.</a>
-			</div>
-		{/if}
-	</div>
+		</div>
+	{:else}
+		<div class="py-10 text-center">
+			You don't have any chatbots yet. <a href="/account/chatbots/create" class="link link-primary">Create one now.</a>
+		</div>
+	{/if}
 </div>
