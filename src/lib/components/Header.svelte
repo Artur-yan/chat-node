@@ -5,14 +5,14 @@
 	import Icon from '@iconify/svelte';
 
 	let links = [
-		{
-			title: 'Pricing',
-			href: '/'
-		},
-		{
-			title: 'Company',
-			href: '/'
-		}
+		// {
+		// 	title: 'Pricing',
+		// 	href: '/'
+		// },
+		// {
+		// 	title: 'Company',
+		// 	href: '/'
+		// }
 	];
 
 	let accountDropdownIsOpen = false;
