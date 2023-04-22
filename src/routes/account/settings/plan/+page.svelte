@@ -82,6 +82,11 @@
 	</div>
 </form>
 
+<!-- <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+<stripe-pricing-table pricing-table-id="prctbl_1MzSTwIdugeFU9JRehtZoIew"
+publishable-key="pk_test_51MkXnWIdugeFU9JRWv9bwqxEpOwJuBJFp3RGulXHOKMn50ZcihKupFyYRa4SSAvaPcU1ifl4YoyaATS9abhEFIcH008pXwgCAU">
+</stripe-pricing-table> -->
+
 <style lang="postcss">
 	.card {
 		@apply card-compact bg-neutral shadow-xl;
