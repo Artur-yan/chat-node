@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { updateModel, deleteModel } from '$lib/models';
+	import { updateModel, deleteModel } from '$lib/server/models';
 	import Icon from '@iconify/svelte';
 	import { goto } from '$app/navigation';
 

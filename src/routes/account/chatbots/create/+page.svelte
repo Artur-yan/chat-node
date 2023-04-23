@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import TrainingStatus from '$lib/components/TrainingStatus.svelte';
-	import { addModel } from '$lib/models';
+	import { addModel } from '$lib/server/models';
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 	import Chat from '$lib/components/Chat.svelte';
-	import Error from '../../../embed/[id]/+error.svelte';
 	export let data;
 
 	let { user } = data.user;
