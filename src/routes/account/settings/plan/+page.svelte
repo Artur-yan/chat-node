@@ -25,67 +25,72 @@
 
 </script>
 
-<form on:submit={updatePlan}>
-	<div class="container my-10 grid md:grid-cols-3 gap-8">
-		<label>
-			<input class="peer hidden" type="radio" name="plan" value={0} bind:group={plan} />
-			<div class="card">
-				<h2 class="card-title p-4 bg-cyan-900 rounded-lg">FREE</h2>
-				<div class="card-body">
-					<ul>
-						<li>30 chat responses / month</li>
-						<li>Up to 3 Chatbots</li>
-						<li>Embed on your website using an iframe or JS plugin</li>
-					</ul>
-					<div class="card-actions justify-end">
-						<div class="btn btn-outline btn-secondary w-full">Select</div>
-					</div>
-				</div>
-			</div>
-		</label>
-		<label>
-			<input class="peer hidden" type="radio" name="plan" value={1} bind:group={plan} />
-			<div class="card">
-				<h2 class="card-title p-4 bg-primary rounded-lg text-neutral">PLUS</h2>
-				<div class="card-body">
-					<ul>
-						<li>30 chat responses / month</li>
-						<li>Up to 3 Chatbots</li>
-						<li>Embed on your website using an iframe or JS plugin</li>
-					</ul>
-					<div class="card-actions justify-end">
-						<div class="btn btn-outline btn-secondary w-full">Select</div>
-					</div>
-				</div>
-			</div>
-		</label>
-		<label>
-			<input class="peer hidden" type="radio" name="plan" value={2} bind:group={plan} />
-			<div class="card">
-				<h2 class="card-title p-4 bg-secondary rounded-lg text-neutral">PRO</h2>
-				<div class="card-body">
-					<ul>
-						<li>30 chat responses / month</li>
-						<li>Up to 3 Chatbots</li>
-						<li>Embed on your website using an iframe or JS plugin</li>
-					</ul>
-					<div class="card-actions justify-end">
-						<div class="btn btn-outline btn-secondary w-full">Select</div>
-					</div>
-				</div>
-			</div>
-		</label>
-	</div>
+<section>
 
-	<div class="flex justify-center">
-		<button type="submit" class="btn btn-primary">Switch Plan</button>
-	</div>
-</form>
+	<form on:submit={updatePlan}>
+		<div class="container my-10 grid md:grid-cols-3 gap-8">
+			<label>
+				<input class="peer hidden" type="radio" name="plan" value={0} bind:group={plan} />
+				<div class="card">
+					<h2 class="card-title p-4 bg-cyan-900 rounded-lg">FREE</h2>
+					<div class="card-body">
+						<ul>
+							<li>30 chat responses / month</li>
+							<li>Up to 3 Chatbots</li>
+							<li>Embed on your website using an iframe or JS plugin</li>
+						</ul>
+						<div class="card-actions justify-end">
+							<div class="btn btn-outline btn-secondary w-full">Select</div>
+						</div>
+					</div>
+				</div>
+			</label>
+			<label>
+				<input class="peer hidden" type="radio" name="plan" value={1} bind:group={plan} />
+				<div class="card">
+					<h2 class="card-title p-4 bg-primary rounded-lg text-neutral">PLUS</h2>
+					<div class="card-body">
+						<ul>
+							<li>30 chat responses / month</li>
+							<li>Up to 3 Chatbots</li>
+							<li>Embed on your website using an iframe or JS plugin</li>
+						</ul>
+						<div class="card-actions justify-end">
+							<div class="btn btn-outline btn-secondary w-full">Select</div>
+						</div>
+					</div>
+				</div>
+			</label>
+			<label>
+				<input class="peer hidden" type="radio" name="plan" value={2} bind:group={plan} />
+				<div class="card">
+					<h2 class="card-title p-4 bg-secondary rounded-lg text-neutral">PRO</h2>
+					<div class="card-body">
+						<ul>
+							<li>30 chat responses / month</li>
+							<li>Up to 3 Chatbots</li>
+							<li>Embed on your website using an iframe or JS plugin</li>
+						</ul>
+						<div class="card-actions justify-end">
+							<div class="btn btn-outline btn-secondary w-full">Select</div>
+						</div>
+					</div>
+				</div>
+			</label>
+		</div>
 
-<!-- <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-<stripe-pricing-table pricing-table-id="prctbl_1MzSTwIdugeFU9JRehtZoIew"
-publishable-key="pk_test_51MkXnWIdugeFU9JRWv9bwqxEpOwJuBJFp3RGulXHOKMn50ZcihKupFyYRa4SSAvaPcU1ifl4YoyaATS9abhEFIcH008pXwgCAU">
-</stripe-pricing-table> -->
+		<div class="flex justify-center">
+			<button type="submit" class="btn btn-primary">Switch Plan</button>
+		</div>
+	</form>
+
+	<script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+	<stripe-pricing-table pricing-table-id="prctbl_1MzSTwIdugeFU9JRehtZoIew"
+	publishable-key="pk_test_51MkXnWIdugeFU9JRWv9bwqxEpOwJuBJFp3RGulXHOKMn50ZcihKupFyYRa4SSAvaPcU1ifl4YoyaATS9abhEFIcH008pXwgCAU">
+	</stripe-pricing-table>
+
+</section>
+
 
 <style lang="postcss">
 	.card {
