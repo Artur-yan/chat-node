@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { error } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 
 const prisma = new PrismaClient();
 
@@ -12,13 +12,11 @@ export const load = async ({ locals, params }) => {
 
     const user = await locals.auth.validateUser();
 
-    console.log(user)
-
-    if(user.session && user.session.userId === model.user_id) {
+    if(user.session && model && user.session.userId === model.user_id) {
         return { model };
+    } else if (user.session) {
+        throw redirect(303, '/account/chatbots');
     } else {
-        throw error( 403,
-           { message: 'You are not authorized to view this page.'}
-        )
+        throw redirect(303, '/login');
     }
 };    
