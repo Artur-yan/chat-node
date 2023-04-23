@@ -52,7 +52,7 @@ export const actions: Actions = {
 			});
 			locals.auth.setSession(session);
 		} catch (error) {
-			console.log(error)
+			console.error(error)
 			if (
 				error instanceof Prisma.PrismaClientKnownRequestError &&
 				error.code === 'P2002' &&

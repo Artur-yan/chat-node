@@ -15,10 +15,8 @@ export const POST = async ({ locals }) => {
 		});
 		
 		const { url } = await res.json()
-		console.log(url)
 		return new Response(JSON.stringify(url), { status: 200 })
 	} catch (err) {
-		console.log(err)
 		return new Response(JSON.stringify('There was an error'), { status: 500 });
 	}
 };

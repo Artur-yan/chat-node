@@ -10,8 +10,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 		throw redirect ( 302, '/' );
 	}
 
-	console.log(session)
-
 	const bots = await prisma.bots.findMany({
 		where: {
 			user_id: {

@@ -11,7 +11,6 @@
 				body: ''
 			});
 			const url = await res.json();
-			console.log(url)
 			goto(url);
 		} catch (err) {
 			console.error(err);
