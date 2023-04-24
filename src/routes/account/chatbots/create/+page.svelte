@@ -44,10 +44,10 @@
 		}
 	}
 
-	let headers = new Headers({
+	let headers = {
 		'Content-Type': 'application/json',
 		'Authorization': `Bearer ${data.user.session.sessionId}`,
-	})
+	}
 
 	const handleFileTraining = async () => {
 		try{
