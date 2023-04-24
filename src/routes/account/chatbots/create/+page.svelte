@@ -57,11 +57,11 @@
 	
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/upload`, {
 				method: 'POST',
-				headers,
 				body: bodyContent
 			});
 	
-			return await res.json();
+			const resBody = res.json();
+			return resBody;
 		} catch (err) {
 			console.error(err);
 		}
