@@ -74,7 +74,7 @@
 				headers,
 				body: JSON.stringify({
 					data_type: 'text',
-					chat_key: textData,
+					train_key: textData,
 					user_id: user.userId,
 					session_id: data.user.session.sessionId
 				})
