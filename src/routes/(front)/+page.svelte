@@ -3,24 +3,55 @@
 
 	let messages = [
 		{
-			text: "Hello, how can I help you?",
-			sender: "bot"
-		},
-		{
-			text: "I want to buy a new car",
-		},
-		{
-			text: "What kind of car do you want?",
-			sender: "bot"
-		},
-		{
-			text: "I want a red one",
-		},
-		{
-			text: "What is your budget?",
-			sender: "bot"
+			text: "Hi, how can I help you?",
+			sender: 'bot'
 		}
 	]
+
+	let isThinking = false;
+
+	// wait 3 seconds adn then add to messges array
+	const addMessages = async (message, sender = 'bot') => {
+		await new Promise(r => setTimeout(r, 1000));
+		messages = [...messages, {
+			text: "I want to build a chat bot.",
+			sender: 'user'
+		}];
+		isThinking = true
+		await new Promise(r => setTimeout(r, 3000));
+		messages = [...messages, {
+			text: "To build a chatbot, sign up for an account, then click create from the dashboard.",
+			sender: 'bot'
+		}];
+		isThinking = false
+		await new Promise(r => setTimeout(r, 1500));
+		messages = [...messages, {
+			text: "What data can I train my chatbot on?",
+			sender: 'user'
+		}];
+		isThinking = true
+		await new Promise(r => setTimeout(r, 2000));
+		isThinking = false
+		messages = [...messages, {
+			text: "Chatbots can be trained on any text, file or website you choose.",
+			sender: 'bot'
+		}];
+		await new Promise(r => setTimeout(r, 1000));
+		messages = [...messages, {
+			text: "How many chatbots are included in the free plan?",
+			sender: 'user'
+		}];
+		isThinking = true
+		await new Promise(r => setTimeout(r, 2000));
+		isThinking = false
+		messages = [...messages, {
+			text: "One chatbot is included in the free plan.",
+			sender: 'bot'
+		}];
+
+	};
+
+	addMessages()
 </script>
 
 <section class=" bg-slate-950">
@@ -30,7 +61,7 @@
 	<div class="mockup-window border border-base-300 bg-base-100">
 		<div class="flex justify-center p-4 h-[50vh] border-t border-base-300">
 			<div class="w-full">
-				<Chat modelId="000" {messages} disabled />
+				<Chat modelId="000" {messages} disabled {isThinking} />
 			</div>
 		</div>
 	  </div>
