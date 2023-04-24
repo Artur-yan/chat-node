@@ -14,7 +14,6 @@ model AuthUser {
   auth_session AuthSession[]
   bots         Bots[]
   subscription Subscriptions?
-  status              String?
 
   @@map("auth_user")
 }
@@ -64,7 +63,8 @@ model Subscriptions {
   bot_count           Int       @default(0) @db.SmallInt
   msg_count           Int       @default(0)
   stripe_subscription String?   @unique
-  auth_user            AuthUser  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  status              String?
+  auth_user           AuthUser  @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("subscriptions")
 }
@@ -72,7 +72,7 @@ model Subscriptions {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model chat_history {
-  session_id    String  @id(map: "conversation_pkey")
-  conversations Json[]
-  namespace     String?
+  session_id   String  @id(map: "conversation_pkey")
+  namespace    String?
+  chat_history Json[]
 }
