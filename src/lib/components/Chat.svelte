@@ -14,8 +14,8 @@
 	export let messages;
 	export let inputPlaceholder = 'Type your message';
 	export let disabled = false;
+	export let isThinking = false;
 	let inputVal: string;
-	let isThinking = false;
 	let chatWindow: HTMLElement;
 
 	const addMessage = (message: string, sender = 'bot') => {
