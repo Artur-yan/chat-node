@@ -46,7 +46,6 @@
 
 	let headers = {
 		'Content-Type': 'application/json',
-		'Authorization': `Bearer ${data.user.session.sessionId}`,
 	}
 
 	const handleFileTraining = async () => {
@@ -54,6 +53,7 @@
 			let bodyContent = new FormData();
 			bodyContent.append('new_file', files[0] /*, optional filename */);
 			bodyContent.append('user_id', user.userId);
+			bodyContent.append('session_id', data.user.session.sessionId);
 	
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/upload`, {
 				method: 'POST',
@@ -76,7 +76,8 @@
 				body: JSON.stringify({
 					data_type: 'text',
 					chat_key: textData,
-					user_id: user.userId
+					user_id: user.userId,
+					session_id: data.user.session.sessionId
 				})
 			});
 			const data = await res.json();
@@ -93,7 +94,8 @@
 				headers,
 				body: JSON.stringify({
 					urls: [url],
-					user_id: user.userId
+					user_id: user.userId,
+					session_id: data.user.session.sessionId
 				})
 			});
 			const data = await res.json();
