@@ -28,7 +28,7 @@
 		}, 100);
 	};
 
-	const queryModel = async (chatKey: string, sessionId: string, message: string) => {
+	const queryModel = async (chatKey: string, chatSessionId: string, message: string) => {
 		addMessage(message, 'user');
 		inputVal = '';
 		isThinking = true;
@@ -41,7 +41,7 @@
 				},
 				body: JSON.stringify({
 					message: message,
-					session_id: sessionId
+					chat_session_id: chatSessionId
 				})
 			});
 			const data = await res.json();
@@ -61,7 +61,7 @@
 
 
 	// Generate a random ID
-	const sessionId = Math.random().toString(36).slice(2, 9) + '-' + Date.now();
+	const chatSessionId = Math.random().toString(36).slice(2, 9) + '-' + Date.now();
 
 	const submitQuery = () => {
 		if (isThinking) {
@@ -70,7 +70,7 @@
 		} else if(inputVal.trim() === '') {
 			return;
 		} else {
-			queryModel(modelId, sessionId, inputVal)
+			queryModel(modelId, chatSessionId, inputVal)
 		}
 	}
 
