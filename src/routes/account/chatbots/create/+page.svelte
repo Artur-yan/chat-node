@@ -7,18 +7,13 @@
 	export let data;
 
 	let { user } = data.user;
-
-	let activeTab = 0;
-
 	let modelId = '';
-
-	let name = 'Untitled';
+	let name = 'Untitled';	
 	let settings = {
 		greeting: 'What can I help you with?',
 		public: false,
 		allowedUrls: []
 	};
-
 	let messages = [
 		{
 			text: settings.greeting,
@@ -35,9 +30,8 @@
 	];
 
 	let step = 1;
-
+	let activeTab = 0;
 	let trainingStatus: null | 'training' | 'done' | 'error' = null;
-
 	let fileInput: HTMLInputElement;
 	let files: FileList | undefined;
 	let textData: string;
@@ -50,6 +44,11 @@
 		}
 	}
 
+	let headers = new Headers({
+		'Content-Type': 'application/json',
+		'Authorization': `Bearer ${data.user.session.sessionId}`,
+	})
+
 	const handleFileTraining = async () => {
 		try{
 			let bodyContent = new FormData();
@@ -58,6 +57,7 @@
 	
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/upload`, {
 				method: 'POST',
+				headers,
 				body: bodyContent
 			});
 	
@@ -72,12 +72,10 @@
 		try{
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model`, {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
+				headers,
 				body: JSON.stringify({
 					data_type: 'text',
-					train_key: textData,
+					chat_key: textData,
 					user_id: user.userId
 				})
 			});
@@ -92,9 +90,7 @@
 		try{
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/urls`, {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
+				headers,
 				body: JSON.stringify({
 					urls: [url],
 					user_id: user.userId
@@ -159,7 +155,7 @@
 			</label>
 			<label class="tab text-primary" class:tab-active={activeTab == 1}>
 				<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
-				Copy/paste text
+				Copy/paste text	
 			</label>
 			<label class="tab text-primary" class:tab-active={activeTab == 2}>
 				<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
@@ -181,6 +177,7 @@
 					bind:value={textData}
 					rows="8"
 					maxlength="50000"
+					autofocus
 				/>
 				<p class="help">Max 50000 characters</p>
 
@@ -196,6 +193,7 @@
 						placeholder="https://yourwebsite.com"
 						class="input input-bordered"
 						bind:value={url}
+						autofocus
 					/>
 
 					<button class="btn btn-primary" type="submit">Train Bot</button>
