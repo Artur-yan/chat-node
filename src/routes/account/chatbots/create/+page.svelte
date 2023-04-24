@@ -61,8 +61,7 @@
 				body: bodyContent
 			});
 	
-			const data = await res.json();
-			return data;
+			return await res.json();
 		} catch (err) {
 			console.error(err);
 		}
@@ -80,8 +79,7 @@
 					session_id: data.user.session.sessionId
 				})
 			});
-			const data = await res.json();
-			return data;
+			return await res.json();
 		} catch (err) {
 			console.error(err);
 		}
@@ -98,9 +96,7 @@
 					session_id: data.user.session.sessionId
 				})
 			});
-			const data = await res.json();
-			return data;
-
+			return await res.json();
 		} catch (err) {
 			throw (err);
 		}
