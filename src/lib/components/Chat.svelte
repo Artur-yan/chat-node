@@ -18,21 +18,21 @@
 	let inputVal: string;
 	let chatWindow: HTMLElement;
 
-	const addMessage = (message: string, sender = 'bot') => {
-		messages = [...messages, { text: message, sender: sender }];
-	};
-
 	const scrollToBottom = () => {
 		setTimeout(() => {
 			chatWindow.scrollTop = chatWindow.scrollHeight;
 		}, 100);
 	};
 
+	const addMessage = (message: string, sender = 'bot') => {
+		messages = [...messages, { text: message, sender: sender }];
+		scrollToBottom();
+	};
+
 	const queryModel = async (chatKey: string, chatSessionId: string, message: string) => {
 		addMessage(message, 'user');
 		inputVal = '';
 		isThinking = true;
-		scrollToBottom();
 		try {
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/chat/${chatKey}`, {
 				method: 'POST',
@@ -47,7 +47,6 @@
 			const data = await res.json();
 			isThinking = false;
 			addMessage(data.message);
-			scrollToBottom();
 		} catch (err) {
 			isThinking = false;
 			console.error(err);
@@ -56,7 +55,6 @@
 
 	const doubleMessage = () => {
 		addMessage('Please wait for me to finish thinking...');
-		scrollToBottom();
 	};
 
 
@@ -164,3 +162,34 @@
 		</div>
 	</form>
 </section>
+
+
+<style lang="postcss">
+	@keyframes message {
+  0% {
+	opacity: 0.5;
+    transform: scale(0.75);
+    /* max-height: 100vmax; */
+  }
+  60% {
+    transform: scale(1.05);
+  }
+  100% {
+	opacity: 1;
+    transform: scale(1);
+    /* max-height: 100vmax; */
+    overflow: visible;
+  }
+}
+
+.chat-bubble{
+	animation: message 0.3s ease-out 0s forwards;
+}
+
+.chat-start .chat-bubble{
+	transform-origin: left center;
+}
+.chat-end .chat-bubble{
+	transform-origin: right;
+}
+</style>
