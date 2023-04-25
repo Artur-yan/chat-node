@@ -23,12 +23,12 @@
 	};
 </script>
 
-<form on:submit={handleSubmit} class="space-y-4 mb-10">
+<form on:submit={handleSubmit} class="space-y-4 mb-10 bg-neutral p-4 rounded-lg">
 	<div>
 		<label for="name" class="label">
 			<span class="label-text">Name</span>
 		</label>
-		<input type="text" bind:value={name} class="input input-bordered input-primary w-full" />
+		<input type="text" bind:value={name} class="input w-full" placeholder="Untitled" />
 	</div>
 
 	<div>
@@ -38,7 +38,7 @@
 		<input
 			type="text"
 			bind:value={settings.greeting}
-			class="input input-bordered input-primary w-full"
+			class="input w-full"
 		/>
 	</div>
 	<div class="form-control">
@@ -53,34 +53,34 @@
 		</label>
 	</div>
 	{#if settings.public}
-		<p class="text-sm">Add specific urls you would like to allow this chatbot to be displayed on.</p>
+		<p class="text-xs">Add specific urls you would like to allow this chatbot to be displayed on.</p>
 		{#each settings.allowedUrls as url, i}
-			<div class="form-control w-full max-w-lg">
+			<div class="form-control w-full">
 				<div class="input-group">
 					<input
 						name="url-{i}"
 						bind:value={settings.allowedUrls[i]}
-						class="input input-bordered"
+						class="input w-full"
 						placeholder="https://example.com"
+						autofocus
 					/>
-					<button class="btn text-red-400" on:click={() => removeUrl(i)}
+					<button class="btn text-error/75" on:click={() => removeUrl(i)}
 						><Icon icon="mdi:minus-circle-outline" width="16" /></button
 					>
 				</div>
 			</div>
 		{/each}
-		<button class="btn" type="button" on:click={() => addUrl('')}>+ Add URL</button>
+			<button class="btn btn-xs btn-outline btn-primary btn-circle" type="button" on:click={() => addUrl('')}><Icon icon="mdi:add" width="16" /></button>
 	{/if}
-		<br />
-		
-	<div class="flex justify-between">
-		<button class="btn btn-primary" type="submit">Save</button>
-		{#if deleteEnabled}
-				
-				<label for="my-modal" class="btn"><Icon icon="mdi:delete-outline" width="16" class="mr-2" />Delete</label>
-		{/if}
+	<div class="text-center">
+		<button class="btn btn-outline btn-success w-full max-w-2xl mt-10" type="submit">Save</button>
 	</div>
 </form>
+{#if deleteEnabled}				
+	<div class="text-center">
+		<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle"><Icon icon="mdi:delete-outline" width="16" /></label>
+	</div>
+{/if}
 
 <input type="checkbox" id="my-modal" class="modal-toggle" />
 <div class="modal">

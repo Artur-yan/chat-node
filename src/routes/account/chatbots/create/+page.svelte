@@ -20,16 +20,16 @@
 			sender: 'bot'
 		},
 		{
-			text: "I'm trying to build a chatbot!",
-			sender: 'user'
-		},
-		{
-			text: 'Great, I can help you with that!',
+			text: 'Once your bot is trained, type a message to test your repsonses.',
 			sender: 'bot'
 		}
 	];
+	// Trigger reactivity on messages.push()
+	const addMessage = (text, sender = 'bot') => {
+		messages = [...messages, { text, sender }];
+	}
 
-	let step = 1;
+	let step = 2;
 	let activeTab = 0;
 	let trainingStatus: null | 'training' | 'done' | 'error' = null;
 	let fileInput: HTMLInputElement;
@@ -122,10 +122,7 @@
 			}
 			addModel(modelId, dataType, name, settings);
 			trainingStatus = 'done';
-			messages.push({
-				text: "I've been trained on your data and I'm ready to give you custom responses.",
-				sender: 'bot'
-			});
+			addMessage("I've been trained on your data and I'm ready to give you custom responses.")
 		} catch(err) {
 			console.error(err)
 			trainingStatus = 'error';
@@ -201,11 +198,10 @@
 
 		{/if}
 	{:else if step == 2}
-		<h2>Customize</h2>
-		<div class="grid md:grid-cols-2 gap-4">
+		<div class="grid md:grid-cols-[2fr_3fr] gap-6">
 			<ModelSettings id={modelId} {name} {settings} />
 			<div>
-				<div class="p-4 border border-slate-400 rounded-lg self-start h-full">
+				<div class="p-4 rounded-lg self-start">
 					<Chat {modelId} {messages} disabled={trainingStatus != "done"} />
 				</div>
 			</div>
