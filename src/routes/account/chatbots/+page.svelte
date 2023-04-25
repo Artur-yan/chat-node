@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import Icon from '@iconify/svelte';
 
 	export let data;
@@ -14,7 +15,7 @@
 			<h1 class="text-xl font-bold text-secondary">Chatbots</h1>
 		</div>
 		{#if botUsage < 1}
-			<a href="/account/chatbots/create" class="btn btn-primary" disabled={data.user.user !== 'active'}>Create <Icon icon="mdi:plus-box" class="ml-2" height="20" /></a>
+			<button on:click={() => goto("/account/chatbots/create")} class="btn btn-primary" disabled={data.user.user.status !== 'active'}>Create <Icon icon="mdi:plus-box" class="ml-2" height="20" /></button>
 		{/if}
 	</div>
 
