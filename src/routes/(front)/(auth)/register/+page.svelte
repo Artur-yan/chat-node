@@ -31,7 +31,7 @@
 				<label class="label" for="promo"><span class="label-text">Promo code</span></label>
 				<input type="text" name="promo" id="promo" class="input input-bordered" placeholder="Optional" />
 
-				<a class="btn btn-ghost" href="/forgot-password">Forgot password?</a>
+				<!-- <a class="btn btn-ghost" href="/forgot-password">Forgot password?</a> -->
 				{#if form?.message}
 					<p class="text-error">{form.message || ''}</p>
 				{/if}

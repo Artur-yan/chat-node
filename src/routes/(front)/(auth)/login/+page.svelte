@@ -28,7 +28,7 @@
 					required
 				/>
 
-				<a class="btn btn-ghost" href="/forgot-password">Forgot password?</a>
+				<!-- <a class="btn btn-ghost" href="/forgot-password">Forgot password?</a> -->
 				{#if form?.message}
 					<p class="text-error">{form.message || ''}</p>
 				{/if}
