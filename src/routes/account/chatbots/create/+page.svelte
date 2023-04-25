@@ -12,7 +12,8 @@
 	let settings = {
 		greeting: 'What can I help you with?',
 		public: false,
-		allowedUrls: []
+		allowedUrls: [],
+		supportMessage: 'Hmm, I am not sure'
 	};
 	let messages = [
 		{
@@ -29,7 +30,7 @@
 		messages = [...messages, { text, sender }];
 	}
 
-	let step = 2;
+	let step = 1;
 	let activeTab = 0;
 	let trainingStatus: null | 'training' | 'done' | 'error' = null;
 	let fileInput: HTMLInputElement;

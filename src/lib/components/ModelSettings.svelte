@@ -41,6 +41,17 @@
 			class="input w-full"
 		/>
 	</div>
+	<div>
+		<label for="support-message" class="label">
+			<span class="label-text">Support Message</span>
+		</label>
+		<input
+			type="text"
+			bind:value={settings.supportMessage}
+			class="input w-full"
+		/>
+		<p class="text-sm m-1">This is the message that will appear to the user if the chatbot cannot come up with a confident answer. You may want to include an email address or link to a contact page here.</p>
+	</div>
 	<div class="form-control">
 		<label class="label cursor-pointer flex justify-start gap-4">
 			<span class="label-text">Private</span>
