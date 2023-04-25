@@ -7,6 +7,7 @@
 	export let name: string;
 	export let settings: Object;
 	export let deleteEnabled = false
+	let deleting = false
 
 
 	const addUrl = (url: string) => {
@@ -99,9 +100,20 @@
     <h3 class="font-bold text-lg">Are you sure you want to delete this model?</h3>
     <p class="py-4">This can't be undone.</p>
     <div class="modal-action">
-      <label for="my-modal" class="btn">Cancel</label>
-	  <button class="btn btn-error" type="button" on:click={ () => { deleteModel(id); goto('/account/chatbots') } }
-		>Delete</button
+		<label for="my-modal" class="btn">Cancel</label>
+		<button class="btn btn-error" type="button"
+			on:click={
+				async () => {
+					deleting = true;
+					await deleteModel(id);
+					goto('/account/chatbots')
+				}
+			}
+		>
+			{#if deleting}
+				<Icon icon="mdi:loading" class="animate-spin mr-2" width="20" />
+			{/if}
+		Delete</button
 	>
     </div>
   </div>

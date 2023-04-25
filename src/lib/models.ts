@@ -51,6 +51,7 @@ const deleteModel = async (id: string) => {
 				id
 			})
 		});
+		return {}
 	} catch (err) {
 		console.error(err);
 	}
