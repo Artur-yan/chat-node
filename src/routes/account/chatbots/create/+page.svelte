@@ -209,7 +209,6 @@
 				</div>
 			</div>
 		</div>
-		<button class="btn btn-primary" type="submit" on:click={() => settings = settings}>Update</button>
 	{/if}
 
 	<TrainingStatus {trainingStatus} />
