@@ -33,7 +33,7 @@
 		await new Promise(r => setTimeout(r, 2000));
 		isThinking = false
 		messages = [...messages, {
-			text: "Chatbots can be trained on any text, file or website you choose.",
+			text: "Chatbots can be trained on any text, pdf, or website.",
 			sender: 'bot'
 		}];
 		await new Promise(r => setTimeout(r, 1000));
