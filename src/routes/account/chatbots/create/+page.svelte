@@ -25,7 +25,8 @@
 			sender: 'bot'
 		}
 	];
-	// Trigger reactivity on messages.push()
+	let preventSave = true;
+
 	const addMessage = (text, sender = 'bot') => {
 		messages = [...messages, { text, sender }];
 	}
@@ -123,6 +124,7 @@
 			}
 			addModel(modelId, dataType, name, settings);
 			trainingStatus = 'done';
+			preventSave = false;
 			addMessage("I've been trained on your data and I'm ready to give you custom responses.")
 		} catch(err) {
 			console.error(err)
@@ -187,7 +189,7 @@
 					<input
 						type="url"
 						placeholder="https://yourwebsite.com"
-						class="input input-bordered"
+						class="input input-bordered w-96 max-w-full"
 						bind:value={url}
 						autofocus
 					/>
@@ -200,13 +202,14 @@
 		{/if}
 	{:else if step == 2}
 		<div class="grid md:grid-cols-[2fr_3fr] gap-6">
-			<ModelSettings id={modelId} {name} {settings} />
+			<ModelSettings id={modelId} {name} {settings} {preventSave} />
 			<div>
 				<div class="p-4 rounded-lg self-start">
 					<Chat {modelId} {messages} disabled={trainingStatus != "done"} />
 				</div>
 			</div>
 		</div>
+		<button class="btn btn-primary" type="submit" on:click={() => settings = settings}>Update</button>
 	{/if}
 
 	<TrainingStatus {trainingStatus} />

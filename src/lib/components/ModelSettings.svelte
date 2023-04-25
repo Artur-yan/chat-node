@@ -7,6 +7,7 @@
 	export let name: string;
 	export let settings: Object;
 	export let deleteEnabled = false
+	export let preventSave = false
 	let deleting = false
 
 
@@ -85,7 +86,7 @@
 			<button class="btn btn-xs btn-outline btn-primary btn-circle" type="button" on:click={() => addUrl('')}><Icon icon="mdi:add" width="16" /></button>
 	{/if}
 	<div class="text-center">
-		<button class="btn btn-outline btn-success w-full max-w-2xl mt-10" type="submit">Save</button>
+		<button class="btn btn-outline btn-success w-full max-w-2xl mt-10" type="submit" disabled={preventSave}>Save</button>
 	</div>
 </form>
 {#if deleteEnabled}				
