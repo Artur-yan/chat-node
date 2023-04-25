@@ -5,6 +5,7 @@ import { redirect } from '@sveltejs/kit';
 import { LuciaError } from 'lucia-auth';
 import type { PageServerLoad } from './$types';
 import { prismaClient } from '$lib/server/prisma';
+import {sendConfirmationEmail} from '$lib/server/messenger';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -35,21 +36,26 @@ export const actions: Actions = {
 					email
 				}
 			});
-			const session = await auth.createSession(user.userId);
-
 			let subscriptionData = {
 				user_id: user.userId,
 			}
-
 			if (promo === 'beta_tester') {
 				subscriptionData.plan = 1
 				subscriptionData.max_bot = 5
 				subscriptionData.max_msg = 2000
 			}
-
 			await prismaClient.subscriptions.create({
 				data: subscriptionData
 			});
+			await sendConfirmationEmail(email, user.userId);
+
+			const session = await auth.createSession(user.userId);
+
+
+
+
+
+
 			locals.auth.setSession(session);
 		} catch (error) {
 			console.error(error)
