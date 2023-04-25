@@ -47,16 +47,11 @@ export const actions: Actions = {
 			await prismaClient.subscriptions.create({
 				data: subscriptionData
 			});
+			const session = await auth.createSession(user.userId);
+			locals.auth.setSession(session);
+
 			await sendConfirmationEmail(email, user.userId);
 
-			const session = await auth.createSession(user.userId);
-
-
-
-
-
-
-			locals.auth.setSession(session);
 		} catch (error) {
 			console.error(error)
 			if (

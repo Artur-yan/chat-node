@@ -3,7 +3,6 @@
 
 	export let data;
 
-
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.subscription.bot_count / data.subscription.max_bot;
 
@@ -15,7 +14,7 @@
 			<h1 class="text-xl font-bold text-secondary">Chatbots</h1>
 		</div>
 		{#if botUsage < 1}
-			<a href="/account/chatbots/create" class="btn btn-primary">Create <Icon icon="mdi:plus-box" class="ml-2" height="20" /></a>
+			<a href="/account/chatbots/create" class="btn btn-primary" disabled={data.user.user !== 'active'}>Create <Icon icon="mdi:plus-box" class="ml-2" height="20" /></a>
 		{/if}
 	</div>
 
@@ -83,6 +82,13 @@
 						</div>
 					</div>
 			{/each}
+		</div>
+	{:else if data.user.user.status !== 'active'}
+		<div class="alert alert-info shadow-lg">
+			<div>
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+				<span>You need to verify your email address before you can create a chatbot. Please check your email for the verification link.</span>
+			</div>
 		</div>
 	{:else}
 		<div class="py-10 text-center">
