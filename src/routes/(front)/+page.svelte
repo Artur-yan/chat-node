@@ -70,8 +70,8 @@
 				ChatGPT empowered with your data.
 			</h2>
 			<p class="mb-10 font-light text-xl">
-				Train the highly advanced AI chat bot on any text, file or website you choose. Use it
-				internally or publish it to your website to answer your customers' questons.
+				Train the highly advanced AI chatbot on any text, file or website you choose. Use it
+				internally or publish it to your website to answer your customers' questions.
 			</p>
 			<a href="/register" class="btn text-primary">
 				Get started
