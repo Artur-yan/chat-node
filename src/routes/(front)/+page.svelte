@@ -67,7 +67,7 @@
 	  </div>
 		<div class="leading-loose">
 			<h2 class="mb-6 text-2xl tracking-tight font-extrabold">
-				Chat GPT empowered with your data.
+				ChatGPT empowered with your data.
 			</h2>
 			<p class="mb-10 font-light text-xl">
 				Train thje highly advanced AI chat bot on any text, file or website you choose. Use it
