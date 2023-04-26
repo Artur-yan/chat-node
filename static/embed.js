@@ -22,4 +22,7 @@ const html = `
 </div>
 `
 
-body.insertAdjacentHTML('beforeend', html);
+
+document.addEventListener("DOMContentLoaded", () => {
+    body.insertAdjacentHTML('beforeend', html);
+});
