@@ -21,7 +21,7 @@
 			sender: 'bot'
 		},
 		{
-			text: 'Once your bot is trained, type a message to test your repsonses.',
+			text: 'Once your bot is trained, type a message to test your responses.',
 			sender: 'bot'
 		}
 	];
