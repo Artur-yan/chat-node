@@ -21,7 +21,7 @@
 		<div class="mockup-code h-full">
 			<pre class="px-6"><code class=" whitespace-break-spaces">{iframeEmbedCode}</code></pre>
 		</div>
-		<p class="p-4">Place this code whereever you'd like within your website where you'd like it to appear.</p>
+		<p class="p-4">Place this code wherever you'd like within your website where you'd like it to appear.</p>
 	</div>
 </div>
 
