@@ -5,10 +5,14 @@
 </script>
 
 
-<section class="container">
-    <h2>{data.user.user.email}</h2>
-    <label for="delete-account-modal" class="btn btn-error">Delete account</label>
-</section>
+<section class="container my-10">
+      <h2 class="font-bold text-sm">Your Email</h2>
+      <div class="flex items-center gap-4 my-2">
+        <h3 class="text-xl text-secondary">{data.user.user.email}</h3>
+        <!-- <button class="btn btn-outline btn-xs text-xs">edit</button> -->
+      </div>
+    <label for="delete-account-modal" class="btn btn-error btn-outline mt-10">Delete account</label>
+  </section>
 
 
 <input type="checkbox" id="delete-account-modal" class="modal-toggle" />
