@@ -1,7 +1,5 @@
 const id = document.currentScript.getAttribute('data-chatbot-id');
 
-const body = document.querySelector('body');
-
 let chatOpen = false;
 
 function toggleChat() {
@@ -24,5 +22,6 @@ const html = `
 
 
 document.addEventListener("DOMContentLoaded", () => {
+    const body = document.querySelector('body');
     body.insertAdjacentHTML('beforeend', html);
 });
