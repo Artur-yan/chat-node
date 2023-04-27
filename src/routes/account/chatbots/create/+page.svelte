@@ -100,34 +100,37 @@
 			});
 			return await res.json();
 		} catch (err) {
-			throw (err);
+			throw err
 		}
+
 	};
 
 	const handleSubmit = async (dataType: 'text' | 'file' | 'url') => {
 		trainingStatus = 'training';
 		step++;
 
+		let data
+
 		try{
 			if (dataType == 'text') {
-				const data = await handleTextTraining();
-				modelId = data.chat_key;
+				data = await handleTextTraining();
 			}
 			else if(dataType == 'file') {
-				const data = await handleFileTraining();
-				modelId = data.chat_key;
+				data = await handleFileTraining();
 
 			}
 			else if(dataType == 'url') {
-				const data = await handleUrlTraining();
-				modelId = data.chat_key;
+				data = await handleUrlTraining();
 			}
+			modelId = data.chat_key;
+			
 			addModel(modelId, dataType, name, settings);
+
 			trainingStatus = 'done';
 			preventSave = false;
 			addMessage("I've been trained on your data and I'm ready to give you custom responses.")
 		} catch(err) {
-			console.error(err)
+			console.error('THere was an Error')
 			trainingStatus = 'error';
 		}
 
