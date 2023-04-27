@@ -6,18 +6,22 @@ const addModel = async (
 	name: string,
 	settings?: Object
 ) => {
-	const res = await fetch('/api/models', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			id,
-			data_source_type,
-			name,
-			settings
-		})
-	});
+	try{
+		const res = await fetch('/api/models', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				id,
+				data_source_type,
+				name,
+				settings
+			})
+		});
+	} catch(err) {
+		throw err
+	}
 };
 
 const updateModel = async (id: string, name: string, settings?: Object) => {
