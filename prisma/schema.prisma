@@ -14,7 +14,7 @@ model AuthUser {
   auth_session             AuthSession[]
   bots                     Bots[]
   subscription             Subscriptions?
-  status                   String?
+  status                   String?        @default("active")
   email_verification_token String?        @default(uuid())
 
   @@map("auth_user")
