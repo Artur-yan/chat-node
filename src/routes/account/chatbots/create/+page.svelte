@@ -136,7 +136,7 @@
 	};
 </script>
 
-<div class="container mt-10">
+<div class="container mt">
     <div class="text-sm breadcrumbs text-secondary mb-6 font-bold">
         <ul>
 			<li><a href="/account/chatbots">&larr; Chatbots</a></li> 
@@ -202,9 +202,11 @@
 		{/if}
 	{:else if step == 2}
 		<div class="grid md:grid-cols-[2fr_3fr] gap-6">
-			<ModelSettings id={modelId} {name} {settings} {preventSave} />
 			<div>
-				<div class="p-4 rounded-lg self-start">
+				<ModelSettings id={modelId} {name} {settings} {preventSave} />
+			</div>
+			<div>
+				<div class="h-[calc(100vh_-_10rem)]">
 					<Chat {modelId} {messages} disabled={trainingStatus != "done"} />
 				</div>
 			</div>

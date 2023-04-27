@@ -7,4 +7,13 @@ const deleteAccount = async () => {
     goto('/')
 }
 
-export { deleteAccount }
+const updateAccountEmail = async (email: string) => {
+    await fetch('/api/account/update-email', {
+        method: 'POST',
+        body: JSON.stringify({
+            email
+        })
+    })
+}
+
+export { deleteAccount, updateAccountEmail }

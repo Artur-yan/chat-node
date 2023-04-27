@@ -15,7 +15,7 @@ let transporter = nodemailer.createTransport({
 
 const sendConfirmationEmail = async (email: string, token: string) => {
   transporter.sendMail({
-    from: "system@gptchatbot.ai",
+    from: "contact@gptchatbot.ai",
     to : email,
     subject : "Please confirm your email",
     text: `Please confirm your email by clicking on the following link: ${PUBLIC_SITE_URL}/account/confirm/${token}`

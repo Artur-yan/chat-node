@@ -85,15 +85,20 @@
 			{/each}
 		</div>
 	{:else if data.user.user.status !== 'active'}
-		<div class="alert alert-info shadow-lg">
+		<div class="alert alert-info shadow-lg max-w-3xl mx-auto my-10">
 			<div>
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-				<span>You need to verify your email address before you can create a chatbot. Please check your email for the verification link.</span>
+				<span>You need to verify your email address before you can create a chatbot.<br>Please check your email for the verification link.</span>
 			</div>
 		</div>
-	{:else}
-		<div class="py-10 text-center">
-			You don't have any chatbots yet. <a href="/account/chatbots/create" class="link link-primary">Create one now.</a>
-		</div>
+		<div class="card max-w-xl mx-auto bg-neutral text-neutral-content">
+			<div class="card-body items-center text-center">
+			  <h2 class="card-title">Welcome!</h2>
+			  You don't have any chatbots yet.
+			  <div class="card-actions mt-10">
+				<button on:click={goto('/account/chatbots/create')} class="btn btn-primary" disabled={data.user.user.status !== 'active'}>Create a chatbot</button>
+			  </div>
+			</div>
+		  </div>
 	{/if}
 </div>

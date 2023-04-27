@@ -2,6 +2,6 @@
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	plugins: [
-		require('daisyui', '@tailwindcss/container-queries')
+		require('daisyui')
 	]
 };
