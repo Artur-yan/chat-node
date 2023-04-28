@@ -3,14 +3,13 @@
 
     import { deleteAccount, updateAccountEmail } from '$lib/account';
 
-
     let userEmail = data.user.user.email
     let deleteConfirm = "";
 </script>
 
 
 <section class="container my-10 grid lg:grid-cols-3 gap-4">
-  <div class="card bg-neutral shadow-xl">
+  <!-- <div class="card bg-neutral shadow-xl">
     <div class="card-body">
       <h2 class="card-title">Email</h2>
       <p>We will send you a verification link to the new email address.</p>
@@ -23,7 +22,7 @@
           </div>
         </div>
     </div>
-  </div>
+  </div> -->
   <!-- <div class="card bg-neutral shadow-xl">
     <div class="card-body justify-between">
       <h2 class="card-title">Change Password</h2>
