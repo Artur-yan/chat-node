@@ -7,7 +7,7 @@ import { redirect } from '@sveltejs/kit';
 export const GET: RequestHandler = async ({ params }) => {
     await prismaClient.authUser.update({
         where: {
-            id: params.token
+            verification_uuid: params.uuid
         },
         data: {
             status: 'active'
