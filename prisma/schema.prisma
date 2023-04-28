@@ -10,7 +10,7 @@ datasource db {
 model AuthUser {
   id                       String         @id @unique
   email                    String         @unique
-  email_verification_token String?        @default(uuid())
+  verification_uuid       String?        
   status                   String?        @default("active")
   auth_key                 AuthKey[]
   auth_session             AuthSession[]
