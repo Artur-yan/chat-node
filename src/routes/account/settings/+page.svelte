@@ -24,7 +24,7 @@
         </div>
     </div>
   </div>
-  <div class="card bg-neutral shadow-xl">
+  <!-- <div class="card bg-neutral shadow-xl">
     <div class="card-body justify-between">
       <h2 class="card-title">Change Password</h2>
       <div class="input-group">
@@ -45,7 +45,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="card bg-neutral shadow-xl">
     <div class="card-body justify-between">
       <h2 class="card-title">Delete Account</h2>
