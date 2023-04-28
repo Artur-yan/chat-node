@@ -10,12 +10,13 @@ datasource db {
 model AuthUser {
   id                       String         @id @unique
   email                    String         @unique
+  verification_uuid       String?         @unique
+  status                   String?        @default("active")
   auth_key                 AuthKey[]
   auth_session             AuthSession[]
   bots                     Bots[]
   subscription             Subscriptions?
-  status                   String?        @default("active")
-  email_verification_token String?        @default(uuid())
+  new_email                String?        @unique
 
   @@map("auth_user")
 }
