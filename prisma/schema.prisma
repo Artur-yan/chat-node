@@ -35,7 +35,7 @@ model AuthSession {
 model AuthKey {
   id              String   @id @unique
   hashed_password String?
-  user_id         String
+  user_id         String      @unique
   primary_key     Boolean
   expires         BigInt?
   auth_user       AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
