@@ -4,12 +4,11 @@ import { transporter} from "$lib/server/messenger"
 import { v4 as uuidv4 } from 'uuid';
 import { PUBLIC_SITE_URL } from '$env/static/public';
 
+
 export const POST: RequestHandler = async ({ locals, request }) => {
     const { user } = await locals.auth.validateUser();
     const { newEmail } = await request.json();
     const uuid = uuidv4();
-
-    console.log(user.userId)
 
     try{
         await prismaClient.authUser.update({
@@ -21,6 +20,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
                 verification_uuid: uuid
             }
         });
+        
         transporter.sendMail({
           from: "contact@gptchatbot.ai",
           to: newEmail,

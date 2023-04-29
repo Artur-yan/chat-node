@@ -1,31 +1,48 @@
 import type { RequestHandler } from './$types';
+
+import { auth } from '$lib/server/lucia';
 import { prismaClient } from '$lib/server/prisma';
 import { redirect } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ params, url }) => {
+export const GET: RequestHandler = async ({ params, url, locals }) => {
     let update = url.searchParams.get('update')
 
     // For Existing Users
-    if(update == 'true') {
-        let account = await prismaClient.authUser.findUnique({
-            where: {
-                verification_uuid: params.uuid
-            }
-        });
+    if(update === 'true') {
+        try {
+            const user = await prismaClient.authUser.findFirstOrThrow({
+                where: {
+                    verification_uuid: params.uuid
+                }
+            });
 
-        console.log(account)
+            // Update username
+            await prismaClient.authKey.update({
+                where: {
+                    user_id: user.id
+                },
+                data: {
+                    id: 'username:' + user.new_email
+                }
+            })
 
-        await prismaClient.authUser.update({
-            where: {
-                id: account.id
-            },
-            data: {
-                email: account.new_email,
+            await auth.updateUserAttributes(user.id, {
+                email: user.new_email,
                 new_email: null,
                 verification_uuid: null
-            }
-        });
-        throw redirect(302, `/account/chatbots`);
+            })
+
+            // Re-initiate session
+            await auth.invalidateAllUserSessions(user.id);
+            const session = await auth.createSession(user.id);
+            locals.auth.setSession(session);
+            
+            // Redirect
+            throw redirect(302, `/account/settings`);
+        } catch (err) {
+            console.log(err)
+            throw redirect(302, `/account/settings`);
+        }
     }
     // For new Users
     else {
