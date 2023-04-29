@@ -50,7 +50,7 @@ export const actions: Actions = {
 			const session = await auth.createSession(user.userId);
 			locals.auth.setSession(session);
 
-			sendConfirmationEmail(email, user.userId);
+			await sendConfirmationEmail(email, user.userId);
 
 		} catch (error) {
 			console.error(error)
