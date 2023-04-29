@@ -90,7 +90,7 @@
 				</div>
 			{/if}
 		</div>
-		<div class="fixed w-full bottom-0 left-0 p-4 bg-base-300 flex items-center justify-between">
+		<div class="flex items-center justify-between">
 			<button class="btn btn-outline btn-success w-full md:w-80" type="submit" disabled={preventSave}>Save</button>
 			{#if deleteEnabled}
 				<div class="text-center">
