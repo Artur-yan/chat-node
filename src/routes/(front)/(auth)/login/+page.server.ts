@@ -1,16 +1,16 @@
-import { fail, type Actions } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import { auth } from '$lib/server/lucia';
 import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+// import type { PageServerLoad } from './$types';
 import { LuciaError } from 'lucia-auth';
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (session) throw redirect(302, '/account/chatbots');
 	return {};
 };
 
-export const actions: Actions = {
+export const actions = {
 	default: async ({ request, locals }) => {
 		const form = await request.formData();
 		const email = form.get('email');
@@ -30,12 +30,16 @@ export const actions: Actions = {
 				(error.message === 'AUTH_INVALID_KEY_ID' || error.message === 'AUTH_INVALID_PASSWORD')
 			) {
 				return fail(400, {
-					message: 'Incorrect username or password.'
+					working: false,
+					error: true,
+					message: 'Incorrect email or password'
 				});
 			}
 			// database connection error
 			console.error(error);
 			return fail(500, {
+				working: false,
+				error: true,
 				message: 'Unknown error occurred'
 			});
 		}
