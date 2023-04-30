@@ -2,7 +2,6 @@
 	import { enhance } from '$app/forms';
 	export let form: { message?: string };
 	import { page } from '$app/stores';
-	import { PUBLIC_SITE_URL } from '$env/static/public';
 
 	let email = $page.url.searchParams.get('email');
 </script>
