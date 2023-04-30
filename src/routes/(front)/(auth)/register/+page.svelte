@@ -7,37 +7,42 @@
 	<div class="card w-96 bg-neutral text-neutral-content mx-auto my-20">
 		<div class="card-body">
 			<h2 class="card-title">Create an account</h2>
-			<form class="form-control" method="POST" use:enhance>
-				<label class="label" for="email"><span class="label-text">Email</span></label>
-				<input
-					class="input input-bordered"
-					type="email"
-					name="email"
-					id="email"
-					placeholder="name@company.com"
-					required
-				/>
+			<form class="form-control gap-2" method="POST" use:enhance>
+				<div>
+					<label class="label" for="email"><span class="label-text">Email</span></label>
+					<input
+						class="input input-bordered w-full"
+						type="email"
+						name="email"
+						id="email"
+						placeholder="name@company.com"
+						required
+					/>
+				</div>
 
-				<label class="label" for="email"><span class="label-text">Password</span></label>
-				<input
-					class="input input-bordered"
-					type="password"
-					name="password"
-					id="password"
-					placeholder="••••••••"
-					required
-				/>
+				<div>
+					<label class="label" for="email"><span class="label-text">Password</span></label>
+					<input
+						class="input input-bordered w-full"
+						type="password"
+						name="password"
+						id="password"
+						placeholder="••••••••"
+						required
+					/>
+				</div>
 
-				<label class="label" for="promo"><span class="label-text">Promo code</span></label>
-				<input type="text" name="promo" id="promo" class="input input-bordered" placeholder="Optional" />
+				<div>
+					<label class="label" for="promo"><span class="label-text">Promo code</span></label>
+					<input type="text" name="promo" id="promo" class="input input-bordered" placeholder="Optional" />
+				</div>
 
-				<!-- <a class="btn btn-ghost" href="/forgot-password">Forgot password?</a> -->
 				{#if form?.message}
 					<p class="text-error">{form.message || ''}</p>
 				{/if}
-				<button type="submit" class="btn btn-primary w-full">Create account</button>
+				<button type="submit" class="btn btn-primary w-full mt-4">Create account</button>
 				<p class="text-sm mt-4">
-					Already have an account?<br /><a href="/login" class="link">Sign in</a>
+					Already have an account? <a href="/login" class="link ml-2">Sign in</a>
 				</p>
 			</form>
 		</div>
