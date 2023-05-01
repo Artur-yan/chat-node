@@ -3,11 +3,10 @@
 	export let form: { message?: string; success: false; submitted: false };
 	import { page } from '$app/stores';
 
+	let email = $page.url.searchParams.get('email');
 	let loading = false
-
 	$: loading = form?.submitted;
 
-	let email = $page.url.searchParams.get('email');
 </script>
 
 <section>
