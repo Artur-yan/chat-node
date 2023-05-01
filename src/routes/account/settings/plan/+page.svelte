@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { alert } from '$lib/stores.js'
 	import { goto } from '$app/navigation';
 
 	export let data;
@@ -18,7 +19,7 @@
 			goto(data.url);
 		} else if(data.status == 'success') {
 			plan = newPlan
-			alert('Plan updated')
+			$alert = 'Plan updated successfully'
 		}
 	}
 </script>
