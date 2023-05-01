@@ -165,11 +165,11 @@
 		</div>
 
 		{#if activeTab == 0}
-			<input type="file" class="file-input file-input-bordered file-input-primary" bind:files bind:this={fileInput} accept=".doc,.docx,.pdf,.txt" />
+			<input type="file" class="file-input file-input-bordered file-input-primary" bind:files bind:this={fileInput} accept=".doc,.docx,.pdf,.txt,.csv,.json" />
 			<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('file')}
 				>Train Bot</button
 			>
-			<p class="help">PDF, TXT or DOC files only (MAX 50MB)</p>
+			<p class="help">PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
 		{:else if activeTab == 1}
 			<div>
 				<textarea
