@@ -1,7 +1,7 @@
 import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 
 export const PUT = async ({ request, locals }) => {
-	const { new_plan } = await request.json();
+	const { newPlan } = await request.json();
 	const session = await locals.auth.validate();
 
 	try {
@@ -12,7 +12,7 @@ export const PUT = async ({ request, locals }) => {
 			},
 			body: JSON.stringify({
 				user_id: session.userId,
-				plan: new_plan
+				plan: newPlan
 			})
 		});
 		const { url } = await res.json()

@@ -2,11 +2,10 @@
 	import { goto } from '$app/navigation';
 	export let data;
 
-
 	let plan = data.subscription.plan
-	let user = data.subscription.user_id;
+	// let user = data.subscription.user_id;
 
-	const updatePlan = async (new_plan: number) => {
+	const updatePlan = async (newPlan: number) => {
 		try {
 			const res = await fetch('/api/account/plan', {
 
@@ -14,7 +13,7 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({new_plan})
+				body: JSON.stringify({newPlan})
 			});
 			const url = await res.json();
 			goto(url);
@@ -41,15 +40,15 @@
 	// 	}
 	// };
 
-	function transformPlan(plan, key) {
-    if (plan === 0 && key === 0) {
-      return 'current plan';
-    } else if (plan === key) {
-      return 'cancel';
-    } else {
-      return 'change plan';
-    }
-  }
+// 	function transformPlan(plan, key) {
+//     if (plan === 0 && key === 0) {
+//       return 'current plan';
+//     } else if (plan === key) {
+//       return 'cancel';
+//     } else {
+//       return 'change plan';
+//     }
+//   }
 
 
 
@@ -70,7 +69,7 @@
 							<li>Embed on your website using an iframe or JS plugin</li>
 						</ul>
 						<div class="card-actions justify-end">
-							<button on:click={() => updatePlan(0, transformPlan(plan, 0))} class="btn btn-outline btn-secondary w-full">{transformPlan(plan, 0)}</button>
+							<button on:click={() => updatePlan(0)} class="btn btn-outline btn-secondary w-full">{plan == 0 ? 'Cancel' : 'Change plan'}</button>
 						</div>
 					</div>
 				</div>
@@ -86,7 +85,7 @@
 							<li>Embed on your website using an iframe or JS plugin</li>
 						</ul>
 						<div class="card-actions justify-end">
-							<button on:click={() => updatePlan(1, transformPlan(plan, 1))} class="btn btn-outline btn-secondary w-full">{transformPlan(plan, 1)}</button>
+							<button on:click={() => updatePlan(1)} class="btn btn-outline btn-secondary w-full">{plan == 1 ? 'Cancel' : 'Change plan'}</button>
 						</div>
 					</div>
 				</div>
@@ -102,7 +101,7 @@
 							<li>Embed on your website using an iframe or JS plugin</li>
 						</ul>
 						<div class="card-actions justify-end">
-							<button on:click={() => updatePlan(2, transformPlan(plan, 2))} class="btn btn-outline btn-secondary w-full">{transformPlan(plan, 2)}</button>
+							<button on:click={() => updatePlan(2)} class="btn btn-outline btn-secondary w-full">{plan == 2 ? 'Cancel' : 'Change plan'}</button>
 						</div>
 					</div>
 				</div>
