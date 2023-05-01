@@ -41,17 +41,17 @@ export const actions: Actions = {
 			}
 		}
 
-		return {
-			success: true,
-			submitted: false
-		}
-
+		
         transporter.sendMail({
 			from: "contact@gptchatbot.ai",
 			to: email,
 			subject : emailSubject,
 			text: emailBody
-		  })
-
+		})
+		
+		return {
+			success: true,
+			submitted: false
+		}
 	}
 };
