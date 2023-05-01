@@ -1,64 +1,32 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+
 	export let data;
 
 	let plan = data.subscription.plan
-	// let user = data.subscription.user_id;
 
 	const updatePlan = async (newPlan: number) => {
-		try {
-			const res = await fetch('/api/account/plan', {
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({newPlan})
-			});
-			const url = await res.json();
-			goto(url);
-
-		} catch (err) {
-			console.error(err);
+		const res = await fetch('/api/account/plan', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(newPlan)
+		});
+		const data = await res.json();
+		if (data.url) {
+			goto(data.url);
+		} else if(data.status == 'success') {
+			plan = newPlan
+			alert('Plan updated')
 		}
 	}
-
-	// 	const updatePlan = async () => {
-	// 	try {
-	// 		const res = await fetch('/api/account/plan', {
-	// 			method: 'PUT',
-	// 			headers: {
-	// 				'Content-Type': 'application/json'
-	// 			},
-	// 			body: JSON.stringify({ plan })
-	// 		});
-	// 		//const url = await res.json();
-	// 		//goto(url);
-	//
-	// 	} catch (err) {
-	// 		console.error(err);
-	// 	}
-	// };
-
-// 	function transformPlan(plan, key) {
-//     if (plan === 0 && key === 0) {
-//       return 'current plan';
-//     } else if (plan === key) {
-//       return 'cancel';
-//     } else {
-//       return 'change plan';
-//     }
-//   }
-
-
-
 </script>
 
 <section>
 
-<!--	<form on:submit={updatePlan}>-->
 		<div class="container my-10 grid md:grid-cols-3 gap-8">
 			<label>
-<!--				<input class="peer hidden" type="radio" name="plan" value={0} bind:group={plan} />-->
 				<div class="card">
 					<h2 class="card-title p-4 bg-cyan-900 rounded-lg">FREE</h2>
 					<div class="card-body">
@@ -74,7 +42,6 @@
 				</div>
 			</label>
 			<label>
-<!--				<input class="peer hidden" type="radio" name="plan" value={1} bind:group={plan} />-->
 				<div class="card">
 					<h2 class="card-title p-4 bg-primary rounded-lg text-neutral">PLUS</h2>
 					<div class="card-body">
@@ -90,7 +57,6 @@
 				</div>
 			</label>
 			<label>
-<!--				<input class="peer hidden" type="radio" name="plan" value={2} bind:group={plan} />-->
 				<div class="card">
 					<h2 class="card-title p-4 bg-secondary rounded-lg text-neutral">PRO</h2>
 					<div class="card-body">
@@ -106,17 +72,6 @@
 				</div>
 			</label>
 		</div>
-
-<!--		<div class="flex justify-center">-->
-<!--			<button type="submit" class="btn btn-primary">Switch Plan</button>-->
-<!--		</div>-->
-<!--	</form>-->
-
-<!--	<script async src="https://js.stripe.com/v3/pricing-table.js"></script>-->
-<!--	<stripe-pricing-table pricing-table-id="prctbl_1MzSTwIdugeFU9JRehtZoIew"-->
-<!--	publishable-key="pk_test_51MkXnWIdugeFU9JRWv9bwqxEpOwJuBJFp3RGulXHOKMn50ZcihKupFyYRa4SSAvaPcU1ifl4YoyaATS9abhEFIcH008pXwgCAU">-->
-<!--	</stripe-pricing-table>-->
-
 </section>
 
 

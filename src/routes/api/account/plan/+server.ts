@@ -1,7 +1,7 @@
 import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 
 export const PUT = async ({ request, locals }) => {
-	const { newPlan } = await request.json();
+	const newPlan = await request.json();
 	const session = await locals.auth.validate();
 
 	try {
@@ -15,10 +15,11 @@ export const PUT = async ({ request, locals }) => {
 				plan: newPlan
 			})
 		});
-		const { url } = await res.json()
+		const url = await res.json()
 		return new Response(JSON.stringify(url), { status: 200 })
 		
 	} catch (err) {
+		console.error(err);
 		return new Response('There was an error', { status: 500 });
 	}
 };
