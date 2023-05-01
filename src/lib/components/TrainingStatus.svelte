@@ -31,10 +31,8 @@
 
 
 {#if trainingStatus != null}
-	<div class="toast toast-start items-center gap-2">
-		<div class="alert {alertClass}">
+		<div class="alert pr-8 w-auto {alertClass}">
 			<Icon icon={icon} width="24" />
 			{trainingMessage}
 		</div>
-	</div>
 {/if}
