@@ -27,7 +27,7 @@
 
 <div class="@container">
 	<form on:submit={handleSubmit} class="grid gap-10 @[240px]:grid-cols-2">
-		<div>
+		<div class="space-y-3">
 			<div>
 				<label for="name" class="label">
 					<span class="label-text">Name</span>
@@ -55,6 +55,17 @@
 					class="input w-full"
 				/>
 				<p class="text-sm m-1">This is the message that will appear to the user if the chatbot cannot come up with a confident answer. You may want to include an email address or link to a contact page here.</p>
+			</div>
+			<div>
+				<label for="support-message" class="label">
+					<span class="label-text">Prompt</span>
+				</label>
+				<textarea
+					bind:value={settings.prompt}
+					class="textarea textarea-bordered w-full"
+					name="prompt"
+				/>
+				<!-- <p class="text-sm m-1"></p> -->
 			</div>
 		</div>
 		<div>
@@ -90,7 +101,7 @@
 				</div>
 			{/if}
 		</div>
-		<div class="fixed w-full bottom-0 left-0 p-4 bg-base-300 flex items-center justify-between">
+		<div class="flex items-center justify-between">
 			<button class="btn btn-outline btn-success w-full md:w-80" type="submit" disabled={preventSave}>Save</button>
 			{#if deleteEnabled}
 				<div class="text-center">
