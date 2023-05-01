@@ -69,7 +69,7 @@
 							<li>Embed on your website using an iframe or JS plugin</li>
 						</ul>
 						<div class="card-actions justify-end">
-							<button on:click={() => updatePlan(0)} class="btn btn-outline btn-secondary w-full">{plan == 0 ? 'Cancel' : 'Change plan'}</button>
+							<button on:click={() => updatePlan(0)} class="btn btn-outline btn-secondary w-full" disabled={plan == 0}>{plan == 0 ? 'Current plan' : 'Change plan'}</button>
 						</div>
 					</div>
 				</div>
@@ -85,7 +85,7 @@
 							<li>Embed on your website using an iframe or JS plugin</li>
 						</ul>
 						<div class="card-actions justify-end">
-							<button on:click={() => updatePlan(1)} class="btn btn-outline btn-secondary w-full">{plan == 1 ? 'Cancel' : 'Change plan'}</button>
+							<button on:click={() => updatePlan(1)} class="btn btn-outline btn-secondary w-full" disabled={plan == 1}>{plan == 1 ? 'Current plan' : 'Change plan'}</button>
 						</div>
 					</div>
 				</div>
@@ -101,7 +101,7 @@
 							<li>Embed on your website using an iframe or JS plugin</li>
 						</ul>
 						<div class="card-actions justify-end">
-							<button on:click={() => updatePlan(2)} class="btn btn-outline btn-secondary w-full">{plan == 2 ? 'Cancel' : 'Change plan'}</button>
+							<button on:click={() => updatePlan(2)} class="btn btn-outline btn-secondary w-full" disabled={plan == 2}>{plan == 2 ? 'Current Plan' : 'Change plan'}</button>
 						</div>
 					</div>
 				</div>
@@ -136,5 +136,9 @@
 
 	li {
 		@apply py-3;
+	}
+
+	.card .btn[disabled]{
+		@apply btn-secondary opacity-75;
 	}
 </style>
