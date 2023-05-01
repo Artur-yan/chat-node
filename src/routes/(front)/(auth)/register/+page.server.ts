@@ -22,7 +22,8 @@ export const actions: Actions = {
 
 		if (!email || !password || typeof email !== 'string' || typeof password !== 'string') {
 			return fail(400, {
-				message: 'Invalid input'
+				message: 'Invalid input',
+				submitted: false
 			});
 		}
 		try {
@@ -65,11 +66,13 @@ export const actions: Actions = {
 			}
 			if (error instanceof LuciaError && error.message === 'AUTH_DUPLICATE_KEY_ID') {
 				return fail(400, {
-					message: 'Username already in use'
+					message: 'Username already in use',
+					submitted: false
 				});
 			}
 			return fail(500, {
-				message: 'Unknown error occurred'
+				message: 'Unknown error occurred',
+				submitted: false
 			});
 		}
 	}

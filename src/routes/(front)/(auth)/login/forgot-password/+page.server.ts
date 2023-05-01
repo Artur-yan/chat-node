@@ -32,7 +32,6 @@ export const actions: Actions = {
 			});
 			emailSubject = "Password Reset Request"
 			emailBody = `We received a request to reset your password. If you didn't make this request, kindly disregard this email. To reset your password, follow this link: ${PUBLIC_SITE_URL}/reset-password/${uuid}`	
-			
 		} catch (err) {
 			if(!user){
 				emailSubject = "Account Not Found"
@@ -40,6 +39,11 @@ export const actions: Actions = {
 			} else {
 				console.error(err)
 			}
+		}
+
+		return {
+			success: true,
+			submitted: false
 		}
 
         transporter.sendMail({

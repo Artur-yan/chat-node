@@ -17,6 +17,7 @@ export const actions = {
 		const password = form.get('password');
 		if (!email || !password || typeof email !== 'string' || typeof password !== 'string') {
 			return fail(400, {
+				submitted: false,
 				message: 'Invalid input'
 			});
 		}
@@ -30,7 +31,7 @@ export const actions = {
 				(error.message === 'AUTH_INVALID_KEY_ID' || error.message === 'AUTH_INVALID_PASSWORD')
 			) {
 				return fail(400, {
-					working: false,
+					submitted: false,
 					error: true,
 					message: 'Incorrect email or password'
 				});
@@ -38,7 +39,7 @@ export const actions = {
 			// database connection error
 			console.error(error);
 			return fail(500, {
-				working: false,
+				submitted: false,
 				error: true,
 				message: 'Unknown error occurred'
 			});
