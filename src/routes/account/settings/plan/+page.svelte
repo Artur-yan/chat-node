@@ -8,7 +8,6 @@
 	const updatePlan = async (newPlan: number) => {
 		try {
 			const res = await fetch('/api/account/plan', {
-
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json'
