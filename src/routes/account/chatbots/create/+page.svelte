@@ -32,7 +32,7 @@
 	}
 
 	let step = 1;
-	let activeTab = 0;
+	let activeTab: number
 	let trainingStatus: null | 'training' | 'done' | 'error' = null;
 	let fileInput: HTMLInputElement;
 	let files: FileList | undefined;
@@ -148,19 +148,21 @@
 			<li class:active={step == 2}>Customize</li> 
 		  </ul>
 	  </div>
+
+	  <h2 class="text-lg mb-4">Add your first data to get started.</h2>
 	{#if step == 1}
-		<div class="tabs tabs-boxed mb-10">
-			<label class="tab text-primary" class:tab-active={activeTab == 0}>
+		<div class="mb-10">
+			<label class="btn text-primary" class:btn-outline={activeTab == 0}>
 				<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
-				Upload a file
+				+ File
 			</label>
-			<label class="tab text-primary" class:tab-active={activeTab == 1}>
+			<label class="btn text-primary" class:btn-outline={activeTab == 1}>
 				<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
-				Copy/paste text	
+				+ Text
 			</label>
-			<label class="tab text-primary" class:tab-active={activeTab == 2}>
+			<label class="btn text-primary" class:btn-outline={activeTab == 2}>
 				<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
-				Scrape a URL
+				+ URL
 			</label>
 		</div>
 
@@ -209,14 +211,15 @@
 				<ModelSettings id={modelId} {name} {settings} {preventSave} />
 			</div>
 			<div>
-				<div class="h-[calc(100vh_-_10rem)]">
+				<div class="flex">
+					<TrainingStatus {trainingStatus} />
+				</div>
+				<div class="h-[calc(100vh_-_16rem)]">
 					<Chat {modelId} {messages} disabled={trainingStatus != "done"} />
 				</div>
 			</div>
 		</div>
 	{/if}
-
-	<TrainingStatus {trainingStatus} />
 </div>
 
 <style lang="postcss">
