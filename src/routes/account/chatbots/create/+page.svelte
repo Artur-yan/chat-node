@@ -18,7 +18,8 @@
 		userPrompt: ''
 	};
 	let urls: Array<string>;
-	let selectedUrls: Array<string> = [];
+	let selectedUrls = []
+	$: console.log(selectedUrls)
 	let messages = [
 		{
 			text: settings.greeting,
@@ -92,6 +93,7 @@
 	};
 
 	const handleUrlTraining = async () => {
+		console.log(selectedUrls)
 		try{
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/urls`, {
 				method: 'POST',
@@ -104,6 +106,7 @@
 			});
 			return await res.json();
 		} catch (err) {
+			console.error(err);
 			throw err
 		}
 
@@ -121,7 +124,9 @@
 				})
 			});
 			urls = await res.json();
-			selectedUrls = urls.urls;
+			selectedUrls = Array.from(urls.urls).map(url => url[0])
+			// urls.urls.forEach(url => selectedUrls = [...selectedUrls, url[0]])
+			console.log(selectedUrls)
 		} catch (err) {
 			throw err
 		}
@@ -161,7 +166,7 @@
 	};
 </script>
 
-<div class="container mt">
+<div class="container mb-20">
     <div class="text-sm breadcrumbs text-secondary mb-6 font-bold">
         <ul>
 			<li><a href="/account/chatbots">&larr; Chatbots</a></li> 
@@ -228,18 +233,26 @@
 			<p class="help mb-10">Please be sure to include http:// or https://</p>
 			{#if urls}
 				<table class="table table-zebra table-compact w-full">
+					<thead>
+						<tr>
+						  <th></th> 
+						  <th>url</th> 
+						  <th>character count</th>
+						</tr>
+					  </thead> 
 					<tbody>
 						{#each urls.urls as url}
 						<tr>
-							<label>
-								<input type="checkbox" class="checkbox" value={url} bind:group={selectedUrls} />
-									<td>{url}</td>
-								</label>
+								<td>
+									<input type="checkbox" class="checkbox" value={url[0]} bind:group={selectedUrls} />
+								</td>
+								<td>{url[0]}</td>
+								<td>{url[1]}</td>
 								</tr>
 						{/each}
 					</tbody>
 				</table>
-				<button class="btn" on:click={() => handleSubmit('url')}>Scrape Urls for data</button>				
+				<button class="btn mt-8" on:click={() => handleSubmit('url')}>Scrape Urls for data</button>				
 			{/if}
 
 		{/if}
