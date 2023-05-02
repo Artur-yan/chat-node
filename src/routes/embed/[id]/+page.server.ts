@@ -16,10 +16,12 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
 			setHeaders({
 				'Content-Security-Policy': `frame-ancestors 'self' ${bot.settings.allowedUrls.join(' ')};`
 			});
-			return { bot };
 		} else {
-			throw error(403, 'Embed is not public');
+			setHeaders({
+				'Content-Security-Policy': `frame-ancestors 'self'`
+			});
 		}
+		return { bot };
 	} catch (err) {
 		if (err.code == 'P2025') {
 			throw error(400, 'Bot not found');
