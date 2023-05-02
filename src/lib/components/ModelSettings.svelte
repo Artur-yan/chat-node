@@ -26,7 +26,7 @@
 </script>
 
 <div class="@container">
-	<form on:submit={handleSubmit} class="grid gap-10 @[240px]:grid-cols-2">
+	<form on:submit={handleSubmit} class="grid gap-10 @[240px]:grid-cols-2 pb-10">
 		<div class="space-y-3">
 			<div>
 				<label for="name" class="label">
@@ -57,13 +57,14 @@
 				<p class="text-sm m-1">This is the message that will appear to the user if the chatbot cannot come up with a confident answer. You may want to include an email address or link to a contact page here.</p>
 			</div>
 			<div>
-				<label for="support-message" class="label">
-					<span class="label-text">Prompt</span>
+				<label for="system-prompt" class="label">
+					<span class="label-text">System Prompt</span>
 				</label>
 				<textarea
-					bind:value={settings.prompt}
-					class="textarea textarea-bordered w-full"
+					bind:value={settings.systemPrompt}
+					class="textarea textarea-bordered w-full leading-normal"
 					name="prompt"
+					rows=5
 				/>
 			</div>
 			<div>
