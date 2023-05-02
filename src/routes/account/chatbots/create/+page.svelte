@@ -13,8 +13,12 @@
 		greeting: 'What can I help you with?',
 		public: false,
 		allowedUrls: [],
-		supportMessage: 'Hmm, I am not sure'
+		supportMessage: 'Hmm, I am not sure',
+		systemPrompt: 'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information"',
+		userPrompt: ''
 	};
+	let urls: Array<string>;
+	let selectedUrls: Array<string> = [];
 	let messages = [
 		{
 			text: settings.greeting,
@@ -93,7 +97,7 @@
 				method: 'POST',
 				headers,
 				body: JSON.stringify({
-					urls: [url],
+					urls: selectedUrls,
 					user_id: user.userId,
 					session_id: data.user.session.sessionId
 				})
@@ -104,6 +108,24 @@
 		}
 
 	};
+
+	const fetchUrlsToScrape = async () => {
+		try{
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/scraping-urls`, {
+				method: 'POST',
+				headers,
+				body: JSON.stringify({
+					urls: [url],
+					user_id: user.userId,
+					session_id: data.user.session.sessionId
+				})
+			});
+			urls = await res.json();
+			selectedUrls = urls.urls;
+		} catch (err) {
+			throw err
+		}
+	}
 
 	const handleSubmit = async (dataType: 'text' | 'file' | 'url') => {
 		trainingStatus = 'training';
@@ -149,8 +171,8 @@
 		  </ul>
 	  </div>
 
+	  {#if step == 1}
 	  <h2 class="text-lg mb-4">Add your first data to get started.</h2>
-	{#if step == 1}
 		<div class="mb-10">
 			<label class="btn text-primary" class:btn-outline={activeTab == 0}>
 				<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
@@ -190,19 +212,35 @@
 			</div>
 		{:else if activeTab == 2}
 			<div class="input-group">
-				<form on:submit={() => handleSubmit('url')}>
+				<form on:submit={() => fetchUrlsToScrape()}>
 					<input
 						type="url"
 						placeholder="https://yourwebsite.com"
 						class="input input-bordered w-96 max-w-full"
 						bind:value={url}
+						required
 						autofocus
 					/>
 
-					<button class="btn btn-primary" type="submit">Train Bot</button>
+					<button class="btn btn-primary" type="submit">Fetch URLs</button>
 				</form>
 			</div>
-			<p class="help">Please be sure to include http:// or https://</p>
+			<p class="help mb-10">Please be sure to include http:// or https://</p>
+			{#if urls}
+				<table class="table table-zebra table-compact w-full">
+					<tbody>
+						{#each urls.urls as url}
+						<tr>
+							<label>
+								<input type="checkbox" class="checkbox" value={url} bind:group={selectedUrls} />
+									<td>{url}</td>
+								</label>
+								</tr>
+						{/each}
+					</tbody>
+				</table>
+				<button class="btn" on:click={() => handleSubmit('url')}>Scrape Urls for data</button>				
+			{/if}
 
 		{/if}
 	{:else if step == 2}
