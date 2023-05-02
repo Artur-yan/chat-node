@@ -93,16 +93,17 @@
 	};
 
 	const handleUrlTraining = async () => {
-		console.log(selectedUrls)
-		try{
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/urls`, {
-				method: 'POST',
-				headers,
-				body: JSON.stringify({
+		const body = JSON.stringify({
 					urls: selectedUrls,
 					user_id: user.userId,
 					session_id: data.user.session.sessionId
 				})
+				console.log(body)
+		try{
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/urls`, {
+				method: 'POST',
+				headers,
+				body
 			});
 			return await res.json();
 		} catch (err) {
