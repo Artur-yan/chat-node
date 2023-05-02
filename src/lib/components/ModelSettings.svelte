@@ -65,7 +65,16 @@
 					class="textarea textarea-bordered w-full"
 					name="prompt"
 				/>
-				<!-- <p class="text-sm m-1"></p> -->
+			</div>
+			<div>
+				<label for="support-message" class="label">
+					<span class="label-text">User Prompt</span>
+				</label>
+				<textarea
+					bind:value={settings.userPrompt}
+					class="textarea textarea-bordered w-full"
+					name="user-prompt"
+				/>
 			</div>
 		</div>
 		<div>
