@@ -11,10 +11,15 @@
 		inputBG: '#FFFFFF',
 		inputText: '#000'
 	};
-	export let messages;
 	export let inputPlaceholder = 'Type your message';
 	export let disabled = false;
 	export let isThinking = false;
+	export let messages = [
+		{
+			text: 'Hello, how can I help you?',
+			sender: 'bot'
+		}
+	];
 	let inputVal: string;
 	let chatWindow: HTMLElement;
 
