@@ -8,4 +8,6 @@
 
 <Header user={data.user} />
 
+<main id="main">
 <slot />
+</main>
