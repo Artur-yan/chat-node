@@ -5,6 +5,7 @@
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 	import Chat from '$lib/components/Chat.svelte';
 	export let data;
+	import Icon from '@iconify/svelte';
 
 	let { user } = data.user;
 	let modelId = '';
@@ -31,6 +32,7 @@
 		}
 	];
 	let preventSave = true;
+	let busyFetchingUrls = false
 
 	const addMessage = (text, sender = 'bot') => {
 		messages = [...messages, { text, sender }];
@@ -115,6 +117,7 @@
 
 	const fetchUrlsToScrape = async () => {
 		try{
+			busyFetchingUrls = true
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/scraping-urls`, {
 				method: 'POST',
 				headers,
@@ -130,6 +133,8 @@
 			console.log(selectedUrls)
 		} catch (err) {
 			throw err
+		} finally {
+			busyFetchingUrls = false
 		}
 	}
 
@@ -167,8 +172,8 @@
 	};
 </script>
 
-<div class="container mb-20">
-    <div class="text-sm breadcrumbs text-secondary mb-6 font-bold">
+<div class="container pb-20">
+    <div class="text-sm breadcrumbs text-secondary pb-6 font-bold">
         <ul>
 			<li><a href="/account/chatbots">&larr; Chatbots</a></li> 
 			<li>Create</li> 
@@ -228,7 +233,14 @@
 						autofocus
 					/>
 
-					<button class="btn btn-primary" type="submit">Fetch URLs</button>
+					<button class="btn btn-primary" type="submit" disabled={busyFetchingUrls}>
+						{#if busyFetchingUrls}
+							<Icon icon="mdi:loading" class="animate-spin mr-2" width="20" />
+							Fetching
+						{:else}
+							Fetch URLs
+						{/if}
+					</button>
 				</form>
 			</div>
 			<p class="help mb-10">Please be sure to include http:// or https://</p>
