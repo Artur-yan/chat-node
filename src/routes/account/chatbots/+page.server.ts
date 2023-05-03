@@ -15,6 +15,9 @@ export const load: PageServerLoad = async ({ locals }) => {
 			user_id: {
 				equals: session.userId
 			}
+		},
+		orderBy: {
+			created: 'desc'
 		}
 	});
 
