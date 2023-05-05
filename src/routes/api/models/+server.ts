@@ -3,14 +3,14 @@ const prisma = new PrismaClient();
 
 export const POST = async ({ locals, request }) => {
 	const session = await locals.auth.validate();
-	const { id, data_source_type, name, settings } = await request.json();
+	const { id, name, settings } = await request.json();
 
 	try{
 		await prisma.bots.create({
 			data: {
 				id,
 				user_id: session.userId,
-				data_source_type,
+				data_source_type: "text",
 				name,
 				settings
 			}

@@ -3,6 +3,7 @@
 	import Icon from '@iconify/svelte';
 
   export let id: string
+  console.log(id)
   export let status: 'training' | 'ready' | 'failed' = 'ready'
 
   let icon: string;
@@ -11,10 +12,10 @@
   let statusMessageElement: HTMLElement;
 
   const close = () => {
-    supabase.removeChannel('bot_status');
-    setTimeout(() => {
-      statusMessageElement.classList.add('closed');
-    }, 3000);
+    // supabase.removeChannel('bot_status');
+    // setTimeout(() => {
+    //   statusMessageElement.classList.add('closed');
+    // }, 3000);
   }
 
   supabase
@@ -23,7 +24,7 @@
         event: 'UPDATE',
         schema: 'public',
         table: 'bots' ,
-        // filter: `id=eq.${id}`,
+        filter: `id=eq.${id}`,
     }, payload => {
       console.log('Change received!', payload)
       status = 'ready'

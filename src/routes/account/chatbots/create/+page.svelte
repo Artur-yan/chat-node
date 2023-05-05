@@ -10,6 +10,7 @@
 	let { user } = data.user;
 	let modelId = '';
 	let name = 'Untitled';	
+	let data_source_type = 'text';
 	let settings = {
 		greeting: 'What can I help you with?',
 		public: false,
@@ -185,7 +186,8 @@
 			});
 			const resJson = await res.json();
 			modelId = resJson.chat_key
-			addModel(modelId, name, settings);
+			data_source_type = "text"
+			addModel(modelId, data_source_type, name, settings);
 			step++;
 		} catch (err) {
 			console.error(err);
