@@ -301,7 +301,7 @@
 					<TrainingStatus {trainingStatus} />
 				</div>
 				<div class="h-[calc(100vh_-_16rem)]">
-					<Chat {modelId} {messages} {settings} disabled={trainingStatus != "done"} status="training" />
+					<Chat {modelId} {messages} disabled={trainingStatus != "done"} status="training" />
 				</div>
 			</div>
 		</div>

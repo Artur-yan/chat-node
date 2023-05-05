@@ -96,8 +96,8 @@
     background-color: var(--bg)"
 	class="h-full flex flex-col justify-between"
 >
-	<div class="overflow-y-auto scroll-smooth" bind:this={chatWindow}>
-		<BotStatus id={modelId} {status} />
+<div class="overflow-y-auto scroll-smooth" bind:this={chatWindow}>
+	<BotStatus id={modelId} {status} />
 		<slot>
 			{#each messages as msg}
 				<div class="chat {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
