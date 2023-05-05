@@ -56,9 +56,6 @@
 								>
 							</p>
 							<p class="flex justify-between">
-								type <span class="badge badge-secondary">{bot.data_source_type}</span>
-							</p>
-							<p class="flex justify-between">
 								id <span class="badge badge-outline">{bot.id}</span>
 							</p>
 
