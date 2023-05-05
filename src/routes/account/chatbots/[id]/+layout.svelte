@@ -3,8 +3,13 @@
     import Icon from '@iconify/svelte';
 
     export let data: LayoutData;
+
+    import BotStatus from '../../../../lib/components/BotStatus.svelte';
+
+
 </script>
 
+<h4><BotStatus /></h4>
 <div class="container sm:flex items-center justify-between gap-4">
     <div class="text-sm breadcrumbs text-secondary">
         <ul>
