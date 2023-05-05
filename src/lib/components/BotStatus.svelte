@@ -33,7 +33,7 @@
 
     $: switch (status) {
       case 'training':  
-        trainingMessage = "Training your chatbot... answers will be partiually incorrect until complete";
+        trainingMessage = "Training your chatbot... answers will be partially incorrect until complete";
         icon = "line-md:uploading-loop";
         alertClass = "alert-warning"
         break;
