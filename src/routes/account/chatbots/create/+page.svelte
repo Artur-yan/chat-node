@@ -19,8 +19,7 @@
 		userPrompt: ''
 	};
 	let urls: Array<string>;
-	let selectedUrls = []
-	$: console.log(selectedUrls)
+	let selectedUrls
 	let messages = [
 		{
 			text: settings.greeting,
@@ -31,13 +30,7 @@
 			sender: 'bot'
 		}
 	];
-	let preventSave = true;
 	let busyFetchingUrls = false
-
-	const addMessage = (text, sender = 'bot') => {
-		messages = [...messages, { text, sender }];
-	}
-
 	let step = 1;
 	let activeTab: number
 	let trainingStatus: null | 'training' | 'done' | 'error' = null;
@@ -45,6 +38,7 @@
 	let files: FileList | undefined;
 	let textData: string;
 	let url: string;
+	
 
 	$: {
 		if(files && files[0].size >  500 * 1024 * 1024) {
@@ -57,63 +51,66 @@
 		'Content-Type': 'application/json',
 	}
 
-	const handleFileTraining = async () => {
-		try{
-			let bodyContent = new FormData();
-			bodyContent.append('new_file', files[0] /*, optional filename */);
-			bodyContent.append('user_id', user.userId);
-			bodyContent.append('session_id', data.user.session.sessionId);
+	const addMessage = (text: string, sender = 'bot') => {
+		messages = [...messages, { text, sender }];
+	}
+
+	// const handleFileTraining = async () => {
+	// 	try{
+	// 		let bodyContent = new FormData();
+	// 		bodyContent.append('new_file', files[0] /*, optional filename */);
+	// 		bodyContent.append('user_id', user.userId);
+	// 		bodyContent.append('session_id', data.user.session.sessionId);
 	
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/upload`, {
-				method: 'POST',
-				body: bodyContent
-			});
+	// 		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/upload`, {
+	// 			method: 'POST',
+	// 			body: bodyContent
+	// 		});
 	
-			const resBody = res.json();
-			return resBody;
-		} catch (err) {
-			console.error(err);
-		}
-	};
+	// 		const resBody = res.json();
+	// 		return resBody;
+	// 	} catch (err) {
+	// 		console.error(err);
+	// 	}
+	// };
 
-	const handleTextTraining = async () => {
-		try{
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model`, {
-				method: 'POST',
-				headers,
-				body: JSON.stringify({
-					data_type: 'text',
-					train_key: textData,
-					user_id: user.userId,
-					session_id: data.user.session.sessionId
-				})
-			});
-			return await res.json();
-		} catch (err) {
-			console.error(err);
-		}
-	};
+	// const handleTextTraining = async () => {
+	// 	try{
+	// 		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model`, {
+	// 			method: 'POST',
+	// 			headers,
+	// 			body: JSON.stringify({
+	// 				data_type: 'text',
+	// 				train_key: textData,
+	// 				user_id: user.userId,
+	// 				session_id: data.user.session.sessionId
+	// 			})
+	// 		});
+	// 		return await res.json();
+	// 	} catch (err) {
+	// 		console.error(err);
+	// 	}
+	// };
 
-	const handleUrlTraining = async () => {
-		const body = JSON.stringify({
-					urls: selectedUrls,
-					user_id: user.userId,
-					session_id: data.user.session.sessionId
-				})
-				console.log(body)
-		try{
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/urls`, {
-				method: 'POST',
-				headers,
-				body
-			});
-			return await res.json();
-		} catch (err) {
-			console.error(err);
-			throw err
-		}
+	// const handleUrlTraining = async () => {
+	// 	const body = JSON.stringify({
+	// 				urls: selectedUrls,
+	// 				user_id: user.userId,
+	// 				session_id: data.user.session.sessionId
+	// 			})
+	// 	try{
+	// 		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/urls`, {
+	// 			method: 'POST',
+	// 			headers,
+	// 			body
+	// 		});
+	// 		return await res.json();
+	// 	} catch (err) {
+	// 		console.error(err);
+	// 		throw err
+	// 	}
 
-	};
+	// };
 
 	const fetchUrlsToScrape = async () => {
 		try{
@@ -129,8 +126,6 @@
 			});
 			urls = await res.json();
 			selectedUrls = Array.from(urls.urls).map(url => url[0])
-			// urls.urls.forEach(url => selectedUrls = [...selectedUrls, url[0]])
-			console.log(selectedUrls)
 		} catch (err) {
 			throw err
 		} finally {
@@ -138,38 +133,67 @@
 		}
 	}
 
-	const handleSubmit = async (dataType: 'text' | 'file' | 'url') => {
-		trainingStatus = 'training';
-		step++;
+	// const handleSubmit = async (dataType: 'text' | 'file' | 'url') => {
+	// 	trainingStatus = 'training';
+	// 	step++;
 
-		let data
+	// 	let data
 
-		try{
-			if (dataType == 'text') {
-				data = await handleTextTraining();
-			}
-			else if(dataType == 'file') {
-				data = await handleFileTraining();
+	// 	try{
+	// 		if (dataType == 'text') {
+	// 			data = await handleTextTraining();
+	// 		}
+	// 		else if(dataType == 'file') {
+	// 			data = await handleFileTraining();
 
-			}
-			else if(dataType == 'url') {
-				data = await handleUrlTraining();
-			}
-			modelId = data.chat_key;
+	// 		}
+	// 		else if(dataType == 'url') {
+	// 			data = await handleUrlTraining();
+	// 		}
+	// 		modelId = data.chat_key;
 			
-			addModel(modelId, dataType, name, settings);
+	// 		addModel(modelId, dataType, name, settings);
 
-			trainingStatus = 'done';
-			preventSave = false;
-			addMessage("I've been trained on your data and I'm ready to give you custom responses.")
-		} catch(err) {
-			console.error('THere was an Error')
-			trainingStatus = 'error';
+	// 		trainingStatus = 'done';
+	// 		addMessage("I've been trained on your data and I'm ready to give you custom responses.")
+	// 	} catch(err) {
+	// 		console.error(err)
+	// 		trainingStatus = 'error';
+	// 	}
+
+
+
+	// };
+
+	const createModel = async () => {
+		let body = new FormData();
+
+		body.append('user_id', user.userId);
+		body.append('session_id', data.user.session.sessionId);
+		if(files){
+			body.append('file', files[0] /*, optional filename */);
 		}
-
-
-
-	};
+		if(textData) {
+			body.append('text', textData);
+		}
+		if(selectedUrls){
+			console.log(selectedUrls)
+			body.append('urls', selectedUrls);
+		}
+		try {
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/create-model`, {
+				method: 'POST',
+				body
+			});
+			const resJson = await res.json();
+			console.log(resJson.chat_key)
+			addModel(resJson.chat_key, name, settings);
+			step++;
+		} catch (err) {
+			console.error(err);
+			alert('Something went wrong. Please try again later.')
+		}
+	}
 </script>
 
 <div class="container pb-20">
@@ -201,7 +225,7 @@
 
 		{#if activeTab == 0}
 			<input type="file" class="file-input file-input-bordered file-input-primary" bind:files bind:this={fileInput} accept=".doc,.docx,.pdf,.txt,.csv,.json" />
-			<button class="btn btn-primary" type="submit" on:click={() => handleSubmit('file')}
+			<button class="btn btn-primary" type="submit" on:click={createModel}
 				>Train Bot</button
 			>
 			<p class="help">PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
@@ -217,7 +241,7 @@
 				/>
 				<p class="help">Max 50000 characters</p>
 
-				<button class="btn btn-primary mt-10" type="submit" on:click={() => handleSubmit('text')}
+				<button class="btn btn-primary mt-10" type="submit" on:click={createModel}
 					>Train Bot</button
 				>
 			</div>
@@ -248,7 +272,7 @@
 				<table class="table table-zebra table-compact w-full">
 					<thead>
 						<tr>
-						  <th></th> 
+						  <th><input type="checkbox" class="checkbox" /></th> 
 						  <th>url</th> 
 						  <th>character count</th>
 						</tr>
@@ -265,14 +289,14 @@
 						{/each}
 					</tbody>
 				</table>
-				<button class="btn mt-8" on:click={() => handleSubmit('url')}>Scrape Urls for data</button>				
+				<button class="btn mt-8" on:click={createModel}>Scrape Urls for data</button>				
 			{/if}
 
 		{/if}
 	{:else if step == 2}
 		<div class="grid md:grid-cols-[2fr_3fr] gap-6">
 			<div>
-				<ModelSettings id={modelId} {name} {settings} {preventSave} />
+				<ModelSettings id={modelId} {name} {settings} />
 			</div>
 			<div>
 				<div class="flex">

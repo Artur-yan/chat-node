@@ -8,15 +8,15 @@ datasource db {
 }
 
 model AuthUser {
-  id                       String         @id @unique
-  email                    String         @unique
-  verification_uuid       String?         @unique
-  status                   String?        
-  auth_key                 AuthKey[]
-  auth_session             AuthSession[]
-  bots                     Bots[]
-  subscription             Subscriptions?
-  new_email                String?        @unique
+  id                String         @id @unique
+  email             String         @unique
+  status            String?
+  verification_uuid String?        @unique
+  new_email         String?        @unique
+  auth_key          AuthKey?
+  auth_session      AuthSession[]
+  bots              Bots[]
+  subscription      Subscriptions?
 
   @@map("auth_user")
 }
@@ -35,7 +35,7 @@ model AuthSession {
 model AuthKey {
   id              String   @id @unique
   hashed_password String?
-  user_id         String      @unique
+  user_id         String   @unique
   primary_key     Boolean
   expires         BigInt?
   auth_user       AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
@@ -47,10 +47,12 @@ model AuthKey {
 model Bots {
   id               String   @id @unique
   created          DateTime @default(now())
-  data_source_type String
+  data_source_type String?
   user_id          String
   name             String?
   settings         Json?
+  status           String   @default("training")
+  tocken_count     Int      @default(0)
   auth_user        AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("bots")
@@ -67,6 +69,7 @@ model Subscriptions {
   msg_count           Int       @default(0)
   stripe_subscription String?   @unique
   status              String?
+  max_tocken          Int       @default(100000)
   auth_user           AuthUser  @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("subscriptions")

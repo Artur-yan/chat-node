@@ -4,6 +4,7 @@
 	import Accordian from "$lib/components/Accordian.svelte";
 
 	import screenshot1 from '$lib/assets/screenshot-1.jpg?run'
+	import PricingGrid from '$lib/components/PricingGrid.svelte';
 
 	let messages = [
 		{
@@ -217,6 +218,10 @@
 				</div>
 			  </div>
 	</div>
+</section>
+
+<section class="container bg-base-300 py-20">
+	<PricingGrid />
 </section>
 
 <section class="container py-20">

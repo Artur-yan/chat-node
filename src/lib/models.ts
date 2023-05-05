@@ -2,7 +2,6 @@ import { goto } from '$app/navigation';
 
 const addModel = async (
 	id: string,
-	data_source_type: 'text' | 'file' | 'url',
 	name: string,
 	settings?: Object
 ) => {
@@ -14,7 +13,6 @@ const addModel = async (
 			},
 			body: JSON.stringify({
 				id,
-				data_source_type,
 				name,
 				settings
 			})

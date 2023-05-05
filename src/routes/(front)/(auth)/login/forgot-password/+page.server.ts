@@ -9,7 +9,7 @@ let emailBody = ''
 let emailSubject = ''
 
 export const actions: Actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ request }) => {
 		const form = await request.formData();
 		const email = form.get('email');
 		if (!email || typeof email !== 'string') {
