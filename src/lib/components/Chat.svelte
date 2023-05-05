@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
+	import BotStatus from '$lib/components/BotStatus.svelte';
 
 	export let modelId: string;
 	export let theme = {
@@ -20,9 +21,11 @@
 			sender: 'bot'
 		}
 	];
+	export let status: 'training' | 'ready' | 'failed' = 'ready';
+
+
 	let inputVal: string;
 	let chatWindow: HTMLElement;
-
 	const scrollToBottom = () => {
 		setTimeout(() => {
 			chatWindow.scrollTop = chatWindow.scrollHeight;
@@ -94,6 +97,7 @@
 	class="h-full flex flex-col justify-between"
 >
 	<div class="overflow-y-auto scroll-smooth" bind:this={chatWindow}>
+		<BotStatus id={modelId} {status} />
 		<slot>
 			{#each messages as msg}
 				<div class="chat {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">

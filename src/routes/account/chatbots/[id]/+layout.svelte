@@ -7,7 +7,6 @@
     import BotStatus from '$lib/components/BotStatus.svelte';
 </script>
 
-<BotStatus />
 <div class="container sm:flex items-center justify-between gap-4">
     <div class="text-sm breadcrumbs text-secondary">
         <ul>

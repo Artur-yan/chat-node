@@ -39,7 +39,6 @@
 	let textData: string;
 	let url: string;
 	
-
 	$: {
 		if(files && files[0].size >  500 * 1024 * 1024) {
 			alert('This file is too large')
@@ -185,7 +184,8 @@
 				body
 			});
 			const resJson = await res.json();
-			addModel(resJson.chat_key, name, settings);
+			modelId = resJson.chat_key
+			addModel(modelId, name, settings);
 			step++;
 		} catch (err) {
 			console.error(err);
@@ -301,7 +301,7 @@
 					<TrainingStatus {trainingStatus} />
 				</div>
 				<div class="h-[calc(100vh_-_16rem)]">
-					<Chat {modelId} {messages} disabled={trainingStatus != "done"} />
+					<Chat {modelId} {messages} {settings} disabled={trainingStatus != "done"} status="training" />
 				</div>
 			</div>
 		</div>

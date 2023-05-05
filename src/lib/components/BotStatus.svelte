@@ -1,31 +1,33 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import supabase from '$lib/supabaseClient';
 
   export let id: string
-  export let status: string = 'training | ready | error'
+  export let status: 'training' | 'ready' | 'failed' = 'ready'
 
-  onMount(() => {
-    if(status !== 'training'){
-      supabase
-        .channel('bot_status')
-        .on('postgres_changes', {
-            event: 'UPDATE',
-            schema: 'public',
-            table: 'bots' ,
-            filter: `id=eq.${id}`,
-        }, payload => {
-          console.log('Change received!', payload)
-        })
-        .subscribe()
-  
-  
-  
-      return () => {
-        supabase.removeChannel('bot_status');
-      };
-    }
-  });
+
+
+  supabase
+    .channel(`bot_status`)
+    .on('postgres_changes', {
+        event: 'UPDATE',
+        schema: 'public',
+        table: 'bots' ,
+        filter: `id=eq.${id}`,
+    }, payload => {
+      console.log('Change received!', payload)
+      status = 'ready'
+      // supabase.removeChannel('bot_status');
+    })
+    .subscribe()
+
 </script>
 
+{#if status == 'ready'}
+
+<h4>Ready</h4>
+
+{:else if status == 'training'}
+<h4>Still training your data... until finished, answers will be incomplete.</h4>
+
+{/if}
 <!-- Your component markup -->

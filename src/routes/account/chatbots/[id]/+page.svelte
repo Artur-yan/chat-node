@@ -7,5 +7,5 @@
 </script>
 
 <div class="container h-[calc(100vh_-_10em)]">
-	<Chat modelId={data.model.id} settings={data.model.settings} />
+	<Chat modelId={data.model.id} settings={data.model.settings} status={data.model.status} />
 </div>
