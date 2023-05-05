@@ -7,7 +7,7 @@
     import BotStatus from '$lib/components/BotStatus.svelte';
 </script>
 
-<h4>Status: <BotStatus id={data.model.id} status={data.model.status} /></h4>
+<BotStatus />
 <div class="container sm:flex items-center justify-between gap-4">
     <div class="text-sm breadcrumbs text-secondary">
         <ul>
