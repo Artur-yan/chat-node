@@ -28,7 +28,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
           text: `To confirm your email, please click this link: ${PUBLIC_SITE_URL}/account/confirm/${uuid}?update=true`,
         })
     } catch(err) {
-        console.log(err)
+        console.error(err)
     }
 
 

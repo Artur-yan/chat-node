@@ -4,12 +4,10 @@
 
     export let data: LayoutData;
 
-    import BotStatus from '../../../../lib/components/BotStatus.svelte';
-
-
+    import BotStatus from '$lib/components/BotStatus.svelte';
 </script>
 
-<h4><BotStatus /></h4>
+<h4>Status: <BotStatus id={data.model.id} status={data.model.status} /></h4>
 <div class="container sm:flex items-center justify-between gap-4">
     <div class="text-sm breadcrumbs text-secondary">
         <ul>
@@ -17,10 +15,6 @@
           <li class="text-xl font-bold">{data.model.name}</li>
         </ul>
       </div>
-    <!-- <div class="flex items-baseline">
-        <h1 class="mr-2">{data.model.name}</h1>
-        <div class="text-xs text-primary-500">id:{data.model.id}</div>
-    </div> -->
     <div class="btn-group max-sm:overflow-x-scroll my-2">
         <a href="/account/chatbots/{data.model.id}" class="btn text-primary">
             <Icon icon="mdi:chat" width="18" class="mr-2" />

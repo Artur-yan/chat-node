@@ -40,7 +40,7 @@ export const GET: RequestHandler = async ({ params, url, locals }) => {
             // Redirect
             throw redirect(302, `/account/settings`);
         } catch (err) {
-            console.log(err)
+            console.error(err)
             throw redirect(302, `/account/settings`);
         }
     }

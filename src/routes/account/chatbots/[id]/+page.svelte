@@ -1,7 +1,6 @@
 <script lang="ts">
 	export let data;
 	import Chat from '$lib/components/Chat.svelte';
-	console.log(data)
 
 	// let iframeEmbedCode = `<iframe src="/embed/${data.model.id}" width="100%" height="100%" style="visibility: hidden; border: none;" onload="this.style.visibility = 'visible';"></iframe>`;
 

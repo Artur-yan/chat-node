@@ -177,7 +177,6 @@
 			body.append('text', textData);
 		}
 		if(selectedUrls){
-			console.log(selectedUrls)
 			body.append('urls', selectedUrls);
 		}
 		try {
@@ -186,7 +185,6 @@
 				body
 			});
 			const resJson = await res.json();
-			console.log(resJson.chat_key)
 			addModel(resJson.chat_key, name, settings);
 			step++;
 		} catch (err) {
