@@ -13,7 +13,7 @@ export const load = async ({ locals, params }) => {
     const user = await locals.auth.validateUser();
 
     if(user.session && model && user.session.userId === model.user_id) {
-        return { model };
+        return { model, user };
     } else if (user.session) {
         throw redirect(303, '/account/chatbots');
     } else {

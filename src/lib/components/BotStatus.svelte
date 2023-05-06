@@ -28,7 +28,7 @@
     }, payload => {
       console.log('Change received!', payload)
       status = 'ready'
-      // supabase.removeChannel('bot_status');
+      supabase.removeChannel('bot_status');
     })
     .subscribe()
 

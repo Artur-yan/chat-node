@@ -3,8 +3,6 @@
     import Icon from '@iconify/svelte';
 
     export let data: LayoutData;
-
-    import BotStatus from '$lib/components/BotStatus.svelte';
 </script>
 
 <div class="container sm:flex items-center justify-between gap-4">
@@ -22,6 +20,10 @@
         <a href="/account/chatbots/{data.model.id}/embed" class="btn text-primary">
             <Icon icon="mdi:code" width="18" class="mr-2" />
             Embed
+        </a>
+        <a href="/account/chatbots/{data.model.id}/train" class="btn text-primary">
+            <Icon icon="mdi:database-plus" width="18" class="mr-2" />
+            Train
         </a>
         <a href="/account/chatbots/{data.model.id}/settings" class="btn text-primary">
             <Icon icon="mdi:settings" width="18" class="mr-2" />

@@ -4,8 +4,9 @@
 	import { addModel } from '$lib/models';
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 	import Chat from '$lib/components/Chat.svelte';
-	export let data;
 	import Icon from '@iconify/svelte';
+	
+	export let data;
 
 	let { user } = data.user;
 	let modelId = '';
@@ -19,7 +20,7 @@
 		userPrompt: ''
 	};
 	let urls: Array<string>;
-	let selectedUrls
+	let selectedUrls: Array<string>;
 	let messages = [
 		{
 			text: settings.greeting,
@@ -46,79 +47,16 @@
 		}
 	}
 
-	// let headers = {
-	// 	'Content-Type': 'application/json',
-	// }
-
-	const addMessage = (text: string, sender = 'bot') => {
-		messages = [...messages, { text, sender }];
-	}
-
-	// const handleFileTraining = async () => {
-	// 	try{
-	// 		let bodyContent = new FormData();
-	// 		bodyContent.append('new_file', files[0] /*, optional filename */);
-	// 		bodyContent.append('user_id', user.userId);
-	// 		bodyContent.append('session_id', data.user.session.sessionId);
-	
-	// 		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/upload`, {
-	// 			method: 'POST',
-	// 			body: bodyContent
-	// 		});
-	
-	// 		const resBody = res.json();
-	// 		return resBody;
-	// 	} catch (err) {
-	// 		console.error(err);
-	// 	}
-	// };
-
-	// const handleTextTraining = async () => {
-	// 	try{
-	// 		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model`, {
-	// 			method: 'POST',
-	// 			headers,
-	// 			body: JSON.stringify({
-	// 				data_type: 'text',
-	// 				train_key: textData,
-	// 				user_id: user.userId,
-	// 				session_id: data.user.session.sessionId
-	// 			})
-	// 		});
-	// 		return await res.json();
-	// 	} catch (err) {
-	// 		console.error(err);
-	// 	}
-	// };
-
-	// const handleUrlTraining = async () => {
-	// 	const body = JSON.stringify({
-	// 				urls: selectedUrls,
-	// 				user_id: user.userId,
-	// 				session_id: data.user.session.sessionId
-	// 			})
-	// 	try{
-	// 		const res = await fetch(`${PUBLIC_CHAT_API_URL}/new-model/urls`, {
-	// 			method: 'POST',
-	// 			headers,
-	// 			body
-	// 		});
-	// 		return await res.json();
-	// 	} catch (err) {
-	// 		console.error(err);
-	// 		throw err
-	// 	}
-
-	// };
-
-	const fetchUrlsToScrape = async () => {
+	const fetchUrlsToScrape = async (urls) => {
 		try{
 			busyFetchingUrls = true
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/scraping-urls`, {
 				method: 'POST',
-				headers,
+				headers: {
+					'Content-Type': 'application/json',
+				},
 				body: JSON.stringify({
-					urls: [url],
+					urls: [urls],
 					user_id: user.userId,
 					session_id: data.user.session.sessionId
 				})
@@ -130,45 +68,17 @@
 		} finally {
 			busyFetchingUrls = false
 		}
+		return 
 	}
 
-	// const handleSubmit = async (dataType: 'text' | 'file' | 'url') => {
-	// 	trainingStatus = 'training';
-	// 	step++;
-
-	// 	let data
-
-	// 	try{
-	// 		if (dataType == 'text') {
-	// 			data = await handleTextTraining();
-	// 		}
-	// 		else if(dataType == 'file') {
-	// 			data = await handleFileTraining();
-
-	// 		}
-	// 		else if(dataType == 'url') {
-	// 			data = await handleUrlTraining();
-	// 		}
-	// 		modelId = data.chat_key;
-			
-	// 		addModel(modelId, dataType, name, settings);
-
-	// 		trainingStatus = 'done';
-	// 		addMessage("I've been trained on your data and I'm ready to give you custom responses.")
-	// 	} catch(err) {
-	// 		console.error(err)
-	// 		trainingStatus = 'error';
-	// 	}
-
-
-
-	// };
-
-	const createModel = async () => {
+	const createModel = async (id: string) => {
 		let body = new FormData();
 
 		body.append('user_id', user.userId);
 		body.append('session_id', data.user.session.sessionId);
+		if(id){
+			body.append('chat_key', id);
+		}
 		if(files){
 			body.append('file', files[0] /*, optional filename */);
 		}
