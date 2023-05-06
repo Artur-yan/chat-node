@@ -9,8 +9,7 @@
 
 	let { user } = data.user;
 	let modelId = '';
-	let name = 'Untitled';	
-	let data_source_type = 'text';
+	let name = 'Untitled';
 	let settings = {
 		greeting: 'What can I help you with?',
 		public: false,
@@ -47,9 +46,9 @@
 		}
 	}
 
-	let headers = {
-		'Content-Type': 'application/json',
-	}
+	// let headers = {
+	// 	'Content-Type': 'application/json',
+	// }
 
 	const addMessage = (text: string, sender = 'bot') => {
 		messages = [...messages, { text, sender }];
@@ -186,8 +185,7 @@
 			});
 			const resJson = await res.json();
 			modelId = resJson.chat_key
-			data_source_type = "text"
-			addModel(modelId, data_source_type, name, settings);
+			addModel(modelId, name, settings);
 			step++;
 		} catch (err) {
 			console.error(err);
