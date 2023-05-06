@@ -9,7 +9,7 @@
 
 </script>
 
-<div class="container">
+<div class="container pb-20">
 	<div class="flex justify-between my-2 items-center">
 		<div>
 			<h1 class="text-xl font-bold text-secondary">Chatbots</h1>
