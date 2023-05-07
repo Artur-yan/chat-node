@@ -76,9 +76,6 @@
 
 		body.append('user_id', user.userId);
 		body.append('session_id', data.user.session.sessionId);
-		if(id){
-			body.append('chat_key', id);
-		}
 		if(files){
 			body.append('file', files[0] /*, optional filename */);
 		}
@@ -95,6 +92,7 @@
 			});
 			const resJson = await res.json();
 			modelId = resJson.chat_key
+			console.log(resJson)
 			addModel(modelId, name, settings);
 			step++;
 		} catch (err) {
