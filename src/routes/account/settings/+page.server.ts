@@ -12,15 +12,17 @@ export const actions: Actions = {
 			return fail(400, {
 				message: 'Passwords do not match'
 			});
-		}
-		else if (!password || typeof password !== 'string' || !confirmPassword || typeof confirmPassword !== 'string') {
+		} else if (
+			!password ||
+			typeof password !== 'string' ||
+			!confirmPassword ||
+			typeof confirmPassword !== 'string'
+		) {
 			return fail(400, {
 				message: 'Invalid input'
 			});
+		} else {
+			const key = await auth.updateKeyPassword('username', email, password);
 		}
-		else {
-			const key = await auth.updateKeyPassword("username", email, password);
-		}
-
 	}
 };

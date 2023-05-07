@@ -5,7 +5,7 @@
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 	import Chat from '$lib/components/Chat.svelte';
 	import Icon from '@iconify/svelte';
-	
+
 	export let data;
 
 	let { user } = data.user;
@@ -16,7 +16,8 @@
 		public: false,
 		allowedUrls: [],
 		supportMessage: 'Hmm, I am not sure',
-		systemPrompt: 'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information"',
+		systemPrompt:
+			'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information"',
 		userPrompt: ''
 	};
 	let urls: Array<string>;
@@ -31,29 +32,29 @@
 			sender: 'bot'
 		}
 	];
-	let busyFetchingUrls = false
+	let busyFetchingUrls = false;
 	let step = 1;
-	let activeTab: number
+	let activeTab: number;
 	let trainingStatus: null | 'training' | 'done' | 'error' = null;
 	let fileInput: HTMLInputElement;
 	let files: FileList | undefined;
 	let textData: string;
 	let url: string;
-	
+
 	$: {
-		if(files && files[0].size >  500 * 1024 * 1024) {
-			alert('This file is too large')
-			fileInput.value = ''
+		if (files && files[0].size > 500 * 1024 * 1024) {
+			alert('This file is too large');
+			fileInput.value = '';
 		}
 	}
 
 	const fetchUrlsToScrape = async (urls) => {
-		try{
-			busyFetchingUrls = true
+		try {
+			busyFetchingUrls = true;
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/scraping-urls`, {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json',
+					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
 					urls: [urls],
@@ -62,27 +63,27 @@
 				})
 			});
 			urls = await res.json();
-			selectedUrls = Array.from(urls.urls).map(url => url[0])
+			selectedUrls = Array.from(urls.urls).map((url) => url[0]);
 		} catch (err) {
-			throw err
+			throw err;
 		} finally {
-			busyFetchingUrls = false
+			busyFetchingUrls = false;
 		}
-		return 
-	}
+		return;
+	};
 
 	const createModel = async (id: string) => {
 		let body = new FormData();
 
 		body.append('user_id', user.userId);
 		body.append('session_id', data.user.session.sessionId);
-		if(files){
+		if (files) {
 			body.append('file', files[0] /*, optional filename */);
 		}
-		if(textData) {
+		if (textData) {
 			body.append('text', textData);
 		}
-		if(selectedUrls){
+		if (selectedUrls) {
 			body.append('urls', selectedUrls);
 		}
 		try {
@@ -91,29 +92,29 @@
 				body
 			});
 			const resJson = await res.json();
-			modelId = resJson.chat_key
-			console.log(resJson)
+			modelId = resJson.chat_key;
+			console.log(resJson);
 			addModel(modelId, name, settings);
 			step++;
 		} catch (err) {
 			console.error(err);
-			alert('Something went wrong. Please try again later.')
+			alert('Something went wrong. Please try again later.');
 		}
-	}
+	};
 </script>
 
 <div class="container pb-20">
-    <div class="text-sm breadcrumbs text-secondary pb-6 font-bold">
-        <ul>
-			<li><a href="/account/chatbots">&larr; Chatbots</a></li> 
-			<li>Create</li> 
-			<li class:active={step == 1}>Train</li> 
-			<li class:active={step == 2}>Customize</li> 
-		  </ul>
-	  </div>
+	<div class="text-sm breadcrumbs text-secondary pb-6 font-bold">
+		<ul>
+			<li><a href="/account/chatbots">&larr; Chatbots</a></li>
+			<li>Create</li>
+			<li class:active={step == 1}>Train</li>
+			<li class:active={step == 2}>Customize</li>
+		</ul>
+	</div>
 
-	  {#if step == 1}
-	  <h2 class="text-lg mb-4">Add your first data to get started.</h2>
+	{#if step == 1}
+		<h2 class="text-lg mb-4">Add your first data to get started.</h2>
 		<div class="mb-10">
 			<label class="btn text-primary" class:btn-outline={activeTab == 0}>
 				<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
@@ -130,10 +131,14 @@
 		</div>
 
 		{#if activeTab == 0}
-			<input type="file" class="file-input file-input-bordered file-input-primary" bind:files bind:this={fileInput} accept=".doc,.docx,.pdf,.txt,.csv,.json" />
-			<button class="btn btn-primary" type="submit" on:click={createModel}
-				>Train Bot</button
-			>
+			<input
+				type="file"
+				class="file-input file-input-bordered file-input-primary"
+				bind:files
+				bind:this={fileInput}
+				accept=".doc,.docx,.pdf,.txt,.csv,.json"
+			/>
+			<button class="btn btn-primary" type="submit" on:click={createModel}>Train Bot</button>
 			<p class="help">PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
 		{:else if activeTab == 1}
 			<div>
@@ -147,8 +152,7 @@
 				/>
 				<p class="help">Max 50000 characters</p>
 
-				<button class="btn btn-primary mt-10" type="submit" on:click={createModel}
-					>Train Bot</button
+				<button class="btn btn-primary mt-10" type="submit" on:click={createModel}>Train Bot</button
 				>
 			</div>
 		{:else if activeTab == 2}
@@ -178,26 +182,30 @@
 				<table class="table table-zebra table-compact w-full">
 					<thead>
 						<tr>
-						  <th><input type="checkbox" class="checkbox" /></th> 
-						  <th>url</th> 
-						  <th>character count</th>
+							<th><input type="checkbox" class="checkbox" /></th>
+							<th>url</th>
+							<th>character count</th>
 						</tr>
-					  </thead> 
+					</thead>
 					<tbody>
 						{#each urls.urls as url}
-						<tr>
+							<tr>
 								<td>
-									<input type="checkbox" class="checkbox" value={url[0]} bind:group={selectedUrls} />
+									<input
+										type="checkbox"
+										class="checkbox"
+										value={url[0]}
+										bind:group={selectedUrls}
+									/>
 								</td>
 								<td>{url[0]}</td>
 								<td>{url[1]}</td>
-								</tr>
+							</tr>
 						{/each}
 					</tbody>
 				</table>
-				<button class="btn mt-8" on:click={createModel}>Scrape Urls for data</button>				
+				<button class="btn mt-8" on:click={createModel}>Scrape Urls for data</button>
 			{/if}
-
 		{/if}
 	{:else if step == 2}
 		<div class="grid md:grid-cols-[2fr_3fr] gap-6">
@@ -209,7 +217,7 @@
 					<TrainingStatus {trainingStatus} />
 				</div>
 				<div class="h-[calc(100vh_-_16rem)]">
-					<Chat {modelId} {messages} disabled={trainingStatus != "done"} status="training" />
+					<Chat {modelId} {messages} disabled={trainingStatus != 'done'} status="training" />
 				</div>
 			</div>
 		</div>
@@ -217,11 +225,11 @@
 </div>
 
 <style lang="postcss">
-	.help{
+	.help {
 		@apply text-sm opacity-50 mt-2;
 	}
 
-	.breadcrumbs .active{
+	.breadcrumbs .active {
 		@apply text-xl;
 	}
 </style>

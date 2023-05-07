@@ -1,11 +1,7 @@
 import { goto } from '$app/navigation';
 
-const addModel = async (
-	id: string,
-	name: string,
-	settings?: Object
-) => {
-	try{
+const addModel = async (id: string, name: string, settings?: Object) => {
+	try {
 		const res = await fetch('/api/models', {
 			method: 'POST',
 			headers: {
@@ -17,8 +13,8 @@ const addModel = async (
 				settings
 			})
 		});
-	} catch(err) {
-		throw err
+	} catch (err) {
+		throw err;
 	}
 };
 
@@ -53,7 +49,7 @@ const deleteModel = async (id: string) => {
 				id
 			})
 		});
-		return {}
+		return {};
 	} catch (err) {
 		console.error(err);
 	}

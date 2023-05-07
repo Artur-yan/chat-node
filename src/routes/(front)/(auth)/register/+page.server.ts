@@ -5,7 +5,7 @@ import { redirect } from '@sveltejs/kit';
 import { LuciaError } from 'lucia-auth';
 import type { PageServerLoad } from './$types';
 import { prismaClient } from '$lib/server/prisma';
-import {sendConfirmationEmail} from '$lib/server/messenger';
+import { sendConfirmationEmail } from '$lib/server/messenger';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -38,12 +38,12 @@ export const actions: Actions = {
 				}
 			});
 			let subscriptionData = {
-				user_id: user.userId,
-			}
+				user_id: user.userId
+			};
 			if (promo === 'beta_tester') {
-				subscriptionData.plan = 1
-				subscriptionData.max_bot = 5
-				subscriptionData.max_msg = 2000
+				subscriptionData.plan = 1;
+				subscriptionData.max_bot = 5;
+				subscriptionData.max_msg = 2000;
 			}
 			await prismaClient.subscriptions.create({
 				data: subscriptionData
@@ -52,9 +52,8 @@ export const actions: Actions = {
 			locals.auth.setSession(session);
 
 			await sendConfirmationEmail(email, user.userId);
-
 		} catch (error) {
-			console.error(error)
+			console.error(error);
 			if (
 				error instanceof Prisma.PrismaClientKnownRequestError &&
 				error.code === 'P2002' &&

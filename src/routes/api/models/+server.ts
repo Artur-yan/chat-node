@@ -5,12 +5,12 @@ export const POST = async ({ locals, request }) => {
 	const session = await locals.auth.validate();
 	const { id, name, settings } = await request.json();
 
-	try{
+	try {
 		await prisma.bots.create({
 			data: {
 				id,
 				user_id: session.userId,
-				data_source_type: "text",
+				data_source_type: 'text',
 				name,
 				settings
 			}
@@ -18,9 +18,7 @@ export const POST = async ({ locals, request }) => {
 	} catch (err) {
 		console.error(err);
 	}
-	return new Response(
-		JSON.stringify({ status: 200 })
-	);
+	return new Response(JSON.stringify({ status: 200 }));
 };
 
 export const PATCH = async ({ request, locals }) => {

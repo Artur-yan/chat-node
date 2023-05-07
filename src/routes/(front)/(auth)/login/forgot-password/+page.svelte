@@ -4,9 +4,8 @@
 	import { page } from '$app/stores';
 
 	let email = $page.url.searchParams.get('email');
-	let loading = false
+	let loading = false;
 	$: loading = form?.submitted;
-
 </script>
 
 <section>
@@ -14,7 +13,12 @@
 		<div class="card-body">
 			<h2 class="card-title">Reset password</h2>
 			{#if !form?.success}
-				<form class="form-control gap-2" method="POST" use:enhance on:submit={() => loading = true}>
+				<form
+					class="form-control gap-2"
+					method="POST"
+					use:enhance
+					on:submit={() => (loading = true)}
+				>
 					<div>
 						<label class="label" for="email"><span class="label-text">Email</span></label>
 						<input
@@ -28,7 +32,7 @@
 						/>
 					</div>
 					{#if form?.message}
-					<p class="text-error">{form.message || ''}</p>
+						<p class="text-error">{form.message || ''}</p>
 					{/if}
 					<button type="submit" class="btn btn-primary w-full" disabled={loading}>Send link</button>
 				</form>
@@ -38,7 +42,7 @@
 						<span>Please check your email for a password reset link.</span>
 					</div>
 				</div>
-				<p class="text-success"></p>
+				<p class="text-success" />
 			{/if}
 			<div>
 				<p class="text-sm mt-4">

@@ -9,11 +9,11 @@ export const auth = lucia({
 	env: dev ? 'DEV' : 'PROD',
 	middleware: sveltekit(),
 	transformDatabaseUser: (user) => {
-		return{
+		return {
 			userId: user.id,
 			email: user.email,
 			status: user.status
-		}
+		};
 	}
 });
 

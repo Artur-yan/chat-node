@@ -6,10 +6,9 @@
 	export let id: string;
 	export let name: string;
 	export let settings: Object;
-	export let deleteEnabled = false
-	export let preventSave = false
-	let deleting = false
-
+	export let deleteEnabled = false;
+	export let preventSave = false;
+	let deleting = false;
 
 	const addUrl = (url: string) => {
 		settings.allowedUrls = [...settings.allowedUrls, url];
@@ -32,29 +31,30 @@
 				<label for="name" class="label">
 					<span class="label-text">Name</span>
 				</label>
-				<input type="text" bind:value={name} class="input w-full" placeholder="Untitled" on:click={(e) => e.target.select()} />
+				<input
+					type="text"
+					bind:value={name}
+					class="input w-full"
+					placeholder="Untitled"
+					on:click={(e) => e.target.select()}
+				/>
 			</div>
-	
+
 			<div>
 				<label for="greeting" class="label">
 					<span class="label-text">Greeting</span>
 				</label>
-				<input
-					type="text"
-					bind:value={settings.greeting}
-					class="input w-full"
-				/>
+				<input type="text" bind:value={settings.greeting} class="input w-full" />
 			</div>
 			<div>
 				<label for="support-message" class="label">
 					<span class="label-text">Support Message</span>
 				</label>
-				<input
-					type="text"
-					bind:value={settings.supportMessage}
-					class="input w-full"
-				/>
-				<p class="text-sm m-1">This is the message that will appear to the user if the chatbot cannot come up with a confident answer. You may want to include an email address or link to a contact page here.</p>
+				<input type="text" bind:value={settings.supportMessage} class="input w-full" />
+				<p class="text-sm m-1">
+					This is the message that will appear to the user if the chatbot cannot come up with a
+					confident answer. You may want to include an email address or link to a contact page here.
+				</p>
 			</div>
 			<div>
 				<label for="system-prompt" class="label">
@@ -64,7 +64,7 @@
 					bind:value={settings.systemPrompt}
 					class="textarea textarea-bordered w-full leading-normal"
 					name="prompt"
-					rows=5
+					rows="5"
 				/>
 			</div>
 			<div>
@@ -92,7 +92,9 @@
 			</div>
 			{#if settings.public}
 				<div class="space-y-4">
-					<p class="text-xs">Add specific urls you would like to allow this chatbot to be displayed on.</p>
+					<p class="text-xs">
+						Add specific urls you would like to allow this chatbot to be displayed on.
+					</p>
 					{#each settings.allowedUrls as url, i}
 						<div class="input-group">
 							<input
@@ -107,15 +109,23 @@
 							>
 						</div>
 					{/each}
-					<button class="btn btn-xs btn-ghost btn-primary" type="button" on:click={() => addUrl('')}><Icon icon="mdi:plus-circle-outline" width="16" /> Add URL</button>
+					<button class="btn btn-xs btn-ghost btn-primary" type="button" on:click={() => addUrl('')}
+						><Icon icon="mdi:plus-circle-outline" width="16" /> Add URL</button
+					>
 				</div>
 			{/if}
 		</div>
 		<div class="flex items-center justify-between">
-			<button class="btn btn-outline btn-success w-full md:w-80" type="submit" disabled={preventSave}>Save</button>
+			<button
+				class="btn btn-outline btn-success w-full md:w-80"
+				type="submit"
+				disabled={preventSave}>Save</button
+			>
 			{#if deleteEnabled}
 				<div class="text-center">
-					<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle"><Icon icon="mdi:delete-outline" width="16" /></label>
+					<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle"
+						><Icon icon="mdi:delete-outline" width="16" /></label
+					>
 				</div>
 			{/if}
 		</div>
@@ -124,31 +134,31 @@
 
 <input type="checkbox" id="my-modal" class="modal-toggle" />
 <div class="modal">
-  <div class="modal-box">
-    <h3 class="font-bold text-lg">Are you sure you want to delete this model?</h3>
-    <p class="py-4">This can't be undone.</p>
-    <div class="modal-action">
-		<label for="my-modal" class="btn">Cancel</label>
-		<button class="btn btn-error" type="button"
-			on:click={
-				async () => {
+	<div class="modal-box">
+		<h3 class="font-bold text-lg">Are you sure you want to delete this model?</h3>
+		<p class="py-4">This can't be undone.</p>
+		<div class="modal-action">
+			<label for="my-modal" class="btn">Cancel</label>
+			<button
+				class="btn btn-error"
+				type="button"
+				on:click={async () => {
 					deleting = true;
 					await deleteModel(id);
-					goto('/account/chatbots')
-				}
-			}
-		>
-			{#if deleting}
-				<Icon icon="mdi:loading" class="animate-spin mr-2" width="20" />
-			{/if}
-		Delete</button
-	>
-    </div>
-  </div>
+					goto('/account/chatbots');
+				}}
+			>
+				{#if deleting}
+					<Icon icon="mdi:loading" class="animate-spin mr-2" width="20" />
+				{/if}
+				Delete</button
+			>
+		</div>
+	</div>
 </div>
 
 <style>
-	input{
+	input {
 		@apply input-bordered;
 	}
 </style>

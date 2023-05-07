@@ -23,7 +23,6 @@
 	];
 	export let status: 'training' | 'ready' | 'failed' = 'ready';
 
-
 	let inputVal: string;
 	let chatWindow: HTMLElement;
 	const scrollToBottom = () => {
@@ -65,7 +64,6 @@
 		addMessage('Please wait for me to finish thinking...');
 	};
 
-
 	// Generate a random ID
 	const chatSessionId = Math.random().toString(36).slice(2, 9) + '-' + Date.now();
 
@@ -73,15 +71,12 @@
 		if (isThinking) {
 			doubleMessage();
 			return;
-		} else if(inputVal.trim() === '') {
+		} else if (inputVal.trim() === '') {
 			return;
 		} else {
-			queryModel(modelId, chatSessionId, inputVal)
+			queryModel(modelId, chatSessionId, inputVal);
 		}
-	}
-
-
-
+	};
 </script>
 
 <section
@@ -96,12 +91,14 @@
     background-color: var(--bg)"
 	class="h-full flex flex-col justify-between"
 >
-<div class="overflow-y-auto scroll-smooth" bind:this={chatWindow}>
-	<BotStatus id={modelId} {status} />
+	<div class="overflow-y-auto scroll-smooth" bind:this={chatWindow}>
+		<BotStatus id={modelId} {status} />
 		<slot>
 			{#each messages as msg}
 				<div class="chat {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
-					<div class="chat-bubble {msg.sender == 'bot' ? 'chat-bubble-secondary' : ''}">{msg.text}</div>
+					<div class="chat-bubble {msg.sender == 'bot' ? 'chat-bubble-secondary' : ''}">
+						{msg.text}
+					</div>
 				</div>
 			{/each}
 		</slot>
@@ -172,33 +169,32 @@
 	</form>
 </section>
 
-
 <style lang="postcss">
 	@keyframes message {
-  0% {
-	opacity: 0.5;
-    transform: scale(0.75);
-    /* max-height: 100vmax; */
-  }
-  60% {
-    transform: scale(1.05);
-  }
-  100% {
-	opacity: 1;
-    transform: scale(1);
-    /* max-height: 100vmax; */
-    overflow: visible;
-  }
-}
+		0% {
+			opacity: 0.5;
+			transform: scale(0.75);
+			/* max-height: 100vmax; */
+		}
+		60% {
+			transform: scale(1.05);
+		}
+		100% {
+			opacity: 1;
+			transform: scale(1);
+			/* max-height: 100vmax; */
+			overflow: visible;
+		}
+	}
 
-.chat-bubble{
-	animation: message 0.3s ease-out 0s forwards;
-}
+	.chat-bubble {
+		animation: message 0.3s ease-out 0s forwards;
+	}
 
-.chat-start .chat-bubble{
-	transform-origin: left center;
-}
-.chat-end .chat-bubble{
-	transform-origin: right;
-}
+	.chat-start .chat-bubble {
+		transform-origin: left center;
+	}
+	.chat-end .chat-bubble {
+		transform-origin: right;
+	}
 </style>

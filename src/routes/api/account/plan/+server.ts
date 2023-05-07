@@ -15,9 +15,8 @@ export const PUT = async ({ request, locals }) => {
 				plan: newPlan
 			})
 		});
-		const url = await res.json()
-		return new Response(JSON.stringify(url), { status: 200 })
-		
+		const url = await res.json();
+		return new Response(JSON.stringify(url), { status: 200 });
 	} catch (err) {
 		console.error(err);
 		return new Response('There was an error', { status: 500 });

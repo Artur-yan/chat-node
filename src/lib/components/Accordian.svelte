@@ -1,19 +1,33 @@
 <script lang="ts">
-    let open = false;
+	let open = false;
 </script>
 
 <div class="my-4" class:open>
-    <button on:click={() => open = !open} class="flex text-lg font-medium justify-between items-center w-full py-3">
-        <slot name="title" />
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class:rotate-180={open} class="transition-transform"><path fill="currentColor" d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6l1.41-1.42Z"/></svg>
-    </button>
-    <div class="body max-h-0 overflow-hidden transition-all duration-500" aria-hi>
-        <slot />
-    </div>
+	<button
+		on:click={() => (open = !open)}
+		class="flex text-lg font-medium justify-between items-center w-full py-3"
+	>
+		<slot name="title" />
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			class:rotate-180={open}
+			class="transition-transform"
+			><path
+				fill="currentColor"
+				d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6l1.41-1.42Z"
+			/></svg
+		>
+	</button>
+	<div class="body max-h-0 overflow-hidden transition-all duration-500" aria-hi>
+		<slot />
+	</div>
 </div>
 
 <style lang="postcss">
-    .open .body{
-        @apply max-h-[5em];
-    }
+	.open .body {
+		@apply max-h-[5em];
+	}
 </style>

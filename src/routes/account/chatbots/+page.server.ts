@@ -6,8 +6,8 @@ const prisma = new PrismaClient();
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
 
-	if(!session) {
-		throw redirect ( 302, '/' );
+	if (!session) {
+		throw redirect(302, '/');
 	}
 
 	const bots = await prisma.bots.findMany({
