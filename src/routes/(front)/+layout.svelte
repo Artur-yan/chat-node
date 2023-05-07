@@ -6,7 +6,7 @@
 	export let data: LayoutData;
 </script>
 
-<Header user={data.user} />
+<Header user={data.user} includePageLinks={true} />
 
 <main id="main">
 	<slot />

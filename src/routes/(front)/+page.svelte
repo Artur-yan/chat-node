@@ -4,6 +4,7 @@
 	import Accordian from '$lib/components/Accordian.svelte';
 
 	import screenshot1 from '$lib/assets/screenshot-1.jpg?run';
+	import screenshot2 from '$lib/assets/internal-research-screenshot.jpg?run';
 	import PricingGrid from '$lib/components/PricingGrid.svelte';
 
 	let messages = [
@@ -203,7 +204,7 @@
 			<div class="col-span-2">
 				<Img
 					class="w-full h-full object-cover object-right rounded-r-xl"
-					src={screenshot1}
+					src={screenshot2}
 					alt="Screenshot of training GPT ChatBot on the gptchatbot.ai website"
 					width={2102}
 					height={1404}
@@ -295,8 +296,10 @@
 	</div>
 </section>
 
-<section class="container bg-base-300 py-20">
-	<PricingGrid />
+<section id="pricing" class="bg-base-300 py-20">
+	<div class="container">
+		<PricingGrid />
+	</div>
 </section>
 
 <section class="container py-20">

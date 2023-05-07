@@ -1,7 +1,7 @@
 <h2 class="text-center !text-white">Pricing</h2>
-<div class="container my-10 grid md:grid-cols-3 gap-y-20">
+<div class="my-10 grid md:grid-cols-3 gap-y-20">
 	<div class="rounded-l-xl p-8 border border-secondary rounded-r-none my-4 bg-base-200">
-		<div class="flex items-center justify-between mb-8">
+		<div class="flex justify-between mb-8">
 			<h2>Free</h2>
 			<div class="btn btn-outline btn-secondary">Sign up</div>
 		</div>
@@ -12,7 +12,7 @@
 		</ul>
 	</div>
 	<div class="border border-secondary p-8 -mx-[1px] rounded-2xl bg-base-100">
-		<div class="flex items-center justify-between mb-8">
+		<div class="flex justify-between mb-8">
 			<div>
 				<h2>Basic</h2>
 				<h3 class="text-lg font-bold">30€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span></h3>
@@ -31,7 +31,7 @@
 		</ul> -->
 	</div>
 	<div class="p-8 border border-secondary rounded-r-xl my-4 bg-base-200">
-		<div class="flex items-center justify-between mb-8">
+		<div class="flex justify-between mb-8">
 			<div>
 				<h2>Pro</h2>
 				<h3 class="text-lg font-bold">50€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span></h3>
@@ -46,15 +46,20 @@
 	</div>
 	<div class="col-span-3">
 		<div class="border border-secondary p-8 rounded-2xl shadow-xl max-w-6xl mx-auto bg-base-200">
-			<div class="flex items-center justify-between">
-				<h2>Enterprise</h2>
+			<div class="flex justify-between">
+				<div class="flex items-center justify-between mb-8">
+					<div>
+						<h2>Enterprise</h2>
+						<h3 class="text-lg font-bold">120€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span></h3>
+					</div>
+				</div>
 				<div>
 					<div class="btn btn-outline btn-secondary">Sign Up</div>
 					<div class="btn btn-outline btn-secondary">Contact Us</div>
 				</div>
 			</div>
-			<div class="">
-				<ul class="included mt-8 grid grid-cols-2">
+			<div>
+				<ul class="included grid grid-cols-2">
 					<li>12,000 chat responses / month</li>
 					<li>40 Chatbots</li>
 					<li>Embed on unlimited websites</li>
