@@ -2,7 +2,7 @@
 	import { alert } from '$lib/stores.js';
 	import { goto } from '$app/navigation';
 
-	export let currentPlan: number | null;
+	export let currentPlan: number | null
 
 	let busyChangingPlan = false;
 

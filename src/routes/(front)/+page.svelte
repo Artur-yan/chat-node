@@ -298,7 +298,7 @@
 
 <section id="pricing" class="bg-base-300 py-20">
 	<div class="container">
-		<PricingGrid />
+		<PricingGrid currentPlan={null} />
 	</div>
 </section>
 
