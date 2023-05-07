@@ -114,7 +114,7 @@
 					maxlength="50000"
 					autofocus
 				/>
-				<p class="help">Max 50000 characters</p>
+				<p class="help">Max 50,000 characters</p>
 				<button class="btn btn-primary mt-10" type="submit" on:click={() => updateModel()}
 					>Train Bot</button
 				>
