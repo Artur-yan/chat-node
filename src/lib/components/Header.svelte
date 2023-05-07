@@ -1,20 +1,20 @@
 <script>
 	export let user;
+	export let includePageLinks = false;
 
 	import Icon from '@iconify/svelte';
 
 	let links = [
-		// {
-		// 	title: 'Pricing',
-		// 	href: '/'
-		// },
-		// {
-		// 	title: 'Company',
-		// 	href: '/'
-		// }
+		{
+			title: 'How it works',
+			href: '/#how-it-works'
+		},
+		{
+			title: 'Pricing',
+			href: '/#pricing'
+		}
 	];
 
-	let accountDropdownIsOpen = false;
 </script>
 
 <header class="py-2">
@@ -25,15 +25,17 @@
 					<span class="inline-block w-6 h-6 rounded-full bg-secondary" />
 					<span class="text-sm font-bold">GPTchatbot.ai</span>
 				</a>
-				<div class="hidden lg:flex">
-					<ul class="flex flex-col mt-4 lg:flex-row text-sm lg:space-x-8 lg:mt-0 font-bold">
-						{#each links as { title, href }}
-							<li>
-								<a {href}>{title}</a>
-							</li>
-						{/each}
-					</ul>
-				</div>
+				{#if includePageLinks}
+					<div class="hidden lg:flex">
+						<ul class="flex flex-col mt-4 lg:flex-row text-sm lg:space-x-8 lg:mt-0 font-bold">
+							{#each links as { title, href }}
+								<li>
+									<a {href}>{title}</a>
+								</li>
+							{/each}
+						</ul>
+					</div>
+				{/if}
 			</div>
 
 			<div class="flex items-center lg:order-2">
