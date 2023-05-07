@@ -8,7 +8,7 @@
 
 	export let data;
 
-	let { user } = data.user;
+	let user = data.user.user;
 	let modelId = '';
 	let name = 'Untitled';
 	let settings = {
@@ -20,8 +20,7 @@
 			'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information"',
 		userPrompt: ''
 	};
-	let urls: Array<string>;
-	let selectedUrls: Array<string>;
+
 	let messages = [
 		{
 			text: settings.greeting,
@@ -40,6 +39,10 @@
 	let files: FileList | undefined;
 	let textData: string;
 	let url: string;
+	let urls: Array<string>;
+	let selectedUrls: Array<string> = []
+	let charCount =  0;
+	let selectedUrlsCharCount = 0;
 
 	$: {
 		if (files && files[0].size > 500 * 1024 * 1024) {
@@ -48,7 +51,23 @@
 		}
 	}
 
-	const fetchUrlsToScrape = async (urls) => {
+	// Get Up[dated Character Count when selectedUrls changes
+	$: {
+		if(urls) {
+			selectedUrlsCharCount = 0;
+			urls.urls.forEach((url) => {
+				console.log(url);
+				if (selectedUrls.includes(url[0])) {
+					selectedUrlsCharCount += Number(url[1]);
+				}
+			});
+		}
+	}
+
+	const fetchUrlsToScrape = async () => {
+		urls = undefined;
+		charCount = 0
+		selectedUrlsCharCount = 0
 		try {
 			busyFetchingUrls = true;
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/scraping-urls`, {
@@ -57,13 +76,17 @@
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					urls: [urls],
+					urls: [url],
 					user_id: user.userId,
 					session_id: data.user.session.sessionId
 				})
 			});
 			urls = await res.json();
-			selectedUrls = Array.from(urls.urls).map((url) => url[0]);
+			urls.urls.forEach((url) => {
+				selectedUrls.push(url[0]);
+				charCount += Number(url[1]);
+			});
+			selectedUrlsCharCount = charCount
 		} catch (err) {
 			throw err;
 		} finally {
@@ -93,7 +116,6 @@
 			});
 			const resJson = await res.json();
 			modelId = resJson.chat_key;
-			console.log(resJson);
 			addModel(modelId, name, settings);
 			step++;
 		} catch (err) {
@@ -150,7 +172,7 @@
 					maxlength="50000"
 					autofocus
 				/>
-				<p class="help">Max 50000 characters</p>
+				<p class="help">Max 50,000 characters</p>
 
 				<button class="btn btn-primary mt-10" type="submit" on:click={createModel}>Train Bot</button
 				>
@@ -182,7 +204,7 @@
 				<table class="table table-zebra table-compact w-full">
 					<thead>
 						<tr>
-							<th><input type="checkbox" class="checkbox" /></th>
+							<th><!-- <input type="checkbox" class="checkbox" />--></th>
 							<th>url</th>
 							<th>character count</th>
 						</tr>
@@ -194,6 +216,7 @@
 									<input
 										type="checkbox"
 										class="checkbox"
+										checked={true}
 										value={url[0]}
 										bind:group={selectedUrls}
 									/>
@@ -203,8 +226,28 @@
 							</tr>
 						{/each}
 					</tbody>
+					<tfoot>
+						<tr>
+							<td></td>
+							<td>Urls: {selectedUrls.length}/{urls.urls.length}</td>
+							<td>Total Characters: {selectedUrlsCharCount}/{charCount}</td>
+						</tr>
+					</tfoot>
 				</table>
-				<button class="btn mt-8" on:click={createModel}>Scrape Urls for data</button>
+				<!-- <div>
+					  <div>URL Count: {urls.urls.length}</div>
+					  <div>Selected URLs Character Count: {selectedUrlsCharCount}</div>
+					  <div>Character Count: {charCount}</div>
+					  <progress class="relative progress progress-info" value={selectedUrlsCharCount} max={data.subscription.max_tocken}></progress>
+				</div> -->
+				{#if selectedUrlsCharCount > data.subscription.max_tocken}
+					<div class="alert alert-warning shadow-lg">
+						<div>
+							<span>Character count exceeds account allowance. Please select fewer urls or <a href="/account/settings/plan" class="link">upgrade your plan</a>.</span>
+						</div>
+					</div>
+				{/if}
+				<button class="btn mt-8" on:click={createModel} disabled={selectedUrlsCharCount > data.subscription.max_tocken}>Scrape Urls for data</button>
 			{/if}
 		{/if}
 	{:else if step == 2}

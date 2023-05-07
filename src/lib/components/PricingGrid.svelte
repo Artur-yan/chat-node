@@ -1,6 +1,9 @@
 <div class="container my-10 grid md:grid-cols-3">
 	<div class="rounded-l-xl p-8 border border-secondary rounded-r-none my-4">
-		<h2>Free</h2>
+		<div class="flex items-center justify-between">
+			<h2>Free</h2>
+			<div class="btn btn-outline btn-secondary">Sign up</div>
+		</div>
 		<ul class="included">
 			<li>30 chat responses / month</li>
 			<li>Up to 3 Chatbots</li>
@@ -16,8 +19,16 @@
 		</div>
 	</div>
 	<div class="border border-secondary p-8 -mx-[1px] rounded-2xl shadow-xl">
-		<h2 class="card-title">Pro</h2>
-		<ul>
+		<div class="flex items-center justify-between">
+			<h2>Pro</h2>
+			<div class="btn btn-outline btn-secondary">Sign up</div>
+		</div>
+		<ul class="included">
+			<li>2000 chat responses / month</li>
+			<li>Up to 10 Chatbots</li>
+			<li>Embed on your website using an iframe or JS plugin</li>
+		</ul>
+		<ul class="excluded">
 			<li>2000 chat responses / month</li>
 			<li>Up to 10 Chatbots</li>
 			<li>Embed on your website using an iframe or JS plugin</li>

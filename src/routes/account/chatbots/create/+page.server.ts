@@ -21,5 +21,7 @@ export const load = async ({ locals }) => {
 	if (subscription?.bot_count >= subscription?.max_bot) {
 		throw redirect(302, '/account/chatbots');
 	}
-	return {};
+	return {
+		subscription
+	};
 };
