@@ -82,7 +82,7 @@
 						</h2>
 						<p class="flex justify-between">
 							created <span class="badge badge-secondary badge-outline"
-								>{bot.created.toLocaleString('en-us')}</span
+								>{bot.created.toLocaleString()}</span
 							>
 						</p>
 						<p class="flex justify-between">
