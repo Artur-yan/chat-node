@@ -111,6 +111,11 @@
 										<Icon icon="mdi:code" width="18" />
 									</a>
 								</div>
+								<div class="tooltip tooltip-secondary" data-tip="Data sources">
+									<a class="btn btn-ghost" href="/account/chatbots/{bot.id}/data">
+										<Icon icon="mdi:database" width="18" />
+									</a>
+								</div>
 								<div class="tooltip tooltip-secondary" data-tip="Edit settings">
 									<a class="btn btn-ghost" href="/account/chatbots/{bot.id}/settings">
 										<Icon icon="mdi:settings" width="18" />

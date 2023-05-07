@@ -3,7 +3,7 @@
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import Icon from '@iconify/svelte';
 
-	export let data;
+	export let data../data-sources/$types.js;
 	let user = data.user.user;
 
 	let busyFetchingUrls = false;

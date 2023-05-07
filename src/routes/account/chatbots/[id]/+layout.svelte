@@ -21,9 +21,9 @@
 			<Icon icon="mdi:code" width="18" class="mr-2" />
 			Embed
 		</a>
-		<a href="/account/chatbots/{data.model.id}/train" class="btn text-primary">
-			<Icon icon="mdi:database-plus" width="18" class="mr-2" />
-			Train
+		<a href="/account/chatbots/{data.model.id}/data" class="btn text-primary">
+			<Icon icon="mdi:database" width="18" class="mr-2" />
+			Data
 		</a>
 		<a href="/account/chatbots/{data.model.id}/settings" class="btn text-primary">
 			<Icon icon="mdi:settings" width="18" class="mr-2" />
