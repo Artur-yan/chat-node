@@ -188,13 +188,8 @@
 						autofocus
 					/>
 
-					<button class="btn btn-primary" type="submit" disabled={busyFetchingUrls}>
-						{#if busyFetchingUrls}
-							<Icon icon="mdi:loading" class="animate-spin mr-2" width="20" />
-							Fetching
-						{:else}
+					<button class="btn btn-primary" type="submit" class:loading={busyFetchingUrls}>
 							Fetch URLs
-						{/if}
 					</button>
 				</form>
 			</div>
