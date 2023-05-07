@@ -14,7 +14,6 @@
 			href: '/#pricing'
 		}
 	];
-
 </script>
 
 <header class="py-2">

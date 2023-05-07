@@ -3,7 +3,6 @@
 	import Icon from '@iconify/svelte';
 
 	export let data;
-	console.log(data);
 
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.subscription.bot_count / data.subscription.max_bot;
@@ -76,7 +75,7 @@
 	{#if data.bots.length > 0}
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 			{#each data.bots as bot}
-				{@const usage = Math.floor	(bot.tocken_count / data.subscription.max_tocken * 100)}
+				{@const usage = Math.floor((bot.tocken_count / data.subscription.max_tocken) * 100)}
 				<div class="bot-{bot.id} card shadow-xl bg-neutral peer-checked:ring-2">
 					<div class="card-body">
 						<h2 class="card-title">

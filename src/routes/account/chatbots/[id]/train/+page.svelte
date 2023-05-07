@@ -5,7 +5,7 @@
 
 	export let data;
 	let user = data.user.user;
-	
+
 	let busyFetchingUrls = false;
 	let files: FileList;
 	let text: string;
@@ -101,7 +101,8 @@
 				bind:this={fileInput}
 				accept=".doc,.docx,.pdf,.txt,.csv,.json"
 			/>
-			<button class="btn btn-primary" type="submit" on:click={() => updateModel()}>Train Bot</button>
+			<button class="btn btn-primary" type="submit" on:click={() => updateModel()}>Train Bot</button
+			>
 			<p class="help">PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
 		{:else if activeTab == 1}
 			<div>
@@ -119,24 +120,23 @@
 				>
 			</div>
 		{:else if activeTab == 2}
-				<form on:submit={fetchUrlsToScrape}>
-					<div class="form-control">
-						<div class="input-group">
-					<input
-						type="url"
-						placeholder="https://yourwebsite.com"
-						class="input input-bordered w-full"
-						bind:value={urls}
-						required
-						autofocus
-					/>
-					<button class="btn btn-primary" type="submit" class:loading={busyFetchingUrls}>
-						Fetch URLs
-					</button>
+			<form on:submit={fetchUrlsToScrape}>
+				<div class="form-control">
+					<div class="input-group">
+						<input
+							type="url"
+							placeholder="https://yourwebsite.com"
+							class="input input-bordered w-full"
+							bind:value={urls}
+							required
+							autofocus
+						/>
+						<button class="btn btn-primary" type="submit" class:loading={busyFetchingUrls}>
+							Fetch URLs
+						</button>
 					</div>
-					</div>
-
-				</form>
+				</div>
+			</form>
 			<p class="help mb-10">Please be sure to include http:// or https://</p>
 			{#if fetchedUrls}
 				<table class="table table-zebra table-compact w-full">
@@ -151,7 +151,12 @@
 						{#each fetchedUrls.urls as url}
 							<tr>
 								<td>
-									<input type="checkbox" class="checkbox" value={url[0]} bind:group={selectedUrls} />
+									<input
+										type="checkbox"
+										class="checkbox"
+										value={url[0]}
+										bind:group={selectedUrls}
+									/>
 								</td>
 								<td>{url[0]}</td>
 								<td>{url[1]}</td>
@@ -164,37 +169,32 @@
 		{/if}
 	</div>
 
-
-
 	<div>
 		<h2>Current Data</h2>
 		<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 		<div tabindex="0" class="collapse collapse-plus border border-base-300 bg-base-100 rounded-box">
-			<div class="collapse-title text-xl font-medium">
-			  URLs
-			</div>
+			<div class="collapse-title text-xl font-medium">URLs</div>
 			<div class="collapse-content">
-			  <div class="overflow-x-auto">
-				  <table class="table table-zebra w-full">
-					<!-- head -->
-					<thead>
-					  <tr>
-						<th>Type</th>
-						<th>Job</th>
-						<th>Favorite Color</th>
-					  </tr>
-					</thead>
-					<tbody>
-					  <tr>
-						<td>Cy Ganderton</td>
-						<td>Quality Control Specialist</td>
-						<td>Blue</td>
-					  </tr>
-					</tbody>
-				  </table>
+				<div class="overflow-x-auto">
+					<table class="table table-zebra w-full">
+						<!-- head -->
+						<thead>
+							<tr>
+								<th>Type</th>
+								<th>Job</th>
+								<th>Favorite Color</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Cy Ganderton</td>
+								<td>Quality Control Specialist</td>
+								<td>Blue</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
-		  </div>
+		</div>
 	</div>
-
 </div>

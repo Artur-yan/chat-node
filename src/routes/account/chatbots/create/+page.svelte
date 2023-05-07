@@ -40,8 +40,8 @@
 	let textData: string;
 	let url: string;
 	let urls: Array<string>;
-	let selectedUrls: Array<string> = []
-	let charCount =  0;
+	let selectedUrls: Array<string> = [];
+	let charCount = 0;
 	let selectedUrlsCharCount = 0;
 
 	$: {
@@ -53,10 +53,9 @@
 
 	// Get Up[dated Character Count when selectedUrls changes
 	$: {
-		if(urls) {
+		if (urls) {
 			selectedUrlsCharCount = 0;
 			urls.urls.forEach((url) => {
-				console.log(url);
 				if (selectedUrls.includes(url[0])) {
 					selectedUrlsCharCount += Number(url[1]);
 				}
@@ -66,8 +65,8 @@
 
 	const fetchUrlsToScrape = async () => {
 		urls = undefined;
-		charCount = 0
-		selectedUrlsCharCount = 0
+		charCount = 0;
+		selectedUrlsCharCount = 0;
 		try {
 			busyFetchingUrls = true;
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/scraping-urls`, {
@@ -86,7 +85,7 @@
 				selectedUrls.push(url[0]);
 				charCount += Number(url[1]);
 			});
-			selectedUrlsCharCount = charCount
+			selectedUrlsCharCount = charCount;
 		} catch (err) {
 			throw err;
 		} finally {
@@ -228,7 +227,7 @@
 					</tbody>
 					<tfoot>
 						<tr>
-							<td></td>
+							<td />
 							<td>Urls: {selectedUrls.length}/{urls.urls.length}</td>
 							<td>Total Characters: {selectedUrlsCharCount}/{charCount}</td>
 						</tr>
@@ -243,11 +242,21 @@
 				{#if selectedUrlsCharCount > data.subscription.max_tocken}
 					<div class="alert alert-warning shadow-lg">
 						<div>
-							<span>Character count exceeds account allowance. Please select fewer urls or <a href="/account/settings/plan" class="link">upgrade your plan</a>.</span>
+							<span
+								>Character count exceeds account allowance. Please select fewer urls or <a
+									href="/account/settings/plan"
+									class="link">upgrade your plan</a
+								>.</span
+							>
 						</div>
 					</div>
 				{/if}
-				<button class="btn mt-8" on:click={createModel} disabled={selectedUrlsCharCount > data.subscription.max_tocken}>Scrape Urls for data</button>
+				<button
+					class="btn mt-8"
+					on:click={createModel}
+					disabled={selectedUrlsCharCount > data.subscription.max_tocken}
+					>Scrape Urls for data</button
+				>
 			{/if}
 		{/if}
 	{:else if step == 2}
