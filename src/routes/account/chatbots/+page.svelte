@@ -91,7 +91,7 @@
 							id <span class="badge badge-outline">{bot.id}</span>
 						</p>
 						<div class="flex justify-between">
-							<span>token usage</span>
+							<span>training capacity</span>
 							<div>
 								<span class="text-xs mr-2">{usage}%</span>
 								<span
