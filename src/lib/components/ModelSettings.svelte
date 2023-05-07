@@ -6,7 +6,6 @@
 	export let id: string;
 	export let name: string;
 	export let settings: Object;
-	export let deleteEnabled = false;
 	export let preventSave = false;
 	let deleting = false;
 
@@ -121,13 +120,11 @@
 				type="submit"
 				disabled={preventSave}>Save</button
 			>
-			{#if deleteEnabled}
 				<div class="text-center">
 					<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle"
 						><Icon icon="mdi:delete-outline" width="16" /></label
 					>
 				</div>
-			{/if}
 		</div>
 	</form>
 </div>
@@ -141,6 +138,7 @@
 			<label for="my-modal" class="btn">Cancel</label>
 			<button
 				class="btn btn-error"
+				class:loading={deleting}
 				type="button"
 				on:click={async () => {
 					deleting = true;
@@ -148,9 +146,6 @@
 					goto('/account/chatbots');
 				}}
 			>
-				{#if deleting}
-					<Icon icon="mdi:loading" class="animate-spin mr-2" width="20" />
-				{/if}
 				Delete</button
 			>
 		</div>

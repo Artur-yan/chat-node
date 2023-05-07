@@ -21,7 +21,7 @@
 			sender: 'bot'
 		}
 	];
-	export let status: 'training' | 'ready' | 'failed' = 'ready';
+	export let trainingStatus: 'training' | 'ready' | 'failed' = 'ready';
 
 	let inputVal: string;
 	let chatWindow: HTMLElement;
@@ -92,7 +92,7 @@
 	class="h-full flex flex-col justify-between"
 >
 	<div class="overflow-y-auto scroll-smooth" bind:this={chatWindow}>
-		<BotStatus id={modelId} {status} />
+		<BotStatus id={modelId} status={trainingStatus} />
 		<slot>
 			{#each messages as msg}
 				<div class="chat {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">

@@ -64,12 +64,3 @@
 		</div>
 	</div>
 {/if}
-
-<style>
-	.closed {
-		transform: scale(0);
-		opacity: 0;
-		transition: all;
-		transition-duration: 0.3s;
-	}
-</style>
