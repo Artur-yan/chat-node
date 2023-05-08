@@ -78,7 +78,7 @@
 </script>
 
 <section>
-	<div class="container gap-8 items-center px-4 mx-auto lg:px-6 pt-2 pb-20">
+	<div class="container gap-8 items-center px-4 py-[5vh] mx-auto lg:px-6">
 		<h2 class="mb-6 text-5xl tracking-tight font-extrabold text-center text-secondary">
 			Train ChatGPT on your own data
 		</h2>
@@ -115,9 +115,9 @@
 	</div>
 </section>
 
-<section id="how-it-works" class="px-10 pt-12 pb-32">
-	<!-- <h2 class="text-2xl font-bold mb-6 text-center">How it works</h2> -->
-	<div class="grid md:grid-cols-3 gap-10 mx-auto">
+<section id="how-it-works" class="px-10 pt-12 pb-32 bg-base-300">
+	<h2 class="text-4xl 2xl:text-5xl font-bold mb-6 text-center">How it works</h2>
+	<div class="container grid md:grid-cols-3 gap-10 mx-auto">
 		<a href="#difference" class="group card">
 			<div class="card-body">
 				<!-- <div class="absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-base-100 aspect-square w-12 flex items-center justify-center text-white border-secondary border rounded-full">1</div> -->
@@ -126,8 +126,8 @@
 				<div
 					class="text-base mt-4 translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
 				>
-					<p>Input any url you want your bot to be trained on. It takes less than 10 seconds.</p>
-					<p>You can also add copy/paste texts as well as any PDF to be trained on.</p>
+					<!-- <p>Input any url you want your bot to be trained on. It takes less than 10 seconds.</p>
+					<p>You can also add copy/paste texts as well as any PDF to be trained on.</p> -->
 					<div class="card-actions justify-end">
 						<div class="btn">Learn More</div>
 					</div>
@@ -141,8 +141,8 @@
 				<div
 					class="text-base mt-4 translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
 				>
-					<p>You can then export an iframe of the bot anywhere</p>
-					<p>Use it to train your team or to look for a specific answer.</p>
+					<!-- <p>You can then export an iframe of the bot anywhere</p>
+					<p>Use it to train your team or to look for a specific answer.</p> -->
 					<div class="card-actions justify-end">
 						<div class="btn">Learn More</div>
 					</div>
@@ -151,13 +151,13 @@
 		</a>
 		<a href="#difference-3" class="group card">
 			<div class="card-body">
-				<h2 class="card-title">Deploy it publically</h2>
+				<h2 class="card-title">Deploy it in public</h2>
 				<p>Publish to your website or get a url to share with everyone.</p>
 				<div
 					class="text-base mt-4 translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
 				>
-					<p>Export the bot on your website and fire your customer support team.</p>
-					<p>Your customers can ask any questions and get instant answers trained on your data.</p>
+					<!-- <p>Export the bot on your website and fire your customer support team.</p>
+					<p>Your customers can ask any questions and get instant answers trained on your data.</p> -->
 					<div class="card-actions justify-end">
 						<div class="btn">Learn More</div>
 					</div>
@@ -167,13 +167,13 @@
 	</div>
 </section>
 
-<section id="difference" class="bg-white text-black">
-	<div class="py-8 lg:py-20 bg-secondary/70">
-		<h2 class="p-4 md:pl-10 text-3xl lg:text-5xl font-bold mb-10 text-secondary">What Makes GPT ChatBot Different?</h2>
+<section id="difference" class="bg-white text-base-100">
+	<div class="py-8 lg:py-20 bg-secondary/50">
+		<h2 class="p-4 md:pl-10 lg:pl-20 text-3xl lg:text-5xl font-bold mb-10">What Makes GPT ChatBot <span class="">Different?</span></h2>
 		<div class="grid gap-y-20 md:grid-cols-5 gap-20">
 			<div class="md:col-span-3 p-8 md:pl-20 py-10">
 				<h3 class="text-4xl font-bold mb-10">Train on your data</h3>
-				<div class="text-lg [&>p]:mb-5 [&>h4]:text-lg [&>h4]:font-bold [&>h4]:mt-6">
+				<div>
 					<p>
 						GPT Chatbot has the ability to quickly learn from a diverse range of sources. With this
 						unique functionality, you can effortlessly train your bot by providing any URL of your
@@ -194,7 +194,7 @@
 			</div>
 			<div class="max-md:hidden col-span-2">
 				<Img
-					class="w-full h-full object-cover object-left rounded-l-xl"
+					class="w-full h-full object-cover object-left rounded-l-xl shadow-2xl shadow-secondary"
 					src={screenshot1}
 					alt="Screenshot of training GPT ChatBot on the gptchatbot.ai website"
 					width={2102}
@@ -203,7 +203,7 @@
 			</div>
 			<div class="max-md:hidden col-span-2">
 				<Img
-					class="w-full h-full object-cover object-right rounded-r-xl"
+					class="w-full h-full object-cover object-right rounded-r-xl shadow-2xl shadow-secondary"
 					src={screenshot2}
 					alt="Screenshot of training GPT ChatBot on the gptchatbot.ai website"
 					width={2102}
@@ -215,7 +215,7 @@
 				<p class="mb-10 text-2xl text-base-100">
 					Revolutionizing Data Access with Chatbots for Company Teams.
 				</p>
-				<div class="text-lg [&>p]:mb-5 [&>h4]:text-lg [&>h4]:font-bold [&>h4]:mt-6">
+				<div>
 					<p>
 						In today's corporate world, our advanced chatbot provides instant access to vital
 						information from various sources, streamlining company operations and collaboration.
@@ -254,9 +254,9 @@
 				</div>
 			</div>
 			<div class="md:col-span-3 p-8 md:pl-20 md:py-10 scroll-m-10" id="difference-3">
-				<h3 class="text-4xl font-bold mb-10">Your CTR & SEO are handled</h3>
-				<div class="text-lg [&>p]:mb-5 [&>h4]:text-lg [&>h4]:font-bold [&>h4]:mt-6">
-					<p>Transforming Customer Support with Chatbot Integration.</p>
+				<h3 class="text-4xl font-bold mb-10">Deploy it in public</h3>
+				<div>
+					<h4>Transforming Customer Support with Chatbot Integration.</h4>
 
 					<p>
 						Our advanced chatbot catalyzes a self-service revolution for your company website,
@@ -285,7 +285,7 @@
 			</div>
 			<div class="max-md:hidden col-span-2">
 				<Img
-					class="w-full h-full object-cover object-left rounded-l-xl"
+					class="w-full h-full object-cover object-left rounded-l-xl shadow-2xl shadow-secondary"
 					src={screenshot1}
 					alt="Screenshot of training GPT ChatBot on the gptchatbot.ai website"
 					width={2102}
@@ -351,14 +351,25 @@
 
 <style lang="postcss">
 	#how-it-works .card {
-		@apply relative overflow-hidden border-secondary border-4 text-xl shadow-xl mt-4 hover:mt-0 transition-all bg-secondary hover:bg-primary text-black hover:border-primary;
+		@apply relative overflow-hidden text-2xl shadow-xl mt-4 hover:mt-0 transition-all bg-primary text-primary-content hover:border-primary;
 	}
 
 	#how-it-works .card .btn {
-		@apply btn-ghost mt-4 self-end;
+		@apply btn-ghost self-end;
 	}
 
 	#how-it-works .card-title {
-		@apply text-2xl font-bold mb-4;
+		@apply xl:text-3xl 2xl:text-4xl font-bold mb-4;
+	}
+
+	#difference{
+		@apply text-lg 2xl:text-2xl;
+	}
+
+	#difference h4{
+		@apply text-xl 2xl:text-3xl font-bold mt-6 mb-1 2xl:mb-2;
+	}
+	#difference p{
+		@apply mb-5;
 	}
 </style>

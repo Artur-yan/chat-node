@@ -112,7 +112,7 @@
 		</ul>
 	</div>
 	<div class="col-span-full">
-		<div class="border border-secondary p-8 rounded-2xl shadow-xl max-w-6xl mx-auto bg-base-200">
+		<div class="border border-secondary p-8 rounded-2xl max-w-6xl mx-auto bg-base-200">
 			<div class="flex justify-between">
 				<div class="flex items-center justify-between mb-8">
 					<div>
