@@ -17,7 +17,7 @@
 	let isThinking = false;
 
 	// wait 3 seconds adn then add to messges array
-	const addMessages = async (message, sender = 'bot') => {
+	const addMessages = async () => {
 		await new Promise((r) => setTimeout(r, 1000));
 		messages = [
 			...messages,
@@ -117,7 +117,7 @@
 
 <section id="how-it-works" class="px-10 pt-12 pb-32">
 	<!-- <h2 class="text-2xl font-bold mb-6 text-center">How it works</h2> -->
-	<div class="grid grid-cols-3 gap-10 mx-auto">
+	<div class="grid md:grid-cols-3 gap-10 mx-auto">
 		<a href="#difference" class="group card">
 			<div class="card-body">
 				<!-- <div class="absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-base-100 aspect-square w-12 flex items-center justify-center text-white border-secondary border rounded-full">1</div> -->
@@ -168,10 +168,10 @@
 </section>
 
 <section id="difference" class="bg-white text-black">
-	<div class="py-20 bg-secondary/70">
-		<h2 class="pl-10 text-5xl font-bold mb-10 text-secondary">What Makes GPT ChatBot Different?</h2>
-		<div class="grid gap-y-20 grid-cols-5 gap-20">
-			<div class="col-span-3 pl-20 py-10">
+	<div class="py-8 lg:py-20 bg-secondary/70">
+		<h2 class="p-4 md:pl-10 text-3xl lg:text-5xl font-bold mb-10 text-secondary">What Makes GPT ChatBot Different?</h2>
+		<div class="grid gap-y-20 md:grid-cols-5 gap-20">
+			<div class="md:col-span-3 p-8 md:pl-20 py-10">
 				<h3 class="text-4xl font-bold mb-10">Train on your data</h3>
 				<div class="text-lg [&>p]:mb-5 [&>h4]:text-lg [&>h4]:font-bold [&>h4]:mt-6">
 					<p>
@@ -192,7 +192,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="col-span-2">
+			<div class="max-md:hidden col-span-2">
 				<Img
 					class="w-full h-full object-cover object-left rounded-l-xl"
 					src={screenshot1}
@@ -201,7 +201,7 @@
 					height={1404}
 				/>
 			</div>
-			<div class="col-span-2">
+			<div class="max-md:hidden col-span-2">
 				<Img
 					class="w-full h-full object-cover object-right rounded-r-xl"
 					src={screenshot2}
@@ -210,7 +210,7 @@
 					height={1404}
 				/>
 			</div>
-			<div class="col-span-3 col-start-3 py-10 pr-20 scroll-m-10" id="difference-2">
+			<div class="md:col-span-3 md:col-start-3 p-8 md:py-10 md:pr-20 scroll-m-10" id="difference-2">
 				<h3 class="text-4xl font-bold mb-3">Use the bot internally</h3>
 				<p class="mb-10 text-2xl text-base-100">
 					Revolutionizing Data Access with Chatbots for Company Teams.
@@ -253,7 +253,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="col-span-3 pl-20 py-10 scroll-m-10" id="difference-3">
+			<div class="md:col-span-3 p-8 md:pl-20 md:py-10 scroll-m-10" id="difference-3">
 				<h3 class="text-4xl font-bold mb-10">Your CTR & SEO are handled</h3>
 				<div class="text-lg [&>p]:mb-5 [&>h4]:text-lg [&>h4]:font-bold [&>h4]:mt-6">
 					<p>Transforming Customer Support with Chatbot Integration.</p>
@@ -283,7 +283,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="col-span-2">
+			<div class="max-md:hidden col-span-2">
 				<Img
 					class="w-full h-full object-cover object-left rounded-l-xl"
 					src={screenshot1}
@@ -296,8 +296,9 @@
 	</div>
 </section>
 
-<section id="pricing" class="bg-base-300 py-20">
+<section id="pricing" class="bg-base-300py py-1 lg:py-20">
 	<div class="container">
+		<h2 class="text-center font-bold text-3xl">Pricing</h2>
 		<PricingGrid currentPlan={null} />
 	</div>
 </section>

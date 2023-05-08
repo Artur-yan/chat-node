@@ -31,8 +31,8 @@
 	};
 </script>
 
-<div class="container my-10 grid md:grid-cols-3 gap-y-20">
-	<div class="rounded-l-xl p-8 border border-secondary rounded-r-none my-4 bg-base-200">
+<div class="my-10 grid md:grid-cols-3 gap-y-8 lg:gap-y-20">
+	<div class="rounded-xl md:rounded-r-none p-8 border border-secondary md:my-4 bg-base-200">
 		<div class="flex justify-between mb-8">
 			<h2>Free</h2>
 			{#if currentPlan !== null}
@@ -58,7 +58,7 @@
 		</ul> -->
 		</ul>
 	</div>
-	<div class="border border-secondary p-8 -mx-[1px] rounded-2xl bg-base-100">
+	<div class="border border-secondary p-8 md:-mx-[1px] rounded-2xl bg-base-100">
 		<div class="flex justify-between mb-8">
 			<div>
 				<h2>Basic</h2>
@@ -84,7 +84,7 @@
 			<li>Train on 100,000 characters</li>
 		</ul>
 	</div>
-	<div class="p-8 border border-secondary rounded-r-xl my-4 bg-base-200">
+	<div class="p-8 border border-secondary rounded-xl md:rounded-l-none my-4 bg-base-200">
 		<div class="flex justify-between mb-8">
 			<div>
 				<h2>Pro</h2>
@@ -111,7 +111,7 @@
 
 		</ul>
 	</div>
-	<div class="col-span-3">
+	<div class="col-span-full">
 		<div class="border border-secondary p-8 rounded-2xl shadow-xl max-w-6xl mx-auto bg-base-200">
 			<div class="flex justify-between">
 				<div class="flex items-center justify-between mb-8">
