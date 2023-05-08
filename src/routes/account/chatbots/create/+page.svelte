@@ -137,48 +137,51 @@
 
 	<div class="grid md:grid-cols-2 gap-10">
 		{#if step == 1}
-		<div>
-			<h2 class="font-bold text-secondary text-lg mb-2">Add Data</h2>
-			<div class="mb-10 grid grid-cols-3 gap-2">
-				<label class="btn text-primary" class:btn-outline={activeTab == 0}>
-					<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
-					+ File
-				</label>
-				<label class="btn text-primary" class:btn-outline={activeTab == 1}>
-					<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
-					+ Text
-				</label>
-				<label class="btn text-primary" class:btn-outline={activeTab == 2}>
-					<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
-					+ URL
-				</label>
-			</div>
-			{#if activeTab == 0}
-				<input
-					type="file"
-					class="file-input file-input-bordered w-full"
-					bind:files
-					bind:this={fileInput}
-					accept=".doc,.docx,.pdf,.txt,.csv,.json"
-				/>
-				<p class="help">PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
-				<button class="btn btn-primary mt-8" type="submit" on:click={createModel}>Train Bot</button>
-			{:else if activeTab == 1}
-				<div>
-					<textarea
-						placeholder="Paste your text"
-						class="textarea textarea-bordered textarea-sm w-full"
-						bind:value={textData}
-						rows="8"
-						maxlength="50000"
-						autofocus
-					/>
-					<p class="help">Max 50,000 characters</p>
-					<button class="btn btn-primary mt-8" type="submit" on:click={createModel}>Train Bot</button
-					>
+			<div>
+				<h2 class="font-bold text-secondary text-lg mb-2">Add Data</h2>
+				<div class="mb-10 grid grid-cols-3 gap-2">
+					<label class="btn text-primary" class:btn-outline={activeTab == 0}>
+						<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
+						+ File
+					</label>
+					<label class="btn text-primary" class:btn-outline={activeTab == 1}>
+						<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
+						+ Text
+					</label>
+					<label class="btn text-primary" class:btn-outline={activeTab == 2}>
+						<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
+						+ URL
+					</label>
 				</div>
-			{:else if activeTab == 2}
-			<form on:submit={() => fetchUrlsToScrape()}>
+				{#if activeTab == 0}
+					<input
+						type="file"
+						class="file-input file-input-bordered w-full"
+						bind:files
+						bind:this={fileInput}
+						accept=".doc,.docx,.pdf,.txt,.csv,.json"
+					/>
+					<p class="help">PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
+					<button class="btn btn-primary mt-8" type="submit" on:click={createModel}
+						>Train Bot</button
+					>
+				{:else if activeTab == 1}
+					<div>
+						<textarea
+							placeholder="Paste your text"
+							class="textarea textarea-bordered textarea-sm w-full"
+							bind:value={textData}
+							rows="8"
+							maxlength="50000"
+							autofocus
+						/>
+						<p class="help">Max 50,000 characters</p>
+						<button class="btn btn-primary mt-8" type="submit" on:click={createModel}
+							>Train Bot</button
+						>
+					</div>
+				{:else if activeTab == 2}
+					<form on:submit={() => fetchUrlsToScrape()}>
 						<div class="form-control">
 							<div class="input-group">
 								<input
@@ -194,75 +197,74 @@
 								</button>
 							</div>
 						</div>
-				</form>
-				<p class="help">Please be sure to include http:// or https://</p>
-				{#if urls}
-					<table class="table table-zebra table-compact w-full">
-						<thead>
-							<tr>
-								<th><!-- <input type="checkbox" class="checkbox" />--></th>
-								<th>url</th>
-								<th>character count</th>
-							</tr>
-						</thead>
-						<tbody>
-							{#each urls.urls as url}
+					</form>
+					<p class="help">Please be sure to include http:// or https://</p>
+					{#if urls}
+						<table class="table table-zebra table-compact w-full">
+							<thead>
 								<tr>
-									<td>
-										<input
-											type="checkbox"
-											class="checkbox"
-											checked={true}
-											value={url[0]}
-											bind:group={selectedUrls}
-										/>
-									</td>
-									<td>{url[0]}</td>
-									<td>{url[1]}</td>
+									<th><!-- <input type="checkbox" class="checkbox" />--></th>
+									<th>url</th>
+									<th>character count</th>
 								</tr>
-							{/each}
-						</tbody>
-						<tfoot>
-							<tr>
-								<td />
-								<td>Urls: {selectedUrls.length}/{urls.urls.length}</td>
-								<td>Total Characters: {selectedUrlsCharCount}/{charCount}</td>
-							</tr>
-						</tfoot>
-					</table>
-					{#if selectedUrlsCharCount > data.subscription.max_tocken}
-						<div class="alert alert-warning shadow-lg">
-							<div>
-								<span
-									>Character count exceeds account allowance. Please select fewer urls or <a
-										href="/account/settings/plan"
-										class="link">upgrade your plan</a
-									>.</span
-								>
+							</thead>
+							<tbody>
+								{#each urls.urls as url}
+									<tr>
+										<td>
+											<input
+												type="checkbox"
+												class="checkbox"
+												checked={true}
+												value={url[0]}
+												bind:group={selectedUrls}
+											/>
+										</td>
+										<td>{url[0]}</td>
+										<td>{url[1]}</td>
+									</tr>
+								{/each}
+							</tbody>
+							<tfoot>
+								<tr>
+									<td />
+									<td>Urls: {selectedUrls.length}/{urls.urls.length}</td>
+									<td>Total Characters: {selectedUrlsCharCount}/{charCount}</td>
+								</tr>
+							</tfoot>
+						</table>
+						{#if selectedUrlsCharCount > data.subscription.max_tocken}
+							<div class="alert alert-warning shadow-lg">
+								<div>
+									<span
+										>Character count exceeds account allowance. Please select fewer urls or <a
+											href="/account/settings/plan"
+											class="link">upgrade your plan</a
+										>.</span
+									>
+								</div>
 							</div>
-						</div>
+						{/if}
+						<button
+							class="btn mt-8"
+							on:click={createModel}
+							disabled={selectedUrlsCharCount > data.subscription.max_tocken}>Train Bot</button
+						>
 					{/if}
-					<button
-						class="btn mt-8"
-						on:click={createModel}
-						disabled={selectedUrlsCharCount > data.subscription.max_tocken}
-						>Train Bot</button
-					>
 				{/if}
-			{/if}
-		</div>
-				{/if}
+			</div>
+		{/if}
 
-	{#if step == 2}
+		{#if step == 2}
 			<div>
 				<ModelSettings id={modelId} {name} {settings} />
 			</div>
-			{/if}
-			<div>
-				<div class="h-[calc(100vh_-_16rem)]">
-					<Chat {modelId} {messages} {trainingStatus} />
-				</div>
+		{/if}
+		<div>
+			<div class="h-[calc(100vh_-_16rem)]">
+				<Chat {modelId} {messages} {trainingStatus} />
 			</div>
+		</div>
 	</div>
 </div>
 

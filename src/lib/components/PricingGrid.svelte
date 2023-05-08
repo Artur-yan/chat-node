@@ -2,11 +2,9 @@
 	import { alert } from '$lib/stores.js';
 	import { goto } from '$app/navigation';
 
-	export let currentPlan: number | null
+	export let currentPlan: number | null;
 
 	let busyChangingPlan = false;
-
-	$: console.log(currentPlan);
 
 	const updatePlan = async (newPlan: number) => {
 		try {
@@ -19,7 +17,6 @@
 				body: JSON.stringify(newPlan)
 			});
 			const data = await res.json();
-			console.log(data);
 			if (data.url) {
 				goto(data.url);
 			} else if (data.status == 'success') {

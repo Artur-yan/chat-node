@@ -5,9 +5,5 @@
 </script>
 
 <div class="container">
-	<ModelSettings
-		id={data.model.id}
-		name={data.model.name}
-		settings={data.model.settings}
-	/>
+	<ModelSettings id={data.model.id} name={data.model.name} settings={data.model.settings} />
 </div>

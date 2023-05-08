@@ -65,7 +65,6 @@
 				body
 			});
 			const resJson = await res.json();
-			console.log(resJson);
 			if (res.ok) {
 				goto(`/account/chatbots/${data.model.id}`);
 			}

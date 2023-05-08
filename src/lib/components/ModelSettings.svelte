@@ -120,11 +120,11 @@
 				type="submit"
 				disabled={preventSave}>Save</button
 			>
-				<div class="text-center">
-					<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle"
-						><Icon icon="mdi:delete-outline" width="16" /></label
-					>
-				</div>
+			<div class="text-center">
+				<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle"
+					><Icon icon="mdi:delete-outline" width="16" /></label
+				>
+			</div>
 		</div>
 	</form>
 </div>
