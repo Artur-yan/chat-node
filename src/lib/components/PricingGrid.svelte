@@ -134,7 +134,6 @@
 					{:else}
 						<a href="/register" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
-					<div class="btn btn-outline btn-secondary">Contact Us</div>
 				</div>
 			</div>
 			<div>
@@ -144,7 +143,7 @@
 					<li>Embed on unlimited websites</li>
 					<li>Train on 500,000 characters</li>
 
-					<li>Get a customized plan for greater usage</li>
+					<li><a href="/" class="link underline-offset-4">Get a customized plan for greater usage</a></li>
 				</ul>
 			</div>
 		</div>
