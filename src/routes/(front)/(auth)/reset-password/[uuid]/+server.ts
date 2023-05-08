@@ -21,4 +21,3 @@ export async function GET({ locals, params }) {
 		throw redirect(302, '/login');
 	}
 }
-x
