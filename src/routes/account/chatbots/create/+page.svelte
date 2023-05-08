@@ -20,8 +20,6 @@
 		userPrompt: ''
 	};
 
-	$: console.log(urls)
-
 	let messages = [
 		{
 			text: settings.greeting,
@@ -190,8 +188,7 @@
 						<div class="form-control">
 							<div class="input-group">
 								<input
-									type="url"
-									placeholder="https://yourwebsite.com"
+									type="text"
 									class="input input-bordered w-full"
 									bind:value={url}
 									required
@@ -203,7 +200,7 @@
 							</div>
 						</div>
 					</form>
-					<p class="help">Please be sure to include http:// or https://</p>
+					<p class="help">We will check your website for any sub-pages and you can choose which to include in your data</p>
 					{#if urls}
 						<table class="table table-zebra table-compact w-full my-8">
 							<thead>
