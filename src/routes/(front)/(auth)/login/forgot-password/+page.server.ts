@@ -40,7 +40,7 @@ export const actions: Actions = {
 			}
 		}
 
-		transporter.sendMail({
+		await transporter.sendMail({
 			from: 'contact@gptchatbot.ai',
 			to: email,
 			subject: emailSubject,
