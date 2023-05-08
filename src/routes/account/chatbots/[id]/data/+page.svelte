@@ -169,14 +169,13 @@
 	</div>
 
 	<div>
-		<h2>Current Data</h2>
+		<!-- <h2>Current Data</h2> -->
 		<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-		<div tabindex="0" class="collapse collapse-plus border border-base-300 bg-base-100 rounded-box">
+		<!-- <div tabindex="0" class="collapse collapse-plus border border-base-300 bg-base-100 rounded-box">
 			<div class="collapse-title text-xl font-medium">URLs</div>
 			<div class="collapse-content">
 				<div class="overflow-x-auto">
 					<table class="table table-zebra w-full">
-						<!-- head -->
 						<thead>
 							<tr>
 								<th>Type</th>
@@ -194,6 +193,6 @@
 					</table>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
