@@ -1,5 +1,3 @@
-import { goto } from '$app/navigation';
-
 const addModel = async (id: string, name: string, settings?: Object) => {
 	try {
 		const res = await fetch('/api/models', {
@@ -18,6 +16,8 @@ const addModel = async (id: string, name: string, settings?: Object) => {
 	}
 };
 
+
+
 const updateModel = async (id: string, name: string, settings?: Object) => {
 	try {
 		const res = await fetch('/api/models', {
@@ -33,8 +33,6 @@ const updateModel = async (id: string, name: string, settings?: Object) => {
 		});
 	} catch (err) {
 		console.error(err);
-	} finally {
-		goto(`/account/chatbots/${id}`);
 	}
 };
 

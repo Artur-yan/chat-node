@@ -2,11 +2,12 @@
 	import { updateModel, deleteModel } from '$lib/models';
 	import Icon from '@iconify/svelte';
 	import { goto } from '$app/navigation';
+	import { alert } from '$lib/stores';
 
 	export let id: string;
 	export let name: string;
 	export let settings: Object;
-	export let preventSave = false;
+	let busySaving = false;
 	let deleting = false;
 
 	const addUrl = (url: string) => {
@@ -18,8 +19,11 @@
 		settings.allowedUrls = [...settings.allowedUrls];
 	};
 
-	const handleSubmit = () => {
-		updateModel(id, name, settings);
+	const handleSubmit = async () => {
+		busySaving = true;
+		await updateModel(id, name, settings);
+		busySaving = false;
+		$alert = "Settings Saved"
 	};
 </script>
 
@@ -117,7 +121,7 @@
 			<button
 				class="btn btn-outline btn-success md:w-40"
 				type="submit"
-				disabled={preventSave}>Save</button
+				class:loading={busySaving}>Save</button
 			>
 			<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle"
 				><Icon icon="mdi:delete-outline" width="16" /></label
