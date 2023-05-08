@@ -95,7 +95,7 @@
 		<BotStatus id={modelId} status={trainingStatus} />
 		<slot>
 			{#each messages as msg}
-				<div class="chat {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
+				<div class="chat overflow-hidden {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
 					<div class="chat-bubble {msg.sender == 'bot' ? 'chat-bubble-secondary' : ''}">
 						{msg.text}
 					</div>
