@@ -102,7 +102,7 @@
 								<Icon icon="mdi:message" class="mr-2" width="16" /> Chat
 							</a>
 							<div class="btn-group rounded-lg">
-								<div class="tooltip tooltip-info" data-tip="Get embed code">
+								<div class="tooltip tooltip-secondary" data-tip="Get embed code">
 									<a class="btn btn-ghost" href="/account/chatbots/{bot.id}/embed">
 										<Icon icon="mdi:code" width="18" />
 									</a>
