@@ -46,7 +46,7 @@
 					<div class="dropdown dropdown-end">
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 						<!-- svelte-ignore a11y-label-has-associated-control -->
-						<label tabindex="0" class="btn btn-ghost text-primary"
+						<label tabindex="0" class="btn btn-ghost btn-circle text-primary"
 							><Icon icon="mdi:account-circle-outline" width="28" /></label
 						>
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
