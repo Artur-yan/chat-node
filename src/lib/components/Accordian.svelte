@@ -5,7 +5,7 @@
 <div class="border border-primary/50 bg-base-300 rounded-xl" class:open>
 	<button
 		on:click={() => (open = !open)}
-		class="flex text-lg justify-between items-center w-full p-5 font-bold"
+		class="flex text-lg justify-between text-left items-center w-full p-5 font-bold"
 	>
 		<slot name="title" />
 		<svg
@@ -21,13 +21,19 @@
 			/></svg
 		>
 	</button>
-	<div class="body max-h-0 overflow-hidden transition-all duration-500 opacity-0" aria-hidden>
-		<slot />
+	<div class="body grid transition-all duration-500 opacity-0" aria-hidden>
+		<div class="overflow-hidden">
+			<slot />
+		</div>
 	</div>
 </div>
 
 <style lang="postcss">
+	.body{
+		grid-template-rows: 0fr;
+	}
 	.open .body {
 		@apply max-h-[5em] p-4 opacity-100;
+		grid-template-rows: 1fr;
 	}
 </style>

@@ -306,7 +306,7 @@
 <section class="container py-20">
 	<h2 class="text-4xl text-center 2xl:text-5xl font-bold mb-8">FAQ</h2>
 
-	<div class="grid lg:grid-cols-2 gap-x-4">
+	<div class="grid lg:grid-cols-2 gap-4">
 		<div class="space-y-4">
 			<Accordian>
 				<div slot="title">Is there a free trial?</div>
