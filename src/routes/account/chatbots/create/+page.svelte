@@ -20,6 +20,8 @@
 		userPrompt: ''
 	};
 
+	$: console.log(urls)
+
 	let messages = [
 		{
 			text: settings.greeting,
@@ -38,7 +40,7 @@
 	let files: FileList | undefined;
 	let textData: string;
 	let url: string;
-	let urls: Array<string>;
+	let urls
 	let selectedUrls: Array<string> = [];
 	let charCount = 0;
 	let selectedUrlsCharCount = 0;
@@ -50,23 +52,24 @@
 		}
 	}
 
+
+
 	// Get Up[dated Character Count when selectedUrls changes
-	$: {
-		if (urls) {
-			selectedUrlsCharCount = 0;
-			urls.urls.forEach((url) => {
-				if (selectedUrls.includes(url[0])) {
-					selectedUrlsCharCount += Number(url[1]);
-				}
-			});
-		}
-	}
+	// $: {
+	// 	if (urls.length > 0) {
+	// 		selectedUrlsCharCount = 0;
+	// 		urls.urls.forEach((url) => {
+	// 			if (selectedUrls.includes(url[0])) {
+	// 				selectedUrlsCharCount += Number(url[1]);
+	// 			}
+	// 		});
+	// 	}
+	// }
 
 	const fetchUrlsToScrape = async () => {
 		urls = undefined;
 		charCount = 0;
 		selectedUrlsCharCount = 0;
-		console.log(url)
 		try {
 			busyFetchingUrls = true;
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/scraping-urls`, {
@@ -108,7 +111,7 @@
 			body.append('text', textData);
 			name = textData.slice(0, 20) + '...';
 		}
-		if (selectedUrls.length > 0) {
+		if (selectedUrls && selectedUrls.length > 0) {
 			body.append('urls', selectedUrls);
 			name = url;
 		}
@@ -263,7 +266,7 @@
 			</div>
 		{/if}
 		<div>
-			<div class="h-[calc(100vh_-_16rem)]">
+			<div class="h-[calc(100vh_-_16rem)] sticky top-10">
 				<Chat {modelId} {messages} {trainingStatus} />
 			</div>
 		</div>
