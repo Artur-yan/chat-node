@@ -9,6 +9,5 @@
 		id={data.model.id}
 		name={data.model.name}
 		settings={data.model.settings}
-		deleteEnabled={true}
 	/>
 </div>
