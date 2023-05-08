@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	const redirectToStripeBilling = async () => {
 		try {
@@ -16,18 +17,18 @@
 			console.error(err);
 		}
 	};
+	
+	const planPath = '/account/settings/plan';
+	const settingsPath = '/account/settings';
 </script>
 
-<div class="container flex justify-between items-end">
+<div class="container flex items-end gap-4">
 	<h1 class="font-bold text-lg text-secondary">Account</h1>
-	<div class="btn-group">
-		<a href="/account/settings" class="btn text-primary">Settings</a>
-		<a href="/account/settings/plan" class="btn text-primary">Change Plan</a>
-
-		<button class="btn text-primary" on:click={redirectToStripeBilling}
-			>Billing history/Payment</button
-		>
-	</div>
+	<div class="tabs">
+		<a href={settingsPath} class="tab tab-bordered"  class:tab-active={settingsPath == $page.url.pathname}>Settings</a> 
+		<a href={planPath} class="tab tab-bordered" class:tab-active={planPath == $page.url.pathname}>Change plan</a> 
+		<button on:click={redirectToStripeBilling} class="tab tab-bordered">Billing</button>
+	  </div>
 </div>
 
 <slot />

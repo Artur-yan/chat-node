@@ -1,35 +1,26 @@
 <script lang="ts">
 	import type { LayoutData } from './$types';
-	import Icon from '@iconify/svelte';
+	import { page } from '$app/stores';
 
 	export let data: LayoutData;
+
+	const chatPath = `/account/chatbots/${data.model.id}`
+	const embedPath = `/account/chatbots/${data.model.id}/embed`
+	const dataPath = `/account/chatbots/${data.model.id}/data`
+	const settingsPath = `/account/chatbots/${data.model.id}/settings`
 </script>
 
-<div class="container sm:flex items-center justify-between gap-4">
-	<div class="text-sm breadcrumbs text-secondary">
-		<ul>
-			<li class="font-bold"><a href="/account/chatbots">&larr; Chatbots</a></li>
-			<li class="text-xl font-bold">{data.model.name}</li>
-		</ul>
+<div class="container sm:flex items-end mb-4 gap-4">
+	<div class="flex items-center gap-2 text-secondary -ml-8">
+		<a class="btn btn-ghost btn-circle btn-xs" href="/account/chatbots">&larr;</a>
+		<h1 class="font-bold">{data.model.name}</h1>
 	</div>
-	<div class="btn-group max-sm:overflow-x-scroll my-2">
-		<a href="/account/chatbots/{data.model.id}" class="btn text-primary">
-			<Icon icon="mdi:chat" width="18" class="mr-2" />
-			Chat
-		</a>
-		<a href="/account/chatbots/{data.model.id}/embed" class="btn text-primary">
-			<Icon icon="mdi:code" width="18" class="mr-2" />
-			Embed
-		</a>
-		<a href="/account/chatbots/{data.model.id}/data" class="btn text-primary">
-			<Icon icon="mdi:database" width="18" class="mr-2" />
-			Data
-		</a>
-		<a href="/account/chatbots/{data.model.id}/settings" class="btn text-primary">
-			<Icon icon="mdi:settings" width="18" class="mr-2" />
-			Settings
-		</a>
-	</div>
+	<div class="tabs">
+		<a href={chatPath} class="tab tab-bordered" class:tab-active={chatPath == $page.url.pathname}>Chat</a> 
+		<a href={embedPath} class="tab tab-bordered" class:tab-active={embedPath == $page.url.pathname}>Embed</a> 
+		<a href={dataPath} class="tab tab-bordered" class:tab-active={dataPath == $page.url.pathname}>Data</a> 
+		<a href={settingsPath} class="tab tab-bordered" class:tab-active={settingsPath == $page.url.pathname}>Settings</a> 
+	  </div>
 </div>
 
 <slot />
