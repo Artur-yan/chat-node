@@ -10,12 +10,12 @@
 	let trainingMessage: string;
 	let statusMessageElement: HTMLElement;
 
-	const close = () => {
-		// supabase.removeChannel('bot_status');
-		// setTimeout(() => {
-		//   statusMessageElement.classList.add('closed');
-		// }, 3000);
-	};
+	// const close = () => {
+	// 	supabase.removeChannel('bot_status');
+	// 	setTimeout(() => {
+	// 	  statusMessageElement.classList.add('closed');
+	// 	}, 3000);
+	// };
 
 	supabase
 		.channel(`bot_status`)
@@ -46,7 +46,7 @@
 			trainingMessage = 'Your chatbot is ready!';
 			icon = 'line-md:confirm-circle-twotone';
 			alertClass = 'alert-success';
-			close();
+			// close();
 			break;
 		case 'failed':
 			trainingMessage = 'Something went wrong. Please try again.';
