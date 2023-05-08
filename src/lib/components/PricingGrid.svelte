@@ -49,6 +49,7 @@
 		<ul class="included">
 			<li>30 messages / month</li>
 			<li>1 Chatbot</li>
+			<li>Train on 10,000 characters</li>
 			<li>Embed on unlimited websites</li>
 			<!-- <ul class="excluded">
 			<li>2000 messages / month</li>
@@ -80,6 +81,7 @@
 			<li>2,000 messages / month</li>
 			<li>Up to 10 Chatbots</li>
 			<li>Embed on unlimited websites</li>
+			<li>Train on 100,000 characters</li>
 		</ul>
 	</div>
 	<div class="p-8 border border-secondary rounded-r-xl my-4 bg-base-200">
@@ -105,6 +107,8 @@
 			<li>5,000 chat responses / month</li>
 			<li>20 Chatbots</li>
 			<li>Embed on unlimited websites</li>
+			<li>Train on 250,000 characters</li>
+
 		</ul>
 	</div>
 	<div class="col-span-3">
@@ -138,6 +142,8 @@
 					<li>12,000 chat responses / month</li>
 					<li>40 Chatbots</li>
 					<li>Embed on unlimited websites</li>
+					<li>Train on 500,000 characters</li>
+
 					<li>Get a customized plan for greater usage</li>
 				</ul>
 			</div>
