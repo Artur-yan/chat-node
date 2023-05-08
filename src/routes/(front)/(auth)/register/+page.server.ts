@@ -14,11 +14,11 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ request, locals, url }) => {
 		const form = await request.formData();
 		const email = form.get('email');
 		const password = form.get('password');
-		const promo = form.get('promo');
+		const promo = url.searchParams.get('promo');
 
 		if (!email || !password || typeof email !== 'string' || typeof password !== 'string') {
 			return fail(400, {

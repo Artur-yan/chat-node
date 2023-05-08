@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	export let form: { message?: string; submitted: false };
+	export let form: { message?: string; submitted: false; promo: string };
 
 	let loading = false;
 	$: loading = form?.submitted;
@@ -32,17 +32,6 @@
 						id="password"
 						placeholder="••••••••"
 						required
-					/>
-				</div>
-
-				<div>
-					<label class="label" for="promo"><span class="label-text">Promo code</span></label>
-					<input
-						type="text"
-						name="promo"
-						id="promo"
-						class="input input-bordered"
-						placeholder="Optional"
 					/>
 				</div>
 
