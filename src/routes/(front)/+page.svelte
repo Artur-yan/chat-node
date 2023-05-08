@@ -304,42 +304,37 @@
 </section>
 
 <section class="container py-20">
-	<h2 class="text-2xl font-bold mb-8">FAQ</h2>
+	<h2 class="text-4xl text-center 2xl:text-5xl font-bold mb-8">FAQ</h2>
 
-	<div class="grid lg:grid-cols-2 gap-x-20">
-		<div class="divide-white/30">
+	<div class="grid lg:grid-cols-2 gap-x-4">
+		<div class="space-y-4">
 			<Accordian>
 				<div slot="title">Is there a free trial?</div>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
 				tristique. Duis cursus, mi
 			</Accordian>
-			<div class="h-[1px] bg-white/30" />
 			<Accordian>
 				<div slot="title">What type of data can I train my bot with?</div>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
 				tristique. Duis cursus, mi
 			</Accordian>
-			<div class="h-[1px] bg-white/30" />
 			<Accordian>
 				<div slot="title">Is there a limit on the number of messages I can send?</div>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
 				tristique. Duis cursus, mi
 			</Accordian>
 		</div>
-		<div class="h-[1px] bg-white/30 lg:hidden" />
-		<div>
+		<div class="space-y-4">
 			<Accordian>
 				<div slot="title">What is the cost?</div>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
 				tristique. Duis cursus, mi
 			</Accordian>
-			<div class="h-[1px] bg-white/30" />
 			<Accordian>
 				<div slot="title">What happens with my data?</div>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
 				tristique. Duis cursus, mi
 			</Accordian>
-			<div class="h-[1px] bg-white/30" />
 			<Accordian>
 				<div slot="title">Is this secure?</div>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum

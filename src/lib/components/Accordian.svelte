@@ -2,10 +2,10 @@
 	let open = false;
 </script>
 
-<div class="my-4" class:open>
+<div class="border border-primary/50 bg-base-300 rounded-xl" class:open>
 	<button
 		on:click={() => (open = !open)}
-		class="flex text-lg font-medium justify-between items-center w-full py-3"
+		class="flex text-lg justify-between items-center w-full p-5 font-bold"
 	>
 		<slot name="title" />
 		<svg
@@ -21,13 +21,13 @@
 			/></svg
 		>
 	</button>
-	<div class="body max-h-0 overflow-hidden transition-all duration-500" aria-hi>
+	<div class="body max-h-0 overflow-hidden transition-all duration-500 opacity-0" aria-hidden>
 		<slot />
 	</div>
 </div>
 
 <style lang="postcss">
 	.open .body {
-		@apply max-h-[5em];
+		@apply max-h-[5em] p-4 opacity-100;
 	}
 </style>
