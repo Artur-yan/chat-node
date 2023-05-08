@@ -49,7 +49,7 @@
 		<ul class="included">
 			<li>30 messages / month</li>
 			<li>1 Chatbot</li>
-			<li>Train on 10,000 characters</li>
+			<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 40,000 characters">10,000 tokens/bot</div></li>
 			<li>Embed on unlimited websites</li>
 			<!-- <ul class="excluded">
 			<li>2000 messages / month</li>
@@ -80,8 +80,8 @@
 		<ul class="included">
 			<li>2,000 messages / month</li>
 			<li>Up to 10 Chatbots</li>
+			<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 400,000 characters">100,000 tokens/bot</div></li>
 			<li>Embed on unlimited websites</li>
-			<li>Train on 100,000 characters</li>
 		</ul>
 	</div>
 	<div class="p-8 border border-secondary rounded-xl md:rounded-l-none my-4 bg-base-200">
@@ -106,8 +106,8 @@
 		<ul class="included">
 			<li>5,000 chat responses / month</li>
 			<li>20 Chatbots</li>
+			<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 1,000,000 characters">250,000 tokens/bot</div></li>
 			<li>Embed on unlimited websites</li>
-			<li>Train on 250,000 characters</li>
 
 		</ul>
 	</div>
@@ -140,8 +140,8 @@
 				<ul class="included grid grid-cols-2">
 					<li>12,000 chat responses / month</li>
 					<li>40 Chatbots</li>
+					<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 2,000,000 characters">500,000 tokens/bot</div></li>
 					<li>Embed on unlimited websites</li>
-					<li>Train on 500,000 characters</li>
 
 					<li><a href="/" class="link underline-offset-4">Get a customized plan for greater usage</a></li>
 				</ul>
@@ -156,11 +156,11 @@
 	}
 
 	li {
-		@apply mb-2  relative pl-8;
+		@apply mb-2 relative pl-8;
 	}
 
 	.included li {
-		background: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="20" height="20" viewBox="0 0 24 24"%3E%3Cpath fill="%23818CF8" d="m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83L9 20.42Z"%2F%3E%3C%2Fsvg%3E')
+		background: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="16" height="16" viewBox="0 0 24 24"%3E%3Cpath fill="%23818CF8" d="m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83L9 20.42Z"%2F%3E%3C%2Fsvg%3E')
 			no-repeat left 2px;
 	}
 

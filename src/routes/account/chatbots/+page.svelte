@@ -80,18 +80,18 @@
 					<div class="card-body p-6">
 						<div class="">
 							<h2 class="card-title">
-								<a href="chatbots/{bot.id}" class="text-primary text-lg truncate" title={bot.name}>{bot.name}</a>
+								<a href="chatbots/{bot.id}" class="text-primary text-base truncate" title={bot.name}>{bot.name}</a>
 							</h2>
 						</div>
 						<h3 class="text-sm">{bot.created.toLocaleString()}</h3>
 
 
 						<div class="flex justify-between items-center border-y border-dotted border-base-300 py-1">
-							<h3 class="text-sm">Data capacity</h3>
+							<h3 class="text-sm">Token usage</h3>
 							<div>
-								<span class="text-xs mr-2 font-bold">{usage}%</span>
+								<span class="text-xs mr-1 font-bold">{usage}%</span>
 								<span
-									class="radial-progress bg-base-100 text-primary border-2 border-base-100"
+									class="radial-progress bg-base-100 text-secondary border-2 border-base-100"
 									style="--value:{usage}; --size: 1.5rem; --thickness: 4px;"
 								/>
 							</div>
