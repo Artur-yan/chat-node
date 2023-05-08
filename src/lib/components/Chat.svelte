@@ -60,19 +60,19 @@
 		}
 	};
 
-	const doubleMessage = () => {
-		addMessage('Please wait for me to finish thinking...');
-	};
-
 	// Generate a random ID
 	const chatSessionId = Math.random().toString(36).slice(2, 9) + '-' + Date.now();
 
 	const submitQuery = () => {
 		if (isThinking) {
-			doubleMessage();
+			addMessage('Please wait for me to finish thinking...');
 			return;
 		} else if (inputVal.trim() === '') {
 			return;
+		} else if (!modelId){
+			addMessage('Add some data for me to repsond to answers about');
+			inputVal = ''
+			return
 		} else {
 			queryModel(modelId, chatSessionId, inputVal);
 		}
