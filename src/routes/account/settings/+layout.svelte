@@ -22,12 +22,12 @@
 	const settingsPath = '/account/settings';
 </script>
 
-<div class="container flex items-end gap-4">
+<div class="container flex items-center gap-4 flex-wrap">
 	<h1 class="font-bold text-lg text-secondary">Account</h1>
-	<div class="tabs">
-		<a href={settingsPath} class="tab tab-bordered"  class:tab-active={settingsPath == $page.url.pathname}>Settings</a> 
-		<a href={planPath} class="tab tab-bordered" class:tab-active={planPath == $page.url.pathname}>Change plan</a> 
-		<button on:click={redirectToStripeBilling} class="tab tab-bordered">Billing</button>
+	<div class="tabs tabs-boxed">
+		<a href={settingsPath} class="tab" class:tab-active={settingsPath == $page.url.pathname}>Settings</a> 
+		<a href={planPath} class="tab" class:tab-active={planPath == $page.url.pathname}>Change plan</a> 
+		<button on:click={redirectToStripeBilling} class="tab">Billing</button>
 	  </div>
 </div>
 
