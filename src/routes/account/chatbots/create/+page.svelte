@@ -55,16 +55,16 @@
 
 
 	// Get Up[dated Character Count when selectedUrls changes
-	// $: {
-	// 	if (urls.length > 0) {
-	// 		selectedUrlsCharCount = 0;
-	// 		urls.urls.forEach((url) => {
-	// 			if (selectedUrls.includes(url[0])) {
-	// 				selectedUrlsCharCount += Number(url[1]);
-	// 			}
-	// 		});
-	// 	}
-	// }
+	$: {
+		if (selectedUrls.length > 0) {
+			selectedUrlsCharCount = 0;
+			urls.urls.forEach((url) => {
+				if (selectedUrls.includes(url[0])) {
+					selectedUrlsCharCount += Number(url[1]);
+				}
+			});
+		}
+	}
 
 	const fetchUrlsToScrape = async () => {
 		urls = undefined;
