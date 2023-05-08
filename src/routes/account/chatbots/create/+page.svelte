@@ -3,6 +3,7 @@
 	import { addModel } from '$lib/models';
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 	import Chat from '$lib/components/Chat.svelte';
+	import { alert } from '$lib/stores.js';
 
 	export let data;
 
@@ -44,7 +45,7 @@
 
 	$: {
 		if (files && files[0].size > 50 * 1024 * 1024) {
-			alert('This file is too large');
+			$alert = 'This file is too large'
 			fileInput.value = '';
 		}
 	}
@@ -65,6 +66,7 @@
 		urls = undefined;
 		charCount = 0;
 		selectedUrlsCharCount = 0;
+		console.log(url)
 		try {
 			busyFetchingUrls = true;
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/scraping-urls`, {
@@ -85,7 +87,7 @@
 			});
 			selectedUrlsCharCount = charCount;
 		} catch (err) {
-			throw err;
+			$alert = err
 		} finally {
 			busyFetchingUrls = false;
 		}
@@ -188,7 +190,7 @@
 									type="url"
 									placeholder="https://yourwebsite.com"
 									class="input input-bordered w-full"
-									bind:value={urls}
+									bind:value={url}
 									required
 									autofocus
 								/>
@@ -200,7 +202,7 @@
 					</form>
 					<p class="help">Please be sure to include http:// or https://</p>
 					{#if urls}
-						<table class="table table-zebra table-compact w-full">
+						<table class="table table-zebra table-compact w-full my-8">
 							<thead>
 								<tr>
 									<th><!-- <input type="checkbox" class="checkbox" />--></th>
@@ -234,7 +236,7 @@
 							</tfoot>
 						</table>
 						{#if selectedUrlsCharCount > data.subscription.max_tocken}
-							<div class="alert alert-warning shadow-lg">
+							<div class="alert alert-warning shadow-lg mt-2">
 								<div>
 									<span
 										>Character count exceeds account allowance. Please select fewer urls or <a
@@ -246,7 +248,7 @@
 							</div>
 						{/if}
 						<button
-							class="btn mt-8"
+							class="btn btn-primary"
 							on:click={createModel}
 							disabled={selectedUrlsCharCount > data.subscription.max_tocken}>Train Bot</button
 						>
