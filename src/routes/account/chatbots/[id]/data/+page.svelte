@@ -142,8 +142,8 @@
 					<thead>
 						<tr>
 							<th><input type="checkbox" class="checkbox" /></th>
-							<th>url</th>
-							<th>character count</th>
+							<th>URL</th>
+							<th>Token count</th>
 						</tr>
 					</thead>
 					<tbody>
