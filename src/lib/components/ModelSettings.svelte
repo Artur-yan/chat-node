@@ -24,7 +24,7 @@
 </script>
 
 <div class="@container">
-	<form on:submit={handleSubmit} class="grid gap-10 @[240px]:grid-cols-2 pb-10">
+	<form on:submit={handleSubmit} class="grid gap-10 @[240px]:grid-cols-2 pb-32">
 		<div class="space-y-3">
 			<div>
 				<label for="name" class="label">
@@ -113,17 +113,15 @@
 				</div>
 			{/if}
 		</div>
-		<div class="flex items-center justify-between">
+		<div class="fixed bottom-0 left-0 right-0 bg-base-300 p-2 flex items-center justify-between">
 			<button
-				class="btn btn-outline btn-success w-full md:w-80"
+				class="btn btn-outline btn-success md:w-40"
 				type="submit"
 				disabled={preventSave}>Save</button
 			>
-			<div class="text-center">
-				<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle"
-					><Icon icon="mdi:delete-outline" width="16" /></label
-				>
-			</div>
+			<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle"
+				><Icon icon="mdi:delete-outline" width="16" /></label
+			>
 		</div>
 	</form>
 </div>
