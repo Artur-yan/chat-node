@@ -2,7 +2,7 @@
 	let open = false;
 </script>
 
-<div class="border border-primary/50 bg-base-300 rounded-xl" class:open>
+<div class="border border-primary/50 bg-base-300 rounded-xl hover:shadow-xl hover:bg-base-200 transition-all" class:open>
 	<button
 		on:click={() => (open = !open)}
 		class="flex text-lg justify-between text-left items-center w-full p-5 font-bold"
