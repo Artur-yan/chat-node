@@ -35,7 +35,6 @@
 					bind:value={name}
 					class="input w-full"
 					placeholder="Untitled"
-					on:click={(e) => e.target.select()}
 				/>
 			</div>
 
