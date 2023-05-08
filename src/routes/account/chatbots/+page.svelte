@@ -73,26 +73,23 @@
 		</div>
 	{/if}
 	{#if data.bots.length > 0}
-		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 			{#each data.bots as bot}
 				{@const usage = Math.floor((bot.tocken_count / data.subscription.max_tocken) * 100)}
-				<div class="bot-{bot.id} card shadow-xl bg-neutral peer-checked:ring-2">
-					<div class="card-body">
-						<h2 class="card-title">
-							<a href="chatbots/{bot.id}" class="text-primary">{bot.name}</a>
-						</h2>
-						<p class="flex justify-between">
-							created <span class="badge badge-secondary badge-outline"
-								>{bot.created.toLocaleString()}</span
-							>
-						</p>
-						<p class="flex justify-between">
-							id <span class="badge badge-outline">{bot.id}</span>
-						</p>
-						<div class="flex justify-between">
-							<span>training capacity</span>
+				<div class="card bg-neutral peer-checked:ring-2">
+					<div class="card-body p-6">
+						<div class="">
+							<h2 class="card-title">
+								<a href="chatbots/{bot.id}" class="text-primary text-lg truncate" title={bot.name}>{bot.name}</a>
+							</h2>
+						</div>
+						<h3 class="text-sm">{bot.created.toLocaleString()}</h3>
+
+
+						<div class="flex justify-between items-center border-y border-dotted border-base-300 py-1">
+							<h3 class="text-sm">Data capacity</h3>
 							<div>
-								<span class="text-xs mr-2">{usage}%</span>
+								<span class="text-xs mr-2 font-bold">{usage}%</span>
 								<span
 									class="radial-progress bg-base-100 text-primary border-2 border-base-100"
 									style="--value:{usage}; --size: 1.5rem; --thickness: 4px;"
@@ -100,12 +97,11 @@
 							</div>
 						</div>
 
-						<div class="card-actions justify-between items-center mt-10">
-							<a class="btn btn-outline btn-sm btn-primary" href="chatbots/{bot.id}">
-								<Icon icon="mdi:chat-outline" class="mr-2" width="20" /> Chat
+						<div class="card-actions justify-between items-center -mx-4 -mb-4">
+							<a class="btn" href="chatbots/{bot.id}">
+								<Icon icon="mdi:message" class="mr-2" width="16" /> Chat
 							</a>
-							<div class="btn-group bg-base-100 rounded-lg">
-								<div class="tooltip tooltip-error" data-tip="Delete" />
+							<div class="btn-group rounded-lg">
 								<div class="tooltip tooltip-info" data-tip="Get embed code">
 									<a class="btn btn-ghost" href="/account/chatbots/{bot.id}/embed">
 										<Icon icon="mdi:code" width="18" />

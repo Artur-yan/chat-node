@@ -109,7 +109,7 @@
 						</div>
 					{/each}
 					<button class="btn btn-xs btn-ghost btn-primary" type="button" on:click={() => addUrl('')}
-						><Icon icon="mdi:plus-circle-outline" width="16" /> Add URL</button
+						><Icon icon="mdi:plus-circle-outline" width="16" class="mr-2" /> Add URL</button
 					>
 				</div>
 			{/if}
