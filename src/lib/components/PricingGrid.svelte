@@ -49,7 +49,7 @@
 		<ul class="included">
 			<li>30 messages / month</li>
 			<li>1 Chatbot</li>
-			<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 40,000 characters">10,000 tokens/bot</div></li>
+			<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 400,000 characters">100,000 tokens/bot</div></li>
 			<li>Embed on unlimited websites</li>
 			<!-- <ul class="excluded">
 			<li>2000 messages / month</li>
@@ -63,7 +63,7 @@
 			<div>
 				<h2>Basic</h2>
 				<h3 class="text-lg font-bold">
-					30€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
+					19€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
 				</h3>
 			</div>
 			{#if currentPlan !== null}
@@ -79,8 +79,9 @@
 		</div>
 		<ul class="included">
 			<li>2,000 messages / month</li>
-			<li>Up to 10 Chatbots</li>
-			<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 400,000 characters">100,000 tokens/bot</div></li>
+			<li>Up to 5 Chatbots</li>
+			<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 1,600,000 characters">400,000 tokens/bot</div></li>
+			<li>Add Multiple Data Sources</li>
 			<li>Embed on unlimited websites</li>
 		</ul>
 	</div>
@@ -89,7 +90,7 @@
 			<div>
 				<h2>Pro</h2>
 				<h3 class="text-lg font-bold">
-					50€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
+					49€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
 				</h3>
 			</div>
 			{#if currentPlan !== null}
@@ -105,8 +106,9 @@
 		</div>
 		<ul class="included">
 			<li>5,000 chat responses / month</li>
-			<li>20 Chatbots</li>
-			<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 1,000,000 characters">250,000 tokens/bot</div></li>
+			<li>10 Chatbots</li>
+			<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 3,200,000 characters">800,000 tokens/bot</div></li>
+			<li>Add Multiple Data Sources</li>
 			<li>Embed on unlimited websites</li>
 
 		</ul>
@@ -118,7 +120,7 @@
 					<div>
 						<h2>Enterprise</h2>
 						<h3 class="text-lg font-bold">
-							120€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
+							99€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
 						</h3>
 					</div>
 				</div>
@@ -138,12 +140,13 @@
 			</div>
 			<div>
 				<ul class="included grid grid-cols-2">
-					<li>12,000 chat responses / month</li>
-					<li>40 Chatbots</li>
-					<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 2,000,000 characters">500,000 tokens/bot</div></li>
+					<li>10,000 chat responses / month</li>
+					<li>20 Chatbots</li>
+					<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 4,000,000 characters">1,000,000 tokens/bot</div></li>
+					<li>Add Multiple Data Sources</li>
 					<li>Embed on unlimited websites</li>
 
-					<li><a href="/" class="link underline-offset-4">Get a customized plan for greater usage</a></li>
+					<li><span class="">Get a customized plan for greater usage</span></li>
 				</ul>
 			</div>
 		</div>
