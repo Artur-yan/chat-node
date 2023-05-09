@@ -95,7 +95,7 @@
 		return;
 	};
 
-	const createModel = async (id: string) => {
+	const createModel = async () => {
 		trainingStatus = 'training';
 		let body = new FormData();
 
@@ -119,7 +119,6 @@
 				body
 			});
 			const resJson = await res.json();
-			modelId = resJson.chat_key;
 			addModel(modelId, name, settings);
 			trainingStatus = 'ready';
 			step++;
@@ -157,13 +156,20 @@
 					</label>
 				</div>
 				{#if activeTab == 0}
-					<input
-						type="file"
-						class="file-input file-input-bordered w-full"
-						bind:files
-						bind:this={fileInput}
-						accept=".doc,.docx,.pdf,.txt,.csv,.json"
-					/>
+				<div class="form-control">
+					<div class="input-group">
+						<input
+							type="file"
+							class="file-input file-input-bordered w-full"
+							bind:files
+							bind:this={fileInput}
+							accept=".doc,.docx,.pdf,.txt,.csv,.json"
+						/>
+						<button class="btn btn-primary" type="submit" on:click={createModel}
+							>Validate File</button
+							>
+						</div>
+					</div>
 					<p class="help">PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
 					<button class="btn btn-primary mt-8" type="submit" on:click={createModel}
 						>Train Bot</button
