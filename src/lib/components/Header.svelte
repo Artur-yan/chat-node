@@ -39,7 +39,7 @@
 
 			<div class="flex items-center lg:order-2">
 				{#if !user.session}
-					<a class="link link-primary mr-4" href="/login">Sign in</a>
+					<a class="btn btn-sm btn-ghost text-primary mr-2" href="/login">Sign in</a>
 					<a class="btn btn-primary" href="/register">Try for free</a>
 				{:else}
 					<a class="btn btn-ghost text-primary" href="/account/chatbots">My chatbots</a>
