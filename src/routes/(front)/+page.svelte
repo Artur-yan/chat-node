@@ -170,7 +170,7 @@ demoChat()
 		<h2 class="p-4 md:pl-10 lg:pl-20 text-3xl lg:text-5xl font-bold mb-10">What Makes GPT ChatBot <span class="">Different?</span></h2>
 		<div class="grid gap-y-20 md:grid-cols-5 gap-20">
 			<div class="md:col-span-3 p-8 md:pl-20 py-10">
-				<h3 class="text-4xl font-bold mb-10">Train on your data</h3>
+				<h3>Train on your data</h3>
 				<div>
 					<p>
 						GPT Chatbot has the ability to quickly learn from a diverse range of sources. With this
@@ -209,10 +209,10 @@ demoChat()
 				/>
 			</div>
 			<div class="md:col-span-3 md:col-start-3 p-8 md:py-10 md:pr-20 scroll-m-10" id="difference-2">
-				<h3 class="text-4xl font-bold mb-3">Use the bot internally</h3>
-				<p class="mb-10 text-2xl text-base-100">
+				<h3>Use the bot internally</h3>
+				<h4>
 					Revolutionizing Data Access with Chatbots for Company Teams.
-				</p>
+				</h4>
 				<div>
 					<p>
 						In today's corporate world, our advanced chatbot provides instant access to vital
@@ -252,7 +252,7 @@ demoChat()
 				</div>
 			</div>
 			<div class="md:col-span-3 p-8 md:pl-20 md:py-10 scroll-m-10" id="difference-3">
-				<h3 class="text-4xl font-bold mb-10">Deploy it in public</h3>
+				<h3>Deploy it in public</h3>
 				<div>
 					<h4>Transforming Customer Support with Chatbot Integration.</h4>
 
@@ -363,11 +363,14 @@ demoChat()
 	#difference{
 		@apply text-lg 2xl:text-2xl;
 	}
-
+	
+	#difference h3{
+		@apply text-2xl md:text-4xl 2xl:text-5xl font-bold mb-10;
+	}
 	#difference h4{
-		@apply text-xl 2xl:text-3xl font-bold mt-6 mb-1 2xl:mb-2;
+		@apply text-xl 2xl:text-3xl font-bold mt-6 mb-1 2xl:mb-4;
 	}
 	#difference p{
-		@apply mb-5;
+		@apply mb-5 2xl:mb-12;
 	}
 </style>
