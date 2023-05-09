@@ -1,6 +1,6 @@
 <footer class="footer p-10 bg-base-200 text-base-content">
     <div>
-      <p>GPTChatBot.ai</p>
+      <p>ChatLeaf</p>
     </div> 
     <div>
       <span class="footer-title">About</span> 
