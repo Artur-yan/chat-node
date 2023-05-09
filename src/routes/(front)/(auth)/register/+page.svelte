@@ -18,7 +18,6 @@
 						type="email"
 						name="email"
 						id="email"
-						placeholder="name@company.com"
 						required
 					/>
 				</div>
@@ -30,7 +29,6 @@
 						type="password"
 						name="password"
 						id="password"
-						placeholder="••••••••"
 						required
 					/>
 				</div>
