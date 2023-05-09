@@ -119,6 +119,7 @@
 				body
 			});
 			const resJson = await res.json();
+			modelId = resJson.chat_key;
 			addModel(modelId, name, settings);
 			trainingStatus = 'ready';
 			step++;
