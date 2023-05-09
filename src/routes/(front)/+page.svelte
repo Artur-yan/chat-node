@@ -2,79 +2,79 @@
 	import Img from '@zerodevx/svelte-img';
 	import Chat from '$lib/components/Chat.svelte';
 	import Accordian from '$lib/components/Accordian.svelte';
-
 	import screenshot1 from '$lib/assets/screenshot-1.jpg?run';
 	import screenshot2 from '$lib/assets/internal-research-screenshot.jpg?run';
 	import PricingGrid from '$lib/components/PricingGrid.svelte';
 
-	let messages = [
+
+
+    let isThinking = false;
+    let messages = [
 		{
 			text: 'Hi, how can I help you?',
 			sender: 'bot'
 		}
 	];
 
-	let isThinking = false;
+	const demoChat = async () => {
 
-	// wait 3 seconds adn then add to messges array
-	const addMessages = async () => {
-		await new Promise((r) => setTimeout(r, 1000));
-		messages = [
-			...messages,
-			{
-				text: 'I want to build a chat bot.',
-				sender: 'user'
-			}
-		];
-		isThinking = true;
-		await new Promise((r) => setTimeout(r, 3000));
-		messages = [
-			...messages,
-			{
-				text: 'To build a chatbot, sign up for an account, then click create from the dashboard.',
-				sender: 'bot'
-			}
-		];
-		isThinking = false;
-		await new Promise((r) => setTimeout(r, 1500));
-		messages = [
-			...messages,
-			{
-				text: 'What data can I train my chatbot on?',
-				sender: 'user'
-			}
-		];
-		isThinking = true;
-		await new Promise((r) => setTimeout(r, 2000));
-		isThinking = false;
-		messages = [
-			...messages,
-			{
-				text: 'Chatbots can be trained on any text, pdf, or website.',
-				sender: 'bot'
-			}
-		];
-		await new Promise((r) => setTimeout(r, 1000));
-		messages = [
-			...messages,
-			{
-				text: 'How many chatbots are included in the free plan?',
-				sender: 'user'
-			}
-		];
-		isThinking = true;
-		await new Promise((r) => setTimeout(r, 2000));
-		isThinking = false;
-		messages = [
-			...messages,
-			{
-				text: 'One chatbot is included in the free plan.',
-				sender: 'bot'
-			}
-		];
-	};
+await new Promise((r) => setTimeout(r, 1000));
+messages = [
+	...messages,
+	{
+		text: 'I want to build a chat bot.',
+		sender: 'user'
+	}
+];
+isThinking = true;
+await new Promise((r) => setTimeout(r, 3000));
+messages = [
+	...messages,
+	{
+		text: 'To build a chatbot, sign up for an account, then click create from the dashboard.',
+		sender: 'bot'
+	}
+];
+isThinking = false;
+await new Promise((r) => setTimeout(r, 1500));
+messages = [
+	...messages,
+	{
+		text: 'What data can I train my chatbot on?',
+		sender: 'user'
+	}
+];
+isThinking = true;
+await new Promise((r) => setTimeout(r, 2000));
+isThinking = false;
+messages = [
+	...messages,
+	{
+		text: 'Chatbots can be trained on any text, pdf, or website.',
+		sender: 'bot'
+	}
+];
+await new Promise((r) => setTimeout(r, 1000));
+messages = [
+	...messages,
+	{
+		text: 'Where can I use my chatbot?',
+		sender: 'user'
+	}
+];
+isThinking = true;
+await new Promise((r) => setTimeout(r, 2000));
+isThinking = false;
+messages = [
+	...messages,
+	{
+		text: 'Your chatbot can be published to any website as an embed or popup chat window, or kept private as an internal tool for research purposes.',
+		sender: 'bot'
+	}
+];
+};
 
-	addMessages();
+demoChat()
 </script>
 
 <section>
@@ -85,16 +85,15 @@
 		<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto">
 			<div class="flex justify-center p-4 h-[50vh] border-t border-base-300">
 				<div class="w-full">
-					<Chat modelId="000" {messages} />
+					<Chat modelId='' {messages} />
 				</div>
 			</div>
 		</div>
-		<div class="leading-loose">
-			<p class="my-10 font-light text-xl max-w-3xl text-center mx-auto">
+			<!-- <p class="my-10 font-light text-xl max-w-3xl text-center mx-auto">
 				Train the highly advanced AI chatbot on any text, file or website you choose. Use it
 				internally or publish it to your website to answer your customers' questions.
-			</p>
-			<div class="text-center">
+			</p> -->
+			<div class="my-10 text-center">
 				<a href="/register" class="btn btn-primary btn-lg"> Try for free </a>
 				<a href="#difference" class="btn btn-ghost text-primary">
 					Learn More
@@ -111,7 +110,6 @@
 					>
 				</a>
 			</div>
-		</div>
 	</div>
 </section>
 
@@ -346,8 +344,13 @@
 
 <style lang="postcss">
 	#how-it-works .card {
-		@apply relative overflow-hidden text-2xl shadow-xl mt-4 hover:mt-0 transition-all bg-primary text-primary-content hover:border-primary;
+		@apply relative overflow-hidden text-2xl shadow-xl shadow-accent/20 mt-4 hover:mt-0 transition-all bg-secondary text-primary-content hover:border-primary;
 	}
+
+	#how-it-works .card .card-body{
+		@apply bg-primary/50 m-[1px] rounded-xl
+	}
+
 
 	#how-it-works .card .btn {
 		@apply btn-ghost self-end;
