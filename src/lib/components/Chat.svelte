@@ -26,14 +26,15 @@
 	let inputVal: string;
 	let chatWindow: HTMLElement;
 	const scrollToBottom = () => {
-		setTimeout(() => {
-			chatWindow.scrollTop = chatWindow.scrollHeight;
-		}, 100);
+		if(chatWindow){
+			setTimeout(() => {
+				chatWindow.scrollTop = chatWindow.scrollHeight;
+			}, 100);
+		}
 	};
 
 	const addMessage = (message: string, sender = 'bot') => {
 		messages = [...messages, { text: message, sender: sender }];
-		scrollToBottom();
 	};
 
 	const queryModel = async (chatKey: string, chatSessionId: string, message: string) => {
@@ -77,6 +78,8 @@
 			queryModel(modelId, chatSessionId, inputVal);
 		}
 	};
+
+	$: messages && scrollToBottom()
 </script>
 
 <section
