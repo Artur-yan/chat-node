@@ -70,7 +70,7 @@
 		selectedUrlsCharCount = 0;
 		try {
 			busyFetchingUrls = true;
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/scraping-urls`, {
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/scraping-urls`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -114,7 +114,7 @@
 			name = url;
 		}
 		try {
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/create-model`, {
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
 				method: 'POST',
 				body
 			});

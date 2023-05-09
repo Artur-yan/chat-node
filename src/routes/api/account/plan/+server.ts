@@ -5,7 +5,7 @@ export const PUT = async ({ request, locals }) => {
 	const session = await locals.auth.validate();
 
 	try {
-		const res = await fetch(`${PUBLIC_CHAT_API_URL}/update-plan`, {
+		const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
