@@ -15,9 +15,18 @@
 	export let inputPlaceholder = 'Type your message';
 	export let disabled = false;
 	export let isThinking = false;
+	export let settings = {
+		greeting: 'What can I help you with?',
+		public: false,
+		allowedUrls: [],
+		supportMessage: 'Hmm, I am not sure',
+		systemPrompt:
+			'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information"',
+		userPrompt: ''
+	};
 	export let messages = [
 		{
-			text: 'Hello, how can I help you?',
+			text: settings.greeting,
 			sender: 'bot'
 		}
 	];

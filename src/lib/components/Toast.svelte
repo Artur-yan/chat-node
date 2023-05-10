@@ -1,20 +1,15 @@
 <script>
 	import { alert } from '$lib/stores.js';
-	import { onDestroy } from 'svelte';
 
-	let alertContent = '';
 
-	const unsubscribe = alert.subscribe((value) => (alertContent = value));
-
-	onDestroy(unsubscribe);
 </script>
 
-{#if alertContent}
-	<div class="toast toast-top toast-center">
+{#if $alert}
+	<div class="toast toast-top toast-center top-0 -translate-y-full transition-all" class:visible={$alert}>
 		<div class="alert alert-info">
 			<div class="w-72 max-w-full flex justify-between">
-				<span>{alertContent}</span>
-				<button on:click={() => (alertContent = '')}
+				<span>{$alert}</span>
+				<button on:click={() => ($alert = '')}
 					><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 						><path
 							fill="currentColor"
@@ -26,3 +21,9 @@
 		</div>
 	</div>
 {/if}
+
+<style lang="postcss">
+	.toast.visible {
+		@apply !translate-y-2;
+	}
+</style>

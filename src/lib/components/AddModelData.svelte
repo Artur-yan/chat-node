@@ -22,7 +22,7 @@
 	let activeTab: number;
 	let busyFetchingUrls = false;
 	let busyTraining = false;
-	let busyCheckingFiles = false;
+	let busyCheckingFile = false;
 	let fileInput: HTMLInputElement;
 	let files: FileList | undefined;
 	let textData: string;

@@ -39,7 +39,7 @@
 				<span class="opacity-60">{data.subscription.bot_count}/{data.subscription.max_bot}</span>
 				<progress
 					class="progress progress-secondary w-full bg-neutral"
-					class:progress-error={botUsage > 0.8}
+					class:progress-warning={botUsage > 0.9}
 					value={data.subscription.bot_count}
 					max={data.subscription.max_bot}
 				/>
