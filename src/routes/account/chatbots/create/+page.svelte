@@ -1,15 +1,12 @@
 <script lang="ts">
-	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-	import { addModel } from '$lib/models';
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 	import Chat from '$lib/components/Chat.svelte';
-	import { alert } from '$lib/stores.js';
 	import AddModelData from '$lib/components/AddModelData.svelte';
 
 	export let data;
 
-	let modelId = '';
-	let name = 'Untitled';
+	let modelId: string
+	let name: string
 	let settings = {
 		greeting: 'What can I help you with?',
 		public: false,
@@ -24,14 +21,10 @@
 		{
 			text: settings.greeting,
 			sender: 'bot'
-		},
-		{
-			text: 'Once your bot is trained, type a message to test your responses.',
-			sender: 'bot'
 		}
 	];
-	let step = 1;
-	let trainingStatus: 'training' | 'ready' | 'failed' = 'ready';
+	let trainingStatus = 'not started'
+
 </script>
 
 <div class="container pb-20">
@@ -44,15 +37,17 @@
 
 	<div class="grid md:grid-cols-2 gap-10">
 		<div>
-			{#if step == 1}
+			{#if trainingStatus == 'not started'}
 				<AddModelData
-					{modelId}
+					bind:modelId
 					userId={data.user.user.userId}
 					sessionId={data.user.session.sessionId}
 					subscription={data.subscription}
+					bind:trainingStatus
+					bind:name
 				/>
 			{/if}
-			{#if step == 2}
+			{#if trainingStatus == 'ready'}
 				<ModelSettings id={modelId} {name} {settings} />
 			{/if}
 		</div>

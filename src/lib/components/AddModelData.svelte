@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import { addModel } from '$lib/models';
 	import { alert } from '$lib/stores.js';
@@ -8,9 +7,9 @@
 	export let userId: string;
 	export let sessionId: string;
 	export let subscription: string;
-	export let trainingStatus: 'training' | 'ready' | 'failed' = 'ready';
+	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined
+	export let name = 'Untitled';
 
-	let name = 'Untitled';
 	let settings = {
 		greeting: 'What can I help you with?',
 		public: false,
@@ -23,11 +22,12 @@
 	let activeTab: number;
 	let busyFetchingUrls = false;
 	let busyTraining = false;
+	let busyCheckingFiles = false;
 	let fileInput: HTMLInputElement;
 	let files: FileList | undefined;
 	let textData: string;
 	let url: string;
-	let urls;
+	let urls: Array<Array<string | number>>;
 	let selectedUrls: Array<string> = [];
 	let urlsTokenCount = 0;
 	let filesTokenCount = 0;
@@ -44,7 +44,7 @@
 	$: {
 		if (selectedUrls.length > 0) {
 			selectedUrlsTokenCount = 0;
-			urls.urls.forEach((url) => {
+			urls.forEach((url) => {
 				if (selectedUrls.includes(url[0])) {
 					selectedUrlsTokenCount += Number(url[1]);
 				}
@@ -57,33 +57,31 @@
 		urlsTokenCount = 0;
 		selectedUrlsTokenCount = 0;
 		try {
-			busyFetchingUrls = true;
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/scraping-urls`, {
+            busyFetchingUrls = true;
+            let body = new FormData();
+			body.append('user_id', userId);
+			body.append('session_id', sessionId);
+            body.append('urls', [url]);
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/scraping`, {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					urls: [url],
-					user_id: userId,
-					session_id: sessionId
-				})
+				body
 			});
-			urls = await res.json();
-			urls.urls.forEach((url) => {
+			const data = await res.json();
+			urls = await data.urls
+			urls.forEach( (url) => {
 				selectedUrls.push(url[0]);
 				urlsTokenCount += Number(url[1]);
 			});
 			selectedUrlsTokenCount = urlsTokenCount;
 		} catch (err) {
-			$alert = err;
+			console.error(err);
 		} finally {
 			busyFetchingUrls = false;
 		}
-		return;
 	};
 
 	const getFileTokenCount = async () => {
+		busyCheckingFile = true;
 		if (files) {
 			let body = new FormData();
 			body.append('user_id', userId);
@@ -99,7 +97,6 @@
 
 			filesTokenCount = data.file[1];
 			uploadedFileName = data.file[0];
-			console.log(data);
 		}
 	};
 	const createOrUpdateModel = async (id: string = '') => {
@@ -127,8 +124,7 @@
 					method: 'POST',
 					body
 				});
-				$alert = 'Training started.';
-				goto(`/account/chatbots/${modelId}/data`);
+				
 			} else {
 				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
 					method: 'POST',
@@ -196,7 +192,7 @@
 				autofocus
 			/>
 			<p class="help">Max 50,000 characters</p>
-			<button class="btn btn-primary mt-8" type="submit" on:click={() => createOrUpdateModel()}
+			<button class="btn btn-primary mt-8" class:loading={busyTraining} type="submit" on:click={() => createOrUpdateModel()}
 				>Train Bot</button
 			>
 		</div>
@@ -230,7 +226,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each urls.urls as url}
+					{#each urls as url}
 						<tr>
 							<td>
 								<input
@@ -249,7 +245,7 @@
 				<tfoot>
 					<tr>
 						<td />
-						<td>Urls: {selectedUrls.length}/{urls.urls.length}</td>
+						<td>Urls: {selectedUrls.length}/{urls.length}</td>
 						<td>Total Characters: {selectedUrlsTokenCount}/{urlsTokenCount}</td>
 					</tr>
 				</tfoot>
@@ -269,7 +265,8 @@
 			{/if}
 			<button
 				class="btn btn-primary"
-				on:click={() => createOrUpdateModel}
+				class:loading={busyTraining}
+				on:click={() => createOrUpdateModel()}
 				disabled={selectedUrlsTokenCount > subscription.max_tocken}>Train Bot</button
 			>
 		{/if}

@@ -3,7 +3,7 @@
 	import Icon from '@iconify/svelte';
 
 	export let id: string;
-	export let status: 'training' | 'ready' | 'failed' = 'ready';
+	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined = undefined;
 
 	let icon: string;
 	let alertClass: string;
@@ -29,13 +29,19 @@
 			},
 			(payload) => {
 				console.log('Change received!', payload);
-				status = 'ready';
+				trainingStatus = 'ready';
 				supabase.removeChannel('bot_status');
 			}
 		)
 		.subscribe();
 
-	$: switch (status) {
+	$: switch (trainingStatus) {
+		case 'not started':
+			trainingMessage =
+				'Add some data to start chatting with your bot';
+			icon = '';
+			alertClass = 'alert-info';
+			break;
 		case 'training':
 			trainingMessage =
 				'Training your chatbot... answers will be partially incorrect until complete';
@@ -56,7 +62,7 @@
 	}
 </script>
 
-{#if status != 'ready'}
+{#if trainingStatus !== undefined}
 	<div class="flex flex-start mb-2" bind:this={statusMessageElement}>
 		<div class="alert pr-8 w-auto {alertClass} flex justify-start self-start">
 			<Icon {icon} width="24" />
