@@ -75,7 +75,7 @@
 	{#if data.bots.length > 0}
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 			{#each data.bots as bot}
-				{@const usage = Math.floor((bot.tocken_count / data.subscription.max_tocken) * 100)}
+				{@const usage = Math.ceil((bot.tocken_count / data.subscription.max_tocken) * 100)}
 				<div class="card bg-neutral peer-checked:ring-2">
 					<div class="card-body p-6">
 						<div class="">
