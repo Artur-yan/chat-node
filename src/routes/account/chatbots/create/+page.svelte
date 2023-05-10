@@ -276,13 +276,3 @@
 		</div>
 	</div>
 </div>
-
-<style lang="postcss">
-	.help {
-		@apply text-sm mt-3;
-	}
-
-	.breadcrumbs .active {
-		@apply text-xl;
-	}
-</style>
