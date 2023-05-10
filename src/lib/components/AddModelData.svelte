@@ -8,6 +8,8 @@
     export let userId: string
     export let sessionId: string
     export let subscription: string
+	export let trainingStatus: 'training' | 'ready' | 'failed' = 'ready';
+
 
 	let name = 'Untitled';
 	let settings = {
@@ -21,16 +23,17 @@
 	};
 	let activeTab: number;
 	let busyFetchingUrls = false;
-	let step = 1;
-	let trainingStatus: 'training' | 'ready' | 'failed' = 'ready';
+	let busyTraining = false;
 	let fileInput: HTMLInputElement;
 	let files: FileList | undefined;
 	let textData: string;
 	let url: string;
 	let urls
 	let selectedUrls: Array<string> = [];
-	let charCount = 0;
-	let selectedUrlsCharCount = 0; 
+	let urlsTokenCount = 0;
+	let filesTokenCount = 0;
+	let selectedUrlsTokenCount = 0; 
+    let uploadedFileName: string
 
     $: {
 		if (files && files[0].size > 50 * 1024 * 1024) {
@@ -41,10 +44,10 @@
 
     $: {
 		if (selectedUrls.length > 0) {
-			selectedUrlsCharCount = 0;
+			selectedUrlsTokenCount = 0;
 			urls.urls.forEach((url) => {
 				if (selectedUrls.includes(url[0])) {
-					selectedUrlsCharCount += Number(url[1]);
+					selectedUrlsTokenCount += Number(url[1]);
 				}
 			});
 		}
@@ -52,8 +55,8 @@
 
 	const fetchUrlsToScrape = async () => {
 		urls = undefined;
-		charCount = 0;
-		selectedUrlsCharCount = 0;
+		urlsTokenCount = 0;
+		selectedUrlsTokenCount = 0;
 		try {
 			busyFetchingUrls = true;
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/scraping-urls`, {
@@ -70,9 +73,9 @@
 			urls = await res.json();
 			urls.urls.forEach((url) => {
 				selectedUrls.push(url[0]);
-				charCount += Number(url[1]);
+				urlsTokenCount += Number(url[1]);
 			});
-			selectedUrlsCharCount = charCount;
+			selectedUrlsTokenCount = urlsTokenCount;
 		} catch (err) {
 			$alert = err
 		} finally {
@@ -81,13 +84,35 @@
 		return;
 	};
 
+    const getFileTokenCount = async () => {
+        
+        if (files) {
+            let body = new FormData();
+            body.append('user_id', userId);
+            body.append('session_id', sessionId);
+			body.append('file', files[0] /*, optional filename */);
+
+            const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/scraping`, {
+                method: 'POST',
+                body
+            });
+
+            const data = await res.json();
+
+            filesTokenCount = data.file[1];
+            uploadedFileName = data.file[0]
+            console.log(data)
+		}
+
+    }
 	const createOrUpdateModel = async (id: string = '') => {
+        busyTraining = true;
 		let body = new FormData();
 
 		body.append('user_id', userId);
 		body.append('session_id', sessionId);
-		if (files) {
-			body.append('file', files[0] /*, optional filename */);
+		if (uploadedFileName) {
+			body.append('file_key', uploadedFileName /*, optional filename */);
 			name = files[0].name;
 		}
 		if (textData) {
@@ -120,7 +145,9 @@
 		} catch (err) {
 			console.error(err);
 			$alert = 'Something went wrong. Please try again later.'
-		}
+		} finally{
+            busyTraining = false;
+        }
 	};
 
 
@@ -152,13 +179,13 @@
                 bind:this={fileInput}
                 accept=".doc,.docx,.pdf,.txt,.csv,.json"
             />
-            <button class="btn btn-primary" type="submit" on:click={() => createOrUpdateModel()}
-                >Validate File</button
+            <button class="btn btn-primary" type="submit" on:click={getFileTokenCount}
+                >Upload</button
                 >
             </div>
         </div>
         <p class="help">PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
-        <button class="btn btn-primary mt-8" type="submit" on:click={() => createOrUpdateModel()}
+        <button class="btn btn-primary mt-8" class:loading={busyTraining} type="submit" disabled={!uploadedFileName} on:click={() => createOrUpdateModel()}
             >Train Bot</button
         >
     {:else if activeTab == 1}
@@ -224,11 +251,11 @@
                     <tr>
                         <td />
                         <td>Urls: {selectedUrls.length}/{urls.urls.length}</td>
-                        <td>Total Characters: {selectedUrlsCharCount}/{charCount}</td>
+                        <td>Total Characters: {selectedUrlsTokenCount}/{urlsTokenCount}</td>
                     </tr>
                 </tfoot>
             </table>
-            {#if selectedUrlsCharCount > subscription.max_tocken}
+            {#if selectedUrlsTokenCount > subscription.max_tocken}
                 <div class="alert alert-warning shadow-lg mt-2">
                     <div>x
                         <span
@@ -243,7 +270,7 @@
             <button
                 class="btn btn-primary"
                 on:click={() => createOrUpdateModel}
-                disabled={selectedUrlsCharCount > subscription.max_tocken}>Train Bot</button
+                disabled={selectedUrlsTokenCount > subscription.max_tocken}>Train Bot</button
             >
         {/if}
     {/if}
