@@ -139,7 +139,7 @@
 <input type="checkbox" id="my-modal" class="modal-toggle" />
 <div class="modal">
 	<div class="modal-box">
-		<h3 class="font-bold text-lg">Are you sure you want to delete this model?</h3>
+		<h3 class="font-bold text-lg">Are you sure you want to delete this chatbot?</h3>
 		<p class="py-4">This can't be undone.</p>
 		<div class="modal-action">
 			<label for="my-modal" class="btn">Cancel</label>
