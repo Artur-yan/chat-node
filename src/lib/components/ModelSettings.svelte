@@ -24,77 +24,66 @@
 		busySaving = true;
 		await updateModel(id, name, settings);
 		busySaving = false;
-		$alert = "Settings Saved"
+		$alert = 'Settings Saved';
 	};
 </script>
 
 <div class="@container">
 	<form on:submit={handleSubmit} class="grid gap-10 @[240px]:grid-cols-2 pb-32">
-			<div>
-				<label for="name" class="label">
-					<span class="label-text">Name</span>
-				</label>
-				<input
-					type="text"
-					bind:value={name}
-					class="input w-full"
-					placeholder="Untitled"
-				/>
-			</div>
-			<Accordian open={true}>
-				<div slot="title">
-					Messages
-				</div>
-				<div>
-					<label for="greeting" class="label">
-						<span class="label-text">Greeting</span>
-					</label>
-					<input type="text" bind:value={settings.greeting} class="input w-full" />
-				</div>
-				<div>
-					<label for="support-message" class="label">
-						<span class="label-text">Support Message</span>
-					</label>
-					<input type="text" bind:value={settings.supportMessage} class="input w-full" />
-					<p class="text-sm m-1">
-						This is the message that will appear to the user if the chatbot cannot come up with a
-						confident answer. You may want to include an email address or link to a contact page here.
-					</p>
-				</div>
-			</Accordian>
-			<Accordian open={true}>
-				<div slot="title">
-					Prompts
-				</div>
-
-				<div>
-					<div>
-						<label for="system-prompt" class="label">
-							<span class="label-text">System Prompt</span>
-						</label>
-						<textarea
-							bind:value={settings.systemPrompt}
-							class="textarea textarea-bordered w-full leading-normal"
-							name="prompt"
-							rows="5"
-						/>
-					</div>
-					<div>
-						<label for="user-prompt" class="label">
-							<span class="label-text">User Prompt</span>
-						</label>
-						<textarea
-							bind:value={settings.userPrompt}
-							class="textarea textarea-bordered w-full"
-							name="user-prompt"
-						/>
-					</div>
-				</div>
-			</Accordian>
+		<div>
+			<label for="name" class="label">
+				<span class="label-text">Name</span>
+			</label>
+			<input type="text" bind:value={name} class="input w-full" placeholder="Untitled" />
+		</div>
 		<Accordian open={true}>
-			<div slot="title">
-				Publishing
+			<div slot="title">Messages</div>
+			<div>
+				<label for="greeting" class="label">
+					<span class="label-text">Greeting</span>
+				</label>
+				<input type="text" bind:value={settings.greeting} class="input w-full" />
 			</div>
+			<div>
+				<label for="support-message" class="label">
+					<span class="label-text">Support Message</span>
+				</label>
+				<input type="text" bind:value={settings.supportMessage} class="input w-full" />
+				<p class="text-sm m-1">
+					This is the message that will appear to the user if the chatbot cannot come up with a
+					confident answer. You may want to include an email address or link to a contact page here.
+				</p>
+			</div>
+		</Accordian>
+		<Accordian open={true}>
+			<div slot="title">Prompts</div>
+
+			<div>
+				<div>
+					<label for="system-prompt" class="label">
+						<span class="label-text">System Prompt</span>
+					</label>
+					<textarea
+						bind:value={settings.systemPrompt}
+						class="textarea textarea-bordered w-full leading-normal"
+						name="prompt"
+						rows="5"
+					/>
+				</div>
+				<div>
+					<label for="user-prompt" class="label">
+						<span class="label-text">User Prompt</span>
+					</label>
+					<textarea
+						bind:value={settings.userPrompt}
+						class="textarea textarea-bordered w-full"
+						name="user-prompt"
+					/>
+				</div>
+			</div>
+		</Accordian>
+		<Accordian open={true}>
+			<div slot="title">Publishing</div>
 			<div>
 				<div class="form-control">
 					<label class="label cursor-pointer flex justify-start gap-4 self-start">
@@ -126,7 +115,10 @@
 								>
 							</div>
 						{/each}
-						<button class="btn btn-xs btn-ghost btn-primary" type="button" on:click={() => addUrl('')}
+						<button
+							class="btn btn-xs btn-ghost btn-primary"
+							type="button"
+							on:click={() => addUrl('')}
 							><Icon icon="mdi:plus-circle-outline" width="16" class="mr-2" /> Add URL</button
 						>
 					</div>
@@ -134,10 +126,8 @@
 			</div>
 		</Accordian>
 		<div class="fixed bottom-0 left-0 right-0 bg-base-300 p-2 flex items-center justify-between">
-			<button
-				class="btn btn-outline btn-success md:w-40"
-				type="submit"
-				class:loading={busySaving}>Save</button
+			<button class="btn btn-outline btn-success md:w-40" type="submit" class:loading={busySaving}
+				>Save</button
 			>
 			<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle"
 				><Icon icon="mdi:delete-outline" width="16" /></label

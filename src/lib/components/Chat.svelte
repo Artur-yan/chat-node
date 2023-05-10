@@ -26,7 +26,7 @@
 	let inputVal: string;
 	let chatWindow: HTMLElement;
 	const scrollToBottom = () => {
-		if(chatWindow){
+		if (chatWindow) {
 			setTimeout(() => {
 				chatWindow.scrollTop = chatWindow.scrollHeight;
 			}, 100);
@@ -70,16 +70,16 @@
 			return;
 		} else if (inputVal.trim() === '') {
 			return;
-		} else if (!modelId){
+		} else if (!modelId) {
 			addMessage('Add some data for me to repsond to answers about');
-			inputVal = ''
-			return
+			inputVal = '';
+			return;
 		} else {
 			queryModel(modelId, chatSessionId, inputVal);
 		}
 	};
 
-	$: messages && scrollToBottom()
+	$: messages && scrollToBottom();
 </script>
 
 <section

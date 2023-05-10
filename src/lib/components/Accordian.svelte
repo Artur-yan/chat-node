@@ -2,7 +2,10 @@
 	export let open = false;
 </script>
 
-<div class="border border-primary/50 bg-base-300 rounded-xl hover:shadow-xl hover:bg-base-200 transition-all" class:open>
+<div
+	class="border border-primary/50 bg-base-300 rounded-xl hover:shadow-xl hover:bg-base-200 transition-all"
+	class:open
+>
 	<button
 		on:click={() => (open = !open)}
 		type="button"
@@ -30,7 +33,7 @@
 </div>
 
 <style lang="postcss">
-	.body{
+	.body {
 		grid-template-rows: 0fr;
 	}
 	.open .body {

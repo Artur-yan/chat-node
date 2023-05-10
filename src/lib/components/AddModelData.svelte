@@ -5,11 +5,10 @@
 	import { alert } from '$lib/stores.js';
 
 	export let modelId: string = '';
-    export let userId: string
-    export let sessionId: string
-    export let subscription: string
+	export let userId: string;
+	export let sessionId: string;
+	export let subscription: string;
 	export let trainingStatus: 'training' | 'ready' | 'failed' = 'ready';
-
 
 	let name = 'Untitled';
 	let settings = {
@@ -28,21 +27,21 @@
 	let files: FileList | undefined;
 	let textData: string;
 	let url: string;
-	let urls
+	let urls;
 	let selectedUrls: Array<string> = [];
 	let urlsTokenCount = 0;
 	let filesTokenCount = 0;
-	let selectedUrlsTokenCount = 0; 
-    let uploadedFileName: string
+	let selectedUrlsTokenCount = 0;
+	let uploadedFileName: string;
 
-    $: {
+	$: {
 		if (files && files[0].size > 50 * 1024 * 1024) {
-			$alert = 'This file is too large'
+			$alert = 'This file is too large';
 			fileInput.value = '';
 		}
 	}
 
-    $: {
+	$: {
 		if (selectedUrls.length > 0) {
 			selectedUrlsTokenCount = 0;
 			urls.urls.forEach((url) => {
@@ -77,36 +76,34 @@
 			});
 			selectedUrlsTokenCount = urlsTokenCount;
 		} catch (err) {
-			$alert = err
+			$alert = err;
 		} finally {
 			busyFetchingUrls = false;
 		}
 		return;
 	};
 
-    const getFileTokenCount = async () => {
-        
-        if (files) {
-            let body = new FormData();
-            body.append('user_id', userId);
-            body.append('session_id', sessionId);
+	const getFileTokenCount = async () => {
+		if (files) {
+			let body = new FormData();
+			body.append('user_id', userId);
+			body.append('session_id', sessionId);
 			body.append('file', files[0] /*, optional filename */);
 
-            const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/scraping`, {
-                method: 'POST',
-                body
-            });
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/scraping`, {
+				method: 'POST',
+				body
+			});
 
-            const data = await res.json();
+			const data = await res.json();
 
-            filesTokenCount = data.file[1];
-            uploadedFileName = data.file[0]
-            console.log(data)
+			filesTokenCount = data.file[1];
+			uploadedFileName = data.file[0];
+			console.log(data);
 		}
-
-    }
+	};
 	const createOrUpdateModel = async (id: string = '') => {
-        busyTraining = true;
+		busyTraining = true;
 		let body = new FormData();
 
 		body.append('user_id', userId);
@@ -124,154 +121,157 @@
 			name = url;
 		}
 		try {
-            if(modelId) {
-                body.append('chat_key', modelId);
-                const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
-                    method: 'POST',
-                    body
-                });
-                $alert = 'Training started.'
-                goto(`/account/chatbots/${modelId}/data`);
-            } else {
-                const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
-                    method: 'POST',
-                    body
-                });
-                const resJson = await res.json();
-                modelId = resJson.chat_key;
-                addModel(modelId, name, settings);
-            }
+			if (modelId) {
+				body.append('chat_key', modelId);
+				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
+					method: 'POST',
+					body
+				});
+				$alert = 'Training started.';
+				goto(`/account/chatbots/${modelId}/data`);
+			} else {
+				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
+					method: 'POST',
+					body
+				});
+				const resJson = await res.json();
+				modelId = resJson.chat_key;
+				addModel(modelId, name, settings);
+			}
 			trainingStatus = 'ready';
 		} catch (err) {
 			console.error(err);
-			$alert = 'Something went wrong. Please try again later.'
-		} finally{
-            busyTraining = false;
-        }
+			$alert = 'Something went wrong. Please try again later.';
+		} finally {
+			busyTraining = false;
+		}
 	};
-
-
 </script>
 
 <div>
-    <h2 class="font-bold text-secondary text-lg mb-2">Add Data</h2>
-    <div class="mb-10 grid grid-cols-3 gap-2">
-        <label class="btn text-primary" class:btn-outline={activeTab == 0}>
-            <input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
-            + File
-        </label>
-        <label class="btn text-primary" class:btn-outline={activeTab == 1}>
-            <input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
-            + Text
-        </label>
-        <label class="btn text-primary" class:btn-outline={activeTab == 2}>
-            <input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
-            + URL
-        </label>
-    </div>
-    {#if activeTab == 0}
-    <div class="form-control">
-        <div class="input-group">
-            <input
-                type="file"
-                class="file-input file-input-bordered w-full"
-                bind:files
-                bind:this={fileInput}
-                accept=".doc,.docx,.pdf,.txt,.csv,.json"
-            />
-            <button class="btn btn-primary" type="submit" on:click={getFileTokenCount}
-                >Upload</button
-                >
-            </div>
-        </div>
-        <p class="help">PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
-        <button class="btn btn-primary mt-8" class:loading={busyTraining} type="submit" disabled={!uploadedFileName} on:click={() => createOrUpdateModel()}
-            >Train Bot</button
-        >
-    {:else if activeTab == 1}
-        <div>
-            <textarea
-                placeholder="Paste your text"
-                class="textarea textarea-bordered textarea-sm w-full"
-                bind:value={textData}
-                rows="8"
-                maxlength="50000"
-                autofocus
-            />
-            <p class="help">Max 50,000 characters</p>
-            <button class="btn btn-primary mt-8" type="submit" on:click={() => createOrUpdateModel()}
-                >Train Bot</button
-            >
-        </div>
-    {:else if activeTab == 2}
-        <form on:submit={() => fetchUrlsToScrape()}>
-            <div class="form-control">
-                <div class="input-group">
-                    <input
-                        type="text"
-                        class="input input-bordered w-full"
-                        bind:value={url}
-                        required
-                        autofocus
-                    />
-                    <button class="btn btn-primary" type="submit" class:loading={busyFetchingUrls}>
-                        Fetch URLs
-                    </button>
-                </div>
-            </div>
-        </form>
-        <p class="help">We will check your website for any sub-pages and you can choose which to include in your data</p>
-        {#if urls}
-            <table class="table table-zebra table-compact w-full my-8">
-                <thead>
-                    <tr>
-                        <th><!-- <input type="checkbox" class="checkbox" />--></th>
-                        <th>url</th>
-                        <th>character count</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {#each urls.urls as url}
-                        <tr>
-                            <td>
-                                <input
-                                    type="checkbox"
-                                    class="checkbox"
-                                    checked={true}
-                                    value={url[0]}
-                                    bind:group={selectedUrls}
-                                />
-                            </td>
-                            <td>{url[0]}</td>
-                            <td>{url[1]}</td>
-                        </tr>
-                    {/each}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td />
-                        <td>Urls: {selectedUrls.length}/{urls.urls.length}</td>
-                        <td>Total Characters: {selectedUrlsTokenCount}/{urlsTokenCount}</td>
-                    </tr>
-                </tfoot>
-            </table>
-            {#if selectedUrlsTokenCount > subscription.max_tocken}
-                <div class="alert alert-warning shadow-lg mt-2">
-                    <div>x
-                        <span
-                            >Character count exceeds account allowance. Please select fewer urls or <a
-                                href="/account/settings/plan"
-                                class="link">upgrade your plan</a
-                            >.</span
-                        >
-                    </div>
-                </div>
-            {/if}
-            <button
-                class="btn btn-primary"
-                on:click={() => createOrUpdateModel}
-                disabled={selectedUrlsTokenCount > subscription.max_tocken}>Train Bot</button
-            >
-        {/if}
-    {/if}
+	<h2 class="font-bold text-secondary text-lg mb-2">Add Data</h2>
+	<div class="mb-10 grid grid-cols-3 gap-2">
+		<label class="btn text-primary" class:btn-outline={activeTab == 0}>
+			<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
+			+ File
+		</label>
+		<label class="btn text-primary" class:btn-outline={activeTab == 1}>
+			<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
+			+ Text
+		</label>
+		<label class="btn text-primary" class:btn-outline={activeTab == 2}>
+			<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
+			+ URL
+		</label>
+	</div>
+	{#if activeTab == 0}
+		<div class="form-control">
+			<div class="input-group">
+				<input
+					type="file"
+					class="file-input file-input-bordered w-full"
+					bind:files
+					bind:this={fileInput}
+					accept=".doc,.docx,.pdf,.txt,.csv,.json"
+				/>
+				<button class="btn btn-primary" type="submit" on:click={getFileTokenCount}>Upload</button>
+			</div>
+		</div>
+		<p class="help">PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
+		<button
+			class="btn btn-primary mt-8"
+			class:loading={busyTraining}
+			type="submit"
+			disabled={!uploadedFileName}
+			on:click={() => createOrUpdateModel()}>Train Bot</button
+		>
+	{:else if activeTab == 1}
+		<div>
+			<textarea
+				placeholder="Paste your text"
+				class="textarea textarea-bordered textarea-sm w-full"
+				bind:value={textData}
+				rows="8"
+				maxlength="50000"
+				autofocus
+			/>
+			<p class="help">Max 50,000 characters</p>
+			<button class="btn btn-primary mt-8" type="submit" on:click={() => createOrUpdateModel()}
+				>Train Bot</button
+			>
+		</div>
+	{:else if activeTab == 2}
+		<form on:submit={() => fetchUrlsToScrape()}>
+			<div class="form-control">
+				<div class="input-group">
+					<input
+						type="text"
+						class="input input-bordered w-full"
+						bind:value={url}
+						required
+						autofocus
+					/>
+					<button class="btn btn-primary" type="submit" class:loading={busyFetchingUrls}>
+						Fetch URLs
+					</button>
+				</div>
+			</div>
+		</form>
+		<p class="help">
+			We will check your website for any sub-pages and you can choose which to include in your data
+		</p>
+		{#if urls}
+			<table class="table table-zebra table-compact w-full my-8">
+				<thead>
+					<tr>
+						<th><!-- <input type="checkbox" class="checkbox" />--></th>
+						<th>url</th>
+						<th>character count</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each urls.urls as url}
+						<tr>
+							<td>
+								<input
+									type="checkbox"
+									class="checkbox"
+									checked={true}
+									value={url[0]}
+									bind:group={selectedUrls}
+								/>
+							</td>
+							<td>{url[0]}</td>
+							<td>{url[1]}</td>
+						</tr>
+					{/each}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td />
+						<td>Urls: {selectedUrls.length}/{urls.urls.length}</td>
+						<td>Total Characters: {selectedUrlsTokenCount}/{urlsTokenCount}</td>
+					</tr>
+				</tfoot>
+			</table>
+			{#if selectedUrlsTokenCount > subscription.max_tocken}
+				<div class="alert alert-warning shadow-lg mt-2">
+					<div>
+						x
+						<span
+							>Character count exceeds account allowance. Please select fewer urls or <a
+								href="/account/settings/plan"
+								class="link">upgrade your plan</a
+							>.</span
+						>
+					</div>
+				</div>
+			{/if}
+			<button
+				class="btn btn-primary"
+				on:click={() => createOrUpdateModel}
+				disabled={selectedUrlsTokenCount > subscription.max_tocken}>Train Bot</button
+			>
+		{/if}
+	{/if}
 </div>

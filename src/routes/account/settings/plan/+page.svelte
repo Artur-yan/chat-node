@@ -9,4 +9,3 @@
 <div class="container">
 	<PricingGrid {currentPlan} />
 </div>
-

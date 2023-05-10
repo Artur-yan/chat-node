@@ -16,8 +16,6 @@ const addModel = async (id: string, name: string, settings?: Object) => {
 	}
 };
 
-
-
 const updateModel = async (id: string, name: string, settings?: Object) => {
 	try {
 		const res = await fetch('/api/models', {

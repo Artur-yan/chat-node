@@ -49,7 +49,14 @@
 		<ul class="included">
 			<li>30 messages / month</li>
 			<li>1 Chatbot</li>
-			<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 400,000 characters">100,000 tokens/bot</div></li>
+			<li>
+				<div
+					class="tooltip border-b border-dotted border-white/30"
+					data-tip="approx. 400,000 characters"
+				>
+					100,000 tokens/bot
+				</div>
+			</li>
 			<li>Embed on unlimited websites</li>
 			<!-- <ul class="excluded">
 			<li>2000 messages / month</li>
@@ -80,7 +87,14 @@
 		<ul class="included">
 			<li>2,000 messages / month</li>
 			<li>Up to 5 Chatbots</li>
-			<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 1,600,000 characters">400,000 tokens/bot</div></li>
+			<li>
+				<div
+					class="tooltip border-b border-dotted border-white/30"
+					data-tip="approx. 1,600,000 characters"
+				>
+					400,000 tokens/bot
+				</div>
+			</li>
 			<li>Add Multiple Data Sources</li>
 			<li>Embed on unlimited websites</li>
 		</ul>
@@ -107,10 +121,16 @@
 		<ul class="included">
 			<li>5,000 chat responses / month</li>
 			<li>10 Chatbots</li>
-			<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 3,200,000 characters">800,000 tokens/bot</div></li>
+			<li>
+				<div
+					class="tooltip border-b border-dotted border-white/30"
+					data-tip="approx. 3,200,000 characters"
+				>
+					800,000 tokens/bot
+				</div>
+			</li>
 			<li>Add Multiple Data Sources</li>
 			<li>Embed on unlimited websites</li>
-
 		</ul>
 	</div>
 	<div class="col-span-full">
@@ -142,7 +162,14 @@
 				<ul class="included grid grid-cols-2">
 					<li>10,000 chat responses / month</li>
 					<li>20 Chatbots</li>
-					<li><div class="tooltip border-b border-dotted border-white/30" data-tip="approx. 4,000,000 characters">1,000,000 tokens/bot</div></li>
+					<li>
+						<div
+							class="tooltip border-b border-dotted border-white/30"
+							data-tip="approx. 4,000,000 characters"
+						>
+							1,000,000 tokens/bot
+						</div>
+					</li>
 					<li>Add Multiple Data Sources</li>
 					<li>Embed on unlimited websites</li>
 

@@ -8,7 +8,7 @@
 
 	export let data;
 
-	let modelId = ''
+	let modelId = '';
 	let name = 'Untitled';
 	let settings = {
 		greeting: 'What can I help you with?',
@@ -32,10 +32,6 @@
 	];
 	let step = 1;
 	let trainingStatus: 'training' | 'ready' | 'failed' = 'ready';
-
-
-
-
 </script>
 
 <div class="container pb-20">
@@ -49,10 +45,15 @@
 	<div class="grid md:grid-cols-2 gap-10">
 		<div>
 			{#if step == 1}
-				<AddModelData {modelId} userId={data.user.user.userId} sessionId={data.user.session.sessionId} subscription={data.subscription} />
+				<AddModelData
+					{modelId}
+					userId={data.user.user.userId}
+					sessionId={data.user.session.sessionId}
+					subscription={data.subscription}
+				/>
 			{/if}
 			{#if step == 2}
-					<ModelSettings id={modelId} {name} {settings} />
+				<ModelSettings id={modelId} {name} {settings} />
 			{/if}
 		</div>
 		<div>

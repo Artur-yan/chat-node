@@ -6,10 +6,8 @@
 	import screenshot2 from '$lib/assets/internal-research-screenshot.jpg?run';
 	import PricingGrid from '$lib/components/PricingGrid.svelte';
 
-
-
-    let isThinking = false;
-    let messages = [
+	let isThinking = false;
+	let messages = [
 		{
 			text: 'Hi, how can I help you?',
 			sender: 'bot'
@@ -17,64 +15,63 @@
 	];
 
 	const demoChat = async () => {
+		await new Promise((r) => setTimeout(r, 1000));
+		messages = [
+			...messages,
+			{
+				text: 'I want to build a chat bot.',
+				sender: 'user'
+			}
+		];
+		isThinking = true;
+		await new Promise((r) => setTimeout(r, 3000));
+		messages = [
+			...messages,
+			{
+				text: 'To build a chatbot, sign up for an account, then click create from the dashboard.',
+				sender: 'bot'
+			}
+		];
+		isThinking = false;
+		await new Promise((r) => setTimeout(r, 1500));
+		messages = [
+			...messages,
+			{
+				text: 'What data can I train my chatbot on?',
+				sender: 'user'
+			}
+		];
+		isThinking = true;
+		await new Promise((r) => setTimeout(r, 2000));
+		isThinking = false;
+		messages = [
+			...messages,
+			{
+				text: 'Chatbots can be trained on any text, pdf, or website.',
+				sender: 'bot'
+			}
+		];
+		await new Promise((r) => setTimeout(r, 1000));
+		messages = [
+			...messages,
+			{
+				text: 'Where can I use my chatbot?',
+				sender: 'user'
+			}
+		];
+		isThinking = true;
+		await new Promise((r) => setTimeout(r, 2000));
+		isThinking = false;
+		messages = [
+			...messages,
+			{
+				text: 'Your chatbot can be published to any website as an embed or popup chat window, or kept private as an internal tool for research purposes.',
+				sender: 'bot'
+			}
+		];
+	};
 
-await new Promise((r) => setTimeout(r, 1000));
-messages = [
-	...messages,
-	{
-		text: 'I want to build a chat bot.',
-		sender: 'user'
-	}
-];
-isThinking = true;
-await new Promise((r) => setTimeout(r, 3000));
-messages = [
-	...messages,
-	{
-		text: 'To build a chatbot, sign up for an account, then click create from the dashboard.',
-		sender: 'bot'
-	}
-];
-isThinking = false;
-await new Promise((r) => setTimeout(r, 1500));
-messages = [
-	...messages,
-	{
-		text: 'What data can I train my chatbot on?',
-		sender: 'user'
-	}
-];
-isThinking = true;
-await new Promise((r) => setTimeout(r, 2000));
-isThinking = false;
-messages = [
-	...messages,
-	{
-		text: 'Chatbots can be trained on any text, pdf, or website.',
-		sender: 'bot'
-	}
-];
-await new Promise((r) => setTimeout(r, 1000));
-messages = [
-	...messages,
-	{
-		text: 'Where can I use my chatbot?',
-		sender: 'user'
-	}
-];
-isThinking = true;
-await new Promise((r) => setTimeout(r, 2000));
-isThinking = false;
-messages = [
-	...messages,
-	{
-		text: 'Your chatbot can be published to any website as an embed or popup chat window, or kept private as an internal tool for research purposes.',
-		sender: 'bot'
-	}
-];
-};
-
-demoChat()
+	demoChat();
 </script>
 
 <section>
@@ -85,31 +82,31 @@ demoChat()
 		<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto">
 			<div class="flex justify-center p-4 h-[50vh] border-t border-base-300">
 				<div class="w-full">
-					<Chat modelId='' {messages} />
+					<Chat modelId="" {messages} />
 				</div>
 			</div>
 		</div>
-			<!-- <p class="my-10 font-light text-xl max-w-3xl text-center mx-auto">
+		<!-- <p class="my-10 font-light text-xl max-w-3xl text-center mx-auto">
 				Train the highly advanced AI chatbot on any text, file or website you choose. Use it
 				internally or publish it to your website to answer your customers' questions.
 			</p> -->
-			<div class="my-10 text-center">
-				<a href="/register" class="btn btn-primary btn-lg"> Try for free </a>
-				<a href="#difference" class="btn btn-ghost text-primary">
-					Learn More
-					<svg
-						class="ml-2 -mr-1 w-5 h-5"
-						fill="currentColor"
-						viewBox="0 0 20 20"
-						xmlns="http://www.w3.org/2000/svg"
-						><path
-							fill-rule="evenodd"
-							d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-							clip-rule="evenodd"
-						/></svg
-					>
-				</a>
-			</div>
+		<div class="my-10 text-center">
+			<a href="/register" class="btn btn-primary btn-lg"> Try for free </a>
+			<a href="#difference" class="btn btn-ghost text-primary">
+				Learn More
+				<svg
+					class="ml-2 -mr-1 w-5 h-5"
+					fill="currentColor"
+					viewBox="0 0 20 20"
+					xmlns="http://www.w3.org/2000/svg"
+					><path
+						fill-rule="evenodd"
+						d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+						clip-rule="evenodd"
+					/></svg
+				>
+			</a>
+		</div>
 	</div>
 </section>
 
@@ -167,7 +164,9 @@ demoChat()
 
 <section id="difference" class="bg-white text-base-100">
 	<div class="py-8 lg:py-20 bg-secondary/50">
-		<h2 class="p-4 md:pl-10 lg:pl-20 text-3xl lg:text-5xl font-bold mb-10">What Makes GPT ChatBot <span class="">Different?</span></h2>
+		<h2 class="p-4 md:pl-10 lg:pl-20 text-3xl lg:text-5xl font-bold mb-10">
+			What Makes GPT ChatBot <span class="">Different?</span>
+		</h2>
 		<div class="grid gap-y-20 md:grid-cols-5 gap-20">
 			<div class="md:col-span-3 p-8 md:pl-20 py-10">
 				<h3>Train on your data</h3>
@@ -210,9 +209,7 @@ demoChat()
 			</div>
 			<div class="md:col-span-3 md:col-start-3 p-8 md:py-10 md:pr-20 scroll-m-10" id="difference-2">
 				<h3>Use the bot internally</h3>
-				<h4>
-					Revolutionizing Data Access with Chatbots for Company Teams.
-				</h4>
+				<h4>Revolutionizing Data Access with Chatbots for Company Teams.</h4>
 				<div>
 					<p>
 						In today's corporate world, our advanced chatbot provides instant access to vital
@@ -347,10 +344,9 @@ demoChat()
 		@apply relative overflow-hidden text-2xl shadow-xl shadow-accent/20 mt-4 hover:mt-0 transition-all bg-secondary text-primary-content hover:border-primary;
 	}
 
-	#how-it-works .card .card-body{
-		@apply bg-primary/50 m-[1px] rounded-xl
+	#how-it-works .card .card-body {
+		@apply bg-primary/50 m-[1px] rounded-xl;
 	}
-
 
 	#how-it-works .card .btn {
 		@apply btn-ghost self-end;
@@ -360,17 +356,17 @@ demoChat()
 		@apply xl:text-3xl 2xl:text-4xl font-bold mb-4;
 	}
 
-	#difference{
+	#difference {
 		@apply text-lg 2xl:text-2xl;
 	}
-	
-	#difference h3{
+
+	#difference h3 {
 		@apply text-2xl md:text-4xl 2xl:text-5xl font-bold mb-10;
 	}
-	#difference h4{
+	#difference h4 {
 		@apply text-xl 2xl:text-3xl font-bold mt-6 mb-1 2xl:mb-4;
 	}
-	#difference p{
+	#difference p {
 		@apply mb-5 2xl:mb-12;
 	}
 </style>
