@@ -26,14 +26,17 @@
 	let busyCheckingFile = false;
 	let fileInput: HTMLInputElement;
 	let files: FileList | undefined;
-	let textData: string;
+	let textData = ''
 	let url: string;
 	let urls: Array<Array<string | number>>;
 	let selectedUrls: Array<string> = [];
 	let urlsTokenCount = 0;
 	let filesTokenCount = 0;
 	let selectedUrlsTokenCount = 0;
+	let approxTextTokenCount = 0;
 	let uploadedFileName: string;
+
+	$: approxTextTokenCount = Math.floor(textData.length / 3.5)
 
 	$: {
 		if (files && files[0].size > 50 * 1024 * 1024) {
@@ -199,11 +202,14 @@
 				class="textarea textarea-bordered textarea-sm w-full"
 				bind:value={textData}
 				rows="8"
-				maxlength="50000"
 				autofocus
 			/>
-			<p class="help">Max 50,000 characters</p>
-			<button class="btn btn-primary mt-8" class:loading={busyTraining} type="submit" on:click={() => createOrUpdateModel()}
+			<div class="alert mt-2" class:alert-warning={approxTextTokenCount + existingTokenCount > subscription.max_tocken}>
+				Your included text contains {approxTextTokenCount} tokens. 
+				{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
+				Your plan allows {subscription.max_tocken} tokens/bot.
+			</div>
+			<button class="btn btn-primary mt-8" class:loading={busyTraining} type="submit" disabled={approxTextTokenCount + existingTokenCount > subscription.max_tocken} on:click={() => createOrUpdateModel()}
 				>Train Bot</button
 			>
 		</div>
