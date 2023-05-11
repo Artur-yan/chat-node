@@ -17,23 +17,29 @@
 	// 	}, 3000);
 	// };
 
-	supabase
-		.channel(`bot_status`)
-		.on(
-			'postgres_changes',
-			{
-				event: 'UPDATE',
-				schema: 'public',
-				table: 'bots',
-				filter: `id=eq.${id}`
-			},
-			(payload) => {
-				console.log('Change received!', payload);
-				trainingStatus = 'ready';
-				supabase.removeChannel('bot_status');
-			}
-		)
-		.subscribe();
+	// $: console.log(id);
+	$: {
+		if (id) {
+			console.log(id)
+			supabase
+				.channel(`bot_status`)
+				.on(
+					'postgres_changes',
+					{
+						event: 'UPDATE',
+						schema: 'public',
+						table: 'bots',
+						filter: `id=eq.55bcb0920beab69d`
+					},
+					(payload) => {
+						console.log('Change received!', payload);
+						trainingStatus = 'ready';
+						supabase.removeChannel('bot_status');
+					}
+				)
+				.subscribe();
+		}
+}
 
 	$: switch (trainingStatus) {
 		case 'not started':

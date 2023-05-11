@@ -36,7 +36,7 @@
 	let approxTextTokenCount = 0;
 	let uploadedFileName: string;
 
-	$: approxTextTokenCount = Math.floor(textData.length / 3.5)
+	$: approxTextTokenCount = Math.ceil(textData.length / 3.5)
 
 	$: {
 		if (files && files[0].size > 50 * 1024 * 1024) {
@@ -106,6 +106,8 @@
 	};
 	const createOrUpdateModel = async (id: string = '') => {
 		busyTraining = true;
+		trainingStatus = 'training';
+
 		let body = new FormData();
 
 		body.append('user_id', userId);
@@ -139,7 +141,6 @@
 				modelId = resJson.chat_key;
 				addModel(modelId, name, settings);
 			}
-			trainingStatus = 'ready';
 		} catch (err) {
 			console.error(err);
 			$alert = 'Something went wrong. Please try again later.';
@@ -183,7 +184,8 @@
 				<div class="text-sm text-warning invisible" class:!visible={busyCheckingFile}>Uploading</div>
 			</div>
 		</div>
-		<div class="alert" class:hidden={!uploadedFileName}>
+		<div class="alert flex-col" class:hidden={!uploadedFileName} class:alert-warning={filesTokenCount + existingTokenCount > subscription.max_tocken}>
+			<progress class="progress progress-success" value={filesTokenCount + existingTokenCount} max={subscription.max_tocken}></progress>
 			Your file contains {filesTokenCount} tokens.
 			{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
 			Your plan allows {subscription.max_tocken} tokens/bot.
@@ -192,7 +194,7 @@
 			class="btn btn-primary mt-8"
 			class:loading={busyTraining}
 			type="submit"
-			disabled={!uploadedFileName}
+			disabled={!uploadedFileName || filesTokenCount + existingTokenCount > subscription.max_tocken}
 			on:click={() => createOrUpdateModel()}>Train Bot</button
 		>
 	{:else if activeTab == 1}
@@ -204,8 +206,9 @@
 				rows="8"
 				autofocus
 			/>
-			<div class="alert mt-2" class:alert-warning={approxTextTokenCount + existingTokenCount > subscription.max_tocken}>
-				Your included text contains {approxTextTokenCount} tokens. 
+			<div class="alert mt-2 flex-col" class:alert-warning={approxTextTokenCount + existingTokenCount > subscription.max_tocken}>
+				<progress class="progress progress-success animate-all" value={approxTextTokenCount + existingTokenCount} max={subscription.max_tocken}></progress>
+				Your included text contains approx. {approxTextTokenCount} tokens. 
 				{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
 				Your plan allows {subscription.max_tocken} tokens/bot.
 			</div>
@@ -267,23 +270,12 @@
 					</tr>
 				</tfoot>
 			</table>
-			<div class="alert mb-2">
+			<div class="alert mb-2 flex-col" class:alert-warning={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}>
+				<progress class="progress progress-success w-full" value={selectedUrlsTokenCount + existingTokenCount} max={subscription.max_tocken}></progress>
 				Your selected urls contain {selectedUrlsTokenCount} tokens. 
 				{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
 				Your plan allows {subscription.max_tocken} tokens/bot.
 			</div>
-			{#if selectedUrlsTokenCount > subscription.max_tocken}
-				<div class="alert alert-warning shadow-lg mb-2">
-					<div>
-						<span
-							>Token count exceeds plan allowance. Please select fewer urls or <a
-								href="/account/settings/plan"
-								class="link">upgrade your plan</a
-							>.</span
-						>
-					</div>
-				</div>
-			{/if}
 			<button
 				class="btn btn-primary"
 				class:loading={busyTraining}
