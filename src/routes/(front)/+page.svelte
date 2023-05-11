@@ -308,7 +308,7 @@
 		<div class="space-y-4">
 			<Accordian>
 				<div slot="title">Is there a free plan?</div>
-				Yes, just by signing up you get 30 message credits and 1 chatbot. You can use these to test out chat leaf and see if it works for you.
+				Yes, just by signing up you get 30 message credits and 1 chatbot. You can use these to test out ChatNode and see if it works for you.
 			</Accordian>
 			<Accordian>
 				<div slot="title">How do message work?</div>
@@ -328,7 +328,7 @@
 			</Accordian>
 			<Accordian>
 				<div slot="title">How do I know how many tokens are in my document?</div>
-				Once you attach your document for upload, chat leaf will show you the tokens count of the attached document.
+				Once you attach your document for upload, ChatNode will show you the tokens count of the attached document.
 			</Accordian>
 			<Accordian>
 				<div slot="title">Can I upload multiple files to one chatbot?</div>
