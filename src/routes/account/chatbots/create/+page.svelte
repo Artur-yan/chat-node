@@ -7,16 +7,19 @@
 
 	let modelId: string
 	let name: string
-	let settings = {
-		greeting: 'Hello, how can I help you?'
-	}
 
-	let messages = [
-		{
-			text: settings.greeting,
-			sender: 'bot'
-		}
-	];
+	let settings
+
+	let messages
+
+	$: if(settings) {
+		messages = [
+			{
+				text: settings.greeting,
+				sender: 'bot'
+			}
+		];
+	}
 	let trainingStatus = 'not started'
 
 </script>
@@ -47,7 +50,7 @@
 		</div>
 		<div>
 			<div class="h-[calc(100vh_-_16rem)] sticky top-10">
-				<Chat {modelId} {messages} {trainingStatus} {settings} />
+				<Chat {modelId} bind:messages {trainingStatus} {settings} />
 			</div>
 		</div>
 	</div>

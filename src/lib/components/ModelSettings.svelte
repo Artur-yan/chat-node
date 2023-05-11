@@ -36,8 +36,8 @@
 	};
 </script>
 
-<div class="@container">
-	<form on:submit={handleSubmit} class="grid gap-10 @[240px]:grid-cols-2 pb-32">
+<div>
+	<form on:submit={handleSubmit} class="grid gap-10 pb-32">
 		<div>
 			<label for="name" class="label">
 				<span class="label-text">Name</span>
