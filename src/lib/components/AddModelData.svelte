@@ -179,7 +179,7 @@
 				<!-- <button class="btn btn-primary" type="submit" on:click={getFileTokenCount}>Upload</button> -->
 			</div>
 			<div class="label">
-				<p>PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
+				<p>PDF, TXT, or DOC files only (MAX 50MB)</p>
 				<div class="text-sm text-warning invisible" class:!visible={busyCheckingFile}>Uploading</div>
 			</div>
 		</div>
