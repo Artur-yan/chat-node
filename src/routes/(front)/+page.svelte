@@ -2,7 +2,6 @@
 	import Img from '@zerodevx/svelte-img';
 	import Chat from '$lib/components/Chat.svelte';
 	import Accordian from '$lib/components/Accordian.svelte';
-	import screenshot1 from '$lib/assets/screenshot-1.jpg?run';
 	import screenshot2 from '$lib/assets/internal-research-screenshot.jpg?run';
 	import screenshotAddData from '$lib/assets/chatnode-add-data-screenshot.jpg?run';
 	import screenshotPiublish from '$lib/assets/chatnode-publish-settings-screenshot.jpg?run';
