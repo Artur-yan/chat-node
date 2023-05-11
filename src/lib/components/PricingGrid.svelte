@@ -147,11 +147,11 @@
 				<div>
 					{#if currentPlan !== null}
 						<button
-							on:click={() => updatePlan(4)}
+							on:click={() => updatePlan(3)}
 							class="btn btn-outline btn-secondary"
 							class:loading={busyChangingPlan}
-							disabled={currentPlan === 4}
-							>{currentPlan === 4 ? 'Current plan' : 'Change plan'}</button
+							disabled={currentPlan === 3}
+							>{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
 						>
 					{:else}
 						<a href="/register" class="btn btn-outline btn-secondary">Sign up</a>
