@@ -82,7 +82,7 @@
 			Train ChatGPT on your own data
 		</h2>
 		<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto">
-			<div class="flex justify-center p-4 h-[50vh] border-t border-base-300">
+			<div class="flex justify-center h-[50vh] border-t border-base-300">
 				<div class="w-full">
 					<Chat modelId="" {messages} />
 				</div>
@@ -340,7 +340,7 @@
 			</Accordian>
 			<Accordian>
 				<div slot="title">What is ChatNode?</div>
-				ChatLeaf is an AI chatbot builder, it trains ChatGPT on your data and lets you add a chat widget to your website. Just upload a document or add a link to your website and get a chatbot that can answer any question about their content.
+				ChatNode is an AI chatbot builder, it trains ChatGPT on your data and lets you add a chat widget to your website. Just upload a document or add a link to your website and get a chatbot that can answer any question about their content.
 			</Accordian>
 			<Accordian>
 				<div slot="title">What should my data look like?</div>
