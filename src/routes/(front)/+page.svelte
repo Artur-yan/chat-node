@@ -118,7 +118,7 @@
 			<div class="card-body">
 				<!-- <div class="absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-base-100 aspect-square w-12 flex items-center justify-center text-white border-secondary border rounded-full">1</div> -->
 				<h2 class="card-title">Train on your data</h2>
-				<p>Websites, pdfs, docs, text, spreadsheets and more...</p>
+				<p>Websites, pdfs, docs, or text</p>
 				<div
 					class="text-base mt-4 translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
 				>
