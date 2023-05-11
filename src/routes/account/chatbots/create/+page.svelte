@@ -13,12 +13,7 @@
 	let messages
 
 	$: if(settings) {
-		messages = [
-			{
-				text: settings.greeting,
-				sender: 'bot'
-			}
-		];
+		messages[0].text = settings.greeting
 	}
 	let trainingStatus = 'not started'
 
