@@ -6,7 +6,7 @@
 				fill="#818CF8"
 			/>
 		</svg>
-		<h2 class="font-bold text-secondary text-xs">ChatLeaf</h2>
+		<h2 class="font-bold text-secondary text-xs">ChatNode</h2>
 	</div>
 	<div>
 		<span class="footer-title">About</span>
@@ -20,6 +20,6 @@
 	</div>
 	<div>
 		<span class="footer-title">Contact</span>
-		<a class="link link-hover" href="mailto:contact@chatleaf.ai">contact@chatleaf.ai</a>
+		<a class="link link-hover" href="mailto:contact@chatnode.ai">contact@chatnode.ai</a>
 	</div>
 </footer>

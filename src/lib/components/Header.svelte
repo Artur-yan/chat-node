@@ -36,7 +36,7 @@
 						</svg>
 					</div>
 
-					<span class="text-sm font-bold">ChatLeaf</span>
+					<span class="text-sm font-bold">ChatNode</span>
 				</a>
 				{#if includePageLinks}
 					<div class="hidden lg:flex">
