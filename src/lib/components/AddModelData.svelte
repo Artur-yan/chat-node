@@ -81,8 +81,8 @@
 	};
 
 	const getFileTokenCount = async () => {
-		busyCheckingFile = true;
 		if (files) {
+			busyCheckingFile = true;
 			let body = new FormData();
 			body.append('user_id', userId);
 			body.append('session_id', sessionId);
@@ -97,6 +97,7 @@
 
 			filesTokenCount = data.file[1];
 			uploadedFileName = data.file[0];
+			busyCheckingFile = false;
 		}
 	};
 	const createOrUpdateModel = async (id: string = '') => {
@@ -169,11 +170,16 @@
 					bind:files
 					bind:this={fileInput}
 					accept=".doc,.docx,.pdf,.txt,.csv,.json"
+					on:change={getFileTokenCount}
 				/>
-				<button class="btn btn-primary" type="submit" on:click={getFileTokenCount}>Upload</button>
+				<!-- <button class="btn btn-primary" type="submit" on:click={getFileTokenCount}>Upload</button> -->
+			</div>
+			<div class="label">
+				<p>PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
+				<div class="text-sm text-warning invisible" class:!visible={busyCheckingFile}>Uploading</div>
 			</div>
 		</div>
-		<p class="help">PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
+		{filesTokenCount} Tokens
 		<button
 			class="btn btn-primary mt-8"
 			class:loading={busyTraining}
