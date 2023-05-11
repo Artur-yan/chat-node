@@ -340,7 +340,7 @@
 			</Accordian>
 			<Accordian>
 				<div slot="title">What is ChatNode?</div>
-				ChatLeaf is an AI chatbot builder, it trains ChatGPT on your data and lets you add a chat widget to your website. Just upload a document or add a link to your website and get a chatbot that can answer any question about their content.
+				ChatNode is an AI chatbot builder, it trains ChatGPT on your data and lets you add a chat widget to your website. Just upload a document or add a link to your website and get a chatbot that can answer any question about their content.
 			</Accordian>
 			<Accordian>
 				<div slot="title">What should my data look like?</div>
