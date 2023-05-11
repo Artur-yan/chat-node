@@ -9,6 +9,7 @@
 	export let subscription: string;
 	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined
 	export let name = 'Untitled';
+	export let tokenCount = 0;
 
 	let settings = {
 		greeting: 'What can I help you with?',
