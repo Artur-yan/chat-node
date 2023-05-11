@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { invalidate } from '$app/navigation';
 	export let data;
 	import AddModelData from '$lib/components/AddModelData.svelte';
 	import Chat from '$lib/components/Chat.svelte';
@@ -25,6 +24,7 @@
 				userId={data.user.user.userId}
 				sessionId={data.user.session.sessionId}
 				subscription={data.subscription}
+				existingTokenCount={data.model.tocken_count}
 				bind:trainingStatus
 			/>
 		{/each}

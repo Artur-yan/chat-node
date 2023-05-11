@@ -9,7 +9,7 @@
 	export let subscription: string;
 	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined
 	export let name = 'Untitled';
-	export let tokenCount = 0;
+	export let existingTokenCount = 0;
 
 	let settings = {
 		greeting: 'What can I help you with?',
@@ -180,7 +180,11 @@
 				<div class="text-sm text-warning invisible" class:!visible={busyCheckingFile}>Uploading</div>
 			</div>
 		</div>
-		{filesTokenCount} Tokens
+		<div class="alert" class:hidden={!uploadedFileName}>
+			Your file contains {filesTokenCount} tokens.
+			{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
+			Your plan allows {subscription.max_tocken} tokens/bot.
+		</div>
 		<button
 			class="btn btn-primary mt-8"
 			class:loading={busyTraining}
@@ -224,7 +228,7 @@
 			We will check your website for any sub-pages and you can choose which to include in your data
 		</p>
 		{#if urls}
-			<table class="table table-zebra table-compact w-full my-8">
+			<table class="table table-zebra table-compact w-full my-4">
 				<thead>
 					<tr>
 						<th><!-- <input type="checkbox" class="checkbox" />--></th>
@@ -252,17 +256,21 @@
 				<tfoot>
 					<tr>
 						<td />
-						<td>Urls: {selectedUrls.length}/{urls.length}</td>
-						<td>Total Characters: {selectedUrlsTokenCount}/{urlsTokenCount}</td>
+						<td>Urls: {urls.length}</td>
+						<td>Tokens: {urlsTokenCount}</td>
 					</tr>
 				</tfoot>
 			</table>
+			<div class="alert mb-2">
+				Your selected urls contain {selectedUrlsTokenCount} tokens. 
+				{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
+				Your plan allows {subscription.max_tocken} tokens/bot.
+			</div>
 			{#if selectedUrlsTokenCount > subscription.max_tocken}
-				<div class="alert alert-warning shadow-lg mt-2">
+				<div class="alert alert-warning shadow-lg mb-2">
 					<div>
-						x
 						<span
-							>Character count exceeds account allowance. Please select fewer urls or <a
+							>Token count exceeds plan allowance. Please select fewer urls or <a
 								href="/account/settings/plan"
 								class="link">upgrade your plan</a
 							>.</span
@@ -274,7 +282,7 @@
 				class="btn btn-primary"
 				class:loading={busyTraining}
 				on:click={() => createOrUpdateModel()}
-				disabled={selectedUrlsTokenCount > subscription.max_tocken}>Train Bot</button
+				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}>Train Bot</button
 			>
 		{/if}
 	{/if}
