@@ -4,6 +4,8 @@
 	import Accordian from '$lib/components/Accordian.svelte';
 	import screenshot1 from '$lib/assets/screenshot-1.jpg?run';
 	import screenshot2 from '$lib/assets/internal-research-screenshot.jpg?run';
+	import screenshotAddData from '$lib/assets/chatnode-add-data-screenshot.jpg?run';
+	import screenshotPiublish from '$lib/assets/chatnode-publish-settings-screenshot.jpg?run';
 	import PricingGrid from '$lib/components/PricingGrid.svelte';
 
 	let isThinking = false;
@@ -192,10 +194,11 @@
 			<div class="max-md:hidden col-span-2">
 				<Img
 					class="w-full h-full object-cover object-left rounded-l-xl shadow-2xl shadow-secondary"
-					src={screenshot1}
+					src={screenshotAddData}
 					alt="Screenshot of training GPT ChatBot on the gptchatbot.ai website"
-					width={2102}
-					height={1404}
+					width={2970}
+					height={1537}
+					sizes="35vw"
 				/>
 			</div>
 			<div class="max-md:hidden col-span-2">
@@ -281,10 +284,10 @@
 			<div class="max-md:hidden col-span-2">
 				<Img
 					class="w-full h-full object-cover object-left rounded-l-xl shadow-2xl shadow-secondary"
-					src={screenshot1}
+					src={screenshotPiublish}
 					alt="Screenshot of training GPT ChatBot on the gptchatbot.ai website"
-					width={2102}
-					height={1404}
+					width={2998}
+					height={1782}
 				/>
 			</div>
 		</div>
