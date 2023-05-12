@@ -1,8 +1,8 @@
 <div class="container">
 	<h1 class="text-2xl mb-10">Privacy Policy</h1>
 	<p>
-		At <a href="http://chatnode.ai/">Chatnode.ai</a>, we are committed to protecting and
-		respecting your privacy.
+		At <a href="http://chatnode.ai/">Chatnode.ai</a>, we are committed to protecting and respecting
+		your privacy.
 	</p>
 	<p>
 		This policy sets out the basis on which any personal data we collect from you, or that you

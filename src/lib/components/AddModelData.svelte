@@ -7,7 +7,7 @@
 	export let userId: string;
 	export let sessionId: string;
 	export let subscription: string;
-	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined
+	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined;
 	export let name = 'Untitled';
 	export let existingTokenCount = 0;
 
@@ -26,7 +26,7 @@
 	let busyCheckingFile = false;
 	let fileInput: HTMLInputElement;
 	let files: FileList | undefined;
-	let textData = ''
+	let textData = '';
 	let url: string;
 	let urls: Array<Array<string | number>>;
 	let selectedUrls: Array<string> = [];
@@ -36,7 +36,7 @@
 	let approxTextTokenCount = 0;
 	let uploadedFileName: string;
 
-	$: approxTextTokenCount = Math.floor(textData.length / 3.5)
+	$: approxTextTokenCount = Math.floor(textData.length / 3.5);
 
 	$: {
 		if (files && files[0].size > 50 * 1024 * 1024) {
@@ -61,18 +61,18 @@
 		urlsTokenCount = 0;
 		selectedUrlsTokenCount = 0;
 		try {
-            busyFetchingUrls = true;
-            let body = new FormData();
+			busyFetchingUrls = true;
+			let body = new FormData();
 			body.append('user_id', userId);
 			body.append('session_id', sessionId);
-            body.append('urls', [url]);
+			body.append('urls', [url]);
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/scraping`, {
 				method: 'POST',
 				body
 			});
 			const data = await res.json();
-			urls = await data.urls
-			urls.forEach( (url) => {
+			urls = await data.urls;
+			urls.forEach((url) => {
 				selectedUrls.push(url[0]);
 				urlsTokenCount += Number(url[1]);
 			});
@@ -129,7 +129,6 @@
 					method: 'POST',
 					body
 				});
-				
 			} else {
 				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
 					method: 'POST',
@@ -180,7 +179,9 @@
 			</div>
 			<div class="label">
 				<p>PDF, TXT, or DOC files only (MAX 50MB)</p>
-				<div class="text-sm text-warning invisible" class:!visible={busyCheckingFile}>Uploading</div>
+				<div class="text-sm text-warning invisible" class:!visible={busyCheckingFile}>
+					Uploading
+				</div>
 			</div>
 		</div>
 		<div class="alert" class:hidden={!uploadedFileName}>
@@ -204,13 +205,20 @@
 				rows="8"
 				autofocus
 			/>
-			<div class="alert mt-2" class:alert-warning={approxTextTokenCount + existingTokenCount > subscription.max_tocken}>
-				Your included text contains {approxTextTokenCount} tokens. 
+			<div
+				class="alert mt-2"
+				class:alert-warning={approxTextTokenCount + existingTokenCount > subscription.max_tocken}
+			>
+				Your included text contains {approxTextTokenCount} tokens.
 				{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
 				Your plan allows {subscription.max_tocken} tokens/bot.
 			</div>
-			<button class="btn btn-primary mt-8" class:loading={busyTraining} type="submit" disabled={approxTextTokenCount + existingTokenCount > subscription.max_tocken} on:click={() => createOrUpdateModel()}
-				>Train Bot</button
+			<button
+				class="btn btn-primary mt-8"
+				class:loading={busyTraining}
+				type="submit"
+				disabled={approxTextTokenCount + existingTokenCount > subscription.max_tocken}
+				on:click={() => createOrUpdateModel()}>Train Bot</button
 			>
 		</div>
 	{:else if activeTab == 2}
@@ -268,7 +276,7 @@
 				</tfoot>
 			</table>
 			<div class="alert mb-2">
-				Your selected urls contain {selectedUrlsTokenCount} tokens. 
+				Your selected urls contain {selectedUrlsTokenCount} tokens.
 				{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
 				Your plan allows {subscription.max_tocken} tokens/bot.
 			</div>
@@ -288,7 +296,8 @@
 				class="btn btn-primary"
 				class:loading={busyTraining}
 				on:click={() => createOrUpdateModel()}
-				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}>Train Bot</button
+				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}
+				>Train Bot</button
 			>
 		{/if}
 	{/if}

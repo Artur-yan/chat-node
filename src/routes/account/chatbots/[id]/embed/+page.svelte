@@ -3,7 +3,6 @@
 	import CopyButton from '$lib/components/CopyButton.svelte';
 
 	export let data;
-	console.log(data)
 
 	const iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="visibility: hidden; border: none;" onload="this.style.visibility = 'visible';"></iframe>`;
 	const jsEmbedCode = `<script src="${PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${data.model.id}" />`;
@@ -12,13 +11,14 @@
 
 <div class="container">
 	{#if data.model.settings.public == false}
-			<div class="alert alert-warning">
-				Your chatbot is currently set to private. To share it, you uist make it public.<a
-					class="btn"
-					href="/account/chatbots/{data.model.id}/settings#publishing">settings page</a>
-			</div>
+		<div class="alert alert-warning">
+			Your chatbot is currently set to private. To share it, you uist make it public.<a
+				class="btn"
+				href="/account/chatbots/{data.model.id}/settings#publishing">settings page</a
+			>
+		</div>
 	{/if}
-	
+
 	<div class="grid md:grid-cols-2 gap-6 my-10">
 		<div class="card bg-base-300 shadow-xl shadow-secondary/10 p-6 col-span-2">
 			<div class="card-title justify-between">
@@ -42,7 +42,7 @@
 				href="https://www.w3schools.com/tags/att_script_defer.asp">here</a
 			>.
 		</p>
-	
+
 		<div class="card bg-base-300 shadow-xl shadow-secondary/10 p-6 md:row-start-2 md:col-start-2">
 			<div class="card-title justify-between">
 				<h2 class="text-lg font-bold">Embedded iframe</h2>

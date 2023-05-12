@@ -30,18 +30,18 @@
 
 	<h2>4. Ownership</h2>
 	<p>
-		[Chatnode.ai](http://chatnode.ai/) owns all right, title, and interest in and to the
-		Services, including all related intellectual property rights. These Terms do not grant you any
-		right, title, or interest in the Services, other than the limited rights to access and use the
-		Services as set forth in these Terms.
+		[Chatnode.ai](http://chatnode.ai/) owns all right, title, and interest in and to the Services,
+		including all related intellectual property rights. These Terms do not grant you any right,
+		title, or interest in the Services, other than the limited rights to access and use the Services
+		as set forth in these Terms.
 	</p>
 
 	<h2>5. Modifications</h2>
 	<p>
-		[Chatnode.ai](http://chatnode.ai/) reserves the right to modify or discontinue, temporarily
-		or permanently, any of our Services or any portion of our Services with or without notice. You
-		agree that [Chatnode.ai](http://chatnode.ai/) will not be liable to you or to any third
-		party for any modification, suspension, or discontinuance of our Services.
+		[Chatnode.ai](http://chatnode.ai/) reserves the right to modify or discontinue, temporarily or
+		permanently, any of our Services or any portion of our Services with or without notice. You
+		agree that [Chatnode.ai](http://chatnode.ai/) will not be liable to you or to any third party
+		for any modification, suspension, or discontinuance of our Services.
 	</p>
 
 	<h2>6. Disclaimer of Warranties</h2>
@@ -50,9 +50,9 @@
 		accuracy, reliability, completeness, or timeliness of our Services or any content provided
 		therein. [Chatnode.ai](http://chatnode.ai/) disclaims all warranties, express or implied,
 		including any warranties of merchantability, fitness for a particular purpose, or
-		non-infringement. [Chatnode.ai](http://chatnode.ai/) makes no warranties regarding the
-		accuracy, reliability, completeness, or timeliness of any content, information, software, text,
-		graphics, links, or communications provided on or through the use of our Services.
+		non-infringement. [Chatnode.ai](http://chatnode.ai/) makes no warranties regarding the accuracy,
+		reliability, completeness, or timeliness of any content, information, software, text, graphics,
+		links, or communications provided on or through the use of our Services.
 	</p>
 
 	<h2>7. Limitation of Liability</h2>
@@ -86,9 +86,9 @@
 
 	<h2>10. Entire Agreement</h2>
 	<p>
-		These Terms constitute the entire agreement between [Chatnode.ai](http://chatnode.ai/) and
-		you regarding our Services, and supersede and replace any prior agreements we might have between
-		us regarding the Services.
+		These Terms constitute the entire agreement between [Chatnode.ai](http://chatnode.ai/) and you
+		regarding our Services, and supersede and replace any prior agreements we might have between us
+		regarding the Services.
 	</p>
 
 	<h2>11. Changes</h2>

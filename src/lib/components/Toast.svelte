@@ -1,11 +1,12 @@
 <script>
 	import { alert } from '$lib/stores.js';
-
-
 </script>
 
 {#if $alert}
-	<div class="toast toast-top toast-center top-0 -translate-y-full transition-all" class:visible={$alert}>
+	<div
+		class="toast toast-top toast-center top-0 -translate-y-full transition-all"
+		class:visible={$alert}
+	>
 		<div class="alert alert-info">
 			<div class="w-72 max-w-full flex justify-between">
 				<span>{$alert}</span>

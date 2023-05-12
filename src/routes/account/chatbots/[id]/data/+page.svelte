@@ -2,17 +2,17 @@
 	export let data;
 	import AddModelData from '$lib/components/AddModelData.svelte';
 	import Chat from '$lib/components/Chat.svelte';
-	let trainingStatus
+	let trainingStatus;
 	let modelId = data.model.id;
 
-	let unique = [{}] // every {} is unique, {} === {} evaluates to false
+	let unique = [{}]; // every {} is unique, {} === {} evaluates to false
 
 	function restart() {
-		unique = [{}]
+		unique = [{}];
 	}
 
 	$: if (trainingStatus == 'ready') {
-		restart()
+		restart();
 	}
 </script>
 

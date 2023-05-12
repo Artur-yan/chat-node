@@ -5,18 +5,17 @@
 
 	export let data;
 
-	let modelId: string
-	let name: string
+	let modelId: string;
+	let name: string;
 
-	let settings
+	let settings;
 
-	let messages
+	let messages;
 
-	$: if(settings) {
-		messages[0].text = settings.greeting
+	$: if (settings) {
+		messages[0].text = settings.greeting;
 	}
-	let trainingStatus = 'not started'
-
+	let trainingStatus = 'not started';
 </script>
 
 <div class="container pb-20">

@@ -3,7 +3,8 @@
 	import Icon from '@iconify/svelte';
 
 	export let id: string;
-	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined = undefined;
+	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined =
+		undefined;
 
 	let icon: string;
 	let alertClass: string;
@@ -37,8 +38,7 @@
 
 	$: switch (trainingStatus) {
 		case 'not started':
-			trainingMessage =
-				'Add some data to start chatting with your bot';
+			trainingMessage = 'Add some data to start chatting with your bot';
 			icon = '';
 			alertClass = 'alert-info';
 			break;
