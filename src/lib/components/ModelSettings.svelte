@@ -91,7 +91,7 @@
 			</div>
 		</Accordian>
 		<Accordian open={true}>
-			<div slot="title">Publishing</div>
+			<div slot="title" id="publishing">Publishing</div>
 			<div>
 				<div class="form-control">
 					<label class="label cursor-pointer flex justify-start gap-4 self-start">
