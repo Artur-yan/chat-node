@@ -407,7 +407,7 @@
 
 <style lang="postcss">
 	#how-it-works .card {
-		@apply relative overflow-hidden text-2xl mt-4 hover:mt-0 transition-all bg-secondary text-primary-content border-secondary border-2;
+		@apply relative overflow-hidden text-2xl mt-4 hover:mt-0 transition-all bg-secondary text-primary-content border-secondary border-2 focus:outline-4 outline-primary;
 	}
 
 	#how-it-works .card .card-body {
