@@ -19,7 +19,7 @@
 </script>
 
 <svelte:head>
-	<title>Create chatbot | {data.model.name} | ChatNode</title>
+	<title>Create chatbot | ChatNode</title>
 </svelte:head>
 
 <div class="container pb-20">
