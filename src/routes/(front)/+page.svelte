@@ -194,7 +194,7 @@
 				<Img
 					class="w-full h-full object-cover object-left rounded-l-xl shadow-2xl shadow-secondary"
 					src={screenshotAddData}
-					alt="Screenshot of training GPT ChatBot on the gptchatbot.ai website"
+					alt="Screenshot of training GPT ChatBot on the ChatNode website"
 					width={2970}
 					height={1537}
 					sizes="35vw"
@@ -204,7 +204,7 @@
 				<Img
 					class="w-full h-full object-cover object-right rounded-r-xl shadow-2xl shadow-secondary"
 					src={screenshot2}
-					alt="Screenshot of training GPT ChatBot on the gptchatbot.ai website"
+					alt="Screenshot of training GPT ChatBot on the ChatNode website"
 					width={2102}
 					height={1404}
 				/>
@@ -284,7 +284,7 @@
 				<Img
 					class="w-full h-full object-cover object-left rounded-l-xl shadow-2xl shadow-secondary"
 					src={screenshotPiublish}
-					alt="Screenshot of training GPT ChatBot on the gptchatbot.ai website"
+					alt="Screenshot of training GPT ChatBot on the ChatNode website"
 					width={2998}
 					height={1782}
 				/>

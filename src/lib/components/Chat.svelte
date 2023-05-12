@@ -80,7 +80,7 @@
 		} else if (inputVal.trim() === '') {
 			return;
 		} else if (!modelId) {
-			addMessage('Add some data for me to respond to answers about');
+			addMessage('Add some data for me to repsond to answers about');
 			inputVal = '';
 			return;
 		} else {
@@ -104,7 +104,7 @@
 	class="h-full flex flex-col justify-between"
 >
 	<div class="overflow-y-auto scroll-smooth" bind:this={chatWindow}>
-		<BotStatus id={modelId} bind:trainingStatus />
+	<BotStatus id={modelId} bind:trainingStatus />
 		<slot>
 			{#each messages as msg}
 				<div class="chat overflow-hidden {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
