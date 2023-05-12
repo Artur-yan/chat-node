@@ -2,7 +2,7 @@
 	import { alert } from '$lib/stores.js';
 	import { goto } from '$app/navigation';
 
-	export let currentPlan: number | null;
+	export let currentPlan: number | undefined = undefined;
 
 	let busyChangingPlan = false;
 
@@ -35,7 +35,7 @@
 	<div class="rounded-xl md:rounded-r-none p-8 border border-secondary md:my-4 bg-base-200">
 		<div class="flex justify-between mb-8">
 			<h2>Free</h2>
-			{#if currentPlan !== null}
+			{#if currentPlan !== undefined}
 				<button
 					on:click={() => updatePlan(0)}
 					class="btn btn-outline btn-secondary"
@@ -43,7 +43,7 @@
 					disabled={currentPlan === 0}>{currentPlan === 0 ? 'Current plan' : 'Change plan'}</button
 				>
 			{:else}
-				<a href="/register" class="btn btn-outline btn-secondary">Sign up</a>
+				<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
 			{/if}
 		</div>
 		<ul class="included">
@@ -73,7 +73,7 @@
 					19€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
 				</h3>
 			</div>
-			{#if currentPlan !== null}
+			{#if currentPlan !== undefined}
 				<button
 					on:click={() => updatePlan(1)}
 					class="btn btn-outline btn-secondary"
@@ -81,7 +81,7 @@
 					disabled={currentPlan === 1}>{currentPlan === 1 ? 'Current plan' : 'Change plan'}</button
 				>
 			{:else}
-				<a href="/register" class="btn btn-outline btn-secondary">Sign up</a>
+				<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
 			{/if}
 		</div>
 		<ul class="included">
@@ -107,7 +107,7 @@
 					49€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
 				</h3>
 			</div>
-			{#if currentPlan !== null}
+			{#if currentPlan !== undefined}
 				<button
 					on:click={() => updatePlan(2)}
 					class="btn btn-outline btn-secondary"
@@ -115,7 +115,7 @@
 					disabled={currentPlan === 2}>{currentPlan === 2 ? 'Current plan' : 'Change plan'}</button
 				>
 			{:else}
-				<a href="/register" class="btn btn-outline btn-secondary">Sign up</a>
+				<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
 			{/if}
 		</div>
 		<ul class="included">
@@ -145,7 +145,7 @@
 					</div>
 				</div>
 				<div>
-					{#if currentPlan !== null}
+					{#if currentPlan !== undefined}
 						<button
 							on:click={() => updatePlan(3)}
 							class="btn btn-outline btn-secondary"
@@ -154,7 +154,7 @@
 							>{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
 						>
 					{:else}
-						<a href="/register" class="btn btn-outline btn-secondary">Sign up</a>
+						<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
 				</div>
 			</div>
