@@ -115,16 +115,15 @@
 	<h2 class="text-4xl 2xl:text-5xl font-bold mb-6 text-center">How it works</h2>
 	<div class="container grid md:grid-cols-3 gap-10 mx-auto">
 		<a href="#difference" class="group card">
+
 			<div class="card-body">
 				<!-- <div class="absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-base-100 aspect-square w-12 flex items-center justify-center text-white border-secondary border rounded-full">1</div> -->
 				<h2 class="card-title">Train on your data</h2>
 				<p>Websites, pdfs, docs, or text</p>
 				<div
-					class="text-base mt-4 translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
+					class="text-base translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
 				>
-					<!-- <p>Input any url you want your bot to be trained on. It takes less than 10 seconds.</p>
-					<p>You can also add copy/paste texts as well as any PDF to be trained on.</p> -->
-					<div class="card-actions justify-end">
+					<div class="card-actions">
 						<div class="btn">Learn More</div>
 					</div>
 				</div>
@@ -135,11 +134,9 @@
 				<h2 class="card-title">Use the bot internally</h2>
 				<p>Keep your bot private for research or testing purposes.</p>
 				<div
-					class="text-base mt-4 translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
+					class="text-base translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
 				>
-					<!-- <p>You can then export an iframe of the bot anywhere</p>
-					<p>Use it to train your team or to look for a specific answer.</p> -->
-					<div class="card-actions justify-end">
+					<div class="card-actions">
 						<div class="btn">Learn More</div>
 					</div>
 				</div>
@@ -150,11 +147,9 @@
 				<h2 class="card-title">Deploy it in public</h2>
 				<p>Publish to your website or get a url to share with everyone.</p>
 				<div
-					class="text-base mt-4 translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
+					class="text-base translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
 				>
-					<!-- <p>Export the bot on your website and fire your customer support team.</p>
-					<p>Your customers can ask any questions and get instant answers trained on your data.</p> -->
-					<div class="card-actions justify-end">
+					<div class="card-actions">
 						<div class="btn">Learn More</div>
 					</div>
 				</div>
@@ -407,19 +402,19 @@
 
 <style lang="postcss">
 	#how-it-works .card {
-		@apply relative overflow-hidden text-2xl shadow-xl shadow-accent/20 mt-4 hover:mt-0 transition-all bg-secondary text-primary-content hover:border-primary;
+		@apply relative overflow-hidden text-2xl mt-4 hover:mt-0 transition-all bg-secondary text-primary-content border-secondary border-2;
 	}
 
 	#how-it-works .card .card-body {
-		@apply bg-primary/50 m-[1px] rounded-xl;
+		@apply rounded-xl;
 	}
 
 	#how-it-works .card .btn {
-		@apply btn-ghost self-end;
+		@apply btn-secondary;
 	}
 
 	#how-it-works .card-title {
-		@apply xl:text-3xl 2xl:text-4xl font-bold mb-4;
+		@apply xl:text-3xl 2xl:text-4xl font-bold;
 	}
 
 	#difference {
