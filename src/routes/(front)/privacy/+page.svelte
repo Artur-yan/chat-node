@@ -1,3 +1,8 @@
+<svelte:head>
+	<title>Privacy Policy | ChatNode</title>
+	<meta name="description" content="We are committed to protecting and respecting your privacy." />
+</svelte:head>
+
 <div class="container">
 	<h1 class="text-2xl mb-10">Privacy Policy</h1>
 	<p>

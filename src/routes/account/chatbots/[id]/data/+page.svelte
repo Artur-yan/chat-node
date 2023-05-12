@@ -16,6 +16,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Data | {data.model.name} | ChatNode</title>
+</svelte:head>
+
 <div class="container grid grid-cols-2 gap-10">
 	<div>
 		{#each unique as key (key)}

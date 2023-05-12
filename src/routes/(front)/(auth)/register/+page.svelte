@@ -1,3 +1,8 @@
+<svelte:head>
+	<title>Sign up for Free | ChatNode</title>
+	<meta name="description" content="Register for your free account to create your first chatbot and discover the power of ChatGPT supercharged by your data." />
+</svelte:head>
+
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	export let form: { message?: string; submitted: false; promo: string };

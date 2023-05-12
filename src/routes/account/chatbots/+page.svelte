@@ -8,6 +8,10 @@
 	let botUsage: number = data.subscription.bot_count / data.subscription.max_bot;
 </script>
 
+<svelte:head>
+	<title>My Chatbots | ChatNode</title>
+</svelte:head>
+
 <div class="container pb-20">
 	<div class="flex justify-between my-2 items-center">
 		<div>

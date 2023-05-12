@@ -6,3 +6,8 @@
 		goto('/account/chatbots');
 	});
 </script>
+
+<svelte:head>
+	<title>Account | ChatNode</title>
+</svelte:head>
+

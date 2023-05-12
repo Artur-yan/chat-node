@@ -3,6 +3,10 @@
 	import Chat from '$lib/components/Chat.svelte';
 </script>
 
+<svelte:head>
+	<title>{data.model.name} | ChatNode</title>
+</svelte:head>
+
 <div class="container h-[calc(100vh_-_10em)]">
 	<Chat modelId={data.model.id} status={data.model.status} settings={data.model.settings} />
 </div>

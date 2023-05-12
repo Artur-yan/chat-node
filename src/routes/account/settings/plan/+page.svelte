@@ -6,6 +6,10 @@
 	let currentPlan = data.subscription.plan;
 </script>
 
+<svelte:head>
+	<title>Account Plan | ChatNode</title>
+</svelte:head>
+
 <div class="container">
 	<PricingGrid {currentPlan} />
 </div>

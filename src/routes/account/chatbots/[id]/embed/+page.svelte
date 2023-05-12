@@ -9,6 +9,10 @@
 	const url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
 </script>
 
+<svelte:head>
+	<title>Embed | {data.model.name} | ChatNode</title>
+</svelte:head>
+
 <div class="container">
 	{#if data.model.settings.public == false}
 		<div class="alert alert-warning">

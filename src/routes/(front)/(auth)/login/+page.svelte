@@ -1,3 +1,8 @@
+<svelte:head>
+	<title>Login | ChatNode</title>
+	<meta name="description" content="Jump back in to manage your chatbots, add new data, get your embed codes, access your private chatbots or manage your account settings." />
+</svelte:head>
+
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	export let form: { submitted: false; error: false; message?: string };

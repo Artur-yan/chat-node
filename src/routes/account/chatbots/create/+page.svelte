@@ -18,6 +18,10 @@
 	let trainingStatus = 'not started';
 </script>
 
+<svelte:head>
+	<title>Create chatbot | {data.model.name} | ChatNode</title>
+</svelte:head>
+
 <div class="container pb-20">
 	<div class="text-sm breadcrumbs text-secondary pb-6 font-bold">
 		<ul>

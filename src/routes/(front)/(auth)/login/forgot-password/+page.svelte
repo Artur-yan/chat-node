@@ -1,3 +1,8 @@
+<svelte:head>
+	<title>Forgot password | ChatNode</title>
+	<meta name="description" content="Reset your passoword easily and quickly get back to training ChatGPT with your data." />
+</svelte:head>
+
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	export let form: { message?: string; success: false; submitted: false };
