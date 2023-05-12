@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { alert } from '$lib/stores';
 
 	const redirectToStripeBilling = async () => {
 		try {
@@ -11,8 +12,11 @@
 				},
 				body: ''
 			});
-			const url = await res.json();
-			goto(url);
+			if (res.status == 200) {
+				const url = await res.json();
+				goto(url);
+			}
+			$alert = 'Failed to redirect to Stripe billing portal';
 		} catch (err) {
 			console.error(err);
 		}
