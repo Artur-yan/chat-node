@@ -141,7 +141,7 @@
 		<a href="#difference-2" class="group card">
 			<div class="card-body">
 				<h2 class="card-title">Use the bot internally</h2>
-				<p>Keep your bot private for research or testing purposes.</p>
+				<p>Keep your bot private for research or testing purposes</p>
 				<div
 					class="text-base translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
 				>
@@ -154,7 +154,7 @@
 		<a href="#difference-3" class="group card">
 			<div class="card-body">
 				<h2 class="card-title">Deploy it in public</h2>
-				<p>Publish to your website or get a url to share with everyone.</p>
+				<p>Publish to your website or get a url to share with everyone</p>
 				<div
 					class="text-base translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
 				>
