@@ -167,7 +167,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="postcss">
 	input {
 		@apply input-bordered;
 	}
