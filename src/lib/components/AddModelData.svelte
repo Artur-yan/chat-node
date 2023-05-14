@@ -7,7 +7,7 @@
 	export let userId: string;
 	export let sessionId: string;
 	export let subscription: string;
-	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined
+	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined;
 	export let name = 'Untitled';
 	export let existingTokenCount = 0;
 
@@ -26,7 +26,7 @@
 	let busyCheckingFile = false;
 	let fileInput: HTMLInputElement;
 	let files: FileList | undefined;
-	let textData = ''
+	let textData = '';
 	let url: string;
 	let urls: Array<Array<string | number>>;
 	let selectedUrls: Array<string> = [];
@@ -35,44 +35,25 @@
 	let selectedUrlsTokenCount = 0;
 	let approxTextTokenCount = 0;
 	let uploadedFileName: string;
-
-	$: approxTextTokenCount = Math.ceil(textData.length / 3.5)
-
-	$: {
-		if (files && files[0].size > 50 * 1024 * 1024) {
-			$alert = 'This file is too large';
-			fileInput.value = '';
-		}
-	}
-
-	$: {
-		if (selectedUrls.length > 0) {
-			selectedUrlsTokenCount = 0;
-			urls.forEach((url) => {
-				if (selectedUrls.includes(url[0])) {
-					selectedUrlsTokenCount += Number(url[1]);
-				}
-			});
-		}
-	}
+	let selectAllUrlsCheckbox: HTMLInputElement;
 
 	const fetchUrlsToScrape = async () => {
 		urls = undefined;
 		urlsTokenCount = 0;
 		selectedUrlsTokenCount = 0;
 		try {
-            busyFetchingUrls = true;
-            let body = new FormData();
+			busyFetchingUrls = true;
+			let body = new FormData();
 			body.append('user_id', userId);
 			body.append('session_id', sessionId);
-            body.append('urls', [url]);
+			body.append('urls', [url]);
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/scraping`, {
 				method: 'POST',
 				body
 			});
 			const data = await res.json();
-			urls = await data.urls
-			urls.forEach( (url) => {
+			urls = await data.urls;
+			urls.forEach((url) => {
 				selectedUrls.push(url[0]);
 				urlsTokenCount += Number(url[1]);
 			});
@@ -131,7 +112,6 @@
 					method: 'POST',
 					body
 				});
-				
 			} else {
 				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
 					method: 'POST',
@@ -148,6 +128,41 @@
 			busyTraining = false;
 		}
 	};
+
+	$: approxTextTokenCount = Math.ceil(textData.length / 3.5);
+
+	$: {
+		if (files && files[0].size > 50 * 1024 * 1024) {
+			$alert = 'This file is too large';
+			fileInput.value = '';
+		}
+	}
+
+	$: {
+		if (selectedUrls.length > 0) {
+			selectedUrlsTokenCount = 0;
+			urls.forEach((url) => {
+				if (selectedUrls.includes(url[0])) {
+					selectedUrlsTokenCount += Number(url[1]);
+				}
+			});
+		} else {
+			selectedUrlsTokenCount = 0;
+		}
+	}
+
+	$: if (urls && selectedUrls.length < urls.length) {
+		selectAllUrlsCheckbox.checked = false;
+	}
+
+	const handleSelectAllUrls = () => {
+		if (selectAllUrlsCheckbox.checked) {
+			selectedUrls = urls.map((url) => url[0]);
+		} else {
+			selectedUrls = [];
+		}
+	};
+
 </script>
 
 <div>
@@ -180,15 +195,17 @@
 				<!-- <button class="btn btn-primary" type="submit" on:click={getFileTokenCount}>Upload</button> -->
 			</div>
 			<div class="label">
-				<p>PDF, TXT, CSV, JSON or DOC files only (MAX 50MB)</p>
-				<div class="text-sm text-warning invisible" class:!visible={busyCheckingFile}>Uploading</div>
+				<p>PDF, TXT, or DOC files only (MAX 50MB)</p>
+				<div class="text-sm text-warning invisible" class:!visible={busyCheckingFile}>
+					Uploading
+				</div>
 			</div>
 		</div>
 		<div class="alert flex-col" class:hidden={!uploadedFileName} class:alert-warning={filesTokenCount + existingTokenCount > subscription.max_tocken}>
 			<progress class="progress progress-success" value={filesTokenCount + existingTokenCount} max={subscription.max_tocken}></progress>
-			Your file contains {filesTokenCount} tokens.
-			{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
-			Your plan allows {subscription.max_tocken} tokens/bot.
+			Your file contains {filesTokenCount.toLocaleString()} tokens.
+			{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
+			Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
 		</div>
 		<button
 			class="btn btn-primary mt-8"
@@ -206,14 +223,21 @@
 				rows="8"
 				autofocus
 			/>
-			<div class="alert mt-2 flex-col" class:alert-warning={approxTextTokenCount + existingTokenCount > subscription.max_tocken}>
+			<div
+				class="alert mt-2 flex-col"
+				class:alert-warning={approxTextTokenCount + existingTokenCount > subscription.max_tocken}
+			>
 				<progress class="progress progress-success animate-all" value={approxTextTokenCount + existingTokenCount} max={subscription.max_tocken}></progress>
-				Your included text contains approx. {approxTextTokenCount} tokens. 
-				{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
-				Your plan allows {subscription.max_tocken} tokens/bot.
+				Your included text contains approx. {approxTextTokenCount.toLocaleString()} tokens.
+				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
+				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
 			</div>
-			<button class="btn btn-primary mt-8" class:loading={busyTraining} type="submit" disabled={approxTextTokenCount + existingTokenCount > subscription.max_tocken} on:click={() => createOrUpdateModel()}
-				>Train Bot</button
+			<button
+				class="btn btn-primary mt-8"
+				class:loading={busyTraining}
+				type="submit"
+				disabled={approxTextTokenCount + existingTokenCount > subscription.max_tocken}
+				on:click={() => createOrUpdateModel()}>Train Bot</button
 			>
 		</div>
 	{:else if activeTab == 2}
@@ -240,13 +264,13 @@
 			<table class="table table-zebra table-compact w-full my-4">
 				<thead>
 					<tr>
-						<th><!-- <input type="checkbox" class="checkbox" />--></th>
+						<th><input type="checkbox" class="checkbox" checked bind:this={selectAllUrlsCheckbox} on:change={handleSelectAllUrls} /></th>
 						<th>url</th>
 						<th>character count</th>
 					</tr>
 				</thead>
 				<tbody>
-					{#each urls as url}
+					{#each urls as url}	
 						<tr>
 							<td>
 								<input
@@ -266,21 +290,22 @@
 					<tr>
 						<td />
 						<td>Urls: {urls.length}</td>
-						<td>Tokens: {urlsTokenCount}</td>
+						<td>Tokens: {urlsTokenCount.toLocaleString()}</td>
 					</tr>
 				</tfoot>
 			</table>
 			<div class="alert mb-2 flex-col" class:alert-warning={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}>
 				<progress class="progress progress-success w-full" value={selectedUrlsTokenCount + existingTokenCount} max={subscription.max_tocken}></progress>
-				Your selected urls contain {selectedUrlsTokenCount} tokens. 
-				{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
-				Your plan allows {subscription.max_tocken} tokens/bot.
+				Your selected urls contain {selectedUrlsTokenCount.toLocaleString()} tokens.
+				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
+				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
 			</div>
 			<button
 				class="btn btn-primary"
 				class:loading={busyTraining}
 				on:click={() => createOrUpdateModel()}
-				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}>Train Bot</button
+				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken || selectedUrlsTokenCount == 0}
+				>Train Bot</button
 			>
 		{/if}
 	{/if}

@@ -6,6 +6,14 @@
 	$: loading = form?.submitted;
 </script>
 
+<svelte:head>
+	<title>Sign up for Free | ChatNode</title>
+	<meta
+		name="description"
+		content="Register for your free account to create your first chatbot and discover the power of ChatGPT supercharged by your data."
+	/>
+</svelte:head>
+
 <section>
 	<div class="card w-96 bg-neutral text-neutral-content mx-auto my-20">
 		<div class="card-body">

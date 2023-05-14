@@ -9,6 +9,10 @@
 	export let form: { message?: string };
 </script>
 
+<svelte:head>
+	<title>Account Settings | ChatNode</title>
+</svelte:head>
+
 <section class="container my-10 grid gap-16">
 	<div class="max-w-xl">
 		<h2 class="card-title">Email</h2>

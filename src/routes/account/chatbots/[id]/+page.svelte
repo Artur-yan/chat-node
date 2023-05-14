@@ -1,10 +1,12 @@
 <script lang="ts">
 	export let data;
 	import Chat from '$lib/components/Chat.svelte';
-
-	// let iframeEmbedCode = `<iframe src="/embed/${data.model.id}" width="100%" height="100%" style="visibility: hidden; border: none;" onload="this.style.visibility = 'visible';"></iframe>`;
 </script>
 
+<svelte:head>
+	<title>{data.model.name} | ChatNode</title>
+</svelte:head>
+
 <div class="container h-[calc(100vh_-_10em)]">
-	<Chat modelId={data.model.id} status={data.model.status} />
+	<Chat modelId={data.model.id} status={data.model.status} settings={data.model.settings} />
 </div>

@@ -1,8 +1,13 @@
+<svelte:head>
+	<title>Privacy Policy | ChatNode</title>
+	<meta name="description" content="We are committed to protecting and respecting your privacy." />
+</svelte:head>
+
 <div class="container">
 	<h1 class="text-2xl mb-10">Privacy Policy</h1>
 	<p>
-		At <a href="http://gptchatbot.ai/">GPTChatbot.ai</a>, we are committed to protecting and
-		respecting your privacy.
+		At <a href="http://chatnode.ai/">Chatnode.ai</a>, we are committed to protecting and respecting
+		your privacy.
 	</p>
 	<p>
 		This policy sets out the basis on which any personal data we collect from you, or that you
@@ -82,7 +87,7 @@
 
 	<p>If you have any questions about this Privacy Policy, please contact us:</p>
 
-	<p>By email: <a href="mailto:contact@gptchatbot.ai">contact@gptchatbot.ai</a></p>
+	<p>By email: <a href="mailto:contact@chatnode.ai">contact@chatnode.ai</a></p>
 </div>
 
 <style>

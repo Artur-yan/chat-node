@@ -8,6 +8,14 @@
 	$: loading = form?.submitted;
 </script>
 
+<svelte:head>
+	<title>Forgot password | ChatNode</title>
+	<meta
+		name="description"
+		content="Reset your passoword easily and quickly get back to training ChatGPT with your data."
+	/>
+</svelte:head>
+
 <section>
 	<div class="card w-96 bg-neutral text-neutral-content mx-auto my-20">
 		<div class="card-body">

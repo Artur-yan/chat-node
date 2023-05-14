@@ -91,7 +91,7 @@
 			</div>
 		</Accordian>
 		<Accordian open={true}>
-			<div slot="title">Publishing</div>
+			<div slot="title" id="publishing">Publishing</div>
 			<div>
 				<div class="form-control">
 					<label class="label cursor-pointer flex justify-start gap-4 self-start">
@@ -148,7 +148,7 @@
 <div class="modal">
 	<div class="modal-box">
 		<h3 class="font-bold text-lg">Are you sure you want to delete this chatbot?</h3>
-		<p class="py-4">This can't be undone.</p>
+		<p class="py-4">This can't be undone</p>
 		<div class="modal-action">
 			<label for="my-modal" class="btn">Cancel</label>
 			<button
@@ -167,7 +167,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="postcss">
 	input {
 		@apply input-bordered;
 	}

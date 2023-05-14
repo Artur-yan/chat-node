@@ -5,24 +5,22 @@
 
 	export let data;
 
-	let modelId: string
-	let name: string
+	let modelId: string;
+	let name: string;
 
-	let settings
+	let settings;
 
-	let messages
+	let messages;
 
-	$: if(settings) {
-		messages = [
-			{
-				text: settings.greeting,
-				sender: 'bot'
-			}
-		];
+	$: if (settings) {
+		messages[0].text = settings.greeting;
 	}
-	let trainingStatus = 'not started'
-
+	let trainingStatus = 'not started';
 </script>
+
+<svelte:head>
+	<title>Create chatbot | ChatNode</title>
+</svelte:head>
 
 <div class="container pb-20">
 	<div class="text-sm breadcrumbs text-secondary pb-6 font-bold">

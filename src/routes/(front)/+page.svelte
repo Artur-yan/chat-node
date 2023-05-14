@@ -75,13 +75,23 @@
 	demoChat();
 </script>
 
+<svelte:head>
+	<title>ChatNode | Train ChatGPT on your own data</title>
+	<meta
+		name="description"
+		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
+	/>
+</svelte:head>
+
 <section>
 	<div class="container gap-8 items-center px-4 py-[5vh] mx-auto lg:px-6">
-		<h2 class="mb-6 text-5xl tracking-tight font-extrabold text-center text-secondary">
+		<h2
+			class="mb-6 text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl tracking-tight font-extrabold text-center text-secondary max-w-[8em] mx-auto"
+		>
 			Train ChatGPT on your own data
 		</h2>
 		<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto">
-			<div class="flex justify-center h-[50vh] border-t border-base-300">
+			<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
 				<div class="w-full">
 					<Chat modelId="" {messages} />
 				</div>
@@ -118,13 +128,11 @@
 			<div class="card-body">
 				<!-- <div class="absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-base-100 aspect-square w-12 flex items-center justify-center text-white border-secondary border rounded-full">1</div> -->
 				<h2 class="card-title">Train on your data</h2>
-				<p>Websites, pdfs, docs, text, spreadsheets and more...</p>
+				<p>Websites, pdfs, docs, or text</p>
 				<div
-					class="text-base mt-4 translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
+					class="text-base translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
 				>
-					<!-- <p>Input any url you want your bot to be trained on. It takes less than 10 seconds.</p>
-					<p>You can also add copy/paste texts as well as any PDF to be trained on.</p> -->
-					<div class="card-actions justify-end">
+					<div class="card-actions">
 						<div class="btn">Learn More</div>
 					</div>
 				</div>
@@ -133,13 +141,11 @@
 		<a href="#difference-2" class="group card">
 			<div class="card-body">
 				<h2 class="card-title">Use the bot internally</h2>
-				<p>Keep your bot private for research or testing purposes.</p>
+				<p>Keep your bot private for research or testing purposes</p>
 				<div
-					class="text-base mt-4 translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
+					class="text-base translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
 				>
-					<!-- <p>You can then export an iframe of the bot anywhere</p>
-					<p>Use it to train your team or to look for a specific answer.</p> -->
-					<div class="card-actions justify-end">
+					<div class="card-actions">
 						<div class="btn">Learn More</div>
 					</div>
 				</div>
@@ -148,13 +154,11 @@
 		<a href="#difference-3" class="group card">
 			<div class="card-body">
 				<h2 class="card-title">Deploy it in public</h2>
-				<p>Publish to your website or get a url to share with everyone.</p>
+				<p>Publish to your website or get a url to share with everyone</p>
 				<div
-					class="text-base mt-4 translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
+					class="text-base translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
 				>
-					<!-- <p>Export the bot on your website and fire your customer support team.</p>
-					<p>Your customers can ask any questions and get instant answers trained on your data.</p> -->
-					<div class="card-actions justify-end">
+					<div class="card-actions">
 						<div class="btn">Learn More</div>
 					</div>
 				</div>
@@ -194,7 +198,7 @@
 				<Img
 					class="w-full h-full object-cover object-left rounded-l-xl shadow-2xl shadow-secondary"
 					src={screenshotAddData}
-					alt="Screenshot of training GPT ChatBot on the gptchatbot.ai website"
+					alt="Screenshot of training GPT ChatBot on the ChatNode website"
 					width={2970}
 					height={1537}
 					sizes="35vw"
@@ -204,7 +208,7 @@
 				<Img
 					class="w-full h-full object-cover object-right rounded-r-xl shadow-2xl shadow-secondary"
 					src={screenshot2}
-					alt="Screenshot of training GPT ChatBot on the gptchatbot.ai website"
+					alt="Screenshot of training GPT ChatBot on the ChatNode website"
 					width={2102}
 					height={1404}
 				/>
@@ -284,7 +288,7 @@
 				<Img
 					class="w-full h-full object-cover object-left rounded-l-xl shadow-2xl shadow-secondary"
 					src={screenshotPiublish}
-					alt="Screenshot of training GPT ChatBot on the gptchatbot.ai website"
+					alt="Screenshot of training GPT ChatBot on the ChatNode website"
 					width={2998}
 					height={1782}
 				/>
@@ -293,10 +297,10 @@
 	</div>
 </section>
 
-<section id="pricing" class="bg-base-300py py-1 lg:py-20">
+<section id="pricing" class="bg-base-300py py-10 lg:py-20">
 	<div class="container">
 		<h2 class="text-center font-bold text-3xl">Pricing</h2>
-		<PricingGrid currentPlan={null} />
+		<PricingGrid />
 	</div>
 </section>
 
@@ -307,7 +311,8 @@
 		<div class="space-y-4">
 			<Accordian>
 				<div slot="title">Is there a free plan?</div>
-				Yes, just by signing up you get 30 message credits and 1 chatbot. You can use these to test out ChatNode and see if it works for you.
+				Yes, just by signing up you get 30 message credits and 1 chatbot. You can use these to test out
+				ChatNode and see if it works for you.
 			</Accordian>
 			<Accordian>
 				<div slot="title">How do message work?</div>
@@ -315,41 +320,52 @@
 			</Accordian>
 			<Accordian>
 				<div slot="title">What counts as one chatbot?</div>
-				One chatbot means a chatbot that contains specific data and can answer any question about this data. Even if it was created using multiple documents, urls or text.
+				One chatbot means a chatbot that contains specific data and can answer any question about this
+				data. Even if it was created using multiple documents, urls or text.
 			</Accordian>
 			<Accordian>
 				<div slot="title">How many users can use my chatbot?</div>
-				If your chatbot is private, only you have access to it. If you decide to make it public, anyone with the link will be able to interact with it.
+				If your chatbot is private, only you have access to it. If you decide to make it public, anyone
+				with the link will be able to interact with it.
 			</Accordian>
 			<Accordian>
 				<div slot="title">When are my message credits renewed?</div>
-				Your message credits are renewed at the start of every calendar month regardless of when you subscribed. So if you subscribe on the 15th of the month, you will your message credits for that month and they will be renewed on the 1st of the next month.
+				Your message credits are renewed at the start of every calendar month regardless of when you
+				subscribed. So if you subscribe on the 15th of the month, you will your message credits for that
+				month and they will be renewed on the 1st of the next month.
 			</Accordian>
 			<Accordian>
 				<div slot="title">How do I know how many tokens are in my document?</div>
-				Once you attach your document for upload, ChatNode will show you the tokens count of the attached document.
+				Once you attach your document for upload, ChatNode will show you the tokens count of the attached
+				document.
 			</Accordian>
 			<Accordian>
 				<div slot="title">Can I upload multiple files to one chatbot?</div>
-				Yes, if you have a paid plan you can upload multiple files to one chatbot. Just click 'add data' and you can add another file.
+				Yes, if you have a paid plan you can upload multiple files to one chatbot. Just click 'add data'
+				and you can add another file.
 			</Accordian>
 			<Accordian>
 				<div slot="title">How much data can I give one chatbot?</div>
-				Free plan: 100K tokens (~5MB) | Basic: 400K tokens (~24MB) | Pro: 800K tokens (~50MB) | Entreprise: 1M tokens (~75MB)
+				Free plan: 100K tokens (~5MB) | Basic: 400K tokens (~24MB) | Pro: 800K tokens (~50MB) | Entreprise:
+				1M tokens (~75MB)
 			</Accordian>
 			<Accordian>
 				<div slot="title">What is ChatNode?</div>
-				ChatNode is an AI chatbot builder, it trains ChatGPT on your data and lets you add a chat widget to your website. Just upload a document or add a link to your website and get a chatbot that can answer any question about their content.
+				ChatNode is an AI chatbot builder, it trains ChatGPT on your data and lets you add a chat widget
+				to your website. Just upload a document or add a link to your website and get a chatbot that
+				can answer any question about their content.
 			</Accordian>
 			<Accordian>
 				<div slot="title">What should my data look like?</div>
-				Currently, you can upload file (.pdf, .txt, .doc, .docx), paste text, or add a link to your website to be scraped.
+				Currently, you can upload file (.pdf, .txt, .doc, .docx), paste text, or add a link to your website
+				to be scraped.
 			</Accordian>
 		</div>
 		<div class="space-y-4">
 			<Accordian>
 				<div slot="title">Can I give my chatbots instructions?</div>
-				Yes, you can edit the system prompt and give your chatbot a name, personality traits and instructions on how to answer questions ex. (only answer in French).
+				Yes, you can edit the system prompt and give your chatbot a name, personality traits and instructions
+				on how to answer questions ex. (only answer in French).
 			</Accordian>
 			<Accordian>
 				<div slot="title">Where is my data stored?</div>
@@ -361,27 +377,33 @@
 			</Accordian>
 			<Accordian>
 				<div slot="title">How can I add my chatbot to my website?</div>
-				You can embed an iframe or add a chat bubble to the bottom right of your website. To do that, create a chatbot and click « get embed code".
+				You can embed an iframe or add a chat bubble to the bottom right of your website. To do that,
+				create a chatbot and click « get embed code".
 			</Accordian>
 			<Accordian>
 				<div slot="title">Does it support other languages?</div>
-				Yes, ChatNode supports about 95 languages. You can have your sources in any language and ask it questions in any language.
+				Yes, ChatNode supports about 95 languages. You can have your sources in any language and ask
+				it questions in any language.
 			</Accordian>
 			<Accordian>
 				<div slot="title">Can I share a chatbot I created?</div>
-				Yes, by default any chatbot you create is private but you can change the setting to make it public and send it to anyone.
+				Yes, by default any chatbot you create is private but you can change the setting to make it public
+				and send it to anyone.
 			</Accordian>
 			<Accordian>
 				<div slot="title">How can I contact you?</div>
-				You can reach out to us at contact@chatnode.ai or you can click on the live chat on the bottom left and talk to us directly.
+				You can reach out to us at contact@chatnode.ai or you can click on the live chat on the bottom
+				left and talk to us directly.
 			</Accordian>
 			<Accordian>
 				<div slot="title">Can I customize the chatbot?</div>
-				Yes, you can change the color, chatbot icon, chatbot name, chatbot suggestions etc. You can also change the chatbot's welcome message.
+				Yes, you can change the color, chatbot icon, chatbot name, chatbot suggestions etc. You can also
+				change the chatbot's welcome message.
 			</Accordian>
 			<Accordian>
 				<div slot="title">How long does the training take?</div>
-				It depends on the number of tokens (text length) you are training. But usually, it should be done within a few seconds or minutes.
+				It depends on the number of tokens (text length) you are training. But usually, it should be
+				done within a few seconds or minutes.
 			</Accordian>
 		</div>
 	</div>
@@ -389,19 +411,19 @@
 
 <style lang="postcss">
 	#how-it-works .card {
-		@apply relative overflow-hidden text-2xl shadow-xl shadow-accent/20 mt-4 hover:mt-0 transition-all bg-secondary text-primary-content hover:border-primary;
+		@apply relative overflow-hidden text-2xl mt-4 hover:mt-0 transition-all bg-secondary text-primary-content border-secondary border-2 focus:outline-4 outline-primary;
 	}
 
 	#how-it-works .card .card-body {
-		@apply bg-primary/50 m-[1px] rounded-xl;
+		@apply rounded-xl;
 	}
 
 	#how-it-works .card .btn {
-		@apply btn-ghost self-end;
+		@apply btn-secondary;
 	}
 
 	#how-it-works .card-title {
-		@apply xl:text-3xl 2xl:text-4xl font-bold mb-4;
+		@apply xl:text-3xl 2xl:text-4xl font-bold;
 	}
 
 	#difference {

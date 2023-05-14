@@ -2,19 +2,23 @@
 	export let data;
 	import AddModelData from '$lib/components/AddModelData.svelte';
 	import Chat from '$lib/components/Chat.svelte';
-	let trainingStatus
+	let trainingStatus;
 	let modelId = data.model.id;
 
-	let unique = [{}] // every {} is unique, {} === {} evaluates to false
+	let unique = [{}]; // every {} is unique, {} === {} evaluates to false
 
 	function restart() {
-		unique = [{}]
+		unique = [{}];
 	}
 
 	$: if (trainingStatus == 'ready') {
-		restart()
+		restart();
 	}
 </script>
+
+<svelte:head>
+	<title>Data | {data.model.name} | ChatNode</title>
+</svelte:head>
 
 <div class="container grid grid-cols-2 gap-10">
 	<div>

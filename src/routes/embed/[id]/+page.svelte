@@ -13,4 +13,8 @@
 	];
 </script>
 
+<svelte:head>
+	<title>{data.bot.name} | ChatNode</title>
+</svelte:head>
+
 <Chat modelId={data.bot.id} {messages} />
