@@ -35,26 +35,7 @@
 	let selectedUrlsTokenCount = 0;
 	let approxTextTokenCount = 0;
 	let uploadedFileName: string;
-
-	$: approxTextTokenCount = Math.floor(textData.length / 3.5);
-
-	$: {
-		if (files && files[0].size > 50 * 1024 * 1024) {
-			$alert = 'This file is too large';
-			fileInput.value = '';
-		}
-	}
-
-	$: {
-		if (selectedUrls.length > 0) {
-			selectedUrlsTokenCount = 0;
-			urls.forEach((url) => {
-				if (selectedUrls.includes(url[0])) {
-					selectedUrlsTokenCount += Number(url[1]);
-				}
-			});
-		}
-	}
+	let selectAllUrlsCheckbox: HTMLInputElement;
 
 	const fetchUrlsToScrape = async () => {
 		urls = undefined;
@@ -146,6 +127,41 @@
 			busyTraining = false;
 		}
 	};
+
+	$: approxTextTokenCount = Math.floor(textData.length / 3.5);
+
+	$: {
+		if (files && files[0].size > 50 * 1024 * 1024) {
+			$alert = 'This file is too large';
+			fileInput.value = '';
+		}
+	}
+
+	$: {
+		if (selectedUrls.length > 0) {
+			selectedUrlsTokenCount = 0;
+			urls.forEach((url) => {
+				if (selectedUrls.includes(url[0])) {
+					selectedUrlsTokenCount += Number(url[1]);
+				}
+			});
+		} else {
+			selectedUrlsTokenCount = 0;
+		}
+	}
+
+	$: if (urls && selectedUrls.length < urls.length) {
+		selectAllUrlsCheckbox.checked = false;
+	}
+
+	const handleSelectAllUrls = () => {
+		if (selectAllUrlsCheckbox.checked) {
+			selectedUrls = urls.map((url) => url[0]);
+		} else {
+			selectedUrls = [];
+		}
+	};
+
 </script>
 
 <div>
@@ -245,13 +261,13 @@
 			<table class="table table-zebra table-compact w-full my-4">
 				<thead>
 					<tr>
-						<th><!-- <input type="checkbox" class="checkbox" />--></th>
+						<th><input type="checkbox" class="checkbox" checked bind:this={selectAllUrlsCheckbox} on:change={handleSelectAllUrls} /></th>
 						<th>url</th>
 						<th>character count</th>
 					</tr>
 				</thead>
 				<tbody>
-					{#each urls as url}
+					{#each urls as url}	
 						<tr>
 							<td>
 								<input
@@ -296,7 +312,7 @@
 				class="btn btn-primary"
 				class:loading={busyTraining}
 				on:click={() => createOrUpdateModel()}
-				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}
+				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken || selectedUrlsTokenCount == 0}
 				>Train Bot</button
 			>
 		{/if}
