@@ -11,17 +11,8 @@
 	let trainingMessage: string;
 	let statusMessageElement: HTMLElement;
 
-	// const close = () => {
-	// 	supabase.removeChannel('bot_status');
-	// 	setTimeout(() => {
-	// 	  statusMessageElement.classList.add('closed');
-	// 	}, 3000);
-	// };
-
-	// $: console.log(id);
 	$: {
 		if (id) {
-			console.log(id)
 			supabase
 				.channel(`bot_status`)
 				.on(
@@ -30,7 +21,7 @@
 						event: 'UPDATE',
 						schema: 'public',
 						table: 'bots',
-						filter: `id=eq.55bcb0920beab69d`
+						filter: `id=eq.${id}`
 					},
 					(payload) => {
 						console.log('Change received!', payload);
@@ -40,7 +31,7 @@
 				)
 				.subscribe();
 		}
-}
+	}
 
 	$: switch (trainingStatus) {
 		case 'not started':
