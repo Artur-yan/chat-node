@@ -18,7 +18,7 @@
 		<div class="alert alert-warning">
 			Your chatbot is currently set to private. To share it, you must make it public first.<a
 				class="btn"
-				href="/account/chatbots/{data.model.id}/settings#publishing">settings page</a
+				href="/account/chatbots/{data.model.id}/settings#publishing">Settings</a
 			>
 		</div>
 	{/if}
