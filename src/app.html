@@ -6,7 +6,17 @@
 		<meta name="viewport" content="width=device-width" />
 		%sveltekit.head%
 		<script defer data-domain="chatnode.ai" src="https://plausible.io/js/script.js"></script>
-		<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="2789e290-13a1-4644-a474-4fb2c75db16d";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+		<script type="text/javascript">
+			window.$crisp = [];
+			window.CRISP_WEBSITE_ID = '2789e290-13a1-4644-a474-4fb2c75db16d';
+			(function () {
+				d = document;
+				s = d.createElement('script');
+				s.src = 'https://client.crisp.chat/l.js';
+				s.async = 1;
+				d.getElementsByTagName('head')[0].appendChild(s);
+			})();
+		</script>
 	</head>
 	<body data-sveltekit-preload-data="hover" data-theme="night" class="min-h-[100vh]">
 		<div style="display: contents">%sveltekit.body%</div>

@@ -10,4 +10,3 @@
 <svelte:head>
 	<title>Account | ChatNode</title>
 </svelte:head>
-

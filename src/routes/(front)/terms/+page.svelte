@@ -1,6 +1,9 @@
 <svelte:head>
 	<title>Terms of Service | ChatNode</title>
-	<meta name="description" content="Our services allow you to generate and use chatbots that are trained on your data." />
+	<meta
+		name="description"
+		content="Our services allow you to generate and use chatbots that are trained on your data."
+	/>
 </svelte:head>
 
 <div class="container">

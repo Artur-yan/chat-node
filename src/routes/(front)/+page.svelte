@@ -77,12 +77,17 @@
 
 <svelte:head>
 	<title>ChatNode | Train ChatGPT on your own data</title>
-	<meta name="description" content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like." />
+	<meta
+		name="description"
+		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
+	/>
 </svelte:head>
 
 <section>
 	<div class="container gap-8 items-center px-4 py-[5vh] mx-auto lg:px-6">
-		<h2 class="mb-6 text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl tracking-tight font-extrabold text-center text-secondary max-w-[8em] mx-auto">
+		<h2
+			class="mb-6 text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl tracking-tight font-extrabold text-center text-secondary max-w-[8em] mx-auto"
+		>
 			Train ChatGPT on your own data
 		</h2>
 		<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto">
@@ -120,7 +125,6 @@
 	<h2 class="text-4xl 2xl:text-5xl font-bold mb-6 text-center">How it works</h2>
 	<div class="container grid md:grid-cols-3 gap-10 mx-auto">
 		<a href="#difference" class="group card">
-
 			<div class="card-body">
 				<!-- <div class="absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-base-100 aspect-square w-12 flex items-center justify-center text-white border-secondary border rounded-full">1</div> -->
 				<h2 class="card-title">Train on your data</h2>
@@ -293,7 +297,7 @@
 	</div>
 </section>
 
-<section id="pricing" class="bg-base-300py py-1 py-10 lg:py-20">
+<section id="pricing" class="bg-base-300py py-10 lg:py-20">
 	<div class="container">
 		<h2 class="text-center font-bold text-3xl">Pricing</h2>
 		<PricingGrid />

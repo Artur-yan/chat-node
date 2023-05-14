@@ -12,7 +12,7 @@
 		class="toast toast-top toast-center transition-all"
 		class:visible={$alert}
 		in:fly={{ y: -80, duration: 350 }}
-		out:fly={{ y: -80, duration: 350}}
+		out:fly={{ y: -80, duration: 350 }}
 	>
 		<div class="alert alert-info">
 			<div class="w-72 max-w-full flex justify-between">
