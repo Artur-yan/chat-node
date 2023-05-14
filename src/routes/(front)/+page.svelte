@@ -4,7 +4,10 @@
 	import Accordian from '$lib/components/Accordian.svelte';
 	import screenshot2 from '$lib/assets/internal-research-screenshot.jpg?run';
 	import screenshotAddData from '$lib/assets/chatnode-add-data-screenshot.jpg?run';
-	import screenshotPiublish from '$lib/assets/chatnode-publish-settings-screenshot.jpg?run';
+	import screenshotPublish from '$lib/assets/chatnode-publish-settings-screenshot.jpg?run';
+	import difference1 from '$lib/assets/difference-1.jpg?run';
+	import difference2 from '$lib/assets/difference-2.jpg?run';
+	import difference3 from '$lib/assets/difference-3.jpg?run';
 	import PricingGrid from '$lib/components/PricingGrid.svelte';
 
 	let isThinking = false;
@@ -125,8 +128,10 @@
 	<h2 class="text-4xl 2xl:text-5xl font-bold mb-6 text-center">How it works</h2>
 	<div class="container grid md:grid-cols-3 gap-10 mx-auto">
 		<a href="#difference" class="group card">
+			<figure>
+				<Img src={difference1} />
+			</figure>
 			<div class="card-body">
-				<!-- <div class="absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-base-100 aspect-square w-12 flex items-center justify-center text-white border-secondary border rounded-full">1</div> -->
 				<h2 class="card-title">Train on your data</h2>
 				<p>Websites, pdfs, docs, or text</p>
 				<div
@@ -139,6 +144,10 @@
 			</div>
 		</a>
 		<a href="#difference-2" class="group card">
+			<figure>
+				<Img src={difference2} />
+			</figure>
+
 			<div class="card-body">
 				<h2 class="card-title">Use the bot internally</h2>
 				<p>Keep your bot private for research or testing purposes</p>
@@ -152,6 +161,9 @@
 			</div>
 		</a>
 		<a href="#difference-3" class="group card">
+			<figure>
+				<Img src={difference3} />
+			</figure>
 			<div class="card-body">
 				<h2 class="card-title">Deploy it in public</h2>
 				<p>Publish to your website or get a url to share with everyone</p>
@@ -287,7 +299,7 @@
 			<div class="max-md:hidden col-span-2">
 				<Img
 					class="w-full h-full object-cover object-left rounded-l-xl shadow-2xl shadow-secondary"
-					src={screenshotPiublish}
+					src={screenshotPublish}
 					alt="Screenshot of training GPT ChatBot on the ChatNode website"
 					width={2998}
 					height={1782}
