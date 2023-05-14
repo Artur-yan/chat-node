@@ -41,8 +41,7 @@
 					bind:trainingStatus
 					bind:name
 				/>
-			{/if}
-			{#if trainingStatus == 'ready'}
+			{:else}
 				<ModelSettings id={modelId} {name} bind:settings />
 			{/if}
 		</div>
