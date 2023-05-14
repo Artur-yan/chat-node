@@ -2,10 +2,11 @@
 	import { goto } from '$app/navigation';
 	import Icon from '@iconify/svelte';
 
+
 	export let data;
 
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
-	let botUsage: number = data.subscription.bot_count / data.subscription.max_bot;
+	let botUsage: number = data.bots.length / data.subscription.max_bot;
 </script>
 
 <svelte:head>
@@ -40,11 +41,11 @@
 				/>
 				<div class="w-16" />
 				<h4>Bots</h4>
-				<span class="opacity-60">{data.subscription.bot_count}/{data.subscription.max_bot}</span>
+				<span class="opacity-60">{data.bots.length}/{data.subscription.max_bot}</span>
 				<progress
 					class="progress progress-secondary w-full bg-neutral"
 					class:progress-warning={botUsage > 0.9}
-					value={data.subscription.bot_count}
+					value={data.bots.length}
 					max={data.subscription.max_bot}
 				/>
 				<div class="w-16" />
