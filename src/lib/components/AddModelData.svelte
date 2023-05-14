@@ -185,9 +185,9 @@
 			</div>
 		</div>
 		<div class="alert" class:hidden={!uploadedFileName}>
-			Your file contains {filesTokenCount} tokens.
-			{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
-			Your plan allows {subscription.max_tocken} tokens/bot.
+			Your file contains {filesTokenCount.toLocaleString()} tokens.
+			{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
+			Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
 		</div>
 		<button
 			class="btn btn-primary mt-8"
@@ -209,9 +209,9 @@
 				class="alert mt-2"
 				class:alert-warning={approxTextTokenCount + existingTokenCount > subscription.max_tocken}
 			>
-				Your included text contains {approxTextTokenCount} tokens.
-				{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
-				Your plan allows {subscription.max_tocken} tokens/bot.
+				Your included text contains {approxTextTokenCount.toLocaleString()} tokens.
+				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
+				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
 			</div>
 			<button
 				class="btn btn-primary mt-8"
@@ -271,14 +271,14 @@
 					<tr>
 						<td />
 						<td>Urls: {urls.length}</td>
-						<td>Tokens: {urlsTokenCount}</td>
+						<td>Tokens: {urlsTokenCount.toLocaleString()}</td>
 					</tr>
 				</tfoot>
 			</table>
 			<div class="alert mb-2">
-				Your selected urls contain {selectedUrlsTokenCount} tokens.
-				{#if existingTokenCount > 0}{existingTokenCount} tokens are already in use.{/if}
-				Your plan allows {subscription.max_tocken} tokens/bot.
+				Your selected urls contain {selectedUrlsTokenCount.toLocaleString()} tokens.
+				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
+				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
 			</div>
 			{#if selectedUrlsTokenCount > subscription.max_tocken}
 				<div class="alert alert-warning shadow-lg mb-2">
