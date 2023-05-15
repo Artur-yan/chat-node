@@ -139,7 +139,7 @@
 	}
 
 	$: {
-		if (selectedUrls.length > 0) {
+		if (selectedUrls.length > 0 && urls) {
 			selectedUrlsTokenCount = 0;
 			urls.forEach((url) => {
 				if (selectedUrls.includes(url[0])) {
