@@ -15,7 +15,7 @@
 	$: if (settings) {
 		messages[0].text = settings.greeting;
 	}
-	let trainingStatus = 'not started';
+	let trainingStatus = undefined;
 </script>
 
 <svelte:head>
@@ -32,7 +32,7 @@
 
 	<div class="grid md:grid-cols-2 gap-10">
 		<div>
-			{#if trainingStatus == 'not started'}
+			{#if trainingStatus == undefined}
 				<AddModelData
 					bind:modelId
 					userId={data.user.user.userId}

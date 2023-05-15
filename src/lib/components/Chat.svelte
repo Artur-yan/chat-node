@@ -30,7 +30,8 @@
 			sender: 'bot'
 		}
 	];
-	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined;
+	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed' = 'ready';
+
 
 	let inputVal: string;
 	let chatWindow: HTMLElement;
