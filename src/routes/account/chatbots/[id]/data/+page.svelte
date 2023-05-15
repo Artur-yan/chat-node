@@ -2,7 +2,7 @@
 	export let data;
 	import AddModelData from '$lib/components/AddModelData.svelte';
 	import Chat from '$lib/components/Chat.svelte';
-	let trainingStatus;
+	let trainingStatus = 'ready'
 	let modelId = data.model.id;
 
 	let unique = [{}]; // every {} is unique, {} === {} evaluates to false
@@ -11,7 +11,7 @@
 		unique = [{}];
 	}
 
-	$: if (trainingStatus == 'ready') {
+	$: if (trainingStatus == 'complete') {
 		restart();
 	}
 </script>
@@ -34,6 +34,6 @@
 		{/each}
 	</div>
 	<div>
-		<Chat {modelId} {trainingStatus} />
+		<Chat {modelId} bind:trainingStatus />
 	</div>
 </div>
