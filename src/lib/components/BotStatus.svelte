@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import { PUBLIC_SITE_URL  } from '$env/static/public';
 
 	export let id: string;
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed' = 'ready';
@@ -12,7 +13,7 @@
   const listenForTrainingStatus = async () => {
     setTimeout(async () => {
       try {
-        const res = await fetch('/api/models/training-status', {
+        const res = await fetch(PUBLIC_SITE_URL + '/api/models/training-status', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
