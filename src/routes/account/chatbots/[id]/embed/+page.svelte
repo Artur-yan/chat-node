@@ -4,7 +4,7 @@
 
 	export let data;
 
-	const iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="visibility: hidden; border: none;" onload="this.style.visibility = 'visible';"></iframe>`;
+	const iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 	const jsEmbedCode = `<script src="${PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${data.model.id}" />`;
 	const url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
 </script>
@@ -16,9 +16,9 @@
 <div class="container">
 	{#if data.model.settings.public == false}
 		<div class="alert alert-warning">
-			Your chatbot is currently set to private. To share it, you uist make it public.<a
+			Your chatbot is currently set to private. To share it, you must make it public first.<a
 				class="btn"
-				href="/account/chatbots/{data.model.id}/settings#publishing">settings page</a
+				href="/account/chatbots/{data.model.id}/settings#publishing">Settings</a
 			>
 		</div>
 	{/if}

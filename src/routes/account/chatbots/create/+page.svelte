@@ -19,7 +19,7 @@
 </script>
 
 <svelte:head>
-	<title>Create chatbot | {data.model.name} | ChatNode</title>
+	<title>Create chatbot | ChatNode</title>
 </svelte:head>
 
 <div class="container pb-20">
@@ -41,8 +41,7 @@
 					bind:trainingStatus
 					bind:name
 				/>
-			{/if}
-			{#if trainingStatus == 'ready'}
+			{:else}
 				<ModelSettings id={modelId} {name} bind:settings />
 			{/if}
 		</div>
