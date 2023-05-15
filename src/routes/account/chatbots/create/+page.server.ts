@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import { prismaClient } from '$lib/server/prisma';
 import { redirect } from '@sveltejs/kit';
-const prisma = new PrismaClient();
+
 
 export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -12,7 +12,7 @@ export const load = async ({ locals }) => {
 		throw redirect(302, '/account/chatbots');
 	}
 
-	const subscription = await prisma.subscriptions.findUnique({
+	const subscription = await prismaClient.subscriptions.findUnique({
 		where: {
 			user_id: session.userId
 		}

@@ -1,12 +1,11 @@
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
 
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { prismaClient } from '$lib/server/prisma';
 
 export const load: PageServerLoad = async ({ params, setHeaders }) => {
 	try {
-		const bot = await prisma.bots.findUniqueOrThrow({
+		const bot = await prismaClient.bots.findUniqueOrThrow({
 			where: {
 				id: params.id
 			}

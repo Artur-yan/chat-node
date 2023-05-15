@@ -1,7 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { prismaClient } from '$lib/server/prisma';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -10,7 +9,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 		throw redirect(302, '/');
 	}
 
-	const bots = await prisma.bots.findMany({
+	const bots = await prismaClient.bots.findMany({
 		where: {
 			user_id: {
 				equals: session.userId
@@ -21,7 +20,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 		}
 	});
 
-	const subscription = await prisma.subscriptions.findUnique({
+	const subscription = await prismaClient.subscriptions.findUnique({
 		where: {
 			user_id: session.userId
 		}

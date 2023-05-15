@@ -1,12 +1,11 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { prismaClient } from '$lib/server/prisma';
 
 export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (!session) return;
 
 	try {
-		const subscription = await prisma.subscriptions.findUnique({
+		const subscription = await prismaClient.subscriptions.findUnique({
 			where: {
 				user_id: session.userId
 			}

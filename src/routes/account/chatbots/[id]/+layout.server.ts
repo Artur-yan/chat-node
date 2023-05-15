@@ -1,19 +1,17 @@
-import { PrismaClient } from '@prisma/client';
 import { redirect } from '@sveltejs/kit';
-
-const prisma = new PrismaClient();
+import { prismaClient } from '$lib/server/prisma';
 
 export const load = async ({ locals, params }) => {
 	const user = await locals.auth.validateUser();
 
-	const model = await prisma.bots.findUnique({
+	const model = await prismaClient.bots.findUnique({
 		where: {
 			id: params.id
 		}
 	});
 
 	if (user.session && model && user.session.userId === model.user_id) {
-		const subscription = await prisma.subscriptions.findUnique({
+		const subscription = await prismaClient.subscriptions.findUnique({
 			where: {
 				user_id: user.session.userId
 			}

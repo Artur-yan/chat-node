@@ -1,12 +1,11 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { prismaClient } from '$lib/server/prisma';
 
 export const POST = async ({ locals, request }) => {
 	const { id, name, settings } = await request.json();
 	const session = await locals.auth.validate();
 
 	if (session) {
-		await prisma.bots.create({
+		await prismaClient.bots.create({
 			data: {
 				id,
 				user_id: session.userId,
@@ -26,7 +25,7 @@ export const PATCH = async ({ request, locals }) => {
 	const session = await locals.auth.validate();
 
 	if (session) {
-		await prisma.bots.updateMany({
+		await prismaClient.bots.updateMany({
 			where: {
 				id,
 				user_id: session.userId
@@ -47,7 +46,7 @@ export const DELETE = async ({ request, locals }) => {
 	const session = await locals.auth.validate();
 
 	if (session) {
-		await prisma.bots.deleteMany({
+		await prismaClient.bots.deleteMany({
 			where: {
 				id,
 				user_id: session.userId

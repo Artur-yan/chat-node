@@ -1,10 +1,8 @@
 import type { PageServerLoad } from './$types';
-
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { prismaClient } from '$lib/server/prisma';
 
 export const load: PageServerLoad = async ({ params }) => {
-	const model = await prisma.bots.findUnique({
+	const model = await prismaClient.bots.findUnique({
 		where: {
 			id: params.id
 		}
