@@ -60,7 +60,7 @@
 			<li>Embed on unlimited websites</li>
 		</ul>
 	</div>
-	<div class="border border-secondary p-8 md:-mx-[1px] rounded-2xl bg-base-100">
+	<div class="border border-secondary p-8 md:-mx-[1px] rounded-2xl bg-base-100 shadow-xl">
 		<div class="flex justify-between mb-8">
 			<div>
 				<h2>Basic</h2>
