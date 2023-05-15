@@ -15,8 +15,9 @@
 			if (res.status == 200) {
 				const url = await res.json();
 				goto(url);
+			} else {
+				$alert = 'Failed to redirect to Stripe billing portal';
 			}
-			$alert = 'Failed to redirect to Stripe billing portal';
 		} catch (err) {
 			console.error(err);
 		}
