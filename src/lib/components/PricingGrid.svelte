@@ -58,11 +58,6 @@
 				</div>
 			</li>
 			<li>Embed on unlimited websites</li>
-			<!-- <ul class="excluded">
-			<li>2000 messages / month</li>
-			<li>5 Chatbots</li>
-			<li>Embed on your website using an iframe or JS plugin</li>
-		</ul> -->
 		</ul>
 	</div>
 	<div class="border border-secondary p-8 md:-mx-[1px] rounded-2xl bg-base-100">
@@ -119,7 +114,7 @@
 			{/if}
 		</div>
 		<ul class="included">
-			<li>5,000 chat responses / month</li>
+			<li>5,000 messages / month</li>
 			<li>10 Chatbots</li>
 			<li>
 				<div
@@ -160,7 +155,7 @@
 			</div>
 			<div>
 				<ul class="included grid grid-cols-2">
-					<li>10,000 chat responses / month</li>
+					<li>10,000 messages / month</li>
 					<li>20 Chatbots</li>
 					<li>
 						<div
@@ -192,12 +187,6 @@
 	.included li {
 		background: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="16" height="16" viewBox="0 0 24 24"%3E%3Cpath fill="%23818CF8" d="m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83L9 20.42Z"%2F%3E%3C%2Fsvg%3E')
 			no-repeat left 2px;
-	}
-
-	.excluded li {
-		@apply opacity-50 text-sm;
-		background: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="%23818CF8" d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"%2F%3E%3C%2Fsvg%3E')
-			no-repeat left;
 	}
 
 	.included li::before {
