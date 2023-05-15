@@ -89,7 +89,7 @@
 <section>
 	<div class="container gap-8 items-center px-4 py-[5vh] mx-auto lg:px-6">
 		<h2
-			class="mb-6 text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl tracking-tight font-extrabold text-center text-secondary max-w-[8em] mx-auto"
+			class="mb-6 text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-center text-secondary max-w-[8em] mx-auto"
 		>
 			Train ChatGPT on your own data
 		</h2>
