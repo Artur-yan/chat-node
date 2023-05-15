@@ -3,34 +3,35 @@
 	import Icon from '@iconify/svelte';
 
 	export let id: string;
-	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined =
-		undefined;
+	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined = undefined;
 
 	let icon: string;
 	let alertClass: string;
 	let trainingMessage: string;
 	let statusMessageElement: HTMLElement;
 
-	$: {
-		if (id) {
-			supabase
-				.channel(`bot_status`)
-				.on(
-					'postgres_changes',
-					{
-						event: 'UPDATE',
-						schema: 'public',
-						table: 'bots',
-						filter: `id=eq.${id}`
-					},
-					(payload) => {
-						console.log('Change received!', payload);
-						trainingStatus = 'ready';
-						supabase.removeChannel('bot_status');
-					}
-				)
-				.subscribe();
-		}
+	const listenForTrainingStatus = (id: string) => {
+		supabase
+			.channel('bot_status')
+			.on(
+				'postgres_changes',
+				{
+					event: 'UPDATE',
+					schema: 'public',
+					table: 'bots',
+					filter: `id=eq.${id}`
+				},
+				(payload) => {
+					console.log(payload)
+					trainingStatus = 'ready';
+					supabase.removeChannel('bot_status');
+				}
+			)
+			.subscribe()
+	}
+
+	$: if(trainingStatus === 'training' ) {
+		listenForTrainingStatus(id);
 	}
 
 	$: switch (trainingStatus) {
