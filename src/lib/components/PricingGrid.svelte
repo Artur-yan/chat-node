@@ -1,10 +1,27 @@
 <script lang="ts">
 	import { alert } from '$lib/stores.js';
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 
 	export let currentPlan: number | undefined = undefined;
 
 	let busyChangingPlan = false;
+	let referralCode = ''
+
+	if(browser) {
+		onMount(() => {
+			// @ts-ignore
+			rewardful('ready', function() {
+				if(Rewardful.referral) {
+					console.log('Current referral ID: ', Rewardful.referral);
+					referralCode = Rewardful.referral;
+				} else {
+					console.log('No referral present.');
+				}
+			});
+		});
+	};
 
 	const updatePlan = async (newPlan: number) => {
 		try {
@@ -14,7 +31,7 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(newPlan)
+				body: JSON.stringify({newPlan, referralCode})
 			});
 			const data = await res.json();
 			if (data.url) {
