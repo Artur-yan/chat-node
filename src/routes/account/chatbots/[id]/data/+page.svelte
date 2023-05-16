@@ -34,6 +34,6 @@
 		{/each}
 	</div>
 	<div>
-		<Chat {modelId} bind:trainingStatus />
+		<Chat {modelId} bind:trainingStatus settings={data.model.settings} />
 	</div>
 </div>
