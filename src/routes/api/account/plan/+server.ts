@@ -13,7 +13,7 @@ export const PUT = async ({ request, locals }) => {
 			body: JSON.stringify({
 				user_id: session.userId,
 				plan: newPlan,
-				referralCode
+				referral: referralCode
 			})
 		});
 		const url = await res.json();
