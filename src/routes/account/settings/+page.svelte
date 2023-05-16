@@ -71,7 +71,7 @@
 					bind:value={deleteConfirm}
 				/>
 				<button
-					class="btn btn-error btn-outline"
+					class="btn btn-error btn-outline plausible-event-name=Deleted+Account"
 					disabled={deleteConfirm != 'DELETE'}
 					on:click={() => deleteAccount()}>Confirm</button
 				>
