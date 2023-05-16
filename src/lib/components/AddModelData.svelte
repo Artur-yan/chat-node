@@ -281,7 +281,7 @@
 									bind:group={selectedUrls}
 								/>
 							</td>
-							<td class="max-w-0 w-full text-ellipsis overflow-hidden">{url[0]}</td>
+							<td class="max-w-0 w-full text-ellipsis overflow-hidden" title={url[0]}>{url[0]}</td>
 							<td>{url[1].toLocaleString()}</td>
 						</tr>
 					{/each}
