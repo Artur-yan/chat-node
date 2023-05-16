@@ -49,7 +49,7 @@
 					Create account
 				</button>
 				<p class="text-sm mt-4">
-					Already have an account? <a href="/login" class="link ml-2">Sign in</a>
+					Already have an account? <a href="/login" class="link">Sign in</a>
 				</p>
 			</form>
 		</div>
