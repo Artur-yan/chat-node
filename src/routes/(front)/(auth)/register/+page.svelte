@@ -44,7 +44,7 @@
 				{#if form?.message}
 					<p class="text-error">{form.message || ''}</p>
 				{/if}
-				<button type="submit" class="btn btn-primary w-full mt-4" class:loading>
+				<button type="submit" class="btn btn-primary w-full mt-4 plausible-event-name=Signup" class:loading>
 					Create account
 				</button>
 				<p class="text-sm mt-4">
