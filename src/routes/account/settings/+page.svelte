@@ -36,7 +36,7 @@
 		<form class="form-control gap-2" method="POST" action="?/changePassword">
 			<div>
 				<label class="label" for="email"><span class="label-text">New password</span></label>
-				<input class="input input-bordered w-full" type="password" name="password" required />
+				<input class="input input-bordered w-full" type="password" name="password" required autocomplete="new-password" />
 			</div>
 			<div>
 				<label class="label" for="email"><span class="label-text">Confirm password</span></label>
@@ -45,6 +45,7 @@
 					type="password"
 					name="confirm-password"
 					required
+					autocomplete="new-password"
 				/>
 			</div>
 			<input type="hidden" value={data.user.user.email} name="email" />
@@ -70,7 +71,7 @@
 					bind:value={deleteConfirm}
 				/>
 				<button
-					class="btn btn-error btn-outline"
+					class="btn btn-error btn-outline plausible-event-name=Deleted+Account"
 					disabled={deleteConfirm != 'DELETE'}
 					on:click={() => deleteAccount()}>Confirm</button
 				>

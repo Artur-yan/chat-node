@@ -38,17 +38,18 @@
 						name="password"
 						id="password"
 						required
+						autocomplete="new-password"
 					/>
 				</div>
 
 				{#if form?.message}
 					<p class="text-error">{form.message || ''}</p>
 				{/if}
-				<button type="submit" class="btn btn-primary w-full mt-4" class:loading>
+				<button type="submit" class="btn btn-primary w-full mt-4 plausible-event-name=Signup" class:loading>
 					Create account
 				</button>
 				<p class="text-sm mt-4">
-					Already have an account? <a href="/login" class="link ml-2">Sign in</a>
+					Already have an account? <a href="/login" class="link">Sign in</a>
 				</p>
 			</form>
 		</div>
