@@ -18,6 +18,7 @@
 	};
 	let busySaving = false;
 	let deleting = false;
+	let theme
 
 	const addUrl = (url: string) => {
 		settings.allowedUrls = [...settings.allowedUrls, url];
@@ -131,6 +132,15 @@
 						>
 					</div>
 				{/if}
+			</div>
+		</Accordian>
+		<Accordian>
+			<div slot="title" id="theme">Theme</div>
+			<div class="flex gap-10">
+				<form>
+					<input class="peer" type="radio" id="theme-1" name="theme-1" value="theme-1" bind:group={theme} checked />
+					<label class="peer-checked:outline-primary" for="theme-1"></label>
+				</form>
 			</div>
 		</Accordian>
 		<div class="fixed bottom-0 left-0 right-0 bg-base-300 p-2 flex items-center justify-between">

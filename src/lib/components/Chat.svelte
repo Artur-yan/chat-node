@@ -10,7 +10,9 @@
 		userBubbleBG: '#2C6BED',
 		userBubbleText: '#FFFFFF',
 		inputBG: '#FFFFFF',
-		inputText: '#000'
+		inputText: '#000',
+		sendButtonBG: '#FFFFFF',
+		sendButtonIcon: '#000'
 	};
 	export let inputPlaceholder = 'Type your message';
 	export let disabled = false;
@@ -166,7 +168,7 @@
 				style="background-color: var(--inputBG); color: var(--inputText);"
 				{disabled}
 			/>
-			<button class="btn btn-square" type="submit" name="Send">
+			<button class="btn btn-square" type="submit" name="Send" style="background-color: var(--sendButtonBG); color: var(--sendButtonIcon);">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 					><path
 						fill="none"
