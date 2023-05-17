@@ -18,7 +18,7 @@
 	<div class="card w-96 bg-neutral text-neutral-content mx-auto my-20">
 		<div class="card-body">
 			<h2 class="card-title">Create an account</h2>
-			<form class="form-control gap-2" method="POST" use:enhance on:submit={() => (loading = true)}>
+			<form class="form-control gap-2 plausible-event-name=Signup" method="POST" use:enhance on:submit={() => (loading = true)}>
 				<div>
 					<label class="label" for="email"><span class="label-text">Email</span></label>
 					<input
@@ -45,7 +45,7 @@
 				{#if form?.message}
 					<p class="text-error">{form.message || ''}</p>
 				{/if}
-				<button type="submit" class="btn btn-primary w-full mt-4 plausible-event-name=Signup" class:loading>
+				<button type="submit" class="btn btn-primary w-full mt-4" class:loading>
 					Create account
 				</button>
 				<p class="text-sm mt-4">
