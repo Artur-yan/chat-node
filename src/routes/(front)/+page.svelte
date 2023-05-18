@@ -28,48 +28,11 @@
 			}
 		];
 		isThinking = true;
-		await new Promise((r) => setTimeout(r, 3000));
-		messages = [
-			...messages,
-			{
-				text: 'To build a chatbot, sign up for an account, then click create from the dashboard.',
-				sender: 'bot'
-			}
-		];
-		isThinking = false;
 		await new Promise((r) => setTimeout(r, 1500));
 		messages = [
 			...messages,
 			{
-				text: 'What data can I train my chatbot on?',
-				sender: 'user'
-			}
-		];
-		isThinking = true;
-		await new Promise((r) => setTimeout(r, 2000));
-		isThinking = false;
-		messages = [
-			...messages,
-			{
-				text: 'Chatbots can be trained on any text, pdf, or website.',
-				sender: 'bot'
-			}
-		];
-		await new Promise((r) => setTimeout(r, 1000));
-		messages = [
-			...messages,
-			{
-				text: 'Where can I use my chatbot?',
-				sender: 'user'
-			}
-		];
-		isThinking = true;
-		await new Promise((r) => setTimeout(r, 2000));
-		isThinking = false;
-		messages = [
-			...messages,
-			{
-				text: 'Your chatbot can be published to any website as an embed or popup chat window, or kept private as an internal tool for research purposes.',
+				text: 'Great! ChatNode is an AI chatbot builder that can help you create a chatbot. You can train ChatGPT on your own data, such as websites, PDFs, docs, or text, and add a chat widget to your website. ChatNode offers different pricing plans, including a free plan that allows you to test it out.',
 				sender: 'bot'
 			}
 		];
@@ -96,7 +59,7 @@
 		<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto">
 			<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
 				<div class="w-full">
-					<Chat modelId="" {messages} />
+					<Chat modelId="7c92a03849aa49c4" {messages} />
 				</div>
 			</div>
 		</div>
