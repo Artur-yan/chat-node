@@ -34,6 +34,8 @@
 		{/each}
 	</div>
 	<div>
-		<Chat {modelId} bind:trainingStatus settings={data.model.settings} />
+		<div class="h-[calc(100vh_-_16rem)] sticky top-10">
+			<Chat {modelId} bind:trainingStatus settings={data.model.settings} />
+		</div>
 	</div>
 </div>

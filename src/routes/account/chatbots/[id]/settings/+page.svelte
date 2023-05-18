@@ -16,6 +16,8 @@
 		<ModelSettings id={data.model.id} name={data.model.name} bind:settings />
 	</div>
 	<div>
-		<Chat modelId={data.model.id} {settings} />
+		<div class="h-[calc(100vh_-_16rem)] sticky top-10">
+			<Chat modelId={data.model.id} {settings} />
+		</div>
 	</div>
 </div>
