@@ -12,6 +12,7 @@
 	if(browser) {
 		onMount(() => {
 			// @ts-ignore
+			if(rewardful === undefined) return;
 			rewardful('ready', function() {
 				if(Rewardful.referral) {
 					console.log('Current referral ID: ', Rewardful.referral);
