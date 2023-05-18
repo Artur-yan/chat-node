@@ -106,7 +106,7 @@
     background-color: var(--bg)"
 	class="h-full flex flex-col justify-between"
 >
-	<div class="overflow-y-auto scroll-smooth" bind:this={chatWindow}>
+	<div class="overflow-y-auto scroll-smooth p-2" bind:this={chatWindow}>
 		<BotStatus id={modelId} bind:trainingStatus />
 		<slot>
 			{#each messages as msg}
