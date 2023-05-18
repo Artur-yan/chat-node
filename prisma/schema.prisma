@@ -9,6 +9,7 @@ datasource db {
 
 model AuthUser {
   id                String         @id @unique
+  created          DateTime @default(now())
   email             String         @unique
   status            String?
   verification_uuid String?        @unique
