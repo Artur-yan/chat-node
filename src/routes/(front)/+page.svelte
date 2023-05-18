@@ -127,7 +127,7 @@
 <section id="how-it-works" class="px-10 pt-12 pb-32 bg-base-300">
 	<h2 class="text-4xl 2xl:text-5xl font-bold mb-6 text-center">How it works</h2>
 	<div class="container grid md:grid-cols-3 gap-10 mx-auto">
-		<a href="#difference" class="group card">
+		<a href="#your-data" class="group card">
 			<figure>
 				<Img src={difference1} />
 			</figure>
@@ -143,7 +143,7 @@
 				</div>
 			</div>
 		</a>
-		<a href="#difference-2" class="group card">
+		<a href="#internal-use" class="group card">
 			<figure>
 				<Img src={difference2} />
 			</figure>
@@ -160,12 +160,12 @@
 				</div>
 			</div>
 		</a>
-		<a href="#difference-3" class="group card">
+		<a href="#deploy-publically" class="group card">
 			<figure>
 				<Img src={difference3} />
 			</figure>
 			<div class="card-body">
-				<h2 class="card-title">Deploy it in public</h2>
+				<h2 class="card-title">Deploy it publically</h2>
 				<p>Publish to your website or get a url to share with everyone</p>
 				<div
 					class="text-base translate-y-1/2 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-y-0"
@@ -180,11 +180,11 @@
 </section>
 
 <section id="difference" class="bg-white text-base-100">
-	<div class="py-8 lg:py-20 bg-secondary/50">
+	<div class="py-8 lg:py-20 bg-secondary/50" >
 		<h2 class="p-4 md:pl-10 lg:pl-20 text-3xl lg:text-5xl font-bold mb-10">
 			What Makes GPT ChatBot <span class="">Different?</span>
 		</h2>
-		<div class="grid gap-y-20 md:grid-cols-5 gap-20">
+		<div class="grid gap-y-20 md:grid-cols-5 gap-20" id="your-data">
 			<div class="md:col-span-3 p-8 md:pl-20 py-10">
 				<h3>Train on your data</h3>
 				<div>
@@ -225,7 +225,7 @@
 					height={1404}
 				/>
 			</div>
-			<div class="md:col-span-3 md:col-start-3 p-8 md:py-10 md:pr-20 scroll-m-10" id="difference-2">
+			<div class="md:col-span-3 md:col-start-3 p-8 md:py-10 md:pr-20 scroll-m-10" id="internal-use">
 				<h3>Use the bot internally</h3>
 				<h4>Revolutionizing Data Access with Chatbots for Company Teams.</h4>
 				<div>
@@ -266,7 +266,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="md:col-span-3 p-8 md:pl-20 md:py-10 scroll-m-10" id="difference-3">
+			<div class="md:col-span-3 p-8 md:pl-20 md:py-10 scroll-m-10" id="deploy-publically">
 				<h3>Deploy it in public</h3>
 				<div>
 					<h4>Transforming Customer Support with Chatbot Integration.</h4>
