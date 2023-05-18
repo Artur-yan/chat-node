@@ -261,12 +261,12 @@
 			We will check your website for any sub-pages and you can choose which to include in your data
 		</p>
 		{#if urls}
-			<table class="table table-zebra table-compact w-full my-4">
+			<table class="table table-zebra table-compact w-full max-w-full my-4">
 				<thead>
 					<tr>
 						<th><input type="checkbox" class="checkbox" checked bind:this={selectAllUrlsCheckbox} on:change={handleSelectAllUrls} /></th>
-						<th>url</th>
-						<th>character count</th>
+						<th>URL</th>
+						<th>Tokens</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -281,8 +281,8 @@
 									bind:group={selectedUrls}
 								/>
 							</td>
-							<td>{url[0]}</td>
-							<td>{url[1]}</td>
+							<td class="max-w-0 w-full text-ellipsis overflow-hidden" title={url[0]}>{url[0]}</td>
+							<td>{url[1].toLocaleString()}</td>
 						</tr>
 					{/each}
 				</tbody>

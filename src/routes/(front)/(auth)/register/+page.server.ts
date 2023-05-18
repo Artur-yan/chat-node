@@ -54,7 +54,6 @@ export const actions: Actions = {
 		} catch (error) {
 			console.error(error);
 			if (
-				error instanceof Prisma.PrismaClientKnownRequestError &&
 				error.code === 'P2002' &&
 				error.message?.includes('email')
 			) {

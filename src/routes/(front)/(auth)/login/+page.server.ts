@@ -1,7 +1,6 @@
 import { fail } from '@sveltejs/kit';
 import { auth } from '$lib/server/lucia';
 import { redirect } from '@sveltejs/kit';
-// import type { PageServerLoad } from './$types';
 import { LuciaError } from 'lucia-auth';
 
 export const load = async ({ locals }) => {

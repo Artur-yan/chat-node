@@ -83,7 +83,7 @@
 		} else if (inputVal.trim() === '') {
 			return;
 		} else if (!modelId) {
-			addMessage('Add some data for me to repsond to answers about');
+			addMessage('Add some data for me to respond to answers about');
 			inputVal = '';
 			return;
 		} else {
