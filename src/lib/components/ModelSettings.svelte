@@ -134,7 +134,7 @@
 				{/if}
 			</div>
 		</Accordian>
-		<Accordian>
+		<!-- <Accordian>
 			<div slot="title" id="theme">Theme</div>
 			<div class="flex gap-10">
 				<form>
@@ -142,7 +142,7 @@
 					<label class="peer-checked:outline-primary" for="theme-1"></label>
 				</form>
 			</div>
-		</Accordian>
+		</Accordian> -->
 		<div class="fixed bottom-0 left-0 right-0 bg-base-300 p-2 flex items-center justify-between">
 			<button class="btn btn-outline btn-success md:w-40" type="submit" class:loading={busySaving}
 				>Save</button
