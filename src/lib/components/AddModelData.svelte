@@ -37,12 +37,21 @@
 	let uploadedFileName: string;
 	let selectAllUrlsCheckbox: HTMLInputElement;
 
+	let currentProgress = 0;
+	const loadingProgress = (step = 0.2) => {
+		const loading = setInterval(() => {
+			currentProgress += step;
+			return Math.round(Math.atan(currentProgress) / (Math.PI / 2) * 100 * 1000) / 1000
+		}, 100);
+	}
+
 	const fetchUrlsToScrape = async () => {
+		busyFetchingUrls = true;
 		urls = undefined;
 		urlsTokenCount = 0;
 		selectedUrlsTokenCount = 0;
+		loadingProgress();
 		try {
-			busyFetchingUrls = true;
 			let body = new FormData();
 			body.append('user_id', userId);
 			body.append('session_id', sessionId);
@@ -62,6 +71,8 @@
 			console.error(err);
 		} finally {
 			busyFetchingUrls = false;
+			currentProgress = 0;
+			clearInterval(loading);
 		}
 	};
 
@@ -260,6 +271,9 @@
 		<p class="help">
 			We will check your website for any sub-pages and you can choose which to include in your data
 		</p>
+		{#if busyFetchingUrls}
+		<progress class="progress progress-success w-full" value={currentProgress} max={100}></progress>
+		{/if}
 		{#if urls}
 			<table class="table table-zebra table-compact w-full max-w-full my-4">
 				<thead>
