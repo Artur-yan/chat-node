@@ -12,15 +12,16 @@
 	if(browser) {
 		onMount(() => {
 			// @ts-ignore
-			if(rewardful === undefined) return;
-			rewardful('ready', function() {
-				if(Rewardful.referral) {
-					console.log('Current referral ID: ', Rewardful.referral);
-					referralCode = Rewardful.referral;
-				} else {
-					console.log('No referral present.');
-				}
-			});
+			if(rewardful) {
+				rewardful('ready', function() {
+					if(Rewardful.referral) {
+						console.log('Current referral ID: ', Rewardful.referral);
+						referralCode = Rewardful.referral;
+					} else {
+						console.log('No referral present.');
+					}
+				});
+			}
 		});
 	};
 
