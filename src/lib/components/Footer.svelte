@@ -1,4 +1,4 @@
-<footer class="footer p-10 bg-base-200 text-base-content">
+<footer class="footer p-10 pb-20 bg-base-200 text-base-content">
 	<div>
 		<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path

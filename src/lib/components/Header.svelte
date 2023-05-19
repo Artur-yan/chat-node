@@ -16,7 +16,7 @@
 	];
 </script>
 
-<header class="py-2">
+<header class="py-2 bg-base-100">
 	<nav class="container">
 		<div class="flex flex-wrap justify-between items-center">
 			<div class="flex items-center justify-center gap-10">
@@ -61,7 +61,7 @@
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 						<!-- svelte-ignore a11y-label-has-associated-control -->
 						<label tabindex="0" class="btn btn-ghost btn-circle text-primary"
-							><Icon icon="mdi:account-circle-outline" width="28" /></label
+							><Icon icon="mdi:account-circle-outline" width="24" /></label
 						>
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 						<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-64">

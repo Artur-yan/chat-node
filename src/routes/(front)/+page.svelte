@@ -49,7 +49,7 @@
 	/>
 </svelte:head>
 
-<section>
+<section class="bg-base-100">
 	<div class="container gap-8 items-center px-4 py-[5vh] mx-auto lg:px-6">
 		<h2
 			class="mb-6 text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-center text-secondary max-w-[8em] mx-auto"
