@@ -38,8 +38,9 @@
 	let selectAllUrlsCheckbox: HTMLInputElement;
 
 	let currentProgress = 0;
+	let loading
 	const loadingProgress = (step = 0.2) => {
-		const loading = setInterval(() => {
+		loading = setInterval(() => {
 			currentProgress += step;
 			return Math.round(Math.atan(currentProgress) / (Math.PI / 2) * 100 * 1000) / 1000
 		}, 100);
@@ -48,6 +49,7 @@
 	const fetchUrlsToScrape = async () => {
 		busyFetchingUrls = true;
 		urls = undefined;
+		selectedUrls = [];
 		urlsTokenCount = 0;
 		selectedUrlsTokenCount = 0;
 		loadingProgress();
