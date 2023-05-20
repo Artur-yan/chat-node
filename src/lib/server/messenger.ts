@@ -25,7 +25,7 @@ const sendConfirmationEmail = async (email: string) => {
 		}
 	});
 	transporter.sendMail({
-		from: 'contact@gptchatbot.ai',
+		from: EMAIL_ADDRESS,
 		to: email,
 		subject: 'Email Confirmation Required',
 		text: `To confirm your email, please click this link: ${PUBLIC_SITE_URL}/account/confirm/${uuid}`
