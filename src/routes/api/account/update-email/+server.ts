@@ -2,7 +2,7 @@ import type { RequestHandler } from './$types';
 import { prismaClient } from '$lib/server/prisma';
 import { transporter } from '$lib/server/messenger';
 import { v4 as uuidv4 } from 'uuid';
-import { PUBLIC_SITE_URL } from '$env/static/public';
+import { PUBLIC_SITE_URL, PUBLIC_EMAIL_ADDRESS } from '$env/static/public';
 
 export const POST: RequestHandler = async ({ locals, request }) => {
 	const { user } = await locals.auth.validateUser();
@@ -21,7 +21,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 		});
 
 		transporter.sendMail({
-			from: 'contact@gptchatbot.ai',
+			from: PUBLIC_EMAIL_ADDRESS,
 			to: newEmail,
 			subject: 'Email Confirmation Required',
 			text: `To confirm your email, please click this link: ${PUBLIC_SITE_URL}/account/confirm/${uuid}?update=true`
