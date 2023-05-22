@@ -142,18 +142,24 @@
 			<div class="flex gap-10">
 				<form class="themes">
 					<div>
-
 						<input class="hidden" type="radio" id="default" name="theme" value="default" bind:group={selectedTheme} />
-						<label for="default">
-							ChatNode
-						</label>						
+						<label for="default">ChatNode</label>						
 					</div>
 					<div>
-
 						<input class="hidden" type="radio" id="fb" name="theme" value="fb" bind:group={selectedTheme} />
-						<label for="fb">
-							Meta
-						</label>
+						<label for="fb">Meta</label>
+					</div>
+					<div>
+						<input class="hidden" type="radio" id="ios" name="theme" value="ios" bind:group={selectedTheme} />
+						<label for="ios">iOS</label>
+					</div>
+					<div>
+						<input class="hidden" type="radio" id="neutral" name="theme" value="neutral" bind:group={selectedTheme} />
+						<label for="neutral">Neutral</label>
+					</div>
+					<div>
+						<input class="hidden" type="radio" id="neutral-light" name="theme" value="neutral-light" bind:group={selectedTheme} />
+						<label for="neutral-light">Neutral light</label>
 					</div>
 				</form>
 			</div>

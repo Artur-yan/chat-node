@@ -67,8 +67,9 @@ const defaultSettings = {
 		userBubbleText: '#B5CDF5',
 		inputBG: '#FFFFFF',
 		inputText: '#000',
+		inputBorder: '#transparent',
 		sendButtonBG: '#FFFFFF',
-		sendButtonIcon: '#000'
+		sendButtonIconColor: '#000'
 	}
 };
 

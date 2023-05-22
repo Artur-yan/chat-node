@@ -89,6 +89,9 @@
     --userBubbleText: {settings.theme.userBubbleText};
     --inputBG: {settings.theme.inputBG};
     --inputText: {settings.theme.inputText};
+    --inputBorder: {settings.theme.inputBorder};
+	--sendButtonBG: {settings.theme.sendButtonBG};
+	--sendButtonIconColor: {settings.theme.sendButtonIconColor};
     background-color: var(--bg)"
 	class="h-full flex flex-col justify-between rounded-lg"
 >
@@ -156,10 +159,10 @@
 				placeholder={inputPlaceholder}
 				bind:value={inputVal}
 				class="input w-full"
-				style="background-color: var(--inputBG); color: var(--inputText);"
+				style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder); border-right: none;"
 				{disabled}
 			/>
-			<button class="btn btn-square" type="submit" name="Send" style="background-color: var(--sendButtonBG); color: var(--sendButtonIcon);">
+			<button class="btn btn-square border-none" type="submit" name="Send" style="background-color: var(--sendButtonBG) !important; color: var(--sendButtonIconColor);">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 					><path
 						fill="none"

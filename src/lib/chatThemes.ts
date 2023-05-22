@@ -8,8 +8,9 @@ const themes = {
 		userBubbleText: '#B5CDF5',
 		inputBG: '#FFFFFF',
 		inputText: '#000',
+		inputBorder: 'transparent',
 		sendButtonBG: '#FFFFFF',
-		sendButtonIcon: '#000'
+		sendButtonIconColor: '#38BDF7'
     },
     'fb': {
         name: 'fb',
@@ -20,8 +21,48 @@ const themes = {
 		userBubbleText: '#E4E6EB',
 		inputBG: '#3A3B3C',
 		inputText: '#E4E6EB',
-		sendButtonBG: 'transparent',
-		sendButtonIcon: '#666768'
+		inputBorder: 'transparent',
+		sendButtonBG: '#3A3B3C',
+		sendButtonIconColor: '#666768'
+    },
+    'ios': {
+        name: 'ios',
+		bg: '#000000',
+		botBubbleBG: '#3093FF',
+		botBubbleText: '#FFFFFF',
+		userBubbleBG: '#26252A',
+		userBubbleText: '#FFFFFF',
+		inputBG: '#000000',
+		inputText: '#FFFFFF',
+		inputBorder: '#4A494E',
+		sendButtonBG: '#3093FF',
+		sendButtonIconColor: '#FFFFFF'
+    },
+    'neutral': {
+        name: 'neutral',
+		bg: '#222',
+		botBubbleBG: '#000',
+		botBubbleText: '#FFFFFF',
+		userBubbleBG: '#111',
+		userBubbleText: '#FFFFFF',
+		inputBG: '#000000',
+		inputText: '#FFFFFF',
+		inputBorder: 'transparent',
+		sendButtonBG: '#000000',
+		sendButtonIconColor: '#FFFFFF'
+    },
+    'neutral-light': {
+        name: 'neutral-light',
+		bg: '#FFFFFF',
+		botBubbleBG: '#000',
+		botBubbleText: '#FFFFFF',
+		userBubbleBG: '#111',
+		userBubbleText: '#FFFFFF',
+		inputBG: '#000000',
+		inputText: '#FFFFFF',
+		inputBorder: 'transparent',
+		sendButtonBG: '#000000',
+		sendButtonIconColor: '#FFFFFF'
     }
 }
 
