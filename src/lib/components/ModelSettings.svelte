@@ -1,24 +1,18 @@
 <script lang="ts">
-	import { updateModel, deleteModel } from '$lib/models';
+	import { updateModel, deleteModel, defaultSettings } from '$lib/models';
 	import Icon from '@iconify/svelte';
 	import { goto } from '$app/navigation';
 	import { alert } from '$lib/stores';
 	import Accordian from '$lib/components/Accordian.svelte';
+	import themes from '$lib/chatThemes';
 
 	export let id: string;
 	export let name: string;
-	export let settings = {
-		greeting: 'What can I help you with?',
-		public: false,
-		allowedUrls: [],
-		supportMessage: 'Hmm, I am not sure',
-		systemPrompt:
-			'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information"',
-		userPrompt: ''
-	};
+	export let settings = defaultSettings
 	let busySaving = false;
 	let deleting = false;
-	let theme
+
+	$: settings.theme = themes[selectedTheme];
 
 	const addUrl = (url: string) => {
 		settings.allowedUrls = [...settings.allowedUrls, url];
@@ -35,6 +29,16 @@
 		busySaving = false;
 		$alert = 'Settings Saved';
 	};
+	
+	// if(settings.theme.name && settings.theme.name !== 'default') {
+	// 	selectedTheme = settings.theme.name;
+	// } else {
+	// 	selectedTheme = 'default';
+	// }
+
+	let selectedTheme = settings.theme.name || 'default';
+
+	$: console.log(selectedTheme);
 </script>
 
 <div>
@@ -134,15 +138,27 @@
 				{/if}
 			</div>
 		</Accordian>
-		<!-- <Accordian>
+		<Accordian>
 			<div slot="title" id="theme">Theme</div>
 			<div class="flex gap-10">
-				<form>
-					<input class="peer" type="radio" id="theme-1" name="theme-1" value="theme-1" bind:group={theme} checked />
-					<label class="peer-checked:outline-primary" for="theme-1"></label>
+				<form class="themes">
+					<div>
+
+						<input class="hidden" type="radio" id="default" name="theme" value="default" bind:group={selectedTheme} />
+						<label for="default">
+							ChatNode
+						</label>						
+					</div>
+					<div>
+
+						<input class="hidden" type="radio" id="fb" name="theme" value="fb" bind:group={selectedTheme} />
+						<label for="fb">
+							Meta
+						</label>
+					</div>
 				</form>
 			</div>
-		</Accordian> -->
+		</Accordian>
 		<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle mx-auto opacity-60"
 		><Icon icon="mdi:delete-outline" width="16" /></label
 	>
@@ -180,5 +196,17 @@
 <style lang="postcss">
 	input {
 		@apply input-bordered;
+	}
+
+	.themes{
+		@apply flex items-center gap-2;
+	}
+
+	.themes label {
+		@apply btn btn-sm;
+	}
+
+	.themes input:checked + label{
+		@apply btn-primary;
 	}
 </style>

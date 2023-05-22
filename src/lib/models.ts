@@ -50,4 +50,26 @@ const deleteModel = async (id: string) => {
 	}
 };
 
-export { addModel, updateModel, deleteModel };
+const defaultSettings = {
+	greeting: 'What can I help you with?',
+	public: false,
+	allowedUrls: [],
+	supportMessage: 'Hmm, I am not sure',
+	systemPrompt:
+		'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information"',
+	userPrompt: '',
+	theme: {
+		name: 'default',
+		bg: '#0F172A',
+		botBubbleBG: '#818CF8',
+		botBubbleText: '#00074B',
+		userBubbleBG: '#1E293B',
+		userBubbleText: '#B5CDF5',
+		inputBG: '#FFFFFF',
+		inputText: '#000',
+		sendButtonBG: '#FFFFFF',
+		sendButtonIcon: '#000'
+	}
+};
+
+export { addModel, updateModel, deleteModel, defaultSettings};

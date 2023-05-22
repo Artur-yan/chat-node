@@ -1,31 +1,14 @@
 <script lang="ts">
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import BotStatus from '$lib/components/BotStatus.svelte';
+	import { defaultSettings } from '$lib/models';
 
 	export let modelId: string;
-	export let theme = {
-		bg: 'transparent',
-		botBubbleBG: '#E9E9E9',
-		botBubbleText: '#222222',
-		userBubbleBG: '#2C6BED',
-		userBubbleText: '#FFFFFF',
-		inputBG: '#FFFFFF',
-		inputText: '#000',
-		sendButtonBG: '#FFFFFF',
-		sendButtonIcon: '#000'
-	};
+
 	export let inputPlaceholder = 'Type your message';
 	export let disabled = false;
 	export let isThinking = false;
-	export let settings = {
-		greeting: 'What can I help you with?',
-		public: false,
-		allowedUrls: [],
-		supportMessage: 'Hmm, I am not sure',
-		systemPrompt:
-			'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information"',
-		userPrompt: ''
-	};
+	export let settings = defaultSettings
 	export let messages = [
 		{
 			text: settings.greeting,
@@ -34,6 +17,9 @@
 	];
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed' = 'ready';
 
+	if(!settings.theme) {
+		settings.theme = defaultSettings.theme;
+	}
 
 	let inputVal: string;
 	let chatWindow: HTMLElement;
@@ -94,24 +80,29 @@
 	$: messages && scrollToBottom();
 </script>
 
-<section
+<div
 	style="
-    --bg: {theme.bg};
-    --botBubbleBG: {theme.botBubbleBG};
-    --botBubbleText: {theme.botBubbleText};
-    --userBubbleBG: {theme.userBubbleBG};
-    --userBubbleText: {theme.userBubbleText};
-    --inputBG: {theme.inputBG};
-    --inputText: {theme.inputText};
+    --bg: {settings.theme.bg};
+    --botBubbleBG: {settings.theme.botBubbleBG};
+    --botBubbleText: {settings.theme.botBubbleText};
+    --userBubbleBG: {settings.theme.userBubbleBG};
+    --userBubbleText: {settings.theme.userBubbleText};
+    --inputBG: {settings.theme.inputBG};
+    --inputText: {settings.theme.inputText};
     background-color: var(--bg)"
-	class="h-full flex flex-col justify-between"
+	class="h-full flex flex-col justify-between rounded-lg"
 >
 	<div class="overflow-y-auto scroll-smooth p-2" bind:this={chatWindow}>
 		<BotStatus id={modelId} bind:trainingStatus />
 		<slot>
 			{#each messages as msg}
 				<div class="chat overflow-hidden {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
-					<div class="chat-bubble {msg.sender == 'bot' ? 'chat-bubble-secondary' : ''}">
+					<div class="chat-bubble"
+						style={ msg.sender == 'bot'
+							? "background-color: var(--botBubbleBG); color: var(--botBubbleText)"
+							: "background-color: var(--userBubbleBG); color: var(--userBubbleText)"
+						}
+					>
 						{msg.text}
 					</div>
 				</div>
@@ -119,7 +110,7 @@
 		</slot>
 		{#if isThinking}
 			<div class="chat chat-start">
-				<div class="chat-bubble">
+				<div class="chat-bubble" style="background-color: var(--botBubbleBG); color: var(--botBubbleText)">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 						><circle cx="4" cy="12" r="3" fill="currentColor"
 							><animate
@@ -182,7 +173,7 @@
 			</button>
 		</div>
 	</form>
-</section>
+</div>
 
 <style lang="postcss">
 	@keyframes message {
