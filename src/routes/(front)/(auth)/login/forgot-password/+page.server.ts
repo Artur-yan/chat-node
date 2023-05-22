@@ -2,7 +2,7 @@ import { transporter } from '$lib/server/messenger';
 import { prismaClient } from '$lib/server/prisma';
 import { fail, type Actions } from '@sveltejs/kit';
 import { v4 as uuidv4 } from 'uuid';
-import { PUBLIC_SITE_URL } from '$env/static/public';
+import { PUBLIC_SITE_URL, PUBLIC_EMAIL_ADDRESS } from '$env/static/public';
 
 let emailBody = '';
 let emailSubject = '';
@@ -41,7 +41,7 @@ export const actions: Actions = {
 		}
 
 		await transporter.sendMail({
-			from: 'contact@gptchatbot.ai',
+			from: PUBLIC_EMAIL_ADDRESS,
 			to: email,
 			subject: emailSubject,
 			text: emailBody
