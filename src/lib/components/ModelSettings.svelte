@@ -38,7 +38,6 @@
 
 	let selectedTheme = settings.theme.name || 'default';
 
-	$: console.log(selectedTheme);
 </script>
 
 <div>
