@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { alert } from '$lib/stores';
 	import Accordian from '$lib/components/Accordian.svelte';
+	import ColorPicker from 'svelte-awesome-color-picker';
 	import themes from '$lib/chatThemes';
 
 	export let id: string;
@@ -29,12 +30,6 @@
 		busySaving = false;
 		$alert = 'Settings Saved';
 	};
-	
-	// if(settings.theme.name && settings.theme.name !== 'default') {
-	// 	selectedTheme = settings.theme.name;
-	// } else {
-	// 	selectedTheme = 'default';
-	// }
 
 	let selectedTheme = settings.theme.name || 'default';
 
@@ -139,8 +134,7 @@
 		</Accordian>
 		<Accordian open={true}>
 			<div slot="title" id="theme">Theme</div>
-			<div class="flex gap-10">
-				<form class="themes">
+				<div class="themes">
 					<div>
 						<input class="hidden" type="radio" id="default" name="theme" value="default" bind:group={selectedTheme} />
 						<label for="default">ChatNode</label>						
@@ -161,8 +155,25 @@
 						<input class="hidden" type="radio" id="neutral" name="theme" value="neutral" bind:group={selectedTheme} />
 						<label for="neutral">Neutral</label>
 					</div>
-				</form>
-			</div>
+					<div>
+						<input class="hidden" type="radio" id="custom" name="theme" value="custom" bind:group={selectedTheme} />
+						<label for="custom">Custom</label>
+					</div>
+				</div>
+			{#if selectedTheme == 'custom'}
+				<div class="grid grid-cols-2 gap-4 my-4">
+					<ColorPicker bind:hex={settings.theme.bg} isPopup={false} label='Background' />
+					<ColorPicker bind:hex={settings.theme.botBubbleBG} isPopup={false} label='Bot Bubble Background' />
+					<ColorPicker bind:hex={settings.theme.botBubbleText} isPopup={false} label='Bot Bubble Text' />
+					<ColorPicker bind:hex={settings.theme.userBubbleBG} isPopup={false} label='User Bubble Background' />
+					<ColorPicker bind:hex={settings.theme.userBubbleText} isPopup={false} label='User Bubble Text' />
+					<ColorPicker bind:hex={settings.theme.inputBG} isPopup={false} label='Input Background' />
+					<ColorPicker bind:hex={settings.theme.inputText} isPopup={false} label='Input Text' />
+					<ColorPicker bind:hex={settings.theme.inputBorder} isPopup={false} label='Input Border' />
+					<ColorPicker bind:hex={settings.theme.sendButtonBG} isPopup={false} label='Send Button Background' />
+					<ColorPicker bind:hex={settings.theme.sendButtonIconColor} isPopup={false} label='Send Button Icon' />
+				</div>
+			{/if}
 		</Accordian>
 		<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle mx-auto opacity-60"
 		><Icon icon="mdi:delete-outline" width="16" /></label
@@ -213,5 +224,12 @@
 
 	.themes input:checked + label{
 		@apply btn-primary;
+	}
+
+	:global(.color-picker .container){
+		padding: 0;
+		max-width: none;
+		width: auto;
+		margin: 0;
 	}
 </style>

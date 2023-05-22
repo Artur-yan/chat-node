@@ -9,6 +9,10 @@
 	export let data: LayoutData;
 </script>
 
+<svelte:head>
+	<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="2789e290-13a1-4644-a474-4fb2c75db16d";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+</svelte:head>
+
 <Header user={data.user} />
 
 <main class="flex flex-col basis-full bg-base-100">

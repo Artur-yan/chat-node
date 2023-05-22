@@ -3,18 +3,11 @@
 
 	export let data;
 
-	let greeting = data.bot.settings.greeting;
-
-	let messages = [
-		{
-			text: greeting,
-			sender: 'bot'
-		}
-	];
+	let settings = data.bot.settings
 </script>
 
 <svelte:head>
 	<title>{data.bot.name} | ChatNode</title>
 </svelte:head>
 
-<Chat modelId={data.bot.id} {messages} />
+<Chat modelId={data.bot.id} {settings} />

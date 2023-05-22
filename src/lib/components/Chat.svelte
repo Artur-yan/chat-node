@@ -2,6 +2,7 @@
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import BotStatus from '$lib/components/BotStatus.svelte';
 	import { defaultSettings } from '$lib/models';
+	import snarkdown from 'snarkdown';
 
 	export let modelId: string;
 
@@ -106,7 +107,7 @@
 							: "background-color: var(--userBubbleBG); color: var(--userBubbleText)"
 						}
 					>
-						{msg.text}
+						{@html snarkdown(msg.text)}
 					</div>
 				</div>
 			{/each}
