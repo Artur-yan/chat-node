@@ -137,7 +137,7 @@
 				{/if}
 			</div>
 		</Accordian>
-		<Accordian>
+		<Accordian open={true}>
 			<div slot="title" id="theme">Theme</div>
 			<div class="flex gap-10">
 				<form class="themes">
@@ -146,20 +146,20 @@
 						<label for="default">ChatNode</label>						
 					</div>
 					<div>
-						<input class="hidden" type="radio" id="fb" name="theme" value="fb" bind:group={selectedTheme} />
-						<label for="fb">Meta</label>
+						<input class="hidden" type="radio" id="meta-dark" name="theme" value="meta-dark" bind:group={selectedTheme} />
+						<label for="meta-dark">Meta dark</label>
 					</div>
 					<div>
-						<input class="hidden" type="radio" id="ios" name="theme" value="ios" bind:group={selectedTheme} />
-						<label for="ios">iOS</label>
+						<input class="hidden" type="radio" id="ios-light" name="theme" value="ios-light" bind:group={selectedTheme} />
+						<label for="ios-light">iOS light</label>
+					</div>
+					<div>
+						<input class="hidden" type="radio" id="ios-dark" name="theme" value="ios-dark" bind:group={selectedTheme} />
+						<label for="ios-dark">iOS dark</label>
 					</div>
 					<div>
 						<input class="hidden" type="radio" id="neutral" name="theme" value="neutral" bind:group={selectedTheme} />
 						<label for="neutral">Neutral</label>
-					</div>
-					<div>
-						<input class="hidden" type="radio" id="neutral-light" name="theme" value="neutral-light" bind:group={selectedTheme} />
-						<label for="neutral-light">Neutral light</label>
 					</div>
 				</form>
 			</div>
@@ -204,7 +204,7 @@
 	}
 
 	.themes{
-		@apply flex items-center gap-2;
+		@apply flex items-center gap-2 flex-wrap;
 	}
 
 	.themes label {
