@@ -5,7 +5,11 @@
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width" />
 		%sveltekit.head%
-		<script defer data-domain="chatnode.ai" src="https://plausible.io/js/script.tagged-events.js"></script>
+		<script
+			src="/stats/js/script.js"
+			data-api="/stats/api/event"
+			data-domain="chatnode.ai"
+		></script>
 		<!-- Hotjar Tracking Code for https://www.chatnode.ai/ -->
 		<script>
 			(function(h,o,t,j,a,r){
