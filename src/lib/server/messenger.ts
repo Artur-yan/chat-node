@@ -7,9 +7,8 @@ import { prismaClient } from '$lib/server/prisma';
 let transporter = nodemailer.createTransport({
 	host: EMAIL_SERVER,
 	port: 465,
-	secure: true,
 	auth: {
-		user: EMAIL_ADDRESS,
+		user: 'apikey',
 		pass: EMAIL_PASSWORD
 	}
 });
@@ -24,7 +23,7 @@ const sendConfirmationEmail = async (email: string) => {
 			verification_uuid: uuid
 		}
 	});
-	transporter.sendMail({
+	await transporter.sendMail({
 		from: EMAIL_ADDRESS,
 		to: email,
 		subject: 'Email Confirmation Required',
