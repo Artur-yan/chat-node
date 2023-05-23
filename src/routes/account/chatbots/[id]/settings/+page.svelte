@@ -1,10 +1,14 @@
 <script lang="ts">
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 	import Chat from '$lib/components/Chat.svelte';
+	import { defaultSettings } from '$lib/models';
 
 	export let data;
 
 	let settings =  data.model.settings;
+	if (!settings.theme) {
+		settings.theme = defaultSettings.theme;
+	}
 </script>
 
 <svelte:head>
