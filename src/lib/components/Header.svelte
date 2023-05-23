@@ -16,7 +16,7 @@
 	];
 </script>
 
-<header class="py-2 bg-base-100">
+<header id="header" class="py-2 bg-base-100">
 	<nav class="container">
 		<div class="flex flex-wrap justify-between items-center">
 			<div class="flex items-center justify-center gap-10">

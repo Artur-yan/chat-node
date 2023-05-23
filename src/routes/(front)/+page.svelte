@@ -382,6 +382,14 @@
 			</Accordian>
 		</div>
 	</div>
+	<style lang="postcss">
+		body{
+			@apply pt-10
+		}
+		#header{
+			@apply fixed inset-0 bottom-auto z-10 shadow-lg;
+		}
+	</style>
 </section>
 
 <style lang="postcss">
