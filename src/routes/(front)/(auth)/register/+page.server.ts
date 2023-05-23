@@ -5,11 +5,7 @@ import { LuciaError } from 'lucia-auth';
 import type { PageServerLoad } from './$types';
 import { prismaClient } from '$lib/server/prisma';
 import { sendConfirmationEmail } from '$lib/server/messenger';
-import Plausible from 'plausible-tracker'
 
-const { trackEvent } = Plausible({
-	domain: 'chatnode.ai',
-})
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -54,8 +50,6 @@ export const actions: Actions = {
 			});
 			const session = await auth.createSession(user.userId);
 			locals.auth.setSession(session);
-
-			trackEvent('Signup')
 
 			await sendConfirmationEmail(email, user.userId);
 		} catch (error) {

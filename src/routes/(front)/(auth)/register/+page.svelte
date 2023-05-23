@@ -1,5 +1,11 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import Plausible from 'plausible-tracker'
+
+	const { trackEvent } = Plausible({
+		domain: 'chatnode.ai',
+	})
+
 	export let form: { message?: string; submitted: false; promo: string };
 
 	let loading = false;
@@ -18,7 +24,8 @@
 	<div class="card w-96 bg-neutral text-neutral-content mx-auto my-20">
 		<div class="card-body">
 			<h2 class="card-title">Create an account</h2>
-			<form class="form-control gap-2" method="POST" use:enhance on:submit={() => (loading = true)}>
+			
+			<form class="form-control gap-2" method="POST" use:enhance on:submit={() => {loading = true; trackEvent('Signup')} }>
 				<div>
 					<label class="label" for="email"><span class="label-text">Email</span></label>
 					<input
