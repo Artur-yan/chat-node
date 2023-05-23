@@ -77,19 +77,6 @@ const themes = {
 		sendButtonBG: '#333333',
 		sendButtonIconColor: '#FFFFFF'
     },
-    'neutral': {
-        name: 'neutral',
-		bg: '#666666',
-		botBubbleBG: '#333333',
-		botBubbleText: '#FFFFFF',
-		userBubbleBG: '#555555',
-		userBubbleText: '#FFFFFF',
-		inputBG: '#FFFFFF',
-		inputText: '#000000',
-		inputBorder: '#BBBBBE',
-		sendButtonBG: '#333333',
-		sendButtonIconColor: '#FFFFFF'
-    },
 }
 
 export default themes;
