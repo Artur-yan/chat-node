@@ -206,10 +206,6 @@
 		@apply absolute block h-5 w-5 mr-2;
 	}
 
-	.card-actions {
-		@apply mt-8;
-	}
-
 	.btn:disabled {
 		@apply btn-secondary !text-neutral opacity-80;
 	}
