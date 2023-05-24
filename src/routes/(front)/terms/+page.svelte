@@ -119,7 +119,7 @@
 	</p>
 </div>
 
-<style>
+<style lang="postcss">
 	h2 {
 		@apply font-bold mb-2;
 	}
