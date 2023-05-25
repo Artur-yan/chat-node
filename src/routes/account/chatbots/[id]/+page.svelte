@@ -7,6 +7,6 @@
 	<title>{data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container h-full">
+<div class="container h-full mb-10 min-h-[50vh]">
 	<Chat modelId={data.model.id} status={data.model.status} settings={data.model.settings} />
 </div>
