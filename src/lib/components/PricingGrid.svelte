@@ -60,7 +60,7 @@
 			{/if}
 		</div>
 		<ul class="included">
-			<li>30 messages / month</li>
+			<li>30 messages/month</li>
 			<li>1 Chatbot</li>
 			<li>
 				<div
@@ -93,7 +93,7 @@
 			{/if}
 		</div>
 		<ul class="included">
-			<li>2,000 messages / month</li>
+			<li>2,000 messages/month</li>
 			<li>Up to 5 Chatbots</li>
 			<li>
 				<div
@@ -127,7 +127,7 @@
 			{/if}
 		</div>
 		<ul class="included">
-			<li>5,000 messages / month</li>
+			<li>5,000 messages/month</li>
 			<li>10 Chatbots</li>
 			<li>
 				<div
@@ -168,7 +168,7 @@
 			</div>
 			<div>
 				<ul class="included grid grid-cols-2">
-					<li>10,000 messages / month</li>
+					<li>10,000 messages/month</li>
 					<li>20 Chatbots</li>
 					<li>
 						<div
