@@ -7,7 +7,7 @@
     let loading = false
     const handleSubmit = async () => {
         loading = true
-        const res = await fetch (`${PUBLIC_CHAT_API_URL}/slack/install/${data.model.user_id}/${data.model.id}`, {
+        const res = await fetch (`${PUBLIC_CHAT_API_URL}/slack/install`, {
             method: 'GET',
             
             headers: {
