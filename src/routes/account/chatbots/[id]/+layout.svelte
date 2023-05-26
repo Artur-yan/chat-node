@@ -6,6 +6,7 @@
 
 	const chatPath = `/account/chatbots/${data.model.id}`;
 	const embedPath = `/account/chatbots/${data.model.id}/embed`;
+	const integrationsdPath = `/account/chatbots/${data.model.id}/integrations`;
 	const dataPath = `/account/chatbots/${data.model.id}/data`;
 	const settingsPath = `/account/chatbots/${data.model.id}/settings`;
 </script>
@@ -18,6 +19,7 @@
 	<div class="tabs tabs-boxed">
 		<a href={chatPath} class="tab" class:tab-active={chatPath == $page.url.pathname}>Chat</a>
 		<a href={embedPath} class="tab" class:tab-active={embedPath == $page.url.pathname}>Embed</a>
+		<a href={integrationsdPath} class="tab" class:tab-active={integrationsdPath == $page.url.pathname}>Integrations</a>
 		<a href={dataPath} class="tab" class:tab-active={dataPath == $page.url.pathname}>Data</a>
 		<a href={settingsPath} class="tab" class:tab-active={settingsPath == $page.url.pathname}
 			>Settings</a
