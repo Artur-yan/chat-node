@@ -6,7 +6,7 @@
     let loading = false
     const handleSubmit = async () => {
         loading = true
-        const res = await fetch (`${PUBLIC_CHAT_API_URL}/stripe/install`, {
+        const res = await fetch (`${PUBLIC_CHAT_API_URL}/slack/install`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,5 +20,5 @@
 </script>
 
 <div class="container py-20 text-center">
-    <button class="btn btn-primary" on:click={() => handleSubmit()} class:loading>Authorize Stripe</button>
+    <button class="btn btn-primary" on:click={() => handleSubmit()} class:loading>Authorize Slack</button>
 </div>
