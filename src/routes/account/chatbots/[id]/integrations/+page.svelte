@@ -1,10 +1,19 @@
 <script>
-    import { PUBLIC_CHAT_API_URL } from '$env/static/public';
+    import { PUBLIC_CHAT_API_URL, PUBLIC_SITE_URL } from '$env/static/public';
 
     export let data;
-    console.log(data);
+
+    const handleSubmit = async () => {
+        await fetch (`${PUBLIC_CHAT_API_URL}/stripe/install`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Set-Cookie': `user_id=${data.model.user_id}; bot_id=${data.model.id} Domain=${PUBLIC_SITE_URL}`,
+            }
+        })
+    }
 </script>
 
 <div class="container py-20 text-center">
-    <a class="btn btn-primary" href="{PUBLIC_CHAT_API_URL}/stripe/install/{data.model.user_id}/{data.model.id}/">Authorize Stripe</a>
+    <button class="btn btn-primary" on:click={() => handleSubmit()}>Authorize Stripe</button>
 </div>
