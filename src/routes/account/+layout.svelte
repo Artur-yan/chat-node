@@ -5,11 +5,17 @@
 	import Header from '$lib/components/Header.svelte';
 	import Toast from '$lib/components/Toast.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import { PUBLIC_SITE_URL } from '$env/static/public';
 
 	export let data: LayoutData;
 </script>
 
 <svelte:head>
+	<script
+	src="{PUBLIC_SITE_URL}/stats/js/script.js"
+	data-api="{PUBLIC_SITE_URL}/stats/api/event"
+	data-domain="chatnode.ai"
+	></script>
 	<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="2789e290-13a1-4644-a474-4fb2c75db16d";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 </svelte:head>
 
