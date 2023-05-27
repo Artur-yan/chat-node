@@ -202,7 +202,7 @@
 					class="file-input file-input-bordered w-full"
 					bind:files
 					bind:this={fileInput}
-					accept=".doc,.docx,.pdf,.txt,.csv,.json"
+					accept=".doc,.docx,.pdf,.txt"
 					on:change={getFileTokenCount}
 				/>
 				<!-- <button class="btn btn-primary" type="submit" on:click={getFileTokenCount}>Upload</button> -->
