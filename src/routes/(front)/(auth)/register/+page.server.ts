@@ -10,7 +10,6 @@ import { sendConfirmationEmail } from '$lib/server/messenger';
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (session) throw redirect(302, '/account/chatbots');
-	return {};
 };
 
 export const actions: Actions = {
@@ -26,6 +25,7 @@ export const actions: Actions = {
 				submitted: false
 			});
 		}
+
 		try {
 			const user = await auth.createUser({
 				primaryKey: {
@@ -48,10 +48,9 @@ export const actions: Actions = {
 			await prismaClient.subscriptions.create({
 				data: subscriptionData
 			});
+			await sendConfirmationEmail(email, user.userId);
 			const session = await auth.createSession(user.userId);
 			locals.auth.setSession(session);
-
-			await sendConfirmationEmail(email, user.userId);
 		} catch (error) {
 			console.error(error);
 			if (
@@ -73,5 +72,7 @@ export const actions: Actions = {
 				submitted: false
 			});
 		}
+
+		throw redirect(302, '/account/chatbots?signup=success');
 	}
 };

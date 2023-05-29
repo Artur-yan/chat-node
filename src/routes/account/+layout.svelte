@@ -5,6 +5,13 @@
 	import Header from '$lib/components/Header.svelte';
 	import Toast from '$lib/components/Toast.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import Plausible from 'plausible-tracker'
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		const { enableAutoPageviews } = Plausible({ domain: 'chatnode.ai', })	
+		enableAutoPageviews()
+	});
 
 	export let data: LayoutData;
 </script>
