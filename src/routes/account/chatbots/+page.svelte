@@ -1,12 +1,21 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Icon from '@iconify/svelte';
-
+	import { page } from '$app/stores';
+	import Plausible from 'plausible-tracker'
 
 	export let data;
 
+	const { trackEvent } = Plausible({
+		domain: 'chatnode.ai',
+	})
+
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
+
+	if ($page.url.searchParams.get('signup') == 'success') {
+		trackEvent('Signup')
+	}
 </script>
 
 <svelte:head>

@@ -3,17 +3,19 @@
 	import Header from '$lib/components/Header.svelte';
 	import type { LayoutData } from './$types';
 	import Footer from '$lib/components/Footer.svelte';
-	import { PUBLIC_SITE_URL } from '$env/static/public';
+	import Plausible from 'plausible-tracker'
+	import { browser } from '$app/environment';
 
 	export let data: LayoutData;
+
+	const { trackPageview } = Plausible()
+
+	if(browser) {
+		trackPageview()
+	}
 </script>
 
 <svelte:head>
-	<script
-	src="{PUBLIC_SITE_URL}/stats/js/script.js"
-	data-api="{PUBLIC_SITE_URL}/stats/api/event"
-	data-domain="chatnode.ai"
-	></script>
 
 	<script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
 	<script async src='https://r.wdfl.co/rw.js' data-rewardful='1564fe'></script>
