@@ -6,13 +6,12 @@
 	import Toast from '$lib/components/Toast.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Plausible from 'plausible-tracker'
-	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
-	const { trackPageview } = Plausible()
-
-	if(browser) {
-		trackPageview()
-	}
+	onMount(() => {
+		const { enableAutoPageviews } = Plausible({ domain: 'chatnode.ai', })	
+		enableAutoPageviews()
+	});
 
 	export let data: LayoutData;
 </script>

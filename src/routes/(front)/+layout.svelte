@@ -4,15 +4,15 @@
 	import type { LayoutData } from './$types';
 	import Footer from '$lib/components/Footer.svelte';
 	import Plausible from 'plausible-tracker'
-	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		const { enableAutoPageviews } = Plausible({ domain: 'chatnode.ai', })	
+		enableAutoPageviews()
+	});
 
 	export let data: LayoutData;
 
-	const { trackPageview } = Plausible()
-
-	if(browser) {
-		trackPageview()
-	}
 </script>
 
 <svelte:head>
