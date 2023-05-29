@@ -9,11 +9,11 @@ datasource db {
 
 model AuthUser {
   id                String         @id @unique
-  created          DateTime @default(now())
   email             String         @unique
   status            String?
   verification_uuid String?        @unique
   new_email         String?        @unique
+  created           DateTime       @default(now())
   auth_key          AuthKey?
   auth_session      AuthSession[]
   bots              Bots[]
@@ -54,6 +54,7 @@ model Bots {
   settings         Json?
   status           String   @default("training")
   tocken_count     Int      @default(0)
+  slack_bot_status Boolean? @default(false)
   auth_user        AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("bots")
@@ -94,4 +95,66 @@ model bots_source {
   id          String?
 
   @@ignore
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model slack_bots {
+  id                    Int       @id @default(autoincrement())
+  client_id             String    @db.VarChar(32)
+  app_id                String    @db.VarChar(32)
+  enterprise_id         String?   @db.VarChar(32)
+  enterprise_name       String?   @db.VarChar(200)
+  team_id               String?   @db.VarChar(32)
+  team_name             String?   @db.VarChar(200)
+  bot_token             String?   @db.VarChar(200)
+  bot_id                String?   @db.VarChar(32)
+  bot_user_id           String?   @db.VarChar(32)
+  bot_scopes            String?   @db.VarChar(1000)
+  bot_refresh_token     String?   @db.VarChar(200)
+  bot_token_expires_at  DateTime? @db.Timestamp(6)
+  is_enterprise_install Boolean
+  installed_at          DateTime  @db.Timestamp(6)
+  bot_internal_id       String?
+
+  @@index([client_id, enterprise_id, team_id, installed_at], map: "slack_bots_idx")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model slack_installations {
+  id                                 Int       @id @default(autoincrement())
+  client_id                          String    @db.VarChar(32)
+  app_id                             String    @db.VarChar(32)
+  enterprise_id                      String?   @db.VarChar(32)
+  enterprise_name                    String?   @db.VarChar(200)
+  enterprise_url                     String?   @db.VarChar(200)
+  team_id                            String?   @db.VarChar(32)
+  team_name                          String?   @db.VarChar(200)
+  bot_token                          String?   @db.VarChar(200)
+  bot_id                             String?   @db.VarChar(32)
+  bot_user_id                        String?   @db.VarChar(32)
+  bot_scopes                         String?   @db.VarChar(1000)
+  bot_refresh_token                  String?   @db.VarChar(200)
+  bot_token_expires_at               DateTime? @db.Timestamp(6)
+  user_id                            String    @db.VarChar(32)
+  user_token                         String?   @db.VarChar(200)
+  user_scopes                        String?   @db.VarChar(1000)
+  user_refresh_token                 String?   @db.VarChar(200)
+  user_token_expires_at              DateTime? @db.Timestamp(6)
+  incoming_webhook_url               String?   @db.VarChar(200)
+  incoming_webhook_channel           String?   @db.VarChar(200)
+  incoming_webhook_channel_id        String?   @db.VarChar(200)
+  incoming_webhook_configuration_url String?   @db.VarChar(200)
+  is_enterprise_install              Boolean
+  token_type                         String?   @db.VarChar(32)
+  installed_at                       DateTime  @db.Timestamp(6)
+  bot_internal_id                    String?
+
+  @@index([client_id, enterprise_id, team_id, user_id, installed_at], map: "slack_installations_idx")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model slack_oauth_states {
+  id        Int      @id @default(autoincrement())
+  state     String   @db.VarChar(200)
+  expire_at DateTime @db.Timestamp(6)
 }
