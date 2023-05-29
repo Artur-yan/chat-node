@@ -13,7 +13,7 @@
                 Get responses from your custom trained chatbot directly in slack for you and your team.
             </p>
             <div class="card-actions justify-between mt-10 items-center">
-                {#if data.model.slack_bot_status === true}
+                {#if data.model.slack_bot_status === false}
                     <a class="btn btn-primary" href="{PUBLIC_CHAT_API_URL}/slack/install">Authorize Slack</a>
                 {:else}
                     <div class="badge badge-outline badge-success">Enabled</div>
