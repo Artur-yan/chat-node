@@ -3,11 +3,13 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { alert } from '$lib/stores';
+	import Plausible from 'plausible-tracker'
 
-	const planChange = $page.url.searchParams.get('plan-change');
 	
 	onMount(async () => {
-		if (planChange === 'success') {
+		const { trackEvent } = Plausible({ domain: 'chatnode.ai' })
+		if ($page.url.searchParams.get('plan-change') === 'success') {
+			trackEvent('Upgrade to Paid')
 			goto('/account/settings/plan');
 			$alert = "Plan changed successfully!"
 

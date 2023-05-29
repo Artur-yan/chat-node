@@ -51,7 +51,7 @@
 			{#if currentPlan !== undefined}
 				<button
 					on:click={() => updatePlan(0)}
-					class="btn btn-outline btn-secondary plausible-event-name=Downgrade+to+Free"
+					class="btn btn-outline btn-secondary"
 					class:loading={busyChangingPlan}
 					disabled={currentPlan === 0}>{currentPlan === 0 ? 'Current plan' : 'Change plan'}</button
 				>
@@ -84,7 +84,7 @@
 			{#if currentPlan !== undefined}
 				<button
 					on:click={() => updatePlan(1)}
-					class="btn btn-outline btn-secondary plausible-event-name=Upgrade+to+Paid plausible-event-name=Upgrade+to+Basic"
+					class="btn btn-outline btn-secondary"
 					class:loading={busyChangingPlan}
 					disabled={currentPlan === 1}>{currentPlan === 1 ? 'Current plan' : 'Change plan'}</button
 				>
@@ -118,7 +118,7 @@
 			{#if currentPlan !== undefined}
 				<button
 					on:click={() => updatePlan(2)}
-					class="btn btn-outline btn-secondary plausible-event-name=Upgrade+to+Paid plausible-event-name=Upgrade+to+Pro"
+					class="btn btn-outline btn-secondary"
 					class:loading={busyChangingPlan}
 					disabled={currentPlan === 2}>{currentPlan === 2 ? 'Current plan' : 'Change plan'}</button
 				>
@@ -156,7 +156,7 @@
 					{#if currentPlan !== undefined}
 						<button
 							on:click={() => updatePlan(3)}
-							class="btn btn-outline btn-secondary plausible-event-name=Upgrade+to+Paid plausible-event-name=Upgrade+to+Enterprise"
+							class="btn btn-outline btn-secondary"
 							class:loading={busyChangingPlan}
 							disabled={currentPlan === 3}
 							>{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
