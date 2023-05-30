@@ -57,7 +57,7 @@
 		Train ChatGPT on your own data
 	</h2>
 	<div class="flex justify-center items-center">
-	<a class="btn btn-accent btn-outline rounded-full my-4 border-accent border bg-white/10" href="/"><span class="badge badge-accent mr-2">New</span> Slack Integration &rarr;</a>
+	<a class="btn btn-accent btn-outline rounded-full my-4 border-accent border bg-white/10" href="/blog/slack-integration"><span class="badge badge-accent mr-2">New</span> Slack Integration &rarr;</a>
 	</div>
 		<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto">
 			<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
@@ -71,8 +71,8 @@
 				internally or publish it to your website to answer your customers' questions.
 			</p> -->
 		<div class="my-10 text-center">
-			<a href="/register" class="btn btn-primary btn-lg"> Try for free </a>
-			<a href="#difference" class="btn btn-ghost text-primary">
+			<a href="/register" class="btn btn-primary btn-lg">Create your chatbot</a>
+			<a href="#difference" class="btn btn-ghost text-primary btn-sm">
 				Learn More
 				<svg
 					class="ml-2 -mr-1 w-5 h-5"

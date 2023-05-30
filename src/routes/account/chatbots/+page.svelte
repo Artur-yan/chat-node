@@ -126,6 +126,11 @@
 										<Icon icon="mdi:code" width="18" />
 									</a>
 								</div>
+								<div class="tooltip tooltip-secondary" data-tip="Integrations">
+									<a class="btn btn-ghost" href="/account/chatbots/{bot.id}/integrations">
+										<Icon icon="mdi:transit-connection-variant" width="18" />
+									</a>
+								</div>
 								<div class="tooltip tooltip-secondary" data-tip="Data sources">
 									<a class="btn btn-ghost" href="/account/chatbots/{bot.id}/data">
 										<Icon icon="mdi:database" width="18" />
