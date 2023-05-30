@@ -20,7 +20,7 @@
     <h2>Setup</h2>
 
     <p>
-        After creating your first chatbot, naviagte to your chatbot and click on the "integrations" tab. It will redirect you to authenticate in the Slack workspace you want to use. You can add multiple workspaces for each bot by simply revisiting the integrations tab and repeating.
+        After creating your first chatbot, navigate to your chatbot and click on the "integrations" tab. It will redirect you to authenticate in the Slack workspace you want to use. You can add multiple workspaces for each bot by simply revisiting the integrations tab and repeating.
     </p>
 
     <Img src={SlackIntegrationStart} width={560} height={384} class="my-10 rounded shadow-xl" alt="Selecting a gpt chatbot to connect to slack" sizes="(min-width: 56rem) 560px, 100vw - 2rem"  />
