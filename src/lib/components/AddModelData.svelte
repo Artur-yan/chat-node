@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-	import { addModel } from '$lib/models';
+	import { addModel, defaultSettings } from '$lib/models';
 	import { alert } from '$lib/stores.js';
 
 	export let modelId: string = '';
@@ -11,15 +11,7 @@
 	export let name = 'Untitled';
 	export let existingTokenCount = 0;
 
-	let settings = {
-		greeting: 'What can I help you with?',
-		public: false,
-		allowedUrls: [],
-		supportMessage: 'Hmm, I am not sure',
-		systemPrompt:
-			'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information"',
-		userPrompt: ''
-	};
+	let settings = defaultSettings
 	let activeTab: number;
 	let busyFetchingUrls = false;
 	let busyTraining = false;
