@@ -14,6 +14,9 @@
 	$: if (trainingStatus == 'complete') {
 		restart();
 	}
+
+	console.log(data)
+
 </script>
 
 <svelte:head>
@@ -22,6 +25,21 @@
 
 <div class="container grid grid-cols-2 gap-10">
 	<div>
+		<table class="table w-full">
+			<thead>
+				<tr>
+				  <th>Type</th>
+				  <th class="w-full">Name</th>
+				</tr>
+			  </thead>
+			{#each data.modelData as modelData}
+				<tr>
+					<td>{modelData.source_type}</td>
+					<td>{modelData.name}</td>
+			  </tr>
+			{/each}
+		</table>
+
 		{#each unique as key (key)}
 			<AddModelData
 				bind:modelId
