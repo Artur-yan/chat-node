@@ -25,7 +25,17 @@
 
 <div class="container grid grid-cols-2 gap-10">
 	<div>
-		<table class="table w-full">
+		
+		{#each unique as key (key)}
+		<AddModelData
+		bind:modelId
+		userId={data.user.user.userId}
+		sessionId={data.user.session.sessionId}
+		subscription={data.subscription}
+		existingTokenCount={data.model.tocken_count}
+		bind:trainingStatus
+		/>
+		<table class="table w-full table-compact my-10">
 			<thead>
 				<tr>
 				  <th>Type</th>
@@ -39,16 +49,6 @@
 			  </tr>
 			{/each}
 		</table>
-
-		{#each unique as key (key)}
-			<AddModelData
-				bind:modelId
-				userId={data.user.user.userId}
-				sessionId={data.user.session.sessionId}
-				subscription={data.subscription}
-				existingTokenCount={data.model.tocken_count}
-				bind:trainingStatus
-			/>
 		{/each}
 	</div>
 	<div>
