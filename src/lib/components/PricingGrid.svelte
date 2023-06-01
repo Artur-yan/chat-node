@@ -78,7 +78,7 @@
 			<div>
 				<h2>Basic</h2>
 				<h3 class="text-lg font-bold">
-					19€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
+					$19<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
 				</h3>
 			</div>
 			{#if currentPlan !== undefined}
@@ -112,7 +112,7 @@
 			<div>
 				<h2>Pro</h2>
 				<h3 class="text-lg font-bold">
-					49€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
+					$49<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
 				</h3>
 			</div>
 			{#if currentPlan !== undefined}
@@ -148,7 +148,7 @@
 					<div>
 						<h2>Enterprise</h2>
 						<h3 class="text-lg font-bold">
-							99€<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
+							$99<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
 						</h3>
 					</div>
 				</div>
