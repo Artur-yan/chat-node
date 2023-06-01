@@ -6,11 +6,11 @@
 	export let currentPlan: number | undefined = undefined;
 
 	let busyChangingPlan = false;
-	let referralCode = ''
+	let referralCode = '';
 
 	onMount(() => {
-		rewardful('ready', function() {
-			if(Rewardful.referral) {
+		rewardful('ready', function () {
+			if (Rewardful.referral) {
 				console.log('Current referral ID: ', Rewardful.referral);
 				referralCode = Rewardful.referral;
 			} else {
@@ -27,7 +27,7 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({newPlan, referralCode})
+				body: JSON.stringify({ newPlan, referralCode })
 			});
 			const data = await res.json();
 			if (data.url) {

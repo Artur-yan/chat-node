@@ -1,7 +1,7 @@
 import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 
 export const PUT = async ({ request, locals }) => {
-	const {newPlan, referralCode} = await request.json();
+	const { newPlan, referralCode } = await request.json();
 	const session = await locals.auth.validate();
 
 	try {

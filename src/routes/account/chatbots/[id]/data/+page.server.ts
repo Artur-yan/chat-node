@@ -10,17 +10,15 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		}
 	});
 
-    let modelData
+	let modelData;
 
+	if (user.session.userId === model.user_id) {
+		modelData = prismaClient.botsSource.findMany({
+			where: {
+				id: model.id
+			}
+		});
+	}
 
-    if (user.session.userId === model.user_id) {
-        modelData = prismaClient.botsSource.findMany({
-            where: {
-                id: model.id
-            }
-        })
-    }
-
-    return { modelData }
-
-}
+	return { modelData };
+};

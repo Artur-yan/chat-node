@@ -11,7 +11,7 @@
 	export let name = 'Untitled';
 	export let existingTokenCount = 0;
 
-	let settings = defaultSettings
+	let settings = defaultSettings;
 	let activeTab: number;
 	let busyFetchingUrls = false;
 	let busyTraining = false;
@@ -30,13 +30,13 @@
 	let selectAllUrlsCheckbox: HTMLInputElement;
 
 	let currentProgress = 0;
-	let loading
+	let loading;
 	const loadingProgress = (step = 0.2) => {
 		loading = setInterval(() => {
 			currentProgress += step;
-			return Math.round(Math.atan(currentProgress) / (Math.PI / 2) * 100 * 1000) / 1000
+			return Math.round((Math.atan(currentProgress) / (Math.PI / 2)) * 100 * 1000) / 1000;
 		}, 100);
-	}
+	};
 
 	const fetchUrlsToScrape = async () => {
 		busyFetchingUrls = true;
@@ -167,7 +167,6 @@
 			selectedUrls = [];
 		}
 	};
-
 </script>
 
 <div>
@@ -206,8 +205,16 @@
 				</div>
 			</div>
 		</div>
-		<div class="alert flex-col" class:hidden={!uploadedFileName} class:alert-warning={filesTokenCount + existingTokenCount > subscription.max_tocken}>
-			<progress class="progress progress-success" value={filesTokenCount + existingTokenCount} max={subscription.max_tocken}></progress>
+		<div
+			class="alert flex-col"
+			class:hidden={!uploadedFileName}
+			class:alert-warning={filesTokenCount + existingTokenCount > subscription.max_tocken}
+		>
+			<progress
+				class="progress progress-success"
+				value={filesTokenCount + existingTokenCount}
+				max={subscription.max_tocken}
+			/>
 			Your file contains {filesTokenCount.toLocaleString()} tokens.
 			{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
 			Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
@@ -232,7 +239,11 @@
 				class="alert mt-2 flex-col"
 				class:alert-warning={approxTextTokenCount + existingTokenCount > subscription.max_tocken}
 			>
-				<progress class="progress progress-success animate-all" value={approxTextTokenCount + existingTokenCount} max={subscription.max_tocken}></progress>
+				<progress
+					class="progress progress-success animate-all"
+					value={approxTextTokenCount + existingTokenCount}
+					max={subscription.max_tocken}
+				/>
 				Your included text contains approx. {approxTextTokenCount.toLocaleString()} tokens.
 				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
 				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
@@ -266,19 +277,27 @@
 			We will check your website for any sub-pages and you can choose which to include in your data
 		</p>
 		{#if busyFetchingUrls}
-		<progress class="progress progress-success w-full" value={currentProgress} max={100}></progress>
+			<progress class="progress progress-success w-full" value={currentProgress} max={100} />
 		{/if}
 		{#if urls}
 			<table class="table table-zebra table-compact w-full max-w-full my-4">
 				<thead>
 					<tr>
-						<th><input type="checkbox" class="checkbox" checked bind:this={selectAllUrlsCheckbox} on:change={handleSelectAllUrls} /></th>
+						<th
+							><input
+								type="checkbox"
+								class="checkbox"
+								checked
+								bind:this={selectAllUrlsCheckbox}
+								on:change={handleSelectAllUrls}
+							/></th
+						>
 						<th>URL</th>
 						<th>Tokens</th>
 					</tr>
 				</thead>
 				<tbody>
-					{#each urls as url}	
+					{#each urls as url}
 						<tr>
 							<td>
 								<input
@@ -302,8 +321,15 @@
 					</tr>
 				</tfoot>
 			</table>
-			<div class="alert mb-2 flex-col" class:alert-warning={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}>
-				<progress class="progress progress-success w-full" value={selectedUrlsTokenCount + existingTokenCount} max={subscription.max_tocken}></progress>
+			<div
+				class="alert mb-2 flex-col"
+				class:alert-warning={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}
+			>
+				<progress
+					class="progress progress-success w-full"
+					value={selectedUrlsTokenCount + existingTokenCount}
+					max={subscription.max_tocken}
+				/>
 				Your selected urls contain {selectedUrlsTokenCount.toLocaleString()} tokens.
 				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
 				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
@@ -312,8 +338,8 @@
 				class="btn btn-primary"
 				class:loading={busyTraining}
 				on:click={() => createOrUpdateModel()}
-				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken || selectedUrlsTokenCount == 0}
-				>Train Bot</button
+				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
+					selectedUrlsTokenCount == 0}>Train Bot</button
 			>
 		{/if}
 	{/if}

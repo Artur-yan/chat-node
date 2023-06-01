@@ -73,4 +73,4 @@ const defaultSettings = {
 	}
 };
 
-export { addModel, updateModel, deleteModel, defaultSettings};
+export { addModel, updateModel, deleteModel, defaultSettings };

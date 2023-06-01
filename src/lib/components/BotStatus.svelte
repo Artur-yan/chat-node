@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import { PUBLIC_SITE_URL  } from '$env/static/public';
+	import { PUBLIC_SITE_URL } from '$env/static/public';
 
 	export let id: string;
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed' = 'ready';
@@ -10,35 +10,34 @@
 	let trainingMessage: string;
 	let statusMessageElement: HTMLElement;
 
-  const listenForTrainingStatus = async () => {
-    setTimeout(async () => {
-      try {
-        const res = await fetch(PUBLIC_SITE_URL + '/api/models/training-status', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({id})
-        });
-        const { status } = await res.json();
+	const listenForTrainingStatus = async () => {
+		setTimeout(async () => {
+			try {
+				const res = await fetch(PUBLIC_SITE_URL + '/api/models/training-status', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ id })
+				});
+				const { status } = await res.json();
 
-        if (status === 'training') {
-          listenForTrainingStatus();
-        } else if(status == 'ready') {
-          trainingStatus = 'complete';
-        } else {
-          trainingStatus = status;
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }, 1000);
-  }
+				if (status === 'training') {
+					listenForTrainingStatus();
+				} else if (status == 'ready') {
+					trainingStatus = 'complete';
+				} else {
+					trainingStatus = status;
+				}
+			} catch (err) {
+				console.error(err);
+			}
+		}, 1000);
+	};
 
-  $: if (trainingStatus !== 'ready') {
-    listenForTrainingStatus()
-  }
-
+	$: if (trainingStatus !== 'ready') {
+		listenForTrainingStatus();
+	}
 
 	$: switch (trainingStatus) {
 		case undefined:
@@ -63,8 +62,7 @@
 			alertClass = 'alert-error';
 			break;
 	}
-</script> 
-
+</script>
 
 {#if trainingStatus !== 'ready'}
 	<div class="flex flex-start mb-2" bind:this={statusMessageElement}>

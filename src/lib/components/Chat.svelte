@@ -9,7 +9,7 @@
 	export let inputPlaceholder = 'Type your message';
 	export let disabled = false;
 	export let isThinking = false;
-	export let settings = defaultSettings
+	export let settings = defaultSettings;
 	export let messages = [
 		{
 			text: settings.greeting,
@@ -18,7 +18,7 @@
 	];
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed' = 'ready';
 
-	if(!settings.theme) {
+	if (!settings.theme) {
 		settings.theme = defaultSettings.theme;
 	}
 
@@ -101,11 +101,11 @@
 		<slot>
 			{#each messages as msg}
 				<div class="chat overflow-hidden {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
-					<div class="chat-bubble"
-						style={ msg.sender == 'bot'
-							? "background-color: var(--botBubbleBG); color: var(--botBubbleText)"
-							: "background-color: var(--userBubbleBG); color: var(--userBubbleText)"
-						}
+					<div
+						class="chat-bubble"
+						style={msg.sender == 'bot'
+							? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
+							: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
 					>
 						{@html snarkdown(msg.text)}
 					</div>
@@ -114,7 +114,10 @@
 		</slot>
 		{#if isThinking}
 			<div class="chat chat-start">
-				<div class="chat-bubble" style="background-color: var(--botBubbleBG); color: var(--botBubbleText)">
+				<div
+					class="chat-bubble"
+					style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"
+				>
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 						><circle cx="4" cy="12" r="3" fill="currentColor"
 							><animate
@@ -163,7 +166,12 @@
 				style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder); border-right: none;"
 				{disabled}
 			/>
-			<button class="btn btn-square border-none" type="submit" name="Send" style="background-color: var(--sendButtonBG) !important; color: var(--sendButtonIconColor);">
+			<button
+				class="btn btn-square border-none"
+				type="submit"
+				name="Send"
+				style="background-color: var(--sendButtonBG) !important; color: var(--sendButtonIconColor);"
+			>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 					><path
 						fill="none"

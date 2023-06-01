@@ -3,7 +3,7 @@
 
 	export let data;
 
-	let settings = data.bot.settings
+	let settings = data.bot.settings;
 </script>
 
 <svelte:head>
