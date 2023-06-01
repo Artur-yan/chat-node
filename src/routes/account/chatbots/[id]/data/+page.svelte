@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
 	export let data;
 	import AddModelData from '$lib/components/AddModelData.svelte';
 	import Chat from '$lib/components/Chat.svelte';
@@ -13,6 +14,7 @@
 
 	$: if (trainingStatus == 'complete') {
 		restart();
+		invalidateAll()
 	}
 
 	$: data.modelData, restart();
@@ -24,7 +26,7 @@
 
 <div class="container grid grid-cols-2 gap-10">
 	<div>
-		{#each unique as key (key)}
+		{#key unique}
 			<AddModelData
 				bind:modelId
 				userId={data.user.user.userId}
@@ -33,21 +35,21 @@
 				existingTokenCount={data.model.tocken_count}
 				bind:trainingStatus
 			/>
-		{/each}
-		<table class="table w-full table-compact my-10">
-			<thead>
-				<tr>
-					<th>Type</th>
-					<th class="w-full">Name</th>
-				</tr>
-			</thead>
-			{#each data.modelData as modelData}
-				<tr>
-					<td>{modelData.source_type}</td>
-					<td>{modelData.name}</td>
-				</tr>
-			{/each}
-		</table>
+		{/key}
+			<table class="table w-full table-compact my-10">
+				<thead>
+					<tr>
+						<th>Type</th>
+						<th class="w-full">Name</th>
+					</tr>
+				</thead>
+				{#each data.modelData as modelData}
+					<tr>
+						<td>{modelData.source_type}</td>
+						<td>{modelData.name}</td>
+					</tr>
+				{/each}
+			</table>
 	</div>
 	<div>
 		<div class="h-[calc(100vh_-_16rem)] sticky top-10 mb-10">
