@@ -95,6 +95,7 @@ model BotsSource {
   name        String?
   source_type String?
   id          String?
+  api_version String @default("1")
 
   @@map("bots_source")
 }

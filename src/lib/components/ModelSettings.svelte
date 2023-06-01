@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { updateModel, deleteModel, defaultSettings } from '$lib/models';
 	import Icon from '@iconify/svelte';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { alert } from '$lib/stores';
 	import Accordian from '$lib/components/Accordian.svelte';
 	import ColorPicker from 'svelte-awesome-color-picker';
@@ -10,6 +10,7 @@
 	export let id: string;
 	export let name: string;
 	export let settings = defaultSettings;
+	export let open = false;
 	let busySaving = false;
 	let deleting = false;
 
@@ -29,6 +30,7 @@
 		await updateModel(id, name, settings);
 		busySaving = false;
 		$alert = 'Settings Saved';
+		invalidateAll()
 	};
 
 	let selectedTheme = settings.theme.name || 'default';
@@ -42,7 +44,7 @@
 			</label>
 			<input type="text" bind:value={name} class="input w-full" placeholder="Untitled" />
 		</div>
-		<Accordian open={true}>
+		<Accordian {open}>
 			<div slot="title">Messages</div>
 			<div>
 				<label for="greeting" class="label">
@@ -61,7 +63,7 @@
 				</p>
 			</div>
 		</Accordian>
-		<Accordian open={true}>
+		<Accordian {open}>
 			<div slot="title">Prompts</div>
 
 			<div>
@@ -88,7 +90,7 @@
 				</div>
 			</div>
 		</Accordian>
-		<Accordian open={true}>
+		<Accordian {open}>
 			<div slot="title" id="publishing">Publishing</div>
 			<div>
 				<div class="form-control">
@@ -131,7 +133,7 @@
 				{/if}
 			</div>
 		</Accordian>
-		<Accordian open={true}>
+		<Accordian {open}>
 			<div slot="title" id="theme">Theme</div>
 			<div class="themes">
 				<div>

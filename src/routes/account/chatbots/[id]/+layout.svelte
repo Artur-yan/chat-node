@@ -12,11 +12,12 @@
 </script>
 
 <div class="container sm:flex items-center mb-4 gap-4 flex-wrap">
-	<div class="flex items-center gap-2 text-secondary -ml-8">
-		<a class="btn btn-ghost btn-circle btn-sm" href="/account/chatbots">&larr;</a>
+	<div class="flex items-baseline gap-2 text-secondary">
+		<a class="text-sm font-bold" href="/account/chatbots">Bots</a>
+		<span class="mx-1 text-xs">/</span>
 		<h1 class="font-bold">{data.model.name}</h1>
 	</div>
-	<div class="tabs tabs-boxed">
+	<div class="tabs tabs-boxed border border-neutral">
 		<a href={chatPath} class="tab" class:tab-active={chatPath == $page.url.pathname}>Chat</a>
 		<a href={embedPath} class="tab" class:tab-active={embedPath == $page.url.pathname}>Embed</a>
 		<a
