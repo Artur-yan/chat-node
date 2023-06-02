@@ -117,7 +117,7 @@
 								<Icon icon="mdi:message" class="mr-2" width="16" /> Chat
 							</a> -->
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
-							<div class="dropdown dropdown-left dropdown-end">
+							<div class="dropdown dropdown-left dropdown-start">
 								<label tabindex="0" class="btn btn-sm btn-ghost btn-square" on:click|preventDefault><Icon icon="tabler:dots" height="24" /></label>
 								<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box ">
 									<li>
