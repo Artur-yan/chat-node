@@ -36,7 +36,13 @@
 		<form class="form-control gap-2" method="POST" action="?/changePassword">
 			<div>
 				<label class="label" for="email"><span class="label-text">New password</span></label>
-				<input class="input input-bordered w-full" type="password" name="password" required autocomplete="new-password" />
+				<input
+					class="input input-bordered w-full"
+					type="password"
+					name="password"
+					required
+					autocomplete="new-password"
+				/>
 			</div>
 			<div>
 				<label class="label" for="email"><span class="label-text">Confirm password</span></label>

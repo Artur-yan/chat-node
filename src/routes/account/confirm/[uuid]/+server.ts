@@ -3,7 +3,6 @@ import { auth } from '$lib/server/lucia';
 import { prismaClient } from '$lib/server/prisma';
 import { redirect } from '@sveltejs/kit';
 
-
 export const GET: RequestHandler = async ({ params, url, locals }) => {
 	let update = url.searchParams.get('update');
 

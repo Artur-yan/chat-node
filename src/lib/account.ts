@@ -8,14 +8,14 @@ const deleteAccount = async () => {
 };
 
 const updateAccountEmail = async (newEmail: string) => {
-	try{
+	try {
 		await fetch('/api/account/update-email', {
 			method: 'POST',
 			body: JSON.stringify({
 				newEmail
 			})
 		});
-	} catch(err) {
+	} catch (err) {
 		console.error(err);
 	}
 };

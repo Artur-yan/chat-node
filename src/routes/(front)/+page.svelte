@@ -52,13 +52,17 @@
 <section class="bg-base-100">
 	<div class="container gap-8 items-center px-4 py-[5vh] mx-auto lg:px-6">
 		<h2
-		class="mb-6 text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-center text-secondary max-w-[8em] mx-auto"
+			class="mb-6 text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-center text-secondary max-w-[8em] mx-auto"
 		>
-		Train ChatGPT on your own data
-	</h2>
-	<div class="flex justify-center items-center">
-	<a class="btn btn-accent btn-outline rounded-full my-4 border-accent border bg-white/10" href="/blog/slack-integration"><span class="badge badge-accent mr-2">New</span> Slack Integration &rarr;</a>
-	</div>
+			Train ChatGPT on your own data
+		</h2>
+		<div class="flex justify-center items-center">
+			<a
+				class="btn btn-accent btn-outline rounded-full my-4 border-accent border bg-white/10"
+				href="/blog/slack-integration"
+				><span class="badge badge-accent mr-2">New</span> Slack Integration &rarr;</a
+			>
+		</div>
 		<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto">
 			<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
 				<div class="w-full">
@@ -146,7 +150,7 @@
 </section>
 
 <section id="difference" class="bg-white text-base-100">
-	<div class="py-8 lg:py-20 bg-secondary/50" >
+	<div class="py-8 lg:py-20 bg-secondary/50">
 		<h2 class="p-4 md:pl-10 lg:pl-20 text-3xl lg:text-5xl font-bold mb-10">
 			What Makes GPT ChatBot <span class="">Different?</span>
 		</h2>
@@ -386,10 +390,10 @@
 		</div>
 	</div>
 	<style lang="postcss">
-		body{
-			@apply pt-10
+		body {
+			@apply pt-10;
 		}
-		#header{
+		#header {
 			@apply fixed inset-0 bottom-auto z-10 shadow-lg;
 		}
 	</style>

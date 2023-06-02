@@ -6,7 +6,6 @@ import type { PageServerLoad } from './$types';
 import { prismaClient } from '$lib/server/prisma';
 import { sendConfirmationEmail } from '$lib/server/messenger';
 
-
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (session) throw redirect(302, '/account/chatbots');
@@ -53,10 +52,7 @@ export const actions: Actions = {
 			locals.auth.setSession(session);
 		} catch (error) {
 			console.error(error);
-			if (
-				error.code === 'P2002' &&
-				error.message?.includes('email')
-			) {
+			if (error.code === 'P2002' && error.message?.includes('email')) {
 				return fail(400, {
 					message: 'Email already in use'
 				});

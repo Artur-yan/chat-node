@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import { addModel, defaultSettings } from '$lib/models';
 	import { alert } from '$lib/stores.js';
+	
 
 	export let modelId: string = '';
 	export let userId: string;
@@ -11,7 +13,7 @@
 	export let name = 'Untitled';
 	export let existingTokenCount = 0;
 
-	let settings = defaultSettings
+	let settings = defaultSettings;
 	let activeTab: number;
 	let busyFetchingUrls = false;
 	let busyTraining = false;
@@ -30,13 +32,13 @@
 	let selectAllUrlsCheckbox: HTMLInputElement;
 
 	let currentProgress = 0;
-	let loading
+	let loading;
 	const loadingProgress = (step = 0.2) => {
 		loading = setInterval(() => {
 			currentProgress += step;
-			return Math.round(Math.atan(currentProgress) / (Math.PI / 2) * 100 * 1000) / 1000
+			return Math.round((Math.atan(currentProgress) / (Math.PI / 2)) * 100 * 1000) / 1000;
 		}, 100);
-	}
+	};
 
 	const fetchUrlsToScrape = async () => {
 		busyFetchingUrls = true;
@@ -131,6 +133,7 @@
 			$alert = 'Something went wrong. Please try again later.';
 		} finally {
 			busyTraining = false;
+			invalidateAll()
 		}
 	};
 
@@ -167,21 +170,20 @@
 			selectedUrls = [];
 		}
 	};
-
 </script>
 
 <div>
 	<h2 class="font-bold text-secondary text-lg mb-2">Add Data</h2>
 	<div class="mb-10 grid grid-cols-3 gap-2">
-		<label class="btn text-primary" class:btn-outline={activeTab == 0}>
+		<label class="btn btn-neutral text-primary" class:btn-outline={activeTab == 0}>
 			<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
 			+ File
 		</label>
-		<label class="btn text-primary" class:btn-outline={activeTab == 1}>
+		<label class="btn btn-neutral text-primary" class:btn-outline={activeTab == 1}>
 			<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
 			+ Text
 		</label>
-		<label class="btn text-primary" class:btn-outline={activeTab == 2}>
+		<label class="btn btn-neutral text-primary" class:btn-outline={activeTab == 2}>
 			<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
 			+ URL
 		</label>
@@ -206,8 +208,16 @@
 				</div>
 			</div>
 		</div>
-		<div class="alert flex-col" class:hidden={!uploadedFileName} class:alert-warning={filesTokenCount + existingTokenCount > subscription.max_tocken}>
-			<progress class="progress progress-success" value={filesTokenCount + existingTokenCount} max={subscription.max_tocken}></progress>
+		<div
+			class="alert flex-col"
+			class:hidden={!uploadedFileName}
+			class:alert-warning={filesTokenCount + existingTokenCount > subscription.max_tocken}
+		>
+			<progress
+				class="progress progress-success"
+				value={filesTokenCount + existingTokenCount}
+				max={subscription.max_tocken}
+			/>
 			Your file contains {filesTokenCount.toLocaleString()} tokens.
 			{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
 			Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
@@ -232,7 +242,11 @@
 				class="alert mt-2 flex-col"
 				class:alert-warning={approxTextTokenCount + existingTokenCount > subscription.max_tocken}
 			>
-				<progress class="progress progress-success animate-all" value={approxTextTokenCount + existingTokenCount} max={subscription.max_tocken}></progress>
+				<progress
+					class="progress progress-success animate-all"
+					value={approxTextTokenCount + existingTokenCount}
+					max={subscription.max_tocken}
+				/>
 				Your included text contains approx. {approxTextTokenCount.toLocaleString()} tokens.
 				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
 				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
@@ -256,7 +270,8 @@
 						required
 						autofocus
 					/>
-					<button class="btn btn-primary" type="submit" class:loading={busyFetchingUrls}>
+					<button class="btn btn-primary" type="submit">
+						<span class={busyFetchingUrls ? 'loading loading-xs' : 'hidden'}></span>
 						Fetch URLs
 					</button>
 				</div>
@@ -266,19 +281,27 @@
 			We will check your website for any sub-pages and you can choose which to include in your data
 		</p>
 		{#if busyFetchingUrls}
-		<progress class="progress progress-success w-full" value={currentProgress} max={100}></progress>
+			<progress class="progress progress-success w-full" value={currentProgress} max={100} />
 		{/if}
 		{#if urls}
 			<table class="table table-zebra table-compact w-full max-w-full my-4">
 				<thead>
 					<tr>
-						<th><input type="checkbox" class="checkbox" checked bind:this={selectAllUrlsCheckbox} on:change={handleSelectAllUrls} /></th>
+						<th
+							><input
+								type="checkbox"
+								class="checkbox"
+								checked
+								bind:this={selectAllUrlsCheckbox}
+								on:change={handleSelectAllUrls}
+							/></th
+						>
 						<th>URL</th>
 						<th>Tokens</th>
 					</tr>
 				</thead>
 				<tbody>
-					{#each urls as url}	
+					{#each urls as url}
 						<tr>
 							<td>
 								<input
@@ -302,8 +325,15 @@
 					</tr>
 				</tfoot>
 			</table>
-			<div class="alert mb-2 flex-col" class:alert-warning={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}>
-				<progress class="progress progress-success w-full" value={selectedUrlsTokenCount + existingTokenCount} max={subscription.max_tocken}></progress>
+			<div
+				class="alert mb-2 flex-col"
+				class:alert-warning={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}
+			>
+				<progress
+					class="progress progress-success w-full"
+					value={selectedUrlsTokenCount + existingTokenCount}
+					max={subscription.max_tocken}
+				/>
 				Your selected urls contain {selectedUrlsTokenCount.toLocaleString()} tokens.
 				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
 				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
@@ -312,8 +342,8 @@
 				class="btn btn-primary"
 				class:loading={busyTraining}
 				on:click={() => createOrUpdateModel()}
-				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken || selectedUrlsTokenCount == 0}
-				>Train Bot</button
+				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
+					selectedUrlsTokenCount == 0}>Train Bot</button
 			>
 		{/if}
 	{/if}

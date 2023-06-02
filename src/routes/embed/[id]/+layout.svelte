@@ -7,7 +7,7 @@
 
 <div>
 	<style>
-		body{
+		body {
 			background-color: transparent !important;
 		}
 	</style>

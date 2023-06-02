@@ -42,7 +42,7 @@
 					bind:name
 				/>
 			{:else}
-				<ModelSettings id={modelId} {name} bind:settings />
+				<ModelSettings id={modelId} {name} bind:settings open={true} />
 			{/if}
 		</div>
 		<div>

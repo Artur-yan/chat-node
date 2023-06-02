@@ -2,20 +2,18 @@
 	import { goto } from '$app/navigation';
 	import Icon from '@iconify/svelte';
 	import { page } from '$app/stores';
-	import Plausible from 'plausible-tracker'
+	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 
 	export let data;
-
-
 
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
 
 	onMount(() => {
-		const { trackEvent } = Plausible({ domain: 'chatnode.ai' })
+		const { trackEvent } = Plausible({ domain: 'chatnode.ai' });
 		if ($page.url.searchParams.get('signup') == 'success') {
-			trackEvent('Signup')
+			trackEvent('Signup');
 		}
 	});
 </script>
@@ -117,7 +115,7 @@
 						</div>
 
 						<div class="card-actions justify-between items-center -mx-4 -mb-4">
-							<a class="btn" href="chatbots/{bot.id}">
+							<a class="btn btn-ghost" href="chatbots/{bot.id}">
 								<Icon icon="mdi:message" class="mr-2" width="16" /> Chat
 							</a>
 							<div class="btn-group rounded-lg">

@@ -5,7 +5,7 @@
 
 	export let data;
 
-	let settings =  data.model.settings;
+	let settings = data.model.settings;
 	if (!settings.theme) {
 		settings.theme = defaultSettings.theme;
 	}

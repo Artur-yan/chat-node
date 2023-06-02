@@ -1,7 +1,6 @@
 import { prismaClient } from '$lib/server/prisma';
 import { redirect } from '@sveltejs/kit';
 
-
 export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	const user = await locals.auth.validateUser();
