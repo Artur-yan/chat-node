@@ -140,6 +140,11 @@
 											<Icon icon="mdi:settings" width="18" /> Settings
 										</a>
 									</li>
+									<li>
+										<a href="/account/chatbots/{bot.id}/settings">
+											<Icon icon="mdi:delete-outline" width="18" /> Delete
+										</a>
+									</li>
 								</ul>
 							</div>
 							<!-- <div class="btn-group rounded-lg">
