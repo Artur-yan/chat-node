@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import { addModel, defaultSettings } from '$lib/models';
 	import { alert } from '$lib/stores.js';
+	
 
 	export let modelId: string = '';
 	export let userId: string;
@@ -131,6 +133,7 @@
 			$alert = 'Something went wrong. Please try again later.';
 		} finally {
 			busyTraining = false;
+			invalidateAll()
 		}
 	};
 
