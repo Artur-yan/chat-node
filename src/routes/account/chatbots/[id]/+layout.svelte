@@ -17,7 +17,7 @@
 		<span class="mx-1 text-xs">/</span>
 		<h1 class="font-bold">{data.model.name}</h1>
 	</div>
-	<div class="tabs tabs-boxed border border-neutral">
+	<div class="tabs tabs-boxed bg-neutral">
 		<a href={chatPath} class="tab" class:tab-active={chatPath == $page.url.pathname}>Chat</a>
 		<a href={embedPath} class="tab" class:tab-active={embedPath == $page.url.pathname}>Embed</a>
 		<a

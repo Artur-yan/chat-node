@@ -115,7 +115,7 @@
 						</div>
 
 						<div class="card-actions justify-between items-center -mx-4 -mb-4">
-							<a class="btn" href="chatbots/{bot.id}">
+							<a class="btn btn-ghost" href="chatbots/{bot.id}">
 								<Icon icon="mdi:message" class="mr-2" width="16" /> Chat
 							</a>
 							<div class="btn-group rounded-lg">

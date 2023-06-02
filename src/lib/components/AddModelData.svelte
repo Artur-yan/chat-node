@@ -175,15 +175,15 @@
 <div>
 	<h2 class="font-bold text-secondary text-lg mb-2">Add Data</h2>
 	<div class="mb-10 grid grid-cols-3 gap-2">
-		<label class="btn text-primary" class:btn-outline={activeTab == 0}>
+		<label class="btn btn-neutral text-primary" class:btn-outline={activeTab == 0}>
 			<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
 			+ File
 		</label>
-		<label class="btn text-primary" class:btn-outline={activeTab == 1}>
+		<label class="btn btn-neutral text-primary" class:btn-outline={activeTab == 1}>
 			<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
 			+ Text
 		</label>
-		<label class="btn text-primary" class:btn-outline={activeTab == 2}>
+		<label class="btn btn-neutral text-primary" class:btn-outline={activeTab == 2}>
 			<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
 			+ URL
 		</label>
@@ -270,7 +270,8 @@
 						required
 						autofocus
 					/>
-					<button class="btn btn-primary" type="submit" class:loading={busyFetchingUrls}>
+					<button class="btn btn-primary" type="submit">
+						<span class={busyFetchingUrls ? 'loading loading-xs' : 'hidden'}></span>
 						Fetch URLs
 					</button>
 				</div>
