@@ -379,7 +379,7 @@
 			<Accordian>
 				<div slot="title">How can I contact you?</div>
 				You can reach out to us at contact@chatnode.ai or you can click on the live chat on the bottom
-				left and talk to us directly.
+				right and talk to us directly.
 			</Accordian>
 			<Accordian>
 				<div slot="title">Can I customize the chatbot?</div>
