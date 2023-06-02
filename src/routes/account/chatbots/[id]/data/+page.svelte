@@ -9,7 +9,7 @@
 
 	let trainingStatus = 'ready';
 	let modelId = data.model.id;
-	let sourceToDelete: string
+	let sourceToDelete: Object
 	let unique = [{}]; // every {} is unique, {} === {} evaluates to false
 
 	function restart() {
@@ -79,7 +79,7 @@
 						<tr>
 							<td><div class="badge badge-neutral badge-sm">{modelData.source_type}</div></td>
 							<td>{modelData.name}</td>
-							<td><button class="btn btn-sm btn-circle btn-ghost text-error" on:click={() => {sourceToDelete = modelData.s3_key; deleteDataSourceModal.showModal();}}><Icon icon="mdi:delete-outline" width="16" /></button></td>
+							<td><button class="btn btn-sm btn-circle btn-ghost text-error" on:click={() => {sourceToDelete = modelData; deleteDataSourceModal.showModal();}}><Icon icon="mdi:delete-outline" width="16" /></button></td>
 						</tr>
 					{/each}
 				</table>
@@ -93,13 +93,20 @@
 </div>
 
 <dialog id="deleteDataSourceModal" class="modal">
-  <form method="dialog" class="modal-box">
-    <h3 class="font-bold text-lg">Are you sure you want to delete this data source?</h3>
-    <p class="py-4"></p>
-	<button class="btn">Cancel</button>
-	<button class="btn btn-error" on:click={() => deleteBotSource(sourceToDelete)}>Delete</button>
-  </form>
-  <form method="dialog" class="modal-backdrop">
-    <button>close</button>
-  </form>
+	
+	<form method="dialog" class="modal-box">
+		{#if sourceToDelete && sourceToDelete.api_version > 1}
+	  <h3 class="font-bold text-lg">Are you sure you want to delete this data source?</h3>
+	  <p class="py-4"></p>
+	  <button class="btn">Cancel</button>
+	  <button class="btn btn-error" on:click={() => deleteBotSource(sourceToDelete.s3_key)}>Delete</button>
+	  {:else}
+	  <h3 class="font-bold text-lg text-error">Error</h3>
+		<div class="my-4">This data source was added before a major update and cannot be individually removed. You'll need to create a new bot to take advantage of this feature. We apologize for the inconvenience.</div>
+	<button class="btn">Ok</button>
+	{/if}
+</form>
+	<form method="dialog" class="modal-backdrop">
+	  <button>close</button>
+	</form>
 </dialog>

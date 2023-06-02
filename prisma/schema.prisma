@@ -5,8 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  // production
-  // url      = "postgresql://postgres:H4idB56bOlpQLOAV@db.guhkoqzapksvcdqqfznk.supabase.co:5432/postgres"
+    // url      = "postgresql://postgres:H4idB56bOlpQLOAV@db.guhkoqzapksvcdqqfznk.supabase.co:5432/postgres"
 }
 
 model AuthUser {
@@ -91,11 +90,11 @@ model chat_history {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model BotsSource {
-  s3_key      String @unique
+  s3_key      String  @id @unique
   name        String?
   source_type String?
   id          String?
-  api_version String @default("1")
+  api_version Float   @default(1) @db.Real
 
   @@map("bots_source")
 }
