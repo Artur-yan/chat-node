@@ -14,8 +14,8 @@
 		in:fly={{ y: -80, duration: 350 }}
 		out:fly={{ y: -80, duration: 350 }}
 	>
-		<div class="alert alert-info">
-			<div class="w-72 max-w-full flex justify-between">
+		<div class="alert alert-success">
+			<div class="w-72 max-w-full flex items-center justify-between">
 				<span>{$alert}</span>
 				<button on:click={() => ($alert = '')} class="p-2"
 					><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
