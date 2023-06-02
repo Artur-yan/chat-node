@@ -70,7 +70,9 @@
 				<div>
 					<label for="system-prompt" class="label">
 						<span class="label-text">System Prompt</span>
+						<button class="btn btn-xs btn-circle btn-ghost" on:click|preventDefault={() => settings.systemPrompt = defaultSettings.systemPrompt}><Icon icon="mdi:arrow-u-left-top" width="18" /></button>
 					</label>
+
 					<textarea
 						bind:value={settings.systemPrompt}
 						class="textarea textarea-bordered w-full leading-normal"
