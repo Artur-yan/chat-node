@@ -90,7 +90,7 @@
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 			{#each data.bots as bot}
 				{@const usage = Math.ceil((bot.tocken_count / data.subscription.max_tocken) * 100)}
-				<div class="card bg-neutral peer-checked:ring-2">
+				<a href="chatbots/{bot.id}" class="card bg-neutral peer-checked:ring-2 hover:outline-primary hover:outline">
 					<div class="card-body p-6">
 						<div class="">
 							<h2 class="card-title">
@@ -101,24 +101,48 @@
 						</div>
 						<h3 class="text-sm">{bot.created.toLocaleString()}</h3>
 
-						<div
-							class="flex justify-between items-center border-y border-dotted border-base-300 py-1"
-						>
-							<h3 class="text-sm">Token usage</h3>
-							<div>
-								<span class="text-xs mr-1 font-bold">{usage}%</span>
-								<span
-									class="radial-progress bg-base-100 text-secondary border-2 border-base-100"
-									style="--value:{usage}; --size: 1.5rem; --thickness: 4px;"
-								/>
+						<div class="flex items-center justify-between">
+							<div class="flex items-baseline gap-4">
+								<h3 class="text-xs font-bold">Token usage</h3>
+								<div>
+									<span class="text-xs font-bold text-secondary">{usage}%</span>
+									<span
+										class="radial-progress bg-base-100 text-secondary border-2 border-base-100"
+										style="--value:{usage}; --size: 0.875rem; --thickness: 3px;"
+									/>
+								</div>
 							</div>
-						</div>
 
-						<div class="card-actions justify-between items-center -mx-4 -mb-4">
-							<a class="btn btn-ghost" href="chatbots/{bot.id}">
+							<!-- <a class="btn btn-ghost" href="chatbots/{bot.id}">
 								<Icon icon="mdi:message" class="mr-2" width="16" /> Chat
-							</a>
-							<div class="btn-group rounded-lg">
+							</a> -->
+							<!-- svelte-ignore a11y-click-events-have-key-events -->
+							<div class="dropdown dropdown-left dropdown-end">
+								<label tabindex="0" class="btn btn-sm btn-ghost btn-square" on:click|preventDefault><Icon icon="tabler:dots" height="24" /></label>
+								<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box ">
+									<li>
+										<a href="/account/chatbots/{bot.id}/embed">
+											<Icon icon="mdi:code" width="18" /> Embed
+										</a>
+									</li>
+									<li>
+										<a href="/account/chatbots/{bot.id}/integrations">
+											<Icon icon="mdi:transit-connection-variant" width="18" /> Integrations
+										</a>
+									</li>
+									<li>
+										<a href="/account/chatbots/{bot.id}/data">
+											<Icon icon="mdi:database" width="18" /> Data
+										</a>
+									</li>
+									<li>
+										<a href="/account/chatbots/{bot.id}/settings">
+											<Icon icon="mdi:settings" width="18" /> Settings
+										</a>
+									</li>
+								</ul>
+							</div>
+							<!-- <div class="btn-group rounded-lg">
 								<div class="tooltip tooltip-secondary" data-tip="Get embed code">
 									<a class="btn btn-ghost" href="/account/chatbots/{bot.id}/embed">
 										<Icon icon="mdi:code" width="18" />
@@ -139,10 +163,10 @@
 										<Icon icon="mdi:settings" width="18" />
 									</a>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
-				</div>
+				</a>
 			{/each}
 		</div>
 	{:else}
