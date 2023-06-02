@@ -9,6 +9,7 @@
 	import difference2 from '$lib/assets/difference-2.jpg?run';
 	import difference3 from '$lib/assets/difference-3.jpg?run';
 	import PricingGrid from '$lib/components/PricingGrid.svelte';
+	import Features from '$lib/components/Features.svelte';
 
 	let isThinking = false;
 	let messages = [
@@ -48,6 +49,7 @@
 		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
 	/>
 </svelte:head>
+
 
 <section class="bg-base-100">
 	<div class="container gap-8 items-center px-4 py-[5vh] mx-auto lg:px-6">
@@ -93,6 +95,8 @@
 		</div>
 	</div>
 </section>
+
+<Features />
 
 <section id="how-it-works" class="px-10 pt-12 pb-32 bg-base-300">
 	<h2 class="text-4xl 2xl:text-5xl font-bold mb-6 text-center">How it works</h2>
