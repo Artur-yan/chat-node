@@ -14,7 +14,7 @@
     <div>
         <h2 class="text-[#34C5F0]"><Icon icon="devicon:slack" width={24} />Slack integration</h2>
         
-        <p>With just a couple clicks you can connect any of your AI bots, trained on your data, to any/all of your slack workspaces and get brilliant responses about your data without ever leavng your slack channel.</p>
+        <p>With just a couple clicks you can connect any of your AI bots, trained on your data, to any/all of your slack workspaces and get brilliant responses about your data without ever leaving your slack channel.</p>
     </div>
     <div>
         <h2 class="text-primary"><Icon icon="ic:twotone-invert-colors" width={32} />Custom design</h2>
