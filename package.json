@@ -48,7 +48,6 @@
 		"marked": "^5.0.4",
 		"nodemailer": "^6.9.3",
 		"plausible-tracker": "^0.3.8",
-		"snarkdown": "^2.0.0",
 		"uuid": "^9.0.0"
 	}
 }
