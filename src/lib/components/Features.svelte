@@ -21,6 +21,14 @@
         <p>Pick from a handful of slick colorways for your AI chat interface or customize each color to match your brand.</p>
     </div>
     <div>
+        <h2 class="text-primary"><Icon icon="ic:twotone-invert-colors" width={32} />Custom prompts</h2>
+        <p>You can cutomise your chat gpt prompts</p>
+    </div>
+    <div>
+        <h2 class="text-primary"><Icon icon="ic:twotone-invert-colors" width={32} />Multiple data sources</h2>
+        <p>docs, pdfs, text, websites, with more coming soon</p>
+    </div>
+    <div>
         <h2 class="text-warning"><Icon icon="ri:exchange-funds-fill" width={32} />Hyperspeed iteration</h2>
         <p>Our unique interface allow you to add data sources, remove them, change your GPT prompts and settings all without ever leaving the chatbot for superfast experimentation to get the absolute best results.</p>
     </div>
