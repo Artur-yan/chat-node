@@ -6,7 +6,10 @@
 	import Plausible from 'plausible-tracker';
 
 	onMount(async () => {
-		const { trackEvent } = Plausible({ domain: 'chatnode.ai' });
+		const { trackEvent } = Plausible({
+			domain: 'chatnode.ai',
+			apiHost: 'https://www.chatnode.ai/events'
+		});
 		if ($page.url.searchParams.get('plan-change') === 'success') {
 			trackEvent('Upgrade to Paid');
 			goto('/account/settings/plan');

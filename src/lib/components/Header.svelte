@@ -64,7 +64,7 @@
 							><Icon icon="mdi:account-circle-outline" width="24" /></label
 						>
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-						<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-64">
+						<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-64 z-10">
 							<li><a href="/account/settings">Account Settings</a></li>
 							<form action="/logout" method="POST">
 								<li>

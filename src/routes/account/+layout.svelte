@@ -9,7 +9,7 @@
 	import { onMount } from 'svelte';
 
 	onMount(() => {
-		const { enableAutoPageviews } = Plausible({ domain: 'chatnode.ai' });
+		const { enableAutoPageviews } = Plausible({ domain: 'chatnode.ai', apiHost: 'https://www.chatnode.ai/events' });
 		enableAutoPageviews();
 	});
 
