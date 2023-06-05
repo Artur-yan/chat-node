@@ -52,46 +52,48 @@
 
 
 <section class="bg-base-100">
-	<div class="container gap-8 items-center px-4 py-[5vh] mx-auto lg:px-6">
-		<h2
-			class="mb-6 text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-center text-secondary max-w-[8em] mx-auto"
-		>
-			Train ChatGPT on your own data
-		</h2>
-		<div class="flex justify-center items-center">
-			<a
-				class="btn btn-accent btn-outline rounded-full my-4 border-accent border bg-white/10"
-				href="/blog/slack-integration"
-				><span class="badge badge-accent mr-2">New</span> Slack Integration &rarr;</a
+	<div class="grid container lg:grid-cols-2 items-center gap-8 pb-10 pt-16 mx-auto">
+		<div class="max-lg:text-center">
+			<h2
+				class="mb-6 text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-[8em] max-lg:mx-auto"
 			>
-		</div>
-		<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto">
-			<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
-				<div class="w-full">
-					<Chat modelId="7c92a03849aa49c4" {messages} />
-				</div>
+				Train ChatGPT on your own data
+			</h2>
+
+			<div class="flex items-center max-lg:justify-center">
+				<a
+					class="btn btn-accent btn-outline rounded-full my-2 btn-sm border-accent border bg-white/10"
+					href="/blog/slack-integration"
+					><span class="badge badge-accent badge-sm mr-1">New</span> Slack Integration &rarr;</a
+				>
+			</div>
+			<div class="mt-16">
+				<a href="/register" class="btn btn-primary">Create your chatbot</a>
+				<a href="#difference" class="btn btn-ghost text-primary">
+					Learn More
+					<svg
+						class="ml-1 w-4 h-4"
+						fill="currentColor"
+						viewBox="0 0 20 20"
+						xmlns="http://www.w3.org/2000/svg"
+						><path
+							fill-rule="evenodd"
+							d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+							clip-rule="evenodd"
+						/></svg
+					>
+				</a>
 			</div>
 		</div>
-		<!-- <p class="my-10 font-light text-xl max-w-3xl text-center mx-auto">
-				Train the highly advanced AI chatbot on any text, file or website you choose. Use it
-				internally or publish it to your website to answer your customers' questions.
-			</p> -->
-		<div class="my-10 text-center">
-			<a href="/register" class="btn btn-primary btn-lg">Create your chatbot</a>
-			<a href="#difference" class="btn btn-ghost text-primary btn-sm">
-				Learn More
-				<svg
-					class="ml-2 -mr-1 w-5 h-5"
-					fill="currentColor"
-					viewBox="0 0 20 20"
-					xmlns="http://www.w3.org/2000/svg"
-					><path
-						fill-rule="evenodd"
-						d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-						clip-rule="evenodd"
-					/></svg
-				>
-			</a>
+		<div>
+
+			<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto">
+				<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
+					<div class="w-full">
+						<Chat modelId="7c92a03849aa49c4" {messages} />
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
@@ -156,7 +158,7 @@
 <section id="difference" class="bg-white text-base-100">
 	<div class="py-8 lg:py-20 bg-secondary/50">
 		<h2 class="p-4 md:pl-10 lg:pl-20 text-3xl lg:text-5xl font-bold mb-10">
-			What Makes GPT ChatBot <span class="">Different?</span>
+			What makes ChatNode different?
 		</h2>
 		<div class="grid gap-y-20 md:grid-cols-5 gap-20" id="your-data">
 			<div class="md:col-span-3 p-8 md:pl-20 py-10">
