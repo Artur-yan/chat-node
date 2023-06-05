@@ -7,7 +7,8 @@
 
 	onMount(async () => {
 		const { trackEvent } = Plausible({
-			domain: 'chatnode.ai'
+			domain: 'chatnode.ai',
+			apiHost: 'https://www.chatnode.ai/events'
 		});
 		if ($page.url.searchParams.get('plan-change') === 'test') {
 			trackEvent('Upgrade to Paid Test');
