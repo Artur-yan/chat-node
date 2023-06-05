@@ -100,7 +100,7 @@
 
 <Features />
 
-<section id="how-it-works" class="px-10 pt-12 pb-32 bg-base-300">
+<!-- <section id="how-it-works" class="px-10 pt-12 pb-32 bg-base-300">
 	<h2 class="text-4xl 2xl:text-5xl font-bold mb-6 text-center">How it works</h2>
 	<div class="container grid md:grid-cols-3 gap-10 mx-auto">
 		<a href="#your-data" class="group card">
@@ -153,7 +153,7 @@
 			</div>
 		</a>
 	</div>
-</section>
+</section> -->
 
 <section id="difference" class="bg-white text-base-100">
 	<div class="py-8 lg:py-20 bg-secondary/50">
