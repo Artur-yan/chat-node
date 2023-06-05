@@ -11,7 +11,10 @@
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
 
 	onMount(() => {
-		const { trackEvent } = Plausible({ domain: 'chatnode.ai' });
+		const { trackEvent } = Plausible({
+			domain: 'chatnode.ai',
+			apiHost: 'https://www.chatnode.ai/events'
+	});
 		if ($page.url.searchParams.get('signup') == 'success') {
 			trackEvent('Signup');
 		}

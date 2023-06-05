@@ -10,11 +10,6 @@
 			domain: 'chatnode.ai',
 			apiHost: 'https://www.chatnode.ai/events'
 		});
-		if ($page.url.searchParams.get('plan-change') === 'test') {
-			trackEvent('Upgrade to Paid Test');
-			goto('/account/settings/plan');
-			$alert = 'Plan changed successfully!';
-		}
 		if ($page.url.searchParams.get('plan-change') === 'success') {
 			trackEvent('Upgrade to Paid');
 			goto('/account/settings/plan');
