@@ -185,6 +185,27 @@
 			</button>
 		</div>
 	</form>
+
+	<style>
+	.chat-bubble table,
+	.chat-bubble td,
+	.chat-bubble th{
+		border: 1px solid rgba(0,0,0,0.25) !important;
+		border-collapse: collapse;
+		padding: 4px;
+	}
+
+	.chat-bubble th{
+		text-align: left;
+	}
+
+	.chat-start .chat-bubble {
+		transform-origin: left center;
+	}
+	.chat-end .chat-bubble {
+		transform-origin: right;
+	}
+	</style>
 </div>
 
 <style lang="postcss">
@@ -207,12 +228,5 @@
 
 	.chat-bubble {
 		animation: message 0.3s ease-out 0s forwards;
-	}
-
-	.chat-start .chat-bubble {
-		transform-origin: left center;
-	}
-	.chat-end .chat-bubble {
-		transform-origin: right;
 	}
 </style>
