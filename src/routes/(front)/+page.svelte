@@ -1,15 +1,15 @@
 <script>
 	import Img from '@zerodevx/svelte-img';
 	import Chat from '$lib/components/Chat.svelte';
-	import Accordian from '$lib/components/Accordian.svelte';
 	import screenshot2 from '$lib/assets/internal-research-screenshot.jpg?run';
 	import screenshotAddData from '$lib/assets/chatnode-add-data-screenshot.jpg?run';
 	import screenshotPublish from '$lib/assets/chatnode-publish-settings-screenshot.jpg?run';
-	import difference1 from '$lib/assets/difference-1.jpg?run';
-	import difference2 from '$lib/assets/difference-2.jpg?run';
-	import difference3 from '$lib/assets/difference-3.jpg?run';
+	// import difference1 from '$lib/assets/difference-1.jpg?run';
+	// import difference2 from '$lib/assets/difference-2.jpg?run';
+	// import difference3 from '$lib/assets/difference-3.jpg?run';
 	import PricingGrid from '$lib/components/PricingGrid.svelte';
 	import Features from '$lib/components/Features.svelte';
+	import ContactSection from '$lib/components/ContactSection.svelte';
 
 	let isThinking = false;
 	let messages = [
@@ -43,7 +43,7 @@
 </script>
 
 <svelte:head>
-	<title>ChatNode | Train ChatGPT on your own data</title>
+	<title>ChatNode | Train ChatGPT on your data</title>
 	<meta
 		name="description"
 		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
@@ -54,35 +54,22 @@
 <section class="bg-base-100">
 	<div class="grid container lg:grid-cols-2 items-center gap-8 pb-10 pt-16 mx-auto">
 		<div class="max-lg:text-center">
+			<a
+			class="btn btn-accent btn-outline rounded-full mb-4 btn-sm border-accent border bg-white/10"
+			href="/blog/slack-integration"
+			><span class="badge badge-accent badge-sm mr-1">New</span> Slack Integration &rarr;</a
+		>
+
 			<h2
 				class="mb-6 text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-[8em] max-lg:mx-auto"
 			>
-				Train ChatGPT on your own data
+				Train ChatGPT on your data
 			</h2>
 
 			<div class="flex items-center max-lg:justify-center">
-				<a
-					class="btn btn-accent btn-outline rounded-full my-2 btn-sm border-accent border bg-white/10"
-					href="/blog/slack-integration"
-					><span class="badge badge-accent badge-sm mr-1">New</span> Slack Integration &rarr;</a
-				>
 			</div>
-			<div class="mt-16">
-				<a href="/register" class="btn btn-primary">Create your chatbot</a>
-				<a href="#difference" class="btn btn-ghost text-primary">
-					Learn More
-					<svg
-						class="ml-1 w-4 h-4"
-						fill="currentColor"
-						viewBox="0 0 20 20"
-						xmlns="http://www.w3.org/2000/svg"
-						><path
-							fill-rule="evenodd"
-							d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-							clip-rule="evenodd"
-						/></svg
-					>
-				</a>
+			<div class="mt-10 flex gap-4">
+				<a href="/register" class="btn btn-primary btn-outline">Create your chatbot &rarr;</a>
 			</div>
 		</div>
 		<div>
@@ -99,6 +86,7 @@
 </section>
 
 <Features />
+
 
 <!-- <section id="how-it-works" class="px-10 pt-12 pb-32 bg-base-300">
 	<h2 class="text-4xl 2xl:text-5xl font-bold mb-6 text-center">How it works</h2>
@@ -292,109 +280,10 @@
 	</div>
 </section>
 
-<section class="container py-20">
-	<h2 class="text-4xl text-center 2xl:text-5xl font-bold mb-8">FAQ</h2>
+<ContactSection />
 
-	<div class="grid lg:grid-cols-2 gap-4">
-		<div class="space-y-4">
-			<Accordian>
-				<div slot="title">Is there a free plan?</div>
-				Yes, just by signing up you get 30 message credits and 1 chatbot. You can use these to test out
-				ChatNode and see if it works for you.
-			</Accordian>
-			<Accordian>
-				<div slot="title">How do message work?</div>
-				One AI response with gpt-3.5-turbo costs 1 message credit.
-			</Accordian>
-			<Accordian>
-				<div slot="title">What counts as one chatbot?</div>
-				One chatbot means a chatbot that contains specific data and can answer any question about this
-				data. Even if it was created using multiple documents, urls or text.
-			</Accordian>
-			<Accordian>
-				<div slot="title">How many users can use my chatbot?</div>
-				If your chatbot is private, only you have access to it. If you decide to make it public, anyone
-				with the link will be able to interact with it.
-			</Accordian>
-			<Accordian>
-				<div slot="title">When are my message credits renewed?</div>
-				Your message credits are renewed at the start of every calendar month regardless of when you
-				subscribed. So if you subscribe on the 15th of the month, you will your message credits for that
-				month and they will be renewed on the 1st of the next month.
-			</Accordian>
-			<Accordian>
-				<div slot="title">How do I know how many tokens are in my document?</div>
-				Once you attach your document for upload, ChatNode will show you the tokens count of the attached
-				document.
-			</Accordian>
-			<Accordian>
-				<div slot="title">Can I upload multiple files to one chatbot?</div>
-				Yes, if you have a paid plan you can upload multiple files to one chatbot. Just click 'add data'
-				and you can add another file.
-			</Accordian>
-			<Accordian>
-				<div slot="title">How much data can I give one chatbot?</div>
-				Free plan: 100K tokens (~5MB) | Basic: 400K tokens (~24MB) | Pro: 800K tokens (~50MB) | Entreprise:
-				1M tokens (~75MB)
-			</Accordian>
-			<Accordian>
-				<div slot="title">What is ChatNode?</div>
-				ChatNode is an AI chatbot builder, it trains ChatGPT on your data and lets you add a chat widget
-				to your website. Just upload a document or add a link to your website and get a chatbot that
-				can answer any question about their content.
-			</Accordian>
-			<Accordian>
-				<div slot="title">What should my data look like?</div>
-				Currently, you can upload file (.pdf, .txt, .doc, .docx), paste text, or add a link to your website
-				to be scraped.
-			</Accordian>
-		</div>
-		<div class="space-y-4">
-			<Accordian>
-				<div slot="title">Can I give my chatbots instructions?</div>
-				Yes, you can edit the system prompt and give your chatbot a name, personality traits and instructions
-				on how to answer questions ex. (only answer in French).
-			</Accordian>
-			<Accordian>
-				<div slot="title">Where is my data stored?</div>
-				The content of the document is hosted on secure AWS servers in us-east.
-			</Accordian>
-			<Accordian>
-				<div slot="title">Does it use ChatGPT or GPT-4?</div>
-				Your chatbot uses ChatGPT (gpt-3.5-turbo).
-			</Accordian>
-			<Accordian>
-				<div slot="title">How can I add my chatbot to my website?</div>
-				You can embed an iframe or add a chat bubble to the bottom right of your website. To do that,
-				create a chatbot and click « get embed code".
-			</Accordian>
-			<Accordian>
-				<div slot="title">Does it support other languages?</div>
-				Yes, ChatNode supports about 95 languages. You can have your sources in any language and ask
-				it questions in any language.
-			</Accordian>
-			<Accordian>
-				<div slot="title">Can I share a chatbot I created?</div>
-				Yes, by default any chatbot you create is private but you can change the setting to make it public
-				and send it to anyone.
-			</Accordian>
-			<Accordian>
-				<div slot="title">How can I contact you?</div>
-				You can reach out to us at contact@chatnode.ai or you can click on the live chat on the bottom
-				right and talk to us directly.
-			</Accordian>
-			<Accordian>
-				<div slot="title">Can I customize the chatbot?</div>
-				Yes, you can change the color, chatbot icon, chatbot name, chatbot suggestions etc. You can also
-				change the chatbot's welcome message.
-			</Accordian>
-			<Accordian>
-				<div slot="title">How long does the training take?</div>
-				It depends on the number of tokens (text length) you are training. But usually, it should be
-				done within a few seconds or minutes.
-			</Accordian>
-		</div>
-	</div>
+
+<div>
 	<style lang="postcss">
 		body {
 			@apply pt-10;
@@ -403,7 +292,7 @@
 			@apply fixed inset-0 bottom-auto z-10 shadow-lg;
 		}
 	</style>
-</section>
+</div>
 
 <style lang="postcss">
 	#how-it-works .card {
