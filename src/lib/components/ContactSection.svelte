@@ -4,13 +4,14 @@
 
 </script>
 
-<section class="container grid grid-cols-2 gap-8 py-10 bg-accent/10">
+<section class="container grid grid-cols-2 gap-8 py-10 bg-black">
     <div>
-        <h2 class="text-2xl font-bold mb-2">Contact</h2>
+        <h2 class="text-2xl font-bold mb-2 text-secondary">Contact</h2>
 
-        <a href="mailto:contact@chatnode.ai" class="link">contact@chatnode.ai</a>
+        <a href="mailto:contact@chatnode.ai" class="btn btn-outline">contact@chatnode.ai</a>
+        <a href="mailto:contact@chatnode.ai" class="btn btn-outline">Chat</a>
 
-        <h2 class="text-2xl font-bold mb-4 mt-10">FAQ</h2>
+        <h2 class="text-2xl font-bold mb-4 mt-10 text-secondary">FAQs</h2>
         <div class="space-y-4">
         <Accordian>
             <div slot="title">Is there a free plan?</div>
@@ -29,12 +30,12 @@
             it questions in any language.
         </Accordian>
 
-        <a href="/faq" class="btn">View all</a>
+        <a href="/faq" class="btn btn-block btn-outline">View all</a>
         </div>
     </div>
     
     <div class="flex flex-col">
-        <h2 class="text-2xl font-bold mb-4">Questions? Try our chatbot</h2>
+        <h2 class="text-xl font-bold mb-4 text-secondary">More questions? Try our own AI chatbot</h2>
         <div class="h-full">
             <Chat modelId="7c92a03849aa49c4" />   
         </div>
