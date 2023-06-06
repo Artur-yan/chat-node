@@ -4,6 +4,15 @@
 	import SlackIntegrationAuth from '$lib/assets/Slack-integration--auth.jpg?run';
 </script>
 
+<svelte:head>
+	<title>Slack Integration | Blog | ChatNode</title>
+	<meta
+		name="description"
+		content="We're excited to introduce Slack integration. ChatNode makes integrating chatbots into Slack as simple as possible."
+	/>
+	<link rel=“canonical” href="https://www.chatnode.ai/blog/slack-integration" />
+</svelte:head>
+
 <div class="container py-10 !max-w-4xl">
 	<div class="mb-10">
 		<div class="badge badge-outline badge-secondary">Announcement</div>

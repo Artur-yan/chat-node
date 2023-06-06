@@ -2,6 +2,10 @@
 	import Accordian from '$lib/components/Accordian.svelte';
 </script>
 
+<svelte:head>
+	<link rel=“canonical” href="https://www.chatnode.ai/faq" />
+</svelte:head>
+
 <section class="container py-20">
 	<h2 class="text-4xl text-center 2xl:text-5xl font-bold mb-8">FAQ</h2>
 
