@@ -23,9 +23,6 @@
 
 	$: data.modelData, restart();
 
-	console.log(data)
-
-
 	const deleteBotSource = async (s3_key: string) => {
 		let body = new FormData()
 		body.append('user_id', data.model.user_id);

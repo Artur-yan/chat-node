@@ -3,6 +3,7 @@
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import { addModel, defaultSettings } from '$lib/models';
 	import { alert } from '$lib/stores.js';
+	import { element } from 'svelte/internal';
 	
 
 	export let modelId: string = '';
@@ -29,10 +30,11 @@
 	let selectedUrlsTokenCount = 0;
 	let approxTextTokenCount = 0;
 	let uploadedFileName: string;
+	let fileKeys: Array<string> = []
 	let selectAllUrlsCheckbox: HTMLInputElement;
 
 	let currentProgress = 0;
-	let loading;
+	let loading
 	const loadingProgress = (step = 0.2) => {
 		loading = setInterval(() => {
 			currentProgress += step;
@@ -78,7 +80,9 @@
 			let body = new FormData();
 			body.append('user_id', userId);
 			body.append('session_id', sessionId);
-			body.append('file', files[0] /*, optional filename */);
+			for(let i = 0; i < files.length; i++) {
+				body.append('files', files[i] /*, optional filename */);
+			}			
 
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/scraping`, {
 				method: 'POST',
@@ -87,8 +91,11 @@
 
 			const data = await res.json();
 
-			filesTokenCount = data.file[1];
-			uploadedFileName = data.file[0];
+			data.file.forEach(file => {
+				fileKeys.push(file[0])
+				filesTokenCount += file[1]
+			})
+
 			busyCheckingFile = false;
 		}
 	};
@@ -100,9 +107,10 @@
 
 		body.append('user_id', userId);
 		body.append('session_id', sessionId);
-		if (uploadedFileName) {
-			body.append('file_key', uploadedFileName /*, optional filename */);
+		if (fileKeys.length > 0) {
+			body.append('file_keys', fileKeys /*, optional filename */);
 			name = files[0].name;
+			console.log(fileKeys)
 		}
 		if (textData) {
 			body.append('text', textData);
@@ -137,6 +145,14 @@
 		}
 	};
 
+	const handleSelectAllUrls = () => {
+		if (selectAllUrlsCheckbox.checked) {
+			selectedUrls = urls.map((url) => url[0]);
+		} else {
+			selectedUrls = [];
+		}
+	};
+
 	$: approxTextTokenCount = Math.ceil(textData.length / 3.5);
 
 	$: {
@@ -162,14 +178,6 @@
 	$: if (urls && selectedUrls.length < urls.length) {
 		selectAllUrlsCheckbox.checked = false;
 	}
-
-	const handleSelectAllUrls = () => {
-		if (selectAllUrlsCheckbox.checked) {
-			selectedUrls = urls.map((url) => url[0]);
-		} else {
-			selectedUrls = [];
-		}
-	};
 </script>
 
 <div>
@@ -197,6 +205,7 @@
 					bind:files
 					bind:this={fileInput}
 					accept=".doc,.docx,.pdf,.txt"
+					multiple
 					on:change={getFileTokenCount}
 				/>
 				<!-- <button class="btn btn-primary" type="submit" on:click={getFileTokenCount}>Upload</button> -->
@@ -210,7 +219,7 @@
 		</div>
 		<div
 			class="alert flex-col"
-			class:hidden={!uploadedFileName}
+			class:hidden={!fileKeys}
 			class:alert-warning={filesTokenCount + existingTokenCount > subscription.max_tocken}
 		>
 			<progress
@@ -226,7 +235,7 @@
 			class="btn btn-primary mt-8"
 			class:loading={busyTraining}
 			type="submit"
-			disabled={!uploadedFileName || filesTokenCount + existingTokenCount > subscription.max_tocken}
+			disabled={!fileKeys || filesTokenCount + existingTokenCount > subscription.max_tocken}
 			on:click={() => createOrUpdateModel()}>Train Bot</button
 		>
 	{:else if activeTab == 1}
