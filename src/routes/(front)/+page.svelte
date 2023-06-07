@@ -144,7 +144,7 @@
 	</div>
 </section> -->
 
-<section id="difference" class="bg-white text-base-100">
+<section id="how-it-works" class="bg-white text-base-100">
 	<div class="py-8 lg:py-20 bg-secondary/50">
 		<h2 class="p-4 md:pl-10 lg:pl-20 text-3xl lg:text-5xl font-bold mb-10">
 			What makes ChatNode different?
@@ -296,33 +296,18 @@
 </div>
 
 <style lang="postcss">
-	#how-it-works .card {
-		@apply relative overflow-hidden text-2xl mt-4 hover:mt-0 transition-all bg-secondary text-primary-content border-secondary border-2 focus:outline-4 outline-primary;
-	}
 
-	#how-it-works .card .card-body {
-		@apply rounded-xl;
-	}
-
-	#how-it-works .card .btn {
-		@apply btn-secondary;
-	}
-
-	#how-it-works .card-title {
-		@apply xl:text-3xl 2xl:text-4xl font-bold;
-	}
-
-	#difference {
+	#how-it-works {
 		@apply text-lg 2xl:text-2xl;
 	}
 
-	#difference h3 {
+	#how-it-works h3 {
 		@apply text-2xl md:text-4xl 2xl:text-5xl font-bold mb-10;
 	}
-	#difference h4 {
+	#how-it-works h4 {
 		@apply text-xl 2xl:text-3xl font-bold mt-6 mb-1 2xl:mb-4;
 	}
-	#difference p {
+	#how-it-works p {
 		@apply mb-5 2xl:mb-12;
 	}
 </style>
