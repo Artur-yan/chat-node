@@ -228,7 +228,7 @@
 				value={filesTokenCount + existingTokenCount}
 				max={subscription.max_tocken}
 			/>
-			Your file contains {filesTokenCount.toLocaleString()} tokens.
+			Your file{files && files.length > 1 ? 's' : ''} contain{files && files.length > 1 ? '' : 's'} {filesTokenCount.toLocaleString()} tokens.
 			{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
 			Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
 		</div>
