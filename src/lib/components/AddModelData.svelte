@@ -212,14 +212,15 @@
 			</div>
 			<div class="label">
 				<p>PDF, TXT, or DOC files only (MAX 50MB)</p>
-				<div class="text-sm text-warning invisible" class:!visible={busyCheckingFile}>
+				<div class="badge badge-warning invisible" class:!visible={busyCheckingFile}>
+					<span class="loading loading-xs"></span>
 					Uploading
 				</div>
 			</div>
 		</div>
 		<div
-			class="alert flex-col"
-			class:hidden={!fileKeys}
+			class="alert bg-neutral flex-col"
+			class:hidden={fileKeys.length === 0}
 			class:alert-warning={filesTokenCount + existingTokenCount > subscription.max_tocken}
 		>
 			<progress
@@ -271,15 +272,15 @@
 	{:else if activeTab == 2}
 		<form on:submit={() => fetchUrlsToScrape()}>
 			<div class="form-control">
-				<div class="input-group">
+				<div class="join">
 					<input
 						type="text"
-						class="input input-bordered w-full"
+						class="input input-bordered w-full join-item"
 						bind:value={url}
 						required
 						autofocus
 					/>
-					<button class="btn btn-primary" type="submit">
+					<button class="btn btn-primary join-item" type="submit" disabled={busyFetchingUrls}>
 						<span class={busyFetchingUrls ? 'loading loading-xs' : 'hidden'}></span>
 						Fetch URLs
 					</button>
@@ -335,7 +336,7 @@
 				</tfoot>
 			</table>
 			<div
-				class="alert mb-2 flex-col"
+				class="alert mb-2 flex-col bg-neutral"
 				class:alert-warning={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}
 			>
 				<progress
