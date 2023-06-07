@@ -220,7 +220,7 @@
 		</div>
 		<div
 			class="alert bg-neutral flex-col"
-			class:hidden={fileKeys.length === 0}
+			class:hidden={filesTokenCount === 0}
 			class:alert-warning={filesTokenCount + existingTokenCount > subscription.max_tocken}
 		>
 			<progress
