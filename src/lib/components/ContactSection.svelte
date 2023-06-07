@@ -4,12 +4,11 @@
 
 </script>
 
-<section class="container grid grid-cols-2 gap-8 py-10 bg-black">
+<section class="container grid grid-cols-2 gap-8 py-10 bg-base-300">
     <div>
         <h2 class="text-2xl font-bold mb-2 text-secondary">Contact</h2>
 
         <a href="mailto:contact@chatnode.ai" class="btn btn-outline">contact@chatnode.ai</a>
-        <a href="mailto:contact@chatnode.ai" class="btn btn-outline">Chat</a>
 
         <h2 class="text-2xl font-bold mb-4 mt-10 text-secondary">FAQs</h2>
         <div class="space-y-4">
