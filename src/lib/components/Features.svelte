@@ -9,7 +9,23 @@
     </div>
     <div>       
         <h2><Icon icon="fluent:chat-12-regular" class="text-secondary" width={30} />Chatbot</h2>
-        <p>Stop fielding customer support emails, responding to the same questions over and over. Let our custom trained AI chatbot give intelligent automated responses to your audience in your voice and with your data.</p>
+        <p>Stop responding to the same questions over and over. Place our custom trained AI chatbot on your website to give intelligent automated responses to your audience.</p>
+    </div>
+    <div>       
+        <h2><Icon icon="fluent-mdl2:website" class="text-primary" width={28} />Dedicated webpage</h2>
+        <p>Share your chatbot with anyone with a simple url.</p>
+    </div>
+    <div>
+        <h2><Icon icon="ic:twotone-invert-colors" width={32} class="text-primary" />Multiple data sources</h2>
+        <p>Train your ChatGPT assistant on docs, pdfs, text, or have it crawl entire websites.</p>
+    </div>
+    <div>
+        <h2><Icon icon="ri:exchange-funds-fill" width={32} class="text-warning" />Hyperspeed iteration</h2>
+        <p>Our unique interface allow you to add data sources, remove them, change your GPT prompts and settings all without ever leaving the chatbot for superfast experimentation to get the absolute best results.</p>
+    </div>
+    <div>
+        <h2><Icon icon="basil:lock-solid" width={32} class="text-error" />Public or private</h2>
+        <p>Keep your bot private for a personal edge, share it with the world for customer support, or deploy it just for your team to navigate your company resources.</p>
     </div>
     <div>
         <h2><Icon icon="devicon:slack" width={24} class="text-[#34C5F0]" />Slack integration</h2>
@@ -21,20 +37,8 @@
         <p>Pick from a handful of slick colorways for your AI chat interface or customize each color to match your brand.</p>
     </div>
     <div>
-        <h2><Icon icon="ic:twotone-invert-colors" width={32} class="text-primary" />Custom prompts</h2>
-        <p>You can cutomise your chat gpt prompts</p>
-    </div>
-    <div>
-        <h2><Icon icon="ic:twotone-invert-colors" width={32} class="text-primary" />Multiple data sources</h2>
-        <p>docs, pdfs, text, websites, with more coming soon</p>
-    </div>
-    <div>
-        <h2><Icon icon="ri:exchange-funds-fill" width={32} class="text-warning" />Hyperspeed iteration</h2>
-        <p>Our unique interface allow you to add data sources, remove them, change your GPT prompts and settings all without ever leaving the chatbot for superfast experimentation to get the absolute best results.</p>
-    </div>
-    <div>
-        <h2><Icon icon="basil:lock-solid" width={32} class="text-error" />Public or private</h2>
-        <p>Keep your bot private for a personal edge, share it with the world for customer support, or deploy it just for your team to navigate your company resources.</p>
+        <h2><Icon icon="ic:round-person-4" width={32} class="text-secondary" />Custom prompts</h2>
+        <p>You can cutomise your ChatGPT prompts to give your chatbot a personality and affect how it chooses to respond.</p>
     </div>
 
 </section>
