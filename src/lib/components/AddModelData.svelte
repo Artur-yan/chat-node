@@ -235,7 +235,7 @@
 			class="btn btn-primary mt-8"
 			class:loading={busyTraining}
 			type="submit"
-			disabled={!fileKeys || filesTokenCount + existingTokenCount > subscription.max_tocken}
+			disabled={fileKeys.length == 0 || filesTokenCount + existingTokenCount > subscription.max_tocken}
 			on:click={() => createOrUpdateModel()}>Train Bot</button
 		>
 	{:else if activeTab == 1}
@@ -264,7 +264,7 @@
 				class="btn btn-primary mt-8"
 				class:loading={busyTraining}
 				type="submit"
-				disabled={approxTextTokenCount + existingTokenCount > subscription.max_tocken}
+				disabled={approxTextTokenCount + existingTokenCount > subscription.max_tocken || approxTextTokenCount == 0}
 				on:click={() => createOrUpdateModel()}>Train Bot</button
 			>
 		</div>
