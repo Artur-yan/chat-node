@@ -23,11 +23,8 @@
 </svelte:head>
 
 <div class="container pb-20">
-	<div class="text-sm breadcrumbs text-secondary pb-6 font-bold">
-		<ul>
-			<li><a href="/account/chatbots">&larr; Chatbots</a></li>
-			<li>Create</li>
-		</ul>
+	<div class="text-secondary text-xl pb-6 font-bold">
+			New chatbot
 	</div>
 
 	<div class="grid md:grid-cols-2 gap-10">
@@ -46,7 +43,7 @@
 			{/if}
 		</div>
 		<div>
-			<div class="h-[calc(100vh_-_16rem)] sticky top-10">
+			<div class="h-[calc(100vh_-_16rem)] sticky top-10 border-4 rounded-xl border-neutral">
 				<Chat {modelId} bind:messages {trainingStatus} {settings} />
 			</div>
 		</div>
