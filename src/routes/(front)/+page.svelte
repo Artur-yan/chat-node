@@ -75,7 +75,7 @@
 			<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto">
 				<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
 					<div class="w-full">
-						<Chat modelId="7c92a03849aa49c4" {messages} />
+						<Chat modelId="18f636e1ca1e80c2" {messages} />
 					</div>
 				</div>
 			</div>
