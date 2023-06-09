@@ -1,7 +1,7 @@
 <svelte:head>
 	<title>Privacy Policy | ChatNode</title>
 	<meta name="description" content="We are committed to protecting and respecting your privacy." />
-	<link rel=“canonical” href="https://www.chatnode.ai/privacy" />
+	<link rel="“canonical”" href="https://www.chatnode.ai/privacy" />
 </svelte:head>
 
 <div class="container">

@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<link rel=“canonical” href="https://www.chatnode.ai/faq" />
+	<link rel="“canonical”" href="https://www.chatnode.ai/faq" />
 </svelte:head>
 
 <section class="container py-20">

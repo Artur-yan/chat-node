@@ -6,9 +6,9 @@ export default {
 		themes: [
 			{
 				night: {
-					...require("daisyui/src/theming/themes")["[data-theme=night]"],
-					"base-200": "#0E1426",
-					"base-300": "#0C1222"
+					...require('daisyui/src/theming/themes')['[data-theme=night]'],
+					'base-200': '#0E1426',
+					'base-300': '#0C1222'
 				}
 			}
 		]

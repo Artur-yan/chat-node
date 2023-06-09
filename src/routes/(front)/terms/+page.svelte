@@ -4,7 +4,7 @@
 		name="description"
 		content="Our services allow you to generate and use chatbots that are trained on your data."
 	/>
-	<link rel=“canonical” href="https://www.chatnode.ai/terms" />
+	<link rel="“canonical”" href="https://www.chatnode.ai/terms" />
 </svelte:head>
 
 <div class="container">

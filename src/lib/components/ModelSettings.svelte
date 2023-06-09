@@ -30,7 +30,7 @@
 		await updateModel(id, name, settings);
 		busySaving = false;
 		$alert = 'Settings Saved';
-		invalidateAll()
+		invalidateAll();
 	};
 
 	let selectedTheme = settings.theme.name || 'default';
@@ -70,7 +70,11 @@
 				<div>
 					<label for="system-prompt" class="label">
 						<span class="label-text">System Prompt</span>
-						<button class="btn btn-xs btn-circle btn-ghost" on:click|preventDefault={() => settings.systemPrompt = defaultSettings.systemPrompt}><Icon icon="mdi:arrow-u-left-top" width="18" /></button>
+						<button
+							class="btn btn-xs btn-circle btn-ghost"
+							on:click|preventDefault={() => (settings.systemPrompt = defaultSettings.systemPrompt)}
+							><Icon icon="mdi:arrow-u-left-top" width="18" /></button
+						>
 					</label>
 
 					<textarea
@@ -248,10 +252,9 @@
 			><Icon icon="mdi:delete-outline" width="16" /></label
 		>
 		<div class="fixed bottom-0 left-0 right-0 bg-base-300 p-2 flex items-center justify-between">
-			<button class="btn btn-outline btn-success md:w-40" type="submit"
-				>
-				<span class={busySaving ? 'loading' : 'invisible'}></span>
-				
+			<button class="btn btn-outline btn-success md:w-40" type="submit">
+				<span class={busySaving ? 'loading' : 'invisible'} />
+
 				Save</button
 			>
 		</div>
@@ -274,7 +277,7 @@
 					goto('/account/chatbots');
 				}}
 			>
-				<span class={deleting ? 'loading' : 'invisible'}></span>
+				<span class={deleting ? 'loading' : 'invisible'} />
 				Delete</button
 			>
 		</div>

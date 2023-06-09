@@ -48,18 +48,17 @@
 		name="description"
 		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
 	/>
-	<link rel=“canonical” href="https://www.chatnode.ai" />
+	<link rel="“canonical”" href="https://www.chatnode.ai" />
 </svelte:head>
-
 
 <section class="bg-base-100">
 	<div class="grid container lg:grid-cols-2 items-center gap-8 pb-10 pt-16 mx-auto">
 		<div class="max-lg:text-center">
 			<a
-			class="btn btn-accent btn-outline rounded-full mb-4 btn-sm border-accent border bg-white/10"
-			href="/blog/slack-integration"
-			><span class="badge badge-accent badge-sm mr-1">New</span> Slack Integration &rarr;</a
-		>
+				class="btn btn-accent btn-outline rounded-full mb-4 btn-sm border-accent border bg-white/10"
+				href="/blog/slack-integration"
+				><span class="badge badge-accent badge-sm mr-1">New</span> Slack Integration &rarr;</a
+			>
 
 			<h2
 				class="mb-6 text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-[8em] max-lg:mx-auto"
@@ -67,14 +66,12 @@
 				Train ChatGPT on your data
 			</h2>
 
-			<div class="flex items-center max-lg:justify-center">
-			</div>
+			<div class="flex items-center max-lg:justify-center" />
 			<div class="mt-10 flex gap-4">
 				<a href="/register" class="btn btn-primary btn-outline">Create your chatbot &rarr;</a>
 			</div>
 		</div>
 		<div>
-
 			<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto">
 				<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
 					<div class="w-full">
@@ -87,7 +84,6 @@
 </section>
 
 <Features />
-
 
 <!-- <section id="how-it-works" class="px-10 pt-12 pb-32 bg-base-300">
 	<h2 class="text-4xl 2xl:text-5xl font-bold mb-6 text-center">How it works</h2>
@@ -283,7 +279,6 @@
 
 <ContactSection />
 
-
 <div>
 	<style lang="postcss">
 		body {
@@ -296,7 +291,6 @@
 </div>
 
 <style lang="postcss">
-
 	#how-it-works {
 		@apply text-lg 2xl:text-2xl;
 	}

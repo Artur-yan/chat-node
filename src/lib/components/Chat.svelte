@@ -186,28 +186,28 @@
 		</div>
 	</form>
 	<style>
-			.chat-bubble table,
-	.chat-bubble td,
-	.chat-bubble th{
-		border: 1px solid rgba(0,0,0,0.25) !important;
-		border-collapse: collapse;
-		padding: 4px;
-	}
+		.chat-bubble table,
+		.chat-bubble td,
+		.chat-bubble th {
+			border: 1px solid rgba(0, 0, 0, 0.25) !important;
+			border-collapse: collapse;
+			padding: 4px;
+		}
 
-	.chat-bubble th{
-		text-align: left;
-	}
+		.chat-bubble th {
+			text-align: left;
+		}
 
-	.chat-start .chat-bubble {
-		transform-origin: left center;
-	}
-	.chat-end .chat-bubble {
-		transform-origin: right;
-	}
+		.chat-start .chat-bubble {
+			transform-origin: left center;
+		}
+		.chat-end .chat-bubble {
+			transform-origin: right;
+		}
 
-	.chat-bubble a{
-		text-decoration: underline !important;
-	}
+		.chat-bubble a {
+			text-decoration: underline !important;
+		}
 	</style>
 </div>
 
@@ -232,7 +232,4 @@
 	.chat-bubble {
 		animation: message 0.3s ease-out 0s forwards;
 	}
-
-
-	
 </style>

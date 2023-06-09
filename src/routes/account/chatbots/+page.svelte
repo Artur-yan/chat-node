@@ -14,7 +14,7 @@
 		const { trackEvent } = Plausible({
 			domain: 'chatnode.ai',
 			apiHost: 'https://www.chatnode.ai/events'
-	});
+		});
 		if ($page.url.searchParams.get('signup') == 'success') {
 			trackEvent('Signup');
 		}
@@ -93,7 +93,10 @@
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 			{#each data.bots as bot}
 				{@const usage = Math.ceil((bot.tocken_count / data.subscription.max_tocken) * 100)}
-				<a href="chatbots/{bot.id}" class="card bg-neutral peer-checked:ring-2 hover:outline-primary hover:outline">
+				<a
+					href="chatbots/{bot.id}"
+					class="card bg-neutral peer-checked:ring-2 hover:outline-primary hover:outline"
+				>
 					<div class="card-body p-6">
 						<div class="">
 							<h2 class="card-title">
@@ -121,8 +124,13 @@
 							</a> -->
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
 							<div class="dropdown dropdown-left dropdown-start z-10">
-								<label tabindex="0" class="btn btn-ghost btn-square" on:click|preventDefault><Icon icon="tabler:dots" height="24" /></label>
-								<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box z-10x">
+								<label tabindex="0" class="btn btn-ghost btn-square" on:click|preventDefault
+									><Icon icon="tabler:dots" height="24" /></label
+								>
+								<ul
+									tabindex="0"
+									class="dropdown-content menu p-2 shadow bg-base-100 rounded-box z-10x"
+								>
 									<li>
 										<a href="/account/chatbots/{bot.id}/share">
 											<Icon icon="mdi:code" width="18" /> Share

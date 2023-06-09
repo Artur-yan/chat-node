@@ -3,7 +3,6 @@
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import { addModel, defaultSettings } from '$lib/models';
 	import { alert } from '$lib/stores.js';
-	
 
 	export let modelId: string = '';
 	export let userId: string;
@@ -29,11 +28,11 @@
 	let selectedUrlsTokenCount = 0;
 	let approxTextTokenCount = 0;
 	let uploadedFileName: string;
-	let fileKeys: Array<string> = []
+	let fileKeys: Array<string> = [];
 	let selectAllUrlsCheckbox: HTMLInputElement;
 
 	let currentProgress = 0;
-	let loading
+	let loading;
 	const loadingProgress = (step = 0.2) => {
 		loading = setInterval(() => {
 			currentProgress += step;
@@ -74,38 +73,37 @@
 	};
 
 	const getFileTokenCount = async () => {
-		try{
+		try {
 			if (files) {
 				busyCheckingFile = true;
 				let body = new FormData();
 				body.append('user_id', userId);
 				body.append('session_id', sessionId);
-				for(let i = 0; i < files.length; i++) {
+				for (let i = 0; i < files.length; i++) {
 					body.append('files', files[i] /*, optional filename */);
-				}			
-	
+				}
+
 				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/scraping`, {
 					method: 'POST',
 					body
 				});
-	
+
 				const data = await res.json();
-	
-				data.file.forEach(file => {
-					fileKeys.push(file[0])
-					filesTokenCount += file[1]
-				})
-	
+
+				data.file.forEach((file) => {
+					fileKeys.push(file[0]);
+					filesTokenCount += file[1];
+				});
+
 				busyCheckingFile = false;
 			}
-		} catch(err){
-			console.log(err)
-			$alert = "Something went wrong"
-			invalidateAll()
+		} catch (err) {
+			console.log(err);
+			$alert = 'Something went wrong';
+			invalidateAll();
 		}
 	};
 	const createOrUpdateModel = async (id: string = '') => {
-
 		busyTraining = true;
 		trainingStatus = 'training';
 
@@ -116,7 +114,7 @@
 		if (fileKeys.length > 0) {
 			body.append('file_keys', fileKeys /*, optional filename */);
 			name = files[0].name.slice(0, 20) + '...';
-			console.log(fileKeys)
+			console.log(fileKeys);
 		}
 		if (textData) {
 			body.append('text', textData);
@@ -147,7 +145,7 @@
 			$alert = 'Something went wrong. Please try again later.';
 		} finally {
 			busyTraining = false;
-			invalidateAll()
+			invalidateAll();
 		}
 	};
 
@@ -219,7 +217,7 @@
 			<div class="label">
 				<p>PDF, TXT, or DOC files only (MAX 50MB)</p>
 				<div class="badge badge-warning invisible" class:!visible={busyCheckingFile}>
-					<span class="loading loading-xs"></span>
+					<span class="loading loading-xs" />
 					Uploading
 				</div>
 			</div>
@@ -234,16 +232,19 @@
 				value={filesTokenCount + existingTokenCount}
 				max={subscription.max_tocken}
 			/>
-			Your file{files && files.length > 1 ? 's' : ''} contain{files && files.length > 1 ? '' : 's'} {filesTokenCount.toLocaleString()} tokens.
+			Your file{files && files.length > 1 ? 's' : ''} contain{files && files.length > 1 ? '' : 's'}
+			{filesTokenCount.toLocaleString()} tokens.
 			{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
 			Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
 		</div>
 		<button
 			class="btn btn-primary mt-8"
 			type="submit"
-			disabled={fileKeys.length == 0 || filesTokenCount + existingTokenCount > subscription.max_tocken}
-			on:click={() => createOrUpdateModel()}>
-			<span class={busyTraining ? 'loading' : 'invisible'}></span>
+			disabled={fileKeys.length == 0 ||
+				filesTokenCount + existingTokenCount > subscription.max_tocken}
+			on:click={() => createOrUpdateModel()}
+		>
+			<span class={busyTraining ? 'loading' : 'invisible'} />
 			Train Bot</button
 		>
 	{:else if activeTab == 1}
@@ -271,9 +272,11 @@
 			<button
 				class="btn btn-primary mt-8"
 				type="submit"
-				disabled={approxTextTokenCount + existingTokenCount > subscription.max_tocken || approxTextTokenCount == 0}
-				on:click={() => createOrUpdateModel()}>
-					<span class={busyTraining ? 'loading' : 'invisible'}></span>
+				disabled={approxTextTokenCount + existingTokenCount > subscription.max_tocken ||
+					approxTextTokenCount == 0}
+				on:click={() => createOrUpdateModel()}
+			>
+				<span class={busyTraining ? 'loading' : 'invisible'} />
 
 				Train Bot</button
 			>
@@ -290,7 +293,7 @@
 						autofocus
 					/>
 					<button class="btn btn-primary join-item" type="submit" disabled={busyFetchingUrls}>
-						<span class={busyFetchingUrls ? 'loading loading-xs' : 'hidden'}></span>
+						<span class={busyFetchingUrls ? 'loading loading-xs' : 'hidden'} />
 						Fetch URLs
 					</button>
 				</div>
@@ -361,10 +364,11 @@
 				class="btn btn-primary"
 				on:click={() => createOrUpdateModel()}
 				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
-					selectedUrlsTokenCount == 0}>
-					<span class={busyTraining ? 'loading' : 'invisible'}></span>
+					selectedUrlsTokenCount == 0}
+			>
+				<span class={busyTraining ? 'loading' : 'invisible'} />
 
-					Train Bot</button
+				Train Bot</button
 			>
 		{/if}
 	{/if}

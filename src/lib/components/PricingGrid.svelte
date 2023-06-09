@@ -52,9 +52,10 @@
 				<button
 					on:click={() => updatePlan(0)}
 					class="btn btn-outline btn-secondary"
-					disabled={currentPlan === 0}>
-					<span class={busyChangingPlan ? 'loading' : 'invisible'}></span>
-					
+					disabled={currentPlan === 0}
+				>
+					<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+
 					{currentPlan === 0 ? 'Current plan' : 'Change plan'}</button
 				>
 			{:else}
@@ -87,9 +88,10 @@
 				<button
 					on:click={() => updatePlan(1)}
 					class="btn btn-outline btn-secondary"
-					disabled={currentPlan === 1}>
-					<span class={busyChangingPlan ? 'loading' : 'invisible'}></span>
-					
+					disabled={currentPlan === 1}
+				>
+					<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+
 					{currentPlan === 1 ? 'Current plan' : 'Change plan'}</button
 				>
 			{:else}
@@ -123,9 +125,10 @@
 				<button
 					on:click={() => updatePlan(2)}
 					class="btn btn-outline btn-secondary"
-					disabled={currentPlan === 2}>
-					<span class={busyChangingPlan ? 'loading' : 'invisible'}></span>
-					
+					disabled={currentPlan === 2}
+				>
+					<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+
 					{currentPlan === 2 ? 'Current plan' : 'Change plan'}</button
 				>
 			{:else}
@@ -164,9 +167,9 @@
 							on:click={() => updatePlan(3)}
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 3}
-							>
-					<span class={busyChangingPlan ? 'loading' : 'invisible'}></span>
-							
+						>
+							<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+
 							{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
 						>
 					{:else}

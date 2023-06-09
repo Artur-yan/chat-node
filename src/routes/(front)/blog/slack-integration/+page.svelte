@@ -10,7 +10,7 @@
 		name="description"
 		content="We're excited to introduce Slack integration. ChatNode makes integrating chatbots into Slack as simple as possible."
 	/>
-	<link rel=“canonical” href="https://www.chatnode.ai/blog/slack-integration" />
+	<link rel="“canonical”" href="https://www.chatnode.ai/blog/slack-integration" />
 </svelte:head>
 
 <div class="container py-10 !max-w-4xl">

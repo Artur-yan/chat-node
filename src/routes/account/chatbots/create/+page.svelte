@@ -23,9 +23,7 @@
 </svelte:head>
 
 <div class="container pb-20">
-	<div class="text-secondary text-xl pb-6 font-bold">
-			New chatbot
-	</div>
+	<div class="text-secondary text-xl pb-6 font-bold">New chatbot</div>
 
 	<div class="grid md:grid-cols-2 gap-10">
 		<div>
