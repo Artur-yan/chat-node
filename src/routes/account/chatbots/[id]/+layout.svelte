@@ -5,7 +5,7 @@
 	export let data: LayoutData;
 
 	const chatPath = `/account/chatbots/${data.model.id}`;
-	const embedPath = `/account/chatbots/${data.model.id}/embed`;
+	const sharePath = `/account/chatbots/${data.model.id}/share`;
 	const integrationsdPath = `/account/chatbots/${data.model.id}/integrations`;
 	const dataPath = `/account/chatbots/${data.model.id}/data`;
 	const settingsPath = `/account/chatbots/${data.model.id}/settings`;
@@ -19,7 +19,7 @@
 	</div>
 	<div class="tabs tabs-boxed bg-neutral">
 		<a href={chatPath} class="tab" class:tab-active={chatPath == $page.url.pathname}>Chat</a>
-		<a href={embedPath} class="tab" class:tab-active={embedPath == $page.url.pathname}>Embed</a>
+		<a href={sharePath} class="tab" class:tab-active={sharePath == $page.url.pathname}>Share</a>
 		<a
 			href={integrationsdPath}
 			class="tab"
