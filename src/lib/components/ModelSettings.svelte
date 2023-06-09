@@ -248,8 +248,11 @@
 			><Icon icon="mdi:delete-outline" width="16" /></label
 		>
 		<div class="fixed bottom-0 left-0 right-0 bg-base-300 p-2 flex items-center justify-between">
-			<button class="btn btn-outline btn-success md:w-40" type="submit" class:loading={busySaving}
-				>Save</button
+			<button class="btn btn-outline btn-success md:w-40" type="submit"
+				>
+				<span class={busySaving ? 'loading' : 'invisible'}></span>
+				
+				Save</button
 			>
 		</div>
 	</form>
@@ -264,7 +267,6 @@
 			<label for="my-modal" class="btn">Cancel</label>
 			<button
 				class="btn btn-error"
-				class:loading={deleting}
 				type="button"
 				on:click={async () => {
 					deleting = true;
@@ -272,6 +274,7 @@
 					goto('/account/chatbots');
 				}}
 			>
+				<span class={deleting ? 'loading' : 'invisible'}></span>
 				Delete</button
 			>
 		</div>

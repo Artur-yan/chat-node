@@ -240,10 +240,11 @@
 		</div>
 		<button
 			class="btn btn-primary mt-8"
-			class:loading={busyTraining}
 			type="submit"
 			disabled={fileKeys.length == 0 || filesTokenCount + existingTokenCount > subscription.max_tocken}
-			on:click={() => createOrUpdateModel()}>Train Bot</button
+			on:click={() => createOrUpdateModel()}>
+			<span class={busyTraining ? 'loading' : 'invisible'}></span>
+			Train Bot</button
 		>
 	{:else if activeTab == 1}
 		<div>
@@ -269,10 +270,12 @@
 			</div>
 			<button
 				class="btn btn-primary mt-8"
-				class:loading={busyTraining}
 				type="submit"
 				disabled={approxTextTokenCount + existingTokenCount > subscription.max_tocken || approxTextTokenCount == 0}
-				on:click={() => createOrUpdateModel()}>Train Bot</button
+				on:click={() => createOrUpdateModel()}>
+					<span class={busyTraining ? 'loading' : 'invisible'}></span>
+
+				Train Bot</button
 			>
 		</div>
 	{:else if activeTab == 2}
@@ -356,10 +359,12 @@
 			</div>
 			<button
 				class="btn btn-primary"
-				class:loading={busyTraining}
 				on:click={() => createOrUpdateModel()}
 				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
-					selectedUrlsTokenCount == 0}>Train Bot</button
+					selectedUrlsTokenCount == 0}>
+					<span class={busyTraining ? 'loading' : 'invisible'}></span>
+
+					Train Bot</button
 			>
 		{/if}
 	{/if}

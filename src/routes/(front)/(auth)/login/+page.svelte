@@ -46,7 +46,10 @@
 				{#if form?.message}
 					<p class="text-error">{form?.message || ''}</p>
 				{/if}
-				<button type="submit" class="btn btn-primary w-full my-4" class:loading> Sign in</button>
+				<button type="submit" class="btn btn-primary w-full my-4">
+					<span class={loading ? 'loading' : 'invisible'}></span>
+					
+					Sign in</button>
 			</form>
 			<div>
 				<a

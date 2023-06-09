@@ -52,8 +52,10 @@
 				<button
 					on:click={() => updatePlan(0)}
 					class="btn btn-outline btn-secondary"
-					class:loading={busyChangingPlan}
-					disabled={currentPlan === 0}>{currentPlan === 0 ? 'Current plan' : 'Change plan'}</button
+					disabled={currentPlan === 0}>
+					<span class={busyChangingPlan ? 'loading' : 'invisible'}></span>
+					
+					{currentPlan === 0 ? 'Current plan' : 'Change plan'}</button
 				>
 			{:else}
 				<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
@@ -85,8 +87,10 @@
 				<button
 					on:click={() => updatePlan(1)}
 					class="btn btn-outline btn-secondary"
-					class:loading={busyChangingPlan}
-					disabled={currentPlan === 1}>{currentPlan === 1 ? 'Current plan' : 'Change plan'}</button
+					disabled={currentPlan === 1}>
+					<span class={busyChangingPlan ? 'loading' : 'invisible'}></span>
+					
+					{currentPlan === 1 ? 'Current plan' : 'Change plan'}</button
 				>
 			{:else}
 				<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
@@ -119,8 +123,10 @@
 				<button
 					on:click={() => updatePlan(2)}
 					class="btn btn-outline btn-secondary"
-					class:loading={busyChangingPlan}
-					disabled={currentPlan === 2}>{currentPlan === 2 ? 'Current plan' : 'Change plan'}</button
+					disabled={currentPlan === 2}>
+					<span class={busyChangingPlan ? 'loading' : 'invisible'}></span>
+					
+					{currentPlan === 2 ? 'Current plan' : 'Change plan'}</button
 				>
 			{:else}
 				<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
@@ -157,9 +163,11 @@
 						<button
 							on:click={() => updatePlan(3)}
 							class="btn btn-outline btn-secondary"
-							class:loading={busyChangingPlan}
 							disabled={currentPlan === 3}
-							>{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
+							>
+					<span class={busyChangingPlan ? 'loading' : 'invisible'}></span>
+							
+							{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
 						>
 					{:else}
 						<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>

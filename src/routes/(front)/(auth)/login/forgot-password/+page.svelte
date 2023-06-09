@@ -42,7 +42,10 @@
 					{#if form?.message}
 						<p class="text-error">{form.message || ''}</p>
 					{/if}
-					<button type="submit" class="btn btn-primary w-full" class:loading>Send link</button>
+					<button type="submit" class="btn btn-primary w-full">
+					<span class={loading ? 'loading' : 'invisible'}></span>
+						
+						Send link</button>
 				</form>
 			{:else}
 				<div class="alert alert-success">
