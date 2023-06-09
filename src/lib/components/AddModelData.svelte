@@ -3,7 +3,6 @@
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import { addModel, defaultSettings } from '$lib/models';
 	import { alert } from '$lib/stores.js';
-	import { element } from 'svelte/internal';
 	
 
 	export let modelId: string = '';
@@ -188,7 +187,7 @@
 </script>
 
 <div>
-	<h2 class="font-bold text-secondary text-lg mb-2">Add Data</h2>
+	<h2 class="font-bold text-secondary mb-2">Add Data</h2>
 	<div class="mb-10 grid grid-cols-3 gap-2">
 		<label class="btn btn-neutral text-primary" class:btn-outline={activeTab == 0}>
 			<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
