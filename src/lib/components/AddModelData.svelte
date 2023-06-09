@@ -75,31 +75,38 @@
 	};
 
 	const getFileTokenCount = async () => {
-		if (files) {
-			busyCheckingFile = true;
-			let body = new FormData();
-			body.append('user_id', userId);
-			body.append('session_id', sessionId);
-			for(let i = 0; i < files.length; i++) {
-				body.append('files', files[i] /*, optional filename */);
-			}			
-
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/scraping`, {
-				method: 'POST',
-				body
-			});
-
-			const data = await res.json();
-
-			data.file.forEach(file => {
-				fileKeys.push(file[0])
-				filesTokenCount += file[1]
-			})
-
-			busyCheckingFile = false;
+		try{
+			if (files) {
+				busyCheckingFile = true;
+				let body = new FormData();
+				body.append('user_id', userId);
+				body.append('session_id', sessionId);
+				for(let i = 0; i < files.length; i++) {
+					body.append('files', files[i] /*, optional filename */);
+				}			
+	
+				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/scraping`, {
+					method: 'POST',
+					body
+				});
+	
+				const data = await res.json();
+	
+				data.file.forEach(file => {
+					fileKeys.push(file[0])
+					filesTokenCount += file[1]
+				})
+	
+				busyCheckingFile = false;
+			}
+		} catch(err){
+			console.log(err)
+			$alert = "Something went wrong"
+			invalidateAll()
 		}
 	};
 	const createOrUpdateModel = async (id: string = '') => {
+
 		busyTraining = true;
 		trainingStatus = 'training';
 
