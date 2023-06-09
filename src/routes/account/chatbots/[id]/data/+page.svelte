@@ -62,7 +62,7 @@
 				bind:trainingStatus
 			/>
 			{/key}
-			<h2 class="font-bold text-secondary text-lg mb-2 mt-8">Data Sources</h2>
+			<h2 class="font-bold text-secondary mb-2 mt-8">Data Sources</h2>
 			<div class="overflow-x-auto">
 				<table class="table w-full table-xs mb-10">
 					<thead>
