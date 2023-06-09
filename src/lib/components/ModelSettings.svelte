@@ -244,7 +244,7 @@
 				</div>
 			{/if}
 		</Accordian>
-		<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle mx-auto opacity-60"
+		<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle mx-auto"
 			><Icon icon="mdi:delete-outline" width="16" /></label
 		>
 		<div class="fixed bottom-0 left-0 right-0 bg-base-300 p-2 flex items-center justify-between">
