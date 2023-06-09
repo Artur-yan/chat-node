@@ -109,7 +109,7 @@
 		body.append('session_id', sessionId);
 		if (fileKeys.length > 0) {
 			body.append('file_keys', fileKeys /*, optional filename */);
-			name = files[0].name;
+			name = files[0].name.slice(0, 20) + '...';
 			console.log(fileKeys)
 		}
 		if (textData) {
@@ -118,7 +118,7 @@
 		}
 		if (selectedUrls && selectedUrls.length > 0) {
 			body.append('urls', selectedUrls);
-			name = url;
+			name = url.slice(0, 20) + '...';
 		}
 		try {
 			if (modelId) {
