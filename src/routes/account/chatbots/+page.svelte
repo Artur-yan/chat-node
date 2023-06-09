@@ -124,8 +124,8 @@
 								<label tabindex="0" class="btn btn-ghost btn-square" on:click|preventDefault><Icon icon="tabler:dots" height="24" /></label>
 								<ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box z-10x">
 									<li>
-										<a href="/account/chatbots/{bot.id}/embed">
-											<Icon icon="mdi:code" width="18" /> Embed
+										<a href="/account/chatbots/{bot.id}/share">
+											<Icon icon="mdi:code" width="18" /> Share
 										</a>
 									</li>
 									<li>
