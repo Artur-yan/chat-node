@@ -348,7 +348,7 @@
 				</tfoot>
 			</table>
 			<div
-				class="alert mb-2 flex-col bg-neutral"
+				class="alert mb-2 flex-col"
 				class:alert-warning={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}
 			>
 				<progress
