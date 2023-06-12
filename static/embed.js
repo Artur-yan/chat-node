@@ -14,7 +14,7 @@ function toggleChat() {
 const html = `
 <div style="position:fixed; bottom: 10px; right: 10px; z-index:50; overflow: visible;">
     <div style="border-radius: 12px; overflow: hidden; background-color: #0F172A;display: none; position: fixed; bottom: 64px; right: 10px; width: 360px; max-width: calc(100% - 44px); height: calc(100vh - 114px); max-height: 600px;" id="chatbot-${id}">
-        <iframe src="https://www.chatnode.ai/embed/${id}" width="100%" height="100%" style="visibility: hidden; border: none;" onload="this.style.visibility = 'visible';"></iframe>
+        <iframe src="https://www.chatnode.ai/embed/${id}" width="100%" height="100%"></iframe>
     </div>
     <button style="outline: 0; border: none; border-radius: 24px;background-color: #818CF8; padding: 8px; position: absolute; bottom: 0; right: 0; width:48px; height: 48px;" onclick="toggleChat()">
 	<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
