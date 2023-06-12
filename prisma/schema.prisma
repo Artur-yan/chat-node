@@ -57,6 +57,8 @@ model Bots {
   tocken_count     Int      @default(0)
   slack_bot_status Boolean? @default(false)
   auth_user        AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  avatar_img       String?
+  chat_button_img  String?
 
   @@map("bots")
 }
