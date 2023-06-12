@@ -4,10 +4,11 @@
 	export let data;
 
 	let settings = data.bot.settings;
+
 </script>
 
 <svelte:head>
 	<title>{data.bot.name} | ChatNode</title>
 </svelte:head>
 
-<Chat modelId={data.bot.id} {settings} />
+<Chat modelId={data.bot.id} {settings} avatar={data.bot.avatar_img} />
