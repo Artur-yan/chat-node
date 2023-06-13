@@ -82,7 +82,7 @@
 			</label>
 			<label class="btn { plan === 0 ? 'btn-disabled' : 'btn-neutral'}">
 				<input class="radio radio-sm radio-primary" type="radio" value="4" bind:group={settings.gptVersion} disabled={plan === 0}>
-				GPT 4
+				GPT-4
 			</label>
 			{#if settings.gptVersion === '4'}
 				<div class="alert alert-warning font-bold mt-2">
