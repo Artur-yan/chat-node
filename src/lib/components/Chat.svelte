@@ -17,7 +17,7 @@
 		}
 	];
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed' = 'ready';
-	export let avatar: string
+	export let avatar: string;
 
 	if (!settings.theme) {
 		settings.theme = defaultSettings.theme;
@@ -105,9 +105,9 @@
 					{#if msg.sender === 'bot' && avatar}
 						<div class="chat-image avatar">
 							<div class="w-10 rounded-full">
-							  <img src={avatar} />
+								<img src={avatar} />
 							</div>
-						  </div>
+						</div>
 					{/if}
 					<div
 						class="chat-bubble"
@@ -123,12 +123,12 @@
 		{#if isThinking}
 			<div class="chat chat-start">
 				{#if avatar}
-				<div class="chat-image avatar">
-					<div class="w-10 rounded-full">
-					  <img src={avatar} />
+					<div class="chat-image avatar">
+						<div class="w-10 rounded-full">
+							<img src={avatar} />
+						</div>
 					</div>
-				  </div>
-			{/if}
+				{/if}
 				<div
 					class="chat-bubble"
 					style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"

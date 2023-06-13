@@ -1,7 +1,5 @@
 const id = document.currentScript.getAttribute('data-chatbot-id');
-
 let chatOpen = false;
-
 function toggleChat() {
 	if (chatOpen) {
 		document.getElementById(`chatbot-${id}`).style.display = 'none';
@@ -10,7 +8,6 @@ function toggleChat() {
 	}
 	chatOpen = !chatOpen;
 }
-
 const html = `
 <div style="position:fixed; bottom: 10px; right: 10px; z-index:50; overflow: visible;">
     <div style="border-radius: 12px; overflow: hidden; background-color: #0F172A;display: none; position: fixed; bottom: 64px; right: 10px; width: 360px; max-width: calc(100% - 44px); height: calc(100vh - 114px); max-height: 600px;" id="chatbot-${id}">
@@ -31,7 +28,6 @@ const html = `
 		</button>
 </div>
 `;
-
 document.addEventListener('DOMContentLoaded', () => {
 	const body = document.querySelector('body');
 	body.insertAdjacentHTML('beforeend', html);

@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 			});
 		} else {
 			const user = await locals.auth.validateUser();
-			if(!user.session) {
+			if (!user.session) {
 				throw error(403, 'You are not allowed to view this bot');
 			}
 			// setHeaders({
