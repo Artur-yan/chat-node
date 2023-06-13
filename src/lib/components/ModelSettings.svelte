@@ -9,7 +9,7 @@
 
 	export let id: string;
 	export let name: string;
-	export let plan =0
+	export let plan = 0;
 	export let settings = defaultSettings;
 	export let open = false;
 	let busySaving = false;
@@ -35,6 +35,10 @@
 	};
 
 	let selectedTheme = settings.theme.name || 'default';
+
+	if (!settings.gptVersion) {
+		settings.gptVersion = '3.5'
+	}
 
 </script>
 
