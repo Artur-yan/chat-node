@@ -24,6 +24,16 @@ export const PATCH = async ({ request, locals }) => {
 	const { id, name, settings } = await request.json();
 	const session = await locals.auth.validate();
 
+	const subscription = await prismaClient.subscriptions.findUnique({
+		where: {
+			user_id: session.userId
+		}
+	})
+
+	if (subscription?.plan === 0 && settings.gptVersion === '4') {
+		settings.gptVersion = '3.5';
+	} 
+
 	if (session) {
 		await prismaClient.bots.updateMany({
 			where: {

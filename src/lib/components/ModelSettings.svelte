@@ -9,6 +9,7 @@
 
 	export let id: string;
 	export let name: string;
+	export let plan =0
 	export let settings = defaultSettings;
 	export let open = false;
 	let busySaving = false;
@@ -34,6 +35,7 @@
 	};
 
 	let selectedTheme = settings.theme.name || 'default';
+
 </script>
 
 <div>
@@ -42,7 +44,7 @@
 			<label for="name" class="label">
 				<span class="label-text">Name</span>
 			</label>
-			<input type="text" bind:value={name} class="input w-full" placeholder="Untitled" />
+			<input type="text" bind:value={name} class="input input-bordered border-neutral input-lg w-full" placeholder="Untitled" />
 		</div>
 		<Accordian {open}>
 			<div slot="title">Messages</div>
@@ -62,6 +64,30 @@
 					confident answer. You may want to include an email address or link to a contact page here.
 				</p>
 			</div>
+		</Accordian>
+		<Accordian {open}>
+			<div slot="title">ChatGPT Version</div>
+			{#if plan === 0}
+				<div class="alert alert-warning mb-2 font-bold">
+					GPT-4 is only available on paid plans.
+				</div>
+			{/if}
+			<label class="btn btn-neutral aria-checked:bg-primary">
+				<input class="radio radio-sm radio-primary" type="radio" value="3.5" bind:group={settings.gptVersion}>
+				ChatGPT 3.5 Turbo
+			</label>
+			<label class="btn { plan === 0 ? 'btn-disabled' : 'btn-neutral'}">
+				<input class="radio radio-sm radio-primary" type="radio" value="4" bind:group={settings.gptVersion} disabled={plan === 0}>
+				GPT 4
+			</label>
+			{#if settings.gptVersion === '4'}
+				<div class="alert alert-warning font-bold mt-2">
+					<div>
+						<h3 class="text-xl mb-2">Important!</h3>
+						By enabling GPT-4 every message you send will debit 20 messages from your monthly allowance.
+					</div>
+				</div>
+			{/if}
 		</Accordian>
 		<Accordian {open}>
 			<div slot="title">Prompts</div>
@@ -285,9 +311,6 @@
 </div>
 
 <style lang="postcss">
-	input {
-		@apply input-bordered;
-	}
 
 	.themes {
 		@apply flex items-center gap-2 flex-wrap;

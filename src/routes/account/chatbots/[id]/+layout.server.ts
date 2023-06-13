@@ -11,12 +11,7 @@ export const load = async ({ locals, params }) => {
 	});
 
 	if (user.session && model && user.session.userId === model.user_id) {
-		const subscription = await prismaClient.subscriptions.findUnique({
-			where: {
-				user_id: user.session.userId
-			}
-		});
-		return { model, user, subscription };
+		return { model, user };
 	} else if (user.session) {
 		throw redirect(303, '/account/chatbots');
 	} else {

@@ -5,13 +5,7 @@ export const load = async ({ locals }) => {
 	if (!session) return;
 
 	try {
-		const subscription = await prismaClient.subscriptions.findUnique({
-			where: {
-				user_id: session.userId
-			}
-		});
-
-		return { session, subscription };
+		return { session };
 	} catch (err) {
 		console.error(err);
 	}

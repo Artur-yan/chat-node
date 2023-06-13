@@ -98,7 +98,7 @@
 				busyCheckingFile = false;
 			}
 		} catch (err) {
-			console.log(err);
+			console.error(err);
 			$alert = 'Something went wrong';
 			invalidateAll();
 		}
@@ -114,7 +114,6 @@
 		if (fileKeys.length > 0) {
 			body.append('file_keys', fileKeys /*, optional filename */);
 			name = files[0].name.slice(0, 20) + '...';
-			console.log(fileKeys);
 		}
 		if (textData) {
 			body.append('text', textData);
