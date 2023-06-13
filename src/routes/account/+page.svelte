@@ -12,26 +12,24 @@
 		});
 		if ($page.url.searchParams.get('plan-change') === 'success') {
 			trackEvent('Upgrade to Paid');
-			goto('/account/settings/plan');
-			$alert = 'Plan changed successfully!';
 
 			switch ($page.url.searchParams.get('plan')) {
 				case '0':
 					trackEvent('Switch to Free');
 					break;
 				case '1':
-					$alert = 'Switch to Basic';
+					trackEvent('Switch to Basic');
 					break;
 				case '2':
-					$alert = 'Switch to Pro';
+					trackEvent('Switch to Pro');
 					break;
 				case '3':
-					$alert = 'Switch to Enterprise';
+					trackEvent('Switch to Enterprise');
 					break;
 			}
 
-			if ($page.url.searchParams.get('plan-change') === 'success') {
-			}
+			goto('/account/settings/plan');
+			$alert = 'Plan changed successfully!';
 
 		} else {
 			goto('/account/chatbots');
