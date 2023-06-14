@@ -30,10 +30,6 @@ export const PATCH = async ({ request, locals }) => {
 		}
 	})
 
-	if (subscription?.plan === 0 && settings.gptVersion === '4') {
-		settings.gptVersion = '3.5';
-	} 
-
 	if (session) {
 		await prismaClient.bots.updateMany({
 			where: {

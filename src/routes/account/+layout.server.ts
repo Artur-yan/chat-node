@@ -4,7 +4,6 @@ import { prismaClient } from '$lib/server/prisma';
 
 export const load: LayoutServerLoad = async ({ locals }) => {
 	const user = await locals.auth.validateUser();
-	console.log(user)
 
 	const subscription = await prismaClient.subscriptions.findUnique({
 		where: {

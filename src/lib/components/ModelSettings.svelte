@@ -48,7 +48,7 @@
 			<label for="name" class="label">
 				<span class="label-text">Name</span>
 			</label>
-			<input type="text" bind:value={name} class="input input-bordered border-neutral input-lg w-full" placeholder="Untitled" />
+			<input type="text" bind:value={name} class="input border-neutral input-lg w-full" placeholder="Untitled" />
 		</div>
 		<Accordian {open}>
 			<div slot="title">Messages</div>
