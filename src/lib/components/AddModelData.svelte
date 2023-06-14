@@ -3,6 +3,7 @@
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import { addModel, defaultSettings } from '$lib/models';
 	import { alert } from '$lib/stores.js';
+	import { fade } from 'svelte/transition';
 
 	export let modelId: string = '';
 	export let userId: string;
@@ -31,14 +32,16 @@
 	let fileKeys: Array<string> = [];
 	let selectAllUrlsCheckbox: HTMLInputElement;
 
-	let currentProgress = 0;
+	// let currentProgress = 0;
 	let loading;
-	const loadingProgress = (step = 0.2) => {
-		loading = setInterval(() => {
-			currentProgress += step;
-			return Math.round((Math.atan(currentProgress) / (Math.PI / 2)) * 100 * 1000) / 1000;
-		}, 100);
-	};
+	// const loadingProgress = (step = 0.2) => {
+	// 	loading = setInterval(() => {
+	// 		currentProgress += step;
+	// 		return Math.round((Math.atan(currentProgress) / (Math.PI / 2)) * 100 * 1000) / 1000;
+	// 	}, 100);
+	// };
+
+	$: console.log(urls)
 
 	const fetchUrlsToScrape = async () => {
 		busyFetchingUrls = true;
@@ -46,7 +49,7 @@
 		selectedUrls = [];
 		urlsTokenCount = 0;
 		selectedUrlsTokenCount = 0;
-		loadingProgress();
+		// loadingProgress();
 		try {
 			let body = new FormData();
 			body.append('user_id', userId);
@@ -57,18 +60,44 @@
 				body
 			});
 			const data = await res.json();
-			urls = await data.urls;
-			urls.forEach((url) => {
-				selectedUrls.push(url[0]);
-				urlsTokenCount += Number(url[1]);
-			});
-			selectedUrlsTokenCount = urlsTokenCount;
+			const scrape_session_id = data.urls;
+
+			let checkFetchingProgress = setInterval(async () => {
+				const res = await fetch(`/api/models/scrape-urls`, {
+					method: 'POST',
+					body: JSON.stringify({
+						scrape_session_id
+					})
+				});
+				const data = await res.json();
+				console.log(data)
+				urls = data.trainingUrls.scraped_url;
+				urls.forEach((url) => {
+					selectedUrls.push(url.url);
+					urlsTokenCount += Number(url.token);
+				});
+
+				selectedUrlsTokenCount = urlsTokenCount;
+
+				if(data.trainingUrls.status === 'ready') {
+					clearInterval(checkFetchingProgress);
+					busyFetchingUrls = false;
+				}
+			}, 1000);
+
+
+			// urls = await data.urls;
+			// urls.forEach((url) => {
+			// 	selectedUrls.push(url[0]);
+			// 	urlsTokenCount += Number(url[1]);
+			// });
+			// selectedUrlsTokenCount = urlsTokenCount;
 		} catch (err) {
 			console.error(err);
-		} finally {
 			busyFetchingUrls = false;
-			currentProgress = 0;
-			clearInterval(loading);
+		} finally {
+			// currentProgress = 0;
+			// clearInterval(loading);
 		}
 	};
 
@@ -301,9 +330,7 @@
 		<p class="help">
 			We will check your website for any sub-pages and you can choose which to include in your data
 		</p>
-		{#if busyFetchingUrls}
-			<progress class="progress progress-success w-full" value={currentProgress} max={100} />
-		{/if}
+
 		{#if urls}
 			<table class="table table-zebra table-compact w-full max-w-full my-4">
 				<thead>
@@ -323,7 +350,7 @@
 				</thead>
 				<tbody>
 					{#each urls as url}
-						<tr>
+						<tr in:fade>
 							<td>
 								<input
 									type="checkbox"
@@ -333,10 +360,17 @@
 									bind:group={selectedUrls}
 								/>
 							</td>
-							<td class="max-w-0 w-full text-ellipsis overflow-hidden" title={url[0]}>{url[0]}</td>
-							<td>{url[1].toLocaleString()}</td>
+							<td class="max-w-0 w-full text-ellipsis overflow-hidden" title={url.url}>{url.url}</td>
+							<td>{url.token.toLocaleString()}</td>
 						</tr>
 					{/each}
+					{#if busyFetchingUrls}
+					<tr>
+						<td></td>
+						<td class="flex items-center"><span class="loading loading-sm mr-2"></span> loading</td>
+						<td></td>
+					</tr>
+					{/if}
 				</tbody>
 				<tfoot>
 					<tr>
