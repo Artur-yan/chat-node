@@ -95,7 +95,7 @@ model BotsSource {
   name        String?
   source_type String?
   id          String?
-  api_version Float   @default(1) @db.Real
+  api_version Float   @default(1.1) @db.Real
 
   @@map("bots_source")
 }
