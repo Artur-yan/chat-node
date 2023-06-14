@@ -20,14 +20,14 @@ export const PUT = async ({ request, locals }) => {
 		const url = await res.json();
 		if (newPlan === 0) {
 			settings.gptVersion = '3.5';
-			prismaClient.bots.updateMany({
-				where: {
-					user_id: session.userId
-				},
-				data: {
-					settings
-				}
-			})
+			// prismaClient.bots.updateMany({
+			// 	where: {
+			// 		user_id: session.userId
+			// 	},
+			// 	data: {
+			// 		settings
+			// 	}
+			// })
 		}
 		return new Response(JSON.stringify(url), { status: 200 });
 	} catch (err) {
