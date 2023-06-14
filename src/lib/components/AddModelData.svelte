@@ -45,7 +45,6 @@
 		busyFetchingUrls = true;
 		urls = undefined;
 		selectedUrls = [];
-		urlsTokenCount = 0;
 		selectedUrlsTokenCount = 0;
 		// loadingProgress();
 		try {
@@ -59,9 +58,10 @@
 			});
 			const data = await res.json();
 			const scrape_session_id = data.urls;
+			let prevUrlsCount = 0;
+
 
 			let checkFetchingProgress = setInterval(async () => {
-				urlsTokenCount = 0;
 				const res = await fetch(`/api/models/scrape-urls`, {
 					method: 'POST',
 					body: JSON.stringify({
@@ -72,11 +72,15 @@
 				urls = data.trainingUrls.scraped_url;
 
 
-				urls.forEach((url) => {
-					// selectedUrls.push(url.url);
-					selectedUrls = urls.map((url) => url.url);
-					urlsTokenCount += Number(url.token);
-				});
+				if(urls.length > prevUrlsCount) {
+					urlsTokenCount = 0;
+					urls.forEach((url) => {
+						selectedUrls = urls.map((url) => url.url);
+						urlsTokenCount += Number(url.token);
+					});
+					prevUrlsCount = urls.length
+				}
+
 
 				selectedUrlsTokenCount = urlsTokenCount;
 
@@ -94,8 +98,8 @@
 			// });
 			// selectedUrlsTokenCount = urlsTokenCount;
 		} catch (err) {
-			console.error(err);
 			busyFetchingUrls = false;
+			console.error(err);
 		} finally {
 			// currentProgress = 0;
 			// clearInterval(loading);
@@ -341,7 +345,7 @@
 							<label class="flex items-center">
 							<input
 								type="checkbox"
-								class="checkbox checbox-sm mr-4"
+								class="checkbox checkbox-sm mr-4"
 								checked
 								bind:this={selectAllUrlsCheckbox}
 								on:change={handleSelectAllUrls}
@@ -354,11 +358,11 @@
 					{#each urls as url}
 						<tr transition:fade>
 
-							<td class="w-full text-ellipsis overflow-hidden flex items-center" title={url.url}>
-								<label>
+							<td class="w-full text-ellipsis overflow-hidden" title={url.url}>
+								<label class="flex items-center">
 								<input
 								type="checkbox"
-								class="checkbox checbox-sm mr-4"
+								class="checkbox checkbox-sm mr-4"
 								checked={true}
 								value={url.url}
 								bind:group={selectedUrls}
@@ -376,7 +380,6 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td />
 						<td>Urls: {urls.length}</td>
 						<td>Tokens: {urlsTokenCount.toLocaleString()}</td>
 					</tr>
