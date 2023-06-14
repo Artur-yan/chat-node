@@ -43,7 +43,7 @@
 
 	const fetchUrlsToScrape = async () => {
 		busyFetchingUrls = true;
-		urls = undefined;
+		urls = [];
 		selectedUrls = [];
 		selectedUrlsTokenCount = 0;
 		// loadingProgress();
@@ -69,7 +69,11 @@
 					})
 				});
 				const data = await res.json();
-				urls = data.trainingUrls.scraped_url;
+				console.log(data)
+
+				if(data.trainingUrls) {
+					urls = data.trainingUrls.scraped_url || [];
+				}
 
 
 				if(urls.length > prevUrlsCount) {
@@ -81,10 +85,9 @@
 					prevUrlsCount = urls.length
 				}
 
-
 				selectedUrlsTokenCount = urlsTokenCount;
 
-				if(data.trainingUrls.status === 'ready') {
+				if(data.trainingUrls && data.trainingUrls.status === 'ready') {
 					clearInterval(checkFetchingProgress);
 					busyFetchingUrls = false;
 				}
