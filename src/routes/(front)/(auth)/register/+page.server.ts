@@ -11,12 +11,23 @@ export const load: PageServerLoad = async ({ locals }) => {
 	if (session) throw redirect(302, '/account/chatbots');
 };
 
+
+
 export const actions: Actions = {
 	default: async ({ request, locals, url }) => {
+
+
 		const form = await request.formData();
 		const email = form.get('email');
 		const password = form.get('password');
 		const promo = url.searchParams.get('promo');
+
+		if (email.includes('givmail.com')) {
+			return fail(400, {
+				message: 'Invalid input',
+				submitted: false
+			})
+		}
 
 		if (!email || !password || typeof email !== 'string' || typeof password !== 'string') {
 			return fail(400, {

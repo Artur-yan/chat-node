@@ -14,8 +14,7 @@
 	export let open = false;
 	let busySaving = false;
 	let deleting = false;
-
-	$: settings.theme = themes[selectedTheme];
+	let customTheme
 
 	const addUrl = (url: string) => {
 		settings.allowedUrls = [...settings.allowedUrls, url];
@@ -40,6 +39,15 @@
 		settings.gptVersion = '3.5'
 	}
 
+	if (selectedTheme = 'custom') {
+		customTheme = settings.theme;
+	}
+
+	$: if (selectedTheme !== 'custom') {
+		settings.theme = themes[selectedTheme];
+	} else {
+		settings.theme = customTheme
+	}
 </script>
 
 <div>
