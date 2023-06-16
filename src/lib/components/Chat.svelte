@@ -224,6 +224,17 @@
 		.chat-bubble a {
 			text-decoration: underline !important;
 		}
+
+		.chat-bubble ul{
+			list-style: disc;
+			list-style-position: inside;
+			margin-left: 2em;
+		}
+		.chat-bubble ol{
+			list-style: decimal;
+			list-style-position: inside;
+			margin-left: 2em;
+		}
 	</style>
 </div>
 
