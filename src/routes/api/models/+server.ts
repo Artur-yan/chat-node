@@ -24,6 +24,12 @@ export const PATCH = async ({ request, locals }) => {
 	const { id, name, settings } = await request.json();
 	const session = await locals.auth.validate();
 
+	const subscription = await prismaClient.subscriptions.findUnique({
+		where: {
+			user_id: session.userId
+		}
+	});
+
 	if (session) {
 		await prismaClient.bots.updateMany({
 			where: {

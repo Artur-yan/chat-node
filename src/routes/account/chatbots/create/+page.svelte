@@ -37,7 +37,13 @@
 					bind:name
 				/>
 			{:else}
-				<ModelSettings id={modelId} {name} bind:settings open={true} />
+				<ModelSettings
+					id={modelId}
+					{name}
+					plan={data.subscription?.plan}
+					bind:settings
+					open={true}
+				/>
 			{/if}
 		</div>
 		<div>

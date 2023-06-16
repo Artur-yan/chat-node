@@ -5,7 +5,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-    // url      = "postgresql://postgres:H4idB56bOlpQLOAV@db.guhkoqzapksvcdqqfznk.supabase.co:5432/postgres"
 }
 
 model AuthUser {
@@ -161,4 +160,18 @@ model slack_oauth_states {
   id        Int      @id @default(autoincrement())
   state     String   @db.VarChar(200)
   expire_at DateTime @db.Timestamp(6)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model training_urls {
+  session_id        String
+  created_at        DateTime @default(now()) @db.Timestamptz(6)
+  user_id           String
+  original_url      String?
+  scraped_url       Json?
+  count             Int?
+  scrape_session_id String   @db.Uuid @unique
+  status            String?
+
+  @@id([session_id, user_id, scrape_session_id])
 }

@@ -3,6 +3,7 @@
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import { addModel, defaultSettings } from '$lib/models';
 	import { alert } from '$lib/stores.js';
+	import { fade } from 'svelte/transition';
 
 	export let modelId: string = '';
 	export let userId: string;
@@ -31,22 +32,21 @@
 	let fileKeys: Array<string> = [];
 	let selectAllUrlsCheckbox: HTMLInputElement;
 
-	let currentProgress = 0;
+	// let currentProgress = 0;
 	let loading;
-	const loadingProgress = (step = 0.2) => {
-		loading = setInterval(() => {
-			currentProgress += step;
-			return Math.round((Math.atan(currentProgress) / (Math.PI / 2)) * 100 * 1000) / 1000;
-		}, 100);
-	};
+	// const loadingProgress = (step = 0.2) => {
+	// 	loading = setInterval(() => {
+	// 		currentProgress += step;
+	// 		return Math.round((Math.atan(currentProgress) / (Math.PI / 2)) * 100 * 1000) / 1000;
+	// 	}, 100);
+	// };
 
 	const fetchUrlsToScrape = async () => {
 		busyFetchingUrls = true;
-		urls = undefined;
+		urls = [];
 		selectedUrls = [];
-		urlsTokenCount = 0;
 		selectedUrlsTokenCount = 0;
-		loadingProgress();
+		// loadingProgress();
 		try {
 			let body = new FormData();
 			body.append('user_id', userId);
@@ -57,18 +57,52 @@
 				body
 			});
 			const data = await res.json();
-			urls = await data.urls;
-			urls.forEach((url) => {
-				selectedUrls.push(url[0]);
-				urlsTokenCount += Number(url[1]);
-			});
-			selectedUrlsTokenCount = urlsTokenCount;
+			const scrape_session_id = data.urls;
+			let prevUrlsCount = 0;
+
+			let checkFetchingProgress = setInterval(async () => {
+				const res = await fetch(`/api/models/scrape-urls`, {
+					method: 'POST',
+					body: JSON.stringify({
+						scrape_session_id
+					})
+				});
+				const data = await res.json();
+				console.log(data);
+
+				if (data.trainingUrls) {
+					urls = data.trainingUrls.scraped_url || [];
+				}
+
+				if (urls.length > prevUrlsCount) {
+					urlsTokenCount = 0;
+					urls.forEach((url) => {
+						selectedUrls = urls.map((url) => url.url);
+						urlsTokenCount += Number(url.token);
+					});
+					prevUrlsCount = urls.length;
+				}
+
+				selectedUrlsTokenCount = urlsTokenCount;
+
+				if (data.trainingUrls && data.trainingUrls.status === 'ready') {
+					clearInterval(checkFetchingProgress);
+					busyFetchingUrls = false;
+				}
+			}, 1000);
+
+			// urls = await data.urls;
+			// urls.forEach((url) => {
+			// 	selectedUrls.push(url[0]);
+			// 	urlsTokenCount += Number(url[1]);
+			// });
+			// selectedUrlsTokenCount = urlsTokenCount;
 		} catch (err) {
+			busyFetchingUrls = false;
 			console.error(err);
 		} finally {
-			busyFetchingUrls = false;
-			currentProgress = 0;
-			clearInterval(loading);
+			// currentProgress = 0;
+			// clearInterval(loading);
 		}
 	};
 
@@ -98,7 +132,7 @@
 				busyCheckingFile = false;
 			}
 		} catch (err) {
-			console.log(err);
+			console.error(err);
 			$alert = 'Something went wrong';
 			invalidateAll();
 		}
@@ -114,7 +148,6 @@
 		if (fileKeys.length > 0) {
 			body.append('file_keys', fileKeys /*, optional filename */);
 			name = files[0].name.slice(0, 20) + '...';
-			console.log(fileKeys);
 		}
 		if (textData) {
 			body.append('text', textData);
@@ -151,7 +184,7 @@
 
 	const handleSelectAllUrls = () => {
 		if (selectAllUrlsCheckbox.checked) {
-			selectedUrls = urls.map((url) => url[0]);
+			selectedUrls = urls.map((url) => url.url);
 		} else {
 			selectedUrls = [];
 		}
@@ -170,8 +203,8 @@
 		if (selectedUrls.length > 0 && urls) {
 			selectedUrlsTokenCount = 0;
 			urls.forEach((url) => {
-				if (selectedUrls.includes(url[0])) {
-					selectedUrlsTokenCount += Number(url[1]);
+				if (selectedUrls.includes(url.url)) {
+					selectedUrlsTokenCount += Number(url.token);
 				}
 			});
 		} else {
@@ -302,46 +335,52 @@
 		<p class="help">
 			We will check your website for any sub-pages and you can choose which to include in your data
 		</p>
-		{#if busyFetchingUrls}
-			<progress class="progress progress-success w-full" value={currentProgress} max={100} />
-		{/if}
+
 		{#if urls}
-			<table class="table table-zebra table-compact w-full max-w-full my-4">
+			<table class="table table-zebra table-sm w-full max-w-full my-4">
 				<thead>
 					<tr>
-						<th
-							><input
-								type="checkbox"
-								class="checkbox"
-								checked
-								bind:this={selectAllUrlsCheckbox}
-								on:change={handleSelectAllUrls}
-							/></th
+						<th>
+							<label class="flex items-center">
+								<input
+									type="checkbox"
+									class="checkbox checkbox-sm mr-4"
+									checked
+									bind:this={selectAllUrlsCheckbox}
+									on:change={handleSelectAllUrls}
+								/>URL</label
+							></th
 						>
-						<th>URL</th>
 						<th>Tokens</th>
 					</tr>
 				</thead>
 				<tbody>
 					{#each urls as url}
-						<tr>
-							<td>
-								<input
-									type="checkbox"
-									class="checkbox"
-									checked={true}
-									value={url[0]}
-									bind:group={selectedUrls}
-								/>
-							</td>
-							<td class="max-w-0 w-full text-ellipsis overflow-hidden" title={url[0]}>{url[0]}</td>
-							<td>{url[1].toLocaleString()}</td>
+						<tr transition:fade>
+							<td class="w-full text-ellipsis overflow-hidden" title={url.url}>
+								<label class="flex items-center">
+									<input
+										type="checkbox"
+										class="checkbox checkbox-sm mr-4"
+										checked={true}
+										value={url.url}
+										bind:group={selectedUrls}
+									/>
+									{url.url}</label
+								></td
+							>
+							<td>{url.token.toLocaleString()}</td>
 						</tr>
 					{/each}
+					{#if busyFetchingUrls}
+						<tr>
+							<td class="flex items-center"><span class="loading loading-sm mr-2" /> loading</td>
+							<td />
+						</tr>
+					{/if}
 				</tbody>
 				<tfoot>
 					<tr>
-						<td />
 						<td>Urls: {urls.length}</td>
 						<td>Tokens: {urlsTokenCount.toLocaleString()}</td>
 					</tr>

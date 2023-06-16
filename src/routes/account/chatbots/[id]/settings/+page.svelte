@@ -17,7 +17,12 @@
 
 <div class="container grid grid-cols-2 gap-10">
 	<div>
-		<ModelSettings id={data.model.id} name={data.model.name} bind:settings />
+		<ModelSettings
+			id={data.model.id}
+			name={data.model.name}
+			plan={data.subscription?.plan}
+			bind:settings
+		/>
 	</div>
 	<div>
 		<div class="h-[calc(100vh_-_16rem)] sticky top-10">

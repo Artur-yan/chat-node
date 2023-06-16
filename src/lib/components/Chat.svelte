@@ -53,6 +53,7 @@
 				})
 			});
 			const data = await res.json();
+			console.log(data);
 			isThinking = false;
 			addMessage(data.message);
 		} catch (err) {

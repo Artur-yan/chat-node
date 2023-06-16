@@ -9,11 +9,12 @@
 
 	export let id: string;
 	export let name: string;
+	export let plan = 0;
 	export let settings = defaultSettings;
 	export let open = false;
 	let busySaving = false;
 	let deleting = false;
-	let customTheme
+	let customTheme;
 
 	const addUrl = (url: string) => {
 		settings.allowedUrls = [...settings.allowedUrls, url];
@@ -34,14 +35,18 @@
 
 	let selectedTheme = settings.theme.name || 'default';
 
-	if (selectedTheme = 'custom') {
+	if (!settings.gptVersion) {
+		settings.gptVersion = '3.5';
+	}
+
+	if ((selectedTheme = 'custom')) {
 		customTheme = settings.theme;
 	}
 
 	$: if (selectedTheme !== 'custom') {
 		settings.theme = themes[selectedTheme];
 	} else {
-		settings.theme = customTheme
+		settings.theme = customTheme;
 	}
 </script>
 
@@ -76,6 +81,39 @@
 					confident answer. You may want to include an email address or link to a contact page here.
 				</p>
 			</div>
+		</Accordian>
+		<Accordian {open}>
+			<div slot="title">ChatGPT Version</div>
+			{#if plan === 0}
+				<div class="alert alert-warning mb-2 font-bold">GPT-4 is only available on paid plans.</div>
+			{/if}
+			<label class="btn btn-neutral aria-checked:bg-primary">
+				<input
+					class="radio radio-sm radio-primary"
+					type="radio"
+					value="3.5"
+					bind:group={settings.gptVersion}
+				/>
+				ChatGPT 3.5 Turbo
+			</label>
+			<label class="btn {plan === 0 ? 'btn-disabled' : 'btn-neutral'}">
+				<input
+					class="radio radio-sm radio-primary"
+					type="radio"
+					value="4"
+					bind:group={settings.gptVersion}
+					disabled={plan === 0}
+				/>
+				GPT-4
+			</label>
+			{#if settings.gptVersion === '4'}
+				<div class="alert alert-warning font-bold mt-2">
+					<div>
+						<h3 class="text-xl mb-2">Important!</h3>
+						By enabling GPT-4 every message you send will debit 20 messages from your monthly allowance.
+					</div>
+				</div>
+			{/if}
 		</Accordian>
 		<Accordian {open}>
 			<div slot="title">Prompts</div>
@@ -299,10 +337,6 @@
 </div>
 
 <style lang="postcss">
-	input {
-		@apply input-bordered;
-	}
-
 	.themes {
 		@apply flex items-center gap-2 flex-wrap;
 	}
