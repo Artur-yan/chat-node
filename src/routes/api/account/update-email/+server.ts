@@ -20,7 +20,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			}
 		});
 
-		transporter.sendMail({
+		await transporter.sendMail({
 			from: PUBLIC_EMAIL_ADDRESS,
 			to: newEmail,
 			subject: 'Email Confirmation Required',
