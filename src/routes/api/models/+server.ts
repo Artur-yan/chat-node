@@ -28,7 +28,7 @@ export const PATCH = async ({ request, locals }) => {
 		where: {
 			user_id: session.userId
 		}
-	})
+	});
 
 	if (session) {
 		await prismaClient.bots.updateMany({

@@ -58,7 +58,7 @@ const defaultSettings = {
 	systemPrompt:
 		'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.',
 	userPrompt: '',
-	gptVersion: "3.5",
+	gptVersion: '3.5',
 	theme: {
 		name: 'default',
 		bg: '#0F172A',

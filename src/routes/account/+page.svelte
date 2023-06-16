@@ -30,7 +30,6 @@
 
 			goto('/account/settings/plan');
 			$alert = 'Plan changed successfully!';
-
 		} else {
 			goto('/account/chatbots');
 		}

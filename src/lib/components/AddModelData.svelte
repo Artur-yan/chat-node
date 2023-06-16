@@ -60,7 +60,6 @@
 			const scrape_session_id = data.urls;
 			let prevUrlsCount = 0;
 
-
 			let checkFetchingProgress = setInterval(async () => {
 				const res = await fetch(`/api/models/scrape-urls`, {
 					method: 'POST',
@@ -69,30 +68,28 @@
 					})
 				});
 				const data = await res.json();
-				console.log(data)
+				console.log(data);
 
-				if(data.trainingUrls) {
+				if (data.trainingUrls) {
 					urls = data.trainingUrls.scraped_url || [];
 				}
 
-
-				if(urls.length > prevUrlsCount) {
+				if (urls.length > prevUrlsCount) {
 					urlsTokenCount = 0;
 					urls.forEach((url) => {
 						selectedUrls = urls.map((url) => url.url);
 						urlsTokenCount += Number(url.token);
 					});
-					prevUrlsCount = urls.length
+					prevUrlsCount = urls.length;
 				}
 
 				selectedUrlsTokenCount = urlsTokenCount;
 
-				if(data.trainingUrls && data.trainingUrls.status === 'ready') {
+				if (data.trainingUrls && data.trainingUrls.status === 'ready') {
 					clearInterval(checkFetchingProgress);
 					busyFetchingUrls = false;
 				}
 			}, 1000);
-
 
 			// urls = await data.urls;
 			// urls.forEach((url) => {
@@ -343,16 +340,16 @@
 			<table class="table table-zebra table-sm w-full max-w-full my-4">
 				<thead>
 					<tr>
-						<th
-							>
+						<th>
 							<label class="flex items-center">
-							<input
-								type="checkbox"
-								class="checkbox checkbox-sm mr-4"
-								checked
-								bind:this={selectAllUrlsCheckbox}
-								on:change={handleSelectAllUrls}
-							/>URL</label></th
+								<input
+									type="checkbox"
+									class="checkbox checkbox-sm mr-4"
+									checked
+									bind:this={selectAllUrlsCheckbox}
+									on:change={handleSelectAllUrls}
+								/>URL</label
+							></th
 						>
 						<th>Tokens</th>
 					</tr>
@@ -360,24 +357,25 @@
 				<tbody>
 					{#each urls as url}
 						<tr transition:fade>
-
 							<td class="w-full text-ellipsis overflow-hidden" title={url.url}>
 								<label class="flex items-center">
-								<input
-								type="checkbox"
-								class="checkbox checkbox-sm mr-4"
-								checked={true}
-								value={url.url}
-								bind:group={selectedUrls}
-							/>
-								{url.url}</label></td>
+									<input
+										type="checkbox"
+										class="checkbox checkbox-sm mr-4"
+										checked={true}
+										value={url.url}
+										bind:group={selectedUrls}
+									/>
+									{url.url}</label
+								></td
+							>
 							<td>{url.token.toLocaleString()}</td>
 						</tr>
 					{/each}
 					{#if busyFetchingUrls}
 						<tr>
-							<td class="flex items-center"><span class="loading loading-sm mr-2"></span> loading</td>
-							<td></td>
+							<td class="flex items-center"><span class="loading loading-sm mr-2" /> loading</td>
+							<td />
 						</tr>
 					{/if}
 				</tbody>
