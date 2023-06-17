@@ -9,11 +9,13 @@
 	let referralCode = '';
 
 	onMount(() => {
-		rewardful('ready', function () {
-			if (Rewardful.referral) {
-				referralCode = Rewardful.referral;
-			}
-		});
+		if(rewardful) {
+			rewardful('ready', function () {
+				if (Rewardful.referral) {
+					referralCode = Rewardful.referral;
+				}
+			});
+		}
 	});
 
 	const updatePlan = async (newPlan: number) => {

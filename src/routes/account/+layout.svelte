@@ -31,6 +31,17 @@
 			d.getElementsByTagName('head')[0].appendChild(s);
 		})();
 	</script>
+	<script>
+		(function (w, r) {
+			w._rwq = r;
+			w[r] =
+				w[r] ||
+				function () {
+					(w[r].q = w[r].q || []).push(arguments);
+				};
+		})(window, 'rewardful');
+	</script>
+	<script async src="https://r.wdfl.co/rw.js" data-rewardful="1564fe"></script>
 </svelte:head>
 
 <Header user={data.user} />
