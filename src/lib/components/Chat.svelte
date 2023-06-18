@@ -17,7 +17,7 @@
 		}
 	];
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed' = 'ready';
-	export let avatar: string;
+	export let avatar: string | undefined = undefined;
 
 	if (!settings.theme) {
 		settings.theme = defaultSettings.theme;
@@ -53,7 +53,6 @@
 				})
 			});
 			const data = await res.json();
-			console.log(data);
 			isThinking = false;
 			addMessage(data.message);
 		} catch (err) {
