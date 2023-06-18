@@ -261,19 +261,15 @@
 			</div>
 		</div>
 		<div
-			class="alert bg-neutral flex-col"
+			class="alert flex-col"
 			class:hidden={filesTokenCount === 0}
 			class:alert-warning={filesTokenCount + existingTokenCount > subscription.max_tocken}
 		>
-			<progress
-				class="progress progress-success"
-				value={filesTokenCount + existingTokenCount}
-				max={subscription.max_tocken}
-			/>
 			Your file{files && files.length > 1 ? 's' : ''} contain{files && files.length > 1 ? '' : 's'}
 			{filesTokenCount.toLocaleString()} tokens.
 			{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
 			Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
+			<a href="/account/plan" class="btn">Upgrade</a>
 		</div>
 		<button
 			class="btn btn-primary mt-8"
