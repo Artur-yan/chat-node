@@ -6,12 +6,12 @@
 
 	$: if ($alert) {
 		
-		// if (typeof $alert === 'string') {
-		// 	$alert = { msg: $alert, type: 'info' };
-		// }
+		if (typeof $alert === 'string') {
+			$alert = { msg: $alert, type: 'info' };
+		}
 		
 		
-		setTimeout(() => ($alert = ''), 60000);
+		setTimeout(() => ($alert = ''), 3500);
 
 			switch ($alert.type) {
 				case 'success':
