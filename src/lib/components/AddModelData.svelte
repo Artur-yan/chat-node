@@ -28,7 +28,6 @@
 	let filesTokenCount = 0;
 	let selectedUrlsTokenCount = 0;
 	let approxTextTokenCount = 0;
-	let uploadedFileName: string;
 	let fileKeys: Array<string> = [];
 	let selectAllUrlsCheckbox: HTMLInputElement;
 
@@ -72,6 +71,12 @@
 
 				if (data.trainingUrls) {
 					urls = data.trainingUrls.scraped_url || [];
+				}
+
+				if (urls.length === 0) {
+					$alert = 'Failed to fetch web pages from the provided URL';
+					clearInterval(checkFetchingProgress);
+					busyFetchingUrls = false;
 				}
 
 				if (urls.length > prevUrlsCount) {
@@ -207,12 +212,12 @@
 					selectedUrlsTokenCount += Number(url.token);
 				}
 			});
-		} else {
+		} else {	
 			selectedUrlsTokenCount = 0;
 		}
 	}
 
-	$: if (urls && selectedUrls.length < urls.length) {
+	$: if (urls && selectAllUrlsCheckbox && selectedUrls.length < urls.length) {
 		selectAllUrlsCheckbox.checked = false;
 	}
 </script>
