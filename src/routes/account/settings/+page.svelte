@@ -37,7 +37,7 @@
 			<div>
 				<label class="label" for="email"><span class="label-text">New password</span></label>
 				<input
-					class="input input-bordered w-full"
+					class="input w-full"
 					type="password"
 					name="password"
 					required
@@ -47,7 +47,7 @@
 			<div>
 				<label class="label" for="email"><span class="label-text">Confirm password</span></label>
 				<input
-					class="input input-bordered w-full"
+					class="input w-full"
 					type="password"
 					name="confirm-password"
 					required
@@ -70,7 +70,7 @@
 			>
 			<div class="input-group">
 				<input
-					class="input input-bordered w-full"
+					class="input w-full"
 					type="text"
 					name="delete-confirm"
 					placeholder="DELETE"
