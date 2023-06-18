@@ -9,5 +9,10 @@
 </svelte:head>
 
 <div class="container h-full mb-10 min-h-[50vh]">
-	<Chat modelId={data.model.id} status={data.model.status} settings={data.model.settings} avatar={data.model?.avatar_img} />
+	<Chat
+		modelId={data.model.id}
+		status={data.model.status}
+		settings={data.model.settings}
+		avatar={data.model?.avatar_img}
+	/>
 </div>

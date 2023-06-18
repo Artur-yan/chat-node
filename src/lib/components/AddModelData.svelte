@@ -212,7 +212,7 @@
 					selectedUrlsTokenCount += Number(url.token);
 				}
 			});
-		} else {	
+		} else {
 			selectedUrlsTokenCount = 0;
 		}
 	}
@@ -408,7 +408,8 @@
 				class="btn btn-primary"
 				on:click={() => createOrUpdateModel()}
 				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
-					selectedUrlsTokenCount == 0 || busyFetchingUrls}
+					selectedUrlsTokenCount == 0 ||
+					busyFetchingUrls}
 			>
 				<span class={busyTraining ? 'loading' : 'invisible'} />
 

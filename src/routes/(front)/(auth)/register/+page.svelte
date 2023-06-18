@@ -55,7 +55,7 @@
 					<p class="text-error">{form.message || ''}</p>
 				{/if}
 				<button type="submit" class="btn btn-primary w-full mt-4">
-					<span class={loading ? 'loading' : 'invisible'}></span>
+					<span class={loading ? 'loading' : 'invisible'} />
 					Create account
 				</button>
 				<p class="text-sm mt-4">

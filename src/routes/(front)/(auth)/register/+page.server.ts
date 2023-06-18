@@ -11,7 +11,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 	if (session) throw redirect(302, '/account/chatbots');
 };
 
-
 export const actions: Actions = {
 	default: async ({ request, locals, url }) => {
 		const form = await request.formData();
@@ -19,8 +18,13 @@ export const actions: Actions = {
 		const password = form.get('password');
 		const promo = url.searchParams.get('promo');
 
-		const domainBlacklist = ['givmail.com', 'givmail.io', 'givmail.co', 'inboxbear.com', 'vomoto.com']
-
+		const domainBlacklist = [
+			'givmail.com',
+			'givmail.io',
+			'givmail.co',
+			'inboxbear.com',
+			'vomoto.com'
+		];
 
 		if (domainBlacklist.includes(email.split('@')[1])) {
 			return fail(400, {

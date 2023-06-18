@@ -9,7 +9,7 @@
 	let referralCode = '';
 
 	onMount(() => {
-		if(rewardful) {
+		if (rewardful) {
 			rewardful('ready', function () {
 				if (Rewardful.referral) {
 					referralCode = Rewardful.referral;

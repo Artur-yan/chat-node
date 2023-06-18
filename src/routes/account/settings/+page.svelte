@@ -11,7 +11,7 @@
 
 	const handleEmailChange = async () => {
 		updateAccountEmail(userEmail);
-		$alert = 'Check your email for a verification link.'
+		$alert = 'Check your email for a verification link.';
 	};
 </script>
 
