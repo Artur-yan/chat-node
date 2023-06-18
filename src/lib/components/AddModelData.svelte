@@ -73,11 +73,11 @@
 					urls = data.trainingUrls.scraped_url || [];
 				}
 
-				if (urls.length === 0) {
-					$alert = 'Failed to fetch web pages from the provided URL';
-					clearInterval(checkFetchingProgress);
-					busyFetchingUrls = false;
-				}
+				// if (urls && urls.length === 0) {
+				// 	$alert = 'Failed to fetch web pages from the provided URL';
+				// 	clearInterval(checkFetchingProgress);
+				// 	busyFetchingUrls = false;
+				// }
 
 				if (urls.length > prevUrlsCount) {
 					urlsTokenCount = 0;
