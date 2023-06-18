@@ -2,8 +2,31 @@
 	import { alert } from '$lib/stores.js';
 	import { fly } from 'svelte/transition';
 
+	let alertClass = 'alert-info';
+
 	$: if ($alert) {
-		setTimeout(() => ($alert = ''), 3000);
+		
+		// if (typeof $alert === 'string') {
+		// 	$alert = { msg: $alert, type: 'info' };
+		// }
+		
+		
+		setTimeout(() => ($alert = ''), 60000);
+
+			switch ($alert.type) {
+				case 'success':
+					alertClass = 'alert-success';
+					break;
+				case 'error':
+					alertClass = 'alert-error';
+					break;
+				case 'warning':
+					alertClass = 'alert-warning';
+					break;
+				case 'info':
+					alertClass = 'alert-info';
+					break;
+			}
 	}
 </script>
 
@@ -14,10 +37,10 @@
 		in:fly={{ y: -80, duration: 350 }}
 		out:fly={{ y: -80, duration: 350 }}
 	>
-		<div class="alert alert-success">
-			<div class="w-72 max-w-full flex items-center justify-between">
-				<span>{$alert}</span>
-				<button on:click={() => ($alert = '')} class="p-2"
+		<div class="alert {alertClass}">
+			<div class="max-w-full flex items-center justify-between gap-2">
+					{$alert.msg}
+				<button on:click={() => ($alert = undefined)} class="p-2"
 					><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
 						><path
 							fill="currentColor"
