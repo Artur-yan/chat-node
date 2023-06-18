@@ -403,7 +403,7 @@
 				class="btn btn-primary"
 				on:click={() => createOrUpdateModel()}
 				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
-					selectedUrlsTokenCount == 0}
+					selectedUrlsTokenCount == 0 || busyFetchingUrls}
 			>
 				<span class={busyTraining ? 'loading' : 'invisible'} />
 
