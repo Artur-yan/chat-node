@@ -31,15 +31,6 @@
 	let fileKeys: Array<string> = [];
 	let selectAllUrlsCheckbox: HTMLInputElement;
 
-	// let currentProgress = 0;
-	let loading;
-	// const loadingProgress = (step = 0.2) => {
-	// 	loading = setInterval(() => {
-	// 		currentProgress += step;
-	// 		return Math.round((Math.atan(currentProgress) / (Math.PI / 2)) * 100 * 1000) / 1000;
-	// 	}, 100);
-	// };
-
 	const fetchUrlsToScrape = async () => {
 		busyFetchingUrls = true;
 		urls = [];
@@ -57,7 +48,7 @@
 			});
 			const data = await res.json();
 			const scrape_session_id = data.urls;
-			let prevUrlsCount = 0;
+			let currentUrlsCount = 0;
 
 			let checkFetchingProgress = setInterval(async () => {
 				const res = await fetch(`/api/models/scrape-urls`, {
@@ -69,45 +60,30 @@
 				const data = await res.json();
 
 				if (data.trainingUrls) {
-					urls = data.trainingUrls.scraped_url || [];
-
-					if (urls.length === 0) {
-						$alert = {type: 'error', msg: 'Failed to fetch web pages from the provided URL'}
+					// If done
+					if (data.trainingUrls.status === 'ready') {
 						clearInterval(checkFetchingProgress);
 						busyFetchingUrls = false;
 					}
-				}
-
-
-				if (urls.length > prevUrlsCount) {
-					urlsTokenCount = 0;
-					urls.forEach((url) => {
-						selectedUrls = urls.map((url) => url.url);
-						urlsTokenCount += Number(url.token);
-					});
-					prevUrlsCount = urls.length;
-				}
-
-				selectedUrlsTokenCount = urlsTokenCount;
-
-				if (data.trainingUrls && data.trainingUrls.status === 'ready') {
-					clearInterval(checkFetchingProgress);
-					busyFetchingUrls = false;
+					if (data.trainingUrls.scraped_url.length > currentUrlsCount) {
+						for (let i = currentUrlsCount; i < data.trainingUrls.scraped_url.length; i++) {
+							urls = [...urls, data.trainingUrls.scraped_url[i]];
+							selectedUrls = [...selectedUrls, data.trainingUrls.scraped_url[i].url];
+							urlsTokenCount += Number(data.trainingUrls.scraped_url[i].token);
+						}
+						currentUrlsCount = urls.length;
+					}
+					// If failed
+					if (urls.length === 0) {
+						clearInterval(checkFetchingProgress);
+						busyFetchingUrls = false;
+						$alert = {type: 'error', msg: 'Failed to fetch web pages from the provided URL'}
+					}
 				}
 			}, 1000);
-
-			// urls = await data.urls;
-			// urls.forEach((url) => {
-			// 	selectedUrls.push(url[0]);
-			// 	urlsTokenCount += Number(url[1]);
-			// });
-			// selectedUrlsTokenCount = urlsTokenCount;
 		} catch (err) {
 			busyFetchingUrls = false;
 			console.error(err);
-		} finally {
-			// currentProgress = 0;
-			// clearInterval(loading);
 		}
 	};
 
@@ -205,16 +181,11 @@
 	}
 
 	$: {
-		if (selectedUrls.length > 0 && urls) {
-			selectedUrlsTokenCount = 0;
-			urls.forEach((url) => {
-				if (selectedUrls.includes(url.url)) {
-					selectedUrlsTokenCount += Number(url.token);
-				}
-			});
-		} else {
-			selectedUrlsTokenCount = 0;
-		}
+		selectAllUrlsCheckbox,
+		selectedUrlsTokenCount = 0
+		selectedUrls.forEach(url => {
+			selectedUrlsTokenCount += urls.find(u => u.url === url).token;
+		});
 	}
 
 	$: if (urls && selectAllUrlsCheckbox && selectedUrls.length < urls.length) {
@@ -291,14 +262,9 @@
 				autofocus
 			/>
 			<div
-				class="alert mt-2 flex-col"
+				class="alert mt-2"
 				class:alert-warning={approxTextTokenCount + existingTokenCount > subscription.max_tocken}
 			>
-				<progress
-					class="progress progress-success animate-all"
-					value={approxTextTokenCount + existingTokenCount}
-					max={subscription.max_tocken}
-				/>
 				Your included text contains approx. {approxTextTokenCount.toLocaleString()} tokens.
 				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
 				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
@@ -363,7 +329,6 @@
 									<input
 										type="checkbox"
 										class="checkbox checkbox-sm mr-4"
-										checked={true}
 										value={url.url}
 										bind:group={selectedUrls}
 									/>
