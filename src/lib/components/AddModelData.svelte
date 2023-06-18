@@ -138,7 +138,7 @@
 			}
 		} catch (err) {
 			console.error(err);
-			$alert = 'Something went wrong';
+			$alert = {msg: 'Something went wrong', type: 'error'};
 			invalidateAll();
 		}
 	};
@@ -180,7 +180,7 @@
 			}
 		} catch (err) {
 			console.error(err);
-			$alert = 'Something went wrong. Please try again later.';
+			$alert = {msg: 'Something went wrong. Please try again later.', type: 'error'};
 		} finally {
 			busyTraining = false;
 			invalidateAll();

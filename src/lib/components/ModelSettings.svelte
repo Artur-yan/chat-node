@@ -29,7 +29,7 @@
 		busySaving = true;
 		await updateModel(id, name, settings);
 		busySaving = false;
-		$alert = 'Settings Saved';
+		$alert = {msg: 'Settings Saved', type: 'success'};
 		invalidateAll();
 	};
 

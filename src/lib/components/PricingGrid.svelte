@@ -33,7 +33,7 @@
 				goto(data.url);
 			} else if (data.status == 'success') {
 				currentPlan = newPlan;
-				$alert = 'Plan updated successfully';
+				$alert = {msg: 'Plan updated successfully', type: 'success'};
 			}
 		} catch (err) {
 			console.error(err);
