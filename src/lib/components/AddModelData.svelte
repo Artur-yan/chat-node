@@ -60,24 +60,25 @@
 				const data = await res.json();
 
 				if (data.trainingUrls) {
+					console.log(data.trainingUrls);
 					// If done
 					if (data.trainingUrls.status === 'ready') {
 						clearInterval(checkFetchingProgress);
 						busyFetchingUrls = false;
+					} 
+					// If failed
+					else if (!data.trainingUrls.scraped_url) {
+						clearInterval(checkFetchingProgress);
+						busyFetchingUrls = false;
+						$alert = {type: 'error', msg: 'Failed to fetch web pages from the provided URL'}
 					}
-					if (data.trainingUrls.scraped_url.length > currentUrlsCount) {
+					else if (data.trainingUrls.scraped_url.length > currentUrlsCount) {
 						for (let i = currentUrlsCount; i < data.trainingUrls.scraped_url.length; i++) {
 							urls = [...urls, data.trainingUrls.scraped_url[i]];
 							selectedUrls = [...selectedUrls, data.trainingUrls.scraped_url[i].url];
 							urlsTokenCount += Number(data.trainingUrls.scraped_url[i].token);
 						}
 						currentUrlsCount = urls.length;
-					}
-					// If failed
-					if (urls.length === 0) {
-						clearInterval(checkFetchingProgress);
-						busyFetchingUrls = false;
-						$alert = {type: 'error', msg: 'Failed to fetch web pages from the provided URL'}
 					}
 				}
 			}, 1000);
