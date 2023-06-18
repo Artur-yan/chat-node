@@ -69,11 +69,11 @@
 							class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-64 z-10"
 						>
 							<li><a href="/account/settings">Account Settings</a></li>
+							<li>
 							<form action="/logout" method="POST">
-								<li>
 									<button type="submit">Sign out</button>
-								</li>
-							</form>
+								</form>
+							</li>
 						</ul>
 					</div>
 				{/if}
