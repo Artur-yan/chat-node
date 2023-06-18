@@ -72,7 +72,14 @@
 				{#each data.modelData as modelData}
 					<tr>
 						<td><div class="badge badge-neutral badge-sm">{modelData.source_type}</div></td>
-						<td>{modelData.name}</td>
+						<td class="overflow-clip">
+							{#if modelData.source_type === 'urls'}
+								{modelData.name.split(',').join('\n')}
+							{:else}
+								{modelData.name}
+							{/if}
+						
+						</td>
 						<td
 							><button
 								class="btn btn-sm btn-circle btn-ghost text-error"
