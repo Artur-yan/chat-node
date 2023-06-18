@@ -117,11 +117,14 @@
 										style="--value:{usage}; --size: 0.875rem; --thickness: 3px;"
 									/>
 								</div>
+
+								{#if bot.settings.gptVersion === '4'}
+									<div class="badge badge-warning">
+										GPT-4
+									</div>
+								{/if}
 							</div>
 
-							<!-- <a class="btn btn-ghost" href="chatbots/{bot.id}">
-								<Icon icon="mdi:message" class="mr-2" width="16" /> Chat
-							</a> -->
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
 							<div class="dropdown dropdown-left dropdown-start z-10">
 								<label tabindex="0" class="btn btn-ghost btn-square" on:click|preventDefault
