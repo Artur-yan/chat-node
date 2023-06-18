@@ -5,6 +5,8 @@
 
 	const redirectToStripeBilling = async () => {
 		try {
+			$alert = 'Redirecting you to Stripe billing portal';
+
 			const res = await fetch('/api/account/billing', {
 				method: 'POST',
 				headers: {

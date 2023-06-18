@@ -2,11 +2,17 @@
 	export let data;
 
 	import { deleteAccount, updateAccountEmail } from '$lib/account';
+	import { alert } from '$lib/stores.js';
 
 	let userEmail = data.user.user.email;
 	let deleteConfirm = '';
 
 	export let form: { message?: string };
+
+	const handleEmailChange = async () => {
+		updateAccountEmail(userEmail);
+		$alert = 'Check your email for a verification link.';
+	};
 </script>
 
 <svelte:head>
@@ -18,7 +24,7 @@
 		<h2 class="card-title">Email</h2>
 		<div class="form-control">
 			<div class="input-group">
-				<form on:submit={updateAccountEmail(userEmail)} class="input-group">
+				<form on:submit={handleEmailChange} class="input-group">
 					<input
 						class="input input-bordered w-full"
 						type="text"

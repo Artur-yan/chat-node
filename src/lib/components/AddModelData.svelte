@@ -28,7 +28,6 @@
 	let filesTokenCount = 0;
 	let selectedUrlsTokenCount = 0;
 	let approxTextTokenCount = 0;
-	let uploadedFileName: string;
 	let fileKeys: Array<string> = [];
 	let selectAllUrlsCheckbox: HTMLInputElement;
 
@@ -78,7 +77,8 @@
 						busyFetchingUrls = false;
 					}
 				}
-				
+
+
 				if (urls.length > prevUrlsCount) {
 					urlsTokenCount = 0;
 					urls.forEach((url) => {
@@ -217,7 +217,7 @@
 		}
 	}
 
-	$: if (urls && selectedUrls.length < urls.length) {
+	$: if (urls && selectAllUrlsCheckbox && selectedUrls.length < urls.length) {
 		selectAllUrlsCheckbox.checked = false;
 	}
 </script>
@@ -408,7 +408,8 @@
 				class="btn btn-primary"
 				on:click={() => createOrUpdateModel()}
 				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
-					selectedUrlsTokenCount == 0}
+					selectedUrlsTokenCount == 0 ||
+					busyFetchingUrls}
 			>
 				<span class={busyTraining ? 'loading' : 'invisible'} />
 

@@ -224,11 +224,11 @@
 			text-decoration: underline !important;
 		}
 
-		.chat-bubble ul{
+		.chat-bubble ul {
 			list-style: disc;
 			margin-left: 2em;
 		}
-		.chat-bubble ol{
+		.chat-bubble ol {
 			list-style: decimal;
 			margin-left: 2em;
 		}

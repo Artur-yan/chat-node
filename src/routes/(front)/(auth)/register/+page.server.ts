@@ -18,7 +18,15 @@ export const actions: Actions = {
 		const password = form.get('password');
 		const promo = url.searchParams.get('promo');
 
-		if (email.includes('givmail.com')) {
+		const domainBlacklist = [
+			'givmail.com',
+			'givmail.io',
+			'givmail.co',
+			'inboxbear.com',
+			'vomoto.com'
+		];
+
+		if (domainBlacklist.includes(email.split('@')[1])) {
 			return fail(400, {
 				message: 'Invalid input',
 				submitted: false
