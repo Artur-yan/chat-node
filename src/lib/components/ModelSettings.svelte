@@ -343,11 +343,4 @@
 	.themes input:checked + label {
 		@apply btn-primary;
 	}
-
-	:global(.color-picker .container) {
-		padding: 0;
-		max-width: none;
-		width: auto;
-		margin: 0;
-	}
 </style>
