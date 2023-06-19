@@ -57,7 +57,7 @@
 							<span class="opacity-60">{data.subscription.msg_count}/{data.subscription.max_msg}</span>
 						</div>
 						<progress
-							class="progress progress-secondary w-full bg-neutral"
+							class="progress progress-secondary w-full bg-neutral h-1"
 							class:progress-error={msgUsage > 0.9}
 							value={data.subscription.msg_count}
 							max={data.subscription.max_msg}
@@ -69,7 +69,7 @@
 							<span class="opacity-60">{data.bots.length}/{data.subscription.max_bot}</span>
 						</div>
 						<progress
-						class="progress progress-secondary w-full bg-neutral"
+						class="progress progress-secondary w-full bg-neutral h-1"
 						class:progress-warning={botUsage > 0.9}
 						value={data.bots.length}
 						max={data.subscription.max_bot}
@@ -81,7 +81,7 @@
 							<span class="opacity-60">{resetDate.toLocaleDateString()}</span>
 						</div>
 						<progress
-						class="progress progress-secondary w-full bg-neutral"
+						class="progress progress-secondary w-full bg-neutral h-1"
 						class:progress-warning={data.subscription.cancel_at}
 						value={31 - daysLeftUntilAllotmentsReset}
 						max={31}
