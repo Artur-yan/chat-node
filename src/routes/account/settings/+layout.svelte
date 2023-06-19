@@ -45,22 +45,24 @@
 	</div>
 
 </div>
-<div class="container mt-2">
+{#if data.subscription?.next_billing_cycle}
+	<div class="container mt-2">
 
-	<div class="card card-compact card-bordered border-neutral mb-4">
-		<div class="card-body">
-			<div class="flex justify-between">
-		<h4>{data.subscription.cancel_at ? 'Cancellaton date' : 'Next Billing Cycle'}</h4>
-		<span class="opacity-60">{data.subscription?.next_billing_cycle?.toLocaleDateString()}</span>
+		<div class="card card-compact card-bordered border-neutral mb-4">
+			<div class="card-body">
+				<div class="flex justify-between">
+			<h4>{data.subscription.cancel_at ? 'Cancellaton date' : 'Next Billing Cycle'}</h4>
+			<span class="opacity-60">{data.subscription?.next_billing_cycle?.toLocaleDateString()}</span>
+		</div>
+		<progress
+			class="progress progress-secondary h-1 w-full bg-neutral"
+			class:progress-warning={data.subscription.cancel_at}
+			value={31 - daysLeftInBillingCycle}
+			max={31}
+		/>
+		</div>
+		</div>
 	</div>
-	<progress
-	class="progress progress-secondary h-1 w-full bg-neutral"
-	class:progress-warning={data.subscription.cancel_at}
-	value={31 - daysLeftInBillingCycle}
-	max={31}
-/>
-	</div>
-	</div>
-</div>
+{/if}
 
 <slot />
