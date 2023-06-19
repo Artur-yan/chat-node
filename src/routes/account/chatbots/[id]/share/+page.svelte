@@ -19,9 +19,9 @@
 	<title>Embed | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container">
+<div class="container mb-10">
 	{#if data.model.settings.public == false}
-		<div class="alert alert-warning">
+		<div class="alert alert-warning mb-4">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
@@ -45,8 +45,17 @@
 		</div>
 	{/if}
 
+
+	
 	<h2 class="text-lg font-bold">Web Page</h2>				
-	<pre><code>{url}</code><CopyButton textToCopy={url} /></pre>
+	<div class="grid md:grid-cols-2">
+		<div class="bg-neutral p-4 rounded flex flex-col justify-between">
+			<div class="flex justify-between items-center">
+				<pre><code>{url}</code></pre>
+				<CopyButton textToCopy={url} />
+			</div>
+		</div>
+	</div>
 
 	<h2 class="text-lg font-bold mt-10">Popup Chat</h2>
 	<div class="grid md:grid-cols-2">
