@@ -82,7 +82,6 @@
 						</div>
 						<progress
 						class="progress progress-secondary w-full bg-neutral h-1"
-						class:progress-warning={data.subscription.cancel_at}
 						value={31 - daysLeftUntilAllotmentsReset}
 						max={31}
 					/>
