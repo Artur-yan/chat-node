@@ -7,6 +7,8 @@
 
 	export let data;
 
+	console.log(data)
+
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
 
@@ -19,6 +21,8 @@
 			trackEvent('Signup');
 		}
 	});
+
+	let daysLeftInBillingCycle = Math.ceil((new Date(data.subscription?.next_billing_cycle).getTime() - new Date().getTime()) / (1000 * 3600 * 24))
 </script>
 
 <svelte:head>
@@ -42,25 +46,48 @@
 
 	<div class="card card-compact card-bordered border-neutral mb-4">
 		<div class="card-body">
-			<div class="flex justify-between items-center gap-2">
-				<h4>Messages</h4>
-				<span class="opacity-60">{data.subscription.msg_count}/{data.subscription.max_msg}</span>
-				<progress
-					class="progress progress-secondary w-full bg-neutral"
-					class:progress-error={msgUsage > 0.9}
-					value={data.subscription.msg_count}
-					max={data.subscription.max_msg}
-				/>
-				<div class="w-16" />
-				<h4>Bots</h4>
-				<span class="opacity-60">{data.bots.length}/{data.subscription.max_bot}</span>
-				<progress
-					class="progress progress-secondary w-full bg-neutral"
-					class:progress-warning={botUsage > 0.9}
-					value={data.bots.length}
-					max={data.subscription.max_bot}
-				/>
-				<div class="w-16" />
+			<div class="flex gap-8 items-center">
+				<div class="grid md:grid-cols-3 gap-2 md:gap-8 items-center w-full">
+					<div>
+						<div class="flex justify-between">
+							<h4>Messages</h4>
+							<span class="opacity-60">{data.subscription.msg_count}/{data.subscription.max_msg}</span>
+						</div>
+						<progress
+							class="progress progress-secondary w-full bg-neutral"
+							class:progress-error={msgUsage > 0.9}
+							value={data.subscription.msg_count}
+							max={data.subscription.max_msg}
+						/>
+					</div>
+					<div>
+						<div class="flex justify-between">
+							<h4>Bots</h4>
+							<span class="opacity-60">{data.bots.length}/{data.subscription.max_bot}</span>
+						</div>
+						<progress
+						class="progress progress-secondary w-full bg-neutral"
+						class:progress-warning={botUsage > 0.9}
+						value={data.bots.length}
+						max={data.subscription.max_bot}
+					/>
+					</div>
+					<div>
+						<div class="flex justify-between">
+							<h4>{data.subscription.cancel_at ? 'Cancellaton date' : 'Next Billing Cycle'}</h4>
+							<span class="opacity-60">{data.subscription?.next_billing_cycle?.toLocaleDateString()}</span>
+						</div>
+						<progress
+						class="progress progress-secondary w-full bg-neutral"
+						class:progress-warning={data.subscription.cancel_at}
+						value={31 - daysLeftInBillingCycle}
+						max={31}
+					/>
+					</div>
+
+
+					
+				</div>
 				{#if botUsage >= 1 || msgUsage > 0.75}
 					<a href="/account/settings/plan" class="btn btn-warning">Upgrade</a>
 				{/if}
