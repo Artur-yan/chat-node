@@ -22,7 +22,10 @@
 		}
 	});
 
-	let daysLeftInBillingCycle = Math.ceil((new Date(data.subscription?.next_billing_cycle).getTime() - new Date().getTime()) / (1000 * 3600 * 24))
+	const today = new Date()
+	const resetDate = new Date(today.setMonth(today.getMonth() + 1))
+	resetDate.setDate(15)
+	let daysLeftUntilAllotmentsReset = Math.ceil((resetDate - new Date().getTime()) / (1000 * 3600 * 24))
 </script>
 
 <svelte:head>
@@ -74,13 +77,13 @@
 					</div>
 					<div>
 						<div class="flex justify-between">
-							<h4>{data.subscription.cancel_at ? 'Cancellaton date' : 'Next Billing Cycle'}</h4>
-							<span class="opacity-60">{data.subscription?.next_billing_cycle?.toLocaleDateString()}</span>
+							<h4>Usage Reset Date</h4>
+							<span class="opacity-60">{resetDate.toLocaleDateString()}</span>
 						</div>
 						<progress
 						class="progress progress-secondary w-full bg-neutral"
 						class:progress-warning={data.subscription.cancel_at}
-						value={31 - daysLeftInBillingCycle}
+						value={31 - daysLeftUntilAllotmentsReset}
 						max={31}
 					/>
 					</div>
