@@ -1,12 +1,18 @@
 <script lang="ts">
 	import { PUBLIC_SITE_URL } from '$env/static/public';
 	import CopyButton from '$lib/components/CopyButton.svelte';
+	import ColorPicker from 'svelte-awesome-color-picker';
 
 	export let data;
+	let color1 = "#3ABFF7"
+	let color2 = "#0E1729"
 
 	const iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
-	const jsEmbedCode = `<script src="${PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${data.model.id}"><\/script>`;
+	let jsEmbedCode;
 	const url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
+
+	$: jsEmbedCode = `<script src="${PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${data.model.id}" color-1="${color1}" color-2="${color2}"><\/script>`;
+
 </script>
 
 <svelte:head>
@@ -39,44 +45,52 @@
 		</div>
 	{/if}
 
-	<div class="grid md:grid-cols-2 gap-6 my-10">
-		<div class="card bg-base-300 shadow-xl shadow-secondary/10 p-6 col-span-2">
-			<div class="card-title justify-between">
-				<h2 class="text-lg font-bold">Web Page</h2>
-				<CopyButton textToCopy={url} />
-			</div>
-			<pre class="py-8 break-all whitespace-break-spaces"><code>{url}</code></pre>
-		</div>
-		<div class="card bg-base-300 shadow-xl shadow-secondary/10 p-6">
-			<div class="card-title justify-between">
-				<h2 class="text-lg font-bold">Javascript floating chatbot</h2>
+	<h2 class="text-lg font-bold">Web Page</h2>				
+	<pre><code>{url}</code><CopyButton textToCopy={url} /></pre>
+
+	<h2 class="text-lg font-bold mt-10">Popup Chat</h2>
+	<div class="grid md:grid-cols-2">
+		<div class="bg-neutral p-4 rounded flex flex-col justify-between">
+			<div class="flex justify-between">
+				<pre><code>{jsEmbedCode}</code></pre>
+				<!-- <div class="tabs tab-sm mb-4">
+					<button class="tab tab-bordered tab-active">Code</button> 
+					<button class="tab tab-bordered">Customize</button> 
+				</div> -->
 				<CopyButton textToCopy={jsEmbedCode} />
 			</div>
-			<pre class="py-8 break-all whitespace-break-spaces"><code>{jsEmbedCode}</code></pre>
+			<p class="text-sm mt-4">Place this code just before your website's closing &lt;/body&gt; or &lt;/head&gt; tag.</p>
 		</div>
-		<p class="px-4">
-			Place this code just before the closing '&lt;/body&gt;' tag. You may also place it in your
-			website's '&lt;head&gt;' tag, but it is recommended to use the defer attribute to improve
-			loading speed. Learn more <a
-				class="link"
-				href="https://www.w3schools.com/tags/att_script_defer.asp">here</a
-			>.
-		</p>
+		<div class="p-4">
+			<h4 class="font-bold">Customise</h4>
+			<div class="flex gap-4 mt-4">
+				<ColorPicker bind:hex={color1} label="Button Color 1" />
+				<ColorPicker bind:hex={color2} label="Button Color 2" />
+			</div>
+			<p class="text-sm mt-4">To change the colors of the chat window, visit the 'theme' section on the <a class="link" href="settings">settings page</a>.</p>
+		</div>
+	</div>
 
-		<div class="card bg-base-300 shadow-xl shadow-secondary/10 p-6 md:row-start-2 md:col-start-2">
-			<div class="card-title justify-between">
-				<h2 class="text-lg font-bold">Embedded iframe</h2>
+	<h2 class="text-lg font-bold mt-10">Embedded (iframe)</h2>
+	<div class="grid md:grid-cols-2">
+		<div class="bg-neutral p-4 rounded flex flex-col justify-between">
+			<div class="flex justify-between">
+				<pre><code>{iframeEmbedCode}</code></pre>
+
 				<CopyButton textToCopy={iframeEmbedCode} />
 			</div>
-			<pre class="py-8 break-all whitespace-break-spaces"><code>{iframeEmbedCode}</code></pre>
+			<p class="text-sm mt-4">Place this code wherever you'd like within your website where you'd like it to appear.</p>
 		</div>
-		<p class="px-4">
-			Place this code wherever you'd like within your website where you'd like it to appear.
-		</p>
+		<div class="p-4">
+		</div>
 	</div>
 </div>
 
-<style>
+<style lang="postcss">
+	pre{
+		@apply break-all whitespace-break-spaces opacity-50 text-sm;
+	}
+
 	pre::before {
 		display: none;
 	}
