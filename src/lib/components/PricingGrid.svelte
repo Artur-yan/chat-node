@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { alert } from '$lib/stores.js';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { onMount } from 'svelte';
 
 	export let currentPlan: number | undefined = undefined;
@@ -37,8 +37,11 @@
 			}
 		} catch (err) {
 			console.error(err);
+			$alert = {msg: 'Something went wrong', type: 'error'};
+
 		} finally {
 			busyChangingPlan = false;
+			invalidateAll()
 		}
 	};
 </script>
