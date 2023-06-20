@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import { invalidateAll } from '$app/navigation';
-	export let data;
 	import AddModelData from '$lib/components/AddModelData.svelte';
 	import Chat from '$lib/components/Chat.svelte';
 	import Icon from '@iconify/svelte';
 	import { alert } from '$lib/stores.js';
+
+	export let data;
 
 	let trainingStatus = 'ready';
 	let modelId = data.model.id;
@@ -16,7 +17,7 @@
 		unique = [{}];
 	}
 
-	$: if (trainingStatus == 'ready') {
+	$: if (trainingStatus == 'complete') {
 		restart();
 	}
 
@@ -38,6 +39,7 @@
 		if (res.ok) {
 			$alert = { msg: 'Data deleted', type: 'success' };
 			invalidateAll();
+			restart()
 		}
 	};
 </script>
@@ -68,6 +70,7 @@
 						<th />
 					</tr>
 				</thead>
+
 				{#each data.modelData as modelData}
 					<tr>
 						<td><div class="badge badge-neutral badge-sm">{modelData.source_type}</div></td>
