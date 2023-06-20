@@ -230,6 +230,7 @@
 				on:click={async () => {
 					deleting = true;
 					await deleteModel(idOfModelToDelete);
+					deleting = false
 					modalDelete.close()
 					invalidateAll()
 				}}
