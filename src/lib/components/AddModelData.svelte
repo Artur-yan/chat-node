@@ -63,14 +63,13 @@
 					if (data.trainingUrls.status === 'ready') {
 						clearInterval(checkFetchingProgress);
 						busyFetchingUrls = false;
-					} 
+					}
 					// If failed
 					else if (!data.trainingUrls.scraped_url) {
 						clearInterval(checkFetchingProgress);
 						busyFetchingUrls = false;
-						$alert = {type: 'error', msg: 'Failed to fetch web pages from the provided URL'}
-					}
-					else if (data.trainingUrls.scraped_url.length > currentUrlsCount) {
+						$alert = { type: 'error', msg: 'Failed to fetch web pages from the provided URL' };
+					} else if (data.trainingUrls.scraped_url.length > currentUrlsCount) {
 						for (let i = currentUrlsCount; i < data.trainingUrls.scraped_url.length; i++) {
 							urls = [...urls, data.trainingUrls.scraped_url[i]];
 							selectedUrls = [...selectedUrls, data.trainingUrls.scraped_url[i].url];
@@ -113,7 +112,7 @@
 			}
 		} catch (err) {
 			console.error(err);
-			$alert = {msg: 'Something went wrong', type: 'error'};
+			$alert = { msg: 'Something went wrong', type: 'error' };
 			invalidateAll();
 		}
 	};
@@ -154,7 +153,7 @@
 			}
 		} catch (err) {
 			console.error(err);
-			$alert = {msg: 'Something went wrong. Please try again later.', type: 'error'};
+			$alert = { msg: 'Something went wrong. Please try again later.', type: 'error' };
 		} finally {
 			invalidateAll();
 		}
@@ -178,10 +177,9 @@
 	}
 
 	$: {
-		selectAllUrlsCheckbox,
-		selectedUrlsTokenCount = 0
-		selectedUrls.forEach(url => {
-			selectedUrlsTokenCount += urls.find(u => u.url === url).token;
+		selectAllUrlsCheckbox, (selectedUrlsTokenCount = 0);
+		selectedUrls.forEach((url) => {
+			selectedUrlsTokenCount += urls.find((u) => u.url === url).token;
 		});
 	}
 

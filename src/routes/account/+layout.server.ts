@@ -11,7 +11,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 				user_id: user.user.userId
 			}
 		});
-	
+
 		const bots = await prismaClient.bots.findMany({
 			where: {
 				user_id: {

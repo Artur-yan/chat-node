@@ -26,7 +26,7 @@
 	</div>
 	<div>
 		<div class="h-[calc(100vh_-_16rem)] sticky top-10">
-			<Chat modelId={data.model.id} {settings} trainingStatus={data.model.status}  />
+			<Chat modelId={data.model.id} {settings} trainingStatus={data.model.status} />
 		</div>
 	</div>
 </div>

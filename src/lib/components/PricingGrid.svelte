@@ -33,15 +33,14 @@
 				goto(data.url);
 			} else if (data.status == 'success') {
 				currentPlan = newPlan;
-				$alert = {msg: 'Plan updated successfully', type: 'success'};
+				$alert = { msg: 'Plan updated successfully', type: 'success' };
 			}
 		} catch (err) {
 			console.error(err);
-			$alert = {msg: 'Something went wrong', type: 'error'};
-
+			$alert = { msg: 'Something went wrong', type: 'error' };
 		} finally {
 			busyChangingPlan = false;
-			invalidateAll()
+			invalidateAll();
 		}
 	};
 </script>

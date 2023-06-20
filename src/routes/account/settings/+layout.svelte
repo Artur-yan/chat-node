@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { alert } from '$lib/stores';
 
-	export let data
+	export let data;
 
 	const redirectToStripeBilling = async () => {
 		try {
@@ -30,8 +30,10 @@
 	const planPath = '/account/settings/plan';
 	const settingsPath = '/account/settings';
 
-	let daysLeftInBillingCycle = Math.ceil((new Date(data.subscription?.next_billing_cycle).getTime() - new Date().getTime()) / (1000 * 3600 * 24))
-
+	let daysLeftInBillingCycle = Math.ceil(
+		(new Date(data.subscription?.next_billing_cycle).getTime() - new Date().getTime()) /
+			(1000 * 3600 * 24)
+	);
 </script>
 
 <div class="container flex items-center gap-4 flex-wrap">
@@ -43,24 +45,24 @@
 		<a href={planPath} class="tab" class:tab-active={planPath == $page.url.pathname}>Change plan</a>
 		<button on:click={redirectToStripeBilling} class="tab">Billing</button>
 	</div>
-
 </div>
 {#if data.subscription?.next_billing_cycle}
 	<div class="container mt-2">
-
 		<div class="card card-compact card-bordered border-neutral mb-4">
 			<div class="card-body">
 				<div class="flex justify-between">
-			<h4>{data.subscription.cancel_at ? 'Cancellaton date' : 'Next Billing Cycle'}</h4>
-			<span class="opacity-60">{data.subscription?.next_billing_cycle?.toLocaleDateString()}</span>
-		</div>
-		<progress
-			class="progress progress-secondary h-1 w-full bg-neutral"
-			class:progress-warning={data.subscription.cancel_at}
-			value={31 - daysLeftInBillingCycle}
-			max={31}
-		/>
-		</div>
+					<h4>{data.subscription.cancel_at ? 'Cancellaton date' : 'Next Billing Cycle'}</h4>
+					<span class="opacity-60"
+						>{data.subscription?.next_billing_cycle?.toLocaleDateString()}</span
+					>
+				</div>
+				<progress
+					class="progress progress-secondary h-1 w-full bg-neutral"
+					class:progress-warning={data.subscription.cancel_at}
+					value={31 - daysLeftInBillingCycle}
+					max={31}
+				/>
+			</div>
 		</div>
 	</div>
 {/if}

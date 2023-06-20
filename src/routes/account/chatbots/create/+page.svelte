@@ -7,33 +7,30 @@
 
 	export let data;
 
-	console.log(data)
+	console.log(data);
 
 	const botUsage: number = data.bots.length / data.subscription.max_bot;
 
-
-	onMount( () => {
-		if(botUsage >= 1) {
-			goto('/account/chatbots')
+	onMount(() => {
+		if (botUsage >= 1) {
+			goto('/account/chatbots');
 		}
-	})
+	});
 
 	let modelId: string;
 	let name: string;
 	let settings;
 	let messages;
 
-
 	$: if (settings) {
 		messages[0].text = settings.greeting;
 	}
 	let trainingStatus: string | undefined = undefined;
 
-	$: console.log('create +page: ' + trainingStatus)
-
+	$: console.log('create +page: ' + trainingStatus);
 
 	$: if (trainingStatus === 'complete') {
-		goto(`/account/chatbots/${modelId}/settings`)
+		goto(`/account/chatbots/${modelId}/settings`);
 	}
 </script>
 
@@ -46,14 +43,14 @@
 
 	<div class="grid md:grid-cols-2 gap-10">
 		<div>
-				<AddModelData
-					bind:modelId
-					userId={data.user.user.userId}
-					sessionId={data.user.session.sessionId}
-					subscription={data.subscription}
-					bind:trainingStatus
-					bind:name
-				/>
+			<AddModelData
+				bind:modelId
+				userId={data.user.user.userId}
+				sessionId={data.user.session.sessionId}
+				subscription={data.subscription}
+				bind:trainingStatus
+				bind:name
+			/>
 		</div>
 		<div>
 			<div class="h-[calc(100vh_-_16rem)] sticky top-10 border-4 rounded-xl border-neutral">

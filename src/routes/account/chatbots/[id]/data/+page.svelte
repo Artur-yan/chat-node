@@ -36,7 +36,7 @@
 		const resData = await res.json();
 
 		if (res.ok) {
-			$alert = {msg: 'Data deleted', type: 'success'};
+			$alert = { msg: 'Data deleted', type: 'success' };
 			invalidateAll();
 		}
 	};
@@ -77,7 +77,6 @@
 							{:else}
 								{modelData.name}
 							{/if}
-						
 						</td>
 						<td
 							><button

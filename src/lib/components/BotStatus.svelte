@@ -5,15 +5,15 @@
 	export let id: string;
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed';
 
-	$: console.log('BotStatus.svelte: ' + trainingStatus)
+	$: console.log('BotStatus.svelte: ' + trainingStatus);
 
 	let icon: string;
 	let alertClass: string;
 	let trainingMessage: string;
 	let statusMessageElement: HTMLElement;
 
-	$: if (trainingStatus === 'training' ) {
-		let listenForTrainingStatus =  setInterval(async () => {
+	$: if (trainingStatus === 'training') {
+		let listenForTrainingStatus = setInterval(async () => {
 			try {
 				const res = await fetch(PUBLIC_SITE_URL + '/api/models/training-status', {
 					method: 'POST',
@@ -24,18 +24,16 @@
 				});
 				const { status } = await res.json();
 				trainingStatus = status || 'training';
-	
-	
+
 				if (status == 'ready') {
 					trainingStatus = 'complete';
-					clearInterval(listenForTrainingStatus)
+					clearInterval(listenForTrainingStatus);
 				}
 			} catch (err) {
 				console.error(err);
 			}
 		}, 1000);
 	}
-
 
 	$: switch (trainingStatus) {
 		case undefined:

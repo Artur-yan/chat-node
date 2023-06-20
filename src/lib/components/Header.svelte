@@ -70,7 +70,7 @@
 						>
 							<li><a href="/account/settings">Account Settings</a></li>
 							<li>
-							<form action="/logout" method="POST">
+								<form action="/logout" method="POST">
 									<button type="submit">Sign out</button>
 								</form>
 							</li>

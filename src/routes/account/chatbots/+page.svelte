@@ -10,13 +10,12 @@
 
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
-	let idOfModelToDelete: string
-	let titleOfModelToDelete: string
-	let deleting = false
-	let modalDelete: HTMLDialogElement
+	let idOfModelToDelete: string;
+	let titleOfModelToDelete: string;
+	let deleting = false;
+	let modalDelete: HTMLDialogElement;
 
 	$: botUsage = data.bots.length / data.subscription.max_bot;
-
 
 	onMount(() => {
 		const { trackEvent } = Plausible({
@@ -28,10 +27,12 @@
 		}
 	});
 
-	const today = new Date()
-	const resetDate = new Date(today.setMonth(today.getMonth() + 1))
-	resetDate.setDate(15)
-	let daysLeftUntilAllotmentsReset = Math.ceil((resetDate - new Date().getTime()) / (1000 * 3600 * 24))
+	const today = new Date();
+	const resetDate = new Date(today.setMonth(today.getMonth() + 1));
+	resetDate.setDate(15);
+	let daysLeftUntilAllotmentsReset = Math.ceil(
+		(resetDate - new Date().getTime()) / (1000 * 3600 * 24)
+	);
 </script>
 
 <svelte:head>
@@ -43,12 +44,12 @@
 		<div>
 			<h1 class="text-xl font-bold text-secondary">Chatbots</h1>
 		</div>
-			<button
-				on:click={() => goto('/account/chatbots/create')}
-				class="btn btn-primary"
-				disabled={data.user.user.status !== 'active' || botUsage >= 1}
-				>Create <Icon icon="mdi:plus-box" class="ml-2" height="20" /></button
-			>
+		<button
+			on:click={() => goto('/account/chatbots/create')}
+			class="btn btn-primary"
+			disabled={data.user.user.status !== 'active' || botUsage >= 1}
+			>Create <Icon icon="mdi:plus-box" class="ml-2" height="20" /></button
+		>
 	</div>
 
 	<div class="card card-compact card-bordered border-neutral mb-4">
@@ -58,7 +59,9 @@
 					<div>
 						<div class="flex justify-between">
 							<h4>Messages</h4>
-							<span class="opacity-60">{data.subscription.msg_count}/{data.subscription.max_msg}</span>
+							<span class="opacity-60"
+								>{data.subscription.msg_count}/{data.subscription.max_msg}</span
+							>
 						</div>
 						<progress
 							class="progress progress-secondary w-full bg-neutral h-1"
@@ -73,11 +76,11 @@
 							<span class="opacity-60">{data.bots.length}/{data.subscription.max_bot}</span>
 						</div>
 						<progress
-						class="progress progress-secondary w-full bg-neutral h-1"
-						class:progress-warning={botUsage > 0.9}
-						value={data.bots.length}
-						max={data.subscription.max_bot}
-					/>
+							class="progress progress-secondary w-full bg-neutral h-1"
+							class:progress-warning={botUsage > 0.9}
+							value={data.bots.length}
+							max={data.subscription.max_bot}
+						/>
 					</div>
 					<div>
 						<div class="flex justify-between">
@@ -85,14 +88,11 @@
 							<span class="opacity-60">{resetDate.toLocaleDateString()}</span>
 						</div>
 						<progress
-						class="progress progress-secondary w-full bg-neutral h-1"
-						value={31 - daysLeftUntilAllotmentsReset}
-						max={31}
-					/>
+							class="progress progress-secondary w-full bg-neutral h-1"
+							value={31 - daysLeftUntilAllotmentsReset}
+							max={31}
+						/>
 					</div>
-
-
-					
 				</div>
 				{#if botUsage >= 1 || msgUsage > 0.75 || data.subscription.cancel_at}
 					<a href="/account/settings/plan" class="btn btn-warning">Upgrade</a>
@@ -102,22 +102,22 @@
 	</div>
 	{#if data.user.user.status !== 'active'}
 		<div class="alert alert-warning max-w-3xl mx-auto my-10">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					class="stroke-current flex-shrink-0 w-6 h-6"
-					><path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-					/></svg
-				>
-				<span
-					>You need to verify your email address before you can create a chatbot.<br />Please check
-					your email for the verification link.</span
-				>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				class="stroke-current flex-shrink-0 w-6 h-6"
+				><path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+				/></svg
+			>
+			<span
+				>You need to verify your email address before you can create a chatbot.<br />Please check
+				your email for the verification link.</span
+			>
 		</div>
 	{/if}
 	{#if data.bots.length > 0}
@@ -150,9 +150,7 @@
 								</div>
 
 								{#if bot.settings.gptVersion === '4'}
-									<div class="badge badge-warning">
-										GPT-4
-									</div>
+									<div class="badge badge-warning">GPT-4</div>
 								{/if}
 							</div>
 
@@ -186,12 +184,14 @@
 										</a>
 									</li>
 									<li>
-										<a on:click|preventDefault={() => {
-											idOfModelToDelete = bot.id
-											titleOfModelToDelete = bot.name
-											modalDelete.showModal()
-										}}>
-											<Icon icon="mdi:delete-outline" width="18"  /> Delete
+										<a
+											on:click|preventDefault={() => {
+												idOfModelToDelete = bot.id;
+												titleOfModelToDelete = bot.name;
+												modalDelete.showModal();
+											}}
+										>
+											<Icon icon="mdi:delete-outline" width="18" /> Delete
 										</a>
 									</li>
 								</ul>
@@ -231,9 +231,9 @@
 				on:click={async () => {
 					deleting = true;
 					await deleteModel(idOfModelToDelete);
-					deleting = false
-					modalDelete.close()
-					invalidateAll()
+					deleting = false;
+					modalDelete.close();
+					invalidateAll();
 				}}
 			>
 				<span class={deleting ? 'loading' : 'invisible'} />
