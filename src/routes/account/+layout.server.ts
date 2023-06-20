@@ -5,14 +5,24 @@ import { prismaClient } from '$lib/server/prisma';
 export const load: LayoutServerLoad = async ({ locals }) => {
 	const user = await locals.auth.validateUser();
 
-	const subscription = await prismaClient.subscriptions.findUnique({
-		where: {
-			user_id: user.user.userId
-		}
-	});
-
 	if (user.session) {
-		return { user, subscription };
+		const subscription = await prismaClient.subscriptions.findUnique({
+			where: {
+				user_id: user.user.userId
+			}
+		});
+	
+		const bots = await prismaClient.bots.findMany({
+			where: {
+				user_id: {
+					equals: user.session.userId
+				}
+			},
+			orderBy: {
+				created: 'desc'
+			}
+		});
+		return { user, subscription, bots };
 	} else {
 		throw redirect(303, '/login');
 	}
