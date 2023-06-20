@@ -1,14 +1,19 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import Icon from '@iconify/svelte';
 	import { page } from '$app/stores';
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
+	import { deleteModel } from '$lib/models';
 
 	export let data;
 
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
+	let idOfModelToDelete: string
+	let titleOfModelToDelete: string
+	let deleting = false
+	let modalDelete: HTMLDialogElement
 
 	onMount(() => {
 		const { trackEvent } = Plausible({
@@ -95,8 +100,7 @@
 		</div>
 	</div>
 	{#if data.user.user.status !== 'active'}
-		<div class="alert alert-info shadow-lg max-w-3xl mx-auto my-10">
-			<div>
+		<div class="alert alert-warning max-w-3xl mx-auto my-10">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
@@ -113,7 +117,6 @@
 					>You need to verify your email address before you can create a chatbot.<br />Please check
 					your email for the verification link.</span
 				>
-			</div>
 		</div>
 	{/if}
 	{#if data.bots.length > 0}
@@ -182,8 +185,12 @@
 										</a>
 									</li>
 									<li>
-										<a href="/account/chatbots/{bot.id}/settings">
-											<Icon icon="mdi:delete-outline" width="18" /> Delete
+										<a on:click|preventDefault={() => {
+											idOfModelToDelete = bot.id
+											titleOfModelToDelete = bot.name
+											modalDelete.showModal()
+										}}>
+											<Icon icon="mdi:delete-outline" width="18"  /> Delete
 										</a>
 									</li>
 								</ul>
@@ -209,3 +216,27 @@
 		</div>
 	{/if}
 </div>
+
+<!-- <input type="checkbox" id="delete-modal" class="modal-toggle" /> -->
+<dialog class="modal" id="modal_delete" bind:this={modalDelete}>
+	<div class="modal-box">
+		<h3 class="font-bold text-lg">Are you sure you want to delete {titleOfModelToDelete}?</h3>
+		<p class="py-4">This can't be undone</p>
+		<div class="modal-action justify-between">
+			<button class="btn" on:click={modalDelete.close()}>Cancel</button>
+			<button
+				class="btn btn-error"
+				type="button"
+				on:click={async () => {
+					deleting = true;
+					await deleteModel(idOfModelToDelete);
+					modalDelete.close()
+					invalidateAll()
+				}}
+			>
+				<span class={deleting ? 'loading' : 'invisible'} />
+				Delete</button
+			>
+		</div>
+	</div>
+</dialog>
