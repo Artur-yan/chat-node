@@ -68,7 +68,7 @@
 		</form>
 	</div>
 
-	<div class="max-w-xl">
+	<!-- <div class="max-w-xl">
 		<h2 class="card-title">Delete Account</h2>
 		<div>
 			<label class="label" for="delte-confirm"
@@ -89,5 +89,5 @@
 				>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </section>
