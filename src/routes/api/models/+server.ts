@@ -51,7 +51,7 @@ export const DELETE = async ({ request, locals }) => {
 	const { id } = await request.json();
 	const session = await locals.auth.validate();
 
-	if (session) {
+	if (session && id) {
 		await prismaClient.bots.deleteMany({
 			where: {
 				id,
