@@ -15,6 +15,9 @@
 	let deleting = false
 	let modalDelete: HTMLDialogElement
 
+	$: botUsage = data.bots.length / data.subscription.max_bot;
+
+
 	onMount(() => {
 		const { trackEvent } = Plausible({
 			domain: 'chatnode.ai',
@@ -40,14 +43,12 @@
 		<div>
 			<h1 class="text-xl font-bold text-secondary">Chatbots</h1>
 		</div>
-		{#if botUsage < 1}
 			<button
 				on:click={() => goto('/account/chatbots/create')}
 				class="btn btn-primary"
-				disabled={data.user.user.status !== 'active'}
+				disabled={data.user.user.status !== 'active' || botUsage >= 1}
 				>Create <Icon icon="mdi:plus-box" class="ml-2" height="20" /></button
 			>
-		{/if}
 	</div>
 
 	<div class="card card-compact card-bordered border-neutral mb-4">
