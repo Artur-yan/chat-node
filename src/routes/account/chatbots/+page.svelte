@@ -7,8 +7,6 @@
 
 	export let data;
 
-	console.log(data)
-
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
 

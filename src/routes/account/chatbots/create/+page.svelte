@@ -2,6 +2,7 @@
 	import ModelSettings from '$lib/components/ModelSettings.svelte';
 	import Chat from '$lib/components/Chat.svelte';
 	import AddModelData from '$lib/components/AddModelData.svelte';
+	import { goto } from '$app/navigation';
 
 	export let data;
 
@@ -16,6 +17,10 @@
 		messages[0].text = settings.greeting;
 	}
 	let trainingStatus = undefined;
+
+	$: if (trainingStatus === 'ready') {
+		goto('/account/chatbots')
+	}
 </script>
 
 <svelte:head>
@@ -36,14 +41,14 @@
 					bind:trainingStatus
 					bind:name
 				/>
-			{:else}
+			<!-- {:else}
 				<ModelSettings
 					id={modelId}
 					{name}
 					plan={data.subscription?.plan}
 					bind:settings
 					open={true}
-				/>
+				/> -->
 			{/if}
 		</div>
 		<div>

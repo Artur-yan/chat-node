@@ -60,7 +60,6 @@
 				const data = await res.json();
 
 				if (data.trainingUrls) {
-					console.log(data.trainingUrls);
 					// If done
 					if (data.trainingUrls.status === 'ready') {
 						clearInterval(checkFetchingProgress);
