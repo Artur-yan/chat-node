@@ -16,9 +16,8 @@
 		unique = [{}];
 	}
 
-	$: if (trainingStatus == 'complete') {
+	$: if (trainingStatus == 'ready') {
 		restart();
-		invalidateAll();
 	}
 
 	$: data.modelData, restart();
@@ -37,8 +36,8 @@
 		const resData = await res.json();
 
 		if (res.ok) {
-			invalidateAll();
 			$alert = {msg: 'Data deleted', type: 'success'};
+			invalidateAll();
 		}
 	};
 </script>
