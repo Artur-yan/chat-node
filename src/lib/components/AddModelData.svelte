@@ -154,8 +154,6 @@
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong. Please try again later.', type: 'error' };
-		} finally {
-			invalidateAll();
 		}
 	};
 
