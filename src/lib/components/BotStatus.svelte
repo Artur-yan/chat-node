@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { PUBLIC_SITE_URL } from '$env/static/public';
+	import { invalidateAll } from '$app/navigation';
 
 	export let id: string;
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed';
@@ -27,6 +28,7 @@
 
 				if (status == 'ready') {
 					trainingStatus = 'complete';
+					invalidateAll()
 					clearInterval(listenForTrainingStatus);
 				}
 			} catch (err) {
