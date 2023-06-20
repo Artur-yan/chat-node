@@ -16,7 +16,6 @@
 	let settings = defaultSettings;
 	let activeTab: number;
 	let busyFetchingUrls = false;
-	let busyTraining = false;
 	let busyCheckingFile = false;
 	let fileInput: HTMLInputElement;
 	let files: FileList | undefined;
@@ -119,7 +118,6 @@
 		}
 	};
 	const createOrUpdateModel = async (id: string = '') => {
-		busyTraining = true;
 		trainingStatus = 'training';
 
 		let body = new FormData();
@@ -158,7 +156,6 @@
 			console.error(err);
 			$alert = {msg: 'Something went wrong. Please try again later.', type: 'error'};
 		} finally {
-			busyTraining = false;
 			invalidateAll();
 		}
 	};
@@ -249,7 +246,7 @@
 				filesTokenCount + existingTokenCount > subscription.max_tocken}
 			on:click={() => createOrUpdateModel()}
 		>
-			<span class={busyTraining ? 'loading' : 'invisible'} />
+			<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
 			Train Bot</button
 		>
 	{:else if activeTab == 1}
@@ -276,7 +273,7 @@
 					approxTextTokenCount == 0}
 				on:click={() => createOrUpdateModel()}
 			>
-				<span class={busyTraining ? 'loading' : 'invisible'} />
+				<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
 
 				Train Bot</button
 			>
@@ -372,7 +369,7 @@
 					selectedUrlsTokenCount == 0 ||
 					busyFetchingUrls}
 			>
-				<span class={busyTraining ? 'loading' : 'invisible'} />
+				<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
 
 				Train Bot</button
 			>
