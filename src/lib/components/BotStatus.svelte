@@ -3,15 +3,17 @@
 	import { PUBLIC_SITE_URL } from '$env/static/public';
 
 	export let id: string;
-	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed' = 'ready';
+	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed';
+
+	$: console.log('BotStatus.svelte: ' + trainingStatus)
 
 	let icon: string;
 	let alertClass: string;
 	let trainingMessage: string;
 	let statusMessageElement: HTMLElement;
 
-	const listenForTrainingStatus = async () => {
-		setTimeout(async () => {
+	$: if (trainingStatus === 'training' ) {
+		let listenForTrainingStatus =  setInterval(async () => {
 			try {
 				const res = await fetch(PUBLIC_SITE_URL + '/api/models/training-status', {
 					method: 'POST',
@@ -21,23 +23,19 @@
 					body: JSON.stringify({ id })
 				});
 				const { status } = await res.json();
-
-				if (status === 'training') {
-					listenForTrainingStatus();
-				} else if (status == 'ready') {
+				trainingStatus = status || 'training';
+	
+	
+				if (status == 'ready') {
 					trainingStatus = 'complete';
-				} else {
-					trainingStatus = status;
+					clearInterval(listenForTrainingStatus)
 				}
 			} catch (err) {
 				console.error(err);
 			}
 		}, 1000);
-	};
-
-	$: if (trainingStatus !== 'ready') {
-		listenForTrainingStatus();
 	}
+
 
 	$: switch (trainingStatus) {
 		case undefined:

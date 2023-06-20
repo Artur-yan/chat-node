@@ -16,10 +16,13 @@
 	$: if (settings) {
 		messages[0].text = settings.greeting;
 	}
-	let trainingStatus = undefined;
+	let trainingStatus: string | undefined = undefined;
 
-	$: if (trainingStatus === 'ready') {
-		goto('/account/chatbots')
+	$: console.log('create +page: ' + trainingStatus)
+
+
+	$: if (trainingStatus === 'complete') {
+		goto(`/account/chatbots/${modelId}/settings`)
 	}
 </script>
 
@@ -32,7 +35,6 @@
 
 	<div class="grid md:grid-cols-2 gap-10">
 		<div>
-			{#if trainingStatus == undefined}
 				<AddModelData
 					bind:modelId
 					userId={data.user.user.userId}
@@ -41,19 +43,10 @@
 					bind:trainingStatus
 					bind:name
 				/>
-			<!-- {:else}
-				<ModelSettings
-					id={modelId}
-					{name}
-					plan={data.subscription?.plan}
-					bind:settings
-					open={true}
-				/> -->
-			{/if}
 		</div>
 		<div>
 			<div class="h-[calc(100vh_-_16rem)] sticky top-10 border-4 rounded-xl border-neutral">
-				<Chat {modelId} bind:messages {trainingStatus} {settings} />
+				<Chat {modelId} bind:messages bind:trainingStatus {settings} />
 			</div>
 		</div>
 	</div>
