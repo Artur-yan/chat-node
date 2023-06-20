@@ -3,15 +3,26 @@
 	import Chat from '$lib/components/Chat.svelte';
 	import AddModelData from '$lib/components/AddModelData.svelte';
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	export let data;
 
+	console.log(data)
+
+	const botUsage: number = data.bots.length / data.subscription.max_bot;
+
+
+	onMount( () => {
+		if(botUsage >= 1) {
+			goto('/account/chatbots')
+		}
+	})
+
 	let modelId: string;
 	let name: string;
-
 	let settings;
-
 	let messages;
+
 
 	$: if (settings) {
 		messages[0].text = settings.greeting;
