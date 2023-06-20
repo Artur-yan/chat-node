@@ -1,5 +1,4 @@
 <script lang="ts">
-	import ModelSettings from '$lib/components/ModelSettings.svelte';
 	import Chat from '$lib/components/Chat.svelte';
 	import AddModelData from '$lib/components/AddModelData.svelte';
 	import { goto } from '$app/navigation';
@@ -30,7 +29,7 @@
 	$: console.log('create +page: ' + trainingStatus);
 
 	$: if (trainingStatus === 'complete') {
-		goto(`/account/chatbots/${modelId}/settings`);
+		window.location.href = `/account/chatbots/${modelId}/settings`
 	}
 </script>
 
