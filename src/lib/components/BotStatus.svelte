@@ -4,7 +4,7 @@
 	import { invalidateAll } from '$app/navigation';
 
 	export let id: string;
-	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed';
+	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed' = 'ready';
 
 	$: console.log('BotStatus.svelte: ' + trainingStatus);
 
