@@ -3,7 +3,7 @@
 	import Chat from '$lib/components/Chat.svelte';
 </script>
 
-<section class="container grid grid-cols-2 gap-8 py-10 bg-base-300">
+<section class="container grid md:grid-cols-2 gap-8 py-10 bg-base-300">
 	<div>
 		<h2 class="text-2xl font-bold mb-2 text-secondary">Contact</h2>
 
