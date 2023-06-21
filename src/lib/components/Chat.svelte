@@ -105,7 +105,7 @@
 					{#if msg.sender === 'bot' && avatar}
 						<div class="chat-image avatar">
 							<div class="w-10 rounded-full">
-								<img src={avatar} />
+								<img src={avatar} alt="" />
 							</div>
 						</div>
 					{/if}
@@ -115,7 +115,7 @@
 							? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
 							: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
 					>
-						{@html marked.parse(msg.text)}
+						{@html marked.parse(msg.text, {mangle: false, headerIds: false})}
 					</div>
 				</div>
 			{/each}
@@ -125,7 +125,7 @@
 				{#if avatar}
 					<div class="chat-image avatar">
 						<div class="w-10 rounded-full">
-							<img src={avatar} />
+							<img src={avatar} alt="" />
 						</div>
 					</div>
 				{/if}
