@@ -11,7 +11,7 @@
 	let jsEmbedCode;
 	const url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
 
-	$: jsEmbedCode = `<script src="${PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${data.model.id}" color-1="${color1}" color-2="${color2}"><\/script>`;
+	$: jsEmbedCode = `<script src="${PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${data.model.id}" data-color-1="${color1}" data-color-2="${color2}"><\/script>`;
 </script>
 
 <svelte:head>
