@@ -58,18 +58,10 @@
 				});
 				const data = await res.json();
 
+				console.log(data)
+
 				if (data.trainingUrls) {
-					// If done
-					if (data.trainingUrls.status === 'ready') {
-						clearInterval(checkFetchingProgress);
-						busyFetchingUrls = false;
-					}
-					// If failed
-					else if (!data.trainingUrls.scraped_url) {
-						clearInterval(checkFetchingProgress);
-						busyFetchingUrls = false;
-						$alert = { type: 'error', msg: 'Failed to fetch web pages from the provided URL' };
-					} else if (data.trainingUrls.scraped_url.length > currentUrlsCount) {
+					if (data.trainingUrls.scraped_url.length > currentUrlsCount) {
 						for (let i = currentUrlsCount; i < data.trainingUrls.scraped_url.length; i++) {
 							urls = [...urls, data.trainingUrls.scraped_url[i]];
 							selectedUrls = [...selectedUrls, data.trainingUrls.scraped_url[i].url];
@@ -77,6 +69,15 @@
 						}
 						currentUrlsCount = urls.length;
 					}
+					// If done
+					if (data.trainingUrls.status === 'ready') {
+						clearInterval(checkFetchingProgress);
+						busyFetchingUrls = false;
+					} else if (!data.trainingUrls.scraped_url) {
+						clearInterval(checkFetchingProgress);
+						busyFetchingUrls = false;
+						$alert = { type: 'error', msg: 'Failed to fetch web pages from the provided URL' };
+					} 
 				}
 			}, 1000);
 		} catch (err) {
