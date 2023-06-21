@@ -6,8 +6,6 @@
 
 	export let data;
 
-	console.log(data);
-
 	const botUsage: number = data.bots.length / data.subscription.max_bot;
 
 	onMount(() => {
@@ -26,10 +24,8 @@
 	}
 	let trainingStatus: string | undefined = undefined;
 
-	$: console.log('create +page: ' + trainingStatus);
-
 	$: if (trainingStatus === 'complete') {
-		window.location.href = `/account/chatbots/${modelId}/settings`
+		window.location.href = `/account/chatbots/${modelId}/settings`;
 	}
 </script>
 

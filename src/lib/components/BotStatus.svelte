@@ -6,8 +6,6 @@
 	export let id: string;
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed' = 'ready';
 
-	$: console.log('BotStatus.svelte: ' + trainingStatus);
-
 	let icon: string;
 	let alertClass: string;
 	let trainingMessage: string;
@@ -28,7 +26,7 @@
 
 				if (status == 'ready') {
 					trainingStatus = 'complete';
-					invalidateAll()
+					invalidateAll();
 					clearInterval(listenForTrainingStatus);
 				}
 			} catch (err) {

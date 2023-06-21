@@ -19,8 +19,6 @@
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed';
 	export let avatar: string | undefined = undefined;
 
-	$: console.log('Chat.svelte: ' + trainingStatus);
-
 	if (!settings.theme) {
 		settings.theme = defaultSettings.theme;
 	}

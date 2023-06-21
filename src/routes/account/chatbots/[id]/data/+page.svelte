@@ -39,7 +39,7 @@
 		if (res.ok) {
 			$alert = { msg: 'Data deleted', type: 'success' };
 			invalidateAll();
-			restart()
+			restart();
 		}
 	};
 </script>
