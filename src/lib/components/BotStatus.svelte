@@ -33,7 +33,7 @@
 			} catch (err) {
 				console.error(err);
 			}
-		}, 1000);
+		}, 2500);
 	}
 
 	$: switch (trainingStatus) {

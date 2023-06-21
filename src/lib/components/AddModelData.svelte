@@ -79,7 +79,7 @@
 						$alert = { type: 'error', msg: 'Failed to fetch web pages from the provided URL' };
 					} 
 				}
-			}, 1000);
+			}, 2500);
 		} catch (err) {
 			busyFetchingUrls = false;
 			console.error(err);
