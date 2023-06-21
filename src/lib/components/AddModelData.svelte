@@ -211,7 +211,7 @@
 					class="file-input file-input-bordered w-full"
 					bind:files
 					bind:this={fileInput}
-					accept=".doc,.docx,.pdf,.txt"
+					accept=".doc,.docx,.pdf,.txt, .json"
 					multiple
 					on:change={getFileTokenCount}
 				/>
