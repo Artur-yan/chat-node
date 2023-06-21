@@ -54,14 +54,15 @@
 <section class="bg-base-100">
 	<div class="grid container lg:grid-cols-2 items-center gap-8 pb-10 pt-16 mx-auto">
 		<div class="max-lg:text-center">
-			<a
+			<!-- <a
 				class="btn btn-accent btn-outline rounded-full mb-4 btn-sm border-accent border bg-white/10"
 				href="/blog/slack-integration"
 				><span class="badge badge-accent badge-sm mr-1">New</span> Slack Integration &rarr;</a
-			>
+			> -->
+			<a href="https://www.producthunt.com/posts/chatnode?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-chatnode" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=399772&theme=light" alt="ChatNode - Train&#0032;ChatGPT&#0032;on&#0032;your&#0032;own&#0032;data&#0044;&#0032;in&#0032;seconds | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
 			<h2
-				class="mb-6 text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-[8em] max-lg:mx-auto"
+				class="mt-4 mb-6 text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-[8em] max-lg:mx-auto"
 			>
 				Train ChatGPT on your data
 			</h2>

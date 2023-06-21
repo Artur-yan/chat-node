@@ -149,6 +149,7 @@
 			</li>
 			<li>Add Multiple Data Sources</li>
 			<li>Embed on unlimited websites</li>
+			<li>Add custom logo</li>
 		</ul>
 	</div>
 	<div class="col-span-full">
@@ -192,7 +193,7 @@
 					</li>
 					<li>Add Multiple Data Sources</li>
 					<li>Embed on unlimited websites</li>
-
+					<li>Access chat history</li>
 					<li><span class="">Get a customized plan for greater usage</span></li>
 				</ul>
 			</div>
