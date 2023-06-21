@@ -56,9 +56,9 @@
 		<div class="max-lg:text-center">
 			<a href="https://www.producthunt.com/posts/chatnode?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-chatnode" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=399772&theme=light" alt="ChatNode - Train&#0032;ChatGPT&#0032;on&#0032;your&#0032;own&#0032;data&#0044;&#0032;in&#0032;seconds | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" class="block max-lg:mx-auto" /></a>
 			<a
-				class="btn btn-accent btn-outline rounded-full mt-4 btn-sm border-accent border bg-white/10"
+				class="btn btn-accent btn-outline h-auto rounded-full mt-4 btn-sm border-accent border bg-white/10"
 				href="https://www.producthunt.com/posts/chatnode?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-chatnode"
-				><span class="badge badge-accent badge-sm mr-1">🤍</span> We're live on Product Hunt today. Please suport us!</a
+				><span class="badge badge-accent badge-sm mr-1 hidden md:flex">🤍</span> We're live on Product Hunt today. Please suport us!</a
 			>
 
 			<h2

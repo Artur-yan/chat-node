@@ -56,7 +56,7 @@
 					<a class="btn btn-sm btn-ghost text-primary mr-2" href="/login">Sign in</a>
 					<a class="btn btn-primary" href="/register">Try for free</a>
 				{:else}
-					<a class="btn btn-ghost text-primary" href="/account/chatbots">My chatbots</a>
+					<a class="btn btn-ghost text-primary btn-xs md:btn-md" href="/account/chatbots">My chatbots</a>
 					<div class="dropdown dropdown-end">
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 						<!-- svelte-ignore a11y-label-has-associated-control -->
