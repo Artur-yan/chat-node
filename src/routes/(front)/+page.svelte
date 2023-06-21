@@ -59,17 +59,18 @@
 				href="/blog/slack-integration"
 				><span class="badge badge-accent badge-sm mr-1">New</span> Slack Integration &rarr;</a
 			> -->
-			<a href="https://www.producthunt.com/posts/chatnode?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-chatnode" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=399772&theme=light" alt="ChatNode - Train&#0032;ChatGPT&#0032;on&#0032;your&#0032;own&#0032;data&#0044;&#0032;in&#0032;seconds | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+			<a href="https://www.producthunt.com/posts/chatnode?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-chatnode" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=399772&theme=light" alt="ChatNode - Train&#0032;ChatGPT&#0032;on&#0032;your&#0032;own&#0032;data&#0044;&#0032;in&#0032;seconds | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" class="block max-lg:mx-auto" /></a>
 
 			<h2
-				class="mt-4 mb-6 text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-[8em] max-lg:mx-auto"
+				class="mt-6 mb-6 text-5xl lg:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-[8em] max-lg:mx-auto"
 			>
 				Train ChatGPT on your data
 			</h2>
 
-			<div class="flex items-center max-lg:justify-center" />
+			<div class="flex items-center max-lg:justify-center">
 			<div class="mt-10 flex gap-4">
 				<a href="/register" class="btn btn-primary btn-outline">Create your chatbot &rarr;</a>
+			</div>
 			</div>
 		</div>
 		<div>
