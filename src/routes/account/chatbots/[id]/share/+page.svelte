@@ -6,12 +6,13 @@
 	export let data;
 	let color1 = '#3ABFF7';
 	let color2 = '#0E1729';
+	let openChatByDefault = false;
 
 	const iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 	let jsEmbedCode;
 	const url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
 
-	$: jsEmbedCode = `<script src="${PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${data.model.id}" data-color-1="${color1}" data-color-2="${color2}"><\/script>`;
+	$: jsEmbedCode = `<script src="${PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${data.model.id}" data-color-1="${color1}" data-color-2="${color2}" ${openChatByDefault ? 'data-open' : ''}><\/script>`;
 </script>
 
 <svelte:head>
@@ -81,6 +82,12 @@
 					href="settings">settings page</a
 				>.
 			</p>
+			<div class="form-control mt-4">
+				<label class="label cursor-pointer justify-start gap-2">
+					<input type="checkbox" class="toggle" bind:checked={openChatByDefault} />
+					<span class="label-text">Open chat window by default</span>
+				</label>
+			  </div>
 		</div>
 	</div>
 
