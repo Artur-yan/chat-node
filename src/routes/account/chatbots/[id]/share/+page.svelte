@@ -72,8 +72,8 @@
 		<div class="p-4">
 			<h4 class="font-bold">Customise</h4>
 			<div class="flex gap-4 mt-4">
-				<ColorPicker bind:hex={color1} label="Button Color 1" />
-				<ColorPicker bind:hex={color2} label="Button Color 2" />
+				<ColorPicker bind:hex={color1} label="Icon Color" />
+				<ColorPicker bind:hex={color2} label="Background Color" />
 			</div>
 			<p class="text-sm mt-4">
 				To change the colors of the chat window, visit the 'theme' section on the <a
