@@ -5,8 +5,13 @@
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 	import { deleteModel } from '$lib/models';
+	import { alert } from '$lib/stores.js';
+	import { updateAccountEmail } from '$lib/account';
 
 	export let data;
+
+	console.log(data);
+	
 
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
@@ -33,6 +38,11 @@
 	let daysLeftUntilAllotmentsReset = Math.ceil(
 		(resetDate - new Date().getTime()) / (1000 * 3600 * 24)
 	);
+
+	const handleResendVerificationLink = async () => {
+		updateAccountEmail(data.user.user.email);
+		$alert = 'Check your email for a verification link.';
+	};
 </script>
 
 <svelte:head>
@@ -52,74 +62,56 @@
 		>
 	</div>
 
-	<div class="card card-compact card-bordered border-neutral mb-4">
-		<div class="card-body">
-			<div class="flex gap-8 items-center">
-				<div class="grid md:grid-cols-3 gap-2 md:gap-8 items-center w-full">
-					<div>
-						<div class="flex justify-between">
-							<h4>Messages</h4>
-							<span class="opacity-60"
-								>{data.subscription.msg_count}/{data.subscription.max_msg}</span
-							>
+	{#if data.user.user.status === 'active'}
+		<div class="card card-compact card-bordered border-neutral mb-4">
+			<div class="card-body">
+				<div class="flex gap-8 items-center">
+					<div class="grid md:grid-cols-3 gap-2 md:gap-8 items-center w-full">
+						<div>
+							<div class="flex justify-between">
+								<h4>Messages</h4>
+								<span class="opacity-60"
+									>{data.subscription.msg_count}/{data.subscription.max_msg}</span
+								>
+							</div>
+							<progress
+								class="progress progress-secondary w-full bg-neutral h-1"
+								class:progress-error={msgUsage > 0.9}
+								value={data.subscription.msg_count}
+								max={data.subscription.max_msg}
+							/>
 						</div>
-						<progress
-							class="progress progress-secondary w-full bg-neutral h-1"
-							class:progress-error={msgUsage > 0.9}
-							value={data.subscription.msg_count}
-							max={data.subscription.max_msg}
-						/>
-					</div>
-					<div>
-						<div class="flex justify-between">
-							<h4>Bots</h4>
-							<span class="opacity-60">{data.bots.length}/{data.subscription.max_bot}</span>
+						<div>
+							<div class="flex justify-between">
+								<h4>Bots</h4>
+								<span class="opacity-60">{data.bots.length}/{data.subscription.max_bot}</span>
+							</div>
+							<progress
+								class="progress progress-secondary w-full bg-neutral h-1"
+								class:progress-warning={botUsage > 0.9}
+								value={data.bots.length}
+								max={data.subscription.max_bot}
+							/>
 						</div>
-						<progress
-							class="progress progress-secondary w-full bg-neutral h-1"
-							class:progress-warning={botUsage > 0.9}
-							value={data.bots.length}
-							max={data.subscription.max_bot}
-						/>
-					</div>
-					<div>
-						<div class="flex justify-between">
-							<h4>Usage Reset Date</h4>
-							<span class="opacity-60">{resetDate.toLocaleDateString()}</span>
+						<div>
+							<div class="flex justify-between">
+								<h4>Usage Reset Date</h4>
+								<span class="opacity-60">{resetDate.toLocaleDateString()}</span>
+							</div>
+							<progress
+								class="progress progress-secondary w-full bg-neutral h-1"
+								value={31 - daysLeftUntilAllotmentsReset}
+								max={31}
+							/>
 						</div>
-						<progress
-							class="progress progress-secondary w-full bg-neutral h-1"
-							value={31 - daysLeftUntilAllotmentsReset}
-							max={31}
-						/>
 					</div>
+					{#if botUsage >= 1 || msgUsage > 0.75 || data.subscription.cancel_at}
+						<a href="/account/settings/plan" class="btn btn-warning">Upgrade</a>
+					{/if}
 				</div>
-				{#if botUsage >= 1 || msgUsage > 0.75 || data.subscription.cancel_at}
-					<a href="/account/settings/plan" class="btn btn-warning">Upgrade</a>
-				{/if}
 			</div>
 		</div>
-	</div>
-	{#if data.user.user.status !== 'active'}
-		<div class="alert alert-warning max-w-3xl mx-auto my-10">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				class="stroke-current flex-shrink-0 w-6 h-6"
-				><path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-				/></svg
-			>
-			<span
-				>You need to verify your email address before you can create a chatbot.<br />Please check
-				your email for the verification link.</span
-			>
-		</div>
-	{/if}
+		{/if}
 	{#if data.bots.length > 0}
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 			{#each data.bots as bot}
@@ -203,19 +195,37 @@
 			{/each}
 		</div>
 	{:else}
-		<div class="card max-w-xl mx-auto bg-neutral text-neutral-content">
-			<div class="card-body items-center text-center">
-				<h2 class="card-title">Welcome!</h2>
-				You don't have any chatbots yet.
-				<div class="card-actions mt-10">
-					<button
-						on:click={() => goto('/account/chatbots/create')}
-						class="btn btn-primary"
-						disabled={data.user.user.status !== 'active'}>Create a chatbot</button
-					>
-				</div>
-			</div>
-		</div>
+				{#if data.user.user.status !== 'active'}
+					<div class="alert alert-warning my-4">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							class="stroke-current flex-shrink-0 w-6 h-6"
+							><path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+							/></svg
+						>
+						<div>
+							<h3 class="text-xl font-bold mb-2">Check your email</h3>
+							<p class="text-lg">We sent you a link. Please verify your email address before creating your first chatbot</p>
+						</div>
+			
+						<button class="btn btn-sm btn-ghost" on:click={handleResendVerificationLink}>Resend verification email</button>
+					</div>
+
+					<p class="text-sm">Is your email ({data.user.user.email}) correct? Change it via <a href="/account/settings" class="link">account settings</a></p>
+				{:else}
+					<div class="card-actions mt-4">
+						<button
+							on:click={() => goto('/account/chatbots/create')}
+							class="btn btn-primary">Create a chatbot</button
+						>
+					</div>
+				{/if}
 	{/if}
 </div>
 
