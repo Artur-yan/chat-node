@@ -18,6 +18,7 @@
 </script>
 
 <svelte:head>
+	<script src="https://www.chatnode.ai/embed.js" data-chatbot-id="18f636e1ca1e80c2" data-color-1="#0E1729" data-color-2="#3ABFF7" ></script>
 	<script>
 		(function (w, r) {
 			w._rwq = r;
@@ -29,17 +30,6 @@
 		})(window, 'rewardful');
 	</script>
 	<script async src="https://r.wdfl.co/rw.js" data-rewardful="1564fe"></script>
-	<script type="text/javascript">
-		window.$crisp = [];
-		window.CRISP_WEBSITE_ID = '2789e290-13a1-4644-a474-4fb2c75db16d';
-		(function () {
-			d = document;
-			s = d.createElement('script');
-			s.src = 'https://client.crisp.chat/l.js';
-			s.async = 1;
-			d.getElementsByTagName('head')[0].appendChild(s);
-		})();
-	</script>
 </svelte:head>
 
 <Header user={data.user} includePageLinks={true} />
