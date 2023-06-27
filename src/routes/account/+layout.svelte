@@ -41,7 +41,6 @@
 <Header user={data.user} />
 
 <main class="flex flex-col basis-full bg-base-100">
-	{data.user.user.email}
 	<slot />
 </main>
 
