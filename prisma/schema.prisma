@@ -176,3 +176,16 @@ model training_urls {
 
   @@id([session_id, user_id, scrape_session_id])
 }
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model ChatHistory {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  message    Json?
+  session_id String?
+  user_id    String?
+  bot_id     String?
+  vote       Int?      @default(0)
+
+  @@map("new_chat_history")
+}
