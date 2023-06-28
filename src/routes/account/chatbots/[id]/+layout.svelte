@@ -9,6 +9,7 @@
 	const integrationsdPath = `/account/chatbots/${data.model.id}/integrations`;
 	const dataPath = `/account/chatbots/${data.model.id}/data`;
 	const settingsPath = `/account/chatbots/${data.model.id}/settings`;
+	const historyPath = `/account/chatbots/${data.model.id}/history`;
 </script>
 
 <div class="container sm:flex items-center mb-4 gap-4 flex-wrap">
@@ -26,6 +27,7 @@
 			class:tab-active={integrationsdPath == $page.url.pathname}>Integrations</a
 		>
 		<a href={dataPath} class="tab" class:tab-active={dataPath == $page.url.pathname}>Data</a>
+		<a href={historyPath} class="tab" class:tab-active={historyPath == $page.url.pathname}>History</a>
 		<a href={settingsPath} class="tab" class:tab-active={settingsPath == $page.url.pathname}
 			>Settings</a
 		>
