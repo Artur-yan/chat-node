@@ -234,7 +234,10 @@
 			{filesTokenCount.toLocaleString()} tokens.
 			{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
 			Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
-			<a href="/account/settings/plan" class="btn">Upgrade</a>
+
+			{#if filesTokenCount + existingTokenCount > subscription.max_tocken}
+				<a href="/account/settings/plan" class="btn">Upgrade</a>
+			{/if}
 		</div>
 		<button
 			class="btn btn-primary mt-8"
