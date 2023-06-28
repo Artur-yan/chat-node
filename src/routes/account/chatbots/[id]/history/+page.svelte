@@ -27,6 +27,9 @@
 
 <div class="container md:grid md:grid-cols-[320px_auto] max-h-[75vh] gap-10 h-full mt-4 mb-10">
     <div class="h-full overflow-y-auto">
+        {#if chatHistory.length == 0}
+            <p class="text-center">No chat history</p>
+        {/if}
         {#each chatHistory as chat}
         {@const date = new Date(Number(chat.split('-')[1])).toLocaleString()}
         <div>
