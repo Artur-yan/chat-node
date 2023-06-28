@@ -1,14 +1,16 @@
 <script lang="ts">
-	import { parse } from 'postcss';
-
-    
     export let data;
 
     let visibleChatConversation
 
-    function getUniqueSortedValues(data, uniqueProperty, sortProperty) {
+    function getUniqueSortedValues(data, uniqueProperty) {
         const uniqueValues = [...new Set(data.map(item => item[uniqueProperty]))];
-        return uniqueValues.sort(data[sortProperty]);
+        console.log(uniqueValues);
+        
+        uniqueValues.sort((a, b) => {
+            return Number(b.split('-')[1]) - Number(a.split('-')[1])
+        })
+        return uniqueValues;
     }
 
     const getChatConversation = async (chat_session_id) => {
@@ -16,24 +18,21 @@
             method: 'GET'        
         });
         const data = await res.json();
-        console.log(data);
 
         visibleChatConversation = data
     }
 
-    const chatHistory = getUniqueSortedValues(data.chats, 'session_id', 'created_at');
+    const chatHistory = getUniqueSortedValues(data.chats, 'session_id');
 
 </script>
 
-<div class="container md:grid md:grid-cols-[320px_auto] max-h-3/4 gap-10 h-full mt-4 mb-10">
+<div class="container md:grid md:grid-cols-[320px_auto] max-h-[75vh] gap-10 h-full mt-4 mb-10">
     <div class="h-full overflow-y-auto">
         {#each chatHistory as chat}
         {@const date = new Date(Number(chat.split('-')[1])).toLocaleString()}
         <div>
             <button class="btn mb-2 w-full" on:click={() => getChatConversation(chat)}>
-                    <h2>{date}</h2>
-                    <!-- <h2>{chat.session_id}</h2>
-                    <h3>{chat.created_at?.toLocaleString()}</h3> -->
+                <h2>{date}</h2>
             </button>
         </div>  
         {/each}

@@ -2,14 +2,13 @@ import { prismaClient } from '$lib/server/prisma';
 
 export const load = async ({ params }) => {
     
-    const chats = prismaClient.chatHistory.findMany({
+    const chats = await prismaClient.chatHistory.groupBy({
+        by: ['session_id'],
         where: {
             bot_id: params.id
-        },
-        orderBy: {
-            created_at: 'desc'
         }
     });
+
     return {
         chats
     };
