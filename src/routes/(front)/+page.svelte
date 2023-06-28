@@ -75,7 +75,7 @@
 				<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
 					<div class="w-full">
 						<Chat
-							modelId="18f636e1ca1e80c2"
+							modelId="befbfc87e25911db"
 							{messages}
 							avatar="https://res.cloudinary.com/duoacapcy/image/upload/v1687011043/ChatNode-Logo-Avatar_fdyalc.svg"
 						/>
