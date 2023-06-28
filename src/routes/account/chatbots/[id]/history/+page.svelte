@@ -5,7 +5,6 @@
 
     function getUniqueSortedValues(data, uniqueProperty) {
         const uniqueValues = [...new Set(data.map(item => item[uniqueProperty]))];
-        console.log(uniqueValues);
         
         uniqueValues.sort((a, b) => {
             return Number(b.split('-')[1]) - Number(a.split('-')[1])

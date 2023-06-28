@@ -29,7 +29,6 @@
 					invalidateAll();
 					clearInterval(listenForTrainingStatus);
 				}
-				console.log(status);
 			} catch (err) {
 				console.error(err);
 			}

@@ -58,8 +58,6 @@
 				});
 				const data = await res.json();
 
-				console.log(data)
-
 				if (data.trainingUrls) {
 					if (data.trainingUrls.scraped_url.length > currentUrlsCount) {
 						for (let i = currentUrlsCount; i < data.trainingUrls.scraped_url.length; i++) {
