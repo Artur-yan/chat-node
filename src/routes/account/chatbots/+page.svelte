@@ -38,7 +38,15 @@
 	);
 
 	const handleResendVerificationLink = async () => {
-		updateAccountEmail(data.user.user.email);
+		const res = await fetch('/api/account/confirm', {
+			method: 'POST',
+			body: JSON.stringify({
+				email: data.user.user.email
+			}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
 		$alert = 'Check your email for a verification link.';
 	};
 </script>
@@ -212,7 +220,7 @@
 							<p class="text-lg">We sent you a link. Please verify your email address before creating your first chatbot</p>
 						</div>
 			
-						<!-- <button class="btn btn-sm btn-ghost" on:click={handleResendVerificationLink}>Resend verification email</button> -->
+						<button class="btn btn-sm btn-ghost" on:click={handleResendVerificationLink}>Resend verification email</button>
 					</div>
 
 					<p class="text-sm">Is your email ({data.user.user.email}) correct? Change it via <a href="/account/settings" class="link">account settings</a></p>
