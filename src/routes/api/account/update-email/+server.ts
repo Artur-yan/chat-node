@@ -23,8 +23,8 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 		await transporter.sendMail({
 			from: PUBLIC_EMAIL_ADDRESS,
 			to: newEmail,
-			subject: 'Email Confirmation Required',
-			text: `To confirm your email, please click this link: ${PUBLIC_SITE_URL}/account/confirm/${uuid}?update=true`
+			subject: 'Email Change Confirmation Required',
+			text: `To confirm your new email, please click this link: ${PUBLIC_SITE_URL}/account/confirm/${uuid}?update=true`
 		});
 	} catch (err) {
 		console.error(err);
