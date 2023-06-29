@@ -28,6 +28,7 @@ export const GET: RequestHandler = async ({ params, url, locals }) => {
 			await auth.updateUserAttributes(user.id, {
 				email: user.new_email,
 				new_email: null,
+				status: 'active',
 				verification_uuid: null
 			});
 
