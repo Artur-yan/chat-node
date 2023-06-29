@@ -24,9 +24,9 @@
 	}
 	let trainingStatus: string | undefined = undefined;
 
-	$: if (trainingStatus === 'complete') {
-		window.location.href = `/account/chatbots/${modelId}/settings`;
-	}
+	// $: if (trainingStatus === 'complete') {
+	// 	window.location.href = `/account/chatbots/${modelId}/settings`;
+	// }
 </script>
 
 <svelte:head>

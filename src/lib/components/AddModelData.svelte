@@ -4,6 +4,7 @@
 	import { addModel, defaultSettings } from '$lib/models';
 	import { alert } from '$lib/stores.js';
 	import { fade } from 'svelte/transition';
+	import { goto } from '$app/navigation';
 
 	export let modelId: string = '';
 	export let userId: string;
@@ -148,7 +149,8 @@
 				});
 				const resJson = await res.json();
 				modelId = resJson.chat_key;
-				addModel(modelId, name, settings);
+				await addModel(modelId, name, settings);
+				goto(`/account/chatbots/${modelId}/settings`);
 			}
 		} catch (err) {
 			console.error(err);
