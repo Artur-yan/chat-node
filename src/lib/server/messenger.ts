@@ -35,5 +35,21 @@ const sendAccountEmailUpdateConfirmation = (email: string, uuid: string) => {
 	  .then(res => console.log(res))
 	  .catch(err => console.log(err.statusCode, err.message))
 }
+const sendPasswordReset = (email: string, uuid: string) => {
+	const confirmationEmail = new SendEmailRequest({
+	  transactional_message_id: "reset_password",
+	  identifiers: {
+		email: email,
+	  },
+	  to: email,
+	  message_data: {
+		passwordResetURL: `${PUBLIC_SITE_URL}/reset-password/${uuid}`
+	  }
+	});
 
-export { sendAccountEmailConfirmation, sendAccountEmailUpdateConfirmation };
+	customerIO.sendEmail(confirmationEmail)
+	  .then(res => console.log(res))
+	  .catch(err => console.log(err.statusCode, err.message))
+}
+
+export { sendAccountEmailConfirmation, sendAccountEmailUpdateConfirmation, sendPasswordReset };

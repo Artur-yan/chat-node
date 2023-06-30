@@ -19,7 +19,7 @@
 <section>
 	<div class="card w-96 bg-neutral text-neutral-content mx-auto my-20">
 		<div class="card-body">
-			<h2 class="card-title">Reset password</h2>
+			<h2 class="card-title">Forgot password</h2>
 			{#if !form?.success}
 				<form
 					class="form-control gap-2"
@@ -51,7 +51,7 @@
 			{:else}
 				<div class="alert alert-success">
 					<div>
-						<span>Please check your email for a password reset link.</span>
+						<span>Please check your email for a one-time login link.</span>
 					</div>
 				</div>
 				<p class="text-success" />
