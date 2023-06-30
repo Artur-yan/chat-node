@@ -1,10 +1,8 @@
-import type { RequestHandler } from './$types';
 import { prismaClient } from '$lib/server/prisma';
-import { transporter } from '$lib/server/messenger';
 import { v4 as uuidv4 } from 'uuid';
-import { PUBLIC_SITE_URL, PUBLIC_EMAIL_ADDRESS } from '$env/static/public';
+import { sendAccountEmailUpdateConfirmation } from '$lib/server/messenger';
 
-export const POST: RequestHandler = async ({ locals, request }) => {
+export const POST = async ({ locals, request }) => {
 	const { user } = await locals.auth.validateUser();
 	const { newEmail } = await request.json();
 	const uuid = uuidv4();
@@ -20,13 +18,11 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			}
 		});
 
-		await transporter.sendMail({
-			from: PUBLIC_EMAIL_ADDRESS,
-			to: newEmail,
-			subject: 'Email Change Confirmation Required',
-			text: `To confirm your new email, please click this link: ${PUBLIC_SITE_URL}/account/confirm/${uuid}?update=true`
-		});
+		sendAccountEmailUpdateConfirmation(newEmail, uuid);
 	} catch (err) {
+		if (err.code === 'P2002' && err.message?.includes('email')) {
+			console.log('Email already exists');
+		}
 		console.error(err);
 	}
 

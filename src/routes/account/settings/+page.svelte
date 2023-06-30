@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let data;
 
-	import { deleteAccount, updateAccountEmail } from '$lib/account';
+	import { updateAccountEmail } from '$lib/account';
 	import { alert } from '$lib/stores.js';
 
 	let userEmail = data.user.user.email;
