@@ -64,17 +64,15 @@
 							><Icon icon="mdi:account-circle-outline" width="24" /></label
 						>
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-						<ul
+						<div
 							tabindex="0"
 							class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-64 z-10"
 						>
-							<li><a href="/account/settings">Account Settings</a></li>
-							<li>
-								<form action="/logout" method="POST">
-									<button type="submit">Sign out</button>
+							<a href="/account/settings" class="btn btn-ghost">Account Settings</a>
+								<form action="/logout" method="POST" class="contents">
+									<button type="submit" class="btn btn-ghost btn-sm my-2 w-32 mx-auto">Sign out</button>
 								</form>
-							</li>
-						</ul>
+						</div>
 					</div>
 				{/if}
 			</div>
