@@ -38,7 +38,7 @@
 	if (!settings.gptVersion) {
 		settings.gptVersion = '3.5';
 	}
-	if (!settings.temperature) {
+	if (settings.temperature === undefined) {
 		settings.temperature = 0.1;
 	}
 
