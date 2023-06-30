@@ -149,16 +149,12 @@
 						<span class="label-text">Creativity</span>
 					</label>
 					<input type="range" min={0} max={0.7} class="range range-xs range-primary" step={0.1} name="temp" bind:value={settings.temperature} />
-					<div class="w-full flex justify-between text-xs px-2">
-						<span>|</span>
-						<span>|</span>
-						<span>|</span>
-						<span>|</span>
-						<span>|</span>
-						<span>|</span>
-						<span>|</span>
-						<span>|</span>
-					</div>
+
+					<label class="label">
+						<span class="label-text-alt">&larr; Focused</span>
+						<span class="badge">{settings.temperature}</span>
+						<span class="label-text-alt">Creative &rarr;</span>
+					  </label>
 				</div>
 			</div>
 		</Accordian>
