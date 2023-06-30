@@ -38,6 +38,9 @@
 	if (!settings.gptVersion) {
 		settings.gptVersion = '3.5';
 	}
+	if (!settings.temperature) {
+		settings.temperature = 0.1;
+	}
 
 	if ((selectedTheme = 'custom')) {
 		customTheme = settings.theme;
@@ -140,6 +143,22 @@
 						class="textarea textarea-bordered w-full"
 						name="user-prompt"
 					/>
+				</div>
+				<div>
+					<label for="temp" class="label">
+						<span class="label-text">Creativity</span>
+					</label>
+					<input type="range" min={0} max={0.7} class="range range-xs range-primary" step={0.1} name="temp" bind:value={settings.temperature} />
+					<div class="w-full flex justify-between text-xs px-2">
+						<span>|</span>
+						<span>|</span>
+						<span>|</span>
+						<span>|</span>
+						<span>|</span>
+						<span>|</span>
+						<span>|</span>
+						<span>|</span>
+					</div>
 				</div>
 			</div>
 		</Accordian>
