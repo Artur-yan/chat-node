@@ -4,7 +4,8 @@ import { redirect } from '@sveltejs/kit';
 import { LuciaError } from 'lucia-auth';
 import type { PageServerLoad } from './$types';
 import { prismaClient } from '$lib/server/prisma';
-import { sendConfirmationEmail } from '$lib/server/messenger';
+import { sendAccountEmailConfirmation } from '$lib/server/messenger';
+import { v4 as uuidv4 } from 'uuid';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -41,6 +42,7 @@ export const actions: Actions = {
 		}
 
 		try {
+			const uuid = uuidv4();
 			const user = await auth.createUser({
 				primaryKey: {
 					providerId: 'username',
@@ -48,7 +50,8 @@ export const actions: Actions = {
 					password
 				},
 				attributes: {
-					email
+					email,
+					verification_uuid: uuid
 				}
 			});
 			let subscriptionData = {
@@ -62,7 +65,7 @@ export const actions: Actions = {
 			await prismaClient.subscriptions.create({
 				data: subscriptionData
 			});
-			await sendConfirmationEmail(email, user.userId);
+			await sendAccountEmailConfirmation(email, uuid);
 			const session = await auth.createSession(user.userId);
 			locals.auth.setSession(session);
 		} catch (error) {

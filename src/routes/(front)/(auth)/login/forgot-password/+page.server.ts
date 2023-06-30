@@ -1,4 +1,4 @@
-import { transporter } from '$lib/server/messenger';
+import { sendPasswordReset } from '$lib/server/messenger';
 import { prismaClient } from '$lib/server/prisma';
 import { fail, type Actions } from '@sveltejs/kit';
 import { v4 as uuidv4 } from 'uuid';
@@ -29,27 +29,15 @@ export const actions: Actions = {
 					verification_uuid: uuid
 				}
 			});
-			emailSubject = 'Password Reset Request';
-			emailBody = `We received a request to reset your password. If you didn't make this request, kindly disregard this email. To reset your password, follow this link: ${PUBLIC_SITE_URL}/reset-password/${uuid}`;
+
+			sendPasswordReset(email, uuid);
+
+			return {
+				success: true,
+				submitted: false
+			};
 		} catch (err) {
-			if (!user) {
-				emailSubject = 'Account Not Found';
-				emailBody = `We couldn't find an account associated with the email address provided (${email}). You can register for a new account at ${PUBLIC_SITE_URL}/register`;
-			} else {
 				console.error(err);
-			}
 		}
-
-		await transporter.sendMail({
-			from: PUBLIC_EMAIL_ADDRESS,
-			to: email,
-			subject: emailSubject,
-			text: emailBody
-		});
-
-		return {
-			success: true,
-			submitted: false
-		};
 	}
 };
