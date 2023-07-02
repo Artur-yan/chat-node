@@ -12,9 +12,11 @@
 	export let plan = 0;
 	export let settings = defaultSettings;
 	export let open = false;
+
 	let busySaving = false;
 	let deleting = false;
 	let customTheme;
+	let files: FileList
 
 	const addUrl = (url: string) => {
 		settings.allowedUrls = [...settings.allowedUrls, url];
@@ -32,6 +34,19 @@
 		$alert = { msg: 'Settings Saved', type: 'success' };
 		invalidateAll();
 	};
+
+	const handleAvatarUpload = async () => {
+		try{
+			let body = new FormData();
+			body.append('file', files[0])
+			const res = await fetch('/api/avatar', {
+				method: 'POST',
+				body
+			})
+		} catch (err) {
+			console.log(err)
+		}
+	}
 
 	let selectedTheme = settings.theme.name || 'default';
 
@@ -203,6 +218,13 @@
 		</Accordian>
 		<Accordian {open}>
 			<div slot="title" id="theme">Theme</div>
+
+			<div class="mb-10">
+				<form class="join" on:submit={handleAvatarUpload}>
+					<input type="file" accept=".jpg, .png, .svg" class="join-item file-input file-input-bordered w-full" bind:files />
+					<input type="submit" class="btn btn-primary join-item" />
+				</form>
+			</div>
 			<div class="themes">
 				<div>
 					<input
