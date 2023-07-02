@@ -47,6 +47,7 @@
 				body
 			});
 			const data = await res.json();
+
 			const scrape_session_id = data.urls;
 			let currentUrlsCount = 0;
 
@@ -59,11 +60,13 @@
 				});
 				const data = await res.json();
 
+				console.log(data)
+
 				if (data.trainingUrls) {
 					if (data.trainingUrls.scraped_url.length > currentUrlsCount) {
 						for (let i = currentUrlsCount; i < data.trainingUrls.scraped_url.length; i++) {
 							urls = [...urls, data.trainingUrls.scraped_url[i]];
-							selectedUrls = [...selectedUrls, data.trainingUrls.scraped_url[i].url];
+							selectedUrls = [...selectedUrls, data.trainingUrls.scraped_url[i].s3_key];
 							urlsTokenCount += Number(data.trainingUrls.scraped_url[i].token);
 						}
 						currentUrlsCount = urls.length;
@@ -160,7 +163,7 @@
 
 	const handleSelectAllUrls = () => {
 		if (selectAllUrlsCheckbox.checked) {
-			selectedUrls = urls.map((url) => url.url);
+			selectedUrls = urls.map((url) => url.s3_key);
 		} else {
 			selectedUrls = [];
 		}
@@ -178,7 +181,7 @@
 	$: {
 		selectAllUrlsCheckbox, (selectedUrlsTokenCount = 0);
 		selectedUrls.forEach((url) => {
-			selectedUrlsTokenCount += urls.find((u) => u.url === url).token;
+			selectedUrlsTokenCount += urls.find((u) => u.s3_key === url).token;
 		});
 	}
 
@@ -326,7 +329,7 @@
 									<input
 										type="checkbox"
 										class="checkbox checkbox-sm mr-4"
-										value={url.url}
+										value={url.s3_key}
 										bind:group={selectedUrls}
 									/>
 									{url.url}</label
