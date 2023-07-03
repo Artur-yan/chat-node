@@ -30,14 +30,18 @@
 		}
 	});
 
+
 	const today = new Date();
-	const resetDate = new Date(today.setMonth(today.getMonth() + 1));
-	resetDate.setDate(15);
+	const resetDate = new Date(today.setDate(15))
+	if (today.getDate() < 15) {
+		const resetDate = new Date(today.setMonth(today.getMonth() + 1));
+	}
+	// resetDate.setDate(15);
 	let daysLeftUntilAllotmentsReset = Math.ceil(
 		(resetDate - new Date().getTime()) / (1000 * 3600 * 24)
 	);
 
-	// const handleResendVerificationLink = async () => {
+	// const handleResendVerificationLink = asyxnc () => {
 	// 	const res = await fetch('/api/account/confirm', {
 	// 		method: 'POST',
 	// 		body: JSON.stringify({
