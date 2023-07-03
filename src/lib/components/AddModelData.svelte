@@ -214,14 +214,14 @@
 					class="file-input file-input-bordered w-full"
 					bind:files
 					bind:this={fileInput}
-					accept=".doc,.docx,.pdf,.txt, .json"
+					accept=".doc,.docx,.pdf,.txt,.json"
 					multiple
 					on:change={getFileTokenCount}
 				/>
 				<!-- <button class="btn btn-primary" type="submit" on:click={getFileTokenCount}>Upload</button> -->
 			</div>
 			<div class="label">
-				<p>PDF, TXT, or DOC files only (MAX 50MB)</p>
+				<p>.pdf, .txt, or .doc/docx files only (MAX 50MB)</p>
 				<div class="badge badge-warning invisible" class:!visible={busyCheckingFile}>
 					<span class="loading loading-xs" />
 					Uploading
