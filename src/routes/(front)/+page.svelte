@@ -241,7 +241,7 @@
 			@apply pt-10;
 		}
 		#header {
-			@apply fixed inset-0 bottom-auto z-10 shadow-lg;
+			@apply fixed inset-0 bottom-auto z-20 shadow-lg;
 		}
 	</style>
 </div>
