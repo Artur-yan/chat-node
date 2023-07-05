@@ -60,16 +60,16 @@
 		<div class="card-body">
 			<h2 class="!text-xl mb-4 uppercase">All plans include</h2>
 			<ul class="included flex items-center gap-x-10 gap-y-4 justify-center flex-wrap">
-				<li>Add Multiple Data Sources</li>
+				<li>Add multiple data sources</li>
 				<li>Embed on unlimited websites</li>
-				<li>Custom Colors</li>
+				<li>Custom colors</li>
 				<li>Chatbot, iframe and web address sharing</li>
 			</ul>
 		</div>
 	</div>
 
 	<div class="my-8 grid md:grid-cols-3 gap-y-8 lg:gap-y-20">
-		<div class="rounded-xl md:rounded-r-none p-8 border border-secondary md:my-4 bg-base-200">
+		<div class="rounded-xl md:rounded-r-none p-8 border border-secondary md:my-4 bg-base-300">
 			<div class="flex justify-between mb-8">
 				<h2>Free</h2>
 				{#if currentPlan !== undefined}
@@ -150,7 +150,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="p-8 border border-secondary rounded-xl md:rounded-l-none my-4 bg-base-200">
+		<div class="p-8 border border-secondary rounded-xl md:rounded-l-none my-4 bg-base-300">
 			<div class="flex justify-between mb-8">
 				<div>
 					<h2>Pro</h2>
@@ -209,7 +209,7 @@
 		</div>
 	</div>
 	<div class="grid grid-cols-2 max-w-7xl mx-auto">
-		<div class="border border-secondary p-8 rounded-l-2xl border-r-0 bg-base-200">
+		<div class="border border-secondary p-8 rounded-l-2xl border-r-0 bg-base-300">
 			<div class="flex justify-between">
 				<div class="flex items-center justify-between mb-8">
 					<div>
@@ -269,7 +269,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="border border-secondary p-8 rounded-r-2xl bg-base-100">
+		<div class="border border-secondary p-8 rounded-r-2xl bg-base-300">
 			<div class="flex justify-between">
 				<div class="flex items-center justify-between mb-8">
 					<div>
