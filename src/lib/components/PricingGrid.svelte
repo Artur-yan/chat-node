@@ -251,7 +251,7 @@
 					{/if}
 				</div>
 			</div>
-			<div>
+			<div class="grid grid-cols-2">
 				<ul>
 					<li><span class="figure">10,000</span> messages/month</li>
 					<li><span class="figure">20</span> Chatbots</li>
@@ -265,6 +265,7 @@
 					</li>
 				</ul>
 				<ul class="extra">
+					<li>Everything from Pro</li>
 					<li>Access chat history</li>
 				</ul>
 			</div>
@@ -311,7 +312,7 @@
 					{/if}
 				</div>
 			</div>
-			<div>
+			<div class="grid grid-cols-2">
 				<ul>
 					<li><span class="figure">40,000</span> messages/month</li>
 					<li><span class="figure">40</span> Chatbots</li>
@@ -323,6 +324,9 @@
 						<span class="figure">3,000,000</span> tokens/bot
 						</div>
 					</li>
+				</ul>
+				<ul class="extra">
+					<li>Everything from Enterprise</li>
 				</ul>
 			</div>
 		</div>
