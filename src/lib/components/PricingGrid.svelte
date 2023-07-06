@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { alert } from '$lib/stores.js';
-	import { goto, invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll, invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 
 	export let currentPlan: number | undefined = undefined;
 
 	let busyChangingPlan = false;
 	let referralCode = '';
-	let billingTerm = 'monthly'
+	export let billingTerm = 'monthly'
 
 	onMount(() => {
 		if (rewardful) {
@@ -19,9 +19,10 @@
 		}
 	});
 
-	const updatePlan = async (newPlan: number) => {
+	const updatePlan = async (newPlan: number, e) => {
 		try {
 			busyChangingPlan = true;
+			e.target.innerHTML = '<span class="loading"></span>Changing plan...';
 			const res = await fetch('/api/account/plan', {
 				method: 'PUT',
 				headers: {
@@ -30,6 +31,9 @@
 				body: JSON.stringify({ newPlan, referralCode })
 			});
 			const data = await res.json();
+			invalidate('/account/settings/plan');
+			// wait 1 seconds for the subscription to update
+			await new Promise((resolve) => setTimeout(resolve, 1000));
 			goto(data.url);
 
 			// if (data.url) {
@@ -74,11 +78,11 @@
 				<h2>Free</h2>
 				{#if currentPlan !== undefined}
 					<button
-						on:click={() => updatePlan(0)}
+						on:click={(e) => updatePlan(0, e)}
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 0}
 					>
-						<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+						
 
 						{currentPlan === 0 ? 'Current plan' : 'Change plan'}</button
 					>
@@ -118,7 +122,7 @@
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 1}
 						>
-							<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+							
 
 							{currentPlan === 1 ? 'Current plan' : 'Change plan'}</button
 						>
@@ -128,7 +132,7 @@
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 101}
 					>
-						<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+						
 
 						{currentPlan === 101 ? 'Current plan' : 'Change plan'}</button
 					>
@@ -169,7 +173,7 @@
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 2}
 						>
-							<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+							
 
 							{currentPlan === 2 ? 'Current plan' : 'Change plan'}</button
 						>
@@ -179,7 +183,7 @@
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 102}
 						>
-							<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+							
 
 							{currentPlan === 102 ? 'Current plan' : 'Change plan'}</button
 						>
@@ -231,7 +235,7 @@
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 3}
 					>
-						<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+						
 
 						{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
 					>
@@ -241,7 +245,7 @@
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 103}
 					>
-						<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+						
 
 						{currentPlan === 103 ? 'Current plan' : 'Change plan'}</button
 					>
@@ -292,7 +296,7 @@
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 4}
 					>
-						<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+						
 
 						{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
 					>
@@ -302,7 +306,7 @@
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 104}
 					>
-						<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+						
 
 						{currentPlan === 104 ? 'Current plan' : 'Change plan'}</button
 					>
