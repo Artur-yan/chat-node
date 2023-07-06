@@ -118,7 +118,7 @@
 				{#if currentPlan !== undefined}
 					{#if billingTerm == 'monthly'}
 						<button
-							on:click={() => updatePlan(1)}
+							on:click={() => updatePlan(1, e)}
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 1}
 						>
@@ -128,7 +128,7 @@
 						>
 					{:else}
 						<button
-						on:click={() => updatePlan(101)}
+						on:click={() => updatePlan(101, e)}
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 101}
 					>
@@ -169,7 +169,7 @@
 				{#if currentPlan !== undefined}
 					{#if billingTerm == 'monthly'}
 						<button
-							on:click={() => updatePlan(2)}
+							on:click={() => updatePlan(2, e)}
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 2}
 						>
@@ -179,7 +179,7 @@
 						>
 					{:else}
 						<button
-							on:click={() => updatePlan(102)}
+							on:click={() => updatePlan(102, e)}
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 102}
 						>
@@ -231,7 +231,7 @@
 					{#if currentPlan !== undefined}
 					{#if billingTerm == 'monthly'}
 					<button
-						on:click={() => updatePlan(3)}
+						on:click={() => updatePlan(3, e)}
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 3}
 					>
@@ -241,7 +241,7 @@
 					>
 				{:else}
 					<button
-						on:click={() => updatePlan(103)}
+						on:click={() => updatePlan(103, e)}
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 103}
 					>
@@ -292,7 +292,7 @@
 					{#if currentPlan !== undefined}
 					{#if billingTerm == 'monthly'}
 					<button
-						on:click={() => updatePlan(4)}
+						on:click={() => updatePlan(4, e)}
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 4}
 					>
@@ -302,7 +302,7 @@
 					>
 				{:else}
 					<button
-						on:click={() => updatePlan(104)}
+						on:click={() => updatePlan(104, e)}
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 104}
 					>
