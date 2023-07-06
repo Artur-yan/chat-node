@@ -71,7 +71,7 @@
 			</div>
 			<div>
 				<label for="support-message" class="label">
-					<span class="label-text">Support Message</span>
+					<span class="label-text">Support Prompt</span>
 				</label>
 				<input type="text" bind:value={settings.supportMessage} class="input w-full" />
 				<p class="text-sm m-1">
