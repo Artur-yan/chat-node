@@ -2,7 +2,6 @@
 	import { alert } from '$lib/stores.js';
 	import { goto, invalidateAll } from '$app/navigation';
 	import { onMount } from 'svelte';
-	// import { slide } from 'svelte/transition';
 
 	export let currentPlan: number | undefined = undefined;
 
@@ -31,6 +30,7 @@
 				body: JSON.stringify({ newPlan, referralCode })
 			});
 			const data = await res.json();
+			console.log(data)
 			if (data.url) {
 				goto(data.url);
 			} else if (data.status == 'success') {
@@ -42,7 +42,6 @@
 			$alert = { msg: 'Something went wrong', type: 'error' };
 		} finally {
 			busyChangingPlan = false;
-			invalidateAll();
 		}
 	};
 </script>
