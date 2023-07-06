@@ -13,11 +13,14 @@
 	<link rel="“canonical”" href="https://www.chatnode.ai/blog/slack-integration" />
 </svelte:head>
 
-<div class="container py-10 !max-w-4xl">
+<div>
+
 	<div class="mb-10">
-		<div class="badge badge-outline badge-secondary">Announcement</div>
-		<h1 class="text-4xl font-bold my-3">Slack Integration</h1>
+		<div class="tag">Announcement</div>
+		<h1>Slack Integration</h1>
 	</div>
+
+
 	<p>
 		We're excited to introduce Slack integration. With this addition, ChatNode makes integrating
 		chatbots into Slack as simple as possible. In this quick article, we will check how to set it up
@@ -64,13 +67,5 @@
 			class="link">contact@chatnode.ai</a
 		>
 	</p>
-</div>
 
-<style lang="postcss">
-	h2 {
-		@apply mt-10 mb-3 text-2xl font-bold;
-	}
-	p {
-		@apply mb-10;
-	}
-</style>
+</div>
