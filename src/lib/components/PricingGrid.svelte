@@ -30,13 +30,14 @@
 				body: JSON.stringify({ newPlan, referralCode })
 			});
 			const data = await res.json();
-			console.log(data)
-			if (data.url) {
-				goto(data.url);
-			} else if (data.status == 'success') {
-				currentPlan = newPlan;
-				$alert = { msg: 'Plan updated successfully', type: 'success' };
-			}
+			goto(data.url);
+
+			// if (data.url) {
+			// 	goto(data.url);
+			//  } else if (data.status == 'success') {
+			// 	currentPlan = newPlan;
+			// 	$alert = { msg: 'Plan updated successfully', type: 'success' };
+			//  }
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
