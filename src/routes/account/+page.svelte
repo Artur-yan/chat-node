@@ -26,13 +26,14 @@
 				case '3':
 					trackEvent('Switch to Enterprise');
 					break;
+				case '4':
+					trackEvent('Switch to Enterprise+');
+					break;
 			}
 
-			goto('/account/settings/plan');
 			$alert = 'Plan changed successfully!';
-		} else {
-			goto('/account/chatbots');
 		}
+		goto('/account/chatbots');
 	});
 </script>
 
