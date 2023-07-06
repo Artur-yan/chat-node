@@ -105,11 +105,12 @@
 						</div>
 						<div>
 							<div class="flex justify-between">
-								<h4>Usage Reset Date</h4>
+								<h4>{data.subscription.cancel_at ? 'Cancelation Date': 'Usage Reset Date'}</h4>
 								<span class="opacity-60">{resetDate.toLocaleDateString()}</span>
 							</div>
 							<progress
-								class="progress progress-secondary w-full bg-neutral h-1"
+								class="progress progress-warning w-full bg-neutral h-1"
+								class:progress-warning={data.subscription.cancel_at}
 								value={31 - daysLeftUntilAllotmentsReset}
 								max={31}
 							/>
