@@ -35,10 +35,7 @@
 	<div class="flex flex-col">
 		<h2 class="text-xl font-bold mb-4 text-secondary">More questions? Try our own AI chatbot</h2>
 		<div class="h-full">
-			<Chat
-				modelId="befbfc87e25911db"
-				avatar="https://res.cloudinary.com/duoacapcy/image/upload/v1687011043/ChatNode-Logo-Avatar_fdyalc.svg"
-			/>
+			<iframe src="https://www.chatnode.ai/embed/befbfc87e25911db" width="100%" height="100%" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';" title="ChatNode AI Assistant"></iframe>
 		</div>
 	</div>
 </section>
