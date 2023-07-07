@@ -152,8 +152,8 @@
 				</li>
 			</ul>
 		</div>
-		<div class="p-8 border border-secondary rounded-xl md:rounded-l-none my-4 bg-base-300">
-			<div class="flex justify-between mb-8">
+		<div class="p-8 border border-secondary rounded-xl md:rounded-l-none md:my-4 bg-base-300">
+			<div class="flex justify-between">
 				<div>
 					<h2>Pro</h2>
 					<h3 class="text-lg font-bold">
@@ -210,8 +210,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="grid grid-cols-2 max-w-7xl mx-auto">
-		<div class="border border-secondary p-8 rounded-l-2xl border-r-0 bg-base-300">
+	<div class="grid gap-y-8 md:grid-cols-2 max-w-7xl mx-auto">
+		<div class="border border-secondary p-8 rounded-2xl md:rounded-r-none md:border-r-0 bg-base-300">
 			<div class="flex justify-between">
 				<div class="flex items-center justify-between mb-8">
 					<div>
@@ -272,7 +272,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="border border-secondary p-8 rounded-r-2xl bg-base-300">
+		<div class="border border-secondary p-8 rounded-2xl md:rounded-l-none bg-base-300">
 			<div class="flex justify-between">
 				<div class="flex items-center justify-between mb-8">
 					<div>
