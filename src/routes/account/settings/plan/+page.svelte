@@ -1,19 +1,15 @@
 <script lang="ts">
 	import PricingGrid from '$lib/components/PricingGrid.svelte';
-	import { invalidate } from '$app/navigation';
+	import { invalidateAll } from '$app/navigation';
 	import { onMount } from 'svelte';
 
 	
 	export let data;
 
-	let billingTerm = 'monthly';
-
-	onMount(() => {
-		invalidate('/account/settings/plan');
-	});
-
+	let billingTerm = 'monthly';	
+	
 	let currentPlan = data.subscription.plan;
-
+	
 	if(currentPlan > 100) {
 		billingTerm = 'yearly';
 	}

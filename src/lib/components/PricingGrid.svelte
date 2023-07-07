@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { alert } from '$lib/stores.js';
-	import { goto, invalidateAll, invalidate } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 
 	export let currentPlan: number | undefined = undefined;
@@ -31,9 +31,7 @@
 				body: JSON.stringify({ newPlan, referralCode })
 			});
 			const data = await res.json();
-			invalidate('/account/settings/plan');
-			// wait 1 seconds for the subscription to update
-			await new Promise((resolve) => setTimeout(resolve, 1000));
+			await new Promise((resolve) => setTimeout(resolve, 2500));
 			goto(data.url);
 
 			// if (data.url) {
