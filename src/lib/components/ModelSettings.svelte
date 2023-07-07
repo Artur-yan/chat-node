@@ -72,13 +72,14 @@
 				</div>
 				<div>
 					<label for="support-message" class="label">
-						<span class="label-text">Support Prompt</span>
+						<span class="label-text">Support Prompt <span class="tooltip tooltip-right badge" data-tip="The support prompt is a message that we put at the end of your system prompt. It is usually an instruction to tell the assistant what to do if the question is outside the data scope or it just doesn't know the answer. You can change that to allow more or less flexibility in your chatbot knowledge domain answer.">?</span></span>
+						
 					</label>
-					<textarea bind:value={settings.supportMessage} class="textarea w-full leading-normal" rows="2" />
+					<textarea bind:value={settings.supportMessage} class="textarea w-full leading-normal" rows="2" maxlength="200" />
 				</div>
 				<div>
 					<label for="system-prompt" class="label">
-						<span class="label-text">System Prompt</span>
+						<span class="label-text">System Prompt <span class="tooltip tooltip-right badge" data-tip="The system prompt helps set the behavior of the assistant. If properly crafted, the system prompt can be used to set the tone and the kind of response by the model. The default system prompt prevents hallucination from the assistant and replies only based on the trained data">?</span></span>
 						<button
 							class="btn btn-xs btn-circle btn-ghost"
 							on:click|preventDefault={() => (settings.systemPrompt = defaultSettings.systemPrompt)}
@@ -91,16 +92,18 @@
 						class="textarea w-full leading-normal"
 						name="prompt"
 						rows="5"
+						maxlength="800"
 					/>
 				</div>
 				<div>
 					<label for="user-prompt" class="label">
-						<span class="label-text">User Prompt</span>
+						<span class="label-text">User Prompt <span class="tooltip tooltip-right badge" data-tip="The user prompt is a message put right before the context (your data) and the user message. It can help to steer the model more strongly than the system message. Use with caution, it can be quite powerful">?</span></span>
 					</label>
 					<textarea
 						bind:value={settings.userPrompt}
 						class="textarea textarea-bordered w-full"
 						name="user-prompt"
+						maxlength="600"
 					/>
 				</div>
 				<div>
