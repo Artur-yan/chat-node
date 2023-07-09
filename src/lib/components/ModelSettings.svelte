@@ -4,8 +4,6 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import { alert } from '$lib/stores';
 	import Accordian from '$lib/components/Accordian.svelte';
-	import ColorPicker from 'svelte-awesome-color-picker';
-	import themes from '$lib/chatThemes';
 
 	export let id: string;
 	export let name: string;
@@ -15,8 +13,6 @@
 
 	let busySaving = false;
 	let deleting = false;
-	let customTheme;
-	let files: FileList
 
 	const addUrl = (url: string) => {
 		settings.allowedUrls = [...settings.allowedUrls, url];
@@ -28,6 +24,7 @@
 	};
 
 	const handleSubmit = async () => {
+		console.log('SUBMITTED')
 		busySaving = true;
 		await updateModel(id, name, settings);
 		busySaving = false;
@@ -35,20 +32,6 @@
 		invalidateAll();
 	};
 
-	const handleAvatarUpload = async () => {
-		try{
-			let body = new FormData();
-			body.append('file', files[0])
-			const res = await fetch('/api/avatar', {
-				method: 'POST',
-				body
-			})
-		} catch (err) {
-			console.log(err)
-		}
-	}
-
-	let selectedTheme = settings.theme.name || 'default';
 
 	if (!settings.gptVersion) {
 		settings.gptVersion = '3.5';
@@ -57,15 +40,7 @@
 		settings.temperature = 0.1;
 	}
 
-	if ((selectedTheme = 'custom')) {
-		customTheme = settings.theme;
-	}
 
-	$: if (selectedTheme !== 'custom') {
-		settings.theme = themes[selectedTheme];
-	} else {
-		settings.theme = customTheme;
-	}
 </script>
 
 <div>
@@ -216,122 +191,6 @@
 				{/if}
 			</div>
 		</Accordian>
-		<Accordian {open}>
-			<div slot="title" id="theme">Theme</div>
-
-			<div class="mb-10">
-				<form class="join" on:submit={handleAvatarUpload}>
-					<input type="file" accept=".jpg, .png, .svg" class="join-item file-input file-input-bordered w-full" bind:files />
-					<input type="submit" class="btn btn-primary join-item" />
-				</form>
-			</div>
-			<div class="themes">
-				<div>
-					<input
-						class="hidden"
-						type="radio"
-						id="default"
-						name="theme"
-						value="default"
-						bind:group={selectedTheme}
-					/>
-					<label for="default">ChatNode</label>
-				</div>
-				<div>
-					<input
-						class="hidden"
-						type="radio"
-						id="meta-dark"
-						name="theme"
-						value="meta-dark"
-						bind:group={selectedTheme}
-					/>
-					<label for="meta-dark">Meta dark</label>
-				</div>
-				<div>
-					<input
-						class="hidden"
-						type="radio"
-						id="ios-light"
-						name="theme"
-						value="ios-light"
-						bind:group={selectedTheme}
-					/>
-					<label for="ios-light">iOS light</label>
-				</div>
-				<div>
-					<input
-						class="hidden"
-						type="radio"
-						id="ios-dark"
-						name="theme"
-						value="ios-dark"
-						bind:group={selectedTheme}
-					/>
-					<label for="ios-dark">iOS dark</label>
-				</div>
-				<div>
-					<input
-						class="hidden"
-						type="radio"
-						id="neutral"
-						name="theme"
-						value="neutral"
-						bind:group={selectedTheme}
-					/>
-					<label for="neutral">Neutral</label>
-				</div>
-				<div>
-					<input
-						class="hidden"
-						type="radio"
-						id="custom"
-						name="theme"
-						value="custom"
-						bind:group={selectedTheme}
-					/>
-					<label for="custom">Custom</label>
-				</div>
-			</div>
-			{#if selectedTheme == 'custom'}
-				<div class="grid grid-cols-2 gap-4 my-4">
-					<ColorPicker bind:hex={settings.theme.bg} isPopup={false} label="Background" />
-					<ColorPicker
-						bind:hex={settings.theme.botBubbleBG}
-						isPopup={false}
-						label="Bot Bubble Background"
-					/>
-					<ColorPicker
-						bind:hex={settings.theme.botBubbleText}
-						isPopup={false}
-						label="Bot Bubble Text"
-					/>
-					<ColorPicker
-						bind:hex={settings.theme.userBubbleBG}
-						isPopup={false}
-						label="User Bubble Background"
-					/>
-					<ColorPicker
-						bind:hex={settings.theme.userBubbleText}
-						isPopup={false}
-						label="User Bubble Text"
-					/>
-					<ColorPicker bind:hex={settings.theme.inputBG} isPopup={false} label="Input Background" />
-					<ColorPicker bind:hex={settings.theme.inputText} isPopup={false} label="Input Text" />
-					<ColorPicker bind:hex={settings.theme.inputBorder} isPopup={false} label="Input Border" />
-					<ColorPicker
-						bind:hex={settings.theme.sendButtonBG}
-						isPopup={false}
-						label="Send Button Background"
-					/>
-					<ColorPicker
-						bind:hex={settings.theme.sendButtonIconColor}
-						isPopup={false}
-						label="Send Button Icon"
-					/>
-				</div>
-			{/if}
-		</Accordian>
 		<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle mx-auto"
 			><Icon icon="mdi:delete-outline" width="16" /></label
 		>
@@ -367,17 +226,3 @@
 		</div>
 	</div>
 </div>
-
-<style lang="postcss">
-	.themes {
-		@apply flex items-center gap-2 flex-wrap;
-	}
-
-	.themes label {
-		@apply btn btn-sm;
-	}
-
-	.themes input:checked + label {
-		@apply btn-primary;
-	}
-</style>

@@ -25,7 +25,7 @@
 		/>
 	</div>
 	<div>
-		<div class="h-[calc(100vh_-_16rem)] sticky top-10">
+		<div class="h-[calc(100vh_-_16rem)] sticky top-10 scale-50 focus-within:scale-100 transition-transform hover:scale-[55%]">
 			<Chat modelId={data.model.id} {settings} trainingStatus={data.model.status} />
 		</div>
 	</div>
