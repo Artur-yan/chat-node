@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { alert } from '$lib/stores.js';
-	import { goto, invalidateAll } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 
 	export let currentPlan: number | undefined = undefined;
 
 	let busyChangingPlan = false;
 	let referralCode = '';
+	export let billingTerm = 'monthly'
 
 	onMount(() => {
 		if (rewardful) {
@@ -18,9 +19,10 @@
 		}
 	});
 
-	const updatePlan = async (newPlan: number) => {
+	const updatePlan = async (newPlan: number, e) => {
 		try {
 			busyChangingPlan = true;
+			e.target.innerHTML = '<span class="loading"></span>Changing plan...';
 			const res = await fetch('/api/account/plan', {
 				method: 'PUT',
 				headers: {
@@ -29,173 +31,304 @@
 				body: JSON.stringify({ newPlan, referralCode })
 			});
 			const data = await res.json();
-			if (data.url) {
-				goto(data.url);
-			} else if (data.status == 'success') {
-				currentPlan = newPlan;
-				$alert = { msg: 'Plan updated successfully', type: 'success' };
-			}
+			await new Promise((resolve) => setTimeout(resolve, 2500));
+			goto(data.url);
+
+			// if (data.url) {
+			// 	goto(data.url);
+			//  } else if (data.status == 'success') {
+			// 	currentPlan = newPlan;
+			// 	$alert = { msg: 'Plan updated successfully', type: 'success' };
+			//  }
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
 		} finally {
 			busyChangingPlan = false;
-			invalidateAll();
 		}
 	};
 </script>
 
-<div class="my-10 grid md:grid-cols-3 gap-y-8 lg:gap-y-20">
-	<div class="rounded-xl md:rounded-r-none p-8 border border-secondary md:my-4 bg-base-200">
-		<div class="flex justify-between mb-8">
-			<h2>Free</h2>
-			{#if currentPlan !== undefined}
-				<button
-					on:click={() => updatePlan(0)}
-					class="btn btn-outline btn-secondary"
-					disabled={currentPlan === 0}
-				>
-					<span class={busyChangingPlan ? 'loading' : 'invisible'} />
-
-					{currentPlan === 0 ? 'Current plan' : 'Change plan'}</button
-				>
-			{:else}
-				<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
-			{/if}
+<div>
+	<div class="text-center my-4">
+		<div class="join">
+			<button class="btn join-item border-primary" class:btn-primary={billingTerm == 'monthly'} on:click={() => billingTerm = 'monthly'}>Monthly</button>
+			<button class="btn join-item border-primary" class:btn-primary={billingTerm == 'yearly'} on:click={() => billingTerm = 'yearly'}>Yearly <span class="badge badge-accent capitalize">2 months free</span></button>
 		</div>
-		<ul class="included">
-			<li>30 messages/month</li>
-			<li>1 Chatbot</li>
-			<li>
-				<div
-					class="tooltip border-b border-dotted border-white/30"
-					data-tip="approx. 400,000 characters"
-				>
-					100,000 tokens/bot
-				</div>
-			</li>
-			<li>Embed on unlimited websites</li>
-		</ul>
+
 	</div>
-	<div class="border border-secondary p-8 md:-mx-[1px] rounded-2xl bg-base-100 shadow-xl">
-		<div class="flex justify-between mb-8">
-			<div>
-				<h2>Basic</h2>
-				<h3 class="text-lg font-bold">
-					$19<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
-				</h3>
+
+	<div class="card border-neutral text-center">
+		<div class="card-body">
+			<h2 class="!text-xl mb-4 uppercase">All plans include</h2>
+			<ul class="included flex items-center gap-x-10 gap-y-4 justify-center flex-wrap">
+				<li>Add multiple data sources</li>
+				<li>Embed on unlimited websites</li>
+				<li>Custom colors</li>
+				<li>Chatbot, iframe and web address sharing</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="my-8 grid md:grid-cols-3 gap-y-8 lg:gap-y-20">
+		<div class="rounded-xl md:rounded-r-none p-8 border border-secondary md:my-4 bg-base-300">
+			<div class="flex justify-between mb-8">
+				<h2>Free</h2>
+				{#if currentPlan !== undefined}
+					<button
+						on:click={(e) => updatePlan(0, e)}
+						class="btn btn-outline btn-secondary"
+						disabled={currentPlan === 0}
+					>
+						
+
+						{currentPlan === 0 ? 'Current plan' : 'Change plan'}</button
+					>
+				{:else}
+					<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
+				{/if}
 			</div>
-			{#if currentPlan !== undefined}
-				<button
-					on:click={() => updatePlan(1)}
-					class="btn btn-outline btn-secondary"
-					disabled={currentPlan === 1}
-				>
-					<span class={busyChangingPlan ? 'loading' : 'invisible'} />
-
-					{currentPlan === 1 ? 'Current plan' : 'Change plan'}</button
-				>
-			{:else}
-				<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
-			{/if}
+			<ul>
+				<li><span class="figure">30</span> messages/month</li>
+				<li><span class="figure">1</span> chatbot</li>
+				<li>
+					<div
+						class="tooltip border-b border-dotted border-white/30"
+						data-tip="approx. 400,000 characters"
+					>
+					<span class="figure">100,000</span> tokens/bot
+					</div>
+				</li>
+			</ul>
 		</div>
-		<ul class="included">
-			<li>2,000 messages/month</li>
-			<li>Up to 5 Chatbots</li>
-			<li>
-				<div
-					class="tooltip border-b border-dotted border-white/30"
-					data-tip="approx. 1,600,000 characters"
-				>
-					400,000 tokens/bot
+		<div class="border border-secondary p-8 py-12 md:-mx-[1px] rounded-2xl bg-base-100 shadow-xl">
+			<div class="flex justify-between mb-8">
+				<div>
+					<h2>Basic</h2>
+					<h3 class="text-lg font-bold">
+						{#if billingTerm === 'monthly'}
+							<div>$19<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span></div>
+						{:else}
+							<div>$190<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span></div>
+						{/if}
+					</h3>
 				</div>
-			</li>
-			<li>Add Multiple Data Sources</li>
-			<li>Embed on unlimited websites</li>
-		</ul>
-	</div>
-	<div class="p-8 border border-secondary rounded-xl md:rounded-l-none my-4 bg-base-200">
-		<div class="flex justify-between mb-8">
-			<div>
-				<h2>Pro</h2>
-				<h3 class="text-lg font-bold">
-					$49<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
-				</h3>
+				{#if currentPlan !== undefined}
+					{#if billingTerm == 'monthly'}
+						<button
+							on:click={(e) => updatePlan(1, e)}
+							class="btn btn-outline btn-secondary"
+							disabled={currentPlan === 1}
+						>
+							
+
+							{currentPlan === 1 ? 'Current plan' : 'Change plan'}</button
+						>
+					{:else}
+						<button
+						on:click={(e) => updatePlan(101, e)}
+						class="btn btn-outline btn-secondary"
+						disabled={currentPlan === 101}
+					>
+						
+
+						{currentPlan === 101 ? 'Current plan' : 'Change plan'}</button
+					>
+					{/if}
+				{:else}
+					<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
+				{/if}
 			</div>
-			{#if currentPlan !== undefined}
-				<button
-					on:click={() => updatePlan(2)}
-					class="btn btn-outline btn-secondary"
-					disabled={currentPlan === 2}
-				>
-					<span class={busyChangingPlan ? 'loading' : 'invisible'} />
-
-					{currentPlan === 2 ? 'Current plan' : 'Change plan'}</button
-				>
-			{:else}
-				<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
-			{/if}
+			<ul>
+				<li><span class="figure">2,000</span> messages/month</li>
+				<li><span class="figure">5</span> Chatbots</li>
+				<li>
+					<div
+						class="tooltip border-b border-dotted border-white/30"
+						data-tip="approx. 1,600,000 characters"
+					>
+					<span class="figure">400,000</span> tokens/bot
+					</div>
+				</li>
+			</ul>
 		</div>
-		<ul class="included">
-			<li>5,000 messages/month</li>
-			<li>10 Chatbots</li>
-			<li>
-				<div
-					class="tooltip border-b border-dotted border-white/30"
-					data-tip="approx. 3,200,000 characters"
-				>
-					800,000 tokens/bot
+		<div class="p-8 border border-secondary rounded-xl md:rounded-l-none md:my-4 bg-base-300">
+			<div class="flex justify-between">
+				<div>
+					<h2>Pro</h2>
+					<h3 class="text-lg font-bold">
+						{#if billingTerm === 'monthly'}
+							<div>$49<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span></div>
+						{:else}
+							<div>$490<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span></div>
+						{/if}
+					</h3>
 				</div>
-			</li>
-			<li>Add Multiple Data Sources</li>
-			<li>Embed on unlimited websites</li>
-			<li>Add custom logo</li>
-		</ul>
+				{#if currentPlan !== undefined}
+					{#if billingTerm == 'monthly'}
+						<button
+							on:click={(e) => updatePlan(2, e)}
+							class="btn btn-outline btn-secondary"
+							disabled={currentPlan === 2}
+						>
+							
+
+							{currentPlan === 2 ? 'Current plan' : 'Change plan'}</button
+						>
+					{:else}
+						<button
+							on:click={(e) => updatePlan(102, e)}
+							class="btn btn-outline btn-secondary"
+							disabled={currentPlan === 102}
+						>
+							
+
+							{currentPlan === 102 ? 'Current plan' : 'Change plan'}</button
+						>
+					{/if}
+				{:else}
+					<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
+				{/if}
+			</div>
+			<div class="grid lg:grid-cols-2">
+			<ul>
+				<li><span class="figure">5,000</span> messages/month</li>
+				<li><span class="figure">10</span> Chatbots</li>
+				<li>
+					<div
+						class="tooltip border-b border-dotted border-white/30"
+						data-tip="approx. 3,200,000 characters"
+					>
+					<span class="figure">800,000</span> tokens/bot
+					</div>
+				</li>
+			</ul>
+			<ul class="extra">
+				<li>Add custom logo</li>
+				<li>Slack integration</li>
+			</ul>
+			</div>
+		</div>
 	</div>
-	<div class="col-span-full">
-		<div class="border border-secondary p-8 rounded-2xl max-w-6xl mx-auto bg-base-200">
+	<div class="grid gap-y-8 md:grid-cols-2 max-w-7xl mx-auto">
+		<div class="border border-secondary p-8 rounded-2xl md:rounded-r-none md:border-r-0 bg-base-300">
 			<div class="flex justify-between">
 				<div class="flex items-center justify-between mb-8">
 					<div>
 						<h2>Enterprise</h2>
 						<h3 class="text-lg font-bold">
-							$99<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
+							{#if billingTerm === 'monthly'}
+								<div>$99<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span></div>
+							{:else}
+								<div>$990<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span></div>
+							{/if}
 						</h3>
 					</div>
 				</div>
 				<div>
 					{#if currentPlan !== undefined}
-						<button
-							on:click={() => updatePlan(3)}
-							class="btn btn-outline btn-secondary"
-							disabled={currentPlan === 3}
-						>
-							<span class={busyChangingPlan ? 'loading' : 'invisible'} />
+					{#if billingTerm == 'monthly'}
+					<button
+						on:click={(e) => updatePlan(3, e)}
+						class="btn btn-outline btn-secondary"
+						disabled={currentPlan === 3}
+					>
+						
 
-							{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
-						>
+						{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
+					>
+				{:else}
+					<button
+						on:click={(e) => updatePlan(103, e)}
+						class="btn btn-outline btn-secondary"
+						disabled={currentPlan === 103}
+					>
+						
+
+						{currentPlan === 103 ? 'Current plan' : 'Change plan'}</button
+					>
+				{/if}
 					{:else}
 						<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
 				</div>
 			</div>
-			<div>
-				<ul class="included grid grid-cols-2">
-					<li>10,000 messages/month</li>
-					<li>20 Chatbots</li>
+			<div class="grid grid-cols-2">
+				<ul>
+					<li><span class="figure">10,000</span> messages/month</li>
+					<li><span class="figure">20</span> Chatbots</li>
 					<li>
 						<div
 							class="tooltip border-b border-dotted border-white/30"
 							data-tip="approx. 4,000,000 characters"
 						>
-							1,000,000 tokens/bot
+						<span class="figure">1,000,000</span> tokens/bot
 						</div>
 					</li>
-					<li>Add Multiple Data Sources</li>
-					<li>Embed on unlimited websites</li>
-					<li>Add custom logo</li>
+				</ul>
+				<ul class="extra">
+					<li>Everything from Pro</li>
 					<li>Access chat history</li>
-					<li><span class="">Get a customized plan for greater usage</span></li>
+				</ul>
+			</div>
+		</div>
+		<div class="border border-secondary p-8 rounded-2xl md:rounded-l-none bg-base-300">
+			<div class="flex justify-between">
+				<div class="flex items-center justify-between mb-8">
+					<div>
+						<h2>Enterprise <span class="text-white/80">+</span></h2>
+						<h3 class="text-lg font-bold">
+							{#if billingTerm === 'monthly'}
+								<div>$399<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span></div>
+							{:else}
+								<div>$3990<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span></div>
+							{/if}
+						</h3>
+					</div>
+				</div>
+				<div>
+					{#if currentPlan !== undefined}
+					{#if billingTerm == 'monthly'}
+					<button
+						on:click={(e) => updatePlan(4, e)}
+						class="btn btn-outline btn-secondary"
+						disabled={currentPlan === 4}
+					>
+						
+
+						{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
+					>
+				{:else}
+					<button
+						on:click={(e) => updatePlan(104, e)}
+						class="btn btn-outline btn-secondary"
+						disabled={currentPlan === 104}
+					>
+						
+
+						{currentPlan === 104 ? 'Current plan' : 'Change plan'}</button
+					>
+				{/if}
+					{:else}
+						<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
+					{/if}
+				</div>
+			</div>
+			<div class="grid grid-cols-2">
+				<ul>
+					<li><span class="figure">40,000</span> messages/month</li>
+					<li><span class="figure">40</span> Chatbots</li>
+					<li>
+						<div
+							class="tooltip border-b border-dotted border-white/30"
+							data-tip="approx. 12,000,000 characters"
+						>
+						<span class="figure">3,000,000</span> tokens/bot
+						</div>
+					</li>
+				</ul>
+				<ul class="extra">
+					<li>Everything from Enterprise</li>
 				</ul>
 			</div>
 		</div>
@@ -208,15 +341,27 @@
 	}
 
 	li {
-		@apply mb-2 relative pl-8;
+		@apply mb-2 relative;
 	}
 
 	.included li {
-		background: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="16" height="16" viewBox="0 0 24 24"%3E%3Cpath fill="%23818CF8" d="m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83L9 20.42Z"%2F%3E%3C%2Fsvg%3E')
-			no-repeat left 2px;
+		background: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="20" height="20" viewBox="0 0 24 24"%3E%3Cpath fill="%23818CF8" d="m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83L9 20.42Z"%2F%3E%3C%2Fsvg%3E')
+			no-repeat left 3px;
+			@apply pl-8 text-lg;
 	}
 
-	.included li::before {
+	.extra li {
+		background: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="15" height="15" viewBox="0 0 15 15"%3E%3Cpath fill="%23f470b4" d="M14 7H9V2H7v5H2v2h5v5h2V9h5V7z"%2F%3E%3C%2Fsvg%3E')
+			no-repeat 0 50%;
+			@apply pl-6;
+	}
+
+	.figure{
+		@apply text-secondary font-bold;
+
+	}
+
+	li::before {
 		@apply absolute block h-5 w-5 mr-2;
 	}
 

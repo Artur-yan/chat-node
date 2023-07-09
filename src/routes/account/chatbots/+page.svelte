@@ -30,14 +30,18 @@
 		}
 	});
 
+
 	const today = new Date();
-	const resetDate = new Date(today.setMonth(today.getMonth() + 1));
-	resetDate.setDate(15);
+	const resetDate = new Date(today.setDate(15))
+	if (today.getDate() < 15) {
+		const resetDate = new Date(today.setMonth(today.getMonth() + 1));
+	}
+	// resetDate.setDate(15);
 	let daysLeftUntilAllotmentsReset = Math.ceil(
 		(resetDate - new Date().getTime()) / (1000 * 3600 * 24)
 	);
 
-	// const handleResendVerificationLink = async () => {
+	// const handleResendVerificationLink = asyxnc () => {
 	// 	const res = await fetch('/api/account/confirm', {
 	// 		method: 'POST',
 	// 		body: JSON.stringify({
@@ -101,11 +105,12 @@
 						</div>
 						<div>
 							<div class="flex justify-between">
-								<h4>Usage Reset Date</h4>
+								<h4>{data.subscription.cancel_at ? 'Cancelation Date': 'Usage Reset Date'}</h4>
 								<span class="opacity-60">{resetDate.toLocaleDateString()}</span>
 							</div>
 							<progress
-								class="progress progress-secondary w-full bg-neutral h-1"
+								class="progress progress-warning w-full bg-neutral h-1"
+								class:progress-warning={data.subscription.cancel_at}
 								value={31 - daysLeftUntilAllotmentsReset}
 								max={31}
 							/>

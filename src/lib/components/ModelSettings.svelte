@@ -52,22 +52,62 @@
 			<input type="text" bind:value={name} class="input input-lg w-full" placeholder="Untitled" />
 		</div>
 		<Accordian {open}>
-			<div slot="title">Messages</div>
+			<div slot="title">Prompts</div>
 			<div>
-				<label for="greeting" class="label">
-					<span class="label-text">Greeting</span>
-				</label>
-				<input type="text" bind:value={settings.greeting} class="input w-full" />
-			</div>
-			<div>
-				<label for="support-message" class="label">
-					<span class="label-text">Support Message</span>
-				</label>
-				<input type="text" bind:value={settings.supportMessage} class="input w-full" />
-				<p class="text-sm m-1">
-					This is the message that will appear to the user if the chatbot cannot come up with a
-					confident answer. You may want to include an email address or link to a contact page here.
-				</p>
+				<div>
+					<label for="greeting" class="label">
+						<span class="label-text">Greeting</span>
+					</label>
+					<input type="text" bind:value={settings.greeting} class="input w-full mb-2" />
+				</div>
+				<div>
+					<label for="support-message" class="label">
+						<span class="label-text">Support Prompt <span class="tooltip tooltip-right badge" data-tip="The support prompt is a message that we put at the end of your system prompt. It is usually an instruction to tell the assistant what to do if the question is outside the data scope or it just doesn't know the answer. You can change that to allow more or less flexibility in your chatbot knowledge domain answer.">?</span></span>
+						
+					</label>
+					<textarea bind:value={settings.supportMessage} class="textarea w-full leading-normal" rows="2" maxlength="800" />
+				</div>
+				<div>
+					<label for="system-prompt" class="label">
+						<span class="label-text">System Prompt <span class="tooltip tooltip-right badge" data-tip="The system prompt helps set the behavior of the assistant. If properly crafted, the system prompt can be used to set the tone and the kind of response by the model. The default system prompt prevents hallucination from the assistant and replies only based on the trained data">?</span></span>
+						<button
+							class="btn btn-xs btn-circle btn-ghost"
+							on:click|preventDefault={() => (settings.systemPrompt = defaultSettings.systemPrompt)}
+							><Icon icon="mdi:arrow-u-left-top" width="18" /></button
+						>
+					</label>
+
+					<textarea
+						bind:value={settings.systemPrompt}
+						class="textarea w-full leading-normal"
+						name="prompt"
+						rows="5"
+						maxlength="3200"
+					/>
+				</div>
+				<div>
+					<label for="user-prompt" class="label">
+						<span class="label-text">User Prompt <span class="tooltip tooltip-right badge" data-tip="The user prompt is a message put right before the context (your data) and the user message. It can help to steer the model more strongly than the system message. Use with caution, it can be quite powerful">?</span></span>
+					</label>
+					<textarea
+						bind:value={settings.userPrompt}
+						class="textarea textarea-bordered w-full"
+						name="user-prompt"
+						maxlength="2400"
+					/>
+				</div>
+				<div>
+					<label for="temp" class="label">
+						<span class="label-text">Creativity</span>
+					</label>
+					<input type="range" min={0} max={0.7} class="range range-xs range-primary" step={0.1} name="temp" bind:value={settings.temperature} />
+
+					<label class="label">
+						<span class="label-text-alt">&larr; Focused</span>
+						<span class="badge">{settings.temperature}</span>
+						<span class="label-text-alt">Creative &rarr;</span>
+					  </label>
+				</div>
 			</div>
 		</Accordian>
 		<Accordian {open}>
@@ -103,51 +143,7 @@
 				</div>
 			{/if}
 		</Accordian>
-		<Accordian {open}>
-			<div slot="title">Prompts</div>
 
-			<div>
-				<div>
-					<label for="system-prompt" class="label">
-						<span class="label-text">System Prompt</span>
-						<button
-							class="btn btn-xs btn-circle btn-ghost"
-							on:click|preventDefault={() => (settings.systemPrompt = defaultSettings.systemPrompt)}
-							><Icon icon="mdi:arrow-u-left-top" width="18" /></button
-						>
-					</label>
-
-					<textarea
-						bind:value={settings.systemPrompt}
-						class="textarea textarea-bordered w-full leading-normal"
-						name="prompt"
-						rows="5"
-					/>
-				</div>
-				<div>
-					<label for="user-prompt" class="label">
-						<span class="label-text">User Prompt</span>
-					</label>
-					<textarea
-						bind:value={settings.userPrompt}
-						class="textarea textarea-bordered w-full"
-						name="user-prompt"
-					/>
-				</div>
-				<div>
-					<label for="temp" class="label">
-						<span class="label-text">Creativity</span>
-					</label>
-					<input type="range" min={0} max={0.7} class="range range-xs range-primary" step={0.1} name="temp" bind:value={settings.temperature} />
-
-					<label class="label">
-						<span class="label-text-alt">&larr; Focused</span>
-						<span class="badge">{settings.temperature}</span>
-						<span class="label-text-alt">Creative &rarr;</span>
-					  </label>
-				</div>
-			</div>
-		</Accordian>
 		<Accordian {open}>
 			<div slot="title" id="publishing">Publishing</div>
 			<div>
