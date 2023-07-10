@@ -4,7 +4,7 @@
 	export let data;
 </script>
 
-<div class="container pb-10 grid sm:grid-cols-2 md:grid-cols-3">
+<div class="container my-4 grid sm:grid-cols-2 md:grid-cols-3">
 	<div class="card bg-base-300">
 		<div class="card-body">
 			<h2 class="card-title">Slack</h2>

@@ -30,29 +30,36 @@
 
         visibleChatConversation = data
         if (currentActiveChatID){
-            document.querySelector(`.${currentActiveChatID}`).classList.remove('btn-primary')
+            document.querySelector(`.${currentActiveChatID}`).classList.remove('active')
         }
         currentActiveChatID = 'chat-' + chat_session_id
-        document.querySelector(`.${currentActiveChatID}`).classList.add('btn-primary')
+        document.querySelector(`.${currentActiveChatID}`).classList.add('active')
     }
 
     const chatHistory = getUniqueSortedValues(data.chats, 'session_id');
 
 </script>
 
-<div class="container md:grid md:grid-cols-[320px_auto] max-h-[75vh] gap-10 h-full mt-4 mb-10">
+<div class="container md:grid md:grid-cols-[320px_auto] max-h-[75vh] gap-4 h-full my-4">
     <div class="h-full overflow-y-auto">
         {#if chatHistory.length == 0}
             <p class="text-center">No chat history</p>
         {/if}
-        {#each chatHistory as chat}
+        <!-- {#each chatHistory as chat}
         {@const date = new Date(Number(chat.split('-')[1])).toLocaleString()}
         <div>
             <button class="btn mb-2 w-full chat-{chat}" on:click={() => getChatConversation(chat)}>
                 <h2>{date}</h2>
             </button>
         </div>  
-        {/each}
+        {/each} -->
+        <ul class="menu bg-base-200 rounded-box" role="navigation">
+            <li class="menu-title">Conversations</li>
+            {#each chatHistory as chat}
+                {@const date = new Date(Number(chat.split('-')[1])).toLocaleString()}
+                <li><a class="chat-{chat}" on:click|preventDefault={() => getChatConversation(chat)}>{date}</a></li>
+            {/each}
+          </ul>
     </div>
 
     <div class="h-full overflow-y-auto rounded-lg border border-secondary p-4">

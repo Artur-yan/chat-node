@@ -1,16 +1,59 @@
-<div class="container grid grid-cols-[12rem_auto] gap-4">
-    <div>
-                <ul class="menu bg-base-200 w-56 rounded-box" role="navigation">
-                  <li class="menu-title">Settings</li>
-                <li><a href="settings">General</a></li>
-                <li><a href="settings/sharing">Sharing</a></li>
-                <li><a href="settings/prompts">Prompts</a></li>
-                <li><a href="settings/theme">Theme</a></li>
-                <li><a href="settings/theme">GPT Version</a></li>
+<script lang="ts">
+    import { page } from '$app/stores';
+    import Chat from '$lib/components/Chat.svelte';
+    import { currentBot, state, alert } from '$lib/stores.js';
+    import { updateModel } from '$lib/models.js';
+
+    export let data
+
+
+    const links = [
+        { name: "Prompts", url: "prompts" },
+        { name: "Sharing", url: "sharing" },
+        { name: "Theme", url: "theme" },
+        { name: "Chat-GPT", url: "gpt" },
+        { name: "Delete", url: "delete" }
+    ];
+
+   $: currentPath = $page.url.pathname.split("/").pop();
+
+   const handleSave = async () => {
+        $state = 'saving';
+        try {
+            await updateModel($currentBot.id, $currentBot.name, $currentBot.settings)
+        } catch (err) {
+            $alert = { type: 'error', msg: err };
+            $state = 'error';
+            return;
+        }
+        $state = 'saved';
+        $alert = { type: 'success', msg: 'Settings saved' };
+    }
+
+
+</script>
+
+
+<div class="container grid lg:grid-cols-[12rem_auto_18rem] xl:lg:grid-cols-[12rem_auto_24rem] gap-4 py-4 h-full">
+    <div class="h-full relative">
+                <ul class="sticky top-4 menu bg-base-200 rounded-box" role="navigation">
+                <li class="menu-title">Settings</li>
+                {#each links as link}
+                    <li><a href='/account/chatbots/{$page.params.id}/settings/{link.url}' class:active={link.url === currentPath}>{link.name}</a></li>
+                {/each}
               </ul>
+                
+                  <button class="btn btn-outline btn-success my-4 w-full" type="submit" on:click={handleSave}>{$state == 'saving' ? 'Saving' : 'Save'}</button>
+
     </div>
     <div>
-
         <slot />
     </div>
+
+    <div class="h-full relative">
+		<div class="sticky top-4 h-3/4 max-h-[64rem]">
+			<Chat modelId={data.model.id} settings={$currentBot.settings} trainingStatus={data.model.status} avatar={$currentBot.settings.avatarImg} />
+		</div>
+	</div>
 </div>
+

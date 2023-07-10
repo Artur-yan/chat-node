@@ -19,7 +19,7 @@
 	<title>Embed | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container mb-10">
+<div class="container my-4">
 	{#if data.model.settings.public == false}
 		<div class="alert alert-warning mb-4">
 			<svg

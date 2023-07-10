@@ -48,7 +48,7 @@
 	<title>Data | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container grid grid-cols-2 gap-10">
+<div class="container grid grid-cols-2 gap-10 my-4">
 	<div>
 		{#key unique}
 			<AddModelData

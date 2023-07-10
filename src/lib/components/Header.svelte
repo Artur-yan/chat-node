@@ -16,7 +16,7 @@
 	];
 </script>
 
-<header id="header" class="py-2 bg-base-100">
+<header id="header" class="py-2 bg-base-300 border-b border-black/80">
 	<nav class="container">
 		<div class="flex flex-wrap justify-between items-center">
 			<div class="flex items-center justify-center gap-10">
@@ -36,7 +36,7 @@
 						</svg>
 					</div>
 
-					<span class="text-sm font-bold">ChatNode</span>
+					<span class="text-lg font-bold">ChatNode</span>
 				</a>
 				{#if includePageLinks}
 					<div class="hidden lg:flex">
