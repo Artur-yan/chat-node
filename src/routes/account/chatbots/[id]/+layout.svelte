@@ -12,18 +12,6 @@
 
 	const currentName = $currentBot.name;
 
-
-	const someFunction = () => {
-      // do something
-	  console.log(currentBot)
-    }
-
-	let unsubscribeStore = currentBot.subscribe((currentValue) => {
-        //currentValue == $comparedProducts
-        someFunction()
-    })
-
-
 	$: if ($currentBot.name != currentName) {
 		$state = 'unsaved'
 	} else {

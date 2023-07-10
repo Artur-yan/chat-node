@@ -20,14 +20,9 @@ export const POST = async ({ request }) => {
 
         const data = await request.formData()
         const file = data.get('file')
-        console.log(file)
 
         const base64Img = await blobToBase64(file)
 
-        console.log(base64Img)
-
-
-        
         cloudinary.uploader
             .upload(base64Img)
             .then(
