@@ -33,19 +33,30 @@
 	<title>Create chatbot | ChatNode</title>
 </svelte:head>
 
-<div class="container pb-20">
-	<div class="text-secondary text-xl pb-6 font-bold">New chatbot</div>
+<div class="bg-neutral py-1">
+	<div class="container md:gap-2 flex flex-col md:flex-row justify-between items-center">
+		<div class="flex gap-2 items-center">
+			<a class="btn btn-sm btn-square text-white/50 hidden sm:flex" href="/account/chatbots">&larr;</a>
+			<h1 class="overflow-x-clip whitespace-nowrap  overflow-ellipsis max-w-3xl py-1 px-2">New Chatbot</h1>
+		</div>
+	</div>
+</div>
 
-	<div class="grid md:grid-cols-2 gap-10">
-		<div>
-			<AddModelData
-				bind:modelId
-				userId={data.user.user.userId}
-				sessionId={data.user.session.sessionId}
-				subscription={data.subscription}
-				bind:trainingStatus
-				bind:name
-			/>
+<div class="container my-4">
+
+	<div class="grid md:grid-cols-2 gap-4">
+		<div class="card bg-neutral card-compact">
+			<div class="card-body">
+
+				<AddModelData
+					bind:modelId
+					userId={data.user.user.userId}
+					sessionId={data.user.session.sessionId}
+					subscription={data.subscription}
+					bind:trainingStatus
+					bind:name
+				/>
+			</div>
 		</div>
 		<div>
 			<div class="h-[calc(100vh_-_16rem)] sticky top-10 border-4 rounded-xl border-neutral">

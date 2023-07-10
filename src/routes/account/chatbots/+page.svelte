@@ -188,12 +188,8 @@
 									</li>
 									<li>
 										<a
-											href="/"
-											on:click|preventDefault={() => {
-												idOfModelToDelete = bot.id;
-												titleOfModelToDelete = bot.name;
-												modalDelete.showModal();
-											}}
+											href="/account/chatbots/{bot.id}/settings/delete"
+
 										>
 											<Icon icon="mdi:delete-outline" width="18" /> Delete
 										</a>

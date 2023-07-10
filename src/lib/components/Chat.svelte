@@ -18,7 +18,7 @@
 		}
 	];
 
-	$: messages[0].text = $currentBot.settings.greeting;
+	$: messages[0].text = settings.greeting;
 
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed';
 	export let avatar: string | undefined = undefined;

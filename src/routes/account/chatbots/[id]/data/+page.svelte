@@ -48,8 +48,11 @@
 	<title>Data | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container grid grid-cols-2 gap-10 my-4">
+<div class="container grid md:grid-cols-[auto_32rem] gap-4 my-4">
 	<div>
+	<div class="card card-compact bg-neutral mb-4">
+		<div class="card-body">
+			<div class="card-title">Add Data</div>
 		{#key unique}
 			<AddModelData
 				bind:modelId
@@ -60,7 +63,11 @@
 				bind:trainingStatus
 			/>
 		{/key}
-		<h2 class="font-bold text-secondary mb-2 mt-8">Data Sources</h2>
+		</div>
+		</div>
+		<div class="card card-compact bg-neutral">
+			<div class="card-body">
+		<h2 class="card-title">Data Sources</h2>
 		<div class="overflow-x-auto">
 			<table class="table w-full table-xs mb-10">
 				<thead>
@@ -73,7 +80,7 @@
 
 				{#each data.modelData as modelData}
 					<tr>
-						<td><div class="badge badge-neutral badge-sm">{modelData.source_type}</div></td>
+						<td><div class="badge badge-sm">{modelData.source_type}</div></td>
 						<td class="overflow-clip">
 							{#if modelData.source_type === 'urls'}
 								{modelData.name.split(',').join('\n')}
@@ -94,9 +101,12 @@
 				{/each}
 			</table>
 		</div>
+		</div>
+		</div>
 	</div>
 	<div>
-		<div class="h-[calc(100vh_-_16rem)] sticky top-10 mb-10">
+		
+		<div class="h-[calc(100vh_-_16rem)] sticky top-4 mb-10">
 			<Chat {modelId} bind:trainingStatus settings={data.model.settings} />
 		</div>
 	</div>
