@@ -43,13 +43,13 @@
 	let nextURL;
 	let warningIgnored = false;
 
-	beforeNavigate(({to, cancel}) => {
-		if ($state === 'unsaved' && !warningIgnored) {
-			cancel()
-			nextURL = to?.url.pathname
-			confirmUnsavedNavigate.showModal()
-		}
-	})
+	// beforeNavigate(({to, cancel}) => {
+	// 	if ($state === 'unsaved' && !warningIgnored) {
+	// 		cancel()
+	// 		nextURL = to?.url.pathname
+	// 		confirmUnsavedNavigate.showModal()
+	// 	}
+	// })
 	
 	const navigateWithoutSaving = () => {
 		warningIgnored = true;
