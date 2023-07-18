@@ -5,12 +5,12 @@
     export let data
 
     const addUrl = (url: string) => {
-		settings.allowedUrls = [...settings.allowedUrls, url];
+		$currentBot.settings.allowedUrls = [...$currentBot.settings.allowedUrls, url];
 	};
 
 	const removeUrl = (i: number) => {
-		settings.allowedUrls.splice(i, 1);
-		settings.allowedUrls = [...settings.allowedUrls];
+		$currentBot.settings.allowedUrls.splice(i, 1);
+		$currentBot.settings.allowedUrls = [...$currentBot.settings.allowedUrls];
 	};
 
 
