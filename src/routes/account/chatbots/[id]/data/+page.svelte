@@ -48,7 +48,7 @@
 	<title>Data | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container grid md:grid-cols-[auto_32rem] gap-4 my-4">
+<div class="container grid md:grid-cols-[auto_16rem] lg:grid-cols-[auto_32rem] gap-4 my-4">
 	<div>
 	<div class="card card-compact bg-neutral mb-4">
 		<div class="card-body">
@@ -106,7 +106,7 @@
 	</div>
 	<div>
 		
-		<div class="h-[calc(100vh_-_16rem)] sticky top-4 mb-10">
+		<div class="h-[calc(100vh_-_16rem)] sticky top-4 mb-10 hidden sm:block">
 			<Chat {modelId} bind:trainingStatus settings={data.model.settings} />
 		</div>
 	</div>
