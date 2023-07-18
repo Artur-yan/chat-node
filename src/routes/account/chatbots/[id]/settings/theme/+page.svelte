@@ -39,7 +39,7 @@
 	<title>Theme | Settings | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-    <div class="card bg-neutral card-compact mb-4">
+    <!-- <div class="card bg-neutral card-compact mb-4">
         <div class="card-body">
             <h2 class="card-title">Avatar</h2>
             <div class="flex gap-2">
@@ -50,7 +50,7 @@
         </div>
 
         </div>
-    </div>
+    </div> -->
     <div class="card bg-neutral card-compact">
         <div class="card-body">
             <h2 class="card-title">Colors</h2>
