@@ -41,18 +41,10 @@
 </script>
 
 <div class="container md:grid md:grid-cols-[320px_auto] max-h-[75vh] gap-4 h-full my-4">
-    <div class="h-full overflow-y-auto">
+    <div class="mb-4 overflow-y-auto">
         {#if chatHistory.length == 0}
             <p class="text-center">No chat history</p>
         {/if}
-        <!-- {#each chatHistory as chat}
-        {@const date = new Date(Number(chat.split('-')[1])).toLocaleString()}
-        <div>
-            <button class="btn mb-2 w-full chat-{chat}" on:click={() => getChatConversation(chat)}>
-                <h2>{date}</h2>
-            </button>
-        </div>  
-        {/each} -->
         <ul class="menu bg-base-200 rounded-box" role="navigation">
             <li class="menu-title">Conversations</li>
             {#each chatHistory as chat}
