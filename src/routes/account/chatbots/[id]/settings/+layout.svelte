@@ -28,7 +28,6 @@
 		$state = 'saved';
 		$alert = { type: 'success', msg: 'Settings saved' };
 	};
-
 </script>
 
 <div

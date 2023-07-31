@@ -3,7 +3,6 @@
 	import BotStatus from '$lib/components/BotStatus.svelte';
 	import { defaultSettings } from '$lib/models';
 	import { marked } from 'marked';
-	import { currentBot } from '$lib/stores.js';
 
 	export let modelId: string;
 
@@ -114,7 +113,7 @@
 					{#if msg.sender === 'bot' && avatar}
 						<div class="chat-image avatar">
 							<div class="w-10">
-								<img src="{avatar}" alt="" />
+								<img src={avatar} alt="" />
 							</div>
 						</div>
 					{/if}

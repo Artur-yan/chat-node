@@ -106,8 +106,12 @@
 	</div>
 	<div>
 		<div class="h-[calc(100vh_-_16rem)] sticky top-4 mb-10 hidden sm:block">
-			<Chat {modelId} bind:trainingStatus settings={data.model.settings} avatar={data.model.avatar_img} />
-			
+			<Chat
+				{modelId}
+				bind:trainingStatus
+				settings={data.model.settings}
+				avatar={data.model.avatar_img}
+			/>
 		</div>
 	</div>
 </div>

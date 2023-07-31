@@ -8,23 +8,24 @@
 	import { enhance } from '$app/forms';
 	import { alert } from '$lib/stores';
 
-	let theme = data.model.settings.theme || defaultSettings.theme;
-
 	let settings = defaultSettings;
 	let customTheme;
 	let selectedTheme = settings.theme.name || 'default';
 
 	let uploadedImage: string;
 
-	export let form
-	
-	$: {if(form) {
-		$alert = {
-			type: 'success',
-			msg: 'Avatar Updated'
+	export let form;
+
+	console.log(data);
+
+	$: {
+		if (form) {
+			$alert = {
+				type: 'success',
+				msg: 'Avatar Updated'
+			};
 		}
 	}
-}
 	const handleAvatarSelect = async (e: Event) => {
 		const image = (e.target as HTMLInputElement)?.files?.[0];
 		if (!image) return;
@@ -49,19 +50,41 @@
 </svelte:head>
 
 <div class="card bg-neutral card-compact mb-4">
-        <div class="card-body">
-            <h2 class="card-title">Avatar</h2>
-            <div class="flex gap-2">
-            <form method="post" enctype="multipart/form-data" class="join w-full" use:enhance>
-                <input name="avatar-img" type="file" accept=".jpg, .png, .svg" class="join-item file-input file-input-bordered w-full" on:change={handleAvatarSelect} />
-                <input name="existing-cloudinary-public-id" type="hidden" value={$currentBot.cloudinary_public_id} />
-                <input type="submit" class="btn join-item border-primary border-l-0" value="Save" formaction="?/updateAvatarImg" disabled={!uploadedImage ?? null} />
-            </form>
-        </div>
+	<div class="card-body">
+		<h2 class="card-title">Avatar</h2>
+		{#if data.subscription.plan < 2}
+			<div class="alert alert-neutral text-warning justify-between flex">
+				<p>Available on the Pro plan</p>
+				<a href="/account/settings/plan" class="btn btn-info btn-sm">Upgrade</a>
+			</div>
+		{/if}
+		<div class="flex gap-2">
+			<form method="post" enctype="multipart/form-data" class="join w-full" use:enhance>
+				<input
+					disabled={data.subscription.plan < 2}
+					name="avatar-img"
+					type="file"
+					accept=".jpg, .png, .svg"
+					class="join-item file-input file-input-bordered w-full"
+					on:change={handleAvatarSelect}
+				/>
+				<input
+					name="existing-cloudinary-public-id"
+					type="hidden"
+					value={$currentBot.cloudinary_public_id}
+				/>
+				<input
+					type="submit"
+					class="btn join-item border-primary border-l-0"
+					value="Save"
+					formaction="?/updateAvatarImg"
+					disabled={!uploadedImage ?? null}
+				/>
+			</form>
+		</div>
 		<p>1MB Max. png, svg, or jpg</p>
-
-        </div>
-    </div>
+	</div>
+</div>
 <div class="card bg-neutral card-compact">
 	<div class="card-body">
 		<h2 class="card-title">Colors</h2>
