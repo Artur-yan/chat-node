@@ -48,16 +48,21 @@
 
 <div class="container my-4">
 	<div class="grid md:grid-cols-2 gap-4">
-		<div class="card bg-neutral card-compact">
-			<div class="card-body">
-				<AddModelData
-					bind:modelId
-					userId={data.user.user.userId}
-					sessionId={data.user.session.sessionId}
-					subscription={data.subscription}
-					bind:trainingStatus
-					bind:name
-				/>
+		<div>
+			<div class="card bg-neutral card-compact">
+				<div class="card-body">
+					<div class="card-title">
+						Add Data
+					</div>
+					<AddModelData
+						bind:modelId
+						userId={data.user.user.userId}
+						sessionId={data.user.session.sessionId}
+						subscription={data.subscription}
+						bind:trainingStatus
+						bind:name
+					/>
+				</div>
 			</div>
 		</div>
 		<div>
