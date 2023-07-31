@@ -12,11 +12,11 @@
 	let customTheme;
 	let selectedTheme = settings.theme.name || 'default';
 
-	let uploadedImage: string;
+	let uploadedImage: string | null
 
 	export let form;
 
-	console.log(data);
+	console.log(uploadedImage);
 
 	$: {
 		if (form) {
@@ -24,6 +24,7 @@
 				type: 'success',
 				msg: 'Avatar Updated'
 			};
+			uploadedImage = null
 		}
 	}
 	const handleAvatarSelect = async (e: Event) => {
@@ -78,7 +79,7 @@
 					class="btn join-item border-primary border-l-0"
 					value="Save"
 					formaction="?/updateAvatarImg"
-					disabled={!uploadedImage ?? null}
+					disabled={!uploadedImage}
 				/>
 			</form>
 		</div>
