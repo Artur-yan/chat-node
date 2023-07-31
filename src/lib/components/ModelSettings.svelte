@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { updateModel, deleteModel, defaultSettings } from '$lib/models';
+	import { updateModel, defaultSettings } from '$lib/models';
 	import Icon from '@iconify/svelte';
-	import { goto, invalidateAll } from '$app/navigation';
+	import { invalidateAll } from '$app/navigation';
 	import { alert } from '$lib/stores';
-	import Accordian from '$lib/components/Accordian.svelte';
 
 	export let id: string;
 	export let name: string;
