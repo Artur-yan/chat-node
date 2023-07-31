@@ -1,4 +1,4 @@
-import { error, fail } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import { v2 as cloudinary } from 'cloudinary';
 import { prismaClient } from '$lib/server/prisma';
 
