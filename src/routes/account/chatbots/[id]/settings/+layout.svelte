@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Chat from '$lib/components/Chat.svelte';
-	import { currentBot, state, alert } from '$lib/stores.js';
+	import { currentBot, state, alert } from '$lib/stores';
 	import { updateModel } from '$lib/models.js';
 
 	export let data;
@@ -28,6 +28,7 @@
 		$state = 'saved';
 		$alert = { type: 'success', msg: 'Settings saved' };
 	};
+
 </script>
 
 <div
@@ -61,7 +62,7 @@
 				modelId={data.model.id}
 				settings={$currentBot.settings}
 				trainingStatus={data.model.status}
-				avatar={$currentBot.settings.avatarImg}
+				avatar={$currentBot.avatar_img}
 			/>
 		</div>
 	</div>

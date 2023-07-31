@@ -5,6 +5,7 @@
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import themes from '$lib/chatThemes';
 	import { currentBot } from '$lib/stores.js';
+	import { enhance } from '$app/forms';
 
 	let theme = data.model.settings.theme || defaultSettings.theme;
 
@@ -14,12 +15,15 @@
 
 	let uploadedImage: string;
 
-	const handleAvatarUpload = async (e: Event) => {
+	export let form
+	$: console.log(form)
+
+	const handleAvatarSelect = async (e: Event) => {
 		const image = (e.target as HTMLInputElement)?.files?.[0];
 		if (!image) return;
 		// URL.createObjectURL() creates a temporary URL for the image we can use as src for an img tag
 		uploadedImage = URL.createObjectURL(image);
-		$currentBot.settings.avatarImg = URL.createObjectURL(image);
+		$currentBot.avatar_img = URL.createObjectURL(image);
 	};
 
 	if ((selectedTheme = 'custom')) {
@@ -37,18 +41,20 @@
 	<title>Theme | Settings | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-<!-- <div class="card bg-neutral card-compact mb-4">
+<div class="card bg-neutral card-compact mb-4">
         <div class="card-body">
             <h2 class="card-title">Avatar</h2>
             <div class="flex gap-2">
-            <form method="post" enctype="multipart/form-data" class="join w-full">
-                <input name="avatarImg" type="file" accept=".jpg, .png, .svg" class="join-item file-input file-input-bordered w-full" on:change={handleAvatarUpload} />
-                <input type="submit" class="btn join-item border-primary border-l-0" value="Upload" formaction="?/updateAvatarImg" disabled={!uploadedImage ?? null} />
+            <form method="post" enctype="multipart/form-data" class="join w-full" use:enhance>
+                <input name="avatar-img" type="file" accept=".jpg, .png, .svg" class="join-item file-input file-input-bordered w-full" on:change={handleAvatarSelect} />
+                <input name="existing-cloudinary-public-id" type="hidden" value={$currentBot.cloudinary_public_id} />
+                <input type="submit" class="btn join-item border-primary border-l-0" value="Save" formaction="?/updateAvatarImg" disabled={!uploadedImage ?? null} />
             </form>
         </div>
+		<p>1MB Max. png, svg, or jpg</p>
 
         </div>
-    </div> -->
+    </div>
 <div class="card bg-neutral card-compact">
 	<div class="card-body">
 		<h2 class="card-title">Colors</h2>

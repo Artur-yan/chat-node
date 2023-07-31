@@ -14,6 +14,7 @@ model AuthUser {
   verification_uuid String?        @unique
   new_email         String?        @unique
   created           DateTime       @default(now())
+  api_key           String?        @unique
   auth_key          AuthKey?
   auth_session      AuthSession[]
   bots              Bots[]
@@ -56,6 +57,7 @@ model Bots {
   tocken_count     Int      @default(0)
   slack_bot_status Boolean? @default(false)
   avatar_img       String?
+  cloudinary_public_id       String?
   chat_button_img  String?
   auth_user        AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
