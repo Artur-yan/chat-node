@@ -1,29 +1,28 @@
 <script lang="ts">
-    export let data;
+	export let data;
 
-
-    import { defaultSettings } from '$lib/models';
+	import { defaultSettings } from '$lib/models';
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import themes from '$lib/chatThemes';
-    import { currentBot } from '$lib/stores.js';
+	import { currentBot } from '$lib/stores.js';
 
-    let theme = data.model.settings.theme || defaultSettings.theme;
+	let theme = data.model.settings.theme || defaultSettings.theme;
 
-    let settings = defaultSettings;
+	let settings = defaultSettings;
 	let customTheme;
 	let selectedTheme = settings.theme.name || 'default';
-   
-    let uploadedImage: string;
 
-    const handleAvatarUpload = async (e: Event) => {
-        const image = (e.target as HTMLInputElement)?.files?.[0];
-        if (!image) return;
-        // URL.createObjectURL() creates a temporary URL for the image we can use as src for an img tag
-        uploadedImage = URL.createObjectURL(image);
-        $currentBot.settings.avatarImg = URL.createObjectURL(image);
-    }
+	let uploadedImage: string;
 
-    if ((selectedTheme = 'custom')) {
+	const handleAvatarUpload = async (e: Event) => {
+		const image = (e.target as HTMLInputElement)?.files?.[0];
+		if (!image) return;
+		// URL.createObjectURL() creates a temporary URL for the image we can use as src for an img tag
+		uploadedImage = URL.createObjectURL(image);
+		$currentBot.settings.avatarImg = URL.createObjectURL(image);
+	};
+
+	if ((selectedTheme = 'custom')) {
 		customTheme = settings.theme;
 	}
 
@@ -32,14 +31,13 @@
 	} else {
 		settings.theme = customTheme;
 	}
-
 </script>
 
 <svelte:head>
 	<title>Theme | Settings | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-    <!-- <div class="card bg-neutral card-compact mb-4">
+<!-- <div class="card bg-neutral card-compact mb-4">
         <div class="card-body">
             <h2 class="card-title">Avatar</h2>
             <div class="flex gap-2">
@@ -51,125 +49,123 @@
 
         </div>
     </div> -->
-    <div class="card bg-neutral card-compact">
-        <div class="card-body">
-            <h2 class="card-title">Colors</h2>
-            <div class="themes">
-                <div>
-                    <input
-                        class="hidden"
-                        type="radio"
-                        id="default"
-                        name="theme"
-                        value="default"
-                        bind:group={selectedTheme}
-                    />
-                    <label for="default">ChatNode</label>
-                </div>
-                <div>
-                    <input
-                        class="hidden"
-                        type="radio"
-                        id="meta-dark"
-                        name="theme"
-                        value="meta-dark"
-                        bind:group={selectedTheme}
-                    />
-                    <label for="meta-dark">Meta dark</label>
-                </div>
-                <div>
-                    <input
-                        class="hidden"
-                        type="radio"
-                        id="ios-light"
-                        name="theme"
-                        value="ios-light"
-                        bind:group={selectedTheme}
-                    />
-                    <label for="ios-light">iOS light</label>
-                </div>
-                <div>
-                    <input
-                        class="hidden"
-                        type="radio"
-                        id="ios-dark"
-                        name="theme"
-                        value="ios-dark"
-                        bind:group={selectedTheme}
-                    />
-                    <label for="ios-dark">iOS dark</label>
-                </div>
-                <div>
-                    <input
-                        class="hidden"
-                        type="radio"
-                        id="neutral"
-                        name="theme"
-                        value="neutral"
-                        bind:group={selectedTheme}
-                    />
-                    <label for="neutral">Neutral</label>
-                </div>
-                <div>
-                    <input
-                        class="hidden"
-                        type="radio"
-                        id="custom"
-                        name="theme"
-                        value="custom"
-                        bind:group={selectedTheme}
-                    />
-                    <label for="custom">Custom</label>
-                </div>
-            </div>
-            {#if selectedTheme == 'custom'}
-                        <div class="space-y-6 mt-4">
-                            <div>
-                                <ColorPicker bind:hex={$currentBot.settings.theme.bg} label="Background"/>
-                            </div>
-                            <div class="grid grid-cols-3">
-                                <ColorPicker
-                                    bind:hex={$currentBot.settings.theme.botBubbleBG}
-                                    label="Bot Bubble Background"
-                                />
-                                <ColorPicker
-                                    bind:hex={$currentBot.settings.theme.botBubbleText}
-                                    label="Bot Bubble Text"
-                                />
-                            </div>
-                            <div class="grid grid-cols-3">
-                            
-                                                <ColorPicker
-                            bind:hex={$currentBot.settings.theme.userBubbleBG}
-                            label="User Bubble Background"
-                                                />
-                                                <ColorPicker
-                            bind:hex={$currentBot.settings.theme.userBubbleText}
-                            label="User Bubble Text"
-                                                />
-                                                </div>
-                            
-                                                <div class="grid grid-cols-3">
-                            <ColorPicker bind:hex={$currentBot.settings.theme.inputBG} label="Input Background" />
-                            <ColorPicker bind:hex={$currentBot.settings.theme.inputText} label="Input Text" />
-                            <ColorPicker bind:hex={$currentBot.settings.theme.inputBorder} label="Input Border" />
-                                                </div>
-                            
-                                                <div class="grid grid-cols-3">
-                            <ColorPicker
-                                bind:hex={$currentBot.settings.theme.sendButtonBG}
-                                label="Send Button Background"
-                            />
-                            <ColorPicker
-                                bind:hex={$currentBot.settings.theme.sendButtonIconColor}
-                                label="Send Button Icon"
-                            />
-                            </div>
-                        </div>
-                        
-            {/if}
-        </div>
-    </div>
+<div class="card bg-neutral card-compact">
+	<div class="card-body">
+		<h2 class="card-title">Colors</h2>
+		<div class="themes">
+			<div>
+				<input
+					class="hidden"
+					type="radio"
+					id="default"
+					name="theme"
+					value="default"
+					bind:group={selectedTheme}
+				/>
+				<label for="default">ChatNode</label>
+			</div>
+			<div>
+				<input
+					class="hidden"
+					type="radio"
+					id="meta-dark"
+					name="theme"
+					value="meta-dark"
+					bind:group={selectedTheme}
+				/>
+				<label for="meta-dark">Meta dark</label>
+			</div>
+			<div>
+				<input
+					class="hidden"
+					type="radio"
+					id="ios-light"
+					name="theme"
+					value="ios-light"
+					bind:group={selectedTheme}
+				/>
+				<label for="ios-light">iOS light</label>
+			</div>
+			<div>
+				<input
+					class="hidden"
+					type="radio"
+					id="ios-dark"
+					name="theme"
+					value="ios-dark"
+					bind:group={selectedTheme}
+				/>
+				<label for="ios-dark">iOS dark</label>
+			</div>
+			<div>
+				<input
+					class="hidden"
+					type="radio"
+					id="neutral"
+					name="theme"
+					value="neutral"
+					bind:group={selectedTheme}
+				/>
+				<label for="neutral">Neutral</label>
+			</div>
+			<div>
+				<input
+					class="hidden"
+					type="radio"
+					id="custom"
+					name="theme"
+					value="custom"
+					bind:group={selectedTheme}
+				/>
+				<label for="custom">Custom</label>
+			</div>
+		</div>
+		{#if selectedTheme == 'custom'}
+			<div class="space-y-6 mt-4">
+				<div>
+					<ColorPicker bind:hex={$currentBot.settings.theme.bg} label="Background" />
+				</div>
+				<div class="grid grid-cols-3">
+					<ColorPicker
+						bind:hex={$currentBot.settings.theme.botBubbleBG}
+						label="Bot Bubble Background"
+					/>
+					<ColorPicker
+						bind:hex={$currentBot.settings.theme.botBubbleText}
+						label="Bot Bubble Text"
+					/>
+				</div>
+				<div class="grid grid-cols-3">
+					<ColorPicker
+						bind:hex={$currentBot.settings.theme.userBubbleBG}
+						label="User Bubble Background"
+					/>
+					<ColorPicker
+						bind:hex={$currentBot.settings.theme.userBubbleText}
+						label="User Bubble Text"
+					/>
+				</div>
+
+				<div class="grid grid-cols-3">
+					<ColorPicker bind:hex={$currentBot.settings.theme.inputBG} label="Input Background" />
+					<ColorPicker bind:hex={$currentBot.settings.theme.inputText} label="Input Text" />
+					<ColorPicker bind:hex={$currentBot.settings.theme.inputBorder} label="Input Border" />
+				</div>
+
+				<div class="grid grid-cols-3">
+					<ColorPicker
+						bind:hex={$currentBot.settings.theme.sendButtonBG}
+						label="Send Button Background"
+					/>
+					<ColorPicker
+						bind:hex={$currentBot.settings.theme.sendButtonIconColor}
+						label="Send Button Icon"
+					/>
+				</div>
+			</div>
+		{/if}
+	</div>
+</div>
 
 <style lang="postcss">
 	.themes {

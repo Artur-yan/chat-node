@@ -16,11 +16,15 @@
 	});
 
 	export let data: LayoutData;
-
 </script>
 
 <svelte:head>
-	<script src="https://www.chatnode.ai/embed.js" data-chatbot-id="befbfc87e25911db" data-color-1="#0E1729" data-color-2="#3ABFF7" ></script>
+	<script
+		src="https://www.chatnode.ai/embed.js"
+		data-chatbot-id="befbfc87e25911db"
+		data-color-1="#0E1729"
+		data-color-2="#3ABFF7"
+	></script>
 	<script>
 		(function (w, r) {
 			w._rwq = r;

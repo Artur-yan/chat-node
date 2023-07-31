@@ -35,7 +35,14 @@
 	<div class="flex flex-col">
 		<h2 class="text-xl font-bold mb-4 text-secondary">More questions? Try our own AI chatbot</h2>
 		<div class="h-full">
-			<iframe src="https://www.chatnode.ai/embed/befbfc87e25911db" width="100%" height="100%" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';" title="ChatNode AI Assistant"></iframe>
+			<iframe
+				src="https://www.chatnode.ai/embed/befbfc87e25911db"
+				width="100%"
+				height="100%"
+				style="visibility: hidden; border: none;"
+				onload="this.style.visibility='visible';"
+				title="ChatNode AI Assistant"
+			/>
 		</div>
 	</div>
 </section>

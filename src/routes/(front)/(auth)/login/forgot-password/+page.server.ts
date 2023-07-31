@@ -37,7 +37,7 @@ export const actions: Actions = {
 				submitted: false
 			};
 		} catch (err) {
-				console.error(err);
+			console.error(err);
 		}
 	}
 };

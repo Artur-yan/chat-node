@@ -7,7 +7,7 @@
 
 	let busyChangingPlan = false;
 	let referralCode = '';
-	export let billingTerm = 'monthly'
+	export let billingTerm = 'monthly';
 
 	onMount(() => {
 		if (rewardful) {
@@ -52,10 +52,18 @@
 <div>
 	<div class="text-center my-4">
 		<div class="join">
-			<button class="btn join-item border-primary" class:btn-primary={billingTerm == 'monthly'} on:click={() => billingTerm = 'monthly'}>Monthly</button>
-			<button class="btn join-item border-primary" class:btn-primary={billingTerm == 'yearly'} on:click={() => billingTerm = 'yearly'}>Yearly <span class="badge badge-accent capitalize">2 months free</span></button>
+			<button
+				class="btn join-item border-primary"
+				class:btn-primary={billingTerm == 'monthly'}
+				on:click={() => (billingTerm = 'monthly')}>Monthly</button
+			>
+			<button
+				class="btn join-item border-primary"
+				class:btn-primary={billingTerm == 'yearly'}
+				on:click={() => (billingTerm = 'yearly')}
+				>Yearly <span class="badge badge-accent capitalize">2 months free</span></button
+			>
 		</div>
-
 	</div>
 
 	<div class="card border-neutral text-center">
@@ -80,8 +88,6 @@
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 0}
 					>
-						
-
 						{currentPlan === 0 ? 'Current plan' : 'Change plan'}</button
 					>
 				{:else}
@@ -96,7 +102,7 @@
 						class="tooltip border-b border-dotted border-white/30"
 						data-tip="approx. 400,000 characters"
 					>
-					<span class="figure">100,000</span> tokens/bot
+						<span class="figure">100,000</span> tokens/bot
 					</div>
 				</li>
 			</ul>
@@ -120,20 +126,16 @@
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 1}
 						>
-							
-
 							{currentPlan === 1 ? 'Current plan' : 'Change plan'}</button
 						>
 					{:else}
 						<button
-						on:click={(e) => updatePlan(101, e)}
-						class="btn btn-outline btn-secondary"
-						disabled={currentPlan === 101}
-					>
-						
-
-						{currentPlan === 101 ? 'Current plan' : 'Change plan'}</button
-					>
+							on:click={(e) => updatePlan(101, e)}
+							class="btn btn-outline btn-secondary"
+							disabled={currentPlan === 101}
+						>
+							{currentPlan === 101 ? 'Current plan' : 'Change plan'}</button
+						>
 					{/if}
 				{:else}
 					<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
@@ -147,7 +149,7 @@
 						class="tooltip border-b border-dotted border-white/30"
 						data-tip="approx. 1,600,000 characters"
 					>
-					<span class="figure">400,000</span> tokens/bot
+						<span class="figure">400,000</span> tokens/bot
 					</div>
 				</li>
 			</ul>
@@ -171,8 +173,6 @@
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 2}
 						>
-							
-
 							{currentPlan === 2 ? 'Current plan' : 'Change plan'}</button
 						>
 					{:else}
@@ -181,8 +181,6 @@
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 102}
 						>
-							
-
 							{currentPlan === 102 ? 'Current plan' : 'Change plan'}</button
 						>
 					{/if}
@@ -191,27 +189,29 @@
 				{/if}
 			</div>
 			<div class="grid lg:grid-cols-2">
-			<ul>
-				<li><span class="figure">5,000</span> messages/month</li>
-				<li><span class="figure">10</span> Chatbots</li>
-				<li>
-					<div
-						class="tooltip border-b border-dotted border-white/30"
-						data-tip="approx. 3,200,000 characters"
-					>
-					<span class="figure">800,000</span> tokens/bot
-					</div>
-				</li>
-			</ul>
-			<ul class="extra">
-				<li>Add custom logo</li>
-				<li>Slack integration</li>
-			</ul>
+				<ul>
+					<li><span class="figure">5,000</span> messages/month</li>
+					<li><span class="figure">10</span> Chatbots</li>
+					<li>
+						<div
+							class="tooltip border-b border-dotted border-white/30"
+							data-tip="approx. 3,200,000 characters"
+						>
+							<span class="figure">800,000</span> tokens/bot
+						</div>
+					</li>
+				</ul>
+				<ul class="extra">
+					<li>Add custom logo</li>
+					<li>Slack integration</li>
+				</ul>
 			</div>
 		</div>
 	</div>
 	<div class="grid gap-y-8 md:grid-cols-2 max-w-7xl mx-auto">
-		<div class="border border-secondary p-8 rounded-2xl md:rounded-r-none md:border-r-0 bg-base-300">
+		<div
+			class="border border-secondary p-8 rounded-2xl md:rounded-r-none md:border-r-0 bg-base-300"
+		>
 			<div class="flex justify-between">
 				<div class="flex items-center justify-between mb-8">
 					<div>
@@ -227,27 +227,23 @@
 				</div>
 				<div>
 					{#if currentPlan !== undefined}
-					{#if billingTerm == 'monthly'}
-					<button
-						on:click={(e) => updatePlan(3, e)}
-						class="btn btn-outline btn-secondary"
-						disabled={currentPlan === 3}
-					>
-						
-
-						{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
-					>
-				{:else}
-					<button
-						on:click={(e) => updatePlan(103, e)}
-						class="btn btn-outline btn-secondary"
-						disabled={currentPlan === 103}
-					>
-						
-
-						{currentPlan === 103 ? 'Current plan' : 'Change plan'}</button
-					>
-				{/if}
+						{#if billingTerm == 'monthly'}
+							<button
+								on:click={(e) => updatePlan(3, e)}
+								class="btn btn-outline btn-secondary"
+								disabled={currentPlan === 3}
+							>
+								{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
+							>
+						{:else}
+							<button
+								on:click={(e) => updatePlan(103, e)}
+								class="btn btn-outline btn-secondary"
+								disabled={currentPlan === 103}
+							>
+								{currentPlan === 103 ? 'Current plan' : 'Change plan'}</button
+							>
+						{/if}
 					{:else}
 						<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
@@ -262,7 +258,7 @@
 							class="tooltip border-b border-dotted border-white/30"
 							data-tip="approx. 4,000,000 characters"
 						>
-						<span class="figure">1,000,000</span> tokens/bot
+							<span class="figure">1,000,000</span> tokens/bot
 						</div>
 					</li>
 				</ul>
@@ -288,27 +284,23 @@
 				</div>
 				<div>
 					{#if currentPlan !== undefined}
-					{#if billingTerm == 'monthly'}
-					<button
-						on:click={(e) => updatePlan(4, e)}
-						class="btn btn-outline btn-secondary"
-						disabled={currentPlan === 4}
-					>
-						
-
-						{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
-					>
-				{:else}
-					<button
-						on:click={(e) => updatePlan(104, e)}
-						class="btn btn-outline btn-secondary"
-						disabled={currentPlan === 104}
-					>
-						
-
-						{currentPlan === 104 ? 'Current plan' : 'Change plan'}</button
-					>
-				{/if}
+						{#if billingTerm == 'monthly'}
+							<button
+								on:click={(e) => updatePlan(4, e)}
+								class="btn btn-outline btn-secondary"
+								disabled={currentPlan === 4}
+							>
+								{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
+							>
+						{:else}
+							<button
+								on:click={(e) => updatePlan(104, e)}
+								class="btn btn-outline btn-secondary"
+								disabled={currentPlan === 104}
+							>
+								{currentPlan === 104 ? 'Current plan' : 'Change plan'}</button
+							>
+						{/if}
 					{:else}
 						<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
@@ -323,7 +315,7 @@
 							class="tooltip border-b border-dotted border-white/30"
 							data-tip="approx. 12,000,000 characters"
 						>
-						<span class="figure">3,000,000</span> tokens/bot
+							<span class="figure">3,000,000</span> tokens/bot
 						</div>
 					</li>
 				</ul>
@@ -347,18 +339,17 @@
 	.included li {
 		background: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="20" height="20" viewBox="0 0 24 24"%3E%3Cpath fill="%23818CF8" d="m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83L9 20.42Z"%2F%3E%3C%2Fsvg%3E')
 			no-repeat left 3px;
-			@apply pl-8 text-lg;
+		@apply pl-8 text-lg;
 	}
 
 	.extra li {
 		background: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="15" height="15" viewBox="0 0 15 15"%3E%3Cpath fill="%23f470b4" d="M14 7H9V2H7v5H2v2h5v5h2V9h5V7z"%2F%3E%3C%2Fsvg%3E')
 			no-repeat 0 50%;
-			@apply pl-6;
+		@apply pl-6;
 	}
 
-	.figure{
+	.figure {
 		@apply text-secondary font-bold;
-
 	}
 
 	li::before {

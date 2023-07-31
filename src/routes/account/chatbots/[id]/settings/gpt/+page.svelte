@@ -1,52 +1,49 @@
 <script lang="ts">
-    import { currentBot } from '$lib/stores.js';
+	import { currentBot } from '$lib/stores.js';
 
-    export let data
+	export let data;
 
-    let plan = data.subscription.plan
+	let plan = data.subscription.plan;
 </script>
 
 {#if plan === 0}
-<div class="alert alert-warning mb-2 font-bold">GPT-4 is only available on paid plans.</div>
+	<div class="alert alert-warning mb-2 font-bold">GPT-4 is only available on paid plans.</div>
 {/if}
 <div class="card bg-neutral card-compact mb-4">
-    <div class="card-body">
-        <div class="card-title">
-            <h2>GPT Version</h2>
-        </div>
-        <div>
-
-
-        <div class="join">
-            <label class="btn join-item btn-outline btn-neutral aria-checked:bg-primary">
-                <input
-                    class="radio radio-sm radio-primary"
-                    type="radio"
-                    value="3.5"
-                    bind:group={$currentBot.settings.gptVersion}
-                />
-                ChatGPT 3.5 Turbo
-            </label>
-            <label class="btn join-item btn-outline {plan === 0 ? 'btn-disabled' : 'btn-neutral'}">
-                <input
-                    class="radio radio-sm radio-primary"
-                    type="radio"
-                    value="4"
-                    bind:group={$currentBot.settings.gptVersion}
-                    disabled={plan === 0}
-                />
-                GPT-4
-            </label>
-        </div>
-        {#if $currentBot.settings.gptVersion === '4'}
-            <div class="alert alert-warning font-bold mt-2">
-                <div>
-                    <h3 class="text-xl mb-2">Important!</h3>
-                    By enabling GPT-4 every message you send will debit 20 messages from your monthly allowance.
-                </div>
-            </div>
-        {/if}
-    </div>
-
-        </div>
-    </div>
+	<div class="card-body">
+		<div class="card-title">
+			<h2>GPT Version</h2>
+		</div>
+		<div>
+			<div class="join">
+				<label class="btn join-item btn-outline btn-neutral aria-checked:bg-primary">
+					<input
+						class="radio radio-sm radio-primary"
+						type="radio"
+						value="3.5"
+						bind:group={$currentBot.settings.gptVersion}
+					/>
+					ChatGPT 3.5 Turbo
+				</label>
+				<label class="btn join-item btn-outline {plan === 0 ? 'btn-disabled' : 'btn-neutral'}">
+					<input
+						class="radio radio-sm radio-primary"
+						type="radio"
+						value="4"
+						bind:group={$currentBot.settings.gptVersion}
+						disabled={plan === 0}
+					/>
+					GPT-4
+				</label>
+			</div>
+			{#if $currentBot.settings.gptVersion === '4'}
+				<div class="alert alert-warning font-bold mt-2">
+					<div>
+						<h3 class="text-xl mb-2">Important!</h3>
+						By enabling GPT-4 every message you send will debit 20 messages from your monthly allowance.
+					</div>
+				</div>
+			{/if}
+		</div>
+	</div>
+</div>

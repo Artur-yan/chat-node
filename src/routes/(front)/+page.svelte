@@ -51,7 +51,17 @@
 <section class="bg-base-100">
 	<div class="grid container lg:grid-cols-2 items-center gap-8 pb-10 pt-16 mx-auto">
 		<div class="max-lg:text-center">
-			<a href="https://www.producthunt.com/posts/chatnode?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-chatnode" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=399772&theme=light" alt="ChatNode - Train&#0032;ChatGPT&#0032;on&#0032;your&#0032;own&#0032;data&#0044;&#0032;in&#0032;seconds | Product Hunt" style="width: 250px; height: 54px; display: inline-block;" width="250" height="54" /></a>
+			<a
+				href="https://www.producthunt.com/posts/chatnode?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-chatnode"
+				target="_blank"
+				><img
+					src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=399772&theme=light"
+					alt="ChatNode - Train&#0032;ChatGPT&#0032;on&#0032;your&#0032;own&#0032;data&#0044;&#0032;in&#0032;seconds | Product Hunt"
+					style="width: 250px; height: 54px; display: inline-block;"
+					width="250"
+					height="54"
+				/></a
+			>
 			<!-- <a
 				class="btn btn-accent btn-outline h-auto rounded-full mt-4 btn-sm border-accent border bg-white/10"
 				href="https://www.producthunt.com/posts/chatnode?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-chatnode"
@@ -65,9 +75,9 @@
 			</h2>
 
 			<div class="flex items-center max-lg:justify-center">
-			<div class="mt-10 flex gap-4">
-				<a href="/register" class="btn btn-primary btn-outline">Create your chatbot &rarr;</a>
-			</div>
+				<div class="mt-10 flex gap-4">
+					<a href="/register" class="btn btn-primary btn-outline">Create your chatbot &rarr;</a>
+				</div>
 			</div>
 		</div>
 		<div>
@@ -87,7 +97,6 @@
 </section>
 
 <Features />
-
 
 <section id="how-it-works" class="bg-white text-base-100">
 	<div class="py-8 lg:py-20 bg-secondary/50">
@@ -136,7 +145,6 @@
 					width={2102}
 					height={1404}
 					sizes="(min-width: 768px) 30vw, 100vw"
-
 				/>
 			</div>
 
@@ -189,10 +197,12 @@
 					width={2998}
 					height={1782}
 					sizes="(min-width: 768px) 30vw, 100vw"
-
 				/>
 			</div>
-			<div class="md:col-span-3 p-8 lg:pl-20 md:py-10 scroll-m-10 md:row-start-3" id="deploy-publically">
+			<div
+				class="md:col-span-3 p-8 lg:pl-20 md:py-10 scroll-m-10 md:row-start-3"
+				id="deploy-publically"
+			>
 				<h3>Deploy it in public</h3>
 				<div>
 					<h4>Transforming Customer Support with Chatbot Integration.</h4>

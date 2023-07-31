@@ -10,7 +10,6 @@
 
 	export let data;
 
-
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
 	let idOfModelToDelete: string;
@@ -30,9 +29,8 @@
 		}
 	});
 
-
 	const today = new Date();
-	const resetDate = new Date(today.setDate(15))
+	const resetDate = new Date(today.setDate(15));
 	if (today.getDate() < 15) {
 		const resetDate = new Date(today.setMonth(today.getMonth() + 1));
 	}
@@ -105,7 +103,7 @@
 						</div>
 						<div>
 							<div class="flex justify-between">
-								<h4>{data.subscription.cancel_at ? 'Cancelation Date': 'Usage Reset Date'}</h4>
+								<h4>{data.subscription.cancel_at ? 'Cancelation Date' : 'Usage Reset Date'}</h4>
 								<span class="opacity-60">{resetDate.toLocaleDateString()}</span>
 							</div>
 							<progress
@@ -122,7 +120,7 @@
 				</div>
 			</div>
 		</div>
-		{/if}
+	{/if}
 	{#if data.bots.length > 0}
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 			{#each data.bots as bot}
@@ -187,10 +185,7 @@
 										</a>
 									</li>
 									<li>
-										<a
-											href="/account/chatbots/{bot.id}/settings/delete"
-
-										>
+										<a href="/account/chatbots/{bot.id}/settings/delete">
 											<Icon icon="mdi:delete-outline" width="18" /> Delete
 										</a>
 									</li>
@@ -201,38 +196,40 @@
 				</a>
 			{/each}
 		</div>
-	{:else}
-				{#if data.user.user.status !== 'active'}
-					<div class="alert alert-warning my-4">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							class="stroke-current flex-shrink-0 w-6 h-6"
-							><path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-							/></svg
-						>
-						<div>
-							<h3 class="text-xl font-bold mb-2">Check your email</h3>
-							<p class="text-lg">We sent you a link. Please verify your email address before creating your first chatbot</p>
-						</div>
-			
-						<!-- <button class="btn btn-sm btn-ghost" on:click={handleResendVerificationLink}>Resend verification email</button> -->
-					</div>
+	{:else if data.user.user.status !== 'active'}
+		<div class="alert alert-warning my-4">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				class="stroke-current flex-shrink-0 w-6 h-6"
+				><path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+				/></svg
+			>
+			<div>
+				<h3 class="text-xl font-bold mb-2">Check your email</h3>
+				<p class="text-lg">
+					We sent you a link. Please verify your email address before creating your first chatbot
+				</p>
+			</div>
 
-					<p class="text-sm">Is your email ({data.user.user.email}) correct? Change it via <a href="/account/settings" class="link">account settings</a></p>
-				{:else}
-					<div class="card-actions mt-4">
-						<button
-							on:click={() => goto('/account/chatbots/create')}
-							class="btn btn-primary">Create a chatbot</button
-						>
-					</div>
-				{/if}
+			<!-- <button class="btn btn-sm btn-ghost" on:click={handleResendVerificationLink}>Resend verification email</button> -->
+		</div>
+
+		<p class="text-sm">
+			Is your email ({data.user.user.email}) correct? Change it via
+			<a href="/account/settings" class="link">account settings</a>
+		</p>
+	{:else}
+		<div class="card-actions mt-4">
+			<button on:click={() => goto('/account/chatbots/create')} class="btn btn-primary"
+				>Create a chatbot</button
+			>
+		</div>
 	{/if}
 </div>
 

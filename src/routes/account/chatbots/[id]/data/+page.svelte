@@ -50,62 +50,61 @@
 
 <div class="container grid md:grid-cols-[auto_16rem] lg:grid-cols-[auto_32rem] gap-4 my-4">
 	<div>
-	<div class="card card-compact bg-neutral mb-4">
-		<div class="card-body">
-			<div class="card-title">Add Data</div>
-		{#key unique}
-			<AddModelData
-				bind:modelId
-				userId={data.user.user.userId}
-				sessionId={data.user.session.sessionId}
-				subscription={data.subscription}
-				existingTokenCount={data.model.tocken_count}
-				bind:trainingStatus
-			/>
-		{/key}
-		</div>
+		<div class="card card-compact bg-neutral mb-4">
+			<div class="card-body">
+				<div class="card-title">Add Data</div>
+				{#key unique}
+					<AddModelData
+						bind:modelId
+						userId={data.user.user.userId}
+						sessionId={data.user.session.sessionId}
+						subscription={data.subscription}
+						existingTokenCount={data.model.tocken_count}
+						bind:trainingStatus
+					/>
+				{/key}
+			</div>
 		</div>
 		<div class="card card-compact bg-neutral">
 			<div class="card-body">
-		<h2 class="card-title">Data Sources</h2>
-		<div class="overflow-x-auto">
-			<table class="table w-full table-xs mb-10">
-				<thead>
-					<tr>
-						<th>Type</th>
-						<th class="w-full">Name</th>
-						<th />
-					</tr>
-				</thead>
+				<h2 class="card-title">Data Sources</h2>
+				<div class="overflow-x-auto">
+					<table class="table w-full table-xs mb-10">
+						<thead>
+							<tr>
+								<th>Type</th>
+								<th class="w-full">Name</th>
+								<th />
+							</tr>
+						</thead>
 
-				{#each data.modelData as modelData}
-					<tr>
-						<td><div class="badge badge-sm">{modelData.source_type}</div></td>
-						<td class="overflow-clip">
-							{#if modelData.source_type === 'urls'}
-								{modelData.name.split(',').join('\n')}
-							{:else}
-								{modelData.name}
-							{/if}
-						</td>
-						<td
-							><button
-								class="btn btn-sm btn-circle btn-ghost text-error"
-								on:click={() => {
-									sourceToDelete = modelData;
-									deleteDataSourceModal.showModal();
-								}}><Icon icon="mdi:delete-outline" width="16" /></button
-							></td
-						>
-					</tr>
-				{/each}
-			</table>
-		</div>
-		</div>
+						{#each data.modelData as modelData}
+							<tr>
+								<td><div class="badge badge-sm">{modelData.source_type}</div></td>
+								<td class="overflow-clip">
+									{#if modelData.source_type === 'urls'}
+										{modelData.name.split(',').join('\n')}
+									{:else}
+										{modelData.name}
+									{/if}
+								</td>
+								<td
+									><button
+										class="btn btn-sm btn-circle btn-ghost text-error"
+										on:click={() => {
+											sourceToDelete = modelData;
+											deleteDataSourceModal.showModal();
+										}}><Icon icon="mdi:delete-outline" width="16" /></button
+									></td
+								>
+							</tr>
+						{/each}
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div>
-		
 		<div class="h-[calc(100vh_-_16rem)] sticky top-4 mb-10 hidden sm:block">
 			<Chat {modelId} bind:trainingStatus settings={data.model.settings} />
 		</div>

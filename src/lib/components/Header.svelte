@@ -56,7 +56,9 @@
 					<a class="btn btn-sm btn-ghost text-primary mr-2" href="/login">Sign in</a>
 					<a class="btn btn-primary" href="/register">Try for free</a>
 				{:else}
-					<a class="btn btn-ghost text-primary btn-xs md:btn-md" href="/account/chatbots">My chatbots</a>
+					<a class="btn btn-ghost text-primary btn-xs md:btn-md" href="/account/chatbots"
+						>My chatbots</a
+					>
 					<div class="dropdown dropdown-end">
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 						<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -69,9 +71,11 @@
 							class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-64 z-10"
 						>
 							<a href="/account/settings" class="btn btn-ghost">Account Settings</a>
-								<form action="/logout" method="POST" class="contents">
-									<button type="submit" class="btn btn-ghost btn-sm my-2 w-32 mx-auto">Sign out</button>
-								</form>
+							<form action="/logout" method="POST" class="contents">
+								<button type="submit" class="btn btn-ghost btn-sm my-2 w-32 mx-auto"
+									>Sign out</button
+								>
+							</form>
 						</div>
 					</div>
 				{/if}

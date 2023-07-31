@@ -3,14 +3,13 @@
 	import { invalidateAll } from '$app/navigation';
 	import { onMount } from 'svelte';
 
-	
 	export let data;
 
-	let billingTerm = 'monthly';	
-	
+	let billingTerm = 'monthly';
+
 	let currentPlan = data.subscription.plan;
-	
-	if(currentPlan > 100) {
+
+	if (currentPlan > 100) {
 		billingTerm = 'yearly';
 	}
 </script>

@@ -14,12 +14,10 @@
 </svelte:head>
 
 <div>
-
 	<div class="mb-10">
 		<div class="tag">Announcement</div>
 		<h1>Slack Integration</h1>
 	</div>
-
 
 	<p>
 		We're excited to introduce Slack integration. With this addition, ChatNode makes integrating
@@ -67,5 +65,4 @@
 			class="link">contact@chatnode.ai</a
 		>
 	</p>
-
 </div>

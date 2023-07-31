@@ -11,7 +11,6 @@ export const load = async ({ locals, params }) => {
 		}
 	});
 
-
 	if (user.session && model && user.session.userId === model.user_id) {
 		currentBot.set(model);
 		return { model, user };

@@ -8,12 +8,8 @@
 	export let id: string;
 	export let name: string;
 	export let settings = defaultSettings;
-	export let open = false;
 
 	let busySaving = false;
-	let deleting = false;
-
-
 
 	const handleSubmit = async () => {
 		busySaving = true;
@@ -23,15 +19,12 @@
 		invalidateAll();
 	};
 
-
 	if (!settings.gptVersion) {
 		settings.gptVersion = '3.5';
 	}
 	if (settings.temperature === undefined) {
 		settings.temperature = 0.1;
 	}
-
-
 </script>
 
 <div>
@@ -42,7 +35,6 @@
 			</label>
 			<input type="text" bind:value={name} class="input input-lg w-full" placeholder="Untitled" />
 		</div>
-
 
 		<label for="my-modal" class="btn btn-error btn-sm btn-outline btn-circle mx-auto"
 			><Icon icon="mdi:delete-outline" width="16" /></label
@@ -56,5 +48,3 @@
 		</div>
 	</form>
 </div>
-
-

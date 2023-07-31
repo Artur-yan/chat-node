@@ -1,5 +1,5 @@
 export const GET = () => {
-    console.log('hello')
+	console.log('hello');
 
-    return new Response(String('console.log("hello world")'))
-}
+	return new Response(String('console.log("hello world")'));
+};

@@ -124,7 +124,7 @@
 							? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
 							: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
 					>
-						{@html postProcessMsgHTML(marked.parse(msg.text, {mangle: false, headerIds: false}))}
+						{@html postProcessMsgHTML(marked.parse(msg.text, { mangle: false, headerIds: false }))}
 					</div>
 				</div>
 			{/each}

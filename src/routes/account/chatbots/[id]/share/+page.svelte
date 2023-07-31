@@ -12,7 +12,11 @@
 	let jsEmbedCode;
 	const url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
 
-	$: jsEmbedCode = `<script src="${PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${data.model.id}" data-color-1="${color1}" data-color-2="${color2}" ${openChatByDefault ? 'data-open' : ''}><\/script>`;
+	$: jsEmbedCode = `<script src="${PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${
+		data.model.id
+	}" data-color-1="${color1}" data-color-2="${color2}" ${
+		openChatByDefault ? 'data-open' : ''
+	}><\/script>`;
 </script>
 
 <svelte:head>
@@ -87,7 +91,7 @@
 					<input type="checkbox" class="toggle" bind:checked={openChatByDefault} />
 					<span class="label-text">Open chat window by default</span>
 				</label>
-			  </div>
+			</div>
 		</div>
 	</div>
 

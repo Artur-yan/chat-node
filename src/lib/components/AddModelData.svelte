@@ -77,7 +77,7 @@
 						clearInterval(checkFetchingProgress);
 						busyFetchingUrls = false;
 						$alert = { type: 'error', msg: 'Failed to fetch web pages from the provided URL' };
-					} 
+					}
 				}
 			}, 2500);
 		} catch (err) {
