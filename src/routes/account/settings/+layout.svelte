@@ -36,18 +36,20 @@
 	);
 </script>
 
-<div class="container flex items-center gap-4 flex-wrap">
-	<h1 class="font-bold text-lg text-secondary">Account</h1>
-	<div class="tabs tabs-boxed">
-		<a href={settingsPath} class="tab" class:tab-active={settingsPath == $page.url.pathname}
-			>Settings</a
-		>
-		<a href={planPath} class="tab" class:tab-active={planPath == $page.url.pathname}>Change plan</a>
-		<button on:click={redirectToStripeBilling} class="tab">Billing</button>
+<div class="bg-neutral py-1">
+	<div class="container flex items-center justify-between gap-4 flex-wrap">
+		<h1 class="py-1 px-2">Account</h1>
+		<div class="tabs tabs-boxed bg-neutral">
+			<a href={settingsPath} class="tab" class:tab-active={settingsPath == $page.url.pathname}
+				>Settings</a
+			>
+			<a href={planPath} class="tab" class:tab-active={planPath == $page.url.pathname}>Change plan</a>
+			<button on:click={redirectToStripeBilling} class="tab">Billing</button>
+		</div>
 	</div>
 </div>
 {#if data.subscription?.next_billing_cycle}
-	<div class="container mt-2">
+	<div class="container mt-4">
 		<div class="card card-compact card-bordered border-neutral mb-4">
 			<div class="card-body">
 				<div class="flex justify-between">
