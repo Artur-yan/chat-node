@@ -6,6 +6,7 @@
 	import themes from '$lib/chatThemes';
 	import { currentBot } from '$lib/stores.js';
 	import { enhance } from '$app/forms';
+	import { alert } from '$lib/stores';
 
 	let theme = data.model.settings.theme || defaultSettings.theme;
 
@@ -16,8 +17,14 @@
 	let uploadedImage: string;
 
 	export let form
-	$: console.log(form)
-
+	
+	$: {if(form) {
+		$alert = {
+			type: 'success',
+			msg: 'Avatar Updated'
+		}
+	}
+}
 	const handleAvatarSelect = async (e: Event) => {
 		const image = (e.target as HTMLInputElement)?.files?.[0];
 		if (!image) return;

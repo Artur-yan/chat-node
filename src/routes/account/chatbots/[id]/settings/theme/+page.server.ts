@@ -65,12 +65,12 @@ export const actions = {
 						
 						await updateAvartarImg(params.id, result.secure_url, result.public_id);
 
-						return {
-							status: 200
-						}
-
 					}
 				);
+		}
+
+		return {
+			success: true
 		}
 	}
 };
