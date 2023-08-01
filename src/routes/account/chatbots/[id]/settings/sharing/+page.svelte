@@ -75,7 +75,7 @@
 						class="toggle toggle-warning input-success toggle-sm"
 						bind:checked={enableEverywhere}
 					/>
-					<span class="label-text">Enable Everywhere</span>
+					<span class="label-text">Enable everywhere</span>
 				</label>
 				{#if !enableEverywhere}
 					{#each $currentBot.settings.allowedUrls as url, i}
