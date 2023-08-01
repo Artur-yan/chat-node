@@ -42,7 +42,7 @@
 				>Your chatbot is currently set to private. To share it, you must make it public first.</span
 			>
 			<div>
-				<a class="btn btn-sm" href="/account/chatbots/{data.model.id}/settings#publishing"
+				<a class="btn btn-sm" href="/account/chatbots/{data.model.id}/settings/sharing"
 					>Settings</a
 				>
 			</div>
