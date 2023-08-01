@@ -21,7 +21,7 @@
 	$: enableEverywhere ? $currentBot.settings.allowedUrls = ['*'] : $currentBot.settings.allowedUrls = currentAllowedUrls;
 
 	onMount(() => {
-		if ($currentBot.settings.allowedUrls[0] = '*') {
+		if ($currentBot.settings.allowedUrls[0] == '*') {
 			enableEverywhere = true;
 		}
 	});
