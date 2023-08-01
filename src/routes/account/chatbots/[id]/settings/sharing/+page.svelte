@@ -83,7 +83,7 @@
 				<label class="label cursor-pointer flex justify-start gap-4 self-start">
 					<input
 						type="checkbox"
-						class="toggle toggle-warning input-success toggle-sm"
+						class="toggle toggle-info toggle-sm"
 						bind:checked={enableEverywhere}
 					/>
 					<span class="label-text">Enable everywhere</span>
@@ -109,8 +109,8 @@
 							</div>
 						{/if}
 					{/each}
-					<button class="btn btn-xs btn-ghost btn-primary" type="button" on:click={() => addUrl('')} disabled={$currentBot.settings.allowedUrls[$currentBot.settings.allowedUrls.length - 1] === ''}
-						><Icon icon="mdi:plus-circle-outline" width="16" class="mr-2" /> Add URL</button
+					<button class="btn btn-sm btn-primary" type="button" on:click={() => addUrl('')} disabled={$currentBot.settings.allowedUrls[$currentBot.settings.allowedUrls.length - 1] === ''}
+						><Icon icon="mdi:plus-circle-outline" />Add URL</button
 					>
 				{/if}
 			</div>
