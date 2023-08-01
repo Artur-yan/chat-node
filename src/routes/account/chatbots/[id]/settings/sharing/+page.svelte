@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { currentBot } from '$lib/stores.js';
 	import Icon from '@iconify/svelte';
+	import { onMount } from 'svelte';
 
 	export let data;
 
@@ -19,17 +20,23 @@
 
 	$: enableEverywhere ? $currentBot.settings.allowedUrls = ['*'] : $currentBot.settings.allowedUrls = currentAllowedUrls;
 
-	// const checkUrlTroubleSigns = (url: string) => {
-	// 	const urlTroubleStrings = ['http', 'www'];
-	// 	for (const troubleString of urlTroubleStrings) {
-	// 		if (url.includes(troubleString)) {
-	// 			return {warning: true, msg: "Consider removing prefixes like 'http://' or 'www.' from the url if you are experiencing errors."};
-	// 		} else if (url.slice(-1) == '/') {
-	// 			return {warning: true, msg: "Consider removing the trailing '/' from the end of url if you are experiencing errors."};
-	// 		}
-	// 	}
-	// 	return {warning: false};
-	// };
+	onMount(() => {
+		if ($currentBot.settings.allowedUrls[0] = '*') {
+			enableEverywhere = true;
+		}
+	});
+
+	const checkUrlTroubleSigns = (url: string) => {
+		const urlTroubleStrings = ['http', 'www'];
+		for (const troubleString of urlTroubleStrings) {
+			if (url.includes(troubleString)) {
+				return {warning: true, msg: "Consider removing prefixes (like 'http://' or 'www.') from the url if your bot will not load."};
+			} else if (url.slice(-1) == '/') {
+				return {warning: true, msg: "Consider removing the trailing slash ('/') from the end of url if your bot will not load."};
+			}
+		}
+		return {warning: false};
+	};
 
 </script>
 
@@ -65,10 +72,14 @@
 				<h2>Allowed URLs</h2>
 			</div>
 			<div class="space-y-4">
-				<p class="text-xs">
-					Add specific urls this bot should be permitted to be displayed at or enable sharing everywhere.<br />If you
-					leave this blank, you will only be able to share this chatbot via the public url.
+				<p class="text-sm">
+					Specify URLs on which this bot should be permitted to be displayed or enable sharing everywhere.
 				</p>
+				{#if $currentBot.settings.allowedUrls.length == 0}
+					<div class="alert alert-warning">
+						You have not added any allowed URLs. This bot will only be accessible via the public url.
+					</div>
+				{/if}
 				<label class="label cursor-pointer flex justify-start gap-4 self-start">
 					<input
 						type="checkbox"
@@ -86,13 +97,19 @@
 								class="input w-full"
 								placeholder="chatnode.com"
 								autofocus
+								on:focusout={() => {console.log($currentBot.settings.allowedUrls[i]); if($currentBot.settings.allowedUrls[i] === '') {removeUrl(i)}}}
 							/>
 							<button class="btn text-error/75" on:click={() => removeUrl(i)}
 								><Icon icon="mdi:minus-circle-outline" width="16" /></button
 							>
 						</div>
+						{#if checkUrlTroubleSigns(url).warning}
+							<div class="alert alert-warning">
+								{checkUrlTroubleSigns(url).msg}
+							</div>
+						{/if}
 					{/each}
-					<button class="btn btn-xs btn-ghost btn-primary" type="button" on:click={() => addUrl('')}
+					<button class="btn btn-xs btn-ghost btn-primary" type="button" on:click={() => addUrl('')} disabled={$currentBot.settings.allowedUrls[$currentBot.settings.allowedUrls.length - 1] === ''}
 						><Icon icon="mdi:plus-circle-outline" width="16" class="mr-2" /> Add URL</button
 					>
 				{/if}
