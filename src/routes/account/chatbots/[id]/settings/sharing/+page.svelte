@@ -17,7 +17,7 @@
 
 	const currentAllowedUrls = $currentBot.settings.allowedUrls;
 
-	$: enableEverywhere ? $currentBot.settings.allowedUrls = '*' : $currentBot.settings.allowedUrls = currentAllowedUrls;
+	$: enableEverywhere ? $currentBot.settings.allowedUrls = ['*'] : $currentBot.settings.allowedUrls = currentAllowedUrls;
 
 	// const checkUrlTroubleSigns = (url: string) => {
 	// 	const urlTroubleStrings = ['http', 'www'];
