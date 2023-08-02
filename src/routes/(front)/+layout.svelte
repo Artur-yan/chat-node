@@ -1,7 +1,6 @@
 <script lang="ts">
 	import '../../app.postcss';
 	import Header from '$lib/components/Header.svelte';
-	import type { LayoutData } from './$types';
 	import Footer from '$lib/components/Footer.svelte';
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
@@ -14,7 +13,6 @@
 		enableAutoPageviews();
 	});
 
-	export let data: LayoutData;
 </script>
 
 <svelte:head>
@@ -69,7 +67,7 @@
 	<!-- End Facebook Pixel Code -->
 </svelte:head>
 
-<Header user={data.user} includePageLinks={true} />
+<Header />
 
 <main id="main">
 	<slot />

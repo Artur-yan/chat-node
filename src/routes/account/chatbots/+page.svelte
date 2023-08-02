@@ -57,21 +57,23 @@
 	<title>My Chatbots | ChatNode</title>
 </svelte:head>
 
-<div class="container pb-20">
-	<div class="flex justify-between my-2 items-center">
+<div class="bg-neutral py-2">
+	<div class="container flex justify-between items-center">
 		<div>
-			<h1 class="text-xl font-bold text-secondary">Chatbots</h1>
+			<h1 class="font-bold">Chatbots</h1>
 		</div>
 		<button
 			on:click={() => goto('/account/chatbots/create')}
-			class="btn btn-primary"
+			class="btn btn-primary btn-sm btn-outline"
 			disabled={data.user.user.status !== 'active' || botUsage >= 1}
-			>Create <Icon icon="mdi:plus-box" class="ml-2" height="20" /></button
+			>New Bot <Icon icon="mdi:plus-box" class="ml-1" height="20" /></button
 		>
 	</div>
+</div>
+<div class="container pb-20">
 
 	{#if data.user.user.status === 'active'}
-		<div class="card card-compact card-bordered border-neutral mb-4">
+		<div class="card card-compact bg-base-200 my-4">
 			<div class="card-body">
 				<div class="flex gap-8 items-center">
 					<div class="grid md:grid-cols-3 gap-2 md:gap-8 items-center w-full">
@@ -225,10 +227,15 @@
 			<a href="/account/settings" class="link">account settings</a>
 		</p>
 	{:else}
-		<div class="card-actions mt-4">
-			<button on:click={() => goto('/account/chatbots/create')} class="btn btn-primary"
-				>Create a chatbot</button
-			>
+		<div class="card bg-base-300">
+			<div class="card-body items-center py-[10vh]">
+				<h2 class="card-title font-bold text-2xl">Get Started</h2>
+				<div class="card-actions justify-center">
+					<button on:click={() => goto('/account/chatbots/create')} class="btn btn-accent"
+						>Create a chatbot</button
+					>
+				</div>
+			</div>
 		</div>
 	{/if}
 </div>

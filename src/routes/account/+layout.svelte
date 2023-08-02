@@ -2,7 +2,7 @@
 	import type { LayoutData } from './$types';
 
 	import '../../app.postcss';
-	import Header from '$lib/components/Header.svelte';
+	import HeaderAdmin from '$lib/components/HeaderAdmin.svelte';
 	import Toast from '$lib/components/Toast.svelte';
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
@@ -41,7 +41,7 @@
 	</script>`}
 </svelte:head>
 
-<Header user={data.user} />
+<HeaderAdmin user={data.user} />
 
 <main class="flex flex-col basis-full bg-base-100">
 	<slot />

@@ -1,12 +1,9 @@
 <script>
-	import Img from '@zerodevx/svelte-img';
 	import Chat from '$lib/components/Chat.svelte';
-	import screenshot2 from '$lib/assets/internal-research-screenshot.jpg?run';
-	import screenshotAddData from '$lib/assets/chatnode-add-data-screenshot.jpg?run';
-	import screenshotPublish from '$lib/assets/chatnode-publish-settings-screenshot.jpg?run';
 	import PricingGrid from '$lib/components/PricingGrid.svelte';
 	import Features from '$lib/components/Features.svelte';
 	import ContactSection from '$lib/components/ContactSection.svelte';
+	import {fade} from 'svelte/transition';
 
 	let isThinking = false;
 	let messages = [
@@ -15,6 +12,7 @@
 			sender: 'bot'
 		}
 	];
+	let activeTab = 0
 
 	const demoChat = async () => {
 		await new Promise((r) => setTimeout(r, 1000));
@@ -48,45 +46,36 @@
 	<link rel="“canonical”" href="https://www.chatnode.ai" />
 </svelte:head>
 
-<section class="bg-base-100">
-	<div class="grid container lg:grid-cols-2 items-center gap-8 pb-10 pt-16 mx-auto">
+<section>
+	<div class="grid container lg:grid-cols-2 items-center gap-8 mx-auto min-h-[80vh]">
 		<div class="max-lg:text-center">
-			<a
-				href="https://www.producthunt.com/posts/chatnode?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-chatnode"
-				target="_blank"
-				><img
-					src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=399772&theme=light"
-					alt="ChatNode - Train&#0032;ChatGPT&#0032;on&#0032;your&#0032;own&#0032;data&#0044;&#0032;in&#0032;seconds | Product Hunt"
-					style="width: 250px; height: 54px; display: inline-block;"
-					width="250"
-					height="54"
-				/></a
-			>
-			<!-- <a
-				class="btn btn-accent btn-outline h-auto rounded-full mt-4 btn-sm border-accent border bg-white/10"
-				href="https://www.producthunt.com/posts/chatnode?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-chatnode"
-				><span class="badge badge-accent badge-sm mr-1 hidden md:flex">🤍</span> We're live on Product Hunt today. Please suport us!</a
-			> -->
 
 			<h2
-				class="mt-6 mb-6 text-5xl lg:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-[8em] max-lg:mx-auto"
+				class="mt-6 mb-6 w-[11ch] text-5xl lg:text-7xl 2xl:text-8xl tracking-tight font-extrabold text-secondary max-w-[8em] max-lg:mx-auto"
 			>
 				Train ChatGPT on your data
 			</h2>
 
+			<div class="text-2xl font-b max-w-[24ch]">Build a chatbot to answer any queries on your
+			</div>
+
 			<div class="flex items-center max-lg:justify-center">
-				<div class="mt-10 flex gap-4">
-					<a href="/register" class="btn btn-primary btn-outline">Create your chatbot &rarr;</a>
+				<div class="mt-20 flex gap-4">
+					<a href="/register" class="btn btn-primary btn-lg -ml-1">Create your free chatbot</a>
 				</div>
 			</div>
+			<p class="text-sm mt-2">No credit card required</p>
 		</div>
 		<div>
-			<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto">
+			<div class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto relative overflow-visible">
+				<div class="absolute bottom-20 left-6" hidden={messages.length > 3}>
+					<div class="badge badge-accent badge-lg badge-outline mr-1">Try Me</div> <span class="text-sm font-bold">I'm trained on ChatNode</span>
+				</div>
 				<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
 					<div class="w-full">
 						<Chat
 							modelId="befbfc87e25911db"
-							{messages}
+							bind:messages
 							avatar="https://res.cloudinary.com/duoacapcy/image/upload/v1687011043/ChatNode-Logo-Avatar_fdyalc.svg"
 						/>
 					</div>
@@ -96,145 +85,75 @@
 	</div>
 </section>
 
-<Features />
+<section class="bg-black animated-gradent-bg min-h-screen flex justify-center items-center">
+	<video controls width="1792" height="1080" class="max-w-5xl shadow-2xl rounded-md" autoplay muted>
+		<source src="/Long demo.mp4" type="video/mp4">
+	  Your browser does not support the video tag.
+	  </video>
+</section>
 
-<section id="how-it-works" class="bg-white text-base-100">
-	<div class="py-8 lg:py-20 bg-secondary/50">
-		<h2 class="p-4 md:pl-10 lg:pl-20 text-3xl lg:text-5xl font-bold mb-10">
-			What makes ChatNode different?
-		</h2>
-		<div class="grid md:grid-cols-5 md:gap-8 lg:gap-20" id="your-data">
-			<div class="md:col-span-2 md:col-start-4">
-				<Img
-					class="w-full h-full object-cover object-left md:rounded-l-xl shadow-2xl shadow-secondary"
-					src={screenshotAddData}
-					alt="Screenshot of training GPT ChatBot on the ChatNode website"
-					width={2970}
-					height={1537}
-					sizes="(min-width: 768px) 30vw, 100vw"
-				/>
-			</div>
+<section id="feature-vids" class="container py-8">
+	<div class="grid grid-cols-2 gap-2">
+		<button class="btn h-20 text-xl btn-primary {activeTab == 0 ? 'active' : 'btn-outline'}" on:click={() => activeTab = 0}>Train</button>
+		<button class="btn h-20 text-xl btn-secondary {activeTab == 1 ? 'active' : 'btn-outline'}" on:click={() => activeTab = 1}>Integrate</button>
+	</div>
+	<div class="grid grid-cols-[auto_32rem] gap-4 mt-4 {activeTab == 0 ? 'bg-primary' : 'bg-secondary'} p-6 rounded-md transition-colors duration-1000">
+						{#if activeTab === 0}
+						<video controls width="1792" height="1080"  class="rounded-md" autoplay muted in:fade>
+							<source src="/Long demo.mp4" type="video/mp4">
+						  Your browser does not support the video tag.
+						  </video>
+						  <div class="p-10 text-primary-content rounded-md bg-white/50">
+							<h2 class="text-2xl font-bold mb-4">Simple and fast scraping of entire websites, huge pdfs or simple custom text.</h2>
+							<p class="text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, quisquam magni quos deserunt quasi nesciunt. Sit asperiores similique explicabo voluptatem minus illo commodi temporibus error harum nesciunt. Deserunt, vero dolorem.</p>
+						  </div>
+						  {/if}
+						  {#if activeTab === 1}
+						  <video controls width="1792" height="1080" class="rounded-md" autoplay muted in:fade>
+							  <source src="/Long demo.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+							</video>
+							<div class="p-10 text-primary-content rounded-md bg-white/50">
+								<h2 class="text-2xl font-bold mb-4">Once your bot has all the answers, deploy it on your website, share a url or integrate it with Slack</h2>
+								<p class="text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, quisquam magni quos deserunt quasi nesciunt. Sit asperiores similique explicabo voluptatem minus illo commodi temporibus error harum nesciunt. Deserunt, vero dolorem.</p>
+							  </div>
+						  {/if}
+					</div>
+</section>
 
-			<div class="md:col-span-3 p-8 lg:pl-20 py-10 md:row-start-1">
-				<h3>Train on your data</h3>
-				<div>
-					<p>
-						GPT Chatbot has the ability to quickly learn from a diverse range of sources. With this
-						unique functionality, you can effortlessly train your bot by providing any URL of your
-						choice. The AI swiftly extracts essential information and trains within a mere 10
-						seconds!
-					</p>
-
-					<p>
-						In addition to URLs, you have the option to directly copy and paste text into the
-						training platform for quick learning.
-					</p>
-
-					<p>
-						To further diversify your bot's knowledge, you can even upload PDF documents that you
-						would like it to be educated on.
-					</p>
-				</div>
-			</div>
-
-			<div class="md:col-span-2">
-				<Img
-					class="w-full h-full object-cover object-right rounded-r-xl shadow-2xl shadow-secondary"
-					src={screenshot2}
-					alt="Screenshot of training GPT ChatBot on the ChatNode website"
-					width={2102}
-					height={1404}
-					sizes="(min-width: 768px) 30vw, 100vw"
-				/>
-			</div>
-
-			<div class="md:col-span-3 md:col-start-3 p-8 md:py-10 lg:pr-20 scroll-m-10" id="internal-use">
-				<h3>Use the bot internally</h3>
-				<h4>Revolutionizing Data Access with Chatbots for Company Teams.</h4>
-				<div>
-					<p>
-						In today's corporate world, our advanced chatbot provides instant access to vital
-						information from various sources, streamlining company operations and collaboration.
-					</p>
-
-					<h4>Effortless Integration:</h4>
-					<p>
-						Our chatbot's seamless integration into a company's workflow tools ensures efficient
-						access to crucial data from multiple repositories, enhancing problem-solving and
-						innovation.
-					</p>
-
-					<h4>24/7 Support:</h4>
-					<p>
-						The chatbot's responsive nature offers organizations on-demand assistance, promoting
-						informed decision-making and increased productivity.
-					</p>
-
-					<h4>Time and Cost Efficiency:</h4>
-					<p>
-						The chatbot's instant data retrieval capabilities save valuable time and reduce costs,
-						allowing team members to focus on critical tasks that drive company growth.
-					</p>
-
-					<h4>Knowledge Sharing:</h4>
-					<p>
-						The chatbot centralizes vital information acquired from diverse sources, enabling
-						effective knowledge sharing across teams.
-					</p>
-
-					<p>
-						In summary, our chatbot significantly enhances company team communication,
-						collaboration, and decision-making—a valuable as set in today's competitive business
-						landscape.
-					</p>
-				</div>
-			</div>
-			<div class="md:col-span-2 md:col-start-4">
-				<Img
-					class="w-full h-full object-cover object-left md:rounded-l-xl shadow-2xl shadow-secondary"
-					src={screenshotPublish}
-					alt="Screenshot of training GPT ChatBot on the ChatNode website"
-					width={2998}
-					height={1782}
-					sizes="(min-width: 768px) 30vw, 100vw"
-				/>
-			</div>
-			<div
-				class="md:col-span-3 p-8 lg:pl-20 md:py-10 scroll-m-10 md:row-start-3"
-				id="deploy-publically"
-			>
-				<h3>Deploy it in public</h3>
-				<div>
-					<h4>Transforming Customer Support with Chatbot Integration.</h4>
-
-					<p>
-						Our advanced chatbot catalyzes a self-service revolution for your company website,
-						providing instant, round-the-clock answers to customer queries while reducing the
-						support team's workload.
-					</p>
-
-					<h4>Intelligent Assistance:</h4>
-					<p>
-						By handling routine inquiries, the chatbot streamlines support processes, improves
-						response times, and allows your team to focus on complex issues, enhancing customer
-						satisfaction.
-					</p>
-
-					<h4>Adaptable Knowledge Base:</h4>
-					<p>
-						Trained on diverse sources and regularly updated, our chatbot offers accurate and
-						context-aware answers, customized to your company’s domain and branding.
-					</p>
-
-					<p>
-						In summary, our chatbot delivers a powerful, efficient, and cost-effective support
-						experience that meets the evolving demands of today's digital landscape.
-					</p>
+<section class="text-center py-20 container">
+	<div class="flex justify-center">
+		<h2 class="font-bold text-3xl relative py-4 px-8"><div class="dot-corners"><div /><div /></div>Some Use Cases</h2>
+	</div>
+	<div class="grid grid-cols-4 gap-8 my-10">
+		{#each
+			[
+				'Michael made an Air BnB assistant to answer his guests questions about checkin/out, hosue rules, the neighborhood and more.',
+				'Joanne is answering fewer questions about the products in her ecommerce store after feeding all of her customer support emails into her bot.',
+				"Eric is finding missing info on his marketing websites after reviewing answers to basic questions about the site's purpose.",
+				'Simba is asking questions about her own notes shes taken in meetings to help her remember what was said.	'
+			]
+		as _, i}
+		<div class="card bg-neutral">
+			<div class="card-body justify-center">
+				<div class="card-title">
+					{_}
 				</div>
 			</div>
 		</div>
+	{/each}
+
 	</div>
+	<button class="btn btn-primary btn-outline">What are yours?</button>
+	<a href="twitter.com" class="block text-xs text-primary/80 mt-2">@ChatNode</a>
 </section>
+
+<div class="py-32">
+	<div class="flex justify-center">
+		<h2 class="font-bold text-3xl relative py-4 px-4 w-[22vw] text-center text-secondary mb-10"><div class="dot-corners"><div /><div /></div>Features</h2>
+	</div>
+	<Features />
+</div>
 
 <section id="pricing" class="bg-base-300py py-10 lg:py-20">
 	<div class="container">
@@ -243,18 +162,10 @@
 	</div>
 </section>
 
-<ContactSection />
+<div>Want to learn more?</div>
 
-<div>
-	<style lang="postcss">
-		body {
-			@apply pt-10;
-		}
-		#header {
-			@apply fixed inset-0 bottom-auto z-20 shadow-lg;
-		}
-	</style>
-</div>
+
+<!-- <div class="alert alert-info fixed bottom-24 max-w-[24rem] right-5 leading-7 text-center z-10">Ask me something about ChatNode! You can have a chat bot just like this on your website.</div> -->
 
 <style lang="postcss">
 	#how-it-works {
@@ -270,4 +181,51 @@
 	#how-it-works p {
 		@apply mb-5 2xl:mb-12;
 	}
+
+
+	.animated-gradent-bg {
+	background: linear-gradient(-45deg, #0E1729, #19B4F7, #0C1222, #818CF8);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+		background-size: 600% 600%;
+
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+.dot-corners{
+	@apply absolute inset-0 text-base leading-none;
+}
+
+.dot-corners div{
+	@apply absolute left-0 right-0 text-secondary;
+}
+
+.dot-corners div:first-child{
+	@apply top-0;
+}
+
+.dot-corners div::before{
+	content: '';
+	@apply absolute left-0 w-1 h-1 rounded-full bg-secondary/50;
+}
+.dot-corners div::after{
+	content: '';
+	@apply absolute right-0 w-1 h-1 rounded-full bg-secondary/50;
+}
+
+.dot-corners div:last-child{
+	@apply bottom-0;
+}
 </style>
+
+

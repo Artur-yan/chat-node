@@ -1,13 +1,19 @@
 <script>
-	export let user;
-	export let includePageLinks = false;
 
 	import Icon from '@iconify/svelte';
 
 	let links = [
 		{
-			title: 'How it works',
-			href: '/#how-it-works'
+			title: 'Demo',
+			href: '/#'
+		},
+		{
+			title: 'Use Cases',
+			href: '/#'
+		},
+		{
+			title: 'Features',
+			href: '/#'
 		},
 		{
 			title: 'Pricing',
@@ -16,7 +22,7 @@
 	];
 </script>
 
-<header id="header" class="py-2 bg-base-300 border-b border-black/80">
+<header id="header" class="py-10">
 	<nav class="container">
 		<div class="flex flex-wrap justify-between items-center">
 			<div class="flex items-center justify-center gap-10">
@@ -38,7 +44,6 @@
 
 					<span class="text-lg font-bold">ChatNode</span>
 				</a>
-				{#if includePageLinks}
 					<div class="hidden lg:flex">
 						<ul class="flex flex-col mt-4 lg:flex-row text-sm lg:space-x-8 lg:mt-0 font-bold">
 							{#each links as { title, href }}
@@ -48,37 +53,11 @@
 							{/each}
 						</ul>
 					</div>
-				{/if}
 			</div>
 
 			<div class="flex items-center lg:order-2">
-				{#if !user.session}
-					<a class="btn btn-sm btn-ghost text-primary mr-2" href="/login">Sign in</a>
-					<a class="btn btn-primary" href="/register">Try for free</a>
-				{:else}
-					<a class="btn btn-ghost text-primary btn-xs md:btn-md" href="/account/chatbots"
-						>My chatbots</a
-					>
-					<div class="dropdown dropdown-end">
-						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-						<!-- svelte-ignore a11y-label-has-associated-control -->
-						<label tabindex="0" class="btn btn-ghost btn-circle text-primary"
-							><Icon icon="mdi:account-circle-outline" width="24" /></label
-						>
-						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-						<div
-							tabindex="0"
-							class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-64 z-10"
-						>
-							<a href="/account/settings" class="btn btn-ghost">Account Settings</a>
-							<form action="/logout" method="POST" class="contents">
-								<button type="submit" class="btn btn-ghost btn-sm my-2 w-32 mx-auto"
-									>Sign out</button
-								>
-							</form>
-						</div>
-					</div>
-				{/if}
+				<a class="btn btn-sm btn-ghost text-primary mr-2" href="/login">Sign in</a>
+				<a class="btn btn-primary" href="/register">Sign Up</a>
 			</div>
 		</div>
 	</nav>
