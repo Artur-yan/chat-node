@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Chat from '$lib/components/Chat.svelte';
 	import PricingGrid from '$lib/components/PricingGrid.svelte';
 	import Features from '$lib/components/Features.svelte';
@@ -34,6 +34,26 @@
 		];
 	};
 
+	let arrow: HTMLDivElement
+	let outerHeight: number
+	let outerWidth: number
+	let scrollY: number
+
+	let trigO: number
+	let trigA: number
+	let arrowRotation: number
+
+	const trig = () => {
+		const arrowY = arrow.offsetTop - scrollY
+		const arrowX = arrow.offsetLeft
+		const trigO = outerHeight - arrowY - 100
+		const trigA = outerWidth - arrowX
+		const theta = Math.atan(trigO / trigA)
+
+		console.log(theta)
+		arrowRotation = theta
+	}
+
 	demoChat();
 </script>
 
@@ -45,6 +65,8 @@
 	/>
 	<link rel="“canonical”" href="https://www.chatnode.ai" />
 </svelte:head>
+
+<svelte:window bind:scrollY bind:outerHeight bind:outerWidth on:scroll={trig} />
 
 <section>
 	<div class="grid container lg:grid-cols-2 items-center gap-8 mx-auto min-h-[80vh]">
@@ -121,6 +143,31 @@
 					</div>
 </section>
 
+<section class="container text-center py-20">
+	<div class="flex justify-center">
+		<h2 class="font-bold text-3xl relative py-4 px-8"><div class="dot-corners"><div /><div /></div>Ways to Share</h2>
+	</div>
+	
+	<div class="grid md:grid-cols-3 divide-x divide-neutral my-10">
+		<div></div>
+		<div></div>
+		<div>
+
+			<div>
+				<h3 class="text-2xl font-bold">Popup Chat</h3>
+				<div bind:this={arrow} class="relative w-12 inline-block aspect-square text-6xl text-accent" style="transform: rotate({arrowRotation}rad);">
+					&rarr;
+					<div class="absolute top-0 left-0 radial-progress" style="--size: 4rem; --value: 30; --thickness: 2px; transform: rotate({arrowRotation * 15}rad);"></div>
+				</div>
+				
+			</div>
+
+		</div>
+	</div>
+
+
+</section>
+
 <section class="text-center py-20 container">
 	<div class="flex justify-center">
 		<h2 class="font-bold text-3xl relative py-4 px-8"><div class="dot-corners"><div /><div /></div>Some Use Cases</h2>
@@ -144,11 +191,13 @@
 	{/each}
 
 	</div>
+	<p class="text-xl mb-10 max-w-[26rem] mx-auto leading-8">Our most creative member each month gets a free upgrade and a free month on us.</p>
 	<button class="btn btn-primary btn-outline">What are yours?</button>
 	<a href="twitter.com" class="block text-xs text-primary/80 mt-2">@ChatNode</a>
 </section>
 
-<div class="py-32">
+<div class="py-20 bg-[url('/grid.png')] bg-[length:1vw] relative">
+	<div class="absolute inset-0 bg-gradient-to-b from-base-100 via-transparent to-base-100"></div>
 	<div class="flex justify-center">
 		<h2 class="font-bold text-3xl relative py-4 px-4 w-[22vw] text-center text-secondary mb-10"><div class="dot-corners"><div /><div /></div>Features</h2>
 	</div>

@@ -3,15 +3,16 @@
 </script>
 
 <section
-	class="text-center flex flex-col"
+	class="text-center flex flex-col py-[5vw] shadow-inner"
 >
 	<div class="flex items-end justify-center">
-		<div>
+		<div class="rounded-tl-md">
 			<h2><Icon icon="iconoir:code" width={32} />Embed anywhere</h2>
 		<div class="dot dot-bl"></div>
+		<div class="dot dot-tr"></div>
 
 		</div>
-		<div>
+		<div class="rounded-tr-md">
 		
 			<h2><Icon icon="fluent:chat-12-regular" width={30} />Chatbot</h2>
 		<div class="dot dot-bl"></div>
@@ -22,7 +23,7 @@
 	</div>
 	<div class="flex items-end justify-center">
 	
-		<div>
+		<div class="rounded-l-md">
 		
 			<h2>
 				<Icon icon="ic:twotone-invert-colors" width={32} />Multiple data sources
@@ -35,21 +36,27 @@
 			</h2>
 		<div class="dot dot-bl"></div>
 		<div class="dot dot-br"></div>
+		<div class="dot dot-tl"></div>
+		<div class="dot dot-tr"></div>
 			<p>
 		</div>
-		<div>
+		<div class="rounded-r-md">
 		
 			<h2><Icon icon="ic:round-person-4" width={32} />Custom prompts</h2>
 		</div>
 	</div>
 	<div class="flex items-end justify-center">
-	<div>
+	<div class="rounded-bl-md">
 	
 		<h2><Icon icon="devicon:slack" width={24} />Slack integration</h2>
+		<div class="dot dot-br"></div>
+		<div class="dot dot-tl"></div>
+		<div class="dot dot-tr"></div>
 	</div>
-	<div>
+	<div class="rounded-br-md">
 	
 		<h2><Icon icon="ic:twotone-invert-colors" width={32} />Custom design</h2>
+		<div class="dot dot-tr"></div>
 	</div>
 	</div>
 </section>
@@ -59,11 +66,11 @@
 		@apply items-stretch;
 	}
 	section > div > div {
-		@apply w-[25vw] pb-12 pt-14 px-2 -m-[0.5px] relative border border-accent/10 shadow-xl;
+		@apply w-[25vw] pb-12 pt-14 px-2 -m-[0.5px] relative border border-accent/10 shadow-sm bg-base-100/40;
 	}
 
 	h2 {
-		@apply text-lg font-bold tracking-wide flex flex-col items-center gap-2;
+		@apply text-lg text-primary font-bold tracking-wide flex flex-col items-center gap-2;
 	}
 
 	p {
