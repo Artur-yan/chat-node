@@ -230,6 +230,8 @@
 
 		.chat-bubble a {
 			text-decoration: underline !important;
+			overflow-wrap: break-word;
+			word-wrap: break-word;
 			hyphens: auto;
 		}
 
