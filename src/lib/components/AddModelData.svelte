@@ -186,6 +186,8 @@
 	$: if (urls && selectAllUrlsCheckbox && selectedUrls.length < urls.length) {
 		selectAllUrlsCheckbox.checked = false;
 	}
+
+	$: console.log(trainingStatus)
 </script>
 
 <div>
@@ -365,9 +367,12 @@
 			<button
 				class="btn btn-primary"
 				on:click={() => createOrUpdateModel()}
-				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
+				disabled={
+					selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
 					selectedUrlsTokenCount == 0 ||
-					trainingStatus === 'training'}
+					trainingStatus === 'training' ||
+					busyFetchingUrls
+				}
 			>
 				<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
 
