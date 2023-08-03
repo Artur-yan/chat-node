@@ -18,7 +18,7 @@
 		enableAutoPageviews();
 	});
 
-	$alert = {type: 'warning', msg: "Site currently under maintenance. You may experience some issues.", duration: 5000}
+	// $alert = {type: 'warning', msg: "Site currently under maintenance. You may experience some issues.", duration: 5000}
 
 </script>
 
