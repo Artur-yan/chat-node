@@ -2,7 +2,6 @@
 	import Chat from '$lib/components/Chat.svelte';
 	import PricingGrid from '$lib/components/PricingGrid.svelte';
 	import Features from '$lib/components/Features.svelte';
-	import ContactSection from '$lib/components/ContactSection.svelte';
 	import {fade} from 'svelte/transition';
 
 	let isThinking = false;
@@ -46,7 +45,7 @@
 	const trig = () => {
 		const arrowY = arrow.offsetTop - scrollY
 		const arrowX = arrow.offsetLeft
-		const trigO = outerHeight - arrowY - 100
+		const trigO = outerHeight - arrowY - 52
 		const trigA = outerWidth - arrowX
 		const theta = Math.atan(trigO / trigA)
 
@@ -143,24 +142,47 @@
 					</div>
 </section>
 
-<section class="container text-center py-20">
+<section class="py-20">
 	<div class="flex justify-center">
 		<h2 class="font-bold text-3xl relative py-4 px-8"><div class="dot-corners"><div /><div /></div>Ways to Share</h2>
 	</div>
 	
 	<div class="grid md:grid-cols-3 divide-x divide-neutral my-10">
-		<div></div>
-		<div></div>
-		<div>
+			<div class="p-6 text-center">
+				<h3 class="font-bold mb-2">Embed</h3>
+				<div class="mockup-window bg-base-300">
+					<div class="p-2 bg-base-200"><div>
+									<div class="chat chat-start">
+							<div class="chat-bubble w-48"></div>
+						  </div>
+						  <div class="chat chat-end">
+							<div class="chat-bubble w-32"></div>
+						  </div>
+					</div>
+					</div>
+				  </div>
+				  <a class="btn btn-outline btn-info mt-4 btn-sm" href="/#">Try</a>
+			</div>
 
-			<div>
-				<h3 class="text-2xl font-bold">Popup Chat</h3>
-				<div bind:this={arrow} class="relative w-12 inline-block aspect-square text-6xl text-accent" style="transform: rotate({arrowRotation}rad);">
-					&rarr;
-					<div class="absolute top-0 left-0 radial-progress" style="--size: 4rem; --value: 30; --thickness: 2px; transform: rotate({arrowRotation * 15}rad);"></div>
+		<div class="p-6 text-center">
+			<h3 class="font-bold mb-2">URL</h3>
+
+				<input type="text" class="block input input-bordered input-primary w-full" value="chatnode.ai" />
+			  <a class="btn btn-outline btn-info mt-4 btn-sm" href="/#">Try</a>
+
+		</div>
+		<div class="text-center flex flex-col p-6">
+
+
+				<h3 class="font-bold">Popup Chat</h3>
+
+				<div class="flex items-center justify-center h-full">
+					<div bind:this={arrow} class="relative w-12 flex items-center justify-center aspect-square text-5xl text-secondary" style="transform: rotate({arrowRotation}rad);">
+						&rarr;
+						<div class="absolute top-0 left-0 radial-progress text-primary/50" style="--size: 3rem; --value: 30; --thickness: 2px; transform: rotate({arrowRotation * 15}rad);"></div>
+					</div>
 				</div>
 				
-			</div>
 
 		</div>
 	</div>

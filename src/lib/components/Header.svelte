@@ -25,12 +25,12 @@
 <header id="header" class="py-10">
 	<nav class="container">
 		<div class="flex flex-wrap justify-between items-center">
-			<div class="flex items-center justify-center gap-10">
-				<a href="/" class="py-4 flex gap-2 items-center">
-					<div class="-mt-3">
+			<div class="flex items-end justify-center gap-10 -mt-3">
+				<a href="/" class="flex gap-2 items-end">
+					<div>
 						<svg
-							width="25"
-							height="25"
+							width="32"
+							height="32"
 							viewBox="0 0 25 25"
 							fill="none"
 							xmlns="http://www.w3.org/2000/svg"
@@ -42,17 +42,17 @@
 						</svg>
 					</div>
 
-					<span class="text-lg font-bold">ChatNode</span>
+					<span class="text-xl font-bold text-white tracking-wide leading-none">ChatNode</span>
 				</a>
-					<div class="hidden lg:flex">
-						<ul class="flex flex-col mt-4 lg:flex-row text-sm lg:space-x-8 lg:mt-0 font-bold">
-							{#each links as { title, href }}
-								<li>
-									<a {href}>{title}</a>
-								</li>
-							{/each}
-						</ul>
-					</div>
+				<div class="hidden lg:flex">
+					<ul class="flex flex-col lg:flex-row text-sm lg:space-x-8 lg:mt-0 font-bold">
+						{#each links as { title, href }}
+							<li>
+								<a {href}>{title}</a>
+							</li>
+						{/each}
+					</ul>
+				</div>
 			</div>
 
 			<div class="flex items-center lg:order-2">

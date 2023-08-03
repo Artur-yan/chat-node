@@ -155,7 +155,7 @@
 			</ul>
 		</div>
 		<div class="p-8 border border-secondary rounded-xl md:rounded-l-none md:my-4 bg-base-300">
-			<div class="flex justify-between">
+			<div class="flex justify-between mb-8">
 				<div>
 					<h2>Pro</h2>
 					<h3 class="text-lg font-bold">
