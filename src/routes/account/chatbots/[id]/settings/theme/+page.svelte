@@ -12,7 +12,7 @@
 	let customTheme;
 	let selectedTheme = settings.theme.name || 'default';
 
-	let uploadedImage: string | null
+	let uploadedImage: string | null;
 
 	export let form;
 
@@ -24,7 +24,7 @@
 				type: 'success',
 				msg: 'Avatar Updated'
 			};
-			uploadedImage = null
+			uploadedImage = null;
 		}
 	}
 	const handleAvatarSelect = async (e: Event) => {

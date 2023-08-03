@@ -51,9 +51,7 @@
 		<div>
 			<div class="card bg-neutral card-compact">
 				<div class="card-body">
-					<div class="card-title">
-						Add Data
-					</div>
+					<div class="card-title">Add Data</div>
 					<AddModelData
 						bind:modelId
 						userId={data.user.user.userId}
