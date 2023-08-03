@@ -6,6 +6,9 @@
 	import Toast from '$lib/components/Toast.svelte';
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
+	import { alert } from '$lib/stores';
+
+	export let data: LayoutData;
 
 	onMount(() => {
 		const { enableAutoPageviews } = Plausible({
@@ -15,7 +18,8 @@
 		enableAutoPageviews();
 	});
 
-	export let data: LayoutData;
+	$alert = {type: 'warning', msg: "Site currently under maintenance. You may experience some issues.", duration: 5000}
+
 </script>
 
 <svelte:head>
