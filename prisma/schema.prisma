@@ -47,19 +47,19 @@ model AuthKey {
 }
 
 model Bots {
-  id               String   @id @unique
-  created          DateTime @default(now())
-  data_source_type String?
-  user_id          String
-  name             String?
-  settings         Json?
-  status           String   @default("training")
-  tocken_count     Int      @default(0)
-  slack_bot_status Boolean? @default(false)
-  avatar_img       String?
-  cloudinary_public_id       String?
-  chat_button_img  String?
-  auth_user        AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  id                   String   @id @unique
+  created              DateTime @default(now())
+  data_source_type     String?
+  user_id              String
+  name                 String?
+  settings             Json?
+  status               String   @default("training")
+  tocken_count         Int      @default(0)
+  slack_bot_status     Boolean? @default(false)
+  avatar_img           String?
+  chat_button_img      String?
+  cloudinary_public_id String?
+  auth_user            AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("bots")
 }
