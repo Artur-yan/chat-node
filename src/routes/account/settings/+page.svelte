@@ -29,65 +29,68 @@
 	<title>Account Settings | ChatNode</title>
 </svelte:head>
 
-<section class="container my-10 grid gap-16">
-	<div class="max-w-xl">
-		<h2 class="card-title">Email</h2>
-		<div class="form-control">
-			<div class="input-group">
-				<form on:submit={handleEmailChange} class="input-group">
+<section class="container my-10 grid gap-8">
+	<div class="card bg-neutral max-w-xl">
+		<div class="card-body">
+			<h2 class="card-title">Email</h2>
+			<div class="form-control">
+				<div class="input-group">
+					<form on:submit={handleEmailChange} class="input-group">
+						<input
+							class="input input-bordered w-full"
+							type="text"
+							name="email"
+							bind:value={userEmail}
+						/>
+						<button class="btn btn-secondary" type="submit">Update</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card max-w-xl bg-neutral">
+		<div class="card-body">
+			<h2 class="card-title">Create new password</h2>
+			<form class="form-control gap-2" method="POST" action="?/changePassword">
+				<div>
+					<label class="label" for="email"><span class="label-text">New password</span></label>
 					<input
-						class="input input-bordered w-full"
-						type="text"
-						name="email"
-						bind:value={userEmail}
+						class="input w-full"
+						type="password"
+						name="password"
+						required
+						autocomplete="new-password"
 					/>
-					<button class="btn btn-secondary" type="submit">Update</button>
-				</form>
-			</div>
+				</div>
+				<div>
+					<label class="label" for="email"><span class="label-text">Confirm password</span></label>
+					<input
+						class="input w-full"
+						type="password"
+						name="confirm-password"
+						required
+						autocomplete="new-password"
+					/>
+				</div>
+				<input type="hidden" value={data.user.user.email} name="email" />
+				{#if form?.message}
+					<p class="text-error">{form.message || ''}</p>
+				{/if}
+				<button type="submit" class="btn">Update</button>
+			</form>
 		</div>
 	</div>
 
-	<div class="max-w-xl">
-		<h2 class="card-title">Create new password</h2>
-		<form class="form-control gap-2" method="POST" action="?/changePassword">
-			<div>
-				<label class="label" for="email"><span class="label-text">New password</span></label>
-				<input
-					class="input w-full"
-					type="password"
-					name="password"
-					required
-					autocomplete="new-password"
-				/>
-			</div>
-			<div>
-				<label class="label" for="email"><span class="label-text">Confirm password</span></label>
-				<input
-					class="input w-full"
-					type="password"
-					name="confirm-password"
-					required
-					autocomplete="new-password"
-				/>
-			</div>
-			<input type="hidden" value={data.user.user.email} name="email" />
-			{#if form?.message}
-				<p class="text-error">{form.message || ''}</p>
-			{/if}
-			<button type="submit" class="btn">Update</button>
-		</form>
-	</div>
-
-	<div class="max-w-xl">
-		<div class="join w-full">
-			<input class="join-item input  w-full" type="text" bind:value={apiKey} contenteditable="false" />
-
-			<button class="btn btn-outline btn-secondary join-item" on:click={() => apiKey = 'sk-' + uuidv4()}>Generate</button>
-
-			
+	<div class="card bg-neutral max-w-xl">
+		<div class="card-body">
+			<h2 class="card-title">API Key</h2>
+			<div class="join">
+					<input class="join-item input  w-full" type="text" bind:value={apiKey} contenteditable="false" />
+					<button class="btn btn-outline btn-secondary join-item" on:click={() => apiKey = 'sk-' + uuidv4()}>Generate</button>
+				</div>
+				<button class="btn w-full" on:click={handleUpdateApiKey}>Update</button>
 		</div>
-		<br>
-		<button class="btn w-full mt-4" on:click={handleUpdateApiKey}>Update</button>
 	</div>
 
 	<!-- <div class="max-w-xl">
