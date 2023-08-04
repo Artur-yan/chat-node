@@ -43,7 +43,9 @@
 			<a href={settingsPath} class="tab" class:tab-active={settingsPath == $page.url.pathname}
 				>Settings</a
 			>
-			<a href={planPath} class="tab" class:tab-active={planPath == $page.url.pathname}>Change plan</a>
+			<a href={planPath} class="tab" class:tab-active={planPath == $page.url.pathname}
+				>Change plan</a
+			>
 			<button on:click={redirectToStripeBilling} class="tab">Billing</button>
 		</div>
 	</div>

@@ -71,7 +71,6 @@
 	</div>
 </div>
 <div class="container pb-20">
-
 	{#if data.user.user.status === 'active'}
 		<div class="card card-compact bg-base-200 my-4">
 			<div class="card-body">

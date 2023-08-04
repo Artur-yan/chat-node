@@ -12,7 +12,6 @@
 		});
 		enableAutoPageviews();
 	});
-
 </script>
 
 <svelte:head>
@@ -33,6 +32,8 @@
 		})(window, 'rewardful');
 	</script>
 	<script async src="https://r.wdfl.co/rw.js" data-rewardful="1564fe"></script>
+	<!-- Facebook Pixel Code -->
+	<!-- Facebook Pixel Code -->
 	<!-- Facebook Pixel Code -->
 	<!-- Facebook Pixel Code -->
 	<!-- Facebook Pixel Code -->

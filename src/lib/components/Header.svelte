@@ -1,11 +1,10 @@
 <script>
-
 	import Icon from '@iconify/svelte';
 
 	let links = [
 		{
-			title: 'Demo',
-			href: '/#'
+			title: 'About',
+			href: '/about'
 		},
 		{
 			title: 'Use Cases',
