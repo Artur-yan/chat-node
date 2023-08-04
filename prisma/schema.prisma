@@ -60,6 +60,7 @@ model Bots {
   chat_button_img      String?
   cloudinary_public_id String?
   auth_user            AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  openai_api_key      String?
 
   @@map("bots")
 }
