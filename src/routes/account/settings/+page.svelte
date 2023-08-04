@@ -1,18 +1,28 @@
 <script lang="ts">
 	export let data;
-
-	import { updateAccountEmail } from '$lib/account';
+	
+	import { v4 as uuidv4 } from 'uuid';
+	import { updateAccountEmail, updateApiKey } from '$lib/account.js';
 	import { alert } from '$lib/stores.js';
+
+	let apiKey = data.user.user.api_key;
+
+	console.log(data)
 
 	let userEmail = data.user.user.email;
 	let deleteConfirm = '';
 
-	export let form: { message?: string };
+	export let form: { message?: string }; 
 
 	const handleEmailChange = async () => {
 		updateAccountEmail(userEmail);
 		$alert = 'Check your email for a verification link.';
 	};
+
+	const handleUpdateApiKey = async () => {
+		await updateApiKey(apiKey)
+		$alert = 'Your API key has been updated.';
+	}
 </script>
 
 <svelte:head>
@@ -66,6 +76,18 @@
 			{/if}
 			<button type="submit" class="btn">Update</button>
 		</form>
+	</div>
+
+	<div class="max-w-xl">
+		<div class="join w-full">
+			<input class="join-item input  w-full" type="text" bind:value={apiKey} contenteditable="false" />
+
+			<button class="btn btn-outline btn-secondary join-item" on:click={() => apiKey = 'sk-' + uuidv4()}>Generate</button>
+
+			
+		</div>
+		<br>
+		<button class="btn w-full mt-4" on:click={handleUpdateApiKey}>Update</button>
 	</div>
 
 	<!-- <div class="max-w-xl">
