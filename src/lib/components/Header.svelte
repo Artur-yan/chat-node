@@ -3,16 +3,12 @@
 
 	let links = [
 		{
+			title: 'Features',
+			href: '/'
+		},
+		{
 			title: 'About',
 			href: '/about'
-		},
-		{
-			title: 'Use Cases',
-			href: '/#'
-		},
-		{
-			title: 'Features',
-			href: '/#'
 		},
 		{
 			title: 'Pricing',
