@@ -186,6 +186,8 @@
 	$: if (urls && selectAllUrlsCheckbox && selectedUrls.length < urls.length) {
 		selectAllUrlsCheckbox.checked = false;
 	}
+
+	$: console.log(trainingStatus);
 </script>
 
 <div>
@@ -243,7 +245,8 @@
 			class="btn btn-primary mt-8"
 			type="submit"
 			disabled={fileKeys.length == 0 ||
-				filesTokenCount + existingTokenCount > subscription.max_tocken || trainingStatus === 'training'}
+				filesTokenCount + existingTokenCount > subscription.max_tocken ||
+				trainingStatus === 'training'}
 			on:click={() => createOrUpdateModel()}
 		>
 			<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
@@ -270,7 +273,8 @@
 				class="btn btn-primary mt-8"
 				type="submit"
 				disabled={approxTextTokenCount + existingTokenCount > subscription.max_tocken ||
-					approxTextTokenCount == 0 || trainingStatus === 'training'}
+					approxTextTokenCount == 0 ||
+					trainingStatus === 'training'}
 				on:click={() => createOrUpdateModel()}
 			>
 				<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
@@ -367,7 +371,8 @@
 				on:click={() => createOrUpdateModel()}
 				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
 					selectedUrlsTokenCount == 0 ||
-					trainingStatus === 'training'}
+					trainingStatus === 'training' ||
+					busyFetchingUrls}
 			>
 				<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
 

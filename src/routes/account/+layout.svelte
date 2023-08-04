@@ -18,8 +18,11 @@
 		enableAutoPageviews();
 	});
 
-	$alert = {type: 'warning', msg: "Site currently under maintenance. You may experience some issues.", duration: 6000}
-
+	// $alert = {
+	// 	type: 'warning',
+	// 	msg: 'Site currently under maintenance. You may experience some issues.',
+	// 	duration: 6000
+	// };
 </script>
 
 <svelte:head>
