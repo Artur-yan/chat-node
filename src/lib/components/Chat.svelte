@@ -49,6 +49,7 @@
 		addMessage(message, 'user');
 		inputVal = '';
 		isThinking = true;
+
 		try {
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/chat/${chatKey}`, {
 				method: 'POST',
@@ -60,9 +61,24 @@
 					chat_session_id: chatSessionId
 				})
 			});
-			const data = await res.json();
+			// const data = await res.json();
+			const data = res.body;
 			isThinking = false;
-			addMessage(data.message);
+			const reader = data.getReader();
+			reader.read().then(function pump({ done, value }) {
+			if (done) {
+				// Do something with last chunk of data then exit reader
+				return;
+			}
+			// Otherwise do something here to process current chunk
+			console.log(new TextDecoder().decode(value), new Date().getTime())
+
+			// messages[messages.length] = { text: messages[messages.length - 1].text + new TextDecoder().decode(value), sender: 'bot' };
+
+			// Read some more, and call this function again
+			return reader.read().then(pump);
+			});
+			// addMessage(data.message);
 		} catch (err) {
 			isThinking = false;
 			console.error(err);
