@@ -50,6 +50,10 @@
 		inputVal = '';
 		isThinking = true;
 
+		let streamedMsg = '';
+
+
+		let chunksCount = 0;
 		try {
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/chat/${chatKey}`, {
 				method: 'POST',
@@ -71,15 +75,18 @@
 				return;
 			}
 			// Otherwise do something here to process current chunk
-			console.log(new TextDecoder().decode(value), new Date().getTime())
+			streamedMsg += new TextDecoder().decode(value);
 
-			// messages[messages.length] = { text: messages[messages.length - 1].text + new TextDecoder().decode(value), sender: 'bot' };
-
+			if (chunksCount === 0) {
+				addMessage(streamedMsg, 'bot');
+			} else {
+				messages[messages.length - 1].text = streamedMsg;
+			}
+			chunksCount++;
 			// Read some more, and call this function again
 			return reader.read().then(pump);
 			});
-			// addMessage(data.message);
-		} catch (err) {
+		} catch (err) {	
 			isThinking = false;
 			console.error(err);
 		}
