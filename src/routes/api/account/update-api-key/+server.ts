@@ -13,7 +13,7 @@ export const POST = async ({ locals }) => {
 	const plansWithApiFeature = [3, 4, 103, 104];
 
 	if (!plansWithApiFeature.includes(plan)) {
-		return {}
+		return new Response()
 	}
 
 
