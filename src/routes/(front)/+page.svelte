@@ -3,6 +3,7 @@
 	import PricingGrid from '$lib/components/PricingGrid.svelte';
 	import Features from '$lib/components/Features.svelte';
 	import { fade } from 'svelte/transition';
+	import MorphingText from '$lib/components/MorphingText.svelte';
 
 	let isThinking = false;
 	let messages = [
@@ -75,7 +76,7 @@
 				Train ChatGPT on your data
 			</h2>
 
-			<div class="text-2xl font-b max-w-[24ch]">Build a chatbot to answer any queries on your</div>
+			<div class="text-3xl font-bold max-w-[24ch] leading-10"><spa class="mr-2">Build a chatbot to answer any queries on your</spa> <MorphingText /></div>
 
 			<div class="flex items-center max-lg:justify-center">
 				<div class="mt-20 flex gap-4">
@@ -88,9 +89,12 @@
 			<div
 				class="mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto relative overflow-visible"
 			>
-				<div class="absolute bottom-20 left-6" hidden={messages.length > 3}>
-					<div class="badge badge-accent badge-lg badge-outline mr-1">Try Me</div>
-					<span class="text-sm font-bold">I'm trained on ChatNode</span>
+				<div class="absolute bottom-20 left-6 z-10" hidden={messages.length > 3}>
+					<div class="join">
+
+						<div class="join-item badge badge-accent badge-lg">Try Me</div>
+						<span class="join-item badge badge-lg badge-outline border-accent bg-black">I'm trained on ChatNode</span>
+					</div>
 				</div>
 				<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
 					<div class="w-full">
