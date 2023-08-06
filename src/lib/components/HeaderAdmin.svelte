@@ -15,7 +15,7 @@
 	];
 </script>
 
-<header id="header" class="py-1 bg-base-300 border-b border-black/80">
+<header id="header" class="bg-base-300 border-b border-black/80">
 	<nav class="container">
 		<div class="flex flex-wrap justify-between items-center">
 			<div class="flex items-center justify-center gap-10">
@@ -70,13 +70,13 @@
 			</div>
 
 			<div class="flex items-center lg:order-2">
-				<a class="btn btn-ghost text-primary btn-xs md:btn-sm" href="/account/chatbots"
-					>My chatbots</a
+				<a class="btn btn-ghost rounded-none text-primary btn-xs md:btn-md md:text-xs" href="/account/chatbots"
+					>Dashboard</a
 				>
 				<div class="dropdown dropdown-end">
 					<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label tabindex="0" class="btn btn-ghost btn-circle text-primary"
+					<label tabindex="0" class="btn btn-ghost rounded-none text-primary"
 						><Icon icon="mdi:account-circle-outline" width="24" /></label
 					>
 					<!-- svelte-ignore a11y-no-noninteractive-tabindex -->

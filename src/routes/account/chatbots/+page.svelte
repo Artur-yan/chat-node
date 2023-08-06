@@ -60,11 +60,11 @@
 <div class="bg-neutral py-2">
 	<div class="container flex justify-between items-center">
 		<div>
-			<h1 class="font-bold">Chatbots</h1>
+			<h1 class="font-bold">Dashboard</h1>
 		</div>
 		<button
 			on:click={() => goto('/account/chatbots/create')}
-			class="btn btn-primary btn-sm btn-outline"
+			class="btn btn-primary btn-sm btn-outline text-xs"
 			disabled={data.user.user.status !== 'active' || botUsage >= 1}
 			>New Bot <Icon icon="mdi:plus-box" class="ml-1" height="20" /></button
 		>
@@ -72,7 +72,7 @@
 </div>
 <div class="container pb-20">
 	{#if data.user.user.status === 'active'}
-		<div class="card card-compact bg-base-200 my-4">
+		<div class="card card-compact bg-base-300 my-4">
 			<div class="card-body">
 				<div class="flex gap-8 items-center">
 					<div class="grid md:grid-cols-3 gap-2 md:gap-8 items-center w-full">
