@@ -186,8 +186,6 @@
 	$: if (urls && selectAllUrlsCheckbox && selectedUrls.length < urls.length) {
 		selectAllUrlsCheckbox.checked = false;
 	}
-
-	$: console.log(trainingStatus);
 </script>
 
 <div>

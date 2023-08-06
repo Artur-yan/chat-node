@@ -107,7 +107,6 @@
 								placeholder="chatnode.com"
 								autofocus
 								on:focusout={() => {
-									console.log($currentBot.settings.allowedUrls[i]);
 									if ($currentBot.settings.allowedUrls[i] === '') {
 										removeUrl(i);
 									}

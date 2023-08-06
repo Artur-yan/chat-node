@@ -21,7 +21,7 @@ export const POST = async ({ locals, request }) => {
 		sendAccountEmailUpdateConfirmation(newEmail, uuid);
 	} catch (err) {
 		if (err.code === 'P2002' && err.message?.includes('email')) {
-			console.log('Email already exists');
+			console.error('Email already exists');
 		}
 		console.error(err);
 	}
