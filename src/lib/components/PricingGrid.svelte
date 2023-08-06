@@ -70,10 +70,8 @@
 		<div class="card-body">
 			<h2 class="!text-xl mb-4 uppercase">All plans include</h2>
 			<ul class="included flex items-center gap-x-10 gap-y-4 justify-center flex-wrap">
-				<li>Add multiple data sources</li>
 				<li>Embed on unlimited websites</li>
-				<li>Custom colors</li>
-				<li>Chatbot, iframe and web address sharing</li>
+				<li>Add custom logo and colors</li>
 			</ul>
 		</div>
 	</div>
