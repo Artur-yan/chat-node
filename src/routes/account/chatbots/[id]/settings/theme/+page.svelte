@@ -16,8 +16,6 @@
 
 	export let form;
 
-	console.log(uploadedImage);
-
 	$: {
 		if (form) {
 			$alert = {
