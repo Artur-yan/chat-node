@@ -1,10 +1,23 @@
 import { prismaClient } from '$lib/server/prisma';
+import { v4 as uuidv4 } from 'uuid';
 
-export const POST = async ({ locals, request }) => {
+export const POST = async ({ locals }) => {
 	const { user } = await locals.auth.validateUser();
-	const { apiKey } = await request.json();
 
-	console.log(apiKey);
+	const { plan } = await prismaClient.subscriptions.findUnique({
+		where: {
+			user_id: user?.userId
+		}
+	})
+
+	const plansWithApiFeature = [3, 4, 103, 104];
+
+	if (!plansWithApiFeature.includes(plan)) {
+		return {}
+	}
+
+
+	const apiKey = 'sk-' + uuidv4();
 
 	try {
 		await prismaClient.authUser.update({
@@ -16,9 +29,10 @@ export const POST = async ({ locals, request }) => {
 			}
 		});
 
+		return new Response(JSON.stringify({ apiKey }))
+
 	} catch (err) {
-		console.error(err);
+		return new Response()
 	}
 
-	return new Response();
 };

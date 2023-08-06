@@ -20,14 +20,14 @@ const updateAccountEmail = async (newEmail: string) => {
 	}
 };
 
-const updateApiKey = async (apiKey) => {
+const updateApiKey = async () => {
 	try {
-		await fetch('/api/account/update-api-key', {
-			method: 'POST',
-			body: JSON.stringify({
-				apiKey
-			})
+		const res = await fetch('/api/account/update-api-key', {
+			method: 'POST'
 		});
+		const { apiKey } = await res.json();
+
+		return apiKey;
 	} catch (err) {
 		console.error(err);
 	}

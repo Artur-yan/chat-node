@@ -1,13 +1,12 @@
 <script lang="ts">
 	export let data;
-	
-	import { v4 as uuidv4 } from 'uuid';
+
+	import { page } from '$app/stores';
+
 	import { updateAccountEmail, updateApiKey } from '$lib/account.js';
 	import { alert } from '$lib/stores.js';
 
 	let apiKey = data.user.user.api_key;
-
-	console.log(data)
 
 	let userEmail = data.user.user.email;
 	let deleteConfirm = '';
@@ -20,9 +19,16 @@
 	};
 
 	const handleUpdateApiKey = async () => {
-		await updateApiKey(apiKey)
-		$alert = 'Your API key has been updated.';
+		try{
+			apiKey = await updateApiKey()
+			$alert = 'An API key has been generated.';
+		} catch (err) {
+			console.error(err)
+		}
+
 	}
+
+	const plansWithApiFeature = [3, 4, 103, 104];
 </script>
 
 <svelte:head>
@@ -85,11 +91,14 @@
 	<div class="card bg-neutral max-w-xl">
 		<div class="card-body">
 			<h2 class="card-title">API Key</h2>
+			{#if plansWithApiFeature.includes(data.subscription.plan)}
 			<div class="join">
-					<input class="join-item input  w-full" type="text" bind:value={apiKey} contenteditable="false" />
-					<button class="btn btn-outline btn-secondary join-item" on:click={() => apiKey = 'sk-' + uuidv4()}>Generate</button>
+					<input class="join-item input  w-full" type="text" placeholder="Click generate to create an API key" bind:value={apiKey} disabled />
+					<button class="btn btn-outline btn-secondary join-item" on:click={handleUpdateApiKey} disabled={!plansWithApiFeature.includes(data.subscription.plan)}>Generate</button>
 				</div>
-				<button class="btn w-full" on:click={handleUpdateApiKey}>Update</button>
+			{:else}
+				<div class="alert mb-2 text-warning">API access is available on the Enterprise plans</div>
+			{/if}
 		</div>
 	</div>
 
