@@ -11,7 +11,7 @@
 	let userEmail = data.user.user.email;
 	let deleteConfirm = '';
 
-	export let form: { message?: string }; 
+	export let form: { message?: string };
 
 	const handleEmailChange = async () => {
 		updateAccountEmail(userEmail);
@@ -19,14 +19,13 @@
 	};
 
 	const handleUpdateApiKey = async () => {
-		try{
-			apiKey = await updateApiKey()
+		try {
+			apiKey = await updateApiKey();
 			$alert = 'An API key has been generated.';
 		} catch (err) {
-			console.error(err)
+			console.error(err);
 		}
-
-	}
+	};
 
 	const plansWithApiFeature = [3, 4, 103, 104];
 </script>
@@ -92,9 +91,19 @@
 		<div class="card-body">
 			<h2 class="card-title">API Key</h2>
 			{#if plansWithApiFeature.includes(data.subscription.plan)}
-			<div class="join">
-					<input class="join-item input  w-full" type="text" placeholder="Click generate to create an API key" bind:value={apiKey} disabled />
-					<button class="btn btn-outline btn-secondary join-item" on:click={handleUpdateApiKey} disabled={!plansWithApiFeature.includes(data.subscription.plan)}>Generate</button>
+				<div class="join">
+					<input
+						class="join-item input w-full"
+						type="text"
+						placeholder="Click generate to create an API key"
+						bind:value={apiKey}
+						disabled
+					/>
+					<button
+						class="btn btn-outline btn-secondary join-item"
+						on:click={handleUpdateApiKey}
+						disabled={!plansWithApiFeature.includes(data.subscription.plan)}>Generate</button
+					>
 				</div>
 			{:else}
 				<div class="alert mb-2 text-warning">API access is available on the Enterprise plans</div>

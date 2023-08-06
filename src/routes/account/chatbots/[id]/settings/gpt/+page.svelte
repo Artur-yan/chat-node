@@ -1,13 +1,11 @@
 <script lang="ts">
 	import { currentBot } from '$lib/stores.js';
 
-
 	export let data;
 
 	let plan = data.subscription.plan;
 
 	const plansWthCustomApiKey = [2, 3, 4, 102, 103, 104];
-
 </script>
 
 <div class="card bg-neutral card-compact mb-4">
@@ -58,10 +56,17 @@
 			<h2>Personal OpenAI API Key</h2>
 		</div>
 		{#if !plansWthCustomApiKey.includes(plan)}
-			<div class="alert text-warning mb-2 font-bold">This feature is available on the Pro plan or greater.</div>
+			<div class="alert text-warning mb-2 font-bold">
+				This feature is available on the Pro plan or greater.
+			</div>
 		{/if}
 		<div>
-			<input class="input w-full max-w-lg" type="text" bind:value={$currentBot.settings.openai_api_key} disabled={!plansWthCustomApiKey.includes(plan)} />
+			<input
+				class="input w-full max-w-lg"
+				type="text"
+				bind:value={$currentBot.settings.openai_api_key}
+				disabled={!plansWthCustomApiKey.includes(plan)}
+			/>
 		</div>
 	</div>
 </div>

@@ -8,14 +8,13 @@ export const POST = async ({ locals }) => {
 		where: {
 			user_id: user?.userId
 		}
-	})
+	});
 
 	const plansWithApiFeature = [3, 4, 103, 104];
 
 	if (!plansWithApiFeature.includes(plan)) {
-		return new Response()
+		return new Response();
 	}
-
 
 	const apiKey = 'sk-' + uuidv4();
 
@@ -29,10 +28,8 @@ export const POST = async ({ locals }) => {
 			}
 		});
 
-		return new Response(JSON.stringify({ apiKey }))
-
+		return new Response(JSON.stringify({ apiKey }));
 	} catch (err) {
-		return new Response()
+		return new Response();
 	}
-
 };

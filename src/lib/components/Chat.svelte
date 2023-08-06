@@ -52,7 +52,6 @@
 
 		let streamedMsg = '';
 
-
 		let chunksCount = 0;
 		try {
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/chat/${chatKey}`, {
@@ -70,23 +69,23 @@
 			isThinking = false;
 			const reader = data.getReader();
 			reader.read().then(function pump({ done, value }) {
-			if (done) {
-				// Do something with last chunk of data then exit reader
-				return;
-			}
-			// Otherwise do something here to process current chunk
-			streamedMsg += new TextDecoder().decode(value);
+				if (done) {
+					// Do something with last chunk of data then exit reader
+					return;
+				}
+				// Otherwise do something here to process current chunk
+				streamedMsg += new TextDecoder().decode(value);
 
-			if (chunksCount === 0) {
-				addMessage(streamedMsg, 'bot');
-			} else {
-				messages[messages.length - 1].text = streamedMsg;
-			}
-			chunksCount++;
-			// Read some more, and call this function again
-			return reader.read().then(pump);
+				if (chunksCount === 0) {
+					addMessage(streamedMsg, 'bot');
+				} else {
+					messages[messages.length - 1].text = streamedMsg;
+				}
+				chunksCount++;
+				// Read some more, and call this function again
+				return reader.read().then(pump);
 			});
-		} catch (err) {	
+		} catch (err) {
 			isThinking = false;
 			console.error(err);
 		}
