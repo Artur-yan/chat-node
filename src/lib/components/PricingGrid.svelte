@@ -200,7 +200,8 @@
 					</li>
 				</ul>
 				<ul class="extra">
-					<li>Add custom logo</li>
+					<li>Everything from Pro</li>
+					<li>Bring your own OpenAI API key</li>
 					<li>Slack integration</li>
 				</ul>
 			</div>
@@ -262,6 +263,7 @@
 				</ul>
 				<ul class="extra">
 					<li>Everything from Pro</li>
+					<li>API Access</li>
 					<li>Access chat history</li>
 				</ul>
 			</div>

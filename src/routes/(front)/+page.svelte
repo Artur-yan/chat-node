@@ -92,8 +92,8 @@
 				<div class="absolute bottom-20 left-6 z-10" hidden={messages.length > 3}>
 					<div class="join">
 
-						<div class="join-item badge badge-accent badge-lg">Try Me</div>
-						<span class="join-item badge badge-lg badge-outline border-accent bg-black">I'm trained on ChatNode</span>
+						<div class="join-item badge badge-accent badge-lg rounded-b-none font-bold ml-2">Try Me</div>
+						<span class="join-item badge badge-lg badge-outline border-accent bg-black font-bold text-xs">I'm trained on ChatNode</span>
 					</div>
 				</div>
 				<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
