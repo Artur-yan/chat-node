@@ -10,7 +10,7 @@
 			<div class="dot dot-tr" />
 		</div>
 		<div class="rounded-tr-md">
-			<h2><Icon icon="fluent:chat-12-regular" width={30} />Chatbot</h2>
+			<h2><Icon icon="fluent:chat-12-regular" width={30} />White Labeling</h2>
 			<div class="dot dot-bl" />
 			<div class="dot dot-br" />
 		</div>
