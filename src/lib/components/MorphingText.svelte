@@ -92,8 +92,7 @@ animate();
     <span id="text1"></span>
     <span id="text2"></span>
 </div>
-
-<svg id="filters">
+<svg id="filters" style="height: 0;">
     <defs>
         <filter id="threshold">
             <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0
@@ -105,6 +104,7 @@ animate();
 </svg>
 
 
+
 <style>
 
 
@@ -113,7 +113,7 @@ animate();
     display: inline;
     white-space: nowrap;
 
-    filter: url(#threshold) blur(0.2px);
+    filter: url(#threshold) blur(0px);
     
 }
 
