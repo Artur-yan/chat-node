@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { LayoutData } from './$types';
 	import { page } from '$app/stores';
-	import { currentBot, state, alert } from '$lib/stores.js';
+	import { currentBot, state, alert } from '$lib/stores';
 	import { updateModel } from '$lib/models';
 	import { beforeNavigate, goto } from '$app/navigation';
 
@@ -10,20 +10,27 @@
 	currentBot.set(data.model);
 
 	const currentBotSaveState = $currentBot;
+
 	$: currentPath = $page.url.pathname.split('/').pop();
 
-	const currentName = $currentBot.name;
+	const savedName = $currentBot.name;
+	// $: savedName != $currentBot.name ? $state = 'unsavedName' : $state = 'saved';
+
+	$: $currentBot.name !== savedName ? $state = 'unsaved' : $state = 'saved';
+
+	$: console.log($state);
+
 
 	//Check for change, ignore first run whuch happens on load
-	let checkCount = 0;
-	const checkForChange = () => {
-		checkCount++;
-		if (checkCount > 1) {
-			$state = 'unsaved';
-		}
-	};
+	// let checkCount = 0;
+	// const checkForChange = () => {
+	// 	checkCount++;
+	// 	if (checkCount > 1) {
+	// 		$state = 'unsaved';
+	// 	}
+	// };
 
-	$: $currentBot, checkForChange();
+	// $: $currentBot, checkForChange();
 
 	const links = [
 		{ name: 'Chat', url: '' },
@@ -58,24 +65,20 @@
 	};
 </script>
 
-<div class="bg-neutral py-1">
+<div class="bg-neutral">
 	<div class="container md:gap-2 flex flex-col md:flex-row justify-between items-center">
 		<div class="flex gap-2 items-center">
 			<a class="btn btn-sm btn-square text-white/50 hidden sm:flex" href="/account/chatbots"
 				>&larr;</a
 			>
-			<h1
-				class="overflow-x-clip whitespace-nowrap overflow-ellipsis max-w-3xl py-1 px-2"
-				contenteditable="true"
-				bind:textContent={$currentBot.name}
-			>
-				{$currentBot.name}
-			</h1>
-			{#if $state === 'unsavedName'}
-				<button class="btn btn-xs btn-success btn-outline" on:click={handleNameSave}>save</button>
+			<input
+				class="input bg-black/10 border-none rounded-none input-ghost whitespace-nowrap p-1 px-4"
+				bind:value={$currentBot.name} />
+			{#if $state == 'unsaved'}
+				<button class="btn btn-xs btn-success btn-square btn-outline" on:click={handleNameSave}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m10.586 13.414l-2.829-2.828L6.343 12l4.243 4.243l7.07-7.071l-1.413-1.415l-5.657 5.657Z"/></svg></button>
 				<button
-					class="btn btn-xs btn-error btn-outline"
-					on:click={() => ($currentBot.name = currentName)}>cancel</button
+					class="btn btn-xs btn-error btn-square btn-outline"
+					on:click={() => ($currentBot.name = savedName)}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m16.192 6.344l-4.243 4.242l-4.242-4.242l-1.414 1.414L10.535 12l-4.242 4.242l1.414 1.414l4.242-4.242l4.243 4.242l1.414-1.414L13.364 12l4.242-4.242z"/></svg></button
 				>
 			{/if}
 		</div>
