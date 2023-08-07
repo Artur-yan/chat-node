@@ -34,12 +34,6 @@
 			await new Promise((resolve) => setTimeout(resolve, 2500));
 			goto(data.url);
 
-			// if (data.url) {
-			// 	goto(data.url);
-			//  } else if (data.status == 'success') {
-			// 	currentPlan = newPlan;
-			// 	$alert = { msg: 'Plan updated successfully', type: 'success' };
-			//  }
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
@@ -72,6 +66,7 @@
 			<ul class="included flex items-center gap-x-10 gap-y-4 justify-center flex-wrap">
 				<li>Embed on unlimited websites</li>
 				<li>Add custom logo and colors</li>
+				<li>Chat history</li>
 			</ul>
 		</div>
 	</div>
@@ -79,7 +74,10 @@
 	<div class="my-8 grid md:grid-cols-3 gap-y-8 lg:gap-y-20">
 		<div class="rounded-xl md:rounded-r-none p-8 border border-secondary md:my-4 bg-base-300">
 			<div class="flex justify-between mb-8">
-				<h2>Free</h2>
+				<div>
+					<h2>Free Trial</h2>
+					<p>5 Days</p>
+				</div>
 				{#if currentPlan !== undefined}
 					<button
 						on:click={(e) => updatePlan(0, e)}
@@ -93,7 +91,7 @@
 				{/if}
 			</div>
 			<ul>
-				<li><span class="figure">30</span> messages/month</li>
+				<li><span class="figure">100</span> messages</li>
 				<li><span class="figure">1</span> chatbot</li>
 				<li>
 					<div
@@ -150,6 +148,8 @@
 						<span class="figure">400,000</span> tokens/bot
 					</div>
 				</li>
+				<li><span class="figure">3 Day</span> chat history</li>
+
 			</ul>
 		</div>
 		<div class="p-8 border border-secondary rounded-xl md:rounded-l-none md:my-4 bg-base-300">
@@ -198,9 +198,9 @@
 							<span class="figure">800,000</span> tokens/bot
 						</div>
 					</li>
+					<li><span class="figure">7 Day</span> chat history</li>
 				</ul>
 				<ul class="extra">
-					<li>Everything from Pro</li>
 					<li>Bring your own OpenAI API key</li>
 					<li>Slack integration</li>
 				</ul>
@@ -260,6 +260,7 @@
 							<span class="figure">1,000,000</span> tokens/bot
 						</div>
 					</li>
+					<li><span class="figure">30 Day</span> chat history</li>
 				</ul>
 				<ul class="extra">
 					<li>Everything from Pro</li>
@@ -318,6 +319,8 @@
 							<span class="figure">3,000,000</span> tokens/bot
 						</div>
 					</li>
+					<li><span class="figure">45 Day</span> chat history</li>
+
 				</ul>
 				<ul class="extra">
 					<li>Everything from Enterprise</li>
