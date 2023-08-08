@@ -74,12 +74,13 @@
 							<tr>
 								<th>Type</th>
 								<th class="w-full">Name</th>
+								<th class="w-full">Token count</th>
 								<th />
 							</tr>
 						</thead>
 
 						{#each data.modelData as modelData}
-							<tr>
+							<tr class="hover:bg-black/10">
 								<td><div class="badge badge-sm">{modelData.source_type}</div></td>
 								<td class="overflow-clip">
 									{#if modelData.source_type === 'urls'}
@@ -88,6 +89,7 @@
 										{modelData.name}
 									{/if}
 								</td>
+								<td>{modelData.token_count}</td>
 								<td
 									><button
 										class="btn btn-sm btn-circle btn-ghost text-error"
