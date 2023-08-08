@@ -3,6 +3,12 @@
 
 	export let form: { message?: string; submitted: false; promo: string };
 
+	import { page } from '$app/stores';
+
+	const promo = $page.url.searchParams.get('promo');
+
+	let appsumoCodes = '';
+
 	let loading = false;
 	$: loading = form?.submitted;
 </script>
@@ -51,9 +57,24 @@
 					/>
 				</div>
 
+				{#if promo === 'appsumo'}
+				<div>
+					<label class="label" for="email"><span class="label-text">AppSumo Code(s)</span></label>
+					<textarea
+						class="textarea textarea-bordered w-full"
+						name="appsumo-codes"
+						rows="5"
+						placeholder="Enter up to 5 AppSumo codes here each on a new line"
+						bind:value={appsumoCodes} />
+
+				</div>
+
+				{/if}
+
 				{#if form?.message}
 					<p class="text-error">{form.message || ''}</p>
 				{/if}
+
 				<button type="submit" class="btn btn-primary w-full mt-4">
 					<span class={loading ? 'loading' : 'invisible'} />
 					Create account
