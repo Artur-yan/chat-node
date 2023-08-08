@@ -18,9 +18,6 @@
 
 	$: $currentBot.name !== savedName ? $state = 'unsaved' : $state = 'saved';
 
-	$: console.log($state);
-
-
 	//Check for change, ignore first run whuch happens on load
 	// let checkCount = 0;
 	// const checkForChange = () => {
