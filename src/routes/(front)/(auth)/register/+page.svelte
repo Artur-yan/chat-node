@@ -73,7 +73,8 @@
 				<div>
 					<label class="label" for="email"><span class="label-text">AppSumo Code(s)</span></label>
 					<textarea
-						class="textarea textarea-bordered w-full"
+						class="textarea textarea-bordered w-full textarea-xs"
+						spellcheck="false"
 						name="appsumo-codes"
 						rows="5"
 						placeholder="Enter up to 5 AppSumo codes here each on a new line"
