@@ -109,6 +109,7 @@ model AppSumoCodes {
   code        String @id @unique
   redeemed     Boolean @default(false)
   redeemed_date DateTime?
+  redeemed_by String?
 
   @@map("appsumo_codes")
 }

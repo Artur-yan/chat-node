@@ -51,6 +51,13 @@ const specialPlans = {
 		max_tocken: 3000000
 	}
 }
+const domainBlacklist = [
+	'givmail.com',
+	'givmail.io',
+	'givmail.co',
+	'inboxbear.com',
+	'vomoto.com'
+];
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
@@ -58,13 +65,7 @@ export const actions: Actions = {
 		const email = form.get('email');
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
-		const domainBlacklist = [
-			'givmail.com',
-			'givmail.io',
-			'givmail.co',
-			'inboxbear.com',
-			'vomoto.com'
-		];
+
 
 		let subscriptionLimits = specialPlans['free']
 
@@ -134,7 +135,8 @@ export const actions: Actions = {
 					},
 					data: {
 						redeemed: true,
-						redeemed_date: new Date()
+						redeemed_date: new Date(),
+						redeemed_by: email
 					}
 				})
 				subscriptionLimits = specialPlans['appsumo' + codes.length.toString()]
