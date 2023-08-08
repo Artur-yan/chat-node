@@ -12,14 +12,52 @@ export const load: PageServerLoad = async ({ locals }) => {
 	if (session) throw redirect(302, '/account/chatbots');
 };
 
+
+const specialPlans = {
+	'free': {
+		plan: 0,
+		max_bot: 1,
+		max_msg: 30,
+		max_tocken: 100000
+	},
+	'appsumo1': {
+		plan: 1001,
+		max_bot: 10,
+		max_msg: 2000,
+		max_tocken: 500000
+	},
+	'appsumo2': {
+		plan: 1002,
+		max_bot: 20,
+		max_msg: 4000,
+		max_tocken: 1000000
+	},
+	'appsumo3': {
+		plan: 1003,
+		max_bot: 40,
+		max_msg: 6000,
+		max_tocken: 1500000
+	},
+	'appsumo4': {
+		plan: 1004,
+		max_bot: 60,
+		max_msg: 8000,
+		max_tocken: 2000000
+	},
+	'appsumo5': {
+		plan: 1005,
+		max_bot: 80,
+		max_msg: 10000,
+		max_tocken: 3000000
+	}
+}
+
 export const actions: Actions = {
-	default: async ({ request, locals, url }) => {
+	default: async ({ request, locals }) => {
 		const form = await request.formData();
 		const email = form.get('email');
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
-		const promo = url.searchParams.get('promo');
-
 		const domainBlacklist = [
 			'givmail.com',
 			'givmail.io',
@@ -27,6 +65,12 @@ export const actions: Actions = {
 			'inboxbear.com',
 			'vomoto.com'
 		];
+
+		let subscriptionLimits = specialPlans['free']
+
+		let tooManyCodes = false;
+		let codesAlreadyRedeemed = false;
+		let codesDontExist = false;
 
 		if (domainBlacklist.includes(email.split('@')[1])) {
 			return fail(400, {
@@ -42,14 +86,10 @@ export const actions: Actions = {
 			});
 		}
 
-		let tooManyCodes = false;
-		let codesAlreadyRedeemed = false;
-		let codesDontExist = false;
-
 		if (appsumoCodes) {
 			
+			const codes = appsumoCodes.split('\r\n');
 			const validateCodes = async () => {
-				const codes = appsumoCodes.split('\r\n');
 
 				if(codes.length > 5) {
 					tooManyCodes = true
@@ -86,6 +126,10 @@ export const actions: Actions = {
 					message: 'Maxiumum of 5 codes allowed',
 					submitted: false
 				});
+			} else {
+				// Success
+				subscriptionLimits = specialPlans['appsumo' + codes.length.toString()]
+
 			}
 		}
 
@@ -109,13 +153,13 @@ export const actions: Actions = {
 
 			// Create Subscription
 			let subscriptionData = {
-				user_id: user.userId
+				user_id: user.userId,
+				plan: subscriptionLimits.plan,
+				max_bot: subscriptionLimits.max_bot,
+				max_msg: subscriptionLimits.max_msg,
+				max_tocken: subscriptionLimits.max_tocken,
 			};
-			if (promo === 'beta_tester') {
-				subscriptionData.plan = 1;
-				subscriptionData.max_bot = 5;
-				subscriptionData.max_msg = 2000;
-			}
+
 			await prismaClient.subscriptions.create({
 				data: subscriptionData
 			});
@@ -144,6 +188,19 @@ export const actions: Actions = {
 				submitted: false
 			});
 		}
+
+		// if (appsumoCodes) {
+
+		// 	return {
+		// 			success: true,
+		// 			message: 'Your AppSumo codes have been redeemed.'
+		// 	}
+		// } else {
+		// 	return {
+		// 			success: true,
+		// 			message: 'Account created'
+		// 	}	
+		// }
 
 		throw redirect(302, '/account/chatbots?signup=success');
 	}

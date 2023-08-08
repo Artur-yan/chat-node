@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
 
-	export let form: { message?: string; submitted: false; promo: string };
+	export let form: { message?: string; submitted: false; success: false};
 
 	import { page } from '$app/stores';
+	import { alert } from '$lib/stores';
 
 	const promo = $page.url.searchParams.get('promo');
 
@@ -11,6 +13,16 @@
 
 	let loading = false;
 	$: loading = form?.submitted;
+
+	$: console.log(form);
+
+
+
+	$: if (form?.success) {
+		$alert = form?.message
+		goto('/chatbots');
+
+	}
 </script>
 
 <svelte:head>
