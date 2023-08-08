@@ -128,6 +128,15 @@ export const actions: Actions = {
 				});
 			} else {
 				// Success
+				const matchingCodes = await prismaClient.appSumoCodes.updateMany({
+					where: {
+						code: {in: codes }
+					},
+					data: {
+						redeemed: true,
+						redeemed_date: new Date()
+					}
+				})
 				subscriptionLimits = specialPlans['appsumo' + codes.length.toString()]
 
 			}
