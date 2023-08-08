@@ -9,6 +9,7 @@
 	const links = [
 		{ name: 'Prompts', url: 'prompts' },
 		{ name: 'Sharing', url: 'sharing' },
+		{ name: 'User Info', url: 'user-info' },
 		{ name: 'Theme', url: 'theme' },
 		{ name: 'Chat-GPT', url: 'gpt' },
 		{ name: 'Delete', url: 'delete' }

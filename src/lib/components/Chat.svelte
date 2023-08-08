@@ -3,6 +3,7 @@
 	import BotStatus from '$lib/components/BotStatus.svelte';
 	import { defaultSettings } from '$lib/models';
 	import { marked } from 'marked';
+	import { fade } from 'svelte/transition';
 
 	export let modelId: string;
 
@@ -17,6 +18,8 @@
 		}
 	];
 
+	let emailReceived = false
+
 	$: messages[0].text = settings.greeting;
 
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed';
@@ -26,7 +29,7 @@
 		settings.theme = defaultSettings.theme;
 	}
 
-	let inputVal: string;
+	let inputVal: string;		
 	let chatWindow: HTMLElement;
 	const scrollToBottom = () => {
 		if (chatWindow) {
@@ -35,6 +38,9 @@
 			}, 100);
 		}
 	};
+
+	const handleUserInfoSubmit = () => {
+	}
 
 	const postProcessMsgHTML = (msgHTML) => {
 		msgHTML = msgHTML.replace(/<a href=/g, '<a target="_blank" href=');
@@ -45,9 +51,15 @@
 		messages = [...messages, { text: message, sender: sender }];
 	};
 
+
 	const queryModel = async (chatKey: string, chatSessionId: string, message: string) => {
 		addMessage(message, 'user');
 		inputVal = '';
+		if(settings.collectUserEmail && !emailReceived) {
+			withheldMessage = message
+			addMessage('Before I assist you, please enter your email address at the top');
+			return;
+		}
 		isThinking = true;
 
 		let streamedMsg = '';
@@ -127,11 +139,22 @@
     background-color: var(--bg)"
 	class="h-full flex flex-col justify-between rounded-lg"
 >
-	<div class="overflow-y-auto scroll-smooth p-2" bind:this={chatWindow}>
+	<div class="relative overflow-y-auto scroll-smooth p-2 h-full" bind:this={chatWindow}>
 		<BotStatus id={modelId} bind:trainingStatus />
+		{#if settings.collectUserEmail && !emailReceived}
+			<div class="absolute z-10 inset-0 w-full flex items-center justify-center" in:fade>
+				<div class="bg-neutral p-2 rounded-lg w-full mx-4">
+					<p class="label">Please provide your info to get started</p>
+					<form class="form-control space-y-2" on:submit={handleUserInfoSubmit}>
+						<input class="input w-full" type="text" placeholder="Your Email" />
+						<input type="submit" class="btn btn-sm" value="Start chatting">
+					</form>
+				</div>
+			</div>
+		{/if}
 		<slot>
 			{#each messages as msg}
-				<div class="chat overflow-hidden {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
+				<div class="chat overflow-hidden transition-all {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}" class:blur={settings.collectUserEmail && !emailReceived}>
 					{#if msg.sender === 'bot' && avatar}
 						<div class="chat-image avatar">
 							<div class="w-10">
@@ -201,7 +224,7 @@
 		<div id="chat-bottom" class="h-1" />
 	</div>
 
-	<form on:submit|preventDefault={submitQuery} class="form-control p-2">
+	<form on:submit|preventDefault={submitQuery} class="form-control p-2" class:blur={settings.collectUserEmail && !emailReceived}>
 		<div class="input-group">
 			<input
 				type="text"
