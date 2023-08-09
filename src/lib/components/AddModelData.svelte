@@ -134,7 +134,11 @@
 		}
 		if (selectedUrls && selectedUrls.length > 0) {
 			body.append('urls', selectedUrls);
-			name = url.slice(0, 20) + '...';
+			if(url.length > 32){
+				name = url.slice(0, 30) + '...';
+			} else {
+				name = url;
+			}
 		}
 		try {
 			if (modelId) {
