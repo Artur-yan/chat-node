@@ -4,7 +4,6 @@
 	import Features from '$lib/components/Features.svelte';
 	import { fade } from 'svelte/transition';
 	import MorphingText from '$lib/components/MorphingText.svelte';
-	
 
 	let isThinking = false;
 	let messages = [
@@ -77,7 +76,10 @@
 				Train ChatGPT on your data
 			</h2>
 
-			<div class="text-3xl font-bold max-w-[24ch] leading-10"><spa class="mr-2">Build a chatbot to answer any queries on your</spa> <MorphingText /></div>
+			<div class="text-3xl font-bold max-w-[24ch] leading-10">
+				<spa class="mr-2">Build a chatbot to answer any queries on your</spa>
+				<MorphingText />
+			</div>
 
 			<div class="flex items-center max-lg:justify-center">
 				<div class="mt-20 flex gap-4">
@@ -92,9 +94,13 @@
 			>
 				<div class="absolute bottom-20 left-6 z-10" hidden={messages.length > 3}>
 					<div class="join">
-
-						<div class="join-item badge badge-accent badge-lg rounded-b-none font-bold ml-2">Try Me</div>
-						<span class="join-item badge badge-lg badge-outline border-accent bg-black font-bold text-xs">I'm trained on ChatNode</span>
+						<div class="join-item badge badge-accent badge-lg rounded-b-none font-bold ml-2">
+							Try Me
+						</div>
+						<span
+							class="join-item badge badge-lg badge-outline border-accent bg-black font-bold text-xs"
+							>I'm trained on ChatNode</span
+						>
 					</div>
 				</div>
 				<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
@@ -232,22 +238,32 @@
 						</div>
 						<div class="flex items-center justify-end mt-2">
 							<div role="button" style="outline: 0; border: none; width:32px; height: 32px;">
-								<svg class="fill-primary" clip-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><g><path d="m0 32c0-17.673 14.327-32 32-32s32 14.327 32 32-14.327 32-32 32-32-14.327-32-32z" class="fill-base-100"/><path d="m26 16c-5.5228 0-10 4.4772-10 10v12c0 5.5228 4.4772 10 10 10h19.5c1.3807 0 2.5-1.1193 2.5-2.5v-19.5c0-5.5228-4.4772-10-10-10h-12zm-0.75 16c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm8.75 0c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm6.75 2c1.1046 0 2-0.8954 2-2s-0.8954-2-2-2-2 0.8954-2 2 0.8954 2 2 2z" fill-rule="evenodd"/></g></svg>
-								</div>
+								<svg
+									class="fill-primary"
+									clip-rule="evenodd"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-miterlimit="10"
+									version="1.1"
+									viewBox="0 0 64 64"
+									xml:space="preserve"
+									xmlns="http://www.w3.org/2000/svg"
+									><g
+										><path
+											d="m0 32c0-17.673 14.327-32 32-32s32 14.327 32 32-14.327 32-32 32-32-14.327-32-32z"
+											class="fill-base-100"
+										/><path
+											d="m26 16c-5.5228 0-10 4.4772-10 10v12c0 5.5228 4.4772 10 10 10h19.5c1.3807 0 2.5-1.1193 2.5-2.5v-19.5c0-5.5228-4.4772-10-10-10h-12zm-0.75 16c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm8.75 0c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm6.75 2c1.1046 0 2-0.8954 2-2s-0.8954-2-2-2-2 0.8954-2 2 0.8954 2 2 2z"
+											fill-rule="evenodd"
+										/></g
+									></svg
+								>
 							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- <div class="p-6 text-center">
-			<h3 class="font-bold mb-2">URL</h3>
-
-			<input
-				type="text"
-				class="block input input-bordered input-primary w-full"
-				value="chatnode.ai"
-			/>
-		</div> -->
 	</div>
 </section>
 
@@ -280,7 +296,9 @@
 </section>
 
 <div class="py-20 bg-[url('/grid.png')] bg-[length:1vw] relative">
-	<div class="absolute inset-0 bg-gradient-to-b from-base-200 via-transparent to-base-200 shadow-base-200" />
+	<div
+		class="absolute inset-0 bg-gradient-to-b from-base-200 via-transparent to-base-200 shadow-base-200"
+	/>
 	<div class="flex justify-center">
 		<h2 class="font-bold text-3xl relative py-4 px-4 w-[22vw] text-center text-secondary">
 			<div class="dot-corners">
@@ -307,13 +325,17 @@
 	<div class="text-secondary-content text-lg">Ask our own chatbot &rarr;</div>
 </div>
 
+<div>
+	<style lang="postcss">
+		body {
+			@apply !mb-[6.5rem];
+		}
+	</style>
+</div>
+
 <!-- <div class="alert alert-info fixed bottom-24 max-w-[24rem] right-5 leading-7 text-center z-10">Ask me something about ChatNode! You can have a chat bot just like this on your website.</div> -->
 
 <style lang="postcss">
-	:global(body) {
-		@apply !mb-[6.5rem];
-	}
-
 	#how-it-works {
 		@apply text-lg 2xl:text-2xl;
 	}

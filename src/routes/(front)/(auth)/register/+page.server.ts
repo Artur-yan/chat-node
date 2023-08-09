@@ -12,52 +12,45 @@ export const load: PageServerLoad = async ({ locals }) => {
 	if (session) throw redirect(302, '/account/chatbots');
 };
 
-
 const specialPlans = {
-	'free': {
+	free: {
 		plan: 0,
 		max_bot: 1,
 		max_msg: 30,
 		max_tocken: 100000
 	},
-	'appsumo1': {
+	appsumo1: {
 		plan: 1001,
 		max_bot: 10,
 		max_msg: 2000,
 		max_tocken: 500000
 	},
-	'appsumo2': {
+	appsumo2: {
 		plan: 1002,
 		max_bot: 20,
 		max_msg: 4000,
 		max_tocken: 1000000
 	},
-	'appsumo3': {
+	appsumo3: {
 		plan: 1003,
 		max_bot: 40,
 		max_msg: 6000,
 		max_tocken: 1500000
 	},
-	'appsumo4': {
+	appsumo4: {
 		plan: 1004,
 		max_bot: 60,
 		max_msg: 8000,
 		max_tocken: 2000000
 	},
-	'appsumo5': {
+	appsumo5: {
 		plan: 1005,
 		max_bot: 80,
 		max_msg: 10000,
 		max_tocken: 3000000
 	}
-}
-const domainBlacklist = [
-	'givmail.com',
-	'givmail.io',
-	'givmail.co',
-	'inboxbear.com',
-	'vomoto.com'
-];
+};
+const domainBlacklist = ['givmail.com', 'givmail.io', 'givmail.co', 'inboxbear.com', 'vomoto.com'];
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
@@ -66,8 +59,7 @@ export const actions: Actions = {
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
 
-
-		let subscriptionLimits = specialPlans['free']
+		let subscriptionLimits = specialPlans['free'];
 
 		let tooManyCodes = false;
 		let codesAlreadyRedeemed = false;
@@ -88,38 +80,37 @@ export const actions: Actions = {
 		}
 
 		if (appsumoCodes) {
-			
 			const codes = appsumoCodes.split('\r\n');
 			const validateCodes = async () => {
-
-				if(codes.length > 5) {
-					tooManyCodes = true
-					return
+				if (codes.length > 5) {
+					tooManyCodes = true;
+					return;
 				}
-					
+
 				const matchingCodes = await prismaClient.appSumoCodes.findMany({
 					where: {
-						code: {in: codes }
+						code: { in: codes }
 					}
-				})
+				});
 
 				if (matchingCodes.length !== codes.length) {
 					codesDontExist = true;
-					return						
+					return;
 				}
 
-				matchingCodes.forEach(code => {
-					if(code.redeemed) {
+				matchingCodes.forEach((code) => {
+					if (code.redeemed) {
 						codesAlreadyRedeemed = true;
-						return
+						return;
 					}
-				})
-			}
-			await validateCodes()
+				});
+			};
+			await validateCodes();
 
 			if (codesAlreadyRedeemed || codesDontExist) {
 				return fail(400, {
-					message: 'One or more of your codes is invalid. It is either incorrect or has already been redeemed.',
+					message:
+						'One or more of your codes is invalid. It is either incorrect or has already been redeemed.',
 					submitted: false
 				});
 			} else if (tooManyCodes) {
@@ -131,23 +122,19 @@ export const actions: Actions = {
 				// Success
 				const matchingCodes = await prismaClient.appSumoCodes.updateMany({
 					where: {
-						code: {in: codes }
+						code: { in: codes }
 					},
 					data: {
 						redeemed: true,
 						redeemed_date: new Date(),
 						redeemed_by: email
 					}
-				})
-				subscriptionLimits = specialPlans['appsumo' + codes.length.toString()]
-
+				});
+				subscriptionLimits = specialPlans['appsumo' + codes.length.toString()];
 			}
 		}
 
-
-
-
-		try {			
+		try {
 			// Create User
 			const uuid = uuidv4();
 			const user = await auth.createUser({
@@ -168,7 +155,7 @@ export const actions: Actions = {
 				plan: subscriptionLimits.plan,
 				max_bot: subscriptionLimits.max_bot,
 				max_msg: subscriptionLimits.max_msg,
-				max_tocken: subscriptionLimits.max_tocken,
+				max_tocken: subscriptionLimits.max_tocken
 			};
 
 			await prismaClient.subscriptions.create({
@@ -210,7 +197,7 @@ export const actions: Actions = {
 		// 	return {
 		// 			success: true,
 		// 			message: 'Account created'
-		// 	}	
+		// 	}
 		// }
 
 		throw redirect(302, '/account/chatbots?signup=success');

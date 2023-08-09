@@ -72,7 +72,6 @@
 </div>
 
 <div class="container pt-4 pb-20">
-
 	<div class="card card-compact card-bordered border-neutral mb-4">
 		<div class="card-body">
 			<div class="flex gap-8 items-center">
@@ -121,7 +120,7 @@
 				{/if}
 			</div>
 		</div>
-</div>
+	</div>
 
 	{#if data.bots.length > 0}
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -138,9 +137,12 @@
 									>{bot.name}</a
 								>
 							</h2>
-							<div class="tooltip tooltip-info tooltip-left" data-tip={bot.created.toLocaleTimeString()}>
+							<div
+								class="tooltip tooltip-info tooltip-left"
+								data-tip={bot.created.toLocaleTimeString()}
+							>
 								<h3 class="text-xs">{bot.created.toLocaleDateString()}</h3>
-							  </div>
+							</div>
 						</div>
 
 						<div class="flex items-center justify-between">

@@ -18,7 +18,9 @@
 
 	const currentAllowedUrls = $currentBot.settings.allowedUrls;
 
-	$: enableEverywhere ? $currentBot.settings.allowedUrls = ['*'] : $currentBot.settings.allowedUrls = currentAllowedUrls;
+	$: enableEverywhere
+		? ($currentBot.settings.allowedUrls = ['*'])
+		: ($currentBot.settings.allowedUrls = currentAllowedUrls);
 
 	onMount(() => {
 		if ($currentBot.settings.allowedUrls[0] == '*') {

@@ -1,10 +1,6 @@
-
-
 // import { v4 as uuidv4 } from 'uuid';
 // import { writeFile } from 'fs';
 // import { prismaClient } from '$lib/server/prisma';
-
-
 
 // export const GET = async () => {
 // let codes = []

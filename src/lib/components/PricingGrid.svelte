@@ -33,7 +33,6 @@
 			const data = await res.json();
 			await new Promise((resolve) => setTimeout(resolve, 2500));
 			goto(data.url);
-
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
@@ -149,7 +148,6 @@
 					</div>
 				</li>
 				<li><span class="figure">3 Day</span> chat history</li>
-
 			</ul>
 		</div>
 		<div class="p-8 border border-secondary rounded-xl md:rounded-l-none md:my-4 bg-base-300">
@@ -320,7 +318,6 @@
 						</div>
 					</li>
 					<li><span class="figure">45 Day</span> chat history</li>
-
 				</ul>
 				<ul class="extra">
 					<li>Everything from Enterprise</li>

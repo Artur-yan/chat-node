@@ -3,14 +3,11 @@ import { prismaClient } from '$lib/server/prisma';
 export const load = async ({ locals, params }) => {
 	const user = await locals.auth.validateUser();
 
-
-
 	const { plan } = await prismaClient.subscriptions.findFirst({
 		where: {
-			user_id: user.session.userId,	
+			user_id: user.session.userId
 		}
-	})
-
+	});
 
 	let historyLengthDays = 1;
 
@@ -24,7 +21,6 @@ export const load = async ({ locals, params }) => {
 		case 4 || 104:
 			historyLengthDays = 45;
 	}
-
 
 	const chats = await prismaClient.chatHistory.groupBy({
 		by: ['session_id'],

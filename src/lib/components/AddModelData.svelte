@@ -134,7 +134,7 @@
 		}
 		if (selectedUrls && selectedUrls.length > 0) {
 			body.append('urls', selectedUrls);
-			if(url.length > 32){
+			if (url.length > 32) {
 				name = url.slice(0, 30) + '...';
 			} else {
 				name = url;
