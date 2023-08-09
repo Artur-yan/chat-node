@@ -5,7 +5,7 @@
 
 	let plan = data.subscription.plan;
 
-	const plansWthCustomApiKey = [2, 3, 4, 102, 103, 104];
+	const plansWthCustomApiKey = [2, 3, 4, 102, 103, 104, 1003, 1004, 1005];
 </script>
 
 <div class="card bg-neutral card-compact mb-4">
