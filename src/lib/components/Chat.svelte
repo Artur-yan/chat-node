@@ -18,7 +18,6 @@
 		}
 	];
 
-	let emailReceived = false
 
 	$: messages[0].text = settings.greeting;
 
@@ -39,7 +38,19 @@
 		}
 	};
 
+	let enduserEmail: string;
+	let enduserName: string;
+	let userInfoReceived = false
+	let collectUserEmail = settings.collectUserEmail
+
+
 	const handleUserInfoSubmit = () => {
+		if(!enduserEmail || !enduserName) {
+			return;
+		}
+		userInfoReceived = true
+		// addMessage('Thank you for providing your info.');
+		// queryModel(modelId, chatSessionId, withheldMessage);
 	}
 
 	const postProcessMsgHTML = (msgHTML) => {
@@ -55,7 +66,7 @@
 	const queryModel = async (chatKey: string, chatSessionId: string, message: string) => {
 		addMessage(message, 'user');
 		inputVal = '';
-		if(settings.collectUserEmail && !emailReceived) {
+		if(settings.collectUserEmail && !userInfoReceived) {
 			withheldMessage = message
 			addMessage('Before I assist you, please enter your email address at the top');
 			return;
@@ -141,20 +152,21 @@
 >
 	<div class="relative overflow-y-auto scroll-smooth p-2 h-full" bind:this={chatWindow}>
 		<BotStatus id={modelId} bind:trainingStatus />
-		{#if settings.collectUserEmail && !emailReceived}
+		{#if settings.collectUserEmail && !userInfoReceived}
 			<div class="absolute z-10 inset-0 w-full flex items-center justify-center" in:fade>
 				<div class="bg-neutral p-2 rounded-lg w-full mx-4">
 					<p class="label">Please provide your info to get started</p>
 					<form class="form-control space-y-2" on:submit={handleUserInfoSubmit}>
-						<input class="input w-full" type="text" placeholder="Your Email" />
-						<input type="submit" class="btn btn-sm" value="Start chatting">
+						<input name="enduser-name" class="input w-full" type="text" placeholder="Your Name" required bind:value={enduserName} />
+						<input name="enduser-email" class="input w-full" type="email" placeholder="Your Email" required bind:value={enduserEmail} />
+						<input type="submit" class="btn btn-sm" value="Start chatting" on:submit={handleUserInfoSubmit}>
 					</form>
 				</div>
 			</div>
 		{/if}
 		<slot>
 			{#each messages as msg}
-				<div class="chat overflow-hidden transition-all {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}" class:blur={settings.collectUserEmail && !emailReceived}>
+				<div class="chat overflow-hidden transition-all {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}" class:blur={settings.collectUserEmail && !userInfoReceived}>
 					{#if msg.sender === 'bot' && avatar}
 						<div class="chat-image avatar">
 							<div class="w-10">
@@ -224,7 +236,7 @@
 		<div id="chat-bottom" class="h-1" />
 	</div>
 
-	<form on:submit|preventDefault={submitQuery} class="form-control p-2" class:blur={settings.collectUserEmail && !emailReceived}>
+	<form on:submit|preventDefault={submitQuery} class="form-control p-2" class:blur={settings.collectUserEmail && !userInfoReceived}>
 		<div class="input-group">
 			<input
 				type="text"
