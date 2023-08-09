@@ -190,7 +190,7 @@ model ChatHistory {
   user_id    String?
   bot_id     String?
   vote       Int?      @default(0)
-  user_email String?
+  enduser_email String?
 
   @@map("new_chat_history")
 }
