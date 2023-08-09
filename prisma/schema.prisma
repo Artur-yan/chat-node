@@ -202,3 +202,11 @@ model ChatHistory {
 
   @@map("new_chat_history")
 }
+model ChatConversations {
+  session_id String  @id
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  user_id    String?
+  bot_id     String?
+
+  @@map("chat_conversations")
+}
