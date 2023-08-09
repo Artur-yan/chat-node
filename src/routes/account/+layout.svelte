@@ -53,7 +53,7 @@
 
 <HeaderAdmin user={data.user} />
 
-<main class="flex flex-col basis-full bg-base-100">
+<main class="flex flex-col flex-1">
 	<slot />
 </main>
 

@@ -71,7 +71,7 @@ profitwell('start', {});
 
 <Header />
 
-<main id="main">
+<main id="main" class="flex-1">
 	<slot />
 </main>
 
