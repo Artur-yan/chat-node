@@ -4,6 +4,7 @@
 	import Features from '$lib/components/Features.svelte';
 	import { fade } from 'svelte/transition';
 	import MorphingText from '$lib/components/MorphingText.svelte';
+	
 
 	let isThinking = false;
 	let messages = [
