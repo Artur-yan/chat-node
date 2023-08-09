@@ -9,8 +9,8 @@ import { prismaClient } from '$lib/server/prisma';
 export const GET = async () => {
 let codes = []
 
-for (let i = 0; i < 10000; i++) {
-    codes[i] =  {code: uuidv4()}
+for (let i = 0; i < 10; i++) {
+    codes[i] =  {code: uuidv4().replaceAll('-', '')}
 }
 
 const csv = codes.map(row => Object.values(row).join(',')).join('\n');
