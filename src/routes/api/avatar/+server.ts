@@ -22,7 +22,6 @@ export const POST = async ({ request }) => {
 	const base64Img = await blobToBase64(file);
 
 	cloudinary.uploader.upload(base64Img).then((result) => {
-		console.log(result);
 		return new Response(JSON.stringify({ body: result }));
 	});
 

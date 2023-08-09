@@ -369,7 +369,8 @@
 				on:click={() => createOrUpdateModel()}
 				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
 					selectedUrlsTokenCount == 0 ||
-					trainingStatus === 'training'}
+					trainingStatus === 'training' ||
+					busyFetchingUrls}
 			>
 				<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
 

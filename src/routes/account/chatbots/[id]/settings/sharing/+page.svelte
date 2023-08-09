@@ -18,9 +18,7 @@
 
 	const currentAllowedUrls = $currentBot.settings.allowedUrls;
 
-	$: enableEverywhere
-		? ($currentBot.settings.allowedUrls = ['*'])
-		: ($currentBot.settings.allowedUrls = currentAllowedUrls);
+	$: enableEverywhere ? $currentBot.settings.allowedUrls = ['*'] : $currentBot.settings.allowedUrls = currentAllowedUrls;
 
 	onMount(() => {
 		if ($currentBot.settings.allowedUrls[0] == '*') {
@@ -107,7 +105,6 @@
 								placeholder="chatnode.com"
 								autofocus
 								on:focusout={() => {
-									console.log($currentBot.settings.allowedUrls[i]);
 									if ($currentBot.settings.allowedUrls[i] === '') {
 										removeUrl(i);
 									}

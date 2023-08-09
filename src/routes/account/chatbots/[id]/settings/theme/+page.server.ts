@@ -37,7 +37,6 @@ export const actions = {
 		const exisitingCloudinaryPublicId = form.get('existing-cloudinary-public-id');
 		const buffer = Buffer.from(await avatarImg?.arrayBuffer());
 		const base64 = buffer.toString('base64');
-		console.log(avatarImg?.type);
 
 		if (!allowedFileTypes.includes(avatarImg?.type)) {
 			throw error(400, 'Invalid file type');
@@ -56,8 +55,6 @@ export const actions = {
 					eager: [{ width: 80, height: 80 }]
 				})
 				.then(async (result) => {
-					console.log('Result', result);
-
 					await updateAvartarImg(params.id, result.secure_url, result.public_id);
 				});
 		}

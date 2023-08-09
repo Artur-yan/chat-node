@@ -12,20 +12,66 @@ export const load: PageServerLoad = async ({ locals }) => {
 	if (session) throw redirect(302, '/account/chatbots');
 };
 
+
+const specialPlans = {
+	'free': {
+		plan: 0,
+		max_bot: 1,
+		max_msg: 30,
+		max_tocken: 100000
+	},
+	'appsumo1': {
+		plan: 1001,
+		max_bot: 10,
+		max_msg: 2000,
+		max_tocken: 500000
+	},
+	'appsumo2': {
+		plan: 1002,
+		max_bot: 20,
+		max_msg: 4000,
+		max_tocken: 1000000
+	},
+	'appsumo3': {
+		plan: 1003,
+		max_bot: 40,
+		max_msg: 6000,
+		max_tocken: 1500000
+	},
+	'appsumo4': {
+		plan: 1004,
+		max_bot: 60,
+		max_msg: 8000,
+		max_tocken: 2000000
+	},
+	'appsumo5': {
+		plan: 1005,
+		max_bot: 80,
+		max_msg: 10000,
+		max_tocken: 3000000
+	}
+}
+const domainBlacklist = [
+	'givmail.com',
+	'givmail.io',
+	'givmail.co',
+	'inboxbear.com',
+	'vomoto.com'
+];
+
 export const actions: Actions = {
-	default: async ({ request, locals, url }) => {
+	default: async ({ request, locals }) => {
 		const form = await request.formData();
 		const email = form.get('email');
 		const password = form.get('password');
-		const promo = url.searchParams.get('promo');
+		const appsumoCodes = form.get('appsumo-codes');
 
-		const domainBlacklist = [
-			'givmail.com',
-			'givmail.io',
-			'givmail.co',
-			'inboxbear.com',
-			'vomoto.com'
-		];
+
+		let subscriptionLimits = specialPlans['free']
+
+		let tooManyCodes = false;
+		let codesAlreadyRedeemed = false;
+		let codesDontExist = false;
 
 		if (domainBlacklist.includes(email.split('@')[1])) {
 			return fail(400, {
@@ -41,7 +87,68 @@ export const actions: Actions = {
 			});
 		}
 
-		try {
+		if (appsumoCodes) {
+			
+			const codes = appsumoCodes.split('\r\n');
+			const validateCodes = async () => {
+
+				if(codes.length > 5) {
+					tooManyCodes = true
+					return
+				}
+					
+				const matchingCodes = await prismaClient.appSumoCodes.findMany({
+					where: {
+						code: {in: codes }
+					}
+				})
+
+				if (matchingCodes.length !== codes.length) {
+					codesDontExist = true;
+					return						
+				}
+
+				matchingCodes.forEach(code => {
+					if(code.redeemed) {
+						codesAlreadyRedeemed = true;
+						return
+					}
+				})
+			}
+			await validateCodes()
+
+			if (codesAlreadyRedeemed || codesDontExist) {
+				return fail(400, {
+					message: 'One or more of your codes is invalid. It is either incorrect or has already been redeemed.',
+					submitted: false
+				});
+			} else if (tooManyCodes) {
+				return fail(400, {
+					message: 'Maxiumum of 5 codes allowed',
+					submitted: false
+				});
+			} else {
+				// Success
+				const matchingCodes = await prismaClient.appSumoCodes.updateMany({
+					where: {
+						code: {in: codes }
+					},
+					data: {
+						redeemed: true,
+						redeemed_date: new Date(),
+						redeemed_by: email
+					}
+				})
+				subscriptionLimits = specialPlans['appsumo' + codes.length.toString()]
+
+			}
+		}
+
+
+
+
+		try {			
+			// Create User
 			const uuid = uuidv4();
 			const user = await auth.createUser({
 				primaryKey: {
@@ -54,18 +161,24 @@ export const actions: Actions = {
 					verification_uuid: uuid
 				}
 			});
+
+			// Create Subscription
 			let subscriptionData = {
-				user_id: user.userId
+				user_id: user.userId,
+				plan: subscriptionLimits.plan,
+				max_bot: subscriptionLimits.max_bot,
+				max_msg: subscriptionLimits.max_msg,
+				max_tocken: subscriptionLimits.max_tocken,
 			};
-			if (promo === 'beta_tester') {
-				subscriptionData.plan = 1;
-				subscriptionData.max_bot = 5;
-				subscriptionData.max_msg = 2000;
-			}
+
 			await prismaClient.subscriptions.create({
 				data: subscriptionData
 			});
+
+			// Send Email
 			await sendAccountEmailConfirmation(email, uuid);
+
+			// Start Session
 			const session = await auth.createSession(user.userId);
 			locals.auth.setSession(session);
 		} catch (error) {
@@ -86,6 +199,19 @@ export const actions: Actions = {
 				submitted: false
 			});
 		}
+
+		// if (appsumoCodes) {
+
+		// 	return {
+		// 			success: true,
+		// 			message: 'Your AppSumo codes have been redeemed.'
+		// 	}
+		// } else {
+		// 	return {
+		// 			success: true,
+		// 			message: 'Account created'
+		// 	}	
+		// }
 
 		throw redirect(302, '/account/chatbots?signup=success');
 	}

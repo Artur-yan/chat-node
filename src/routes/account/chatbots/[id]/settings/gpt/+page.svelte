@@ -4,16 +4,18 @@
 	export let data;
 
 	let plan = data.subscription.plan;
+
+	const plansWthCustomApiKey = [2, 3, 4, 102, 103, 104, 1003, 1004, 1005];
 </script>
 
-{#if plan === 0}
-	<div class="alert alert-warning mb-2 font-bold">GPT-4 is only available on paid plans.</div>
-{/if}
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<div class="card-title">
 			<h2>GPT Version</h2>
 		</div>
+		{#if plan === 0}
+			<div class="alert text-warning mb-2 font-bold">GPT-4 is only available on paid plans.</div>
+		{/if}
 		<div>
 			<div class="join">
 				<label class="btn join-item btn-outline btn-neutral aria-checked:bg-primary">
@@ -44,6 +46,27 @@
 					</div>
 				</div>
 			{/if}
+		</div>
+	</div>
+</div>
+
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="card-title">
+			<h2>Personal OpenAI API Key</h2>
+		</div>
+		{#if !plansWthCustomApiKey.includes(plan)}
+			<div class="alert text-warning mb-2 font-bold">
+				This feature is available on the Pro plan or greater.
+			</div>
+		{/if}
+		<div>
+			<input
+				class="input w-full max-w-lg"
+				type="text"
+				bind:value={$currentBot.settings.openai_api_key}
+				disabled={!plansWthCustomApiKey.includes(plan)}
+			/>
 		</div>
 	</div>
 </div>

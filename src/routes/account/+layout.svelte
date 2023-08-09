@@ -6,6 +6,10 @@
 	import Toast from '$lib/components/Toast.svelte';
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
+	import { alert } from '$lib/stores';
+	import systemSettings from '$lib/systemSettings';
+
+	export let data: LayoutData;
 
 	onMount(() => {
 		const { enableAutoPageviews } = Plausible({
@@ -15,7 +19,13 @@
 		enableAutoPageviews();
 	});
 
-	export let data: LayoutData;
+	if(systemSettings.maintenanceAlert) {
+		alert.set({
+			type: 'warning',
+			msg: systemSettings.maintenanceMsg,
+			duration: 2000 + systemSettings.maintenanceMsg.length * 50
+		});
+	}
 </script>
 
 <svelte:head>

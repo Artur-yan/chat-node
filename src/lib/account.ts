@@ -20,4 +20,17 @@ const updateAccountEmail = async (newEmail: string) => {
 	}
 };
 
-export { deleteAccount, updateAccountEmail };
+const updateApiKey = async () => {
+	try {
+		const res = await fetch('/api/account/update-api-key', {
+			method: 'POST'
+		});
+		const { apiKey } = await res.json();
+
+		return apiKey;
+	} catch (err) {
+		console.error(err);
+	}
+};
+
+export { deleteAccount, updateAccountEmail, updateApiKey };
