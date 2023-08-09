@@ -1,10 +1,28 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
 
-	export let form: { message?: string; submitted: false; promo: string };
+	export let form: { message?: string; submitted: false; success: false};
+
+	import { page } from '$app/stores';
+	import { alert } from '$lib/stores';
+
+	const promo = $page.url.searchParams.get('promo');
+
+	let appsumoCodes = '';
 
 	let loading = false;
 	$: loading = form?.submitted;
+
+	$: console.log(form);
+
+
+
+	$: if (form?.success) {
+		$alert = form?.message
+		goto('/chatbots');
+
+	}
 </script>
 
 <svelte:head>
@@ -51,9 +69,25 @@
 					/>
 				</div>
 
+				{#if promo === 'appsumo'}
+				<div>
+					<label class="label" for="email"><span class="label-text">AppSumo Code(s)</span></label>
+					<textarea
+						class="textarea textarea-bordered w-full textarea-xs"
+						spellcheck="false"
+						name="appsumo-codes"
+						rows="5"
+						placeholder="Enter up to 5 AppSumo codes here each on a new line"
+						bind:value={appsumoCodes} />
+
+				</div>
+
+				{/if}
+
 				{#if form?.message}
 					<p class="text-error">{form.message || ''}</p>
 				{/if}
+
 				<button type="submit" class="btn btn-primary w-full mt-4">
 					<span class={loading ? 'loading' : 'invisible'} />
 					Create account

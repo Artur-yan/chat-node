@@ -105,6 +105,15 @@ model BotsSource {
   @@map("bots_source")
 }
 
+model AppSumoCodes {
+  code        String @id @unique
+  redeemed     Boolean @default(false)
+  redeemed_date DateTime?
+  redeemed_by String?
+
+  @@map("appsumo_codes")
+}
+
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model slack_bots {
   id                    Int       @id @default(autoincrement())

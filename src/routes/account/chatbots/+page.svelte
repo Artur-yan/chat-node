@@ -70,7 +70,6 @@
 		>
 	</div>
 
-	{#if data.user.user.status === 'active'}
 		<div class="card card-compact card-bordered border-neutral mb-4">
 			<div class="card-body">
 				<div class="flex gap-8 items-center">
@@ -120,7 +119,6 @@
 				</div>
 			</div>
 		</div>
-	{/if}
 	{#if data.bots.length > 0}
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 			{#each data.bots as bot}
