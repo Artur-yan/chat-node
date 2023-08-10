@@ -9,6 +9,10 @@
 	import { alert } from '$lib/stores';
 	import systemSettings from '$lib/systemSettings';
 
+	import { page } from '$app/stores';
+
+	console.log(page)
+
 	export let data: LayoutData;
 
 	onMount(() => {
@@ -29,12 +33,6 @@
 </script>
 
 <svelte:head>
-	<script
-		src="https://www.chatnode.ai/embed.js"
-		data-chatbot-id="befbfc87e25911db"
-		data-color-1="#0E1729"
-		data-color-2="#3ABFF7"
-	></script>
 	<script>
 		(function (w, r) {
 			w._rwq = r;

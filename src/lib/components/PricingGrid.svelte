@@ -199,6 +199,7 @@
 					<li><span class="figure">7 Day</span> chat history</li>
 				</ul>
 				<ul class="extra">
+					<li>Remove ChatNode branding</li>
 					<li>Bring your own OpenAI API key</li>
 					<li>Slack integration</li>
 				</ul>

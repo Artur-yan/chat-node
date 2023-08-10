@@ -12,7 +12,6 @@
 			sender: 'bot'
 		}
 	];
-	let activeTab = 0;
 
 	const demoChat = async () => {
 		await new Promise((r) => setTimeout(r, 1000));
@@ -34,13 +33,20 @@
 		];
 	};
 
+	let activeTab = 0;
+	let videoEnded = false
+
+	$: if (videoEnded == true ) {
+		if (activeTab == 2) activeTab = 0;
+		else activeTab++
+		videoEnded = false
+	}
+
 	let arrow: HTMLDivElement;
 	let outerHeight: number;
 	let outerWidth: number;
 	let scrollY: number;
 
-	let trigO: number;
-	let trigA: number;
 	let arrowRotation: number;
 
 	const trig = () => {
@@ -49,7 +55,6 @@
 		const trigA = outerWidth - (arrowPosition.left + arrow.offsetWidth / 2) - 52;
 		const theta = Math.atan(trigO / trigA);
 
-		console.log(outerHeight);
 		arrowRotation = theta;
 	};
 
@@ -68,7 +73,7 @@
 <svelte:window bind:scrollY bind:outerHeight bind:outerWidth on:scroll={trig} />
 
 <section>
-	<div class="grid container lg:grid-cols-2 items-center gap-8 mx-auto min-h-[80vh]">
+	<div class="grid container lg:grid-cols-2 items-center gap-8 mx-auto pt-[5vh] pb-[10vh]">
 		<div class="max-lg:text-center">
 			<h2
 				class="mt-6 mb-6 w-[11ch] text-5xl lg:text-7xl 2xl:text-8xl tracking-tight font-extrabold text-secondary max-w-[8em] max-lg:mx-auto"
@@ -117,62 +122,69 @@
 	</div>
 </section>
 
-<section class="bg-black animated-gradent-bg min-h-screen flex justify-center items-center">
+<!-- <section class="bg-black animated-gradent-bg min-h-screen flex justify-center items-center">
 	<video controls width="1792" height="1080" class="max-w-5xl shadow-2xl rounded-md" autoplay muted>
 		<source src="/Long demo.mp4" type="video/mp4" />
 		Your browser does not support the video tag.
 	</video>
-</section>
+</section> -->
 
-<section id="feature-vids" class="container py-8">
-	<div class="grid grid-cols-2 gap-2">
-		<button
-			class="btn h-20 text-xl btn-primary {activeTab == 0 ? 'active' : 'btn-outline'}"
-			on:click={() => (activeTab = 0)}>Train</button
-		>
-		<button
-			class="btn h-20 text-xl btn-secondary {activeTab == 1 ? 'active' : 'btn-outline'}"
-			on:click={() => (activeTab = 1)}>Integrate</button
-		>
-	</div>
-	<div
-		class="grid grid-cols-[auto_32rem] gap-4 mt-4 {activeTab == 0
-			? 'bg-primary'
-			: 'bg-secondary'} p-6 rounded-md transition-colors duration-1000"
-	>
-		{#if activeTab === 0}
-			<video controls width="1792" height="1080" class="rounded-md" autoplay muted in:fade>
-				<source src="/Long demo.mp4" type="video/mp4" />
-				Your browser does not support the video tag.
-			</video>
-			<div class="p-10 text-primary-content rounded-md bg-white/50">
-				<h2 class="text-2xl font-bold mb-4">
-					Simple and fast scraping of entire websites, huge pdfs or simple custom text.
-				</h2>
-				<p class="text-lg">
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, quisquam magni quos
-					deserunt quasi nesciunt. Sit asperiores similique explicabo voluptatem minus illo commodi
-					temporibus error harum nesciunt. Deserunt, vero dolorem.
-				</p>
-			</div>
-		{/if}
-		{#if activeTab === 1}
-			<video controls width="1792" height="1080" class="rounded-md" autoplay muted in:fade>
-				<source src="/Long demo.mp4" type="video/mp4" />
-				Your browser does not support the video tag.
-			</video>
-			<div class="p-10 text-primary-content rounded-md bg-white/50">
-				<h2 class="text-2xl font-bold mb-4">
-					Once your bot has all the answers, deploy it on your website, share a url or integrate it
-					with Slack
-				</h2>
-				<p class="text-lg">
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, quisquam magni quos
-					deserunt quasi nesciunt. Sit asperiores similique explicabo voluptatem minus illo commodi
-					temporibus error harum nesciunt. Deserunt, vero dolorem.
-				</p>
-			</div>
-		{/if}
+<section class="bg-black animated-gradent-bg flex items-center justify-center p-14">
+
+	<div class="max-w-5xl">
+		<div class="flex gap-2 mb-2">
+			<button
+				class="btn btn-wide btn-primary {activeTab == 0 ? 'active' : 'btn-outline'}"
+				on:click={() => (activeTab = 0)}>Overview</button
+			>
+			<button
+				class="btn btn-wide btn-primary {activeTab == 1 ? 'active' : 'btn-outline'}"
+				on:click={() => (activeTab = 1)}>Train</button
+			>
+			<button
+				class="btn btn-wide btn-primary {activeTab == 2 ? 'active' : 'btn-outline'}"
+				on:click={() => (activeTab = 2)}>Embed</button
+			>
+		</div>
+		<div>
+			{#if activeTab === 0}
+				<video controls width="1792" height="1080" class="shadow-2xl rounded-md" autoplay muted in:fade bind:ended={videoEnded}>
+					<source src="/Long demo.mp4" type="video/mp4" />
+					Your browser does not support the video tag.
+				</video>
+			{:else if activeTab === 1}
+				<video controls width="1792" height="1080" class="rounded-md" autoplay muted in:fade bind:ended={videoEnded}>
+					<source src="/Long demo.mp4" type="video/mp4" />
+					Your browser does not support the video tag.
+				</video>
+				<div class="p-10 text-primary-content text-center">
+					<h2 class="text-2xl font-bold mb-4">
+						Simple and fast scraping of entire websites, huge pdfs or simple custom text.
+					</h2>
+					<!-- <p class="text-lg">
+						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, quisquam magni quos
+						deserunt quasi nesciunt. Sit asperiores similique explicabo voluptatem minus illo commodi
+						temporibus error harum nesciunt. Deserunt, vero dolorem.
+					</p> -->
+				</div>
+			{:else if activeTab === 2}
+				<video controls width="1792" height="1080" class="rounded-md" autoplay muted in:fade bind:ended={videoEnded}>
+					<source src="/Long demo.mp4" type="video/mp4" />
+					Your browser does not support the video tag.
+				</video>
+				<div class="p-10 text-primary-content text-center max-w-[70ch] mx-auto">
+					<h2 class="text-2xl font-bold mb-4">
+						Once your bot has all the answers, deploy it on your website, share a url or integrate it
+						with Slack
+					</h2>
+					<!-- <p class="text-lg">
+						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, quisquam magni quos
+						deserunt quasi nesciunt. Sit asperiores similique explicabo voluptatem minus illo commodi
+						temporibus error harum nesciunt. Deserunt, vero dolorem.
+					</p> -->
+				</div>
+			{/if}
+		</div>
 	</div>
 </section>
 
@@ -187,13 +199,13 @@
 		</h2>
 	</div>
 
-	<div class="grid md:grid-cols-2 divide-x divide-neutral my-10">
-		<div class="px-6 text-center">
+	<div class="grid md:grid-cols-2 my-10">
+		<div class="p-6 text-center border-r border-b border-neutral">
 			<div class="mockup-window bg-neutral shadow-lg p-4 pb-8">
 				<h3 class="font-bold mb-4">Embed</h3>
 				<div class="inline-block h-4 w-24 bg-base-100 rounded-full mx-auto mb-3" />
 				<div class="inline-block h-4 w-16 bg-base-100 rounded-full mx-auto mb-3" />
-				<div class="p-2 bg-base-200 border-primary/50 rounded-lg border mx-8">
+				<div class="p-2 bg-base-200 border-primary rounded-lg border mx-8">
 					<div>
 						<div class="chat chat-start">
 							<div class="chat-bubble w-48" />
@@ -208,25 +220,27 @@
 			</div>
 		</div>
 
-		<div class="text-center flex flex-col px-6" onclick="toggleChat()">
+		<div class="text-center flex flex-col p-6 border-b border-neutral" onclick="toggleChat()">
 			<div class="mockup-window relative bg-neutral shadow-lg p-4 h-full">
 				<h3 class="font-bold mb-4">Popup Chat</h3>
 				<div
 					bind:this={arrow}
-					class="absolute w-12 left-1/4 top-1/2 flex items-center justify-center aspect-square text-4xl text-primary"
+					class="absolute w-12 left-1/4 top-1/2 flex items-center justify-center aspect-square text-4xl text-primary transition-transform duration-75"
 					style="transform: rotate({arrowRotation}rad);"
 				>
-					&rarr;
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" class="rotate-[135deg]" width="48" height="48" viewBox="0 0 15 15"><path fill="currentColor" d="M4.5 0h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .854.354L2.5 3.207l11.646 11.647l.708-.708L3.207 2.5L4.854.854A.5.5 0 0 0 4.5 0Z"/></svg>
+					</div>
 					<div
-						class="absolute top-0 left-0 radial-progress text-primary/50"
-						style="--size: 3rem; --value: 30; --thickness: 2px; transform: rotate({arrowRotation *
+						class="absolute -top-[1.5rem] -left-[1.5rem] radial-progress text-primary/20"
+						style="--size: 6rem; --value: 50; --thickness: 4px; transform: rotate({arrowRotation *
 							15}rad);"
 					/>
 				</div>
 
 				<div class="absolute bottom-4 right-4">
 					<div class="max-w-xs">
-						<div class="p-2 bg-base-200 border-primary/50 rounded-lg border">
+						<div class="p-2 bg-base-200 border-primary rounded-lg border">
 							<div>
 								<div class="chat chat-start">
 									<div class="chat-bubble w-48" />
@@ -264,7 +278,79 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="p-6 border-r border-neutral">
+			<div class="mockup-browser bg-neutral">
+				<div class="mockup-browser-toolbar">
+				  <div class="input text-sm text-primary !border-primary items-center !flex">https://www.yoursharelink.com</div>
+				</div>
+				<div class="p-4 pb-16 bg-base-200">
+						<div>
+							<div class="chat chat-start">
+								<div class="chat-bubble w-48" />
+							</div>
+							<div class="chat chat-end">
+								<div class="chat-bubble w-32" />
+							</div>
+						</div>
+
+				</div>
+			  </div>
+		</div>
+		<div class="p-6">
+			<div class="mockup-browser bg-neutral h-full">
+				<div class="mockup-browser-toolbar">
+				  <div class="input text-sm text-primary !border-primary items-center !flex">https://yourworksapce.slack.com</div>
+				</div>
+					<div class="grid grid-cols-[100px_auto] h-full bg-base-300">
+						<div class="bg-neutral">
+							<ul class="space-y-2 mx-4">
+							{#each Array(3) as line}
+								<li class="rounded-full h-1 bg-base-300"></li>
+							{/each}
+							</ul>
+							<hr class="border-base-100 my-4">
+							<ul class="space-y-2 mx-4">
+							{#each Array(5) as line}
+								<li class="rounded-full h-1 bg-base-100"></li>
+							{/each}
+							</ul>
+
+						</div>
+						<div>
+							<ul class="space-y-2 m-4">
+									<li class="rounded-full h-1 bg-white/20 w-1/2"></li>
+									<li class="rounded-full h-1 bg-white/20 w-1/3"></li>
+									<li class="rounded-full h-1 bg-white/20 w-3/4"></li>
+									<li class="rounded-full h-1 bg-white/20 w-1/2"></li>
+								</ul>
+							<hr class="border-neutral my-4">
+							<ul class="space-y-2 m-4">
+								<li class="rounded-full h-1 bg-white/20 w-3/5"></li>
+								<li class="rounded-full h-1 bg-white/20 w-2/3"></li>
+								<li class="rounded-full h-1 bg-white/20 w-5/12"></li>
+								<li class="rounded-full h-1 bg-white/20 w-7/12"></li>
+							</ul>
+
+						</div>
+					</div>
+
+			  </div>
+		</div>
 	</div>
+
+
+	<!-- <div class="text-center">
+		<div class="join">
+			<div class="join-item font-bold flex items-center px-4 rounded-md bg-neutral">
+				Web Address
+			</div>
+			<div class="join-item input items-center flex text-sm text-secondary input-secondary border-none bg-neutral">
+				https://www.yoursharelink.com
+			</div>
+		</div>
+	</div> -->
+
 </section>
 
 <section class="text-center py-20 container">
@@ -300,7 +386,7 @@
 		class="absolute inset-0 bg-gradient-to-b from-base-200 via-transparent to-base-200 shadow-base-200"
 	/>
 	<div class="flex justify-center">
-		<h2 class="font-bold text-3xl relative py-4 px-4 w-[22vw] text-center text-secondary">
+		<h2 class="font-bold text-3xl relative py-4 px-4 w-[25vw] text-center text-secondary">
 			<div class="dot-corners">
 				<div />
 				<div />
