@@ -51,8 +51,8 @@
 
 	const trig = () => {
 		const arrowPosition = arrow.getBoundingClientRect();
-		const trigO = outerHeight - (arrowPosition.top + arrow.offsetHeight / 2) - 52;
-		const trigA = outerWidth - (arrowPosition.left + arrow.offsetWidth / 2) - 52;
+		const trigO = outerHeight - (arrowPosition.top) - 76;
+		const trigA = outerWidth - (arrowPosition.left) - 76;
 		const theta = Math.atan(trigO / trigA);
 
 		arrowRotation = theta;
@@ -201,8 +201,9 @@
 
 	<div class="grid md:grid-cols-2 my-10">
 		<div class="p-6 text-center border-r border-b border-neutral">
+			<h3 class="font-bold mb-4 text-secondary">Embed</h3>
+
 			<div class="mockup-window bg-neutral shadow-lg p-4 pb-8">
-				<h3 class="font-bold mb-4">Embed</h3>
 				<div class="inline-block h-4 w-24 bg-base-100 rounded-full mx-auto mb-3" />
 				<div class="inline-block h-4 w-16 bg-base-100 rounded-full mx-auto mb-3" />
 				<div class="p-2 bg-base-200 border-primary rounded-lg border mx-8">
@@ -221,8 +222,8 @@
 		</div>
 
 		<div class="text-center flex flex-col p-6 border-b border-neutral" onclick="toggleChat()">
+			<h3 class="font-bold mb-4 text-secondary">Popup Chat</h3>
 			<div class="mockup-window relative bg-neutral shadow-lg p-4 h-full">
-				<h3 class="font-bold mb-4">Popup Chat</h3>
 				<div
 					bind:this={arrow}
 					class="absolute w-12 left-1/4 top-1/2 flex items-center justify-center aspect-square text-4xl text-primary transition-transform duration-75"
@@ -280,7 +281,9 @@
 		</div>
 
 		<div class="p-6 border-r border-neutral">
-			<div class="mockup-browser bg-neutral">
+			<h3 class="font-bold mb-4 text-secondary text-center">URL</h3>
+
+			<div class="mockup-browser bg-neutral h-full">
 				<div class="mockup-browser-toolbar">
 				  <div class="input text-sm text-primary !border-primary items-center !flex">https://www.yoursharelink.com</div>
 				</div>
@@ -298,6 +301,8 @@
 			  </div>
 		</div>
 		<div class="p-6">
+			<h3 class="font-bold mb-4 text-secondary text-center">Slack</h3>
+
 			<div class="mockup-browser bg-neutral h-full">
 				<div class="mockup-browser-toolbar">
 				  <div class="input text-sm text-primary !border-primary items-center !flex">https://yourworksapce.slack.com</div>
