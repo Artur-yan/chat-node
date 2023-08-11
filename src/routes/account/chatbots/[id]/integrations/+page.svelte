@@ -5,7 +5,7 @@
 
 	console.log(data);
 
-	const plansWithSlackIntegration = [2, 3, 4, 5, 102, 103, 104, 105];
+	const plansWithSlackIntegration = [2, 3, 4, 5, 102, 103, 104, 105, 1001, 1002, 1003, 1004, 1005];
 </script>
 
 <div class="container my-4 grid sm:grid-cols-2 md:grid-cols-3">
