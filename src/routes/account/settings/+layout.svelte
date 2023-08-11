@@ -27,7 +27,7 @@
 		}
 	};
 
-	const planPath = '/account/settings/plan';
+	const subscriptionPath = '/account/settings/subscription';
 	const settingsPath = '/account/settings';
 
 	let daysLeftInBillingCycle = Math.ceil(
@@ -43,8 +43,8 @@
 			<a href={settingsPath} class="tab" class:tab-active={settingsPath == $page.url.pathname}
 				>Settings</a
 			>
-			<a href={planPath} class="tab" class:tab-active={planPath == $page.url.pathname}
-				>Change plan</a
+			<a href={subscriptionPath} class="tab" class:tab-active={subscriptionPath == $page.url.pathname}
+				>Subscription</a
 			>
 			<button on:click={redirectToStripeBilling} class="tab">Billing</button>
 		</div>

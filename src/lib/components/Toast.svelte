@@ -9,7 +9,7 @@
 			$alert = { msg: $alert, type: 'info', duration: 3500 };
 		}
 
-		setTimeout(() => ($alert = ''), $alert.duration);
+		setTimeout(() => ($alert = ''), $alert.duration || 3500);
 
 		switch ($alert.type) {
 			case 'success':
