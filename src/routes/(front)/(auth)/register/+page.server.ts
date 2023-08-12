@@ -144,9 +144,6 @@ export const actions: Actions = {
 			}
 		}
 
-
-
-
 		try {			
 			// Create User
 			const uuid = uuidv4();
