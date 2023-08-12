@@ -37,7 +37,6 @@
 				body: JSON.stringify({ newPlan, referralCode })
 			});
 			const data = await res.json();
-			await new Promise((resolve) => setTimeout(resolve, 2500));
 			goto(data.url);
 
 		} catch (err) {
