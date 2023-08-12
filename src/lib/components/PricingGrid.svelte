@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { alert } from '$lib/stores.js';
-	import { goto, invalidateAll } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
-	
+
 
 	export let currentPlan: number | undefined = undefined;
 
@@ -38,7 +38,7 @@
 			});
 			const data = await res.json();
 			await new Promise((resolve) => setTimeout(resolve, 2500));
-			invalidateAll()
+			invalidate('/account/chatbots');
 			goto(data.url);
 
 		} catch (err) {
