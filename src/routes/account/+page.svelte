@@ -1,5 +1,5 @@
 <script>
-	import { goto } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { alert } from '$lib/stores';
@@ -33,6 +33,7 @@
 
 			$alert = 'Plan changed successfully!';
 		}
+		invalidate('/account/chatbots');
 		goto('/account/chatbots');
 	});
 </script>

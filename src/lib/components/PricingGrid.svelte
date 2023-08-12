@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { alert } from '$lib/stores.js';
-	import { goto, invalidate } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 
 

@@ -5,8 +5,6 @@
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 	import { deleteModel } from '$lib/models';
-	import { alert } from '$lib/stores.js';
-	import { updateAccountEmail } from '$lib/account';
 
 	export let data;
 
