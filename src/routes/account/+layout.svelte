@@ -9,10 +9,6 @@
 	import { alert } from '$lib/stores';
 	import systemSettings from '$lib/systemSettings';
 
-	import { page } from '$app/stores';
-
-	console.log(page)
-
 	export let data: LayoutData;
 
 	onMount(() => {
