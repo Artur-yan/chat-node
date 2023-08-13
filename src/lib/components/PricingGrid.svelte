@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 
+
 	export let currentPlan: number | undefined = undefined;
 
 	let busyChangingPlan = false;
@@ -19,10 +20,15 @@
 		}
 	});
 
-	const updatePlan = async (newPlan: number, e) => {
+	let planToChangeTo: number
+	const handleConfirmPlanChange = (plan: number) => {
+		planToChangeTo = plan
+		modalConfirmPlanChange.showModal()
+	}
+
+	const updatePlan = async (newPlan: number) => {
 		try {
 			busyChangingPlan = true;
-			e.target.innerHTML = '<span class="loading"></span>Changing plan...';
 			const res = await fetch('/api/account/plan', {
 				method: 'PUT',
 				headers: {
@@ -79,7 +85,7 @@
 				</div>
 				{#if currentPlan !== undefined}
 					<button
-						on:click={(e) => updatePlan(0, e)}
+						on:click={() => handleConfirmPlanChange(0)}
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 0}
 					>
@@ -117,7 +123,7 @@
 				{#if currentPlan !== undefined}
 					{#if billingTerm == 'monthly'}
 						<button
-							on:click={(e) => updatePlan(1, e)}
+							on:click={() => handleConfirmPlanChange(1)}
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 1}
 						>
@@ -125,7 +131,7 @@
 						>
 					{:else}
 						<button
-							on:click={(e) => updatePlan(101, e)}
+						on:click={() => handleConfirmPlanChange(101)}
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 101}
 						>
@@ -165,7 +171,7 @@
 				{#if currentPlan !== undefined}
 					{#if billingTerm == 'monthly'}
 						<button
-							on:click={(e) => updatePlan(2, e)}
+						on:click={() => handleConfirmPlanChange(2)}
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 2}
 						>
@@ -173,7 +179,7 @@
 						>
 					{:else}
 						<button
-							on:click={(e) => updatePlan(102, e)}
+						on:click={() => handleConfirmPlanChange(102)}
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 102}
 						>
@@ -227,16 +233,16 @@
 					{#if currentPlan !== undefined}
 						{#if billingTerm == 'monthly'}
 							<button
-								on:click={(e) => updatePlan(3, e)}
-								class="btn btn-outline btn-secondary"
+							on:click={() => handleConfirmPlanChange(3)}
+							class="btn btn-outline btn-secondary"
 								disabled={currentPlan === 3}
 							>
 								{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
 							>
 						{:else}
 							<button
-								on:click={(e) => updatePlan(103, e)}
-								class="btn btn-outline btn-secondary"
+							on:click={() => handleConfirmPlanChange(103)}
+							class="btn btn-outline btn-secondary"
 								disabled={currentPlan === 103}
 							>
 								{currentPlan === 103 ? 'Current plan' : 'Change plan'}</button
@@ -286,16 +292,16 @@
 					{#if currentPlan !== undefined}
 						{#if billingTerm == 'monthly'}
 							<button
-								on:click={(e) => updatePlan(4, e)}
-								class="btn btn-outline btn-secondary"
+							on:click={() => handleConfirmPlanChange(4)}
+							class="btn btn-outline btn-secondary"
 								disabled={currentPlan === 4}
 							>
 								{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
 							>
 						{:else}
 							<button
-								on:click={(e) => updatePlan(104, e)}
-								class="btn btn-outline btn-secondary"
+							on:click={() => handleConfirmPlanChange(104)}
+							class="btn btn-outline btn-secondary"
 								disabled={currentPlan === 104}
 							>
 								{currentPlan === 104 ? 'Current plan' : 'Change plan'}</button
@@ -327,6 +333,35 @@
 		</div>
 	</div>
 </div>
+
+<!-- Open the modal using ID.showModal() method -->
+<dialog id="modalConfirmPlanChange" class="modal">
+  <form method="dialog" class="modal-box">
+    <h3 class="font-bold text-lg mb-4">
+		{ planToChangeTo > currentPlan
+			? 'You will be billed immediately!'
+			: 'Are you Sure'
+		}
+	</h3>
+	<p class="mb-8">
+	{ planToChangeTo > currentPlan
+		? 'Your card on file will be billed immediately for the new amount minus the prorated amount from your previous plan.'
+		: 'Your plan will automatically be downgraded at the end of the billing period'
+	}
+	</p>
+
+    <!-- <p class="py-4">Your </p> -->
+	<div class="text-right">
+		<button class="btn">Cancel</button>
+		<button class="btn btn-warning" on:click={() => updatePlan(planToChangeTo)}>Confirm Change</button>
+	</div>
+  </form>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
+
+
 
 <style lang="postcss">
 	h2 {

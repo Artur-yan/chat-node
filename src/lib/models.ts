@@ -57,7 +57,7 @@ const defaultSettings = {
 	supportMessage:
 		'If the answer is not included, say exactly "Hmm, I don\'t know" and stop after that.',
 	systemPrompt:
-		'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.',
+		'You are a helpful assistant named "Assistant AI". You limit your knowledge to the context provided',
 	userPrompt: '',
 	gptVersion: '3.5',
 	temperature: 0.1,
