@@ -115,7 +115,7 @@
 		width: 100%;
 		display: inline-block;
 
-		font-size: 1.875rem;
+		font-size: 2.25rem;
 		font-weight: bolder;
 
 		user-select: none;

@@ -81,13 +81,13 @@
 				Train ChatGPT on your data
 			</h2>
 
-			<div class="text-3xl font-bold max-w-[24ch] leading-10">
-				<spa class="mr-2">Build a chatbot to answer any queries on your</spa>
+			<div class="text-4xl font-bold max-w-[24ch] leading-10">
+				<span class="mr-2">Build a chatbot to answer any questions on your</span>
 				<MorphingText />
 			</div>
 
 			<div class="flex items-center max-lg:justify-center">
-				<div class="mt-20 flex gap-4">
+				<div class="mt-16 flex gap-4">
 					<a href="/register" class="btn btn-primary btn-lg -ml-1">Create your free chatbot</a>
 				</div>
 			</div>
