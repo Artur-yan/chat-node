@@ -68,6 +68,12 @@
 		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
 	/>
 	<link rel="“canonical”" href="https://www.chatnode.ai" />
+	<script
+		src="https://www.chatnode.ai/embed.js"
+		data-chatbot-id="befbfc87e25911db"
+		data-color-1="#0E1729"
+		data-color-2="#3ABFF7"
+	></script>
 </svelte:head>
 
 <svelte:window bind:scrollY bind:outerHeight bind:outerWidth on:scroll={trig} />
