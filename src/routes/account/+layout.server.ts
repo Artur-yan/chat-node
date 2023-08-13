@@ -1,8 +1,7 @@
-import type { LayoutServerLoad } from './settings/plan/$typesypes';
 import { redirect } from '@sveltejs/kit';
 import { prismaClient } from '$lib/server/prisma';
 
-export const load: LayoutServerLoad = async ({ locals }) => {
+export const load = async ({ locals }) => {
 	const user = await locals.auth.validateUser();
 
 	if (user.session) {

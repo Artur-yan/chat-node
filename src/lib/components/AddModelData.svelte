@@ -236,7 +236,7 @@
 			Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
 
 			{#if filesTokenCount + existingTokenCount > subscription.max_tocken}
-				<a href="/account/settings/plan" class="btn">Upgrade</a>
+				<a href="/account/settings/subscription" class="btn">Upgrade</a>
 			{/if}
 		</div>
 		<button

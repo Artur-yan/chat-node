@@ -54,7 +54,7 @@
 		{#if data.subscription.plan < 2}
 			<div class="alert alert-neutral text-warning justify-between flex">
 				<p>Available on the Pro plan</p>
-				<a href="/account/settings/plan" class="btn btn-info btn-sm">Upgrade</a>
+				<a href="/account/settings/subscription" class="btn btn-info btn-sm">Upgrade</a>
 			</div>
 		{/if}
 		<div class="flex gap-2">
