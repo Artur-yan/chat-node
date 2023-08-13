@@ -64,6 +64,13 @@ profitwell('start', {});
 		/>
 	</noscript>
 	<!-- End Facebook Pixel Code -->
+
+	<script
+	src="https://www.chatnode.ai/embed.js"
+	data-chatbot-id="befbfc87e25911db"
+	data-color-1="#0E1729"
+	data-color-2="#3ABFF7"
+></script>
 </svelte:head>
 
 <Header />
