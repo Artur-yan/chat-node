@@ -4,38 +4,51 @@
 			fname: 'Eric',
 			lname: 'Brenner',
 			title: 'Web Developer',
-			bio: 'Eric Brenner has been freelance web designer and developer since he was a teenager.',
+			bio: "He is obsessed with design and efficiency. He’s joined forces in building websites for some huge brands to try to make the internety a more  enjoyable place.",
 			nationality: '🇺🇸'
 		},
-		{ fname: 'Sacha', lname: 'Dumay', title: 'Data Engineer', nationality: '🇫🇷' },
-		{ fname: 'Thomas', lname: 'Agaraté', title: 'Marketing Director', nationality: '🇫🇷' }
+		{ fname: 'Sacha', lname: 'Dumay', title: 'Data Engineer', nationality: '🇫🇷', bio: "His days at ChatNode are pretty simple.<br>8-8:30am: Checking reports to see what our customers want next.<br>8:30-10pm : Building those features with Eric.<br>(Sometimes he skips lunch. He used to work as a data analyst for Wall Street so he no time for bulls**t)" },
+		{ fname: 'Thomas', lname: 'Agaraté', title: 'Marketing Director', nationality: '🇫🇷', bio: "He has two passions:<br>1. Find ways to onboard awesome customers onto his business<br />2. Build the most epic customer relationships so work feels like it’s not." }
 	];
 </script>
 
+<svelte:head>
+	<title>About | ChatNode</title>
+</svelte:head>
+
 <div class="container">
-	<h1 class="text-2xl font-bold">About the Company</h1>
+	<section>
+		<h1 class="text-2xl font-bold mb-4">The Company</h1>
+		<div class="text-xl max-w-4xl leading-9">
+			<p>We are a cohort of experienced tech workers building a startup in the very new and very exciting field of AI. We believe this technology should belong to everyone. We see ChatNode as a way to democratize the influence and value that AI can bring to world.</p>
+			<p></p>
+		</div>
+	</section>
+
 
 	<section class="my-20">
-		<h1 class="text-2xl font-bold">About the Team</h1>
-		<div class="grid grid-cols-3">
-			{#each team as person}
-				<div>
-					<img src="https://picsum.photos/500/500" alt="" class=" w-full mb-4" />
-					<div class="px-4">
-						<div class="flex items-center gap-2">
-							<h2>
-								<div class="inline-block text-secondary text-xl font-bold">{person.fname}</div>
-								<div class="inline-block text-xl font-light opacity-90">{person.lname}</div>
-							</h2>
-							{person.nationality}
+			<h1 class="text-2xl font-bold mb-2">The Team</h1>
+			<div class="grid grid-cols-3 gap-8">
+				{#each team as person}
+					<div class="bg-neutral rounded-lg p-6">
+						<div class="flex gap-4">
+							<div class="basis-1/3"><img src="https://picsum.photos/500/500" alt="" class="rounded" /></div>
+							<div class="flex items-center gap-2">
+								<h2>
+									<div class="inline-block text-secondary text-xl font-bold">{person.fname}</div>
+									<div class="inline-block text-xl font-light opacity-90">{person.lname}</div>
+									{person.nationality}
+									<h3>{person.title}</h3>
+								</h2>
+							</div>
 						</div>
-						<p>{person.title}</p>
-						<p class="text-gray-400 mt-4 text-sm">
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.
-						</p>
+						<div class="pr-6">
+							<p class=" mt-4 text-sm leading-6">
+								{@html person.bio}
+							</p>
+						</div>
 					</div>
-				</div>
-			{/each}
-		</div>
+				{/each}
+			</div>
 	</section>
 </div>
