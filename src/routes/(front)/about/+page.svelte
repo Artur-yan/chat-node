@@ -11,7 +11,7 @@
 			fname: 'Eric',
 			lname: 'Brenner',
 			title: 'Web Developer',
-			bio: "He is obsessed with design and efficiency. He’s joined forces in building websites for some huge brands to try to make the internety a more  enjoyable place.",
+			bio: "Eric is obsessed with design and efficiency. He’s joined forces in building websites for some huge brands to try to make the internety a more  enjoyable place.",
 			nationality: '🇺🇸',
 			img: Eric
 		},
