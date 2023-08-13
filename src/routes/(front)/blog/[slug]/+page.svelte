@@ -1,9 +1,5 @@
 <script>
-	import { each } from 'svelte/internal';
-
 	export let data;
-
-	console.log(data.post.body);
 </script>
 
 <div class="container py-10 !max-w-4xl">
@@ -13,7 +9,6 @@
 		{#if block.component == 'image'}
 			<img src="https://cms.chatnode.ai/storage/uploads{block.data.asset.path}" />
 		{:else}
-			
 			{@html block.data.html}
 		{/if}
 	{/each}
@@ -25,7 +20,8 @@
 			font-weight: bold;
 		}
 
-		p, img{
+		p,
+		img {
 			margin-bottom: 3rem;
 		}
 	</style>

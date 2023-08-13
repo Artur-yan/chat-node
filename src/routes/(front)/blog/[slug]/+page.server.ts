@@ -11,8 +11,6 @@ export const load = async ({ params }) => {
 
 	const post = await data.json();
 
-	console.log(post);
-
 	return {
 		post
 	};

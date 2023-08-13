@@ -2,9 +2,6 @@
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 
 	export let data;
-
-	console.log(data);
-
 	const plansWithSlackIntegration = [2, 3, 4, 5, 102, 103, 104, 105, 1001, 1002, 1003, 1004, 1005];
 </script>
 
