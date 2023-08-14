@@ -1,9 +1,59 @@
 <script lang="ts">
 	import { currentBot } from '$lib/stores.js';
 	import { defaultSettings } from '$lib/models.js';
+
+	const personailites = {
+		'default': {
+			greeting: 'Hello, how can I help you today????',
+			supportMessage: `If the answer is not included, say exactly "Hmm, I don't know" and stop after that.`,
+			systemPrompt: '???I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.'
+		},
+		'airbnb': {
+			greeting: 'Do you have question about your rental?',
+			supportMessage: 'If you need more help, please contact us at',
+			systemPrompt: 'If you need more help, please contact us at'
+		},
+		'support': {
+			greeting: 'Hello, how can I help you today?',
+			supportMessage: 'If you need more help, please contact us at',
+			systemPrompt: 'If you need more help, please contact us at'
+		},
+		'documentation': {
+			greeting: 'What can I find for you in the [Your Company] docs?',
+			supportMessage: 'If you need more help, please contact us at',
+			systemPrompt: 'If you need more help, please contact us at'
+		},
+		'custom': {
+			greeting: 'What can I find for you in the [Your Company] docs?',
+			supportMessage: 'If you need more help, please contact us at',
+			systemPrompt: 'If you need more help, please contact us at'
+		}
+	}
+
+	let personality: keyof typeof personailites = 'default';
+
+	const setPersonality = () => {
+		$currentBot.settings.greeting = personailites[personality].greeting;
+		$currentBot.settings.supportPrompt = personailites[personality].supportMessage;
+		$currentBot.settings.systemPrompt = personailites[personality].systemPrompt;
+	}
+
 </script>
 
 <div>
+	<div class="card bg-neutral mb-4">
+		<div class="card-body">
+			<h2 class="card-title">Personality</h2>
+			<p>Choose a personality from the dropdown as a starting point for your bot with pre-defined prompts, then customize however you like.</p>
+			<select class="select" bind:value={personality} on:change={setPersonality} >
+				<option value="default">Default</option>
+				<option value="airbnb">AirBnB Host</option>
+				<option value="support">Customer Support</option>
+				<option value="documentation">Documentation</option>
+				<option value="coding">Coding Assistant</option>
+			</select>
+		</div>
+	</div>
 	<div>
 		<label for="greeting" class="label">
 			<span class="label-text"
