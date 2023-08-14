@@ -24,9 +24,9 @@
 			systemPrompt: 'If you need more help, please contact us at'
 		},
 		'custom': {
-			greeting: 'What can I find for you in the [Your Company] docs?',
-			supportMessage: 'If you need more help, please contact us at',
-			systemPrompt: 'If you need more help, please contact us at'
+			greeting: '',
+			supportMessage: '',
+			systemPrompt: ''
 		}
 	}
 
@@ -34,7 +34,7 @@
 
 	const setPersonality = () => {
 		$currentBot.settings.greeting = personailites[personality].greeting;
-		$currentBot.settings.supportPrompt = personailites[personality].supportMessage;
+		$currentBot.settings.supportMessage = personailites[personality].supportMessage;
 		$currentBot.settings.systemPrompt = personailites[personality].systemPrompt;
 	}
 
@@ -47,10 +47,11 @@
 			<p>Choose a personality from the dropdown as a starting point for your bot with pre-defined prompts, then customize however you like.</p>
 			<select class="select" bind:value={personality} on:change={setPersonality} >
 				<option value="default">Default</option>
-				<option value="airbnb">AirBnB Host</option>
-				<option value="support">Customer Support</option>
-				<option value="documentation">Documentation</option>
-				<option value="coding">Coding Assistant</option>
+				<option value="airbnb">🏠 AirBnB Host</option>
+				<option value="support">🧑‍🔧 Customer Support</option>
+				<option value="documentation">📃 Documentation</option>
+				<option value="coding">👩‍💻 Coding Assistant</option>
+				<option value="custom">Custom</option>
 			</select>
 		</div>
 	</div>
