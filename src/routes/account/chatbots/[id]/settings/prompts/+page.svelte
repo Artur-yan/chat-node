@@ -76,6 +76,7 @@
 			maxlength="3200"
 		/>
 	</div>
+	{#if $currentBot.settings.userPrompt}
 	<div>
 		<label for="user-prompt" class="label">
 			<span class="label-text"
@@ -93,6 +94,7 @@
 			maxlength="2400"
 		/>
 	</div>
+	{/if}
 	<div>
 		<label for="temp" class="label">
 			<span class="label-text">Creativity</span>
