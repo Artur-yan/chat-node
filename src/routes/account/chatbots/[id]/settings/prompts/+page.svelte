@@ -26,7 +26,8 @@
 				></span
 			>
 			<button
-				class="btn btn-xs btn-circle btn-ghost"
+				class="tooltip tooltip-left btn btn-xs btn-circle btn-ghost"
+				data-tip="Reset to default"
 				on:click|preventDefault={() =>
 					($currentBot.settings.supportMessage = defaultSettings.supportMessage)}
 				><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -54,7 +55,8 @@
 				></span
 			>
 			<button
-				class="btn btn-xs btn-circle btn-ghost"
+				class="btn btn-xs btn-circle btn-ghost tooltip tooltip-left"
+				data-tip="Reset to default"
 				on:click|preventDefault={() =>
 					($currentBot.settings.systemPrompt = defaultSettings.systemPrompt)}
 				><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -98,7 +100,7 @@
 		<input
 			type="range"
 			min={0}
-			max={0.7}
+			max={2.0}
 			class="range range-xs range-primary"
 			step={0.1}
 			name="temp"
