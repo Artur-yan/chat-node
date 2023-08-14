@@ -89,7 +89,7 @@
 					</li>
 				{/each}
 			</ul>
-			<button class="btn btn-outline btn-success my-4 w-full" type="submit" on:click={handleSave}
+			<button class="btn btn-outline btn-success my-4 w-full" disabled={saved == true} type="submit" on:click={handleSave}
 				>
 				{#if $state == 'saving'}
 				<span class="loading loading-spinner loading-xs"></span>
@@ -122,15 +122,3 @@
 		<button class="btn btn-error btn-outline" on:click={navigateWithoutSaving}>Discard Changes</button>
 	</svelte:fragment>
 </Modal>
-
-
-<!-- <dialog id="confirmUnsavedNavigate" class="modal">
-	<form method="dialog" class="modal-box">
-		<h3 class="font-bold text-lg mb-8">You have unsaved changes</h3>
-		<button class="btn btn-success btn-outline">Stay Here</button>
-		<button class="btn btn-error btn-outline" on:click={navigateWithoutSaving}>Don't Save</button>
-	</form>
-	<form method="dialog" class="modal-backdrop">
-		<button>close</button>
-	</form>
-</dialog> -->
