@@ -32,8 +32,6 @@ profitwell('start', {});
 </script>`}
 	<script async src="https://r.wdfl.co/rw.js" data-rewardful="1564fe"></script>
 	<!-- Facebook Pixel Code -->
-	<!-- Facebook Pixel Code -->
-	<!-- Facebook Pixel Code -->
 	<script>
 		!(function (f, b, e, v, n, t, s) {
 			if (f.fbq) return;
