@@ -1,3 +1,31 @@
+<script>
+	let examples = [
+		{
+			text: "Create a virtual AirBnB host that can answer guests' questions about check-in/check-out, house rules, the neighborhood etc."
+		},
+		{
+			text: "Quickly respond to questions about the products in an ecommerce store by feeding customer support emails into a bot."
+		},
+		{
+			text: "Find missing info in marketing materials after reviewing answers to basic questions about the materials."
+		},
+		{
+			text: 'Review transcriptions from meetings, board minutes, or lecture notes.'
+		},
+		{
+			text: 'Create a custom coding aid by providing specific examples or documentation for a programming language.',
+		},
+		{
+			text:'Distill short responses from huge archives of blog posts or wikis.'
+		},
+
+		// 'Quickly respond to questions about the products in an ecommerce store by feeding customer support emails into a bot.',
+		// "Find missing info in marketing materials after reviewing answers to basic questions about the materials.",
+		// 'Review transcriptions from meetings, board minutes, or lecture notes.',
+		// 'Create a custom coding aid by providing specific examples or documentation for a programming language.',
+		// 'Distill short responses from huge archives of blog posts or wikis.'
+	]
+</script>
 <section class="text-center py-20 container">
 	<div class="flex justify-center">
 		<h2 class="font-bold text-3xl relative py-4 px-8">
@@ -8,12 +36,12 @@
 			Some Use Cases
 		</h2>
 	</div>
-	<div class="grid grid-cols-4 gap-8 my-10">
-		{#each ['Michael made an Air BnB assistant to answer his guests questions about checkin/out, hosue rules, the neighborhood and more.', 'Joanne is answering fewer questions about the products in her ecommerce store after feeding all of her customer support emails into her bot.', "Eric is finding missing info on his marketing websites after reviewing answers to basic questions about the site's purpose.", 'Simba is asking questions about her own notes shes taken in meetings to help her remember what was said.	'] as _, i}
+	<div class="grid grid-cols-3 gap-8 my-10">
+		{#each examples as example}
 			<div class="card bg-neutral">
 				<div class="card-body justify-center">
 					<div class="card-title">
-						{_}
+						{example.text}
 					</div>
 				</div>
 			</div>
