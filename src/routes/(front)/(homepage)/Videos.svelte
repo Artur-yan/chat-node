@@ -1,5 +1,4 @@
 <script>
-	import YouTube from 'svelte-youtube';
 	import { fade } from 'svelte/transition';
 
 
@@ -21,59 +20,20 @@
 			>
 			<button
 				class="btn btn-wide btn-primary {activeTab == 1 ? 'active' : 'btn-outline'}"
-				on:click={() => (activeTab = 1)}>Train</button
+				on:click={() => (activeTab = 1)}>Embed</button
 			>
 			<button
 				class="btn btn-wide btn-primary {activeTab == 2 ? 'active' : 'btn-outline'}"
-				on:click={() => (activeTab = 2)}>Embed</button
+				on:click={() => (activeTab = 2)}>GPT API Key</button
 			>
 		</div>
 		<div>
 			{#if activeTab === 0}
-				<YouTube
-					videoId="vsHybuETz9E"
-					class="rounded-md"
-					options={ytOptions}
-					on:end={videoEnded}
-				/>
+				<iframe width="560" height="315" class="w-full h-auto aspect-video" src="https://www.youtube.com/embed/htCr57TlMnk?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen in:fade></iframe>
 			{:else if activeTab === 1}
-				<YouTube
-					videoId="53BMrkB82Bc"
-					class="rounded-md"
-					options={ytOptions}
-					on:end={videoEnded}
-				/>
-				<div class="p-10 text-primary-content text-center">
-					<h2 class="text-2xl font-bold mb-4">
-						Simple and fast scraping of entire websites, huge pdfs or simple custom text.
-					</h2>
-					<!-- <p class="text-lg">
-						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, quisquam magni quos
-						deserunt quasi nesciunt. Sit asperiores similique explicabo voluptatem minus illo commodi
-						temporibus error harum nesciunt. Deserunt, vero dolorem.
-					</p> -->
-				</div>
+				<iframe width="560" height="315" class="w-full h-auto aspect-video" src="https://www.youtube.com/embed/53BMrkB82Bc?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen in:fade></iframe>
 			{:else if activeTab === 2}
-			<div in:fade>
-				<YouTube
-					videoId="vsHybuETz9E"
-					id="vsHybuETz9E"
-					class="rounded-md"
-					options={ytOptions}
-					on:end={videoEnded}
-				/>
-			</div>
-				<div class="p-10 text-primary-content text-center max-w-[70ch] mx-auto">
-					<h2 class="text-2xl font-bold mb-4">
-						Once your bot has all the answers, deploy it on your website, share a url or integrate
-						it with Slack
-					</h2>
-					<!-- <p class="text-lg">
-						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, quisquam magni quos
-						deserunt quasi nesciunt. Sit asperiores similique explicabo voluptatem minus illo commodi
-						temporibus error harum nesciunt. Deserunt, vero dolorem.
-					</p> -->
-				</div>
+				<iframe width="560" height="315" class="w-full h-auto aspect-video" src="https://www.youtube.com/embed/vsHybuETz9E?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen in:fade></iframe>
 			{/if}
 		</div>
 	</div>
