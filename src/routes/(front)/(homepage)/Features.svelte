@@ -46,7 +46,7 @@
 			<div class="dot dot-bl" />
 			<div class="dot dot-tr" />
 		</div>
-		<div class="rounded-tr-md">
+		<!-- <div class="rounded-tr-md">
 			<h3>
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="-4 -2 24 24"
 					><path
@@ -57,7 +57,7 @@
 			</h3>
 			<div class="dot dot-bl" />
 			<div class="dot dot-br" />
-		</div>
+		</div> -->
 	</div>
 	<div class="flex items-end justify-center">
 		<div class="rounded-l-md">
