@@ -13,7 +13,7 @@
 
 <section class="bg-black animated-gradent-bg flex items-center justify-center p-14">
 	<div class="max-w-5xl">
-		<div class="flex gap-2 mb-2">
+		<div class="flex flex-wrap gap-2 mb-2">
 			<button
 				class="btn btn-wide btn-primary {activeTab == 0 ? 'active' : 'btn-outline'}"
 				on:click={() => (activeTab = 0)}>Overview</button

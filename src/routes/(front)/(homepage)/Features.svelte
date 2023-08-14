@@ -3,7 +3,7 @@
 </script>
 
 
-<section class="py-20 bg-[url('/grid.png')] bg-[length:1vw] relative">
+<section class="py-20 bg-[url('/grid.png')] bg-[length:4vw] md:bg-[length:2vw] lg:bg-[length:1vw] relative">
 	<div
 		class="absolute inset-0 bg-gradient-to-b from-base-200 via-transparent to-base-200 shadow-base-200"
 	/>
@@ -17,7 +17,7 @@
 		</h2>
 	</div>
 <div id="features" class="text-center flex flex-col py-[5vw] shadow-inner">
-	<div class="flex items-end justify-center">
+	<div class="flex items-end flex-wrap justify-center">
 		<div class="rounded-tl-md">
 			<h3>
 				<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24"
@@ -30,7 +30,7 @@
 			<div class="dot dot-bl" />
 			<div class="dot dot-tr" />
 		</div>
-		<div class="rounded-tl-md">
+		<div class="rounded-tr-md">
 			<h3>
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 					><path
@@ -44,7 +44,6 @@
 				>Embed anywhere
 			</h3>
 			<div class="dot dot-bl" />
-			<div class="dot dot-tr" />
 		</div>
 		<!-- <div class="rounded-tr-md">
 			<h3>
@@ -59,7 +58,7 @@
 			<div class="dot dot-br" />
 		</div> -->
 	</div>
-	<div class="flex items-end justify-center">
+	<div class="flex flex-wrap items-end justify-center">
 		<div class="rounded-l-md">
 			<h3>
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
@@ -99,7 +98,7 @@
 			</h3>
 		</div>
 	</div>
-	<div class="flex items-end justify-center">
+	<div class="flex flex-wrap items-end justify-center">
 		<div class="rounded-bl-md">
 			<h3>
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
@@ -164,7 +163,7 @@
 		@apply items-stretch;
 	}
 	#features > div > div {
-		@apply w-[25vw] pb-12 pt-14 px-2 -m-[0.5px] relative border border-accent/25 shadow-sm bg-base-100/40 text-center text-secondary;
+		@apply sm:w-[44vw] md:w-[30vw] lg:w-[25vw] pb-12 pt-14 px-2 -m-[0.5px] relative border border-accent/25 shadow-sm bg-base-100/40 text-center text-secondary;
 	}
 
 	svg {

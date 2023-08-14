@@ -36,7 +36,7 @@
 			Some Use Cases
 		</h2>
 	</div>
-	<div class="grid grid-cols-3 gap-8 my-10">
+	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 my-10">
 		{#each examples as example}
 			<div class="card bg-neutral">
 				<div class="card-body justify-center">
@@ -47,9 +47,9 @@
 			</div>
 		{/each}
 	</div>
-	<div class="rounded-xl border-neutral border lg:mx-10 p-6 flex items-center justify-between">
+	<div class="rounded-xl border-neutral border lg:mx-10 text-left flex-wrap gap-6 p-6 flex items-center justify-between">
 		<h3 class="text-2xl font-bold">What have you built?</h3>
-		<p class="text-lg mx-auto font-light">
+		<p class="text-lg font-light">
 			Our most creative members get a free month on us.
 		</p>
 		<button class="btn btn-primary btn-sm btn-outline">Tell us</button>
