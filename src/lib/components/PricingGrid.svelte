@@ -92,7 +92,7 @@
 						{currentPlan === 0 ? 'Current plan' : 'Change plan'}</button
 					>
 				{:else}
-					<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
+					<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
 				{/if}
 			</div>
 			<ul>
@@ -139,7 +139,7 @@
 						>
 					{/if}
 				{:else}
-					<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
+					<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
 				{/if}
 			</div>
 			<ul>
@@ -187,7 +187,7 @@
 						>
 					{/if}
 				{:else}
-					<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
+					<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
 				{/if}
 			</div>
 			<div class="grid lg:grid-cols-2">
@@ -249,7 +249,7 @@
 							>
 						{/if}
 					{:else}
-						<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
+						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
 				</div>
 			</div>
@@ -308,7 +308,7 @@
 							>
 						{/if}
 					{:else}
-						<a href="/account/settings/plan" class="btn btn-outline btn-secondary">Sign up</a>
+						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
 				</div>
 			</div>

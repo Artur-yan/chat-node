@@ -3,31 +3,16 @@
 	import { page } from '$app/stores';
 	import { currentBot, state, alert } from '$lib/stores';
 	import { updateModel } from '$lib/models';
-	import { beforeNavigate, goto } from '$app/navigation';
 
 	export let data: LayoutData;
 
 	currentBot.set(data.model);
 
-	const currentBotSaveState = $currentBot;
-
 	$: currentPath = $page.url.pathname.split('/').pop();
 
 	const savedName = $currentBot.name;
-	// $: savedName != $currentBot.name ? $state = 'unsavedName' : $state = 'saved';
 
 	$: $currentBot.name !== savedName ? ($state = 'unsaved') : ($state = 'saved');
-
-	//Check for change, ignore first run whuch happens on load
-	// let checkCount = 0;
-	// const checkForChange = () => {
-	// 	checkCount++;
-	// 	if (checkCount > 1) {
-	// 		$state = 'unsaved';
-	// 	}
-	// };
-
-	// $: $currentBot, checkForChange();
 
 	const links = [
 		{ name: 'Chat', url: '' },
@@ -42,23 +27,6 @@
 		updateModel($currentBot.id, $currentBot.name, $currentBot.settings);
 		$alert = { type: 'success', msg: 'Name saved' };
 		$state = 'saved';
-	};
-
-	let nextURL;
-	let warningIgnored = false;
-
-	// beforeNavigate(({to, cancel}) => {
-	// 	if ($state === 'unsaved' && !warningIgnored) {
-	// 		cancel()
-	// 		nextURL = to?.url.pathname
-	// 		confirmUnsavedNavigate.showModal()
-	// 	}
-	// })
-
-	const navigateWithoutSaving = () => {
-		warningIgnored = true;
-		$currentBot = currentBotSaveState;
-		goto(nextURL);
 	};
 </script>
 
@@ -107,14 +75,3 @@
 </div>
 
 <slot />
-
-<dialog id="confirmUnsavedNavigate" class="modal">
-	<form method="dialog" class="modal-box">
-		<h3 class="font-bold text-lg mb-8">You have unsaved changes</h3>
-		<button class="btn btn-success btn-outline">Stay Here</button>
-		<button class="btn btn-error btn-outline" on:click={navigateWithoutSaving}>Don't Save</button>
-	</form>
-	<form method="dialog" class="modal-backdrop">
-		<button>close</button>
-	</form>
-</dialog>
