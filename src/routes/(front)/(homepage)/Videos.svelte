@@ -1,15 +1,15 @@
 <script>
+	import YouTube from 'svelte-youtube';
 	import { fade } from 'svelte/transition';
 
 
 	let activeTab = 0;
-	let videoEnded = false;
-
-	$: if (videoEnded == true) {
+	const videoEnded = () => {
 		if (activeTab == 2) activeTab = 0;
 		else activeTab++;
-		videoEnded = false;
 	}
+
+	const ytOptions = {playerVars: {autoplay: 1, color: 'white'}}
 </script>
 
 <section class="bg-black animated-gradent-bg flex items-center justify-center p-14">
@@ -30,33 +30,19 @@
 		</div>
 		<div>
 			{#if activeTab === 0}
-				<video
-					controls
-					width="1792"
-					height="1080"
-					class="shadow-2xl rounded-md"
-					autoplay
-					muted
-					in:fade
-					bind:ended={videoEnded}
-				>
-					<source src="/Long demo.mp4" type="video/mp4" />
-					Your browser does not support the video tag.
-				</video>
-			{:else if activeTab === 1}
-				<video
-					controls
-					width="1792"
-					height="1080"
+				<YouTube
+					videoId="vsHybuETz9E"
 					class="rounded-md"
-					autoplay
-					muted
-					in:fade
-					bind:ended={videoEnded}
-				>
-					<source src="/Long demo.mp4" type="video/mp4" />
-					Your browser does not support the video tag.
-				</video>
+					options={ytOptions}
+					on:end={videoEnded}
+				/>
+			{:else if activeTab === 1}
+				<YouTube
+					videoId="53BMrkB82Bc"
+					class="rounded-md"
+					options={ytOptions}
+					on:end={videoEnded}
+				/>
 				<div class="p-10 text-primary-content text-center">
 					<h2 class="text-2xl font-bold mb-4">
 						Simple and fast scraping of entire websites, huge pdfs or simple custom text.
@@ -68,19 +54,15 @@
 					</p> -->
 				</div>
 			{:else if activeTab === 2}
-				<video
-					controls
-					width="1792"
-					height="1080"
+			<div in:fade>
+				<YouTube
+					videoId="vsHybuETz9E"
+					id="vsHybuETz9E"
 					class="rounded-md"
-					autoplay
-					muted
-					in:fade
-					bind:ended={videoEnded}
-				>
-					<source src="/Long demo.mp4" type="video/mp4" />
-					Your browser does not support the video tag.
-				</video>
+					options={ytOptions}
+					on:end={videoEnded}
+				/>
+			</div>
 				<div class="p-10 text-primary-content text-center max-w-[70ch] mx-auto">
 					<h2 class="text-2xl font-bold mb-4">
 						Once your bot has all the answers, deploy it on your website, share a url or integrate
