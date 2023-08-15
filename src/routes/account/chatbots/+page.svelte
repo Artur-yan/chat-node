@@ -48,19 +48,6 @@
 
 	const trialExpirationDate = new Date(data.subscription.created_datetime).addDays(7);
 	const trialExpirationDateProgress = new Date(data.subscription.created_datetime).addDays(7);
-
-	// const handleResendVerificationLink = asyxnc () => {
-	// 	const res = await fetch('/api/account/confirm', {
-	// 		method: 'POST',
-	// 		body: JSON.stringify({
-	// 			email: data.user.user.email
-	// 		}),
-	// 		headers: {
-	// 			'Content-Type': 'application/json'
-	// 		}
-	// 	});
-	// 	$alert = 'Check your email for a verification link.';
-	// };
 </script>
 
 <svelte:head>
@@ -221,12 +208,12 @@
 				</a>
 			{/each}
 		</div>
-	{:else if data.subscription.status === 'expired'}
+	{:else if data.subscription?.status === 'expired'}
 		<div class="alert alert-warning justify-between flex">
 			<h3 class="font-bold text-lg">Your Free Trial Has Expired</h3>
 			<a class="btn" href="/account/settings/subscription">Upgrade</a>
 		</div>
-	{:else if data.subscription.status !== 'active'}
+	{:else if data.user.user.status !== 'active'}
 		<div class="alert alert-warning my-4">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
