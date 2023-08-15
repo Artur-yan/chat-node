@@ -81,7 +81,7 @@
 			<div class="flex justify-between mb-8">
 				<div>
 					<h2>Free Trial</h2>
-					<p>5 Days</p>
+					<p>7 Days</p>
 				</div>
 				{#if currentPlan !== undefined}
 					<button
