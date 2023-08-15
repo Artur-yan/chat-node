@@ -8,6 +8,15 @@
 
 	export let data;
 
+	console.log(data);
+
+	Date.prototype.addDays = function(days) {
+		var date = new Date(this.valueOf());
+		date.setDate(date.getDate() + days);
+		return date;
+	}
+
+
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
 	let idOfModelToDelete: string;
@@ -36,6 +45,9 @@
 	let daysLeftUntilAllotmentsReset = Math.ceil(
 		(resetDate - new Date().getTime()) / (1000 * 3600 * 24)
 	);
+
+	const trialExpirationDate = new Date(data.subscription.created_datetime).addDays(7);
+	const trialExpirationDateProgress = new Date(data.subscription.created_datetime).addDays(7);
 
 	// const handleResendVerificationLink = asyxnc () => {
 	// 	const res = await fetch('/api/account/confirm', {
@@ -98,6 +110,19 @@
 								max={data.subscription.max_bot}
 							/>
 						</div>
+						{#if data.subscription.plan === 0}
+						<div>
+							<div class="flex justify-between">
+								<h4>Free Trial</h4>
+								<span class="text-warning">Expires {trialExpirationDate.toLocaleDateString()}</span>
+							</div>
+							<!-- <progress
+								class="progress progress-warning w-full bg-neutral h-1"
+								value={31 - daysLeftUntilAllotmentsReset}
+								max={31}
+							/> -->
+						</div>
+						{:else}
 						<div>
 							<div class="flex justify-between">
 								<h4>{data.subscription.cancel_at ? 'Cancelation Date' : 'Usage Reset Date'}</h4>
@@ -110,6 +135,10 @@
 								max={31}
 							/>
 						</div>
+
+
+						{/if}
+
 					</div>
 					{#if botUsage >= 1 || msgUsage > 0.75 || data.subscription.cancel_at}
 						<a href="/account/settings/subscription" class="btn btn-warning">Upgrade</a>
@@ -117,7 +146,7 @@
 				</div>
 			</div>
 		</div>
-	{#if data.bots.length > 0}
+	{#if data.bots.length > 0 && data.subscription?.status === 'active'}
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 			{#each data.bots as bot}
 				{@const usage = Math.ceil((bot.tocken_count / data.subscription.max_tocken) * 100)}
@@ -191,6 +220,11 @@
 					</div>
 				</a>
 			{/each}
+		</div>
+	{:else if data.subscription.status === 'expired'}
+		<div class="alert alert-warning justify-between flex">
+			<h3 class="font-bold text-lg">Your Free Trial Has Expired</h3>
+			<a class="btn" href="/account/settings/subscription">Upgrade</a>
 		</div>
 	{:else if data.user.user.status !== 'active'}
 		<div class="alert alert-warning my-4">
