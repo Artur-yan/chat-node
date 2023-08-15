@@ -16,9 +16,9 @@
 			</div>
 		</h2>
 	</div>
-<div id="features" class="text-center flex flex-col py-[5vw] shadow-inner">
+<div id="features">
 	<div class="flex items-end flex-wrap justify-center">
-		<div class="rounded-tl-md">
+		<div>
 			<h3>
 				<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24"
 					><path
@@ -30,7 +30,7 @@
 			<div class="dot dot-bl" />
 			<div class="dot dot-tr" />
 		</div>
-		<div class="rounded-tr-md">
+		<div>
 			<h3>
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 					><path
@@ -45,21 +45,9 @@
 			</h3>
 			<div class="dot dot-bl" />
 		</div>
-		<!-- <div class="rounded-tr-md">
-			<h3>
-				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="-4 -2 24 24"
-					><path
-						fill="currentColor"
-						d="M8 0a8 8 0 0 1 8 8v12l-4.919-1l-3.08 1l-2.992-1L0 20V8a8 8 0 0 1 8-8zm6 8A6 6 0 0 0 2 8v9.561l3.138-.626l2.871.96l2.955-.96l3.036.618V8zm-8.5 2a1.5 1.5 0 1 1 0-3a1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3a1.5 1.5 0 0 1 0 3z"
-					/></svg
-				>White Labeling
-			</h3>
-			<div class="dot dot-bl" />
-			<div class="dot dot-br" />
-		</div> -->
 	</div>
 	<div class="flex flex-wrap items-end justify-center">
-		<div class="rounded-l-md">
+		<div>
 			<h3>
 				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 32 32"
 					><path
@@ -83,7 +71,7 @@
 			<div class="dot dot-tr" />
 			<p />
 		</div>
-		<div class="rounded-r-md">
+		<div>
 			<h3>
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 					><path
@@ -95,7 +83,7 @@
 		</div>
 	</div>
 	<div class="flex flex-wrap items-end justify-center">
-		<div class="rounded-bl-md">
+		<div>
 			<h3>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14.5 1.5c-1.106 0-2 .894-2 2v5c0 1.106.894 2 2 2c1.106 0 2-.894 2-2v-5c0-1.106-.894-2-2-2Zm6 5c-1.106 0-2 .894-2 2V10a.5.5 0 0 0 .5.5h1.5c1.106 0 2-.894 2-2c0-1.106-.894-2-2-2Zm-11 7c-1.106 0-2 .894-2 2v5c0 1.106.894 2 2 2c1.106 0 2-.894 2-2v-5c0-1.106-.894-2-2-2Zm-6 0c-1.106 0-2 .894-2 2c0 1.106.894 2 2 2c1.106 0 2-.894 2-2V14a.5.5 0 0 0-.5-.5H3.5Zm12-1c-1.106 0-2 .894-2 2c0 1.106.894 2 2 2h5c1.106 0 2-.894 2-2c0-1.106-.894-2-2-2h-5Zm-1.5 6a.5.5 0 0 0-.5.5v1.5c0 1.106.894 2 2 2c1.106 0 2-.894 2-2c0-1.106-.894-2-2-2H14ZM3.5 7.5c-1.106 0-2 .894-2 2c0 1.106.894 2 2 2h5c1.106 0 2-.894 2-2c0-1.106-.894-2-2-2h-5Zm5-6c-1.106 0-2 .894-2 2c0 1.106.894 2 2 2H10a.5.5 0 0 0 .5-.5V3.5c0-1.106-.894-2-2-2Z"/></svg>
 				Slack integration
@@ -104,7 +92,7 @@
 			<div class="dot dot-tl" />
 			<div class="dot dot-tr" />
 		</div>
-		<div class="rounded-br-md">
+		<div>
 			<h3>
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 					><path
@@ -122,7 +110,7 @@
 		</div>
 	</div>
 	<div class="flex items-end justify-center">
-		<div class="rounded-bl-md">
+		<div>
 			<h3>
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48"
 					><path
@@ -150,11 +138,14 @@
 </section>
 
 <style lang="postcss">
+	#features{
+		@apply flex sm:flex-col flex-wrap text-center justify-center py-[5vw] shadow-inner;
+	}
 	#features > div {
-		@apply items-stretch;
+		@apply items-stretch max-sm:contents;
 	}
 	#features > div > div {
-		@apply sm:w-[44vw] md:w-[30vw] lg:w-[25vw] pb-12 pt-14 px-2 -m-[0.5px] relative border border-accent/25 shadow-sm bg-base-100/40 text-center text-secondary;
+		@apply  w-[48vw] sm:w-[44vw] md:w-[30vw] lg:w-[25vw] pb-12 pt-14 px-2 -m-[0.5px] relative border border-accent/25 shadow-sm bg-base-100/40 text-center text-secondary;
 	}
 
 	svg {
@@ -162,7 +153,7 @@
 	}
 
 	h3 {
-		@apply text-lg text-white font-bold tracking-wide flex items-center justify-center gap-2;
+		@apply text-lg text-white font-bold tracking-wide flex items-center justify-center gap-2 flex-col sm:flex-row;
 	}
 
 	.icon {
