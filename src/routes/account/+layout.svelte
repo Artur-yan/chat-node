@@ -19,7 +19,7 @@
 		enableAutoPageviews();
 	});
 
-	if(systemSettings.maintenanceAlert) {
+	if (systemSettings.maintenanceAlert) {
 		alert.set({
 			type: 'warning',
 			msg: systemSettings.maintenanceMsg,

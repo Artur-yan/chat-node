@@ -43,8 +43,10 @@
 			<a href={settingsPath} class="tab" class:tab-active={settingsPath == $page.url.pathname}
 				>Settings</a
 			>
-			<a href={subscriptionPath} class="tab" class:tab-active={subscriptionPath == $page.url.pathname}
-				>Subscription</a
+			<a
+				href={subscriptionPath}
+				class="tab"
+				class:tab-active={subscriptionPath == $page.url.pathname}>Subscription</a
 			>
 			<button on:click={redirectToStripeBilling} class="tab">Billing</button>
 		</div>

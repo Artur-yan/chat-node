@@ -10,12 +10,11 @@
 
 	console.log(data);
 
-	Date.prototype.addDays = function(days) {
+	Date.prototype.addDays = function (days) {
 		var date = new Date(this.valueOf());
 		date.setDate(date.getDate() + days);
 		return date;
-	}
-
+	};
 
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
@@ -67,37 +66,37 @@
 		>
 	</div>
 
-		<div class="card card-compact card-bordered border-neutral mb-4">
-			<div class="card-body">
-				<div class="flex gap-8 items-center">
-					<div class="grid md:grid-cols-3 gap-2 md:gap-8 items-center w-full">
-						<div>
-							<div class="flex justify-between">
-								<h4>Messages</h4>
-								<span class="opacity-60"
-									>{data.subscription.msg_count}/{data.subscription.max_msg}</span
-								>
-							</div>
-							<progress
-								class="progress progress-secondary w-full bg-neutral h-1"
-								class:progress-error={msgUsage > 0.9}
-								value={data.subscription.msg_count}
-								max={data.subscription.max_msg}
-							/>
+	<div class="card card-compact card-bordered border-neutral mb-4">
+		<div class="card-body">
+			<div class="flex gap-8 items-center">
+				<div class="grid md:grid-cols-3 gap-2 md:gap-8 items-center w-full">
+					<div>
+						<div class="flex justify-between">
+							<h4>Messages</h4>
+							<span class="opacity-60"
+								>{data.subscription.msg_count}/{data.subscription.max_msg}</span
+							>
 						</div>
-						<div>
-							<div class="flex justify-between">
-								<h4>Bots</h4>
-								<span class="opacity-60">{data.bots.length}/{data.subscription.max_bot}</span>
-							</div>
-							<progress
-								class="progress progress-secondary w-full bg-neutral h-1"
-								class:progress-warning={botUsage > 0.9}
-								value={data.bots.length}
-								max={data.subscription.max_bot}
-							/>
+						<progress
+							class="progress progress-secondary w-full bg-neutral h-1"
+							class:progress-error={msgUsage > 0.9}
+							value={data.subscription.msg_count}
+							max={data.subscription.max_msg}
+						/>
+					</div>
+					<div>
+						<div class="flex justify-between">
+							<h4>Bots</h4>
+							<span class="opacity-60">{data.bots.length}/{data.subscription.max_bot}</span>
 						</div>
-						{#if data.subscription.plan === 0}
+						<progress
+							class="progress progress-secondary w-full bg-neutral h-1"
+							class:progress-warning={botUsage > 0.9}
+							value={data.bots.length}
+							max={data.subscription.max_bot}
+						/>
+					</div>
+					{#if data.subscription.plan === 0}
 						<div>
 							<div class="flex justify-between">
 								<h4>Free Trial</h4>
@@ -109,7 +108,7 @@
 								max={31}
 							/> -->
 						</div>
-						{:else}
+					{:else}
 						<div>
 							<div class="flex justify-between">
 								<h4>{data.subscription.cancel_at ? 'Cancelation Date' : 'Usage Reset Date'}</h4>
@@ -122,17 +121,14 @@
 								max={31}
 							/>
 						</div>
-
-
-						{/if}
-
-					</div>
-					{#if botUsage >= 1 || msgUsage > 0.75 || data.subscription.cancel_at}
-						<a href="/account/settings/subscription" class="btn btn-warning">Upgrade</a>
 					{/if}
 				</div>
+				{#if botUsage >= 1 || msgUsage > 0.75 || data.subscription.cancel_at}
+					<a href="/account/settings/subscription" class="btn btn-warning">Upgrade</a>
+				{/if}
 			</div>
 		</div>
+	</div>
 	{#if data.bots.length > 0 && data.subscription?.status === 'active'}
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 			{#each data.bots as bot}

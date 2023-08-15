@@ -35,11 +35,12 @@
 				};
 		})(window, 'rewardful');
 	</script>
-{@html `<script id="profitwell-js" data-pw-auth="64cdfa4a4526d24d3a185319fc6ca127">
+	{@html `<script id="profitwell-js" data-pw-auth="64cdfa4a4526d24d3a185319fc6ca127">
 (function(i,s,o,g,r,a,m){i[o]=i[o]||function(){(i[o].q=i[o].q||[]).push(arguments)}; a=s.createElement(g);m=s.getElementsByTagName(g)[0];a.async=1;a.src=r+'?auth='+s.getElementById(o+'-js').getAttribute('data-pw-auth');m.parentNode.insertBefore(a,m);})(window,document,'profitwell','script','https://public.profitwell.com/js/profitwell.js');
 profitwell('start', {});
 </script>`}
 	<script async src="https://r.wdfl.co/rw.js" data-rewardful="1564fe"></script>
+	<!-- Facebook Pixel Code -->
 	<!-- Facebook Pixel Code -->
 	<script>
 		!(function (f, b, e, v, n, t, s) {

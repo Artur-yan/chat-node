@@ -33,7 +33,7 @@
 
 			$alert = 'Plan changed successfully!';
 		}
-		goto('/account/chatbots', {invalidateAll: true});
+		goto('/account/chatbots', { invalidateAll: true });
 	});
 </script>
 
