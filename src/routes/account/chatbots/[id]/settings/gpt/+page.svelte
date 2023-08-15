@@ -5,7 +5,10 @@
 
 	let plan = data.subscription.plan;
 
-	const plansWthCustomApiKey = [2, 3, 4, 102, 103, 104, 1003, 1004, 1005];
+	console.log($currentBot)
+
+	const plansWthCustomApiKey = [2, 3, 4, 102, 103, 104, 1001, 1002, 1003, 1004, 1005];
+	const plansWithGPT4 = [2, 3, 4, 102, 103, 104];
 </script>
 
 <div class="card bg-neutral card-compact mb-4">
@@ -27,13 +30,13 @@
 					/>
 					ChatGPT 3.5 Turbo
 				</label>
-				<label class="btn join-item btn-outline {plan === 0 ? 'btn-disabled' : 'btn-neutral'}">
+				<label class="btn join-item btn-outline {plansWithGPT4.includes(plan) || $currentBot.settings.openai_api_key ? 'btn-neutral' : 'btn-disabled'}">
 					<input
 						class="radio radio-sm radio-primary"
 						type="radio"
 						value="4"
 						bind:group={$currentBot.settings.gptVersion}
-						disabled={plan === 0}
+						disabled={!plansWithGPT4.includes(plan) && !$currentBot.settings.openai_api_key}
 					/>
 					GPT-4
 				</label>
