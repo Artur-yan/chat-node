@@ -41,19 +41,19 @@
 	<div class="grid container lg:grid-cols-2 items-center gap-8 mx-auto pt-[5vh] pb-[10vh]">
 		<div class="max-lg:text-center">
 			<h2
-				class="mt-6 mb-6 w-[11ch] text-5xl lg:text-7xl 2xl:text-8xl tracking-tight font-extrabold text-secondary max-w-[8em] max-lg:mx-auto"
+				class="my-6 w-[11ch] text-[10vw] sm:text-4xl md:text-5xl lg:text-7xl 2xl:text-8xl tracking-tight font-extrabold text-secondary max-w-full max-lg:mx-auto"
 			>
 				Train ChatGPT on your data
 			</h2>
 
-			<div class="text-2xl md:text-3xl lg:text-4xl font-bold max-w-[24ch] leading-10">
-				<span class="mr-2">Build a chatbot to answer any questions on your</span>
+			<div class="text-2xl md:text-3xl lg:text-4xl font-bold max-w-[20ch] lg:max-w-[24ch] md:leading-10 max-lg:mx-auto">
+				<span class="mr-2 max-lg:block">Build a chatbot to answer any questions on your</span>
 				<MorphingText />
 			</div>
 
 			<div class="flex items-center max-lg:justify-center">
 				<div class="mt-16 flex gap-4">
-					<a href="/register" class="btn btn-primary md:btn-lg -ml-1">Create your free chatbot</a>
+					<a href="/register" class="btn btn-primary md:btn-lg -ml-1">Create A free chatbot</a>
 				</div>
 			</div>
 			<p class="text-sm mt-2">No credit card required</p>

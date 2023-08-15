@@ -33,7 +33,6 @@
 
 <WaysToShare />
 
-
 <Features />
 
 <section id="pricing" class="bg-base-300py py-10 lg:py-20">

@@ -100,13 +100,15 @@
 	</defs>
 </svg>
 
-<style>
+<style lang="postcss">
 	#container {
 		position: relative;
 		display: inline;
 		white-space: nowrap;
 
 		filter: url(#threshold) blur(0px);
+
+		@apply max-lg:w-full max-lg:block;
 	}
 
 	#text1,
@@ -119,6 +121,6 @@
 		font-weight: bolder;
 
 		user-select: none;
-		@apply text-accent;
+		@apply text-accent max-lg:text-center left-0;
 	}
 </style>

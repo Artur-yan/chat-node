@@ -61,7 +61,7 @@
 	<div class="flex flex-wrap items-end justify-center">
 		<div class="rounded-l-md">
 			<h3>
-				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
+				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 32 32"
 					><path
 						fill="currentColor"
 						d="M28 2h-8a2.002 2.002 0 0 0-2 2v24a2.002 2.002 0 0 0 2 2h8a2.002 2.002 0 0 0 2-2V4a2.002 2.002 0 0 0-2-2zm0 2v7h-8V4zm0 9v6h-8v-6zm-8 15v-7h8v7zm-8-13h-2v-2H8v2H6v2h3v2h3v-2h3v-2z"
@@ -74,12 +74,8 @@
 		</div>
 		<div>
 			<h3>
-				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-					><path
-						fill="currentColor"
-						d="M5.378 4.514a9.962 9.962 0 0 1 6.627-2.511c5.523 0 10 4.477 10 10a9.954 9.954 0 0 1-1.793 5.715l-2.707-5.715h3.5A8 8 0 0 0 6.279 6.416l-.9-1.902Zm13.253 14.978a9.962 9.962 0 0 1-6.626 2.51c-5.523 0-10-4.476-10-10c0-2.124.663-4.094 1.793-5.714l2.707 5.715h-2.5A8 8 0 0 0 17.73 17.59l.901 1.902Zm-5.212-4.66l-2.828-2.83l-2.829 2.83l-1.414-1.415l4.243-4.242l2.828 2.828l2.828-2.829l1.415 1.415l-4.243 4.242Z"
-					/></svg
-				>Test & Modify Fast
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m12 13.333l-9.223 6.149A.5.5 0 0 1 2 19.066V4.934a.5.5 0 0 1 .777-.416L12 10.666V4.934a.5.5 0 0 1 .777-.416l10.599 7.066a.5.5 0 0 1 0 .832l-10.599 7.066a.5.5 0 0 1-.777-.416v-5.733Z"/></svg>
+			Test & Modify Fast
 			</h3>
 			<div class="dot dot-bl" />
 			<div class="dot dot-br" />
@@ -101,12 +97,7 @@
 	<div class="flex flex-wrap items-end justify-center">
 		<div class="rounded-bl-md">
 			<h3>
-				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-					><path
-						fill="currentColor"
-						d="M6 15a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2h3v2m1 0a2 2 0 0 1 2-2a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2a2 2 0 0 1-2-2v-5m2-8a2 2 0 0 1-2-2a2 2 0 0 1 2-2a2 2 0 0 1 2 2v2H9m0 1a2 2 0 0 1 2 2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2a2 2 0 0 1 2-2h5m8 2a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2h-2v-2m-1 0a2 2 0 0 1-2 2a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2a2 2 0 0 1 2 2v5m-2 8a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2v-2h3m0-1a2 2 0 0 1-2-2a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2a2 2 0 0 1-2 2h-5Z"
-					/></svg
-				>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14.5 1.5c-1.106 0-2 .894-2 2v5c0 1.106.894 2 2 2c1.106 0 2-.894 2-2v-5c0-1.106-.894-2-2-2Zm6 5c-1.106 0-2 .894-2 2V10a.5.5 0 0 0 .5.5h1.5c1.106 0 2-.894 2-2c0-1.106-.894-2-2-2Zm-11 7c-1.106 0-2 .894-2 2v5c0 1.106.894 2 2 2c1.106 0 2-.894 2-2v-5c0-1.106-.894-2-2-2Zm-6 0c-1.106 0-2 .894-2 2c0 1.106.894 2 2 2c1.106 0 2-.894 2-2V14a.5.5 0 0 0-.5-.5H3.5Zm12-1c-1.106 0-2 .894-2 2c0 1.106.894 2 2 2h5c1.106 0 2-.894 2-2c0-1.106-.894-2-2-2h-5Zm-1.5 6a.5.5 0 0 0-.5.5v1.5c0 1.106.894 2 2 2c1.106 0 2-.894 2-2c0-1.106-.894-2-2-2H14ZM3.5 7.5c-1.106 0-2 .894-2 2c0 1.106.894 2 2 2h5c1.106 0 2-.894 2-2c0-1.106-.894-2-2-2h-5Zm5-6c-1.106 0-2 .894-2 2c0 1.106.894 2 2 2H10a.5.5 0 0 0 .5-.5V3.5c0-1.106-.894-2-2-2Z"/></svg>
 				Slack integration
 			</h3>
 			<div class="dot dot-br" />

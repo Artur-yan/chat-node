@@ -50,7 +50,7 @@
 
 <div>
 	<div class="text-center my-4">
-		<div class="join">
+		<div class="join max-sm:join-vertical">
 			<button
 				class="btn text-xs sm:text-sm join-item border-primary"
 				class:btn-primary={billingTerm == 'monthly'}
