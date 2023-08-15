@@ -13,7 +13,7 @@
 
 <section class="bg-black animated-gradent-bg flex items-center justify-center p-14">
 	<div class="max-w-5xl">
-		<div class="flex flex-wrap gap-2 mb-2">
+		<div class="flex flex-wrap justify-stretch gap-2 mb-2">
 			<button
 				class="btn btn-wide btn-primary {activeTab == 0 ? 'active' : 'btn-outline'}"
 				on:click={() => (activeTab = 0)}>Overview</button
@@ -39,14 +39,18 @@
 	</div>
 </section>
 
-<style>
+<style lang="postcss">
 		.animated-gradent-bg {
 		background: linear-gradient(-45deg, #0e1729, #19b4f7, #0c1222, #818cf8);
 		background-size: 400% 400%;
-		animation: gradient 15s ease infinite;
+		/* animation: gradient 15s ease infinite; */
 	}
 
-	@keyframes gradient {
+	iframe{
+		@apply rounded-lg;
+	}
+
+	/* @keyframes gradient {
 		0% {
 			background-position: 0% 50%;
 		}
@@ -57,5 +61,5 @@
 		100% {
 			background-position: 0% 50%;
 		}
-	}
+	} */
 </style>

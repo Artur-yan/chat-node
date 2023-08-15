@@ -30,7 +30,7 @@
 		</h2>
 	</div>
 
-	<div class="grid md:grid-cols-2 my-10">
+	<div class="md:grid md:grid-cols-2 my-10">
 		<div class="p-6 text-center border-r border-b border-neutral">
 			<h3 class="font-bold mb-4 text-xl flex items-center justify-center gap-2">
 				<div class="text-secondary">

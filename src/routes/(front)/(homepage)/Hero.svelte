@@ -46,14 +46,14 @@
 				Train ChatGPT on your data
 			</h2>
 
-			<div class="text-4xl font-bold max-w-[24ch] leading-10">
+			<div class="text-2xl md:text-3xl lg:text-4xl font-bold max-w-[24ch] leading-10">
 				<span class="mr-2">Build a chatbot to answer any questions on your</span>
 				<MorphingText />
 			</div>
 
 			<div class="flex items-center max-lg:justify-center">
 				<div class="mt-16 flex gap-4">
-					<a href="/register" class="btn btn-primary btn-lg -ml-1">Create your free chatbot</a>
+					<a href="/register" class="btn btn-primary md:btn-lg -ml-1">Create your free chatbot</a>
 				</div>
 			</div>
 			<p class="text-sm mt-2">No credit card required</p>
@@ -73,7 +73,7 @@
 						>
 					</div>
 				</div>
-				<div class="flex justify-center p-4 pt-0 h-[50vh] border-t border-base-300">
+				<div class="flex justify-center p-1 md:p-4 pt-0 min-h-[50vh] h-[20rem] border-t border-base-300">
 					<div class="w-full">
 						<Chat
 							modelId="befbfc87e25911db"
