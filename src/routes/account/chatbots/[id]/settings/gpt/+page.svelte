@@ -7,7 +7,7 @@
 
 	console.log($currentBot)
 
-	const plansWthCustomApiKey = [2, 3, 4, 102, 103, 104, 1003, 1004, 1005];
+	const plansWthCustomApiKey = [2, 3, 4, 102, 103, 104, 1001, 1002, 1003, 1004, 1005];
 	const plansWithGPT4 = [2, 3, 4, 102, 103, 104];
 </script>
 
@@ -36,7 +36,7 @@
 						type="radio"
 						value="4"
 						bind:group={$currentBot.settings.gptVersion}
-						disabled={!plansWithGPT4.includes(plan)}
+						disabled={!plansWithGPT4.includes(plan) && !$currentBot.settings.openai_api_key}
 					/>
 					GPT-4
 				</label>
