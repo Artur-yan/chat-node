@@ -129,7 +129,7 @@
 			</div>
 		</div>
 	</div>
-	{#if data.bots.length > 0 && data.user.user?.status === 'active'}
+	{#if data.bots.length > 0 && data.subscription?.status === 'active'}
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 			{#each data.bots as bot}
 				{@const usage = Math.ceil((bot.tocken_count / data.subscription.max_tocken) * 100)}
