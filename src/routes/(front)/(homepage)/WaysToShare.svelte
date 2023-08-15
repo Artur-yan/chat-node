@@ -211,15 +211,17 @@
 				<div class="grid grid-cols-[100px_auto] h-full bg-base-300">
 					<div class="bg-neutral">
 						<ul class="space-y-2 mx-4">
-							{#each Array(3) as line}
 								<li class="rounded-full h-1 bg-base-300" />
-							{/each}
+								<li class="rounded-full h-1 bg-base-300" />
+								<li class="rounded-full h-1 bg-base-300" />
 						</ul>
 						<hr class="border-base-100 my-4" />
 						<ul class="space-y-2 mx-4">
-							{#each Array(5) as line}
 								<li class="rounded-full h-1 bg-base-100" />
-							{/each}
+								<li class="rounded-full h-1 bg-accent" />
+								<li class="rounded-full h-1 bg-base-100" />
+								<li class="rounded-full h-1 bg-base-100" />
+								<li class="rounded-full h-1 bg-base-100" />
 						</ul>
 					</div>
 					<div>
