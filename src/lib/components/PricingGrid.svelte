@@ -208,6 +208,7 @@
 					<li>Remove ChatNode branding</li>
 					<li>Bring your own OpenAI API key</li>
 					<li>Slack integration</li>
+					<li>GPT-4</li>
 				</ul>
 			</div>
 		</div>
@@ -270,7 +271,6 @@
 				<ul class="extra">
 					<li>Everything from Pro</li>
 					<li>API Access</li>
-					<li>Access chat history</li>
 				</ul>
 			</div>
 		</div>
@@ -324,7 +324,7 @@
 							<span class="figure">3,000,000</span> tokens/bot
 						</div>
 					</li>
-					<li><span class="figure">45 Day</span> chat history</li>
+					<li><span class="figure">60 Day</span> chat history</li>
 				</ul>
 				<ul class="extra">
 					<li>Everything from Enterprise</li>
