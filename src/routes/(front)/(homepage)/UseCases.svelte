@@ -1,21 +1,27 @@
 <script>
 	let examples = [
 		{
+			title: 'AirBnB Host',
 			text: "Create a virtual AirBnB host that can answer guests' questions about check-in/check-out, house rules, the neighborhood etc."
 		},
 		{
+			title: 'Customer Support',
 			text: "Quickly respond to questions about the products in an ecommerce store by feeding customer support emails into a bot."
 		},
 		{
+			title: 'Marketing',
 			text: "Find missing info in marketing materials after reviewing answers to basic questions about the materials."
 		},
 		{
+			title: 'Clerk',
 			text: 'Review transcriptions from meetings, board minutes, or lecture notes.'
 		},
 		{
+			title: 'Developer',
 			text: 'Create a custom coding aid by providing specific examples or documentation for a programming language.',
 		},
 		{
+			title: 'Researcher',
 			text:'Distill short responses from huge archives of blog posts or wikis.'
 		},
 
@@ -40,9 +46,10 @@
 		{#each examples as example}
 			<div class="card bg-neutral">
 				<div class="card-body justify-center">
-					<div class="card-title">
-						{example.text}
+					<div class="card-title text-center justify-center mb-4">
+						{example.title}
 					</div>
+					<p>{example.text}</p>
 				</div>
 			</div>
 		{/each}
