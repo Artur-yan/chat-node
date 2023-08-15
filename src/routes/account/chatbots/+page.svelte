@@ -226,7 +226,7 @@
 			<h3 class="font-bold text-lg">Your Free Trial Has Expired</h3>
 			<a class="btn" href="/account/settings/subscription">Upgrade</a>
 		</div>
-	{:else if data.user.user.status !== 'active'}
+	{:else if data.subscription.status !== 'active'}
 		<div class="alert alert-warning my-4">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
