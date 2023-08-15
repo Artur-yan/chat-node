@@ -52,12 +52,12 @@
 	<div class="text-center my-4">
 		<div class="join">
 			<button
-				class="btn join-item border-primary"
+				class="btn text-xs sm:text-sm join-item border-primary"
 				class:btn-primary={billingTerm == 'monthly'}
 				on:click={() => (billingTerm = 'monthly')}>Monthly</button
 			>
 			<button
-				class="btn join-item border-primary"
+				class="btn text-xs sm:text-sm join-item border-primary"
 				class:btn-primary={billingTerm == 'yearly'}
 				on:click={() => (billingTerm = 'yearly')}
 				>Yearly <span class="badge badge-accent capitalize">2 months free</span></button
