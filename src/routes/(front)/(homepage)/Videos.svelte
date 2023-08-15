@@ -24,7 +24,7 @@
 			>
 			<button
 				class="btn btn-wide btn-primary {activeTab == 2 ? 'active' : 'btn-outline'}"
-				on:click={() => (activeTab = 2)}>Personal GPT API Key</button
+				on:click={() => (activeTab = 2)}>Personal OpenAI API Key</button
 			>
 		</div>
 		<div>
