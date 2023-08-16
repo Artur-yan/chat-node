@@ -6,7 +6,7 @@
 	<title>{data.post.title} | Blog | ChatNode</title>
 </svelte:head>
 
-<div class="container py-10 !max-w-4xl">
+<article class="container py-10 !max-w-4xl">
 	<h1 class="text-3xl font-bold mb-6">{data.post.title}</h1>
 
 	{#each data.post.body as block}
@@ -18,22 +18,22 @@
 	{/each}
 
 	<style>
-		h2 {
+		article h2 {
 			margin-bottom: 1rem;
 			font-size: 1.5rem;
 			font-weight: bold;
 		}
 
-		p,
-		img {
+		article p,
+		article img {
 			margin-bottom: 3rem;
 		}
 
-		ul{
+		article ul{
 			list-style: disc;
 		}
-		li {
+		article li {
 			margin-bottom: 1rem
 		}
 	</style>
-</div>
+</article>
