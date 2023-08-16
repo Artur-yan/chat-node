@@ -80,8 +80,7 @@
 		<div class="rounded-xl md:rounded-r-none p-8 border border-secondary md:my-4 bg-base-300">
 			<div class="flex justify-between mb-8">
 				<div>
-					<h2>Free Trial</h2>
-					<p>7 Days</p>
+					<h2>Free</h2>
 				</div>
 				{#if currentPlan !== undefined}
 					<button
@@ -96,7 +95,7 @@
 				{/if}
 			</div>
 			<ul>
-				<li><span class="figure">100</span> messages</li>
+				<li><span class="figure">50</span> messages/mo.</li>
 				<li><span class="figure">1</span> chatbot</li>
 				<li>
 					<div
@@ -143,7 +142,7 @@
 				{/if}
 			</div>
 			<ul>
-				<li><span class="figure">2,000</span> messages/month</li>
+				<li><span class="figure">2,000</span> messages/mo.</li>
 				<li><span class="figure">5</span> Chatbots</li>
 				<li>
 					<div
@@ -192,7 +191,7 @@
 			</div>
 			<div class="grid lg:grid-cols-2">
 				<ul>
-					<li><span class="figure">5,000</span> messages/month</li>
+					<li><span class="figure">5,000</span> message/mo.</li>
 					<li><span class="figure">10</span> Chatbots</li>
 					<li>
 						<div
@@ -256,7 +255,7 @@
 			</div>
 			<div class="grid grid-cols-2">
 				<ul>
-					<li><span class="figure">10,000</span> messages/month</li>
+					<li><span class="figure">10,000</span> messages/mo.</li>
 					<li><span class="figure">20</span> Chatbots</li>
 					<li>
 						<div
@@ -314,7 +313,7 @@
 			</div>
 			<div class="grid grid-cols-2">
 				<ul>
-					<li><span class="figure">40,000</span> messages/month</li>
+					<li><span class="figure">40,000</span> messages/mo.</li>
 					<li><span class="figure">40</span> Chatbots</li>
 					<li>
 						<div
