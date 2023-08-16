@@ -126,11 +126,15 @@
 		body.append('session_id', sessionId);
 		if (fileKeys.length > 0) {
 			body.append('file_keys', fileKeys /*, optional filename */);
-			name = files[0].name.slice(0, 20) + '...';
+			if (files[0]name.length > 32) {
+				name = files[0].name.slice(0, 30) + '...';
+			} else {
+				name = files[0].name;
+			}
 		}
 		if (textData) {
 			body.append('text', textData);
-			name = textData.slice(0, 20) + '...';
+			name = textData.slice(0, 30) + '...';
 		}
 		if (selectedUrls && selectedUrls.length > 0) {
 			body.append('urls', selectedUrls);
