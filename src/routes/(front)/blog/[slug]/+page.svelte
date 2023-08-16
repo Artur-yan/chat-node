@@ -28,5 +28,12 @@
 		img {
 			margin-bottom: 3rem;
 		}
+
+		ul{
+			list-style: disc;
+		}
+		li {
+			margin-bottom: 1rem
+		}
 	</style>
 </div>
