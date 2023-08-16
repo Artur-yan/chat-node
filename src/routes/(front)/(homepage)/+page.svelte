@@ -27,11 +27,13 @@
 
 <Hero />
 
+<div id="features" />
 <Videos />
 
 <UseCases />
 
 <WaysToShare />
+
 
 <Features />
 

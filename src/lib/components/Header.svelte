@@ -4,7 +4,7 @@
 	let links = [
 		{
 			title: 'Features',
-			href: '/'
+			href: '/#features'
 		},
 		// {
 		// 	title: 'About',
