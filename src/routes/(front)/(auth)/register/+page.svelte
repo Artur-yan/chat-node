@@ -14,8 +14,6 @@
 	let loading = false;
 	$: loading = form?.submitted;
 
-	$: console.log(form);
-
 	$: if (form?.success) {
 		$alert = form?.message;
 		goto('/chatbots');

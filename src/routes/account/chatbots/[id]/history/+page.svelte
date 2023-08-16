@@ -39,12 +39,12 @@
 </script>
 
 <div class="container md:grid md:grid-cols-[320px_auto] max-h-[75vh] gap-4 h-full my-4">
-	<div class="mb-4 overflow-y-auto">
-		{#if chatHistory.length == 0}
-			<p class="text-center">No chat history</p>
-		{/if}
-		<ul class="menu bg-base-200 rounded-box" role="navigation">
+	<div class="mb-4 overflow-y-auto bg-base-200 rounded-box">
+		<ul class="menu" role="navigation">
 			<li class="menu-title">Conversations</li>
+			{#if chatHistory.length == 0}
+				<li class="menu-title text-base-content">No chat history</li>
+			{/if}
 			{#each chatHistory as chat}
 				{@const date = new Date(Number(chat.split('-')[1])).toLocaleString()}
 				<li>
