@@ -14,7 +14,8 @@
 			<h2>GPT Version</h2>
 		</div>
 		{#if plan === 0}
-			<div class="alert text-warning mb-2 font-bold">GPT-4 is only available on paid plans.</div>
+			<div class="alert text-warning mb-2 font-bold">This feature is available on the Pro plan or greater.
+			</div>
 		{/if}
 		<div>
 			<div class="join">
