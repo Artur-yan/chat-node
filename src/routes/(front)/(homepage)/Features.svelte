@@ -8,12 +8,12 @@
 		class="absolute inset-0 bg-gradient-to-b from-base-200 via-transparent to-base-200 shadow-base-200"
 	/>
 	<div class="flex justify-center">
-		<h2 class="font-bold text-3xl relative py-4 px-4 w-[25vw] text-center text-secondary">
-			Other Features
+		<h2 class="font-bold text-3xl relative py-4 px-8">
 			<div class="dot-corners">
 				<div />
 				<div />
 			</div>
+			Other Features
 		</h2>
 	</div>
 <div id="features">
