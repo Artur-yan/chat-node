@@ -87,7 +87,7 @@
 			<div class="mockup-window relative bg-neutral shadow-lg p-4 h-full min-h-[240px]">
 				<div
 					bind:this={arrow}
-					class="absolute w-12 left-1/4 top-1/2 flex items-center justify-center aspect-square text-4xl text-primary transition-transform duration-75"
+					class="absolute z-10 w-12 left-1/4 top-1/2 flex items-center justify-center aspect-square text-4xl text-primary transition-transform duration-75"
 					style="transform: rotate({arrowRotation}rad);"
 				>
 					<div>
