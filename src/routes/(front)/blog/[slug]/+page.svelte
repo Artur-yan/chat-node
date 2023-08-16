@@ -6,33 +6,58 @@
 	<title>{data.post.title} | Blog | ChatNode</title>
 </svelte:head>
 
-<article class="container py-10 !max-w-4xl">
-	<h1 class="text-3xl font-bold mb-6">{data.post.title}</h1>
+<article id="post" class="container py-10">
+	<h1 class="text-3xl font-bold mb-6 max-w-[800px] mx-auto">{data.post.title}</h1>
 
 	{#each data.post.body as block}
 	{#if block.component == 'image'}
 			<img src="https://cms.chatnode.ai/storage/uploads{block.data.asset.path}" alt="{block.data.asset.description}" />
+	{:else if block.component == 'code'}
+			<!-- {console.log(block)} -->
+			<div class="mockup-code mx-auto max-w-6xl">
+
+				<pre class=""><code>{block.data.Code}</code></pre>
+			</div>
+
 		{:else}
 			{@html block.data.html}
 		{/if}
 	{/each}
-
 	<style>
-		article h2 {
+		#post h2{
 			margin-bottom: 1rem;
 			font-size: 1.5rem;
 			font-weight: bold;
-		}
 
-		article p,
-		article img {
+		}
+		#post h2,
+		#post h3,
+		#post h4,
+		#post h5,
+		#post h6 {
+			max-width: 800px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 1em;
+		}
+	
+		#post p,
+		#post img {
 			margin-bottom: 3rem;
+			max-width: 800px;
+			margin-left: auto;
+			margin-right: auto;
 		}
-
-		article ul{
+	
+	
+		#post ul{
 			list-style: disc;
+			max-width: 800px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 3rem
 		}
-		article li {
+		#post li {
 			margin-bottom: 1rem
 		}
 	</style>
