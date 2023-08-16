@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 
-	export let form: { message?: string; submitted: false; success: false};
+	export let form: { message?: string; submitted: false; success: false };
 
 	import { page } from '$app/stores';
 	import { alert } from '$lib/stores';
@@ -14,14 +14,9 @@
 	let loading = false;
 	$: loading = form?.submitted;
 
-	$: console.log(form);
-
-
-
 	$: if (form?.success) {
-		$alert = form?.message
+		$alert = form?.message;
 		goto('/chatbots');
-
 	}
 </script>
 
@@ -70,18 +65,17 @@
 				</div>
 
 				{#if promo === 'appsumo'}
-				<div>
-					<label class="label" for="email"><span class="label-text">AppSumo Code(s)</span></label>
-					<textarea
-						class="textarea textarea-bordered w-full textarea-xs"
-						spellcheck="false"
-						name="appsumo-codes"
-						rows="5"
-						placeholder="Enter up to 5 AppSumo codes here each on a new line"
-						bind:value={appsumoCodes} />
-
-				</div>
-
+					<div>
+						<label class="label" for="email"><span class="label-text">AppSumo Code(s)</span></label>
+						<textarea
+							class="textarea textarea-bordered w-full textarea-xs"
+							spellcheck="false"
+							name="appsumo-codes"
+							rows="5"
+							placeholder="Enter up to 5 AppSumo codes here each on a new line"
+							bind:value={appsumoCodes}
+						/>
+					</div>
 				{/if}
 
 				{#if form?.message}

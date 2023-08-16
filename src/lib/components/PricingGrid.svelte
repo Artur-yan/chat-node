@@ -39,7 +39,6 @@
 			const data = await res.json();
 			await new Promise((resolve) => setTimeout(resolve, 2500));
 			goto(data.url);
-
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
@@ -51,14 +50,14 @@
 
 <div>
 	<div class="text-center my-4">
-		<div class="join">
+		<div class="join max-sm:join-vertical">
 			<button
-				class="btn join-item border-primary"
+				class="btn text-xs sm:text-sm join-item border-primary"
 				class:btn-primary={billingTerm == 'monthly'}
 				on:click={() => (billingTerm = 'monthly')}>Monthly</button
 			>
 			<button
-				class="btn join-item border-primary"
+				class="btn text-xs sm:text-sm join-item border-primary"
 				class:btn-primary={billingTerm == 'yearly'}
 				on:click={() => (billingTerm = 'yearly')}
 				>Yearly <span class="badge badge-accent capitalize">2 months free</span></button
@@ -70,10 +69,9 @@
 		<div class="card-body">
 			<h2 class="!text-xl mb-4 uppercase">All plans include</h2>
 			<ul class="included flex items-center gap-x-10 gap-y-4 justify-center flex-wrap">
-				<li>Add multiple data sources</li>
 				<li>Embed on unlimited websites</li>
-				<li>Custom colors</li>
-				<li>Chatbot, iframe and web address sharing</li>
+				<li>Add custom logo and colors</li>
+				<li>Chat history</li>
 			</ul>
 		</div>
 	</div>
@@ -81,7 +79,9 @@
 	<div class="my-8 grid md:grid-cols-3 gap-y-8 lg:gap-y-20">
 		<div class="rounded-xl md:rounded-r-none p-8 border border-secondary md:my-4 bg-base-300">
 			<div class="flex justify-between mb-8">
-				<h2>Free</h2>
+				<div>
+					<h2>Free</h2>
+				</div>
 				{#if currentPlan !== undefined}
 					<button
 						on:click={() => handleConfirmPlanChange(0)}
@@ -95,7 +95,7 @@
 				{/if}
 			</div>
 			<ul>
-				<li><span class="figure">30</span> messages/month</li>
+				<li><span class="figure">50</span> messages/mo.</li>
 				<li><span class="figure">1</span> chatbot</li>
 				<li>
 					<div
@@ -142,7 +142,7 @@
 				{/if}
 			</div>
 			<ul>
-				<li><span class="figure">2,000</span> messages/month</li>
+				<li><span class="figure">2,000</span> messages/mo.</li>
 				<li><span class="figure">5</span> Chatbots</li>
 				<li>
 					<div
@@ -152,10 +152,11 @@
 						<span class="figure">400,000</span> tokens/bot
 					</div>
 				</li>
+				<li><span class="figure">3 Day</span> chat history</li>
 			</ul>
 		</div>
 		<div class="p-8 border border-secondary rounded-xl md:rounded-l-none md:my-4 bg-base-300">
-			<div class="flex justify-between">
+			<div class="flex justify-between mb-8">
 				<div>
 					<h2>Pro</h2>
 					<h3 class="text-lg font-bold">
@@ -190,7 +191,7 @@
 			</div>
 			<div class="grid lg:grid-cols-2">
 				<ul>
-					<li><span class="figure">5,000</span> messages/month</li>
+					<li><span class="figure">5,000</span> message/mo.</li>
 					<li><span class="figure">10</span> Chatbots</li>
 					<li>
 						<div
@@ -200,10 +201,13 @@
 							<span class="figure">800,000</span> tokens/bot
 						</div>
 					</li>
+					<li><span class="figure">7 Day</span> chat history</li>
 				</ul>
 				<ul class="extra">
-					<li>Add custom logo</li>
+					<li>Remove ChatNode branding</li>
+					<li>Bring your own OpenAI API key</li>
 					<li>Slack integration</li>
+					<li>GPT-4</li>
 				</ul>
 			</div>
 		</div>
@@ -251,7 +255,7 @@
 			</div>
 			<div class="grid grid-cols-2">
 				<ul>
-					<li><span class="figure">10,000</span> messages/month</li>
+					<li><span class="figure">10,000</span> messages/mo.</li>
 					<li><span class="figure">20</span> Chatbots</li>
 					<li>
 						<div
@@ -261,10 +265,11 @@
 							<span class="figure">1,000,000</span> tokens/bot
 						</div>
 					</li>
+					<li><span class="figure">30 Day</span> chat history</li>
 				</ul>
 				<ul class="extra">
 					<li>Everything from Pro</li>
-					<li>Access chat history</li>
+					<li>API Access</li>
 				</ul>
 			</div>
 		</div>
@@ -308,7 +313,7 @@
 			</div>
 			<div class="grid grid-cols-2">
 				<ul>
-					<li><span class="figure">40,000</span> messages/month</li>
+					<li><span class="figure">40,000</span> messages/mo.</li>
 					<li><span class="figure">40</span> Chatbots</li>
 					<li>
 						<div
@@ -318,6 +323,7 @@
 							<span class="figure">3,000,000</span> tokens/bot
 						</div>
 					</li>
+					<li><span class="figure">60 Day</span> chat history</li>
 				</ul>
 				<ul class="extra">
 					<li>Everything from Enterprise</li>
