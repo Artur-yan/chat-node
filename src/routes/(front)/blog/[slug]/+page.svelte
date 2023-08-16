@@ -1,4 +1,9 @@
 <script>
+	import hljs from 'highlight.js';
+	import javascript from 'highlight.js/lib/languages/javascript';
+
+	import 'highlight.js/styles/github-dark.css';
+
 	export let data;
 </script>
 
@@ -13,10 +18,10 @@
 	{#if block.component == 'image'}
 			<img src="https://cms.chatnode.ai/storage/uploads{block.data.asset.path}" alt="{block.data.asset.description}" />
 	{:else if block.component == 'code'}
-			<!-- {console.log(block)} -->
+			{@const code = hljs.highlight(block.data.Code, {language:'javascript'})}
 			<div class="mockup-code mx-auto max-w-6xl">
 
-				<pre class=""><code>{block.data.Code}</code></pre>
+				<pre class=""><code>{@html code.value}</code></pre>
 			</div>
 
 		{:else}
