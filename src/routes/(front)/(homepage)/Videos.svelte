@@ -11,29 +11,29 @@
 	const ytOptions = {playerVars: {autoplay: 1, color: 'white'}}
 </script>
 
-<section class="bg-black animated-gradent-bg flex items-center justify-center p-14">
-	<div class="max-w-5xl">
-		<div class="flex flex-wrap justify-stretch gap-2 mb-2">
+<section class="animated-gradent-bg flex items-center justify-center md:p-14">
+	<div class="w-full max-w-5xl">
+		<div class="w-full flex max-md:!rounded-none !justify-stretch max-md:join md:gap-2 md:mb-2 overflow-x-auto">
 			<button
-				class="btn btn-wide btn-primary {activeTab == 0 ? 'active' : 'btn-outline'}"
+				class="btn  join-item btn-primary {activeTab == 0 ? 'active' : 'btn-outline'}"
 				on:click={() => (activeTab = 0)}>Overview</button
 			>
 			<button
-				class="btn btn-wide btn-primary {activeTab == 1 ? 'active' : 'btn-outline'}"
+				class="btn join-item btn-primary {activeTab == 1 ? 'active' : 'btn-outline'}"
 				on:click={() => (activeTab = 1)}>Embed</button
 			>
 			<button
-				class="btn btn-wide btn-primary {activeTab == 2 ? 'active' : 'btn-outline'}"
+				class="btn join-item btn-primary {activeTab == 2 ? 'active' : 'btn-outline'}"
 				on:click={() => (activeTab = 2)}>Personal OpenAI API Key</button
 			>
 		</div>
 		<div>
 			{#if activeTab === 0}
-				<iframe width="560" height="315" class="w-full h-auto aspect-video" src="https://www.youtube.com/embed/htCr57TlMnk?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen in:fade></iframe>
+				<iframe width="1792" height="1080" class="w-full h-auto aspect-[10/6.02]" src="https://www.youtube.com/embed/htCr57TlMnk?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen in:fade></iframe>
 			{:else if activeTab === 1}
-				<iframe width="560" height="315" class="w-full h-auto aspect-video" src="https://www.youtube.com/embed/53BMrkB82Bc?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen in:fade></iframe>
+				<iframe width="1792" height="1080" class="w-full h-auto aspect-[10/6.29]" src="https://www.youtube.com/embed/53BMrkB82Bc?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen in:fade></iframe>
 			{:else if activeTab === 2}
-				<iframe width="560" height="315" class="w-full h-auto aspect-video" src="https://www.youtube.com/embed/vsHybuETz9E?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen in:fade></iframe>
+				<iframe width="1792" height="1080" class="w-full h-auto aspect-[10/6.29]" src="https://www.youtube.com/embed/vsHybuETz9E?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen in:fade></iframe>
 			{/if}
 		</div>
 	</div>
@@ -47,7 +47,7 @@
 	}
 
 	iframe{
-		@apply rounded-lg;
+		@apply md:rounded-lg;
 	}
 
 	/* @keyframes gradient {
