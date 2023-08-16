@@ -16,7 +16,7 @@ const specialPlans = {
 	free: {
 		plan: 0,
 		max_bot: 1,
-		max_msg: 30,
+		max_msg: 50,
 		max_tocken: 100000
 	},
 	appsumo1: {
