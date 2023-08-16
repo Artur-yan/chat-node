@@ -126,7 +126,7 @@
 		body.append('session_id', sessionId);
 		if (fileKeys.length > 0) {
 			body.append('file_keys', fileKeys /*, optional filename */);
-			if (files[0]name.length > 32) {
+			if (files[0].name.length > 32) {
 				name = files[0].name.slice(0, 30) + '...';
 			} else {
 				name = files[0].name;
