@@ -1,10 +1,10 @@
 <script>
-	import hljs from 'highlight.js';
-	import javascript from 'highlight.js/lib/languages/javascript';
 
-	import 'highlight.js/styles/github-dark.css';
 
 	export let data;
+
+	import Code from '$lib/components/Code.svelte';
+
 </script>
 
 <svelte:head>
@@ -18,11 +18,9 @@
 	{#if block.component == 'image'}
 			<img src="https://cms.chatnode.ai/storage/uploads{block.data.asset.path}" alt="{block.data.asset.description}" />
 	{:else if block.component == 'code'}
-			{@const code = hljs.highlight(block.data.Code, {language:'javascript'})}
-			<div class="mockup-code mx-auto max-w-6xl">
-
-				<pre class=""><code>{@html code.value}</code></pre>
-			</div>
+	<div class="rounded-lg bg-neutral p-4 lg:p-8 max-w-6xl mx-auto">
+		<Code language="javascript" code={block.data.Code} />
+	</div>
 
 		{:else}
 			{@html block.data.html}
@@ -67,3 +65,5 @@
 		}
 	</style>
 </article>
+
+
