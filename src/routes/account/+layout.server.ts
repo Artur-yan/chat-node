@@ -21,7 +21,7 @@ export const load = async ({ locals }) => {
 				created: 'desc'
 			}
 		});
-		return { user, subscription, bots };
+		return { user, subscription, bots, scripts: '' };
 	} else {
 		throw redirect(303, '/login');
 	}

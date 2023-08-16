@@ -68,7 +68,7 @@ model Bots {
 model Subscriptions {
   user_id             String    @id @unique
   max_bot             Int?      @default(1) @db.SmallInt
-  max_msg             Int?      @default(30)
+  max_msg             Int?      @default(50)
   plan                Int?      @default(0) @db.SmallInt
   next_billing_cycle  DateTime? @db.Date
   stripe_customer_id  String?

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import '../../app.postcss';
 	import Header from '$lib/components/Header.svelte';
-	import type { LayoutData } from './$types';
 	import Footer from '$lib/components/Footer.svelte';
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
@@ -13,17 +12,9 @@
 		});
 		enableAutoPageviews();
 	});
-
-	export let data: LayoutData;
 </script>
 
 <svelte:head>
-	<script
-		src="https://www.chatnode.ai/embed.js"
-		data-chatbot-id="befbfc87e25911db"
-		data-color-1="#0E1729"
-		data-color-2="#3ABFF7"
-	></script>
 	<script>
 		// Rewardful
 		(function (w, r) {
@@ -71,11 +62,19 @@ profitwell('start', {});
 		/>
 	</noscript>
 	<!-- End Facebook Pixel Code -->
+
+	<!-- End Facebook Pixel Code -->
+	<script
+		src="https://www.chatnode.ai/embed.js"
+		data-chatbot-id="befbfc87e25911db"
+		data-color-1="#0E1729"
+		data-color-2="#3ABFF7"
+	></script>
 </svelte:head>
 
-<Header user={data.user} includePageLinks={true} />
+<Header />
 
-<main id="main">
+<main id="main" class="flex-1">
 	<slot />
 </main>
 
