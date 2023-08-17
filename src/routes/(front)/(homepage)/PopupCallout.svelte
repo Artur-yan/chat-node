@@ -4,10 +4,9 @@
 	<div class="text-secondary-content font-bold text-lg">Still have questions?</div>
 	<div class="text-secondary-content text-lg">Ask our own chatbot &rarr;</div>
 
-    <style lang="postcss">
+	<style lang="postcss">
 		body {
 			@apply !mb-[6.5rem];
 		}
 	</style>
 </div>
-

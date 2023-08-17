@@ -1,5 +1,5 @@
 <script lang="ts">
-    	let arrow: HTMLDivElement;
+	let arrow: HTMLDivElement;
 	let innerHeight: number;
 	let innerWidth: number;
 	let scrollY: number;
@@ -17,7 +17,6 @@
 </script>
 
 <svelte:window bind:scrollY bind:innerHeight bind:innerWidth on:scroll={trig} />
-
 
 <section class="py-20 container !max-w-7xl">
 	<div class="flex justify-center">
@@ -211,17 +210,17 @@
 				<div class="grid grid-cols-[100px_auto] h-full bg-base-300">
 					<div class="bg-neutral">
 						<ul class="space-y-2 mx-4">
-								<li class="rounded-full h-1 bg-base-300" />
-								<li class="rounded-full h-1 bg-base-300" />
-								<li class="rounded-full h-1 bg-base-300" />
+							<li class="rounded-full h-1 bg-base-300" />
+							<li class="rounded-full h-1 bg-base-300" />
+							<li class="rounded-full h-1 bg-base-300" />
 						</ul>
 						<hr class="border-base-100 my-4" />
 						<ul class="space-y-2 mx-4">
-								<li class="rounded-full h-1 bg-base-100" />
-								<li class="rounded-full h-1 bg-accent" />
-								<li class="rounded-full h-1 bg-base-100" />
-								<li class="rounded-full h-1 bg-base-100" />
-								<li class="rounded-full h-1 bg-base-100" />
+							<li class="rounded-full h-1 bg-base-100" />
+							<li class="rounded-full h-1 bg-accent" />
+							<li class="rounded-full h-1 bg-base-100" />
+							<li class="rounded-full h-1 bg-base-100" />
+							<li class="rounded-full h-1 bg-base-100" />
 						</ul>
 					</div>
 					<div>

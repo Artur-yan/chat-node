@@ -101,7 +101,6 @@ export const actions = {
 					success: true,
 					message: 'Your codes have been redeemed successfully'
 				};
-				// let subscriptionLimits = tiersMap[plan]['appsumo' + codes.length.toString()]
 			}
 		}
 	}

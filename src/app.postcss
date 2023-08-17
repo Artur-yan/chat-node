@@ -27,26 +27,26 @@ progress[value]::-webkit-progress-value {
 }
 
 .dot-corners {
-		@apply absolute inset-0 text-base leading-none;
-	}
+	@apply absolute inset-0 text-base leading-none;
+}
 
-	.dot-corners div {
-		@apply absolute left-0 right-0 text-secondary;
-	}
+.dot-corners div {
+	@apply absolute left-0 right-0 text-secondary;
+}
 
-	.dot-corners div:first-child {
-		@apply top-0;
-	}
+.dot-corners div:first-child {
+	@apply top-0;
+}
 
-	.dot-corners div::before {
-		content: '';
-		@apply absolute left-0 w-1 h-1 rounded-full bg-secondary/50;
-	}
-	.dot-corners div::after {
-		content: '';
-		@apply absolute right-0 w-1 h-1 rounded-full bg-secondary/50;
-	}
+.dot-corners div::before {
+	content: '';
+	@apply absolute left-0 w-1 h-1 rounded-full bg-secondary/50;
+}
+.dot-corners div::after {
+	content: '';
+	@apply absolute right-0 w-1 h-1 rounded-full bg-secondary/50;
+}
 
-	.dot-corners div:last-child {
-		@apply bottom-0;
-	}
+.dot-corners div:last-child {
+	@apply bottom-0;
+}

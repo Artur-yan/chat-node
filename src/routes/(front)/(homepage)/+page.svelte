@@ -6,7 +6,6 @@
 	import UseCases from './UseCases.svelte';
 	import WaysToShare from './WaysToShare.svelte';
 	import PopupCallout from './PopupCallout.svelte';
-
 </script>
 
 <svelte:head>
@@ -24,7 +23,6 @@
 	></script>
 </svelte:head>
 
-
 <Hero />
 
 <div id="features" />
@@ -33,7 +31,6 @@
 <UseCases />
 
 <WaysToShare />
-
 
 <Features />
 
@@ -62,5 +59,4 @@
 	#how-it-works p {
 		@apply mb-5 2xl:mb-12;
 	}
-
 </style>

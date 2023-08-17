@@ -12,7 +12,7 @@ const tiersMap = {
 			gpt_api: {
 				included: true,
 				label: 'Bring Your Own ChatGPT API Key'
-			},
+			}
 		}
 	},
 	1002: {

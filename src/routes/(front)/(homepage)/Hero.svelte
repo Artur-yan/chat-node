@@ -3,7 +3,7 @@
 
 	import MorphingText from '$lib/components/MorphingText.svelte';
 
-    	let isThinking = false;
+	let isThinking = false;
 	let messages = [
 		{
 			text: 'Hi, how can I help you?',
@@ -31,10 +31,7 @@
 		];
 	};
 
-
-
 	demoChat();
-
 </script>
 
 <section>
@@ -46,7 +43,9 @@
 				Train ChatGPT on your data
 			</h2>
 
-			<div class="text-2xl md:text-3xl lg:text-4xl font-bold max-w-[20ch] lg:max-w-[24ch] md:leading-10 max-lg:mx-auto">
+			<div
+				class="text-2xl md:text-3xl lg:text-4xl font-bold max-w-[20ch] lg:max-w-[24ch] md:leading-10 max-lg:mx-auto"
+			>
 				<span class="mr-2 max-lg:block">Build a chatbot to answer any questions on your</span>
 				<MorphingText />
 			</div>
@@ -73,7 +72,9 @@
 						>
 					</div>
 				</div>
-				<div class="flex justify-center p-1 md:p-4 pt-0 min-h-[50vh] h-[20rem] border-t border-base-300">
+				<div
+					class="flex justify-center p-1 md:p-4 pt-0 min-h-[50vh] h-[20rem] border-t border-base-300"
+				>
 					<div class="w-full">
 						<Chat
 							modelId="befbfc87e25911db"

@@ -49,7 +49,7 @@
 	{/if}
 
 	<h2 class="text-lg font-bold">Web Page</h2>
-	<Code code={url}></Code>
+	<Code code={url} />
 
 	<h2 class="text-lg font-bold mt-10">Popup Chat</h2>
 	<div>

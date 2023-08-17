@@ -17,7 +17,8 @@
 			<h2>GPT Version</h2>
 		</div>
 		{#if plan === 0}
-			<div class="alert text-warning mb-2 font-bold">This feature is available on the Pro plan or greater.
+			<div class="alert text-warning mb-2 font-bold">
+				This feature is available on the Pro plan or greater.
 			</div>
 		{/if}
 		<div>
