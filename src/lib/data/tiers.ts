@@ -10,13 +10,9 @@ const tiersMap = {
 				label: 'Slack Integration'
 			},
 			gpt_api: {
-				included: false,
+				included: true,
 				label: 'Bring Your Own ChatGPT API Key'
 			},
-			remove_chatnode_branding: {
-				included: false,
-				label: 'Remove ChatNode Branding'
-			}
 		}
 	},
 	1002: {
@@ -30,11 +26,11 @@ const tiersMap = {
 				label: 'Slack Integration'
 			},
 			gpt_api: {
-				included: false,
+				included: true,
 				label: 'Bring Your Own ChatGPT API Key'
 			},
 			remove_chatnode_branding: {
-				included: false,
+				included: true,
 				label: 'Remove ChatNode Branding'
 			}
 		}
@@ -50,11 +46,11 @@ const tiersMap = {
 				label: 'Slack Integration'
 			},
 			gpt_api: {
-				included: false,
+				included: true,
 				label: 'Bring Your Own ChatGPT API Key'
 			},
 			remove_chatnode_branding: {
-				included: false,
+				included: true,
 				label: 'Remove ChatNode Branding'
 			}
 		}
@@ -70,11 +66,11 @@ const tiersMap = {
 				label: 'Slack Integration'
 			},
 			gpt_api: {
-				included: false,
+				included: true,
 				label: 'Bring Your Own ChatGPT API Key'
 			},
 			remove_chatnode_branding: {
-				included: false,
+				included: true,
 				label: 'Remove ChatNode Branding'
 			}
 		}
@@ -90,11 +86,11 @@ const tiersMap = {
 				label: 'Slack Integration'
 			},
 			gpt_api: {
-				included: false,
+				included: true,
 				label: 'Bring Your Own ChatGPT API Key'
 			},
 			remove_chatnode_branding: {
-				included: false,
+				included: true,
 				label: 'Remove ChatNode Branding'
 			}
 		}
