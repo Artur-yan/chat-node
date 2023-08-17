@@ -12,7 +12,7 @@
 	<h1 class="text-3xl font-bold mb-6 max-w-[800px]">{data.post.title}</h1>
 
 	{#each data.post.body as block}
-		{#if block.component == 'image'}
+		{#if block.component == 'image' && block.data.asset?.path}
 			<img
 				src="https://cms.chatnode.ai/storage/uploads{block.data.asset.path}"
 				alt={block.data.asset.description}
@@ -21,7 +21,7 @@
 			<div class="max-w-6xl">
 				<Code code={block.data.Code} />
 			</div>
-		{:else}
+		{:else if block.component == 'richtext'}
 			{@html block.data.html}
 		{/if}
 	{/each}
