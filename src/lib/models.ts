@@ -61,6 +61,8 @@ const defaultSettings = {
 	userPrompt: '',
 	gptVersion: '3.5',
 	temperature: 0.1,
+	personality: 'default',
+	personailityCustomized: false,
 	theme: {
 		name: 'default',
 		bg: '#0F172A',
