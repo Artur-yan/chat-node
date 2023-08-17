@@ -121,7 +121,7 @@
 		</label>
 		<textarea
 			bind:value={$currentBot.settings.supportMessage}
-			on:input={() => personalityCustomized = true}
+			on:input={() => $currentBot.settings.personalityCustomized = true}
 			class="textarea w-full leading-normal"
 			rows="2"
 			maxlength="800"
@@ -152,6 +152,7 @@
 
 		<textarea
 			bind:value={$currentBot.settings.systemPrompt}
+			on:input={() => $currentBot.settings.personalityCustomized = true}
 			class="textarea w-full leading-normal"
 			name="prompt"
 			rows="5"
