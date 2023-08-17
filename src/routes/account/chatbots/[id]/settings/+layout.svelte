@@ -6,12 +6,9 @@
 	import { beforeNavigate, goto } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
 
-
-
 	export let data;
 
-	$: console.log(data)
-
+	$: console.log(data);
 
 	const links = [
 		{ name: 'Prompts', url: 'prompts' },
@@ -21,41 +18,39 @@
 		{ name: 'Delete', url: 'delete' }
 	];
 
-	let saved = true
+	let saved = true;
 
 	$: currentPath = $page.url.pathname.split('/').pop();
 
-	const saveState = JSON.stringify($currentBot)
-
+	const saveState = JSON.stringify($currentBot);
 
 	const checkIfSaved = () => {
-		if(saveState === JSON.stringify($currentBot)) {
-			saved = true
+		if (saveState === JSON.stringify($currentBot)) {
+			saved = true;
 		} else {
-			saved = false
+			saved = false;
 		}
-	}
+	};
 
-	$: $currentBot, checkIfSaved()
+	$: $currentBot, checkIfSaved();
 
 	let nextURL: string;
 	let warningIgnored = false;
 
-	beforeNavigate(({to, cancel}) => {
+	beforeNavigate(({ to, cancel }) => {
 		if (!saved && !warningIgnored) {
-			cancel()
-			nextURL = to.url.pathname
-			confirmUnsavedNavigate.showModal()
+			cancel();
+			nextURL = to.url.pathname;
+			confirmUnsavedNavigate.showModal();
 		}
-	})
+	});
 
 	const navigateWithoutSaving = () => {
 		warningIgnored = true;
 		currentBot.set(JSON.parse(saveState));
 		goto(nextURL);
 		warningIgnored = false;
-		saved = true
-
+		saved = true;
 	};
 
 	const handleSave = async () => {
@@ -68,7 +63,7 @@
 			return;
 		}
 		$state = 'saved';
-		saved = true
+		saved = true;
 		$alert = { type: 'success', msg: 'Settings saved' };
 	};
 </script>
@@ -89,12 +84,16 @@
 					</li>
 				{/each}
 			</ul>
-			<button class="btn btn-outline btn-success my-4 w-full" disabled={saved == true} type="submit" on:click={handleSave}
-				>
+			<button
+				class="btn btn-outline btn-success my-4 w-full"
+				disabled={saved == true}
+				type="submit"
+				on:click={handleSave}
+			>
 				{#if $state == 'saving'}
-				<span class="loading loading-spinner loading-xs"></span>
+					<span class="loading loading-spinner loading-xs" />
 				{/if}
-				
+
 				{$state == 'saving' ? 'Saving' : 'Save'}</button
 			>
 		</div>
@@ -116,9 +115,10 @@
 </div>
 
 <Modal id="confirmUnsavedNavigate" title="You have unsaved changes">
-	
 	<svelte:fragment slot="actions">
 		<button class="btn btn-success btn-outline">Stay Here</button>
-		<button class="btn btn-error btn-outline" on:click={navigateWithoutSaving}>Discard Changes</button>
+		<button class="btn btn-error btn-outline" on:click={navigateWithoutSaving}
+			>Discard Changes</button
+		>
 	</svelte:fragment>
 </Modal>

@@ -7,7 +7,7 @@
 	<title>{data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container h-full my-4 mb-20 min-h-[50vh]">
+<div class="container flex flex-col flex-1 my-4">
 	<Chat
 		modelId={data.model.id}
 		trainingStatus={data.model.status}

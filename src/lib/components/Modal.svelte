@@ -1,6 +1,6 @@
 <script lang="ts">
-    export let id: string
-    export let title: string
+	export let id: string;
+	export let title: string;
 </script>
 
 <dialog {id} class="modal">
@@ -8,7 +8,7 @@
 		<h3 class="font-bold text-lg mb-8">{title}</h3>
 		<slot />
 		<div class="modal-action">
-		<slot name="actions" />
+			<slot name="actions" />
 		</div>
 	</form>
 	<form method="dialog" class="modal-backdrop">

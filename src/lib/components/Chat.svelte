@@ -125,7 +125,7 @@
 	--sendButtonBG: {settings.theme.sendButtonBG};
 	--sendButtonIconColor: {settings.theme.sendButtonIconColor};
     background-color: var(--bg)"
-	class="h-full flex flex-col justify-between rounded-lg"
+	class="h-full flex flex-col justify-between rounded-lg flex-1"
 >
 	<div class="overflow-y-auto scroll-smooth p-2" bind:this={chatWindow}>
 		<BotStatus id={modelId} bind:trainingStatus />

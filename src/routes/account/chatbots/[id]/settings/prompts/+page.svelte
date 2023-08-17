@@ -145,23 +145,23 @@
 		/>
 	</div>
 	{#if $currentBot.settings.userPrompt}
-	<div>
-		<label for="user-prompt" class="label">
-			<span class="label-text"
-				>User Prompt <span
-					class="tooltip tooltip-right badge"
-					data-tip="The user prompt is a message put right before the context (your data) and the user message. It can help to steer the model more strongly than the system message. Use with caution, it can be quite powerful"
-					>?</span
-				></span
-			>
-		</label>
-		<textarea
-			bind:value={$currentBot.settings.userPrompt}
-			class="textarea textarea-bordered w-full"
-			name="user-prompt"
-			maxlength="2400"
-		/>
-	</div>
+		<div>
+			<label for="user-prompt" class="label">
+				<span class="label-text"
+					>User Prompt <span
+						class="tooltip tooltip-right badge"
+						data-tip="The user prompt is a message put right before the context (your data) and the user message. It can help to steer the model more strongly than the system message. Use with caution, it can be quite powerful"
+						>?</span
+					></span
+				>
+			</label>
+			<textarea
+				bind:value={$currentBot.settings.userPrompt}
+				class="textarea textarea-bordered w-full"
+				name="user-prompt"
+				maxlength="2400"
+			/>
+		</div>
 	{/if}
 	<div>
 		<label for="temp" class="label">

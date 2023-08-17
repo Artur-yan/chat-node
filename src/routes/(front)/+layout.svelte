@@ -1,7 +1,6 @@
 <script lang="ts">
 	import '../../app.postcss';
 	import Header from '$lib/components/Header.svelte';
-	import type { LayoutData } from './$types';
 	import Footer from '$lib/components/Footer.svelte';
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
@@ -13,17 +12,9 @@
 		});
 		enableAutoPageviews();
 	});
-
-	export let data: LayoutData;
 </script>
 
 <svelte:head>
-	<script
-		src="https://www.chatnode.ai/embed.js"
-		data-chatbot-id="befbfc87e25911db"
-		data-color-1="#0E1729"
-		data-color-2="#3ABFF7"
-	></script>
 	<script>
 		// Rewardful
 		(function (w, r) {
@@ -35,11 +26,13 @@
 				};
 		})(window, 'rewardful');
 	</script>
-{@html `<script id="profitwell-js" data-pw-auth="64cdfa4a4526d24d3a185319fc6ca127">
+	{@html `<script id="profitwell-js" data-pw-auth="64cdfa4a4526d24d3a185319fc6ca127">
 (function(i,s,o,g,r,a,m){i[o]=i[o]||function(){(i[o].q=i[o].q||[]).push(arguments)}; a=s.createElement(g);m=s.getElementsByTagName(g)[0];a.async=1;a.src=r+'?auth='+s.getElementById(o+'-js').getAttribute('data-pw-auth');m.parentNode.insertBefore(a,m);})(window,document,'profitwell','script','https://public.profitwell.com/js/profitwell.js');
 profitwell('start', {});
 </script>`}
 	<script async src="https://r.wdfl.co/rw.js" data-rewardful="1564fe"></script>
+	<!-- Facebook Pixel Code -->
+	<!-- Facebook Pixel Code -->
 	<!-- Facebook Pixel Code -->
 	<script>
 		!(function (f, b, e, v, n, t, s) {
@@ -70,11 +63,20 @@ profitwell('start', {});
 		/>
 	</noscript>
 	<!-- End Facebook Pixel Code -->
+
+	<!-- End Facebook Pixel Code -->
+	<!-- End Facebook Pixel Code -->
+	<script
+		src="https://www.chatnode.ai/embed.js"
+		data-chatbot-id="befbfc87e25911db"
+		data-color-1="#0E1729"
+		data-color-2="#3ABFF7"
+	></script>
 </svelte:head>
 
-<Header user={data.user} includePageLinks={true} />
+<Header />
 
-<main id="main">
+<main id="main" class="flex-1">
 	<slot />
 </main>
 
