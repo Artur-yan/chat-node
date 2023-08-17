@@ -18,8 +18,9 @@
 	{#if block.component == 'image'}
 			<img src="https://cms.chatnode.ai/storage/uploads{block.data.asset.path}" alt="{block.data.asset.description}" />
 	{:else if block.component == 'code'}
-	<div class="rounded-lg bg-neutral p-4 lg:p-8 max-w-6xl mx-auto">
-		<Code language="javascript" code={block.data.Code} />
+	<div class="max-w-6xl mx-auto">
+
+		<Code code={block.data.Code} />
 	</div>
 
 		{:else}
