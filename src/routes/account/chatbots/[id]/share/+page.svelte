@@ -2,6 +2,7 @@
 	import { PUBLIC_SITE_URL } from '$env/static/public';
 	import CopyButton from '$lib/components/CopyButton.svelte';
 	import ColorPicker from 'svelte-awesome-color-picker';
+	import Code from '$lib/components/Code.svelte';
 
 	export let data;
 	let color1 = '#3ABFF7';
@@ -48,29 +49,12 @@
 	{/if}
 
 	<h2 class="text-lg font-bold">Web Page</h2>
-	<div class="grid md:grid-cols-2">
-		<div class="bg-neutral p-4 rounded flex flex-col justify-between">
-			<div class="flex justify-between items-center">
-				<pre><code>{url}</code></pre>
-				<CopyButton textToCopy={url} />
-			</div>
-		</div>
-	</div>
+	<Code code={url}></Code>
 
 	<h2 class="text-lg font-bold mt-10">Popup Chat</h2>
-	<div class="grid md:grid-cols-2">
-		<div class="bg-neutral p-4 rounded flex flex-col justify-between">
-			<div class="flex justify-between">
-				<pre><code>{jsEmbedCode}</code></pre>
-				<!-- <div class="tabs tab-sm mb-4">
-					<button class="tab tab-bordered tab-active">Code</button> 
-					<button class="tab tab-bordered">Customize</button> 
-				</div> -->
-				<CopyButton textToCopy={jsEmbedCode} />
-			</div>
-			<p class="text-sm mt-4">
-				Place this code just before your website's closing &lt;/body&gt; or &lt;/head&gt; tag.
-			</p>
+	<div>
+		<div>
+			<Code code={jsEmbedCode} />
 		</div>
 		<div class="p-4">
 			<h4 class="font-bold">Customise</h4>
@@ -93,19 +77,14 @@
 		</div>
 	</div>
 
-	<h2 class="text-lg font-bold mt-10">Embedded (iframe)</h2>
-	<div class="grid md:grid-cols-2">
-		<div class="bg-neutral p-4 rounded flex flex-col justify-between">
-			<div class="flex justify-between">
-				<pre><code>{iframeEmbedCode}</code></pre>
+	<div>
+		<h2 class="text-lg font-bold mt-10">Embedded (iframe)</h2>
 
-				<CopyButton textToCopy={iframeEmbedCode} />
-			</div>
-			<p class="text-sm mt-4">
-				Place this code wherever you'd like within your website where you'd like it to appear.
-			</p>
-		</div>
-		<div class="p-4" />
+		<Code code={iframeEmbedCode} />
+
+		<p class="text-sm mt-4">
+			Place this code wherever you'd like within your website where you'd like it to appear.
+		</p>
 	</div>
 </div>
 
