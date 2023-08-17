@@ -49,9 +49,20 @@
 	{/if}
 
 	<h2 class="text-lg font-bold">Web Page</h2>
-	<Code code={url} />
+
+	<div class="bg-neutral p-4 lg:p-8 rounded-lg flex justify-between items-center">
+		<div>
+			{url} 
+			<CopyButton text={url} />
+		</div>
+
+		<a href={url} class="btn btn-xs" target="_blank">view</a>
+	</div>
 
 	<h2 class="text-lg font-bold mt-10">Popup Chat</h2>
+			<p class="text-sm my-2">
+			Place this code wherever you'd like the iframe to appear on your website.
+		</p>
 	<div>
 		<div>
 			<Code code={jsEmbedCode} />
@@ -80,11 +91,11 @@
 	<div>
 		<h2 class="text-lg font-bold mt-10">Embedded (iframe)</h2>
 
+		<p class="text-sm my-2">
+			Place this code wherever you'd like the iframe to appear on your website.
+		</p>
 		<Code code={iframeEmbedCode} />
 
-		<p class="text-sm mt-4">
-			Place this code wherever you'd like within your website where you'd like it to appear.
-		</p>
 	</div>
 </div>
 
