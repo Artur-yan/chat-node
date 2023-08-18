@@ -37,18 +37,26 @@
 		document.querySelector(`.${currentActiveChatID}`).classList.add('active');
 	};
 
-	const chatHistory = data.chats
+	let chatHistory = data.chats
+
+	const reverseSort = () => {
+		chatHistory = chatHistory.reverse()
+	}
 </script>
 
 <div class="container md:grid md:grid-cols-[320px_auto] max-h-[75vh] gap-4 h-full my-4">
 	<div class="mb-4 overflow-y-auto bg-base-200 rounded-box">
 		<ul class="menu" role="navigation">
-			<li class="menu-title">Conversations</li>
-			<select class="select select-bordered w-full max-w-xs">
-				<option disabled selected>Who shot first?</option>
-				<option>Date</option>
-				<option>Greedo</option>
-			  </select>
+			<li class="menu-title">
+				Conversations
+			</li>
+			<div class="flex items-center justify-between px-4">
+				<label for="sort" class="">By Date</label>
+				<select class="select select-bordered select-sm" name="sort" on:change={reverseSort}>
+					<option>Descending</option>
+					<option>Ascending</option>
+				  </select>
+			</div>
 			{#if chatHistory.length == 0}
 				<li class="menu-title text-base-content">No chat history</li>
 			{/if}

@@ -25,6 +25,9 @@ export const load = async ({ locals, params }) => {
 	const chats = await prismaClient.chatConversations.findMany({
 		where: {
 			bot_id: params.id,
+		},
+		orderBy: {
+			created_at: 'desc'
 		}
 	});
 
