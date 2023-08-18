@@ -5,10 +5,8 @@
 	import { updateModel } from '$lib/models.js';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
-
+	
 	export let data;
-
-	$: console.log(data);
 
 	const links = [
 		{ name: 'Prompts', url: 'prompts' },
@@ -109,6 +107,7 @@
 				settings={$currentBot.settings}
 				trainingStatus={data.model.status}
 				avatar={$currentBot.avatar_img}
+				userId = {data.user.session.userId}
 			/>
 		</div>
 	</div>

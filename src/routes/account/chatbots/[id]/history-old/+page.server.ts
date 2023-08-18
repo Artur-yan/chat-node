@@ -22,12 +22,13 @@ export const load = async ({ locals, params }) => {
 			historyLengthDays = 45;
 	}
 
-	const chats = await prismaClient.chatConversations.findMany({
+	const chats = await prismaClient.chatHistory.groupBy({
+		by: ['session_id'],
 		where: {
-			bot_id: params.id
-		},
-		orderBy: {
-			created_at: 'desc'
+			bot_id: params.id,
+			created_at: {
+				gte: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * historyLengthDays)
+			}
 		}
 	});
 

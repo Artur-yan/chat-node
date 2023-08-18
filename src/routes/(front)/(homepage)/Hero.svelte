@@ -80,6 +80,7 @@
 							modelId="befbfc87e25911db"
 							bind:messages
 							avatar="https://res.cloudinary.com/duoacapcy/image/upload/v1687011043/ChatNode-Logo-Avatar_fdyalc.svg"
+							userId="5uDVaFgS32peeLl"
 						/>
 					</div>
 				</div>
