@@ -53,7 +53,7 @@
 	<div class="bg-neutral p-4 lg:p-8 rounded-lg flex justify-between items-center">
 		<div>
 			{url}
-			<CopyButton text={url} />
+			<CopyButton textToCopy={url} />
 		</div>
 
 		<a href={url} class="btn btn-xs" target="_blank">view</a>

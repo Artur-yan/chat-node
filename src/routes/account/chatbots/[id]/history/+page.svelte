@@ -3,8 +3,6 @@
 
 	export let data;
 
-	console.log(data.chats);
-
 	let visibleChatConversation;
 
 	const postProcessMsgHTML = (msgHTML) => {

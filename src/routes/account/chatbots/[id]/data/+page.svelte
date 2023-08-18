@@ -113,6 +113,7 @@
 				bind:trainingStatus
 				settings={data.model.settings}
 				avatar={data.model.avatar_img}
+				userId={data.model.user_id}
 			/>
 		</div>
 	</div>
