@@ -4,6 +4,7 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	onMount(() => {
 		const { enableAutoPageviews } = Plausible({
@@ -12,9 +13,13 @@
 		});
 		enableAutoPageviews();
 	});
+
 </script>
 
 <svelte:head>
+	<link rel="canonical" href="https://www.chatnode.ai{$page.url.pathname}" />
+
+
 	<script>
 		// Rewardful
 		(function (w, r) {
