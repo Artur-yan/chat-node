@@ -34,6 +34,7 @@ profitwell('start', {});
 	<!-- Facebook Pixel Code -->
 	<!-- Facebook Pixel Code -->
 	<!-- Facebook Pixel Code -->
+	<!-- Facebook Pixel Code -->
 	<script>
 		!(function (f, b, e, v, n, t, s) {
 			if (f.fbq) return;
@@ -64,6 +65,7 @@ profitwell('start', {});
 	</noscript>
 	<!-- End Facebook Pixel Code -->
 
+	<!-- End Facebook Pixel Code -->
 	<!-- End Facebook Pixel Code -->
 	<!-- End Facebook Pixel Code -->
 	<script

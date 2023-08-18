@@ -25,6 +25,5 @@ export const POST = async ({ params, request }) => {
 		}
 	});
 
-	return json({success: true})
-
-}
+	return json({ success: true });
+};

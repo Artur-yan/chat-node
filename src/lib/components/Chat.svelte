@@ -16,7 +16,7 @@
 			sender: 'bot'
 		}
 	];
-	export let userId: string
+	export let userId: string;
 
 	$: messages[0].text = settings.greeting;
 
@@ -93,24 +93,24 @@
 	};
 
 	// Generate a random ID
-	let chatSessionId: string
+	let chatSessionId: string;
 	const generateNewSessionId = () => {
 		chatSessionId = Math.random().toString(36).slice(2, 9) + '-' + Date.now();
 	};
 	generateNewSessionId();
 
 	const submitQuery = () => {
-		if(messages.length === 1) {
-				fetch(`/api/chat-history/${chatSessionId}`,  {	
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({
-						bot_id: modelId,
-						user_id: userId,
-					})
+		if (messages.length === 1) {
+			fetch(`/api/chat-history/${chatSessionId}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					bot_id: modelId,
+					user_id: userId
 				})
+			});
 		}
 		if (isThinking) {
 			addMessage('Please wait for me to finish thinking...');
@@ -131,8 +131,8 @@
 	const resetChat = () => {
 		messages = [];
 		addMessage(settings.greeting);
-		generateNewSessionId()
-		isThinking = false
+		generateNewSessionId();
+		isThinking = false;
 	};
 </script>
 
@@ -151,122 +151,162 @@
     background-color: var(--bg)"
 	class="h-full flex flex-col justify-between rounded-lg overflow-hidden flex-1 relative"
 >
-<div class="overflow-y-auto scroll-smooth h-full flex-1" bind:this={chatWindow}>
+	<div class="overflow-y-auto scroll-smooth h-full flex-1" bind:this={chatWindow}>
 		{#if settings?.showHeader}
 			<header class="p-2 pl-5 flex justify-between">
 				<h1 class="font-bold">{settings.publicTitle ? settings.publicTitle : ''}</h1>
 			</header>
 		{/if}
-		<button class="z-20 absolute top-1 right-1 btn btn-circle btn-sm btn-ghost tooltip tooltip-left flex items-center justify-center" data-tip="refresh chat" on:click={resetChat}>
-			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M17.65 6.35a7.95 7.95 0 0 0-6.48-2.31c-3.67.37-6.69 3.35-7.1 7.02C3.52 15.91 7.27 20 12 20a7.98 7.98 0 0 0 7.21-4.56c.32-.67-.16-1.44-.9-1.44c-.37 0-.72.2-.88.53a5.994 5.994 0 0 1-6.8 3.31c-2.22-.49-4.01-2.3-4.48-4.52A6.002 6.002 0 0 1 12 6c1.66 0 3.14.69 4.22 1.78l-1.51 1.51c-.63.63-.19 1.71.7 1.71H19c.55 0 1-.45 1-1V6.41c0-.89-1.08-1.34-1.71-.71l-.64.65z"/></svg>
+		<button
+			class="z-20 absolute top-1 right-1 btn btn-circle btn-sm btn-ghost tooltip tooltip-left flex items-center justify-center"
+			data-tip="refresh chat"
+			on:click={resetChat}
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+				><path
+					fill="currentColor"
+					d="M17.65 6.35a7.95 7.95 0 0 0-6.48-2.31c-3.67.37-6.69 3.35-7.1 7.02C3.52 15.91 7.27 20 12 20a7.98 7.98 0 0 0 7.21-4.56c.32-.67-.16-1.44-.9-1.44c-.37 0-.72.2-.88.53a5.994 5.994 0 0 1-6.8 3.31c-2.22-.49-4.01-2.3-4.48-4.52A6.002 6.002 0 0 1 12 6c1.66 0 3.14.69 4.22 1.78l-1.51 1.51c-.63.63-.19 1.71.7 1.71H19c.55 0 1-.45 1-1V6.41c0-.89-1.08-1.34-1.71-.71l-.64.65z"
+				/></svg
+			>
 		</button>
 		<BotStatus id={modelId} bind:trainingStatus />
 		<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 		<!-- svelte-ignore a11y-label-has-associated-control -->
 		<div class="p-2">
+			<slot>
+				{#each messages as msg}
+					<div
+						class="chat relative !overflow-visible w-auto {msg.sender == 'bot'
+							? 'chat-start'
+							: 'chat-end'}"
+					>
+						{#if msg.sender === 'bot' && avatar}
+							<div class="chat-image avatar">
+								<div class="w-10">
+									<img src={avatar} alt="" />
+								</div>
+							</div>
+						{/if}
+						<div
+							class="chat-bubble relative"
+							style={msg.sender == 'bot'
+								? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
+								: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
+						>
+							<div class="message-body">
+								{@html postProcessMsgHTML(
+									marked.parse(msg.text, { mangle: false, headerIds: false })
+								)}
+							</div>
+							{#if msg.sender === 'bot'}
+								<div
+									class="absolute dropdown dropdown-bottom dropdown-end -right-10 top-0 text-sm text-white"
+								>
+									<label tabindex="0" class="m-1 btn btn-sm btn-ghost btn-circle"
+										><svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											><path
+												fill="currentColor"
+												d="M12 3c-.825 0-1.5.675-1.5 1.5S11.175 6 12 6s1.5-.675 1.5-1.5S12.825 3 12 3Zm0 15c-.825 0-1.5.675-1.5 1.5S11.175 21 12 21s1.5-.675 1.5-1.5S12.825 18 12 18Zm0-7.5c-.825 0-1.5.675-1.5 1.5s.675 1.5 1.5 1.5s1.5-.675 1.5-1.5s-.675-1.5-1.5-1.5Z"
+											/></svg
+										></label
+									>
+									<ul
+										tabindex="0"
+										class="dropdown-content z-[1] menu p-2 shadow rounded bg-neutral"
+									>
+										<div class="">
+											<div class="text-right">
+												<CopyButton textToCopy={msg.text} />
+											</div>
+											<!-- <li><span>👍</span></li>
+									<li>
+																<span>👎</span>
+															</li> -->
+										</div>
+									</ul>
+								</div>
+							{/if}
+						</div>
+					</div>
+				{/each}
+			</slot>
 
-		<slot>
-			{#each messages as msg}
-				<div class="chat relative !overflow-visible w-auto {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
-					{#if msg.sender === 'bot' && avatar}
+			{#if isThinking}
+				<div class="chat chat-start">
+					{#if avatar}
 						<div class="chat-image avatar">
-							<div class="w-10">
+							<div class="w-10 rounded-full">
 								<img src={avatar} alt="" />
 							</div>
 						</div>
 					{/if}
 					<div
-						class="chat-bubble relative"
-						style={msg.sender == 'bot'
-							? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
-							: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
+						class="chat-bubble"
+						style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"
 					>
-						<div class="message-body">
-							{@html postProcessMsgHTML(marked.parse(msg.text, { mangle: false, headerIds: false }))}
-						</div>
-						{#if msg.sender === 'bot'}
-							<div class="absolute dropdown dropdown-bottom dropdown-end -right-10 top-0 text-sm text-white">
-								<label tabindex="0" class="m-1 btn btn-sm btn-ghost btn-circle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3c-.825 0-1.5.675-1.5 1.5S11.175 6 12 6s1.5-.675 1.5-1.5S12.825 3 12 3Zm0 15c-.825 0-1.5.675-1.5 1.5S11.175 21 12 21s1.5-.675 1.5-1.5S12.825 18 12 18Zm0-7.5c-.825 0-1.5.675-1.5 1.5s.675 1.5 1.5 1.5s1.5-.675 1.5-1.5s-.675-1.5-1.5-1.5Z"/></svg></label>
-								<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded bg-neutral ">
-									<div class="">
-										<div class="text-right">
-
-											<CopyButton textToCopy={msg.text} />
-										</div>
-									<!-- <li><span>👍</span></li>
-									<li>
-																<span>👎</span>
-															</li> -->
-								</div>
-								</ul>
-							</div>
-						{/if}
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+							><circle cx="4" cy="12" r="3" fill="currentColor"
+								><animate
+									id="svgSpinners3DotsBounce0"
+									attributeName="cy"
+									begin="0;svgSpinners3DotsBounce1.end+0.25s"
+									calcMode="spline"
+									dur="0.6s"
+									keySplines=".33,.66,.66,1;.33,0,.66,.33"
+									values="12;6;12"
+								/></circle
+							><circle cx="12" cy="12" r="3" fill="currentColor"
+								><animate
+									attributeName="cy"
+									begin="svgSpinners3DotsBounce0.begin+0.1s"
+									calcMode="spline"
+									dur="0.6s"
+									keySplines=".33,.66,.66,1;.33,0,.66,.33"
+									values="12;6;12"
+								/></circle
+							><circle cx="20" cy="12" r="3" fill="currentColor"
+								><animate
+									id="svgSpinners3DotsBounce1"
+									attributeName="cy"
+									begin="svgSpinners3DotsBounce0.begin+0.2s"
+									calcMode="spline"
+									dur="0.6s"
+									keySplines=".33,.66,.66,1;.33,0,.66,.33"
+									values="12;6;12"
+								/></circle
+							></svg
+						>
 					</div>
 				</div>
-			{/each}
-		</slot>
-		
-		{#if isThinking}
-			<div class="chat chat-start">
-				{#if avatar}
-					<div class="chat-image avatar">
-						<div class="w-10 rounded-full">
-							<img src={avatar} alt="" />
-						</div>
-					</div>
-				{/if}
-				<div
-					class="chat-bubble"
-					style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"
-				>
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-						><circle cx="4" cy="12" r="3" fill="currentColor"
-							><animate
-								id="svgSpinners3DotsBounce0"
-								attributeName="cy"
-								begin="0;svgSpinners3DotsBounce1.end+0.25s"
-								calcMode="spline"
-								dur="0.6s"
-								keySplines=".33,.66,.66,1;.33,0,.66,.33"
-								values="12;6;12"
-							/></circle
-						><circle cx="12" cy="12" r="3" fill="currentColor"
-							><animate
-								attributeName="cy"
-								begin="svgSpinners3DotsBounce0.begin+0.1s"
-								calcMode="spline"
-								dur="0.6s"
-								keySplines=".33,.66,.66,1;.33,0,.66,.33"
-								values="12;6;12"
-							/></circle
-						><circle cx="20" cy="12" r="3" fill="currentColor"
-							><animate
-								id="svgSpinners3DotsBounce1"
-								attributeName="cy"
-								begin="svgSpinners3DotsBounce0.begin+0.2s"
-								calcMode="spline"
-								dur="0.6s"
-								keySplines=".33,.66,.66,1;.33,0,.66,.33"
-								values="12;6;12"
-							/></circle
-						></svg
-					>
-				</div>
-			</div>
-		{/if}
-	</div>
+			{/if}
+		</div>
 
 		<div id="chat-bottom" class="h-1" />
 	</div>
 
 	<form on:submit|preventDefault={submitQuery} class="form-control p-2">
 		<div class="text-right text-xs mb-1.5 mr-1 flex justify-end gap-1 items-end leading-none">
-			
 			<a href="https://www.chatnode.ai" target="_blank">
-				<span>Powered by</span> <svg class="inline mb-[1px]" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 300 300" fill="none">
-					<path d="M207.498 117.156C207.498 125.748 200.538 132.713 191.951 132.713H186.769C178.183 132.713 171.222 125.748 171.222 117.156L171.222 22.3358C171.222 18.1376 168.693 14.3326 164.757 12.8725C142.316 4.54795 118.043 0 92.7083 0H13.1546C5.99932 0 0.19884 5.80432 0.19884 12.9643C0.19884 38.2283 -0.189051 63.5278 0.118701 88.7948C0.170219 93.0246 3.62267 96.413 7.85274 96.413L83.1231 96.413C91.7095 96.413 98.67 103.378 98.67 111.97V117.156C98.67 125.748 91.7095 132.713 83.1231 132.713H13.504C8.6203 132.713 4.94385 137.175 6.10095 141.92C10.8745 161.493 18.4236 179.979 28.3074 196.934C31.3972 202.235 37.165 205.313 43.3003 205.313H191.951C200.538 205.313 207.498 212.279 207.498 220.871V226.056C207.498 234.648 200.538 241.613 191.951 241.613H76.0908C71.4431 241.613 69.2283 247.191 72.7581 250.215C108.992 281.253 156.054 300 207.491 300H300V207.429C300 138.818 266.711 77.9878 215.413 40.2283C212.086 37.7792 207.498 40.215 207.498 44.3462L207.498 117.156Z" fill="#818CF8"/>
-				  </svg> <span>ChatNode</span>
-			</a></div>
+				<span>Powered by</span>
+				<svg
+					class="inline mb-[1px]"
+					xmlns="http://www.w3.org/2000/svg"
+					width="10"
+					height="10"
+					viewBox="0 0 300 300"
+					fill="none"
+				>
+					<path
+						d="M207.498 117.156C207.498 125.748 200.538 132.713 191.951 132.713H186.769C178.183 132.713 171.222 125.748 171.222 117.156L171.222 22.3358C171.222 18.1376 168.693 14.3326 164.757 12.8725C142.316 4.54795 118.043 0 92.7083 0H13.1546C5.99932 0 0.19884 5.80432 0.19884 12.9643C0.19884 38.2283 -0.189051 63.5278 0.118701 88.7948C0.170219 93.0246 3.62267 96.413 7.85274 96.413L83.1231 96.413C91.7095 96.413 98.67 103.378 98.67 111.97V117.156C98.67 125.748 91.7095 132.713 83.1231 132.713H13.504C8.6203 132.713 4.94385 137.175 6.10095 141.92C10.8745 161.493 18.4236 179.979 28.3074 196.934C31.3972 202.235 37.165 205.313 43.3003 205.313H191.951C200.538 205.313 207.498 212.279 207.498 220.871V226.056C207.498 234.648 200.538 241.613 191.951 241.613H76.0908C71.4431 241.613 69.2283 247.191 72.7581 250.215C108.992 281.253 156.054 300 207.491 300H300V207.429C300 138.818 266.711 77.9878 215.413 40.2283C212.086 37.7792 207.498 40.215 207.498 44.3462L207.498 117.156Z"
+						fill="#818CF8"
+					/>
+				</svg> <span>ChatNode</span>
+			</a>
+		</div>
 		<div class="join">
 			<input
 				type="text"
@@ -332,15 +372,14 @@
 		}
 
 		// Invert color on focus
-
 	</style>
 </div>
 
 <style lang="postcss">
-		.send-button:focus{
-			background-color: var(--sendButtonIconColor) !important;
-			color: var(--sendButtonBG) !important;
-		}
+	.send-button:focus {
+		background-color: var(--sendButtonIconColor) !important;
+		color: var(--sendButtonBG) !important;
+	}
 	@keyframes message {
 		0% {
 			opacity: 0.5;
