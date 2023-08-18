@@ -8,8 +8,6 @@
 
 	export let data;
 
-	$: console.log(data);
-
 	const links = [
 		{ name: 'Prompts', url: 'prompts' },
 		{ name: 'Sharing', url: 'sharing' },

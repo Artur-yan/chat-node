@@ -53,6 +53,7 @@ const deleteModel = async (id: string) => {
 const defaultSettings = {
 	greeting: 'What can I help you with?',
 	public: false,
+	publicTitle: '',
 	allowedUrls: [],
 	supportMessage:
 		'If the answer is not included, say exactly "Hmm, I don\'t know" and stop after that.',

@@ -3,9 +3,9 @@
 	import BotStatus from '$lib/components/BotStatus.svelte';
 	import { defaultSettings } from '$lib/models';
 	import { marked } from 'marked';
+	import CopyButton from './CopyButton.svelte';
 
 	export let modelId: string;
-
 	export let inputPlaceholder = 'Type your message';
 	export let disabled = false;
 	export let isThinking = false;
@@ -92,7 +92,11 @@
 	};
 
 	// Generate a random ID
-	const chatSessionId = Math.random().toString(36).slice(2, 9) + '-' + Date.now();
+	let chatSessionId: string
+	const generateNewSessionId = () => {
+		chatSessionId = Math.random().toString(36).slice(2, 9) + '-' + Date.now();
+	};
+	generateNewSessionId();
 
 	const submitQuery = () => {
 		if (isThinking) {
@@ -110,6 +114,13 @@
 	};
 
 	$: messages && scrollToBottom();
+
+	const resetChat = () => {
+		messages = [];
+		addMessage(settings.greeting);
+		generateNewSessionId()
+		isThinking = false
+	};
 </script>
 
 <div
@@ -125,13 +136,25 @@
 	--sendButtonBG: {settings.theme.sendButtonBG};
 	--sendButtonIconColor: {settings.theme.sendButtonIconColor};
     background-color: var(--bg)"
-	class="h-full flex flex-col justify-between rounded-lg flex-1"
+	class="h-full flex flex-col justify-between rounded-lg overflow-hidden flex-1"
 >
-	<div class="overflow-y-auto scroll-smooth p-2" bind:this={chatWindow}>
+<div class="overflow-y-auto scroll-smooth h-full" bind:this={chatWindow}>
+		{#if settings?.showHeader}
+			<header class="p-2 flex justify-between">
+				<div>{settings.publicTitle ? settings.publicTitle : ''}</div>
+			</header>
+		{/if}
+		<button class="absolute top-1 right-1 btn btn-circle btn-sm btn-ghost tooltip tooltip-left flex items-center justify-center" data-tip="refresh chat" on:click={resetChat}>
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M17.65 6.35a7.95 7.95 0 0 0-6.48-2.31c-3.67.37-6.69 3.35-7.1 7.02C3.52 15.91 7.27 20 12 20a7.98 7.98 0 0 0 7.21-4.56c.32-.67-.16-1.44-.9-1.44c-.37 0-.72.2-.88.53a5.994 5.994 0 0 1-6.8 3.31c-2.22-.49-4.01-2.3-4.48-4.52A6.002 6.002 0 0 1 12 6c1.66 0 3.14.69 4.22 1.78l-1.51 1.51c-.63.63-.19 1.71.7 1.71H19c.55 0 1-.45 1-1V6.41c0-.89-1.08-1.34-1.71-.71l-.64.65z"/></svg>
+		</button>
 		<BotStatus id={modelId} bind:trainingStatus />
+		<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+		<!-- svelte-ignore a11y-label-has-associated-control -->
+		<div class="p-2">
+
 		<slot>
 			{#each messages as msg}
-				<div class="chat overflow-hidden {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
+				<div class="chat relative !overflow-visible {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
 					{#if msg.sender === 'bot' && avatar}
 						<div class="chat-image avatar">
 							<div class="w-10">
@@ -147,9 +170,22 @@
 					>
 						{@html postProcessMsgHTML(marked.parse(msg.text, { mangle: false, headerIds: false }))}
 					</div>
+					<div class="absolute dropdown dropdown-bottom dropdown-end right-0 top-0">
+						<label tabindex="0" class="m-1 btn btn-sm btn-ghost btn-circle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3c-.825 0-1.5.675-1.5 1.5S11.175 6 12 6s1.5-.675 1.5-1.5S12.825 3 12 3Zm0 15c-.825 0-1.5.675-1.5 1.5S11.175 21 12 21s1.5-.675 1.5-1.5S12.825 18 12 18Zm0-7.5c-.825 0-1.5.675-1.5 1.5s.675 1.5 1.5 1.5s1.5-.675 1.5-1.5s-.675-1.5-1.5-1.5Z"/></svg></label>
+						<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded w-52 bg-neutral ">
+							<div class="flex items-center">
+							  <li><CopyButton textToCopy={msg.text} /></li>
+							<li><span>👍</span></li>
+							<li>
+														<span>👎</span>
+													</li>
+						  </div>
+						</ul>
+					</div>
 				</div>
 			{/each}
 		</slot>
+		
 		{#if isThinking}
 			<div class="chat chat-start">
 				{#if avatar}
@@ -198,6 +234,8 @@
 				</div>
 			</div>
 		{/if}
+	</div>
+
 		<div id="chat-bottom" class="h-1" />
 	</div>
 
