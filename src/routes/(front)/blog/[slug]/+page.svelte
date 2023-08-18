@@ -6,6 +6,7 @@
 
 <svelte:head>
 	<title>{data.post.title} | Blog | ChatNode</title>
+	<meta name="description" content={data.post.excerpt} />
 </svelte:head>
 
 <article id="post" class="container py-10">
