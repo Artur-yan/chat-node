@@ -61,7 +61,7 @@
 				{@const date = chat.created_at.toLocaleString()}
 				<li>
 					<a
-						class="chat-{chat}"
+						class="chat-{chat.session_id}"
 						on:click|preventDefault={() => getChatConversation(chat.session_id)}>{date}</a
 					>
 				</li>
@@ -87,3 +87,10 @@
 		{/if}
 	</div>
 </div>
+
+
+<style lang="postcss">
+	.active{
+		@apply border-secondary border
+	}
+</style>
