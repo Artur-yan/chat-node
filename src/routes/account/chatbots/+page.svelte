@@ -180,6 +180,11 @@
 										</a>
 									</li>
 									<li>
+										<a href="/account/chatbots/{bot.id}/history">
+											<Icon icon="tabler:history" width="18" /> History
+										</a>
+									</li>
+									<li>
 										<a href="/account/chatbots/{bot.id}/settings">
 											<Icon icon="mdi:settings" width="18" /> Settings
 										</a>
