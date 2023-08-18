@@ -289,7 +289,7 @@
 	</div>
 
 	<form on:submit|preventDefault={submitQuery} class="form-control p-2">
-		<div class="text-right text-xs mb-1.5 mr-1 flex justify-end gap-1 items-end leading-none">
+		<!-- <div class="text-right text-xs mb-1.5 mr-1 flex justify-end gap-1 items-end leading-none">
 			<a href="https://www.chatnode.ai" target="_blank">
 				<span>Powered by</span>
 				<svg
@@ -306,7 +306,7 @@
 					/>
 				</svg> <span>ChatNode</span>
 			</a>
-		</div>
+		</div> -->
 		<div class="join">
 			<input
 				type="text"
