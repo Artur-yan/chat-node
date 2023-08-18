@@ -4,8 +4,6 @@
 
 	export let data;
 
-	console.log(data.chats);
-
 	let visibleChatConversation;
 
 	const postProcessMsgHTML = (msgHTML) => {
@@ -13,14 +11,14 @@
 		return msgHTML;
 	};
 
-	// function getUniqueSortedValues(data, uniqueProperty) {
-	// 	const uniqueValues = [...new Set(data.map((item) => item[uniqueProperty]))];
+	function getUniqueSortedValues(data, uniqueProperty) {
+		const uniqueValues = [...new Set(data.map((item) => item[uniqueProperty]))];
 
-	// 	uniqueValues.sort((a, b) => {
-	// 		return Number(b.split('-')[1]) - Number(a.split('-')[1]);
-	// 	});
-	// 	return uniqueValues;
-	// }
+		uniqueValues.sort((a, b) => {
+			return Number(b.split('-')[1]) - Number(a.split('-')[1]);
+		});
+		return uniqueValues;
+	}
 
 	let currentActiveChatID: string;
 	const getChatConversation = async (chat_session_id) => {
@@ -37,25 +35,20 @@
 		document.querySelector(`.${currentActiveChatID}`).classList.add('active');
 	};
 
-	const chatHistory = data.chats
+	const chatHistory = getUniqueSortedValues(data.chats, 'session_id');
 </script>
 
 <div class="container md:grid md:grid-cols-[320px_auto] max-h-[75vh] gap-4 h-full my-4">
 	<div class="mb-4 overflow-y-auto bg-base-200 rounded-box">
 		<ul class="menu" role="navigation">
 			<li class="menu-title">Conversations</li>
-			<select class="select select-bordered w-full max-w-xs">
-				<option disabled selected>Who shot first?</option>
-				<option>Date</option>
-				<option>Greedo</option>
-			  </select>
 			{#if chatHistory.length == 0}
 				<li class="menu-title text-base-content">No chat history</li>
 			{/if}
 			{#each chatHistory as chat}
-				{@const date = chat.created_at.toLocaleString()}
+				{@const date = new Date(Number(chat.split('-')[1])).toLocaleString()}
 				<li>
-					<a class="chat-{chat}" on:click|preventDefault={() => getChatConversation(chat.session_id)}>{date}</a
+					<a class="chat-{chat}" on:click|preventDefault={() => getChatConversation(chat)}>{date}</a
 					>
 				</li>
 			{/each}

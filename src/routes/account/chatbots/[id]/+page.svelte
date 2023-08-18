@@ -1,6 +1,8 @@
 <script lang="ts">
 	export let data;
 	import Chat from '$lib/components/Chat.svelte';
+
+	console.log(data);
 </script>
 
 <svelte:head>
@@ -13,5 +15,6 @@
 		trainingStatus={data.model.status}
 		settings={data.model.settings}
 		avatar={data.model?.avatar_img}
+		userId={data.user.user.userId}
 	/>
 </div>

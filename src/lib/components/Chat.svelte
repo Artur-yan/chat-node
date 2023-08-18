@@ -16,6 +16,7 @@
 			sender: 'bot'
 		}
 	];
+	export let userId: string
 
 	$: messages[0].text = settings.greeting;
 
@@ -99,6 +100,18 @@
 	generateNewSessionId();
 
 	const submitQuery = () => {
+		if(messages.length === 1) {
+				fetch(`/api/chat-history/${chatSessionId}`,  {	
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						bot_id: modelId,
+						user_id: userId,
+					})
+				})
+		}
 		if (isThinking) {
 			addMessage('Please wait for me to finish thinking...');
 			return;
