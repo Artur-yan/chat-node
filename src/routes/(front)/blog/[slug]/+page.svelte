@@ -21,7 +21,7 @@
 			<div class="max-w-6xl">
 				<Code code={block.data.Code} />
 			</div>
-		{:else if block.component == 'richtext'}
+		{:else}
 			{@html block.data.html}
 		{/if}
 	{/each}
