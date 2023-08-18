@@ -52,14 +52,17 @@
 
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
-		<h2 class="card-title">Header</h2>
-		<div>
+		<h2 class="card-title justify-between items-baseline">
+			Header
 			<div class="form-control inline-flex">
 				<label class="cursor-pointer label justify-start gap-2">
+					<span class="label-text">Enable</span> 
 					<input type="checkbox" class="toggle" bind:checked={$currentBot.settings.showHeader} />
-				  <span class="label-text">Show Header</span> 
 				</label>
 			</div>
+		</h2>
+		<div>
+
 			{#if $currentBot.settings.showHeader}
 			<label for="public-title" class="label">
 				<span class="label-text">Header Title</span>
