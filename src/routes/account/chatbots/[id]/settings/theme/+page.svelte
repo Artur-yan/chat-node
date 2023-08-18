@@ -43,7 +43,7 @@
 		settings.theme = customTheme;
 	}
 
-	$currentBot.settings.publicTitle = $currentBot.settings.publicTitle || data.model.name;
+	$currentBot.settings.publicTitle = $currentBot.settings.publicTitle;
 </script>
 
 <svelte:head>
