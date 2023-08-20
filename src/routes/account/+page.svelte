@@ -1,6 +1,6 @@
 <script>
 	import { goto, invalidate } from '$app/navigation';
-	import { ENVIRONMENT } from '$env/static/private';
+	import { PUBLIC_ENVIRONMENT } from '$env/static/public';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { alert } from '$lib/stores';
