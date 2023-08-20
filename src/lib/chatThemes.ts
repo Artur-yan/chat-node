@@ -51,7 +51,7 @@ const themes = {
 		name: 'ios-light',
 		bg: '#FFFFFF',
 		headerBG: 'transparent',
-		headerTitle: '#FFFFFF',
+		headerTitle: '#000000',
 		resetButton: "#3093FF",
 		botBubbleBG: '#3194FE',
 		botBubbleText: '#FFFFFF',
