@@ -18,8 +18,18 @@
 		...defaultSettings,
 		...$currentBot.settings
 	};
-	let customTheme: Object;
-	let selectedTheme = $currentBot.settings.theme.name;
+
+	let customTheme = {...$currentBot.settings.theme}
+	customTheme.name = 'custom'
+
+	let selectedTheme = $currentBot.settings.theme.name || 'default';
+
+	$: if (selectedTheme === 'custom') {
+			$currentBot.settings.theme = customTheme;
+		} else {
+			$currentBot.settings.theme = themes[selectedTheme];
+		}
+
 
 	let uploadedImage: string | null;
 
@@ -42,15 +52,6 @@
 		$currentBot.avatar_img = URL.createObjectURL(image);
 	};
 
-	if ((selectedTheme = 'custom')) {
-		customTheme = $currentBot.settings.theme;
-	}
-
-	$: if (selectedTheme !== 'custom') {
-		$currentBot.settings.theme = themes[selectedTheme];
-	} else {
-		$currentBot.settings.theme = customTheme;
-	}
 
 </script>
 
@@ -218,7 +219,11 @@
 			<div class="space-y-6 mt-4">
 				<div class="grid grid-cols-3">
 					<ColorPicker bind:hex={$currentBot.settings.theme.bg} label="Chat Background" />
+				</div>
+				<div class="grid grid-cols-3">
+					<ColorPicker bind:hex={$currentBot.settings.theme.headerTitle} label="Header Title" />
 					<ColorPicker bind:hex={$currentBot.settings.theme.headerBG} label="Header Background" />
+					<ColorPicker bind:hex={$currentBot.settings.theme.resetButton} label="Reset Button" />
 				</div>
 				<div class="grid grid-cols-3">
 					<ColorPicker
