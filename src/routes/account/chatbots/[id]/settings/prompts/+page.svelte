@@ -1,20 +1,19 @@
 <script lang="ts">
 	import { currentBot } from '$lib/stores.js';
 	import { defaultSettings } from '$lib/models.js';
+	import Modal from '$lib/components/Modal.svelte';
+	import CopyButton from '$lib/components/CopyButton.svelte';
 
-	const personailites = {
+	const personalities = {
 		'default': {
 			label: 'Default',
-			greeting: 'Hello, how can I help you today????',
-			supportMessage: `If the answer is not included, say exactly "Hmm, I don't know" and stop after that.`,
 			systemPrompt: 'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.',
-			creativity: 0.1
 		},
 		'airbnb': {
 			label: 'AirBnB Host',
 			greeting: 'Do you have question about your rental?',
 			supportMessage: 'If you need more help, please contact us at',
-			systemPrompt: 'I want you to act as a property customer support AI that I am having a conversation with. Your name is "<property name> property AI". You will provide me with answers related to <property name> property. You will be as detailed as possible. Refuse to answer any question not about the text or <property name> property. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.  Please use simple and clear formatting',
+			systemPrompt: 'I want you to act as a property customer support AI that I am having a conversation with. Your name is "YOUR PROPERTY NAME property AI". You will provide me with answers related to YOUR PROPERTY NAME property. You will be as detailed as possible. Refuse to answer any question not about the text or YOUR PROPERTY NAME property. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.  Please use simple and clear formatting',
 			creativity: 0.1
 
 		},
@@ -22,7 +21,7 @@
 			label: 'Customer Support',
 			greeting: 'Hello, how can I help you today?',
 			supportMessage: 'If you need more help, please contact us at',
-			systemPrompt: 'I want you to act as a customer support AI from <Website/company name> company that I am having a conversation with. Your name is "<Website/company name> AI". You will provide me with answers related to <Website/company name>. You will be as detailed as possible. Refuse to answer any question not about the text or <Website/company name>. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message. Please use simple and clear formatting',
+			systemPrompt: 'I want you to act as a customer support AI from YOUR WEBSITE/COMPANY that I am having a conversation with. Your name is "YOUR WEBSITE/COMPANY AI". You will provide me with answers related to <Website/company name>. You will be as detailed as possible. Refuse to answer any question not about the text or <Website/company name>. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message. Please use simple and clear formatting',
 			creativity: 0.1
 		},
 		'documentation': {
@@ -55,20 +54,24 @@
 		}
 	}
 
-	let personality: keyof typeof personailites = $currentBot.settings.personality || 'default';
+	// let personality: keyof typeof personalities = $currentBot.settings.personality || 'default';
 
-	const setPersonality = () => {
-		$currentBot.settings.greeting = personailites[personality].greeting;
-		$currentBot.settings.supportMessage = personailites[personality].supportMessage;
-		$currentBot.settings.systemPrompt = personailites[personality].systemPrompt;
-		$currentBot.settings.temperature = personailites[personality].creativity;
-		$currentBot.settings.personalityCustomized = false;
-	}
+	// const setPersonality = () => {
+	// 	$currentBot.settings.greeting = personailites[personality].greeting;
+	// 	$currentBot.settings.supportMessage = personailites[personality].supportMessage;
+	// 	$currentBot.settings.systemPrompt = personailites[personality].systemPrompt;
+	// 	$currentBot.settings.temperature = personailites[personality].creativity;
+	// 	$currentBot.settings.personalityCustomized = false;
+	// }
+
+	// const handleAddTemplate = (personality: string) => {
+	// 	$currentBot.settings.systemPrompt = personailites[personality].systemPrompt;
+	// }
 
 </script>
 
 <form>
-	<div class="card bg-neutral mb-4">
+	<!-- <div class="card bg-neutral mb-4">
 		<div class="card-body">
 			<h2 class="card-title">Personality</h2>
 			<p>Choose a personality from the dropdown as a starting point for your bot with pre-defined prompts, then customize however you like.</p>
@@ -84,7 +87,7 @@
 			</div>
 			{/if}
 		</div>
-	</div>
+	</div> -->
 	<div>
 		<label for="greeting" class="label">
 			<span class="label-text"
@@ -95,9 +98,9 @@
 				></span
 			>
 		</label>
-		<input type="text" bind:value={$currentBot.settings.greeting} class="input w-full mb-2" on:input={() => $currentBot.settings.personalityCustomized = true} />
+		<input type="text" bind:value={$currentBot.settings.greeting} class="input w-full mb-2" />
 	</div>
-	<div>
+	<!-- <div>
 		<label for="support-message" class="label">
 			<span class="label-text"
 				>Support Prompt <span
@@ -126,7 +129,7 @@
 			rows="2"
 			maxlength="800"
 		/>
-	</div>
+	</div> -->
 	<div>
 		<label for="system-prompt" class="label">
 			<span class="label-text"
@@ -136,7 +139,8 @@
 					>?</span
 				></span
 			>
-			<button
+			<button type="button" class="btn btn-xs text-secondary" on:click={() => personalityTemplates.showModal()}>+ Add Template</button>
+			<!-- <button
 				class="btn btn-xs btn-circle btn-ghost tooltip tooltip-left"
 				data-tip="Reset to default"
 				on:click|preventDefault={() =>
@@ -147,7 +151,7 @@
 						d="M20 13.5a6.5 6.5 0 0 1-6.5 6.5H6v-2h7.5c2.5 0 4.5-2 4.5-4.5S16 9 13.5 9H7.83l3.08 3.09L9.5 13.5L4 8l5.5-5.5l1.42 1.41L7.83 7h5.67a6.5 6.5 0 0 1 6.5 6.5Z"
 					/></svg
 				></button
-			>
+			> -->
 		</label>
 
 		<textarea
@@ -199,3 +203,23 @@
 		</div>
 	</div>
 </form>
+
+
+<Modal id="personalityTemplates" title="Templates" maxWidth="1200px">
+
+	<div class="space-y-10">
+		{#each Object.entries(personalities) as [key, personality]}
+			<div>
+				<h2 class="text-secondary font-bold mb-2">
+					{personality.label}
+					<CopyButton textToCopy={personality.systemPrompt} />
+				
+				</h2>
+				<p>{personality.systemPrompt}</p>
+			</div>
+		{/each}
+	</div>
+	
+
+
+</Modal>
