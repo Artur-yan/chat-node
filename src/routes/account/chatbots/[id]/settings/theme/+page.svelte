@@ -60,18 +60,18 @@
 
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
-		<h2 class="card-title justify-between items-baseline">
+		<h2 class="card-title justify-between items-baseline mb-0">
 			Header
 			<div class="form-control inline-flex">
 				<label class="cursor-pointer label justify-start gap-2">
 					<span class="label-text">Enable</span> 
-					<input type="checkbox" class="toggle" bind:checked={$currentBot.settings.showHeader} />
+					<input type="checkbox" class="toggle toggle-sm" class:toggle-success={$currentBot.settings.showHeader} bind:checked={$currentBot.settings.showHeader} />
 				</label>
 			</div>
 		</h2>
+		
+		{#if $currentBot.settings.showHeader}
 		<div>
-
-			{#if $currentBot.settings.showHeader}
 				<label for="public-title" class="label">
 					<span class="label-text">Header Title</span>
 				</label>
@@ -81,8 +81,8 @@
 					name="public-title"
 					bind:value={$currentBot.settings.publicTitle}
 				/>	
+			</div>
 			{/if}
-		</div>
 	</div>
 </div>
 
