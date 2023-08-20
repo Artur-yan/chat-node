@@ -108,6 +108,7 @@
 				settings={$currentBot.settings}
 				trainingStatus={data.model.status}
 				avatar={$currentBot.avatar_img}
+				userId = {data.user.session.userId}
 			/>
 		</div>
 	</div>

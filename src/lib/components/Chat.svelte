@@ -15,6 +15,19 @@
 			sender: 'bot'
 		}
 	];
+	export let userId: string;
+
+
+	// Merge default settings with user settings
+	// Merge nested object
+	settings.theme = {
+		...defaultSettings.theme,
+		...settings.theme
+	}
+	settings = {
+		...defaultSettings,
+		...settings
+	}
 
 
 	// Merge default settings with user settings
@@ -106,13 +119,25 @@
 	};
 
 	// Generate a random ID
-	let chatSessionId: string
+	let chatSessionId: string;
 	const generateNewSessionId = () => {
 		chatSessionId = Math.random().toString(36).slice(2, 9) + '-' + Date.now();
 	};
 	generateNewSessionId();
 
 	const submitQuery = () => {
+		if (messages.length === 1) {
+			fetch(`/api/chat-history/${chatSessionId}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					bot_id: modelId,
+					user_id: userId
+				})
+			});
+		}
 		if (isThinking) {
 			addMessage('Please wait for me to finish thinking...');
 			return;
@@ -132,8 +157,8 @@
 	const resetChat = () => {
 		messages = [];
 		addMessage(settings.greeting);
-		generateNewSessionId()
-		isThinking = false
+		generateNewSessionId();
+		isThinking = false;
 	};
 </script>
 
@@ -350,15 +375,14 @@
 		}
 
 		// Invert color on focus
-
 	</style>
 </div>
 
 <style lang="postcss">
-		.send-button:focus{
-			background-color: var(--sendButtonIconColor) !important;
-			color: var(--sendButtonBG) !important;
-		}
+	.send-button:focus {
+		background-color: var(--sendButtonIconColor) !important;
+		color: var(--sendButtonBG) !important;
+	}
 	@keyframes message {
 		0% {
 			opacity: 0.5;

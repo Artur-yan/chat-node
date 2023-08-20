@@ -14,7 +14,6 @@
 		name="description"
 		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
 	/>
-	<link rel="“canonical”" href="https://www.chatnode.ai" />
 	<script
 		src="https://www.chatnode.ai/embed.js"
 		data-chatbot-id="befbfc87e25911db"

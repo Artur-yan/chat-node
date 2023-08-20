@@ -107,7 +107,6 @@
 	</div>
 </div>
 
-
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<h2 class="card-title">Avatar</h2>

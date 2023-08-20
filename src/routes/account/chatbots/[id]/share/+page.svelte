@@ -52,17 +52,17 @@
 
 	<div class="bg-neutral p-4 lg:p-8 rounded-lg flex justify-between items-center">
 		<div>
-			{url} 
-			<CopyButton text={url} />
+			{url}
+			<CopyButton textToCopy={url} />
 		</div>
 
 		<a href={url} class="btn btn-xs" target="_blank">view</a>
 	</div>
 
 	<h2 class="text-lg font-bold mt-10">Popup Chat</h2>
-			<p class="text-sm my-2">
-			Place this code wherever you'd like the iframe to appear on your website.
-		</p>
+	<p class="text-sm my-2">
+		Place this code wherever you'd like the iframe to appear on your website.
+	</p>
 	<div>
 		<div>
 			<Code code={jsEmbedCode} />
@@ -95,7 +95,6 @@
 			Place this code wherever you'd like the iframe to appear on your website.
 		</p>
 		<Code code={iframeEmbedCode} />
-
 	</div>
 </div>
 

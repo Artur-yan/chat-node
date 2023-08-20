@@ -6,6 +6,7 @@
 
 <svelte:head>
 	<title>{data.post.title} | Blog | ChatNode</title>
+	<meta name="description" content={data.post.excerpt} />
 </svelte:head>
 
 <article id="post" class="container py-10">
@@ -21,7 +22,7 @@
 			<div class="max-w-6xl">
 				<Code code={block.data.Code} />
 			</div>
-		{:else if block.component == 'richtext'}
+		{:else}
 			{@html block.data.html}
 		{/if}
 	{/each}
