@@ -5,7 +5,8 @@
 	import { updateModel } from '$lib/models.js';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
-
+	import { defaultSettings } from '$lib/models.js';
+	
 	export let data;
 
 	const links = [
@@ -20,10 +21,10 @@
 
 	$: currentPath = $page.url.pathname.split('/').pop();
 
-	const saveState = JSON.stringify($currentBot);
+	const saveState = JSON.stringify({...defaultSettings, ...$currentBot});
 
 	const checkIfSaved = () => {
-		if (saveState === JSON.stringify($currentBot)) {
+		if (saveState === JSON.stringify({...defaultSettings, ...$currentBot})) {
 			saved = true;
 		} else {
 			saved = false;

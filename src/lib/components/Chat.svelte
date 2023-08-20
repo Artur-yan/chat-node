@@ -3,10 +3,8 @@
 	import BotStatus from '$lib/components/BotStatus.svelte';
 	import { defaultSettings } from '$lib/models';
 	import { marked } from 'marked';
-	import CopyButton from './CopyButton.svelte';
 
 	export let modelId: string;
-	export let inputPlaceholder = 'Type your message';
 	export let disabled = false;
 	export let isThinking = false;
 	export let settings = defaultSettings;
@@ -16,6 +14,21 @@
 			sender: 'bot'
 		}
 	];
+
+
+	// Merge default settings with user settings
+	// Merge nested object
+	settings.theme = {
+		...defaultSettings.theme,
+		...settings.theme
+	}
+	settings = {
+		...defaultSettings,
+		...settings
+	}
+
+
+	export let userId: string;
 
 	$: messages[0].text = settings.greeting;
 
@@ -126,6 +139,7 @@
 <div
 	style="
     --bg: {settings.theme.bg};
+    --headerBG: {settings.theme.headerBG};
     --botBubbleBG: {settings.theme.botBubbleBG};
     --botBubbleText: {settings.theme.botBubbleText};
     --userBubbleBG: {settings.theme.userBubbleBG};
@@ -136,16 +150,27 @@
 	--sendButtonBG: {settings.theme.sendButtonBG};
 	--sendButtonIconColor: {settings.theme.sendButtonIconColor};
     background-color: var(--bg)"
-	class="h-full flex flex-col justify-between rounded-lg overflow-hidden flex-1 relative"
+	class="h-full flex flex-col justify-between rounded-2xl overflow-hidden flex-1 relative"
 >
-<div class="overflow-y-auto scroll-smooth h-full flex-1" bind:this={chatWindow}>
-		{#if settings?.showHeader}
-			<header class="p-2 pl-5 flex justify-between">
-				<h1 class="font-bold">{settings.publicTitle ? settings.publicTitle : ''}</h1>
-			</header>
-		{/if}
-		<button class="z-20 absolute top-1 right-1 btn btn-circle btn-sm btn-ghost tooltip tooltip-left flex items-center justify-center" data-tip="refresh chat" on:click={resetChat}>
-			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M17.65 6.35a7.95 7.95 0 0 0-6.48-2.31c-3.67.37-6.69 3.35-7.1 7.02C3.52 15.91 7.27 20 12 20a7.98 7.98 0 0 0 7.21-4.56c.32-.67-.16-1.44-.9-1.44c-.37 0-.72.2-.88.53a5.994 5.994 0 0 1-6.8 3.31c-2.22-.49-4.01-2.3-4.48-4.52A6.002 6.002 0 0 1 12 6c1.66 0 3.14.69 4.22 1.78l-1.51 1.51c-.63.63-.19 1.71.7 1.71H19c.55 0 1-.45 1-1V6.41c0-.89-1.08-1.34-1.71-.71l-.64.65z"/></svg>
+{#if settings?.showHeader && settings.publicTitle !== '' }
+	<header style="background-color: var(--headerBG)" class="flex p-4 items-center gap-2">
+		<!-- <div class="h-8">
+				<img src={avatar} alt="" class="h-full" />
+		</div> -->
+		<h1 class="font-light text-sm">{settings.publicTitle ? settings.publicTitle : ''}</h1>
+	</header>
+{/if}
+	<div class="overflow-y-auto scroll-smooth h-full flex-1" bind:this={chatWindow}>
+		<button
+			class="z-20 absolute top-1 right-1 btn btn-circle btn-sm btn-ghost flex items-center justify-center"
+			on:click={resetChat}
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+				><path
+					fill="currentColor"
+					d="M17.65 6.35a7.95 7.95 0 0 0-6.48-2.31c-3.67.37-6.69 3.35-7.1 7.02C3.52 15.91 7.27 20 12 20a7.98 7.98 0 0 0 7.21-4.56c.32-.67-.16-1.44-.9-1.44c-.37 0-.72.2-.88.53a5.994 5.994 0 0 1-6.8 3.31c-2.22-.49-4.01-2.3-4.48-4.52A6.002 6.002 0 0 1 12 6c1.66 0 3.14.69 4.22 1.78l-1.51 1.51c-.63.63-.19 1.71.7 1.71H19c.55 0 1-.45 1-1V6.41c0-.89-1.08-1.34-1.71-.71l-.64.65z"
+				/></svg
+			>
 		</button>
 		<BotStatus id={modelId} bind:trainingStatus />
 		<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -246,9 +271,8 @@
 		<div id="chat-bottom" class="h-1" />
 	</div>
 
-	<form on:submit|preventDefault={submitQuery} class="form-control p-2">
-		<div class="text-right text-xs mb-1 mr-1 flex justify-end gap-1 items-baseline">
-			
+	<form on:submit|preventDefault={submitQuery} class="form-control p-1">
+		<!-- <div class="text-right text-xs mb-1.5 mr-1 flex justify-end gap-1 items-end leading-none">
 			<a href="https://www.chatnode.ai" target="_blank">
 				Powered by <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 300 300" fill="none">
 					<path d="M207.498 117.156C207.498 125.748 200.538 132.713 191.951 132.713H186.769C178.183 132.713 171.222 125.748 171.222 117.156L171.222 22.3358C171.222 18.1376 168.693 14.3326 164.757 12.8725C142.316 4.54795 118.043 0 92.7083 0H13.1546C5.99932 0 0.19884 5.80432 0.19884 12.9643C0.19884 38.2283 -0.189051 63.5278 0.118701 88.7948C0.170219 93.0246 3.62267 96.413 7.85274 96.413L83.1231 96.413C91.7095 96.413 98.67 103.378 98.67 111.97V117.156C98.67 125.748 91.7095 132.713 83.1231 132.713H13.504C8.6203 132.713 4.94385 137.175 6.10095 141.92C10.8745 161.493 18.4236 179.979 28.3074 196.934C31.3972 202.235 37.165 205.313 43.3003 205.313H191.951C200.538 205.313 207.498 212.279 207.498 220.871V226.056C207.498 234.648 200.538 241.613 191.951 241.613H76.0908C71.4431 241.613 69.2283 247.191 72.7581 250.215C108.992 281.253 156.054 300 207.491 300H300V207.429C300 138.818 266.711 77.9878 215.413 40.2283C212.086 37.7792 207.498 40.215 207.498 44.3462L207.498 117.156Z" fill="#818CF8"/>
@@ -257,14 +281,14 @@
 		<div class="join">
 			<input
 				type="text"
-				placeholder={inputPlaceholder}
+				placeholder={settings.inputPlaceholder}
 				bind:value={inputVal}
-				class="input w-full placeholder:text-sm join-item rounded focus-within:outline-none"
+				class="input w-full placeholder:text-sm join-item rounded-xl focus-within:outline-none"
 				style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder); border-right: none;"
 				{disabled}
 			/>
 			<button
-				class="send-button btn btn-square border-none join-item focus-within:outline-none"
+				class="send-button btn btn-square border-none rounded-xl join-item focus-within:outline-none"
 				type="submit"
 				name="Send"
 				style="background-color: var(--sendButtonBG); color: var(--sendButtonIconColor);"

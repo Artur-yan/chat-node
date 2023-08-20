@@ -8,9 +8,18 @@
 	import { enhance } from '$app/forms';
 	import { alert } from '$lib/stores';
 
-	let settings = defaultSettings;
-	let customTheme;
-	let selectedTheme = settings.theme.name || 'default';
+	// Merge default settings with user settings
+	// Merge nested object
+	$currentBot.settings.theme = {
+		...defaultSettings.theme,
+		...$currentBot.settings.theme
+	};
+	$currentBot.settings = {
+		...defaultSettings,
+		...$currentBot.settings
+	};
+	let customTheme: Object;
+	let selectedTheme = $currentBot.settings.theme.name;
 
 	let uploadedImage: string | null;
 
@@ -34,16 +43,15 @@
 	};
 
 	if ((selectedTheme = 'custom')) {
-		customTheme = settings.theme;
+		customTheme = $currentBot.settings.theme;
 	}
 
 	$: if (selectedTheme !== 'custom') {
 		$currentBot.settings.theme = themes[selectedTheme];
 	} else {
-		settings.theme = customTheme;
+		$currentBot.settings.theme = customTheme;
 	}
 
-	$currentBot.settings.publicTitle = $currentBot.settings.publicTitle || data.model.name
 </script>
 
 <svelte:head>
@@ -64,11 +72,36 @@
 		<div>
 
 			{#if $currentBot.settings.showHeader}
-			<label for="public-title" class="label">
-				<span class="label-text">Header Title</span>
-			</label>
-			<input class="input" type="text" name="public-title" bind:value={$currentBot.settings.publicTitle} />
+				<label for="public-title" class="label">
+					<span class="label-text">Header Title</span>
+				</label>
+				<input
+					class="input"
+					type="text"
+					name="public-title"
+					bind:value={$currentBot.settings.publicTitle}
+				/>	
 			{/if}
+		</div>
+	</div>
+</div>
+
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<h2 class="card-title">
+			Labels
+		</h2>
+		<div>
+				<label for="public-title" class="label">
+					<span class="label-text">Chat Input Placeholder Text</span>
+				</label>
+				<input
+					class="input"
+					type="text"
+					name="public-title"
+					placeholder="<none>"
+					bind:value={$currentBot.settings.inputPlaceholder}
+				/>
 		</div>
 	</div>
 </div>
@@ -183,8 +216,9 @@
 		</div>
 		{#if selectedTheme == 'custom'}
 			<div class="space-y-6 mt-4">
-				<div>
-					<ColorPicker bind:hex={$currentBot.settings.theme.bg} label="Background" />
+				<div class="grid grid-cols-3">
+					<ColorPicker bind:hex={$currentBot.settings.theme.bg} label="Chat Background" />
+					<ColorPicker bind:hex={$currentBot.settings.theme.headerBG} label="Header Background" />
 				</div>
 				<div class="grid grid-cols-3">
 					<ColorPicker

@@ -53,7 +53,7 @@ const deleteModel = async (id: string) => {
 const defaultSettings = {
 	greeting: 'What can I help you with?',
 	public: false,
-	publicTitle: '',
+	publicTitle: 'AI Chatbot',
 	allowedUrls: [],
 	supportMessage:
 		'If the answer is not included, say exactly "Hmm, I don\'t know" and stop after that.',
@@ -62,9 +62,11 @@ const defaultSettings = {
 	userPrompt: '',
 	gptVersion: '3.5',
 	temperature: 0.1,
+	inputPlaceholder: 'Type your message',
 	theme: {
 		name: 'default',
 		bg: '#0F172A',
+		headerBG: '',
 		botBubbleBG: '#818CF8',
 		botBubbleText: '#00074B',
 		userBubbleBG: '#1E293B',
