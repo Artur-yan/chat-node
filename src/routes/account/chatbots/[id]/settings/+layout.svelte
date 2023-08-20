@@ -68,7 +68,7 @@
 </script>
 
 <div
-	class="container grid lg:grid-cols-[12rem_auto_18rem] xl:lg:grid-cols-[12rem_auto_24rem] gap-4 py-4 h-full"
+	class="container grid lg:grid-cols-[12rem_auto_18rem] xl:lg:grid-cols-[12rem_auto_24rem] gap-4 py-4 h-full flex-1"
 >
 	<div class="h-full relative">
 		<div class="sticky top-4">
@@ -102,7 +102,7 @@
 	</div>
 
 	<div class="h-full min-h-[24rem] relative hidden sm:block">
-		<div class="sticky top-4 h-3/4 max-h-[64rem]">
+		<div class="sticky top-4 h-full max-h-[40rem]">
 			<Chat
 				modelId={data.model.id}
 				settings={$currentBot.settings}
