@@ -1,5 +1,11 @@
 <script lang="ts">
 	import Chat from '$lib/components/Chat.svelte';
+	import { defaultSettings } from '$lib/models';
+
+	let chatSettings = {
+		...defaultSettings
+	};
+	chatSettings.theme.resetButton = "#FFFFFF88"
 
 	import MorphingText from '$lib/components/MorphingText.svelte';
 
@@ -25,7 +31,7 @@
 		messages = [
 			...messages,
 			{
-				text: 'Great! ChatNode is an AI chatbot builder that can help you create a chatbot. You can train ChatGPT on your own data, such as websites, PDFs, docs, or text, and add a chat widget to your website. ChatNode offers different pricing plans, including a free plan that allows you to test it out.',
+				text: "That's great! With ChatNode, you can easily build your own chatbot. You can train the chatbot using your own data and add it to your website. You can customize the chatbot's appearance, name, suggestions, and even the welcome message. If you have any specific questions or need assistance with the process, feel free to ask!",
 				sender: 'bot'
 			}
 		];
@@ -80,7 +86,7 @@
 							modelId="befbfc87e25911db"
 							bind:messages
 							avatar="https://res.cloudinary.com/duoacapcy/image/upload/v1687011043/ChatNode-Logo-Avatar_fdyalc.svg"
-							userId="5uDVaFgS32peeLl"
+							settings={chatSettings}
 						/>
 					</div>
 				</div>

@@ -6,14 +6,14 @@
 			title: 'Features',
 			href: '/#features'
 		},
-		// {
-		// 	title: 'About',
-		// 	href: '/about'
-		// },
 		{
 			title: 'Pricing',
 			href: '/#pricing'
-		}
+		},
+		{
+			title: 'Blog',
+			href: '/blog'
+		},
 	];
 </script>
 

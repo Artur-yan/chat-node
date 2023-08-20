@@ -8,9 +8,28 @@
 	import { enhance } from '$app/forms';
 	import { alert } from '$lib/stores';
 
-	let settings = defaultSettings;
-	let customTheme;
-	let selectedTheme = settings.theme.name || 'default';
+	// Merge default settings with user settings
+	// Merge nested object
+	$currentBot.settings.theme = {
+		...defaultSettings.theme,
+		...$currentBot.settings.theme
+	};
+	$currentBot.settings = {
+		...defaultSettings,
+		...$currentBot.settings
+	};
+
+	let customTheme = {...$currentBot.settings.theme}
+	customTheme.name = 'custom'
+
+	let selectedTheme = $currentBot.settings.theme.name || 'default';
+
+	$: if (selectedTheme === 'custom') {
+			$currentBot.settings.theme = customTheme;
+		} else {
+			$currentBot.settings.theme = themes[selectedTheme];
+		}
+
 
 	let uploadedImage: string | null;
 
@@ -33,17 +52,7 @@
 		$currentBot.avatar_img = URL.createObjectURL(image);
 	};
 
-	if ((selectedTheme = 'custom')) {
-		customTheme = settings.theme;
-	}
 
-	$: if (selectedTheme !== 'custom') {
-		$currentBot.settings.theme = themes[selectedTheme];
-	} else {
-		settings.theme = customTheme;
-	}
-
-	$currentBot.settings.publicTitle = $currentBot.settings.publicTitle;
 </script>
 
 <svelte:head>
@@ -52,17 +61,18 @@
 
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
-		<h2 class="card-title justify-between items-baseline">
+		<h2 class="card-title justify-between items-baseline mb-0">
 			Header
 			<div class="form-control inline-flex">
 				<label class="cursor-pointer label justify-start gap-2">
-					<span class="label-text">Enable</span>
-					<input type="checkbox" class="toggle" bind:checked={$currentBot.settings.showHeader} />
+					<span class="label-text">Enable</span> 
+					<input type="checkbox" class="toggle toggle-sm" class:toggle-success={$currentBot.settings.showHeader} bind:checked={$currentBot.settings.showHeader} />
 				</label>
 			</div>
 		</h2>
+		
+		{#if $currentBot.settings.showHeader}
 		<div>
-			{#if $currentBot.settings.showHeader}
 				<label for="public-title" class="label">
 					<span class="label-text">Header Title</span>
 				</label>
@@ -71,8 +81,28 @@
 					type="text"
 					name="public-title"
 					bind:value={$currentBot.settings.publicTitle}
-				/>
+				/>	
+			</div>
 			{/if}
+	</div>
+</div>
+
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<h2 class="card-title">
+			Labels
+		</h2>
+		<div>
+				<label for="public-title" class="label">
+					<span class="label-text">Chat Input Placeholder Text</span>
+				</label>
+				<input
+					class="input"
+					type="text"
+					name="public-title"
+					placeholder="<none>"
+					bind:value={$currentBot.settings.inputPlaceholder}
+				/>
 		</div>
 	</div>
 </div>
@@ -186,8 +216,13 @@
 		</div>
 		{#if selectedTheme == 'custom'}
 			<div class="space-y-6 mt-4">
-				<div>
-					<ColorPicker bind:hex={$currentBot.settings.theme.bg} label="Background" />
+				<div class="grid grid-cols-3">
+					<ColorPicker bind:hex={$currentBot.settings.theme.bg} label="Chat Background" />
+				</div>
+				<div class="grid grid-cols-3">
+					<ColorPicker bind:hex={$currentBot.settings.theme.headerTitle} label="Header Title" />
+					<ColorPicker bind:hex={$currentBot.settings.theme.headerBG} label="Header Background" />
+					<ColorPicker bind:hex={$currentBot.settings.theme.resetButton} label="Reset Button" />
 				</div>
 				<div class="grid grid-cols-3">
 					<ColorPicker
