@@ -29,21 +29,6 @@
 		...settings
 	}
 
-
-	// Merge default settings with user settings
-	// Merge nested object
-	settings.theme = {
-		...defaultSettings.theme,
-		...settings.theme
-	}
-	settings = {
-		...defaultSettings,
-		...settings
-	}
-
-
-	export let userId: string;
-
 	$: messages[0].text = settings.greeting;
 
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed';
