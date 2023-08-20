@@ -6,19 +6,20 @@
 
 <svelte:head>
 	<title>{data.post.title} | Blog | ChatNode</title>
+	<meta name="description" content={data.post.excerpt} />
 </svelte:head>
 
 <article id="post" class="container py-10">
-	<h1 class="text-3xl font-bold mb-6 max-w-[800px] mx-auto">{data.post.title}</h1>
+	<h1 class="text-3xl font-bold mb-6 max-w-[800px]">{data.post.title}</h1>
 
 	{#each data.post.body as block}
-		{#if block.component == 'image'}
+		{#if block.component == 'image' && block.data.asset?.path}
 			<img
 				src="https://cms.chatnode.ai/storage/uploads{block.data.asset.path}"
 				alt={block.data.asset.description}
 			/>
 		{:else if block.component == 'code'}
-			<div class="max-w-6xl mx-auto">
+			<div class="max-w-6xl">
 				<Code code={block.data.Code} />
 			</div>
 		{:else}
@@ -37,8 +38,6 @@
 		#post h5,
 		#post h6 {
 			max-width: 800px;
-			margin-left: auto;
-			margin-right: auto;
 			margin-bottom: 1em;
 		}
 
@@ -46,15 +45,11 @@
 		#post img {
 			margin-bottom: 3rem;
 			max-width: 800px;
-			margin-left: auto;
-			margin-right: auto;
 		}
 
 		#post ul {
 			list-style: disc;
 			max-width: 800px;
-			margin-left: auto;
-			margin-right: auto;
 			margin-bottom: 3rem;
 		}
 		#post li {

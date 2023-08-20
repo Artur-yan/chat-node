@@ -4,6 +4,7 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	onMount(() => {
 		const { enableAutoPageviews } = Plausible({
@@ -12,9 +13,13 @@
 		});
 		enableAutoPageviews();
 	});
+
 </script>
 
 <svelte:head>
+	<link rel="canonical" href="https://www.chatnode.ai{$page.url.pathname}" />
+
+
 	<script>
 		// Rewardful
 		(function (w, r) {
@@ -31,6 +36,7 @@
 profitwell('start', {});
 </script>`}
 	<script async src="https://r.wdfl.co/rw.js" data-rewardful="1564fe"></script>
+	<!-- Facebook Pixel Code -->
 	<!-- Facebook Pixel Code -->
 	<!-- Facebook Pixel Code -->
 	<!-- Facebook Pixel Code -->
@@ -64,6 +70,7 @@ profitwell('start', {});
 	</noscript>
 	<!-- End Facebook Pixel Code -->
 
+	<!-- End Facebook Pixel Code -->
 	<!-- End Facebook Pixel Code -->
 	<!-- End Facebook Pixel Code -->
 	<script

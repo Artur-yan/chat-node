@@ -8,8 +8,6 @@
 
 	export let data;
 
-	console.log(data);
-
 	Date.prototype.addDays = function (days) {
 		var date = new Date(this.valueOf());
 		date.setDate(date.getDate() + days);
@@ -179,6 +177,11 @@
 									<li>
 										<a href="/account/chatbots/{bot.id}/data">
 											<Icon icon="mdi:database" width="18" /> Data
+										</a>
+									</li>
+									<li>
+										<a href="/account/chatbots/{bot.id}/history">
+											<Icon icon="tabler:history" width="18" /> History
 										</a>
 									</li>
 									<li>
