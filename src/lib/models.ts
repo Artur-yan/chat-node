@@ -66,7 +66,7 @@ const defaultSettings = {
 	theme: {
 		name: 'default',
 		bg: '#0F172A',
-		headerBG: '',
+		headerBG: 'transparent',
 		headerTitle: '#000',
 		resetButton: '#000',
 		botBubbleBG: '#818CF8',
