@@ -1,5 +1,11 @@
 <script lang="ts">
 	import Chat from '$lib/components/Chat.svelte';
+	import { defaultSettings } from '$lib/models';
+
+	let chatSettings = {
+		...defaultSettings
+	};
+	chatSettings.theme.resetButton = "#FFFFFF88"
 
 	import MorphingText from '$lib/components/MorphingText.svelte';
 
@@ -80,6 +86,7 @@
 							modelId="befbfc87e25911db"
 							bind:messages
 							avatar="https://res.cloudinary.com/duoacapcy/image/upload/v1687011043/ChatNode-Logo-Avatar_fdyalc.svg"
+							settings={chatSettings}
 						/>
 					</div>
 				</div>
