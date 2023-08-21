@@ -7,14 +7,11 @@
 	const personalities = {
 		'default': {
 			label: 'Default',
-			systemPrompt: 'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.',
+			systemPrompt: `I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.`,
 		},
 		'airbnb': {
 			label: 'AirBnB Host',
-			greeting: 'Do you have question about your rental?',
-			supportMessage: 'If you need more help, please contact us at',
-			systemPrompt: 'I want you to act as a property customer support AI that I am having a conversation with. Your name is "YOUR PROPERTY NAME property AI". You will provide me with answers related to YOUR PROPERTY NAME property. You will be as detailed as possible. Refuse to answer any question not about the text or YOUR PROPERTY NAME property. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.  Please use simple and clear formatting',
-			creativity: 0.1
+			systemPrompt: `I want you to act as a property customer support AI that I am having a conversation with. Your name is "YOUR PROPERTY NAME property AI". You will provide me with answers related to YOUR PROPERTY NAME property. You will be as detailed as possible. Refuse to answer any question not about the text or YOUR PROPERTY NAME property. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.  Please use simple and clear formatting`,
 
 		},
 		'support': {
@@ -215,7 +212,7 @@
 					<CopyButton textToCopy={personality.systemPrompt} />
 				
 				</h2>
-				<p>{personality.systemPrompt}</p>
+				<p>{@html personality.systemPrompt}</p>
 			</div>
 		{/each}
 	</div>
