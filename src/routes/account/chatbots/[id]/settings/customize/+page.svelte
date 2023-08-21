@@ -112,6 +112,22 @@
 		</div>
 	</div>
 	<div class="card-body">
+
+		<h3 class="font-bold">
+			Misc.
+		</h3>
+
+		<div class="grid grid-cols-4 gap-2 items-end">
+
+
+			<ColorPicker bind:hex={$currentBot.settings.theme.bg} label="Chat Background" />
+
+			<ColorPicker bind:hex={$currentBot.settings.theme.resetButton} label="Reset Button" />
+		</div>
+
+		<hr class="border-base-300 my-4">
+
+		
 		<div class="flex justify-between items-center">
 			<h3 class="font-bold">Header</h3>
 			<div class="form-control inline-flex">
@@ -143,31 +159,6 @@
 			<hr class="border-base-300 my-4">
 
 			<h3 class="font-bold">
-				Chat Input
-			</h3>
-			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
-
-
-					<div>
-						<label for="public-title" class="label">
-							<span class="label-text">Placeholder Text</span>
-						</label>
-						<input
-							class="input input-sm w-full"
-							type="text"
-							name="public-title"
-							placeholder="<none>"
-							bind:value={$currentBot.settings.inputPlaceholder}
-						/>
-					</div>
-					<ColorPicker bind:hex={$currentBot.settings.theme.inputBG} label=" Background" />
-					<ColorPicker bind:hex={$currentBot.settings.theme.inputText} label="Text" />
-					<ColorPicker bind:hex={$currentBot.settings.theme.inputBorder} label="Border" />
-			</div>
-
-			<hr class="border-base-300 my-4">
-
-			<h3 class="font-bold">
 				Chat Bubbles
 			</h3>
 			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
@@ -194,6 +185,31 @@
 
 				<hr class="border-base-300 my-4">
 
+				<h3 class="font-bold">
+					Chat Input
+				</h3>
+				<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
+	
+	
+						<div>
+							<label for="public-title" class="label">
+								<span class="label-text">Placeholder Text</span>
+							</label>
+							<input
+								class="input input-sm w-full"
+								type="text"
+								name="public-title"
+								placeholder="<none>"
+								bind:value={$currentBot.settings.inputPlaceholder}
+							/>
+						</div>
+						<ColorPicker bind:hex={$currentBot.settings.theme.inputBG} label=" Background" />
+						<ColorPicker bind:hex={$currentBot.settings.theme.inputText} label="Text" />
+						<ColorPicker bind:hex={$currentBot.settings.theme.inputBorder} label="Border" />
+				</div>
+	
+				<hr class="border-base-300 my-4">
+
 				<div class="flex justify-between items-center">
 					<h2 class="font-bold">Send Button</h2>
 					<div class="form-control inline-flex">
@@ -213,20 +229,6 @@
 					<ColorPicker bind:hex={$currentBot.settings.theme.sendButtonIconColor} label="Icon Color" />
 				</div>
 				{/if}
-
-				<hr class="border-base-300 my-4">
-
-				<h3 class="font-bold">
-					Other
-				</h3>
-
-				<div class="grid grid-cols-4 gap-2 items-end">
-
-
-					<ColorPicker bind:hex={$currentBot.settings.theme.bg} label="Chat Background" />
-
-					<ColorPicker bind:hex={$currentBot.settings.theme.resetButton} label="Reset Button" />
-				</div>
 	</div>
 </div>
 
