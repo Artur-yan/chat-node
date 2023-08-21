@@ -5,11 +5,13 @@
 	import { marked } from 'marked';
 	import { fade } from 'svelte/transition';
 	import CopyButton from './CopyButton.svelte';
+	import { onMount } from 'svelte';
 
 	export let modelId: string;
 	export let disabled = false;
 	export let isThinking = false;
 	export let settings = defaultSettings;
+	export let showUserInfoCollection = true;
 	export let messages = [
 		{
 			text: settings.greeting,
@@ -50,11 +52,18 @@
 		}
 	};
 
-	let enduserEmail: string;
+	let enduserEmail: string
 	let enduserName: string;
 	let enduserPhone: string;
 	let collectUserInfo = false;
 	let userInfoReceived = false;
+
+	onMount(() => {
+		enduserName = localStorage.getItem("enduserName") || '';
+		enduserEmail = localStorage.getItem("enduserEmail") || '';
+		enduserPhone = localStorage.getItem("enduserPhone") || '';
+	})
+
 
 
 	$: if (settings.collectUserName || settings.collectUserEmail || settings.collectUserPhone) {
@@ -150,6 +159,9 @@
 				enduser_phone: enduserPhone
 			})
 		});
+		localStorage.setItem("enduserName", enduserName);
+		localStorage.setItem("enduserEmail", enduserEmail);
+		localStorage.setItem("enduserPhone", enduserPhone);
 	};
 
 	const submitQuery = () => {
@@ -398,7 +410,7 @@
 		// Invert color on focus
 	</style>
 
-	{#if collectUserInfo && !userInfoReceived}
+	{#if collectUserInfo && !userInfoReceived && showUserInfoCollection}
 		<form class="absolute bottom-0 left-0 right-0 grid gap-1 p-8" style="background-color: var(--bg); color: var(--inputText)">
 			<div class="join join-vertical">
 				{#if settings.collectUserName}

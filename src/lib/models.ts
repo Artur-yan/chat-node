@@ -65,6 +65,9 @@ const defaultSettings = {
 	inputPlaceholder: 'Type your message',
 	sendButtonEnabled: false,
 	headerEnabled: false,
+	collectUserName: false,
+	collectUserEmail: false,
+	collectUserPhone: false,
 	theme: {
 		name: 'default',
 		bg: '#0F172A',
