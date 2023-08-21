@@ -156,7 +156,7 @@
 			on:input={() => $currentBot.settings.personalityCustomized = true}
 			class="textarea w-full leading-normal"
 			name="prompt"
-			rows="5"
+			rows="10"
 			maxlength="3200"
 		/>
 	</div>
