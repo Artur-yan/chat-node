@@ -17,6 +17,17 @@
 		{ name: 'Delete', url: 'delete' }
 	];
 
+	// Merge default settings with user settings
+	// Merge nested object
+	$currentBot.settings.theme = {
+		...defaultSettings.theme,
+		...$currentBot.settings.theme
+	};
+	$currentBot.settings = {
+		...defaultSettings,
+		...$currentBot.settings
+	};
+
 	let saved = true;
 
 	$: currentPath = $page.url.pathname.split('/').pop();
