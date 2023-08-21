@@ -52,8 +52,17 @@
 
 	let enduserEmail: string;
 	let enduserName: string;
-	let userInfoReceived = false
-	let collectUserEmail = settings.collectUserEmail
+	let enduserPhone: string;
+	let collectUserInfo = false;
+	let userInfoReceived = false;
+
+
+	$: if (settings.collectUserName || settings.collectUserEmail || settings.collectUserPhone) {
+		collectUserInfo = true;
+	} else { 
+		collectUserInfo = false;
+	}
+
 
 
 	const handleUserInfoSubmit = () => {
@@ -78,11 +87,6 @@
 	const queryModel = async (chatKey: string, chatSessionId: string, message: string) => {
 		addMessage(message, 'user');
 		inputVal = '';
-		if(settings.collectUserEmail && !userInfoReceived) {
-			withheldMessage = message
-			addMessage('Before I assist you, please enter your email address at the top');
-			return;
-		}
 		isThinking = true;
 
 		let streamedMsg = '';
@@ -127,24 +131,30 @@
 	};
 
 	// Generate a random ID
-	let chatSessionId: string;
 	const generateNewSessionId = () => {
-		chatSessionId = Math.random().toString(36).slice(2, 9) + '-' + Date.now();
+		return Math.random().toString(36).slice(2, 9) + '-' + Date.now();
 	};
-	generateNewSessionId();
+	const chatSessionId = generateNewSessionId();
+	
+	const initConversation = async () => {
+		await fetch(`/api/chat-history/${chatSessionId}`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				bot_id: modelId,
+				user_id: userId,
+				enduser_name: enduserName,
+				enduser_email: enduserEmail,
+				enduser_phone: enduserPhone
+			})
+		});
+	};
 
 	const submitQuery = () => {
 		if (messages.length === 1) {
-			fetch(`/api/chat-history/${chatSessionId}`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					bot_id: modelId,
-					user_id: userId
-				})
-			});
+			initConversation();
 		}
 		if (isThinking) {
 			addMessage('Please wait for me to finish thinking...');
@@ -200,6 +210,7 @@
 		<button
 			class="z-20 absolute top-2.5 right-2.5 btn btn-circle btn-sm btn-ghost flex items-center justify-center"
 			style="color: var(--resetButton);"
+			disabled={collectUserInfo && !userInfoReceived}
 			on:click={resetChat}
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -386,6 +397,24 @@
 
 		// Invert color on focus
 	</style>
+
+	{#if collectUserInfo && !userInfoReceived}
+		<form class="absolute bottom-0 left-0 right-0 grid gap-1 p-8" style="background-color: var(--bg); color: var(--inputText)">
+			<div class="join join-vertical">
+				{#if settings.collectUserName}
+						<input type="text" class="input join-item w-full placeholder:text-sm" style="background-color: var(--inputBG); border-color: var(--inputBorder);" placeholder="Name" bind:value={enduserName}>
+				{/if}
+				{#if settings.collectUserEmail}
+					<input type="text" class="input join-item w-full placeholder:text-sm" style="background-color: var(--inputBG); border-color: var(--inputBorder);" placeholder="Email" bind:value={enduserEmail}>
+				{/if}
+				{#if settings.collectUserPhone}
+
+					<input type="text" class="input join-item w-full placeholder:text-sm" style="background-color: var(--inputBG); border-color: var(--inputBorder);" placeholder="Phone" bind:value={enduserPhone}>
+				{/if}
+				<input type="submit" class="btn join-item border-none"  value="Start Chatting" on:click={handleUserInfoSubmit} style="background-color: var(--botBubbleBG); color: var(--botBubbleText)">
+			</div>
+		</form>
+	{/if}
 </div>
 
 <style lang="postcss">
