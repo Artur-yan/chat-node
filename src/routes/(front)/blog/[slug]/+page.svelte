@@ -51,8 +51,14 @@
 			list-style: disc;
 			max-width: 800px;
 			margin-bottom: 3rem;
+			margin-left: 2rem
 		}
 		#post li {
+			margin-bottom: 1rem;
+		}
+
+		#post li ul{
+			margin-top: 1rem;
 			margin-bottom: 1rem;
 		}
 	</style>
