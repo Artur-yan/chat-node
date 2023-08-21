@@ -12,7 +12,7 @@
 	const links = [
 		{ name: 'Prompts', url: 'prompts' },
 		{ name: 'Sharing', url: 'sharing' },
-		{ name: 'Theme', url: 'theme' },
+		{ name: 'Customize', url: 'customize' },
 		{ name: 'Chat-GPT', url: 'gpt' },
 		{ name: 'Delete', url: 'delete' }
 	];
@@ -43,6 +43,11 @@
 			confirmUnsavedNavigate.showModal();
 		}
 	});
+
+	const handleDiscard = () => {
+		currentBot.set(JSON.parse(saveState))
+		saved = true;
+	}
 
 	const navigateWithoutSaving = () => {
 		warningIgnored = true;
@@ -85,7 +90,7 @@
 			</ul>
 			<button
 				class="btn btn-outline btn-success my-4 w-full"
-				disabled={saved == true}
+				disabled={saved}
 				type="submit"
 				on:click={handleSave}
 			>
@@ -95,6 +100,9 @@
 
 				{$state == 'saving' ? 'Saving' : 'Save'}</button
 			>
+		
+				
+				<button type="button" class="btn btn-xs btn-error btn-outline opacity-60 block mx-auto mt-4" class:hidden={saved} disabled={saved} on:click={handleDiscard}>Discard Changes</button>
 		</div>
 	</div>
 	<div>
