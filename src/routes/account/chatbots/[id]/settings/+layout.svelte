@@ -31,6 +31,8 @@
 		}
 	};
 
+	$: console.log(saveState, JSON.stringify({...defaultSettings, ...$currentBot}));
+
 	$: $currentBot, checkIfSaved();
 
 	let nextURL: string;

@@ -66,6 +66,7 @@ const defaultSettings = {
 	theme: {
 		name: 'default',
 		bg: '#0F172A',
+		headerEnabled: false,
 		headerBG: 'transparent',
 		headerTitle: '#000',
 		resetButton: '#000',
@@ -76,6 +77,7 @@ const defaultSettings = {
 		inputBG: '#FFFFFF',
 		inputText: '#000',
 		inputBorder: '#transparent',
+		sendButtonEnabled: false,
 		sendButtonBG: '#FFFFFF',
 		sendButtonIconColor: '#000'
 	}
