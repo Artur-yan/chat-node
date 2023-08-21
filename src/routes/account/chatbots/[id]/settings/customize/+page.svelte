@@ -8,17 +8,6 @@
 	import { enhance } from '$app/forms';
 	import { alert } from '$lib/stores';
 
-	// Merge default settings with user settings
-	// Merge nested object
-	$currentBot.settings.theme = {
-		...defaultSettings.theme,
-		...$currentBot.settings.theme
-	};
-	$currentBot.settings = {
-		...defaultSettings,
-		...$currentBot.settings
-	};
-
 	let customTheme = {...$currentBot.settings.theme}
 	customTheme.name = 'custom'
 
@@ -137,7 +126,7 @@
 			<div class="form-control inline-flex">
 				<label class="cursor-pointer label justify-start gap-2">
 					<span class="label-text">Enable</span> 
-					<input type="checkbox" class="toggle toggle-sm" class:toggle-success={$currentBot.settings.showHeader} bind:checked={$currentBot.settings.showHeader} />
+					<input type="checkbox" class="toggle toggle-sm" class:toggle-success={$currentBot.settings.headerEnabled} bind:checked={$currentBot.settings.headerEnabled} />
 				</label>
 			</div>
 		</div>
@@ -173,7 +162,7 @@
 							<span class="label-text">Placeholder Text</span>
 						</label>
 						<input
-							class="input input-sm"
+							class="input input-sm w-full"
 							type="text"
 							name="public-title"
 							placeholder="<none>"
