@@ -1,37 +1,30 @@
 <script lang="ts">
-	export let data;
-
+	
 	import { defaultSettings } from '$lib/models';
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import themes from '$lib/chatThemes';
 	import { currentBot } from '$lib/stores.js';
 	import { enhance } from '$app/forms';
 	import { alert } from '$lib/stores';
-
-	let customTheme = {...$currentBot.settings.theme}
-	customTheme.name = 'custom'
-
-	let selectedTheme = $currentBot.settings.theme.name || 'default';
-
-	$: if (selectedTheme === 'custom') {
-			$currentBot.settings.theme = customTheme;
-		} else {
-			$currentBot.settings.theme = themes[selectedTheme];
-		}
-
-	let uploadedImage: string | null;
-
+	
+	export let data;
 	export let form;
 
-	$: {
-		if (form) {
-			$alert = {
-				type: 'success',
-				msg: 'Avatar Updated'
-			};
-			uploadedImage = null;
-		}
+	let selectedTheme = $currentBot.settings.theme.name || 'default';
+	let uploadedImage: string | null;
+
+	$: if (selectedTheme !== 'custom') {
+		$currentBot.settings.theme = themes[selectedTheme];
 	}
+
+	$: if (form) {
+		$alert = {
+			type: 'success',
+			msg: 'Avatar Updated'
+		};
+		uploadedImage = null;
+	}
+		
 	const handleAvatarSelect = async (e: Event) => {
 		const image = (e.target as HTMLInputElement)?.files?.[0];
 		if (!image) return;
@@ -39,8 +32,6 @@
 		uploadedImage = URL.createObjectURL(image);
 		$currentBot.avatar_img = URL.createObjectURL(image);
 	};
-
-
 </script>
 
 <svelte:head>
@@ -131,7 +122,7 @@
 			</div>
 		</div>
 		
-		{#if $currentBot.settings.showHeader}
+		{#if $currentBot.settings.headerEnabled}
 		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
 			<div>
 						<label for="public-title" class="label">

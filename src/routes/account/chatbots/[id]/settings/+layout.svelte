@@ -3,7 +3,7 @@
 	import Chat from '$lib/components/Chat.svelte';
 	import { currentBot, state, alert } from '$lib/stores';
 	import { updateModel } from '$lib/models.js';
-	import { beforeNavigate, goto } from '$app/navigation';
+	import { beforeNavigate, goto, invalidateAll } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
 	import { defaultSettings } from '$lib/models.js';
 	
@@ -17,22 +17,14 @@
 		{ name: 'Delete', url: 'delete' }
 	];
 
-	// Merge default settings with user settings
-	// Merge nested object
-	$currentBot.settings.theme = {
-		...defaultSettings.theme,
-		...$currentBot.settings.theme
-	};
-	$currentBot.settings = {
-		...defaultSettings,
-		...$currentBot.settings
-	};
+
+
 
 	let saved = true;
 
 	$: currentPath = $page.url.pathname.split('/').pop();
 
-	const saveState = JSON.stringify({...defaultSettings, ...$currentBot});
+	let saveState = JSON.stringify({...defaultSettings, ...$currentBot});
 
 	const checkIfSaved = () => {
 		if (saveState === JSON.stringify({...defaultSettings, ...$currentBot})) {
@@ -42,7 +34,6 @@
 		}
 	};
 
-	$: console.log(saveState, JSON.stringify({...defaultSettings, ...$currentBot}));
 
 	$: $currentBot, checkIfSaved();
 
@@ -56,11 +47,6 @@
 			confirmUnsavedNavigate.showModal();
 		}
 	});
-
-	const handleDiscard = () => {
-		currentBot.set(JSON.parse(saveState))
-		saved = true;
-	}
 
 	const navigateWithoutSaving = () => {
 		warningIgnored = true;
@@ -79,9 +65,17 @@
 			$state = 'error';
 			return;
 		}
+		saveState = JSON.stringify({...defaultSettings, ...$currentBot.settings});
 		$state = 'saved';
 		saved = true;
 		$alert = { type: 'success', msg: 'Settings saved' };
+	};
+
+	const handleDiscard = () => {
+		warningIgnored = true;
+		currentBot.set(JSON.parse(saveState));
+		warningIgnored = false;
+		saved = true;
 	};
 </script>
 
@@ -101,21 +95,25 @@
 					</li>
 				{/each}
 			</ul>
-			<button
-				class="btn btn-outline btn-success my-4 w-full"
-				disabled={saved}
-				type="submit"
-				on:click={handleSave}
-			>
-				{#if $state == 'saving'}
-					<span class="loading loading-spinner loading-xs" />
-				{/if}
-
-				{$state == 'saving' ? 'Saving' : 'Save'}</button
-			>
-		
+			<div class="flex my-4 gap-2 items-center">
+				<button
+					class="btn btn-outline btn-warning btn-sm btn-square"
+					disabled={saved}
+					type="button"
+					on:click={() => confirmDiscard.showModal()}><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 1024 1024"><path fill="currentColor" d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504L738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512L828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496L285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512L195.2 285.696a64 64 0 0 1 0-90.496z"/></svg></button>
+				<button
+					class="btn btn-outline btn-success flex-1"
+					disabled={saved}
+					type="submit"
+					on:click={handleSave}
+				>
+					{#if $state == 'saving'}
+						<span class="loading loading-spinner loading-xs" />
+					{/if}
+					{$state == 'saving' ? 'Saving' : 'Save'}</button
+				>
+			</div>
 				
-				<button type="button" class="btn btn-xs btn-error btn-outline opacity-60 block mx-auto mt-4" class:hidden={saved} disabled={saved} on:click={handleDiscard}>Discard Changes</button>
 		</div>
 	</div>
 	<div>
@@ -139,6 +137,14 @@
 	<svelte:fragment slot="actions">
 		<button class="btn btn-success btn-outline">Stay Here</button>
 		<button class="btn btn-error btn-outline" on:click={navigateWithoutSaving}
+			>Discard Changes</button
+		>
+	</svelte:fragment>
+</Modal>
+<Modal id="confirmDiscard" title="Are you sure you want to dicard your edits?">
+	<svelte:fragment slot="actions">
+		<button class="btn btn-success btn-outline">Cancel</button>
+		<button class="btn btn-error btn-outline" on:click={handleDiscard}
 			>Discard Changes</button
 		>
 	</svelte:fragment>

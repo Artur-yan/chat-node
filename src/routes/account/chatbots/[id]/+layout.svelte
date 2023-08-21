@@ -23,11 +23,11 @@
 		{ name: 'Settings', url: 'settings' }
 	];
 
-	const handleNameSave = () => {
-		updateModel($currentBot.id, $currentBot.name, $currentBot.settings);
-		$alert = { type: 'success', msg: 'Name saved' };
-		$state = 'saved';
-	};
+	// const handleNameSave = () => {
+	// 	updateModel($currentBot.id, $currentBot.name, $currentBot.settings);
+	// 	$alert = { type: 'success', msg: 'Name saved' };
+	// 	$state = 'saved';
+	// };
 </script>
 
 <div class="bg-neutral">
@@ -40,7 +40,7 @@
 				class="input bg-black/10 border-none rounded-none input-ghost whitespace-nowrap p-1 px-4"
 				bind:value={$currentBot.name}
 			/>
-			{#if $state == 'unsaved'}
+			<!-- {#if $state == 'unsaved'}
 				<button class="btn btn-xs btn-success btn-square btn-outline" on:click={handleNameSave}
 					><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 						><path
@@ -59,7 +59,7 @@
 						/></svg
 					></button
 				>
-			{/if}
+			{/if} -->
 		</div>
 
 		<div class="tabs tabs-boxed bg-neutral">
