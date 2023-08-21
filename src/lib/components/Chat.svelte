@@ -303,6 +303,7 @@
 					style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
 					{disabled}
 				/>
+				{#if settings.sendButtonEnabled}
 				<button
 					class="send-button btn btn-square btn-sm border-none rounded-lg join-item focus-within:outline-none absolute right-2 top-2"
 					type="submit"
@@ -320,6 +321,7 @@
 						/></svg
 					>
 				</button>
+				{/if}
 			</div>
 		</div>
 	</form>

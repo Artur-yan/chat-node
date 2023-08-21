@@ -149,7 +149,7 @@
 							<span class="label-text">Header Title</span>
 						</label>
 						<input
-							class="input input-sm"
+							class="input input-sm w-full"
 							type="text"
 							name="public-title"
 							bind:value={$currentBot.settings.publicTitle}
@@ -219,11 +219,12 @@
 					<div class="form-control inline-flex">
 						<label class="cursor-pointer label justify-start gap-2">
 							<span class="label-text">Enable</span> 
-							<input type="checkbox" class="toggle toggle-sm" class:toggle-success={$currentBot.settings.showHeader} bind:checked={$currentBot.settings.showHeader} />
+							<input type="checkbox" class="toggle toggle-sm" class:toggle-success={$currentBot.settings.sendButtonEnabled} bind:checked={$currentBot.settings.sendButtonEnabled} />
 						</label>
 					</div>
 				</div>
 
+				{#if $currentBot.settings.sendButtonEnabled}
 				<div class="grid grid-cols-4 gap-2 items-end">
 
 
@@ -231,6 +232,7 @@
 
 					<ColorPicker bind:hex={$currentBot.settings.theme.sendButtonIconColor} label="Icon Color" />
 				</div>
+				{/if}
 
 				<hr class="border-base-300 my-4">
 
