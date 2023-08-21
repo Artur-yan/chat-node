@@ -63,7 +63,7 @@
 					value="meta-dark"
 					bind:group={selectedTheme}
 				/>
-				<label for="meta-dark" class="!bg-[#3A3B3C] !text-[#171717]">Meta dark</label>
+				<label for="meta-dark" class="!bg-[#3A3B3C] !text-[#0084FF]">Meta dark</label>
 			</div>
 			<div>
 				<input
