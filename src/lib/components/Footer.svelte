@@ -10,8 +10,10 @@
 	</div>
 	<div>
 		<span class="footer-title">About</span>
-		<a class="link link-hover" href="/#how-it-works">How it works</a>
+		<a class="link link-hover" href="/#features">Features</a>
 		<a class="link link-hover" href="/#pricing">Pricing</a>
+		<a class="link link-hover" href="/blog">Blog</a>
+		<a class="link link-hover" href="/roadmap">Roadmap</a>
 		<a class="link link-hover" href="https://chatnode.getrewardful.com/signup">Affiliates</a>
 	</div>
 	<div>
