@@ -165,7 +165,7 @@
     background-color: var(--bg)"
 	class="h-full flex flex-col justify-between rounded-2xl overflow-hidden flex-1 relative"
 >
-{#if settings?.showHeader && settings.publicTitle !== '' }
+{#if settings?.headerEnabled && settings.publicTitle !== '' }
 	<header style="background-color: var(--headerBG)" class="flex p-4 items-center gap-2">
 		<!-- <div class="h-8">
 				<img src={avatar} alt="" class="h-full" />
