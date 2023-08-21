@@ -1,16 +1,17 @@
 <script>
 	import { goto, invalidate } from '$app/navigation';
+	import { PUBLIC_ENVIRONMENT } from '$env/static/public';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { alert } from '$lib/stores';
 	import Plausible from 'plausible-tracker';
 
 	onMount(async () => {
-		const { trackEvent } = Plausible({
-			domain: 'chatnode.ai',
-			apiHost: 'https://www.chatnode.ai/events'
-		});
-		if ($page.url.searchParams.get('plan-change') === 'success') {
+		if ($page.url.searchParams.get('plan-change') === 'success' && PUBLIC_ENVIRONMENT === 'production') {
+			const { trackEvent } = Plausible({
+				domain: 'chatnode.ai',
+				apiHost: 'https://www.chatnode.ai/events'
+			});
 			trackEvent('Upgrade to Paid');
 
 			switch ($page.url.searchParams.get('plan')) {
@@ -31,10 +32,10 @@
 					break;
 			}
 
-			$alert = 'Plan changed successfully!';
 		}
-		goto('/account/chatbots', { invalidateAll: true });
 	});
+	$alert = 'Plan changed successfully!';
+	goto('/account/chatbots', { invalidateAll: true });
 </script>
 
 <svelte:head>

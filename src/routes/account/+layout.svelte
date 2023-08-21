@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { LayoutData } from './$types';
+	import { PUBLIC_ENVIRONMENT } from '$env/static/public';
 
 	import '../../app.postcss';
 	import HeaderAdmin from '$lib/components/HeaderAdmin.svelte';
@@ -12,11 +13,14 @@
 	export let data: LayoutData;
 
 	onMount(() => {
+		if(PUBLIC_ENVIRONMENT === 'production') {
+
 		const { enableAutoPageviews } = Plausible({
 			domain: 'chatnode.ai',
 			apiHost: 'https://www.chatnode.ai/events'
 		});
 		enableAutoPageviews();
+	}
 	});
 
 	if (systemSettings.maintenanceAlert) {

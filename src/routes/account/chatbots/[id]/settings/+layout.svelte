@@ -12,7 +12,7 @@
 	const links = [
 		{ name: 'Prompts', url: 'prompts' },
 		{ name: 'Sharing', url: 'sharing' },
-		{ name: 'Theme', url: 'theme' },
+		{ name: 'Customize', url: 'customize' },
 		{ name: 'Chat-GPT', url: 'gpt' },
 		{ name: 'Delete', url: 'delete' }
 	];
@@ -44,6 +44,11 @@
 		}
 	});
 
+	const handleDiscard = () => {
+		currentBot.set(JSON.parse(saveState))
+		saved = true;
+	}
+
 	const navigateWithoutSaving = () => {
 		warningIgnored = true;
 		currentBot.set(JSON.parse(saveState));
@@ -68,7 +73,7 @@
 </script>
 
 <div
-	class="container grid lg:grid-cols-[12rem_auto_18rem] xl:lg:grid-cols-[12rem_auto_24rem] gap-4 py-4 h-full"
+	class="container grid lg:grid-cols-[12rem_auto_18rem] xl:lg:grid-cols-[12rem_auto_24rem] gap-4 py-4 h-full flex-1"
 >
 	<div class="h-full relative">
 		<div class="sticky top-4">
@@ -85,7 +90,7 @@
 			</ul>
 			<button
 				class="btn btn-outline btn-success my-4 w-full"
-				disabled={saved == true}
+				disabled={saved}
 				type="submit"
 				on:click={handleSave}
 			>
@@ -95,6 +100,9 @@
 
 				{$state == 'saving' ? 'Saving' : 'Save'}</button
 			>
+		
+				
+				<button type="button" class="btn btn-xs btn-error btn-outline opacity-60 block mx-auto mt-4" class:hidden={saved} disabled={saved} on:click={handleDiscard}>Discard Changes</button>
 		</div>
 	</div>
 	<div>
@@ -102,7 +110,7 @@
 	</div>
 
 	<div class="h-full min-h-[24rem] relative hidden sm:block">
-		<div class="sticky top-4 h-3/4 max-h-[64rem]">
+		<div class="sticky top-4 h-full max-h-[40rem]">
 			<Chat
 				modelId={data.model.id}
 				settings={$currentBot.settings}

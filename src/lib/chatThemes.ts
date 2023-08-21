@@ -2,6 +2,7 @@ const themes = {
 	default: {
 		name: 'default',
 		bg: '#0F172A',
+		headerBG: 'transparent',
 		headerTitle: '#FFFFFF',
 		resetButton: "#ffffff4d",
 		botBubbleBG: '#818CF8',
@@ -50,7 +51,7 @@ const themes = {
 		name: 'ios-light',
 		bg: '#FFFFFF',
 		headerBG: 'transparent',
-		headerTitle: '#FFFFFF',
+		headerTitle: '#000000',
 		resetButton: "#3093FF",
 		botBubbleBG: '#3194FE',
 		botBubbleText: '#FFFFFF',
