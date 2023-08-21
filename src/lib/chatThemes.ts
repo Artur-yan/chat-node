@@ -2,6 +2,9 @@ const themes = {
 	default: {
 		name: 'default',
 		bg: '#0F172A',
+		headerBG: 'transparent',
+		headerTitle: '#FFFFFF',
+		resetButton: "#ffffff4d",
 		botBubbleBG: '#818CF8',
 		botBubbleText: '#00074B',
 		userBubbleBG: '#1E293B',
@@ -15,6 +18,9 @@ const themes = {
 	'meta-dark': {
 		name: 'meta-dark',
 		bg: '#242526',
+		headerBG: 'transparent',
+		headerTitle: '#FFFFFF',
+		resetButton: "#666768",
 		botBubbleBG: '#0084FF',
 		botBubbleText: '#FFFFFF',
 		userBubbleBG: '#3E4042',
@@ -28,6 +34,9 @@ const themes = {
 	'ios-dark': {
 		name: 'ios-dark',
 		bg: '#000000',
+		headerBG: 'transparent',
+		headerTitle: '#FFFFFF',
+		resetButton: "#3093FF",
 		botBubbleBG: '#3093FF',
 		botBubbleText: '#FFFFFF',
 		userBubbleBG: '#26252A',
@@ -41,6 +50,9 @@ const themes = {
 	'ios-light': {
 		name: 'ios-light',
 		bg: '#FFFFFF',
+		headerBG: 'transparent',
+		headerTitle: '#000000',
+		resetButton: "#3093FF",
 		botBubbleBG: '#3194FE',
 		botBubbleText: '#FFFFFF',
 		userBubbleBG: '#E9E9EB',
@@ -54,6 +66,9 @@ const themes = {
 	neutral: {
 		name: 'neutral',
 		bg: '#666666',
+		headerBG: 'transparent',
+		headerTitle: '#FFFFFF',
+		resetButton: "#00000060",
 		botBubbleBG: '#333333',
 		botBubbleText: '#FFFFFF',
 		userBubbleBG: '#555555',
@@ -67,6 +82,9 @@ const themes = {
 	custom: {
 		name: 'custom',
 		bg: '#666666',
+		headerBG: 'transparent',
+		headerTitle: '#FFFFFF',
+		resetButton: "#00000060",
 		botBubbleBG: '#333333',
 		botBubbleText: '#FFFFFF',
 		userBubbleBG: '#555555',

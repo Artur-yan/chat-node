@@ -7,8 +7,6 @@
 
 	import { goto } from '$app/navigation';
 
-	export let data;
-
 	const handleDelete = async () => {
 		$state = 'deletingModel';
 		try {
@@ -20,7 +18,7 @@
 		}
 		$state = 'modelDeleted';
 		$alert = { type: 'success', msg: 'Chatbot deleted' };
-		goto('/account/chatbots');
+		goto('/account/chatbots', { invalidateAll: true });
 	};
 </script>
 

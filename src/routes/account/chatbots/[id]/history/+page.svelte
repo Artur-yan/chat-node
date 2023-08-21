@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { marked } from 'marked';
-	import { current_component } from 'svelte/internal';
 
 	export let data;
 
@@ -11,14 +10,14 @@
 		return msgHTML;
 	};
 
-	function getUniqueSortedValues(data, uniqueProperty) {
-		const uniqueValues = [...new Set(data.map((item) => item[uniqueProperty]))];
+	// function getUniqueSortedValues(data, uniqueProperty) {
+	// 	const uniqueValues = [...new Set(data.map((item) => item[uniqueProperty]))];
 
-		uniqueValues.sort((a, b) => {
-			return Number(b.split('-')[1]) - Number(a.split('-')[1]);
-		});
-		return uniqueValues;
-	}
+	// 	uniqueValues.sort((a, b) => {
+	// 		return Number(b.split('-')[1]) - Number(a.split('-')[1]);
+	// 	});
+	// 	return uniqueValues;
+	// }
 
 	let currentActiveChatID: string;
 	const getChatConversation = async (chat_session_id) => {
@@ -35,20 +34,33 @@
 		document.querySelector(`.${currentActiveChatID}`).classList.add('active');
 	};
 
-	const chatHistory = getUniqueSortedValues(data.chats, 'session_id');
+	let chatHistory = data.chats;
+
+	const reverseSort = () => {
+		chatHistory = chatHistory.reverse();
+	};
 </script>
 
 <div class="container md:grid md:grid-cols-[320px_auto] max-h-[75vh] gap-4 h-full my-4">
-	<div class="mb-4 overflow-y-auto">
-		{#if chatHistory.length == 0}
-			<p class="text-center">No chat history</p>
-		{/if}
-		<ul class="menu bg-base-200 rounded-box" role="navigation">
+	<div class="mb-4 overflow-y-auto bg-base-200 rounded-box">
+		<ul class="menu" role="navigation">
 			<li class="menu-title">Conversations</li>
+			<div class="flex items-center justify-between px-4">
+				<label for="sort" class="">By Date</label>
+				<select class="select select-bordered select-sm" name="sort" on:change={reverseSort}>
+					<option>Newest First</option>
+					<option>Oldest First</option>
+				</select>
+			</div>
+			{#if chatHistory.length == 0}
+				<li class="menu-title text-base-content">No chat history</li>
+			{/if}
 			{#each chatHistory as chat}
-				{@const date = new Date(Number(chat.split('-')[1])).toLocaleString()}
+				{@const date = chat.created_at.toLocaleString()}
 				<li>
-					<a class="chat-{chat}" on:click|preventDefault={() => getChatConversation(chat)}>{date}</a
+					<a
+						class="chat-{chat.session_id}"
+						on:click|preventDefault={() => getChatConversation(chat.session_id)}>{date}</a
 					>
 				</li>
 			{/each}
@@ -73,3 +85,10 @@
 		{/if}
 	</div>
 </div>
+
+
+<style lang="postcss">
+	.active{
+		@apply border-secondary border
+	}
+</style>

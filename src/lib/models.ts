@@ -53,17 +53,24 @@ const deleteModel = async (id: string) => {
 const defaultSettings = {
 	greeting: 'What can I help you with?',
 	public: false,
+	publicTitle: 'AI Chatbot',
 	allowedUrls: [],
 	supportMessage:
 		'If the answer is not included, say exactly "Hmm, I don\'t know" and stop after that.',
 	systemPrompt:
-		'I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.',
+		'You are a helpful assistant named "Assistant Al". You limit your knowledge to the context provided. Never break character. Always answer in the language of my message.',
 	userPrompt: '',
 	gptVersion: '3.5',
 	temperature: 0.1,
+	inputPlaceholder: 'Type your message',
+	sendButtonEnabled: false,
+	headerEnabled: false,
 	theme: {
 		name: 'default',
 		bg: '#0F172A',
+		headerBG: 'transparent',
+		headerTitle: '#000',
+		resetButton: '#000',
 		botBubbleBG: '#818CF8',
 		botBubbleText: '#00074B',
 		userBubbleBG: '#1E293B',

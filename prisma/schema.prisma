@@ -59,16 +59,16 @@ model Bots {
   avatar_img           String?
   chat_button_img      String?
   cloudinary_public_id String?
+  openai_api_key       String?
   auth_user            AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  openai_api_key      String?
 
   @@map("bots")
 }
 
 model Subscriptions {
-  user_id             String    @id
+  user_id             String    @id @unique
   max_bot             Int?      @default(1) @db.SmallInt
-  max_msg             Int?      @default(30)
+  max_msg             Int?      @default(50)
   plan                Int?      @default(0) @db.SmallInt
   next_billing_cycle  DateTime? @db.Date
   stripe_customer_id  String?
@@ -78,6 +78,7 @@ model Subscriptions {
   status              String?
   max_tocken          Int       @default(100000)
   cancel_at           DateTime? @db.Date
+  created_datetime    DateTime? @default(dbgenerated("(now() AT TIME ZONE 'utc'::text)")) @db.Timestamptz(6)
   auth_user           AuthUser  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("subscriptions")
@@ -103,6 +104,15 @@ model BotsSource {
   token_count Int?
 
   @@map("bots_source")
+}
+
+model AppSumoCodes {
+  code          String    @id @unique
+  redeemed      Boolean   @default(false)
+  redeemed_date DateTime?
+  redeemed_by   String?
+
+  @@map("appsumo_codes")
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -193,4 +203,14 @@ model ChatHistory {
   enduser_email String?
 
   @@map("new_chat_history")
+}
+
+model chatConversations {
+  session_id String    @id
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  user_id    String?
+  bot_id     String?
+
+  @@map("chat_conversations")
+
 }

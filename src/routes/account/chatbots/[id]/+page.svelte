@@ -1,17 +1,19 @@
 <script lang="ts">
 	export let data;
 	import Chat from '$lib/components/Chat.svelte';
+
 </script>
 
 <svelte:head>
 	<title>{data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container h-full my-4 mb-20 min-h-[50vh]">
+<div class="container flex flex-col flex-1 my-4">
 	<Chat
 		modelId={data.model.id}
 		trainingStatus={data.model.status}
 		settings={data.model.settings}
 		avatar={data.model?.avatar_img}
+		userId={data.user.user.userId}
 	/>
 </div>

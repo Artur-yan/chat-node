@@ -126,15 +126,23 @@
 		body.append('session_id', sessionId);
 		if (fileKeys.length > 0) {
 			body.append('file_keys', fileKeys /*, optional filename */);
-			name = files[0].name.slice(0, 20) + '...';
+			if (files[0].name.length > 32) {
+				name = files[0].name.slice(0, 30) + '...';
+			} else {
+				name = files[0].name;
+			}
 		}
 		if (textData) {
 			body.append('text', textData);
-			name = textData.slice(0, 20) + '...';
+			name = textData.slice(0, 30) + '...';
 		}
 		if (selectedUrls && selectedUrls.length > 0) {
 			body.append('urls', selectedUrls);
-			name = url.slice(0, 20) + '...';
+			if (url.length > 32) {
+				name = url.slice(0, 30) + '...';
+			} else {
+				name = url;
+			}
 		}
 		try {
 			if (modelId) {
@@ -236,7 +244,7 @@
 			Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
 
 			{#if filesTokenCount + existingTokenCount > subscription.max_tocken}
-				<a href="/account/settings/plan" class="btn">Upgrade</a>
+				<a href="/account/settings/subscription" class="btn">Upgrade</a>
 			{/if}
 		</div>
 		<button

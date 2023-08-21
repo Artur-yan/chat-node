@@ -5,10 +5,15 @@
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 	import { deleteModel } from '$lib/models';
-	import { alert } from '$lib/stores.js';
-	import { updateAccountEmail } from '$lib/account';
+	import { PUBLIC_ENVIRONMENT } from '$env/static/public';
 
 	export let data;
+
+	Date.prototype.addDays = function (days) {
+		var date = new Date(this.valueOf());
+		date.setDate(date.getDate() + days);
+		return date;
+	};
 
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
@@ -20,12 +25,15 @@
 	$: botUsage = data.bots.length / data.subscription.max_bot;
 
 	onMount(() => {
-		const { trackEvent } = Plausible({
-			domain: 'chatnode.ai',
-			apiHost: 'https://www.chatnode.ai/events'
-		});
-		if ($page.url.searchParams.get('signup') == 'success') {
-			trackEvent('Signup');
+		if(PUBLIC_ENVIRONMENT === 'production') {
+
+			const { trackEvent } = Plausible({
+				domain: 'chatnode.ai',
+				apiHost: 'https://www.chatnode.ai/events'
+			});
+			if ($page.url.searchParams.get('signup') == 'success') {
+				trackEvent('Signup');
+			}
 		}
 	});
 
@@ -39,88 +47,79 @@
 		(resetDate - new Date().getTime()) / (1000 * 3600 * 24)
 	);
 
-	// const handleResendVerificationLink = asyxnc () => {
-	// 	const res = await fetch('/api/account/confirm', {
-	// 		method: 'POST',
-	// 		body: JSON.stringify({
-	// 			email: data.user.user.email
-	// 		}),
-	// 		headers: {
-	// 			'Content-Type': 'application/json'
-	// 		}
-	// 	});
-	// 	$alert = 'Check your email for a verification link.';
-	// };
+	const trialExpirationDate = new Date(data.subscription.created_datetime).addDays(7);
+	const trialExpirationDateProgress = new Date(data.subscription.created_datetime).addDays(7);
 </script>
 
 <svelte:head>
 	<title>My Chatbots | ChatNode</title>
 </svelte:head>
 
-<div class="container pb-20">
-	<div class="flex justify-between my-2 items-center">
+<div class="bg-neutral py-2">
+	<div class="container flex justify-between items-center">
 		<div>
-			<h1 class="text-xl font-bold text-secondary">Chatbots</h1>
+			<h1 class="font-bold">Dashboard</h1>
 		</div>
 		<button
 			on:click={() => goto('/account/chatbots/create')}
-			class="btn btn-primary"
+			class="btn btn-primary btn-sm btn-outline text-xs"
 			disabled={data.user.user.status !== 'active' || botUsage >= 1}
-			>Create <Icon icon="mdi:plus-box" class="ml-2" height="20" /></button
+			>New Bot <Icon icon="mdi:plus-box" class="ml-1" height="20" /></button
 		>
 	</div>
+</div>
 
-	{#if data.user.user.status === 'active'}
-		<div class="card card-compact card-bordered border-neutral mb-4">
-			<div class="card-body">
-				<div class="flex gap-8 items-center">
-					<div class="grid md:grid-cols-3 gap-2 md:gap-8 items-center w-full">
-						<div>
-							<div class="flex justify-between">
-								<h4>Messages</h4>
-								<span class="opacity-60"
-									>{data.subscription.msg_count}/{data.subscription.max_msg}</span
-								>
-							</div>
-							<progress
-								class="progress progress-secondary w-full bg-neutral h-1"
-								class:progress-error={msgUsage > 0.9}
-								value={data.subscription.msg_count}
-								max={data.subscription.max_msg}
-							/>
+<div class="container pt-4 pb-20">
+	<div class="card card-compact card-bordered border-neutral mb-4">
+		<div class="card-body">
+			<div class="flex gap-8 items-center">
+				<div class="grid md:grid-cols-3 gap-2 md:gap-8 items-center w-full">
+					<div>
+						<div class="flex justify-between">
+							<h4>Messages</h4>
+							<span class="opacity-60"
+								>{data.subscription.msg_count}/{data.subscription.max_msg}</span
+							>
 						</div>
-						<div>
-							<div class="flex justify-between">
-								<h4>Bots</h4>
-								<span class="opacity-60">{data.bots.length}/{data.subscription.max_bot}</span>
-							</div>
-							<progress
-								class="progress progress-secondary w-full bg-neutral h-1"
-								class:progress-warning={botUsage > 0.9}
-								value={data.bots.length}
-								max={data.subscription.max_bot}
-							/>
-						</div>
-						<div>
-							<div class="flex justify-between">
-								<h4>{data.subscription.cancel_at ? 'Cancelation Date' : 'Usage Reset Date'}</h4>
-								<span class="opacity-60">{resetDate.toLocaleDateString()}</span>
-							</div>
-							<progress
-								class="progress progress-warning w-full bg-neutral h-1"
-								class:progress-warning={data.subscription.cancel_at}
-								value={31 - daysLeftUntilAllotmentsReset}
-								max={31}
-							/>
-						</div>
+						<progress
+							class="progress progress-secondary w-full bg-neutral h-1"
+							class:progress-error={msgUsage > 0.9}
+							value={data.subscription.msg_count}
+							max={data.subscription.max_msg}
+						/>
 					</div>
-					{#if botUsage >= 1 || msgUsage > 0.75 || data.subscription.cancel_at}
-						<a href="/account/settings/plan" class="btn btn-warning">Upgrade</a>
-					{/if}
+					<div>
+						<div class="flex justify-between">
+							<h4>Bots</h4>
+							<span class="opacity-60">{data.bots.length}/{data.subscription.max_bot}</span>
+						</div>
+						<progress
+							class="progress progress-secondary w-full bg-neutral h-1"
+							class:progress-warning={botUsage > 0.9}
+							value={data.bots.length}
+							max={data.subscription.max_bot}
+						/>
+					</div>
+					<div>
+						<div class="flex justify-between">
+							<h4>{data.subscription.cancel_at ? 'Cancelation Date' : 'Usage Reset Date'}</h4>
+							<span class="opacity-60">{resetDate.toLocaleDateString()}</span>
+						</div>
+						<progress
+							class="progress progress-warning w-full bg-neutral h-1"
+							class:progress-warning={data.subscription.cancel_at}
+							value={31 - daysLeftUntilAllotmentsReset}
+							max={31}
+						/>
+					</div>
 				</div>
+				{#if botUsage >= 1 || msgUsage > 0.75 || data.subscription.cancel_at}
+					<a href="/account/settings/plan" class="btn btn-warning">Upgrade</a>
+				{/if}
 			</div>
 		</div>
-	{/if}
+	</div>
+
 	{#if data.bots.length > 0}
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 			{#each data.bots as bot}
@@ -130,14 +129,19 @@
 					class="card bg-neutral peer-checked:ring-2 hover:outline-primary hover:outline"
 				>
 					<div class="card-body p-6">
-						<div class="">
+						<div class="flex justify-between items-center">
 							<h2 class="card-title">
 								<a href="chatbots/{bot.id}" class="text-primary text-base truncate" title={bot.name}
 									>{bot.name}</a
 								>
 							</h2>
+							<div
+								class="tooltip tooltip-info tooltip-left"
+								data-tip={bot.created.toLocaleTimeString()}
+							>
+								<h3 class="text-xs">{bot.created.toLocaleDateString()}</h3>
+							</div>
 						</div>
-						<h3 class="text-sm">{bot.created.toLocaleString()}</h3>
 
 						<div class="flex items-center justify-between">
 							<div class="flex items-baseline gap-4">
@@ -180,6 +184,11 @@
 										</a>
 									</li>
 									<li>
+										<a href="/account/chatbots/{bot.id}/history">
+											<Icon icon="tabler:history" width="18" /> History
+										</a>
+									</li>
+									<li>
 										<a href="/account/chatbots/{bot.id}/settings">
 											<Icon icon="mdi:settings" width="18" /> Settings
 										</a>
@@ -195,6 +204,11 @@
 					</div>
 				</a>
 			{/each}
+		</div>
+	{:else if data.subscription?.status === 'expired'}
+		<div class="alert alert-warning justify-between flex">
+			<h3 class="font-bold text-lg">Your Free Trial Has Expired</h3>
+			<a class="btn" href="/account/settings/subscription">Upgrade</a>
 		</div>
 	{:else if data.user.user.status !== 'active'}
 		<div class="alert alert-warning my-4">
@@ -225,10 +239,15 @@
 			<a href="/account/settings" class="link">account settings</a>
 		</p>
 	{:else}
-		<div class="card-actions mt-4">
-			<button on:click={() => goto('/account/chatbots/create')} class="btn btn-primary"
-				>Create a chatbot</button
-			>
+		<div class="card bg-base-300">
+			<div class="card-body items-center py-[10vh]">
+				<h2 class="card-title font-bold text-2xl">Get Started</h2>
+				<div class="card-actions justify-center">
+					<button on:click={() => goto('/account/chatbots/create')} class="btn btn-accent"
+						>Create a chatbot</button
+					>
+				</div>
+			</div>
 		</div>
 	{/if}
 </div>
