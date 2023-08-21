@@ -15,9 +15,25 @@
 				<input
 					type="checkbox"
 					class="toggle toggle-warning input-success"
+					bind:checked={$currentBot.settings.collectUserName}
+				/>
+				<span class="label-text">Collect Name?</span>
+			</label>
+			<label class="label cursor-pointer flex justify-start gap-4 self-start">
+				<input
+					type="checkbox"
+					class="toggle toggle-warning input-success"
 					bind:checked={$currentBot.settings.collectUserEmail}
 				/>
 				<span class="label-text">Collect Email?</span>
+			</label>
+			<label class="label cursor-pointer flex justify-start gap-4 self-start">
+				<input
+					type="checkbox"
+					class="toggle toggle-warning input-success"
+					bind:checked={$currentBot.settings.collectUserPhone}
+				/>
+				<span class="label-text">Collect Phone?</span>
 			</label>
 		</div>
 
