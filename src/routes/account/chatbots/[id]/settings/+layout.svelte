@@ -12,45 +12,36 @@
 	const links = [
 		{ name: 'Prompts', url: 'prompts' },
 		{ name: 'Sharing', url: 'sharing' },
+		{ name: 'User Info', url: 'user-info' },
 		{ name: 'Customize', url: 'customize' },
 		{ name: 'Chat-GPT', url: 'gpt' },
 		{ name: 'Delete', url: 'delete' }
 	];
-
-
-
-
 	let saved = true;
+	let showUserInfoCollection = true
+	let nextURL: string;
+	let warningIgnored = false;
 
-	$: currentPath = $page.url.pathname.split('/').pop();
+	$: console.log($currentBot.settings)
 
-	let saveState = JSON.stringify({...defaultSettings, ...$currentBot});
+	
+	// Merge bot with defaults
+	$currentBot.settings = {...defaultSettings, ...$currentBot.settings};
 
+	// capture the current state of the bot on load
+	let saveState = JSON.stringify($currentBot);
+	
 	const checkIfSaved = () => {
-		if (saveState === JSON.stringify({...defaultSettings, ...$currentBot})) {
+		if (saveState === JSON.stringify($currentBot)) {
 			saved = true;
 		} else {
 			saved = false;
 		}
 	};
 
-
-	$: $currentBot, checkIfSaved();
-
-	let nextURL: string;
-	let warningIgnored = false;
-
-	beforeNavigate(({ to, cancel }) => {
-		if (!saved && !warningIgnored) {
-			cancel();
-			nextURL = to.url.pathname;
-			confirmUnsavedNavigate.showModal();
-		}
-	});
-
 	const navigateWithoutSaving = () => {
 		warningIgnored = true;
-		currentBot.set(JSON.parse(saveState));
+		$currentBot = JSON.parse(saveState);
 		goto(nextURL);
 		warningIgnored = false;
 		saved = true;
@@ -58,14 +49,14 @@
 
 	const handleSave = async () => {
 		$state = 'saving';
-		try {
+		try {	 
 			await updateModel($currentBot.id, $currentBot.name, $currentBot.settings);
 		} catch (err) {
 			$alert = { type: 'error', msg: err };
 			$state = 'error';
 			return;
-		}
-		saveState = JSON.stringify({...defaultSettings, ...$currentBot.settings});
+		}	
+		saveState = JSON.stringify($currentBot);
 		$state = 'saved';
 		saved = true;
 		$alert = { type: 'success', msg: 'Settings saved' };
@@ -77,6 +68,19 @@
 		warningIgnored = false;
 		saved = true;
 	};
+
+
+	beforeNavigate(({ to, cancel }) => {
+		if (!saved && !warningIgnored) {
+			cancel();
+			nextURL = to.url.pathname;
+			confirmUnsavedNavigate.showModal();
+		}
+	});
+
+	$: $currentBot, checkIfSaved();
+	$: currentPath = $page.url.pathname.split('/').pop();
+
 </script>
 
 <div
@@ -128,7 +132,16 @@
 				trainingStatus={data.model.status}
 				avatar={$currentBot.avatar_img}
 				userId = {data.user.session.userId}
+				{showUserInfoCollection}
 			/>
+			{#if $currentBot.settings.collectUserName || $currentBot.settings.collectUserEmail || $currentBot.settings.collectUserPhone}
+			<div class="form-control">
+				<label class="label cursor-pointer justify-start gap-2">
+					<input type="checkbox" class="checkbox checkbox-sm" bind:checked={showUserInfoCollection} />
+				  <span class="label-text">Show User Info Form Preview</span> 
+				</label>
+			  </div>
+			  {/if}
 		</div>
 	</div>
 </div>

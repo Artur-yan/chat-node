@@ -9,9 +9,18 @@
 	
 	export let data;
 	export let form;
-
+	
 	let selectedTheme = $currentBot.settings.theme.name || 'default';
 	let uploadedImage: string | null;
+
+	const checkIfThemeSaved = () => {
+		if (JSON.stringify($currentBot.settings.theme) !== JSON.stringify(themes[$currentBot.settings.theme.name])) {
+			selectedTheme = 'custom'
+			$currentBot.settings.theme.name = 'custom';
+		}
+	};
+
+	$: $currentBot, checkIfThemeSaved();
 
 	$: if (selectedTheme !== 'custom') {
 		$currentBot.settings.theme = themes[selectedTheme];
@@ -63,7 +72,7 @@
 					value="meta-dark"
 					bind:group={selectedTheme}
 				/>
-				<label for="meta-dark" class="!bg-[#3A3B3C] !text-[#171717]">Meta dark</label>
+				<label for="meta-dark" class="!bg-[#3A3B3C] !text-[#0084FF]">Meta dark</label>
 			</div>
 			<div>
 				<input
@@ -285,7 +294,7 @@
 	:global(.color-picker label) {
 		@apply text-xs;
 	}
-	:global(.color-picker .color, .color-picker .alpha) {
+	:global(.color-picker label .color, .color-picker label .alpha) {
 		@apply !w-6 !h-6;
 	}
 </style>
