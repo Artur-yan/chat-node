@@ -7,7 +7,7 @@
 	const personalities = {
 		'default': {
 			label: 'Default',
-			systemPrompt: `I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info. Refuse to answer any question not about the text. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.`,
+			systemPrompt: 'You are a helpful assistant named "Assistant Al". You limit your knowledge to the context provided. Never break character. Always answer in the language of my message.',
 		},
 		'airbnb': {
 			label: 'AirBnB Host',
