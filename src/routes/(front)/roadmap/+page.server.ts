@@ -10,26 +10,6 @@ export const load = async () => {
 	});
 	const roadmap = await data.json();
 
-    
-
-    console.log(roadmap);
-
-	// for (let i = 0; i < posts.length; i++) {
-	// 	const res = await fetch(
-	// 		`${cmsPath}/api/assets/image/${posts[i].img._id}?m=thumbnail&w=666&h=480`,
-	// 		{
-	// 			method: 'GET',
-	// 			headers: {
-	// 				'api-key': apiKey
-	// 			}
-	// 		}
-	// 	);
-
-	// 	const img = await res.text();
-
-	// 	posts[i].thumbnail = img;
-	// }
-
 	return {
 		roadmap
 	};
