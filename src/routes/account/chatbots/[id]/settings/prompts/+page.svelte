@@ -164,7 +164,14 @@
 	{/if}
 	<div>
 		<label for="temp" class="label">
-			<span class="label-text">Creativity</span>
+			<span class="label-text">
+				Creativity <span
+				class="tooltip tooltip-right badge"
+				data-tip='The "creativity" in ChatGPT (known officially as "temperature") refers to the level of randomness in the generated responses. A higher temperature will result in more random and creative responses, while a lower temperature will produce more focused and deterministic responses.'
+			>
+				?
+			</span>
+		</span>
 		</label>
 		<input
 			type="range"
