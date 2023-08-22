@@ -1,15 +1,25 @@
 <script>
+	const cacheBust = Math.random().toString(36).slice(2);
+
 	import Img from '@zerodevx/svelte-img';
 	import Thomas from '$lib/assets/team/Thomas-Agarate.jpg?run';
-	import Eric from '$lib/assets/team/Thomas-Agarate.jpg?run';
 	import Sacha from '$lib/assets/team/Thomas-Agarate.jpg?run';
+	import Eric from '$lib/assets/team/Eric-Brenner.jpg?run';
 
 	const team = [
 		{
-			fname: 'Eric',
+			fname: 'Thomas',
+			lname: 'Agaraté',
+			title: 'Marketing Director',
+			nationality: '🇫🇷',
+			bio: 'He has two passions:<br>1. Find ways to onboard awesome customers onto his business<br />2. Build the most epic customer relationships so work feels like it’s not.',
+			img: Thomas
+		},
+		{
+			fname: 'Eric',	
 			lname: 'Brenner',
 			title: 'Web Developer',
-			bio: 'Eric is obsessed with design and efficiency. He’s joined forces in building websites for some huge brands to try to make the internety a more  enjoyable place.',
+			bio: 'Eric is obsessed with design and efficiency. He’s joined forces in building websites for some huge brands to try to make the internet a more enjoyable place.',
 			nationality: '🇺🇸',
 			img: Eric
 		},
@@ -20,14 +30,6 @@
 			nationality: '🇫🇷',
 			bio: 'His days at ChatNode are pretty simple.<br>8-8:30am: Checking reports to see what our customers want next.<br>8:30-10pm : Building those features with Eric.<br>(Sometimes he skips lunch. He used to work as a data analyst for Wall Street so he no time for bulls**t)',
 			img: Sacha
-		},
-		{
-			fname: 'Thomas',
-			lname: 'Agaraté',
-			title: 'Marketing Director',
-			nationality: '🇫🇷',
-			bio: 'He has two passions:<br>1. Find ways to onboard awesome customers onto his business<br />2. Build the most epic customer relationships so work feels like it’s not.',
-			img: Thomas
 		}
 	];
 </script>
@@ -56,14 +58,13 @@
 				<div class="bg-neutral rounded-lg p-6">
 					<div class="flex gap-4">
 						<div class="basis-1/3">
-							<!-- <img src="https://picsum.photos/500/500" alt="" class="rounded" /> -->
 							<Img
 								src={person.img}
-								width={560}
-								height={384}
+								width={800}
+								height={800}
 								class="rounded"
 								alt={person.name}
-								sizes="(min-width: 56rem) 560px, 100vw - 2rem"
+								sizes="(min-width: 56rem) 138px, 100vw - 2rem"
 							/>
 						</div>
 						<div class="flex items-center gap-2">
