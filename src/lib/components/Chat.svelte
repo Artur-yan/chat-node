@@ -20,18 +20,16 @@
 	];
 	export let userId: string;
 
-
 	// Merge default settings with user settings
 	// Merge nested object
 	settings.theme = {
 		...defaultSettings.theme,
 		...settings.theme
-	}
+	};
 	settings = {
 		...defaultSettings,
 		...settings
-	}
-
+	};
 
 	$: messages[0].text = settings.greeting;
 
@@ -42,7 +40,7 @@
 		settings.theme = defaultSettings.theme;
 	}
 
-	let inputVal: string;		
+	let inputVal: string;
 	let chatWindow: HTMLElement;
 	const scrollToBottom = () => {
 		if (chatWindow) {
@@ -52,36 +50,32 @@
 		}
 	};
 
-	let enduserEmail: string
+	let enduserEmail: string;
 	let enduserName: string;
 	let enduserPhone: string;
 	let collectUserInfo = false;
 	let userInfoReceived = false;
 
 	onMount(() => {
-		enduserName = localStorage.getItem("enduserName") || '';
-		enduserEmail = localStorage.getItem("enduserEmail") || '';
-		enduserPhone = localStorage.getItem("enduserPhone") || '';
-	})
-
-
+		enduserName = localStorage.getItem('enduserName') || '';
+		enduserEmail = localStorage.getItem('enduserEmail') || '';
+		enduserPhone = localStorage.getItem('enduserPhone') || '';
+	});
 
 	$: if (settings.collectUserName || settings.collectUserEmail || settings.collectUserPhone) {
 		collectUserInfo = true;
-	} else { 
+	} else {
 		collectUserInfo = false;
 	}
 
-
-
 	const handleUserInfoSubmit = () => {
-		if(!enduserEmail || !enduserName) {
+		if (!enduserEmail || !enduserName) {
 			return;
 		}
-		userInfoReceived = true
+		userInfoReceived = true;
 		// addMessage('Thank you for providing your info.');
 		// queryModel(modelId, chatSessionId, withheldMessage);
-	}
+	};
 
 	const postProcessMsgHTML = (msgHTML) => {
 		msgHTML = msgHTML.replace(/<a href=/g, '<a target="_blank" href=');
@@ -91,7 +85,6 @@
 	const addMessage = (message: string, sender = 'bot') => {
 		messages = [...messages, { text: message, sender: sender }];
 	};
-
 
 	const queryModel = async (chatKey: string, chatSessionId: string, message: string) => {
 		addMessage(message, 'user');
@@ -144,7 +137,7 @@
 		return Math.random().toString(36).slice(2, 9) + '-' + Date.now();
 	};
 	const chatSessionId = generateNewSessionId();
-	
+
 	const initConversation = async () => {
 		await fetch(`/api/chat-history/${chatSessionId}`, {
 			method: 'POST',
@@ -159,9 +152,9 @@
 				enduser_phone: enduserPhone
 			})
 		});
-		localStorage.setItem("enduserName", enduserName);
-		localStorage.setItem("enduserEmail", enduserEmail);
-		localStorage.setItem("enduserPhone", enduserPhone);
+		localStorage.setItem('enduserName', enduserName);
+		localStorage.setItem('enduserEmail', enduserEmail);
+		localStorage.setItem('enduserPhone', enduserPhone);
 	};
 
 	const submitQuery = () => {
@@ -210,14 +203,16 @@
     background-color: var(--bg)"
 	class="h-full flex flex-col justify-between rounded-2xl overflow-hidden flex-1 relative"
 >
-{#if settings?.headerEnabled && settings.publicTitle !== '' }
-	<header style="background-color: var(--headerBG)" class="flex p-4 items-center gap-2">
-		<!-- <div class="h-8">
+	{#if settings?.headerEnabled && settings.publicTitle !== ''}
+		<header style="background-color: var(--headerBG)" class="flex p-4 items-center gap-2">
+			<!-- <div class="h-8">
 				<img src={avatar} alt="" class="h-full" />
 		</div> -->
-		<h1 class="font-light text-sm" style="color: var(--headerTitle)">{settings.publicTitle ? settings.publicTitle : ''}</h1>
-	</header>
-{/if}
+			<h1 class="font-light text-sm" style="color: var(--headerTitle)">
+				{settings.publicTitle ? settings.publicTitle : ''}
+			</h1>
+		</header>
+	{/if}
 	<div class="overflow-y-auto scroll-smooth h-full flex-1" bind:this={chatWindow}>
 		<button
 			class="z-20 absolute top-2.5 right-2.5 btn btn-circle btn-sm btn-ghost flex items-center justify-center"
@@ -236,27 +231,32 @@
 		<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 		<!-- svelte-ignore a11y-label-has-associated-control -->
 		<div class="p-2">
-
-		<slot>
-			{#each messages as msg}
-				<div class="chat relative !overflow-visible w-auto {msg.sender == 'bot' ? 'chat-start' : 'chat-end'}">
-					{#if msg.sender === 'bot' && avatar}
-						<div class="chat-image avatar">
-							<div class="w-10">
-								<img src={avatar} alt="" />
-							</div>
-						</div>
-					{/if}
+			<slot>
+				{#each messages as msg}
 					<div
-						class="chat-bubble relative"
-						style={msg.sender == 'bot'
-							? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
-							: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
+						class="chat relative !overflow-visible w-auto {msg.sender == 'bot'
+							? 'chat-start'
+							: 'chat-end'}"
 					>
-						<div class="message-body">
-							{@html postProcessMsgHTML(marked.parse(msg.text, { mangle: false, headerIds: false }))}
-						</div>
-						<!-- {#if msg.sender === 'bot'}
+						{#if msg.sender === 'bot' && avatar}
+							<div class="chat-image avatar">
+								<div class="w-10">
+									<img src={avatar} alt="" />
+								</div>
+							</div>
+						{/if}
+						<div
+							class="chat-bubble relative"
+							style={msg.sender == 'bot'
+								? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
+								: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
+						>
+							<div class="message-body">
+								{@html postProcessMsgHTML(
+									marked.parse(msg.text, { mangle: false, headerIds: false })
+								)}
+							</div>
+							<!-- {#if msg.sender === 'bot'}
 							<div class="absolute dropdown dropdown-bottom dropdown-end -right-10 top-0 text-sm text-white">
 								<label tabindex="0" class="m-1 btn btn-sm btn-ghost btn-circle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3c-.825 0-1.5.675-1.5 1.5S11.175 6 12 6s1.5-.675 1.5-1.5S12.825 3 12 3Zm0 15c-.825 0-1.5.675-1.5 1.5S11.175 21 12 21s1.5-.675 1.5-1.5S12.825 18 12 18Zm0-7.5c-.825 0-1.5.675-1.5 1.5s.675 1.5 1.5 1.5s1.5-.675 1.5-1.5s-.675-1.5-1.5-1.5Z"/></svg></label>
 								<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded bg-neutral ">
@@ -273,60 +273,60 @@
 								</ul>
 							</div>
 						{/if} -->
-					</div>
-				</div>
-			{/each}
-		</slot>
-		
-		{#if isThinking}
-			<div class="chat chat-start">
-				{#if avatar}
-					<div class="chat-image avatar">
-						<div class="w-10 rounded-full">
-							<img src={avatar} alt="" />
 						</div>
 					</div>
-				{/if}
-				<div
-					class="chat-bubble"
-					style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"
-				>
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-						><circle cx="4" cy="12" r="3" fill="currentColor"
-							><animate
-								id="svgSpinners3DotsBounce0"
-								attributeName="cy"
-								begin="0;svgSpinners3DotsBounce1.end+0.25s"
-								calcMode="spline"
-								dur="0.6s"
-								keySplines=".33,.66,.66,1;.33,0,.66,.33"
-								values="12;6;12"
-							/></circle
-						><circle cx="12" cy="12" r="3" fill="currentColor"
-							><animate
-								attributeName="cy"
-								begin="svgSpinners3DotsBounce0.begin+0.1s"
-								calcMode="spline"
-								dur="0.6s"
-								keySplines=".33,.66,.66,1;.33,0,.66,.33"
-								values="12;6;12"
-							/></circle
-						><circle cx="20" cy="12" r="3" fill="currentColor"
-							><animate
-								id="svgSpinners3DotsBounce1"
-								attributeName="cy"
-								begin="svgSpinners3DotsBounce0.begin+0.2s"
-								calcMode="spline"
-								dur="0.6s"
-								keySplines=".33,.66,.66,1;.33,0,.66,.33"
-								values="12;6;12"
-							/></circle
-						></svg
+				{/each}
+			</slot>
+
+			{#if isThinking}
+				<div class="chat chat-start">
+					{#if avatar}
+						<div class="chat-image avatar">
+							<div class="w-10 rounded-full">
+								<img src={avatar} alt="" />
+							</div>
+						</div>
+					{/if}
+					<div
+						class="chat-bubble"
+						style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"
 					>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+							><circle cx="4" cy="12" r="3" fill="currentColor"
+								><animate
+									id="svgSpinners3DotsBounce0"
+									attributeName="cy"
+									begin="0;svgSpinners3DotsBounce1.end+0.25s"
+									calcMode="spline"
+									dur="0.6s"
+									keySplines=".33,.66,.66,1;.33,0,.66,.33"
+									values="12;6;12"
+								/></circle
+							><circle cx="12" cy="12" r="3" fill="currentColor"
+								><animate
+									attributeName="cy"
+									begin="svgSpinners3DotsBounce0.begin+0.1s"
+									calcMode="spline"
+									dur="0.6s"
+									keySplines=".33,.66,.66,1;.33,0,.66,.33"
+									values="12;6;12"
+								/></circle
+							><circle cx="20" cy="12" r="3" fill="currentColor"
+								><animate
+									id="svgSpinners3DotsBounce1"
+									attributeName="cy"
+									begin="svgSpinners3DotsBounce0.begin+0.2s"
+									calcMode="spline"
+									dur="0.6s"
+									keySplines=".33,.66,.66,1;.33,0,.66,.33"
+									values="12;6;12"
+								/></circle
+							></svg
+						>
+					</div>
 				</div>
-			</div>
-		{/if}
-	</div>
+			{/if}
+		</div>
 
 		<div id="chat-bottom" class="h-1" />
 	</div>
@@ -340,7 +340,6 @@
 			</a></div> -->
 		<div>
 			<div class="relative">
-
 				<input
 					type="text"
 					placeholder={settings.inputPlaceholder}
@@ -350,23 +349,23 @@
 					{disabled}
 				/>
 				{#if settings.sendButtonEnabled}
-				<button
-					class="send-button btn btn-square btn-sm border-none rounded-lg join-item focus-within:outline-none absolute right-2 top-2"
-					type="submit"
-					name="Send"
-					style="background-color: var(--sendButtonBG); color: var(--sendButtonIconColor);"
-				>
-					<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-						><path
-							fill="none"
-							stroke="currentColor"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M9.912 12H4L2.023 4.135A.662.662 0 0 1 2 3.995c-.022-.721.772-1.221 1.46-.891L22 12L3.46 20.896c-.68.327-1.464-.159-1.46-.867a.66.66 0 0 1 .033-.186L3.5 15"
-						/></svg
+					<button
+						class="send-button btn btn-square btn-sm border-none rounded-lg join-item focus-within:outline-none absolute right-2 top-2"
+						type="submit"
+						name="Send"
+						style="background-color: var(--sendButtonBG); color: var(--sendButtonIconColor);"
 					>
-				</button>
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+							><path
+								fill="none"
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M9.912 12H4L2.023 4.135A.662.662 0 0 1 2 3.995c-.022-.721.772-1.221 1.46-.891L22 12L3.46 20.896c-.68.327-1.464-.159-1.46-.867a.66.66 0 0 1 .033-.186L3.5 15"
+							/></svg
+						>
+					</button>
 				{/if}
 			</div>
 		</div>
@@ -411,19 +410,45 @@
 	</style>
 
 	{#if collectUserInfo && !userInfoReceived && showUserInfoCollection}
-		<form class="absolute bottom-0 left-0 right-0 grid gap-1 p-8" style="background-color: var(--bg); color: var(--inputText)">
+		<form
+			class="absolute bottom-0 left-0 right-0 grid gap-1 p-8"
+			style="background-color: var(--bg); color: var(--inputText)"
+		>
 			<div class="join join-vertical">
 				{#if settings.collectUserName}
-						<input type="text" class="input join-item w-full placeholder:text-sm" style="background-color: var(--inputBG); border-color: var(--inputBorder);" placeholder="Name" bind:value={enduserName}>
+					<input
+						type="text"
+						class="input join-item w-full placeholder:text-sm"
+						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
+						placeholder="Name"
+						bind:value={enduserName}
+					/>
 				{/if}
 				{#if settings.collectUserEmail}
-					<input type="text" class="input join-item w-full placeholder:text-sm" style="background-color: var(--inputBG); border-color: var(--inputBorder);" placeholder="Email" bind:value={enduserEmail}>
+					<input
+						type="text"
+						class="input join-item w-full placeholder:text-sm"
+						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
+						placeholder="Email"
+						bind:value={enduserEmail}
+					/>
 				{/if}
 				{#if settings.collectUserPhone}
-
-					<input type="text" class="input join-item w-full placeholder:text-sm" style="background-color: var(--inputBG); border-color: var(--inputBorder);" placeholder="Phone" bind:value={enduserPhone}>
+					<input
+						type="text"
+						class="input join-item w-full placeholder:text-sm"
+						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
+						placeholder="Phone"
+						bind:value={enduserPhone}
+					/>
 				{/if}
-				<input type="submit" class="btn join-item border-none"  value="Start Chatting" on:click={handleUserInfoSubmit} style="background-color: var(--botBubbleBG); color: var(--botBubbleText)">
+				<input
+					type="submit"
+					class="btn join-item border-none"
+					value="Start Chatting"
+					on:click={handleUserInfoSubmit}
+					style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"
+				/>
 			</div>
 		</form>
 	{/if}

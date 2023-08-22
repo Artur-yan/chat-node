@@ -16,7 +16,7 @@
 			img: Thomas
 		},
 		{
-			fname: 'Eric',	
+			fname: 'Eric',
 			lname: 'Brenner',
 			title: 'Web Developer',
 			bio: 'Eric is obsessed with design and efficiency. He’s joined forces in building websites for some huge brands to try to make the internet a more enjoyable place.',

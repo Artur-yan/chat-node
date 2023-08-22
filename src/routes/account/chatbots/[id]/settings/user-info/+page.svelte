@@ -2,7 +2,6 @@
 	import { currentBot } from '$lib/stores.js';
 
 	export let data;
-
 </script>
 
 <div class="card bg-neutral card-compact mb-4">
@@ -36,6 +35,5 @@
 				<span class="label-text">Collect Phone?</span>
 			</label>
 		</div>
-
 	</div>
 </div>

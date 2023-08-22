@@ -1,21 +1,23 @@
 <script lang="ts">
-	
 	import { defaultSettings } from '$lib/models';
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import themes from '$lib/chatThemes';
 	import { currentBot } from '$lib/stores.js';
 	import { enhance } from '$app/forms';
 	import { alert } from '$lib/stores';
-	
+
 	export let data;
 	export let form;
-	
+
 	let selectedTheme = $currentBot.settings.theme.name || 'default';
 	let uploadedImage: string | null;
 
 	const checkIfThemeSaved = () => {
-		if (JSON.stringify($currentBot.settings.theme) !== JSON.stringify(themes[$currentBot.settings.theme.name])) {
-			selectedTheme = 'custom'
+		if (
+			JSON.stringify($currentBot.settings.theme) !==
+			JSON.stringify(themes[$currentBot.settings.theme.name])
+		) {
+			selectedTheme = 'custom';
 			$currentBot.settings.theme.name = 'custom';
 		}
 	};
@@ -33,7 +35,7 @@
 		};
 		uploadedImage = null;
 	}
-		
+
 	const handleAvatarSelect = async (e: Event) => {
 		const image = (e.target as HTMLInputElement)?.files?.[0];
 		if (!image) return;
@@ -61,7 +63,7 @@
 					value="default"
 					bind:group={selectedTheme}
 				/>
-				<label for="default"  class="!bg-[#0F172A] !text-[#818CF8]">ChatNode</label>
+				<label for="default" class="!bg-[#0F172A] !text-[#818CF8]">ChatNode</label>
 			</div>
 			<div>
 				<input
@@ -121,123 +123,111 @@
 		</div>
 	</div>
 	<div class="card-body">
-
-		<h3 class="font-bold">
-			Misc.
-		</h3>
+		<h3 class="font-bold">Misc.</h3>
 
 		<div class="grid grid-cols-4 gap-2 items-end">
-
-
 			<ColorPicker bind:hex={$currentBot.settings.theme.bg} label="Chat Background" />
 
 			<ColorPicker bind:hex={$currentBot.settings.theme.resetButton} label="Reset Button" />
 		</div>
 
-		<hr class="border-base-300 my-4">
+		<hr class="border-base-300 my-4" />
 
-		
 		<div class="flex justify-between items-center">
 			<h3 class="font-bold">Header</h3>
 			<div class="form-control inline-flex">
 				<label class="cursor-pointer label justify-start gap-2">
-					<span class="label-text">Enable</span> 
-					<input type="checkbox" class="toggle toggle-sm" class:toggle-success={$currentBot.settings.headerEnabled} bind:checked={$currentBot.settings.headerEnabled} />
+					<span class="label-text">Enable</span>
+					<input
+						type="checkbox"
+						class="toggle toggle-sm"
+						class:toggle-success={$currentBot.settings.headerEnabled}
+						bind:checked={$currentBot.settings.headerEnabled}
+					/>
 				</label>
 			</div>
 		</div>
-		
+
 		{#if $currentBot.settings.headerEnabled}
-		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
-			<div>
-						<label for="public-title" class="label">
-							<span class="label-text">Header Title</span>
-						</label>
-						<input
-							class="input input-sm w-full"
-							type="text"
-							name="public-title"
-							bind:value={$currentBot.settings.publicTitle}
-						/>	
-					</div>
+			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
+				<div>
+					<label for="public-title" class="label">
+						<span class="label-text">Header Title</span>
+					</label>
+					<input
+						class="input input-sm w-full"
+						type="text"
+						name="public-title"
+						bind:value={$currentBot.settings.publicTitle}
+					/>
+				</div>
 				<ColorPicker bind:hex={$currentBot.settings.theme.headerTitle} label="Title Text" />
 				<ColorPicker bind:hex={$currentBot.settings.theme.headerBG} label="Background" />
 			</div>
-			{/if}
+		{/if}
 
-			<hr class="border-base-300 my-4">
+		<hr class="border-base-300 my-4" />
 
-			<h3 class="font-bold">
-				Chat Bubbles
-			</h3>
-			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
+		<h3 class="font-bold">Chat Bubbles</h3>
+		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.botBubbleBG}
+				label="Bot Bubble Background"
+			/>
+			<ColorPicker bind:hex={$currentBot.settings.theme.botBubbleText} label="Bot Bubble Text" />
 
-				
-						<ColorPicker
-							bind:hex={$currentBot.settings.theme.botBubbleBG}
-							label="Bot Bubble Background"
-						/>
-						<ColorPicker
-							bind:hex={$currentBot.settings.theme.botBubbleText}
-							label="Bot Bubble Text"
-						/>
-					
-						<ColorPicker
-							bind:hex={$currentBot.settings.theme.userBubbleBG}
-							label="User Bubble Background"
-						/>
-						<ColorPicker
-							bind:hex={$currentBot.settings.theme.userBubbleText}
-							label="User Bubble Text"
-						/>
-				</div>
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.userBubbleBG}
+				label="User Bubble Background"
+			/>
+			<ColorPicker bind:hex={$currentBot.settings.theme.userBubbleText} label="User Bubble Text" />
+		</div>
 
-				<hr class="border-base-300 my-4">
+		<hr class="border-base-300 my-4" />
 
-				<h3 class="font-bold">
-					Chat Input
-				</h3>
-				<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
-	
-	
-						<div>
-							<label for="public-title" class="label">
-								<span class="label-text">Placeholder Text</span>
-							</label>
-							<input
-								class="input input-sm w-full"
-								type="text"
-								name="public-title"
-								placeholder="<none>"
-								bind:value={$currentBot.settings.inputPlaceholder}
-							/>
-						</div>
-						<ColorPicker bind:hex={$currentBot.settings.theme.inputBG} label=" Background" />
-						<ColorPicker bind:hex={$currentBot.settings.theme.inputText} label="Text" />
-						<ColorPicker bind:hex={$currentBot.settings.theme.inputBorder} label="Border" />
-				</div>
-	
-				<hr class="border-base-300 my-4">
+		<h3 class="font-bold">Chat Input</h3>
+		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
+			<div>
+				<label for="public-title" class="label">
+					<span class="label-text">Placeholder Text</span>
+				</label>
+				<input
+					class="input input-sm w-full"
+					type="text"
+					name="public-title"
+					placeholder="<none>"
+					bind:value={$currentBot.settings.inputPlaceholder}
+				/>
+			</div>
+			<ColorPicker bind:hex={$currentBot.settings.theme.inputBG} label=" Background" />
+			<ColorPicker bind:hex={$currentBot.settings.theme.inputText} label="Text" />
+			<ColorPicker bind:hex={$currentBot.settings.theme.inputBorder} label="Border" />
+		</div>
 
-				<div class="flex justify-between items-center">
-					<h2 class="font-bold">Send Button</h2>
-					<div class="form-control inline-flex">
-						<label class="cursor-pointer label justify-start gap-2">
-							<span class="label-text">Enable</span> 
-							<input type="checkbox" class="toggle toggle-sm" class:toggle-success={$currentBot.settings.sendButtonEnabled} bind:checked={$currentBot.settings.sendButtonEnabled} />
-						</label>
-					</div>
-				</div>
+		<hr class="border-base-300 my-4" />
 
-				{#if $currentBot.settings.sendButtonEnabled}
-				<div class="grid grid-cols-4 gap-2 items-end">
+		<div class="flex justify-between items-center">
+			<h2 class="font-bold">Send Button</h2>
+			<div class="form-control inline-flex">
+				<label class="cursor-pointer label justify-start gap-2">
+					<span class="label-text">Enable</span>
+					<input
+						type="checkbox"
+						class="toggle toggle-sm"
+						class:toggle-success={$currentBot.settings.sendButtonEnabled}
+						bind:checked={$currentBot.settings.sendButtonEnabled}
+					/>
+				</label>
+			</div>
+		</div>
 
+		{#if $currentBot.settings.sendButtonEnabled}
+			<div class="grid grid-cols-4 gap-2 items-end">
+				<ColorPicker bind:hex={$currentBot.settings.theme.sendButtonBG} label="Background" />
 
-					<ColorPicker bind:hex={$currentBot.settings.theme.sendButtonBG} label="Background" />
-
-					<ColorPicker bind:hex={$currentBot.settings.theme.sendButtonIconColor} label="Icon Color" />
-				</div>
-				{/if}
+				<ColorPicker bind:hex={$currentBot.settings.theme.sendButtonIconColor} label="Icon Color" />
+			</div>
+		{/if}
 	</div>
 </div>
 

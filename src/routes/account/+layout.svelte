@@ -13,14 +13,13 @@
 	export let data: LayoutData;
 
 	onMount(() => {
-		if(PUBLIC_ENVIRONMENT === 'production') {
-
-		const { enableAutoPageviews } = Plausible({
-			domain: 'chatnode.ai',
-			apiHost: 'https://www.chatnode.ai/events'
-		});
-		enableAutoPageviews();
-	}
+		if (PUBLIC_ENVIRONMENT === 'production') {
+			const { enableAutoPageviews } = Plausible({
+				domain: 'chatnode.ai',
+				apiHost: 'https://www.chatnode.ai/events'
+			});
+			enableAutoPageviews();
+		}
 	});
 
 	if (systemSettings.maintenanceAlert) {

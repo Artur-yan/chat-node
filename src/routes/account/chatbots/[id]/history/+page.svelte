@@ -56,13 +56,19 @@
 				<li class="menu-title text-base-content">No chat history</li>
 			{/if}
 			{#each chatHistory as chat}
-			<!-- {chat.enduser_phone ? chat.enduser_phone : ''} -->
-			{@const date = chat.created_at.toLocaleString([], {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'})}
-			<li>
-
+				<!-- {chat.enduser_phone ? chat.enduser_phone : ''} -->
+				{@const date = chat.created_at.toLocaleString([], {
+					year: 'numeric',
+					month: 'numeric',
+					day: 'numeric',
+					hour: '2-digit',
+					minute: '2-digit'
+				})}
+				<li>
 					<button
 						class="chat-{chat.session_id} block"
-						on:click|preventDefault={() => getChatConversation(chat.session_id)}>
+						on:click|preventDefault={() => getChatConversation(chat.session_id)}
+					>
 						<div class="space-x-2">
 							<span>{chat.enduser_name ? chat.enduser_name : ''}</span>
 							<span>{chat.enduser_email ? chat.enduser_email : ''}</span>
@@ -93,9 +99,8 @@
 	</div>
 </div>
 
-
 <style lang="postcss">
-	.active{
-		@apply border-secondary border
+	.active {
+		@apply border-secondary border;
 	}
 </style>

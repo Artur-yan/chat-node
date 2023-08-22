@@ -1,6 +1,4 @@
 <script>
-	export let user;
-
 	import Icon from '@iconify/svelte';
 
 	let links = [

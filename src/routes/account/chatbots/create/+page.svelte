@@ -6,7 +6,6 @@
 
 	export let data;
 
-
 	const botUsage: number = data.bots.length / data.subscription.max_bot;
 
 	onMount(() => {
@@ -66,7 +65,13 @@
 		</div>
 		<div>
 			<div class="h-[calc(100vh_-_16rem)] sticky top-10 border-4 rounded-xl border-neutral">
-				<Chat {modelId} bind:messages bind:trainingStatus {settings} userId={data.user.user.userId} />
+				<Chat
+					{modelId}
+					bind:messages
+					bind:trainingStatus
+					{settings}
+					userId={data.user.user.userId}
+				/>
 			</div>
 		</div>
 	</div>

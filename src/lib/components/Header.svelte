@@ -13,7 +13,7 @@
 		{
 			title: 'Blog',
 			href: '/blog'
-		},
+		}
 	];
 </script>
 

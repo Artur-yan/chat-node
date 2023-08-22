@@ -4,7 +4,6 @@
 
 	export let data;
 
-
 	let settings = data.bot.settings;
 </script>
 

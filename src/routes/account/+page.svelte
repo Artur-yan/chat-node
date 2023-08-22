@@ -7,7 +7,10 @@
 	import Plausible from 'plausible-tracker';
 
 	onMount(async () => {
-		if ($page.url.searchParams.get('plan-change') === 'success' && PUBLIC_ENVIRONMENT === 'production') {
+		if (
+			$page.url.searchParams.get('plan-change') === 'success' &&
+			PUBLIC_ENVIRONMENT === 'production'
+		) {
 			const { trackEvent } = Plausible({
 				domain: 'chatnode.ai',
 				apiHost: 'https://www.chatnode.ai/events'
@@ -31,7 +34,6 @@
 					trackEvent('Switch to Enterprise+');
 					break;
 			}
-
 		}
 	});
 	$alert = 'Plan changed successfully!';

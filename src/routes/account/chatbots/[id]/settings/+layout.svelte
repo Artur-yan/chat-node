@@ -6,7 +6,7 @@
 	import { beforeNavigate, goto, invalidateAll } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
 	import { defaultSettings } from '$lib/models.js';
-	
+
 	export let data;
 
 	const links = [
@@ -18,16 +18,16 @@
 		{ name: 'Delete', url: 'delete' }
 	];
 	let saved = true;
-	let showUserInfoCollection = true
+	let showUserInfoCollection = true;
 	let nextURL: string;
 	let warningIgnored = false;
 
 	// Merge bot with defaults
-	$currentBot.settings = {...defaultSettings, ...$currentBot.settings};
+	$currentBot.settings = { ...defaultSettings, ...$currentBot.settings };
 
 	// capture the current state of the bot on load
 	let saveState = JSON.stringify($currentBot);
-	
+
 	const checkIfSaved = () => {
 		if (saveState === JSON.stringify($currentBot)) {
 			saved = true;
@@ -46,13 +46,13 @@
 
 	const handleSave = async () => {
 		$state = 'saving';
-		try {	 
+		try {
 			await updateModel($currentBot.id, $currentBot.name, $currentBot.settings);
 		} catch (err) {
 			$alert = { type: 'error', msg: err };
 			$state = 'error';
 			return;
-		}	
+		}
 		saveState = JSON.stringify($currentBot);
 		$state = 'saved';
 		saved = true;
@@ -66,7 +66,6 @@
 		saved = true;
 	};
 
-
 	beforeNavigate(({ to, cancel }) => {
 		if (!saved && !warningIgnored) {
 			cancel();
@@ -77,7 +76,6 @@
 
 	$: $currentBot, checkIfSaved();
 	$: currentPath = $page.url.pathname.split('/').pop();
-
 </script>
 
 <div
@@ -101,7 +99,14 @@
 					class="btn btn-outline btn-warning btn-sm btn-square"
 					disabled={saved}
 					type="button"
-					on:click={() => confirmDiscard.showModal()}><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 1024 1024"><path fill="currentColor" d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504L738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512L828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496L285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512L195.2 285.696a64 64 0 0 1 0-90.496z"/></svg></button>
+					on:click={() => confirmDiscard.showModal()}
+					><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 1024 1024"
+						><path
+							fill="currentColor"
+							d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504L738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512L828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496L285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512L195.2 285.696a64 64 0 0 1 0-90.496z"
+						/></svg
+					></button
+				>
 				<button
 					class="btn btn-outline btn-success flex-1"
 					disabled={saved}
@@ -114,7 +119,6 @@
 					{$state == 'saving' ? 'Saving' : 'Save'}</button
 				>
 			</div>
-				
 		</div>
 	</div>
 	<div>
@@ -128,17 +132,21 @@
 				settings={$currentBot.settings}
 				trainingStatus={data.model.status}
 				avatar={$currentBot.avatar_img}
-				userId = {data.user.session.userId}
+				userId={data.user.session.userId}
 				{showUserInfoCollection}
 			/>
 			{#if $currentBot.settings.collectUserName || $currentBot.settings.collectUserEmail || $currentBot.settings.collectUserPhone}
-			<div class="form-control">
-				<label class="label cursor-pointer justify-start gap-2">
-					<input type="checkbox" class="checkbox checkbox-sm" bind:checked={showUserInfoCollection} />
-				  <span class="label-text">Show User Info Form Preview</span> 
-				</label>
-			  </div>
-			  {/if}
+				<div class="form-control">
+					<label class="label cursor-pointer justify-start gap-2">
+						<input
+							type="checkbox"
+							class="checkbox checkbox-sm"
+							bind:checked={showUserInfoCollection}
+						/>
+						<span class="label-text">Show User Info Form Preview</span>
+					</label>
+				</div>
+			{/if}
 		</div>
 	</div>
 </div>
@@ -154,8 +162,6 @@
 <Modal id="confirmDiscard" title="Are you sure you want to dicard your edits?">
 	<svelte:fragment slot="actions">
 		<button class="btn btn-success btn-outline">Cancel</button>
-		<button class="btn btn-error btn-outline" on:click={handleDiscard}
-			>Discard Changes</button
-		>
+		<button class="btn btn-error btn-outline" on:click={handleDiscard}>Discard Changes</button>
 	</svelte:fragment>
 </Modal>

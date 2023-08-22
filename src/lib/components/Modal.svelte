@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let id: string;
 	export let title: string;
-	export let maxWidth = '32rem'
+	export let maxWidth = '32rem';
 </script>
 
 <dialog {id} class="modal">

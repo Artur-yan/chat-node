@@ -5,7 +5,7 @@
 	let chatSettings = {
 		...defaultSettings
 	};
-	chatSettings.theme.resetButton = "#FFFFFF88"
+	chatSettings.theme.resetButton = '#FFFFFF88';
 
 	import MorphingText from '$lib/components/MorphingText.svelte';
 

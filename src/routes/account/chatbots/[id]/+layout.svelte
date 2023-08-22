@@ -48,37 +48,36 @@
 			{/if} -->
 		</div>
 		<div class="tabs tabs-boxed bg-neutral">
-				<a
-					href="/account/chatbots/{$page.params.id}/"
-					class="tab"
-					class:tab-active={currentPath[1] === $page.params.id}>Chat</a
-				>
-				<a
-					href="/account/chatbots/{$page.params.id}/share"
-					class="tab"
-					class:tab-active={currentPath[1] === 'share'}>Share</a
-				>
-				<a
-					href="/account/chatbots/{$page.params.id}/integrations"
-					class="tab"
-					class:tab-active={currentPath[1] === 'integrations'}>Integrations</a
-				>
-				<a
-					href="/account/chatbots/{$page.params.id}/data"
-					class="tab"
-					class:tab-active={currentPath[1] === 'data'}>Data</a
-				>
-				<a
-					href="/account/chatbots/{$page.params.id}/history"
-					class="tab"
-					class:tab-active={currentPath[1] === 'history'}>History</a
-				>
-				<a
-					href="/account/chatbots/{$page.params.id}/settings"
-					class="tab"
-					class:tab-active={currentPath[0] === 'settings'}>Settings</a
-				>
-
+			<a
+				href="/account/chatbots/{$page.params.id}/"
+				class="tab"
+				class:tab-active={currentPath[1] === $page.params.id}>Chat</a
+			>
+			<a
+				href="/account/chatbots/{$page.params.id}/share"
+				class="tab"
+				class:tab-active={currentPath[1] === 'share'}>Share</a
+			>
+			<a
+				href="/account/chatbots/{$page.params.id}/integrations"
+				class="tab"
+				class:tab-active={currentPath[1] === 'integrations'}>Integrations</a
+			>
+			<a
+				href="/account/chatbots/{$page.params.id}/data"
+				class="tab"
+				class:tab-active={currentPath[1] === 'data'}>Data</a
+			>
+			<a
+				href="/account/chatbots/{$page.params.id}/history"
+				class="tab"
+				class:tab-active={currentPath[1] === 'history'}>History</a
+			>
+			<a
+				href="/account/chatbots/{$page.params.id}/settings"
+				class="tab"
+				class:tab-active={currentPath[0] === 'settings'}>Settings</a
+			>
 		</div>
 	</div>
 </div>

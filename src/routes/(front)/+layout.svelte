@@ -8,7 +8,7 @@
 	import { PUBLIC_ENVIRONMENT } from '$env/static/public';
 
 	onMount(() => {
-		if(PUBLIC_ENVIRONMENT === 'production') {
+		if (PUBLIC_ENVIRONMENT === 'production') {
 			const { enableAutoPageviews } = Plausible({
 				domain: 'chatnode.ai',
 				apiHost: 'https://www.chatnode.ai/events'
@@ -16,7 +16,6 @@
 			enableAutoPageviews();
 		}
 	});
-
 </script>
 
 <svelte:head>
@@ -65,6 +64,7 @@
 				width="1"
 				src="https://www.facebook.com/tr?id=588241380143151&ev=PageView
 		&noscript=1"
+				alt=""
 			/>
 		</noscript>
 	{/if}

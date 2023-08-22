@@ -25,8 +25,7 @@
 	$: botUsage = data.bots.length / data.subscription.max_bot;
 
 	onMount(() => {
-		if(PUBLIC_ENVIRONMENT === 'production') {
-
+		if (PUBLIC_ENVIRONMENT === 'production') {
 			const { trackEvent } = Plausible({
 				domain: 'chatnode.ai',
 				apiHost: 'https://www.chatnode.ai/events'
