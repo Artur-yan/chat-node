@@ -49,15 +49,16 @@
 				<button type="submit" class="btn btn-primary w-full my-4">
 					<span class={loading ? 'loading' : 'invisible'} />
 
-					Sign in</button
-				>
+					Sign in
+				</button>
 			</form>
 			<div>
 				<a
 					class="link text-sm"
 					href="/login/forgot-password{email != '' ? '?email=' + encodeURIComponent(email) : ''}"
-					>Forgot password?</a
 				>
+					Forgot password?
+				</a>
 				<p class="text-sm mt-4">
 					Don't have an account? <a href="/register" class="link">Create an account</a>
 				</p>

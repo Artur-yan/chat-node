@@ -102,8 +102,10 @@
 					<button
 						class="btn btn-outline btn-secondary join-item"
 						on:click={handleUpdateApiKey}
-						disabled={!plansWithApiFeature.includes(data.subscription.plan)}>Generate</button
+						disabled={!plansWithApiFeature.includes(data.subscription.plan)}
 					>
+						Generate
+					</button>
 				</div>
 			{:else}
 				<div class="alert mb-2 text-warning">API access is available on the Enterprise plans</div>

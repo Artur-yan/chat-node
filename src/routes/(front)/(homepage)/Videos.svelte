@@ -17,16 +17,22 @@
 		>
 			<button
 				class="btn join-item btn-primary {activeTab == 0 ? 'active' : 'btn-outline'}"
-				on:click={() => (activeTab = 0)}>Overview</button
+				on:click={() => (activeTab = 0)}
 			>
+				Overview
+			</button>
 			<button
 				class="btn join-item btn-primary {activeTab == 1 ? 'active' : 'btn-outline'}"
-				on:click={() => (activeTab = 1)}>Embed</button
+				on:click={() => (activeTab = 1)}
 			>
+				Embed
+			</button>
 			<button
 				class="btn join-item btn-primary {activeTab == 2 ? 'active' : 'btn-outline'}"
-				on:click={() => (activeTab = 2)}>Personal OpenAI API Key</button
+				on:click={() => (activeTab = 2)}
 			>
+				Personal OpenAI API Key
+			</button>
 		</div>
 		<div>
 			{#if activeTab === 0}

@@ -40,14 +40,16 @@
 	<div class="container flex items-center justify-between gap-4 flex-wrap">
 		<h1 class="py-1 px-2">Account</h1>
 		<div class="tabs tabs-boxed bg-neutral">
-			<a href={settingsPath} class="tab" class:tab-active={settingsPath == $page.url.pathname}
-				>Settings</a
-			>
+			<a href={settingsPath} class="tab" class:tab-active={settingsPath == $page.url.pathname}>
+				Settings
+			</a>
 			<a
 				href={subscriptionPath}
 				class="tab"
-				class:tab-active={subscriptionPath == $page.url.pathname}>Subscription</a
+				class:tab-active={subscriptionPath == $page.url.pathname}
 			>
+				Subscription
+			</a>
 			<button on:click={redirectToStripeBilling} class="tab">Billing</button>
 		</div>
 	</div>
@@ -58,9 +60,9 @@
 			<div class="card-body">
 				<div class="flex justify-between">
 					<h4>{data.subscription.cancel_at ? 'Cancellaton date' : 'Next Billing Cycle'}</h4>
-					<span class="opacity-60"
-						>{data.subscription?.next_billing_cycle?.toLocaleDateString()}</span
-					>
+					<span class="opacity-60">
+						{data.subscription?.next_billing_cycle?.toLocaleDateString()}
+					</span>
 				</div>
 				<progress
 					class="progress progress-secondary h-1 w-full bg-neutral"

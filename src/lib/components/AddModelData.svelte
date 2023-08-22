@@ -256,8 +256,8 @@
 			on:click={() => createOrUpdateModel()}
 		>
 			<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
-			Train Bot</button
-		>
+			Train Bot
+		</button>
 	{:else if activeTab == 1}
 		<div>
 			<textarea
@@ -285,8 +285,8 @@
 			>
 				<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
 
-				Train Bot</button
-			>
+				Train Bot
+			</button>
 		</div>
 	{:else if activeTab == 2}
 		<form on:submit={() => fetchUrlsToScrape()}>
@@ -322,9 +322,10 @@
 									checked
 									bind:this={selectAllUrlsCheckbox}
 									on:change={handleSelectAllUrls}
-								/>URL</label
-							></th
-						>
+								/>
+								URL
+							</label>
+						</th>
 						<th>Tokens</th>
 					</tr>
 				</thead>
@@ -339,15 +340,18 @@
 										value={url.s3_key}
 										bind:group={selectedUrls}
 									/>
-									{url.url}</label
-								></td
-							>
+									{url.url}
+								</label>
+							</td>
 							<td>{url.token.toLocaleString()}</td>
 						</tr>
 					{/each}
 					{#if busyFetchingUrls}
 						<tr>
-							<td class="flex items-center"><span class="loading loading-sm mr-2" /> loading</td>
+							<td class="flex items-center">
+								<span class="loading loading-sm mr-2" />
+								 loading
+							</td>
 							<td />
 						</tr>
 					{/if}
@@ -382,8 +386,8 @@
 			>
 				<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
 
-				Train Bot</button
-			>
+				Train Bot
+			</button>
 		{/if}
 	{/if}
 </div>

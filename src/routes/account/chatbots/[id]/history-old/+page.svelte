@@ -48,8 +48,9 @@
 			{#each chatHistory as chat}
 				{@const date = new Date(Number(chat.split('-')[1])).toLocaleString()}
 				<li>
-					<a class="chat-{chat}" on:click|preventDefault={() => getChatConversation(chat)}>{date}</a
-					>
+					<a class="chat-{chat}" on:click|preventDefault={() => getChatConversation(chat)}>
+						{date}
+					</a>
 				</li>
 			{/each}
 		</ul>

@@ -90,15 +90,17 @@
 									{/if}
 								</td>
 								<td>{modelData.token_count}</td>
-								<td
-									><button
+								<td>
+									<button
 										class="btn btn-sm btn-circle btn-ghost text-error"
 										on:click={() => {
 											sourceToDelete = modelData;
 											deleteDataSourceModal.showModal();
-										}}><Icon icon="mdi:delete-outline" width="16" /></button
-									></td
-								>
+										}}
+									>
+										<Icon icon="mdi:delete-outline" width="16" />
+									</button>
+								</td>
 							</tr>
 						{/each}
 					</table>
@@ -125,9 +127,9 @@
 			<h3 class="font-bold text-lg">Are you sure you want to delete this data source?</h3>
 			<p class="py-4" />
 			<button class="btn">Cancel</button>
-			<button class="btn btn-error" on:click={() => deleteBotSource(sourceToDelete.s3_key)}
-				>Delete</button
-			>
+			<button class="btn btn-error" on:click={() => deleteBotSource(sourceToDelete.s3_key)}>
+				Delete
+			</button>
 		{:else}
 			<h3 class="font-bold text-lg text-error">Error</h3>
 			<div class="my-4">

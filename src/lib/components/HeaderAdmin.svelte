@@ -70,14 +70,16 @@
 			<div class="flex items-center lg:order-2">
 				<a
 					class="btn btn-ghost rounded-none text-primary btn-xs md:btn-md md:text-xs"
-					href="/account/chatbots">Dashboard</a
+					href="/account/chatbots"
 				>
+					Dashboard
+				</a>
 				<div class="dropdown dropdown-end">
 					<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label tabindex="0" class="btn btn-ghost rounded-none text-primary"
-						><Icon icon="mdi:account-circle-outline" width="24" /></label
-					>
+					<label tabindex="0" class="btn btn-ghost rounded-none text-primary">
+						<Icon icon="mdi:account-circle-outline" width="24" />
+					</label>
 					<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 					<div
 						tabindex="0"

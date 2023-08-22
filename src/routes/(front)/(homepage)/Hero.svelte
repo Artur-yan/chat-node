@@ -74,8 +74,9 @@
 						</div>
 						<span
 							class="join-item badge badge-lg badge-outline border-accent bg-black font-bold text-xs"
-							>I'm trained on ChatNode</span
 						>
+							I'm trained on ChatNode
+						</span>
 					</div>
 				</div>
 				<div

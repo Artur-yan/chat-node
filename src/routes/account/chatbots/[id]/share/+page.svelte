@@ -32,16 +32,17 @@
 				fill="none"
 				viewBox="0 0 24 24"
 				class="stroke-current shrink-0 w-6 h-6"
-				><path
+			>
+				<path
 					stroke-linecap="round"
 					stroke-linejoin="round"
 					stroke-width="2"
 					d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-				/></svg
-			>
-			<span
-				>Your chatbot is currently set to private. To share it, you must make it public first.</span
-			>
+				/>
+			</svg>
+			<span>
+				Your chatbot is currently set to private. To share it, you must make it public first.
+			</span>
 			<div>
 				<a class="btn btn-sm" href="/account/chatbots/{data.model.id}/settings/sharing">Settings</a>
 			</div>
@@ -76,8 +77,11 @@
 			<p class="text-sm mt-4">
 				To change the colors of the chat window, visit the 'theme' section on the <a
 					class="link"
-					href="settings">settings page</a
-				>.
+					href="settings"
+				>
+					settings page
+				</a>
+				.
 			</p>
 			<div class="form-control mt-4">
 				<label class="label cursor-pointer justify-start gap-2">

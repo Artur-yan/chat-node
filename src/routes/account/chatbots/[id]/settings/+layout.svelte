@@ -89,8 +89,10 @@
 					<li>
 						<a
 							href="/account/chatbots/{$page.params.id}/settings/{link.url}"
-							class:active={link.url === currentPath}>{link.name}</a
+							class:active={link.url === currentPath}
 						>
+							{link.name}
+						</a>
 					</li>
 				{/each}
 			</ul>
@@ -100,13 +102,14 @@
 					disabled={saved}
 					type="button"
 					on:click={() => confirmDiscard.showModal()}
-					><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 1024 1024"
-						><path
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 1024 1024">
+						<path
 							fill="currentColor"
 							d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504L738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512L828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496L285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512L195.2 285.696a64 64 0 0 1 0-90.496z"
-						/></svg
-					></button
-				>
+						/>
+					</svg>
+				</button>
 				<button
 					class="btn btn-outline btn-success flex-1"
 					disabled={saved}
@@ -116,8 +119,8 @@
 					{#if $state == 'saving'}
 						<span class="loading loading-spinner loading-xs" />
 					{/if}
-					{$state == 'saving' ? 'Saving' : 'Save'}</button
-				>
+					{$state == 'saving' ? 'Saving' : 'Save'}
+				</button>
 			</div>
 		</div>
 	</div>
@@ -154,9 +157,9 @@
 <Modal id="confirmUnsavedNavigate" title="You have unsaved changes">
 	<svelte:fragment slot="actions">
 		<button class="btn btn-success btn-outline">Stay Here</button>
-		<button class="btn btn-error btn-outline" on:click={navigateWithoutSaving}
-			>Discard Changes</button
-		>
+		<button class="btn btn-error btn-outline" on:click={navigateWithoutSaving}>
+			Discard Changes
+		</button>
 	</svelte:fragment>
 </Modal>
 <Modal id="confirmDiscard" title="Are you sure you want to dicard your edits?">

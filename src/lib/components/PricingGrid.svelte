@@ -52,14 +52,17 @@
 			<button
 				class="btn text-xs sm:text-sm join-item border-primary"
 				class:btn-primary={billingTerm == 'monthly'}
-				on:click={() => (billingTerm = 'monthly')}>Monthly</button
+				on:click={() => (billingTerm = 'monthly')}
 			>
+				Monthly
+			</button>
 			<button
 				class="btn text-xs sm:text-sm join-item border-primary"
 				class:btn-primary={billingTerm == 'yearly'}
 				on:click={() => (billingTerm = 'yearly')}
-				>Yearly <span class="badge badge-accent capitalize">2 months free</span></button
 			>
+				Yearly <span class="badge badge-accent capitalize">2 months free</span>
+			</button>
 		</div>
 	</div>
 
@@ -86,21 +89,28 @@
 						class="btn btn-outline btn-secondary"
 						disabled={currentPlan === 0}
 					>
-						{currentPlan === 0 ? 'Current plan' : 'Change plan'}</button
-					>
+						{currentPlan === 0 ? 'Current plan' : 'Change plan'}
+					</button>
 				{:else}
 					<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
 				{/if}
 			</div>
 			<ul>
-				<li><span class="figure">50</span> messages/mo.</li>
-				<li><span class="figure">1</span> chatbot</li>
+				<li>
+					<span class="figure">50</span>
+					 messages/mo.
+				</li>
+				<li>
+					<span class="figure">1</span>
+					 chatbot
+				</li>
 				<li>
 					<div
 						class="tooltip border-b border-dotted border-white/30"
 						data-tip="approx. 400,000 characters"
 					>
-						<span class="figure">100,000</span> tokens/bot
+						<span class="figure">100,000</span>
+						 tokens/bot
 					</div>
 				</li>
 			</ul>
@@ -111,9 +121,15 @@
 					<h2>Basic</h2>
 					<h3 class="text-lg font-bold">
 						{#if billingTerm === 'monthly'}
-							<div>$19<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span></div>
+							<div>
+								$19
+								<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
+							</div>
 						{:else}
-							<div>$190<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span></div>
+							<div>
+								$190
+								<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span>
+							</div>
 						{/if}
 					</h3>
 				</div>
@@ -124,33 +140,43 @@
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 1}
 						>
-							{currentPlan === 1 ? 'Current plan' : 'Change plan'}</button
-						>
+							{currentPlan === 1 ? 'Current plan' : 'Change plan'}
+						</button>
 					{:else}
 						<button
 							on:click={() => handleConfirmPlanChange(101)}
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 101}
 						>
-							{currentPlan === 101 ? 'Current plan' : 'Change plan'}</button
-						>
+							{currentPlan === 101 ? 'Current plan' : 'Change plan'}
+						</button>
 					{/if}
 				{:else}
 					<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
 				{/if}
 			</div>
 			<ul>
-				<li><span class="figure">2,000</span> messages/mo.</li>
-				<li><span class="figure">5</span> Chatbots</li>
+				<li>
+					<span class="figure">2,000</span>
+					 messages/mo.
+				</li>
+				<li>
+					<span class="figure">5</span>
+					 Chatbots
+				</li>
 				<li>
 					<div
 						class="tooltip border-b border-dotted border-white/30"
 						data-tip="approx. 1,600,000 characters"
 					>
-						<span class="figure">400,000</span> tokens/bot
+						<span class="figure">400,000</span>
+						 tokens/bot
 					</div>
 				</li>
-				<li><span class="figure">3 Day</span> chat history</li>
+				<li>
+					<span class="figure">3 Day</span>
+					 chat history
+				</li>
 			</ul>
 		</div>
 		<div class="p-8 border border-secondary rounded-xl md:rounded-l-none md:my-4 bg-base-300">
@@ -159,9 +185,15 @@
 					<h2>Pro</h2>
 					<h3 class="text-lg font-bold">
 						{#if billingTerm === 'monthly'}
-							<div>$49<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span></div>
+							<div>
+								$49
+								<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
+							</div>
 						{:else}
-							<div>$490<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span></div>
+							<div>
+								$490
+								<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span>
+							</div>
 						{/if}
 					</h3>
 				</div>
@@ -172,16 +204,16 @@
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 2}
 						>
-							{currentPlan === 2 ? 'Current plan' : 'Change plan'}</button
-						>
+							{currentPlan === 2 ? 'Current plan' : 'Change plan'}
+						</button>
 					{:else}
 						<button
 							on:click={() => handleConfirmPlanChange(102)}
 							class="btn btn-outline btn-secondary"
 							disabled={currentPlan === 102}
 						>
-							{currentPlan === 102 ? 'Current plan' : 'Change plan'}</button
-						>
+							{currentPlan === 102 ? 'Current plan' : 'Change plan'}
+						</button>
 					{/if}
 				{:else}
 					<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
@@ -189,17 +221,27 @@
 			</div>
 			<div class="grid lg:grid-cols-2">
 				<ul>
-					<li><span class="figure">5,000</span> message/mo.</li>
-					<li><span class="figure">10</span> Chatbots</li>
+					<li>
+						<span class="figure">5,000</span>
+						 message/mo.
+					</li>
+					<li>
+						<span class="figure">10</span>
+						 Chatbots
+					</li>
 					<li>
 						<div
 							class="tooltip border-b border-dotted border-white/30"
 							data-tip="approx. 3,200,000 characters"
 						>
-							<span class="figure">800,000</span> tokens/bot
+							<span class="figure">800,000</span>
+							 tokens/bot
 						</div>
 					</li>
-					<li><span class="figure">7 Day</span> chat history</li>
+					<li>
+						<span class="figure">7 Day</span>
+						 chat history
+					</li>
 				</ul>
 				<ul class="extra">
 					<li>Remove ChatNode branding</li>
@@ -220,9 +262,15 @@
 						<h2>Enterprise</h2>
 						<h3 class="text-lg font-bold">
 							{#if billingTerm === 'monthly'}
-								<div>$99<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span></div>
+								<div>
+									$99
+									<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
+								</div>
 							{:else}
-								<div>$990<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span></div>
+								<div>
+									$990
+									<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span>
+								</div>
 							{/if}
 						</h3>
 					</div>
@@ -235,37 +283,47 @@
 								class="btn btn-outline btn-secondary"
 								disabled={currentPlan === 3}
 							>
-								{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
-							>
+								{currentPlan === 3 ? 'Current plan' : 'Change plan'}
+							</button>
 						{:else}
 							<button
 								on:click={() => handleConfirmPlanChange(103)}
 								class="btn btn-outline btn-secondary"
 								disabled={currentPlan === 103}
 							>
-								{currentPlan === 103 ? 'Current plan' : 'Change plan'}</button
-							>
+								{currentPlan === 103 ? 'Current plan' : 'Change plan'}
+							</button>
 						{/if}
 					{:else}
-						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary"
-							>Sign up</a
-						>
+						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
+							Sign up
+						</a>
 					{/if}
 				</div>
 			</div>
 			<div class="grid grid-cols-2">
 				<ul>
-					<li><span class="figure">10,000</span> messages/mo.</li>
-					<li><span class="figure">20</span> Chatbots</li>
+					<li>
+						<span class="figure">10,000</span>
+						 messages/mo.
+					</li>
+					<li>
+						<span class="figure">20</span>
+						 Chatbots
+					</li>
 					<li>
 						<div
 							class="tooltip border-b border-dotted border-white/30"
 							data-tip="approx. 4,000,000 characters"
 						>
-							<span class="figure">1,000,000</span> tokens/bot
+							<span class="figure">1,000,000</span>
+							 tokens/bot
 						</div>
 					</li>
-					<li><span class="figure">30 Day</span> chat history</li>
+					<li>
+						<span class="figure">30 Day</span>
+						 chat history
+					</li>
 				</ul>
 				<ul class="extra">
 					<li>Everything from Pro</li>
@@ -277,12 +335,20 @@
 			<div class="flex justify-between">
 				<div class="flex items-center justify-between mb-8">
 					<div>
-						<h2>Enterprise <span class="text-white/80">+</span></h2>
+						<h2>
+							Enterprise <span class="text-white/80">+</span>
+						</h2>
 						<h3 class="text-lg font-bold">
 							{#if billingTerm === 'monthly'}
-								<div>$399<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span></div>
+								<div>
+									$399
+									<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
+								</div>
 							{:else}
-								<div>$3990<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span></div>
+								<div>
+									$3990
+									<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span>
+								</div>
 							{/if}
 						</h3>
 					</div>
@@ -295,37 +361,47 @@
 								class="btn btn-outline btn-secondary"
 								disabled={currentPlan === 4}
 							>
-								{currentPlan === 3 ? 'Current plan' : 'Change plan'}</button
-							>
+								{currentPlan === 3 ? 'Current plan' : 'Change plan'}
+							</button>
 						{:else}
 							<button
 								on:click={() => handleConfirmPlanChange(104)}
 								class="btn btn-outline btn-secondary"
 								disabled={currentPlan === 104}
 							>
-								{currentPlan === 104 ? 'Current plan' : 'Change plan'}</button
-							>
+								{currentPlan === 104 ? 'Current plan' : 'Change plan'}
+							</button>
 						{/if}
 					{:else}
-						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary"
-							>Sign up</a
-						>
+						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
+							Sign up
+						</a>
 					{/if}
 				</div>
 			</div>
 			<div class="grid grid-cols-2">
 				<ul>
-					<li><span class="figure">40,000</span> messages/mo.</li>
-					<li><span class="figure">40</span> Chatbots</li>
+					<li>
+						<span class="figure">40,000</span>
+						 messages/mo.
+					</li>
+					<li>
+						<span class="figure">40</span>
+						 Chatbots
+					</li>
 					<li>
 						<div
 							class="tooltip border-b border-dotted border-white/30"
 							data-tip="approx. 12,000,000 characters"
 						>
-							<span class="figure">3,000,000</span> tokens/bot
+							<span class="figure">3,000,000</span>
+							 tokens/bot
 						</div>
 					</li>
-					<li><span class="figure">60 Day</span> chat history</li>
+					<li>
+						<span class="figure">60 Day</span>
+						 chat history
+					</li>
 				</ul>
 				<ul class="extra">
 					<li>Everything from Enterprise</li>
@@ -350,9 +426,9 @@
 		<!-- <p class="py-4">Your </p> -->
 		<div class="text-right">
 			<button class="btn">Cancel</button>
-			<button class="btn btn-warning" on:click={() => updatePlan(planToChangeTo)}
-				>Confirm Change</button
-			>
+			<button class="btn btn-warning" on:click={() => updatePlan(planToChangeTo)}>
+				Confirm Change
+			</button>
 		</div>
 	</form>
 	<form method="dialog" class="modal-backdrop">

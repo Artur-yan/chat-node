@@ -112,9 +112,9 @@
 									}
 								}}
 							/>
-							<button class="btn text-error/75" on:click={() => removeUrl(i)}
-								><Icon icon="mdi:minus-circle-outline" width="16" /></button
-							>
+							<button class="btn text-error/75" on:click={() => removeUrl(i)}>
+								<Icon icon="mdi:minus-circle-outline" width="16" />
+							</button>
 						</div>
 						{#if checkUrlTroubleSigns(url).warning}
 							<div class="alert alert-warning">
@@ -128,8 +128,10 @@
 						on:click={() => addUrl('')}
 						disabled={$currentBot.settings.allowedUrls[
 							$currentBot.settings.allowedUrls.length - 1
-						] === ''}><Icon icon="mdi:plus-circle-outline" />Add URL</button
+						] === ''}
 					>
+						<Icon icon="mdi:plus-circle-outline" />Add URL
+					</button>
 				{/if}
 			</div>
 		</div>

@@ -220,12 +220,12 @@
 			disabled={collectUserInfo && !userInfoReceived}
 			on:click={resetChat}
 		>
-			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-				><path
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+				<path
 					fill="currentColor"
 					d="M17.65 6.35a7.95 7.95 0 0 0-6.48-2.31c-3.67.37-6.69 3.35-7.1 7.02C3.52 15.91 7.27 20 12 20a7.98 7.98 0 0 0 7.21-4.56c.32-.67-.16-1.44-.9-1.44c-.37 0-.72.2-.88.53a5.994 5.994 0 0 1-6.8 3.31c-2.22-.49-4.01-2.3-4.48-4.52A6.002 6.002 0 0 1 12 6c1.66 0 3.14.69 4.22 1.78l-1.51 1.51c-.63.63-.19 1.71.7 1.71H19c.55 0 1-.45 1-1V6.41c0-.89-1.08-1.34-1.71-.71l-.64.65z"
-				/></svg
-			>
+				/>
+			</svg>
 		</button>
 		<BotStatus id={modelId} bind:trainingStatus />
 		<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -291,9 +291,9 @@
 						class="chat-bubble"
 						style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"
 					>
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-							><circle cx="4" cy="12" r="3" fill="currentColor"
-								><animate
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+							<circle cx="4" cy="12" r="3" fill="currentColor">
+								<animate
 									id="svgSpinners3DotsBounce0"
 									attributeName="cy"
 									begin="0;svgSpinners3DotsBounce1.end+0.25s"
@@ -301,18 +301,20 @@
 									dur="0.6s"
 									keySplines=".33,.66,.66,1;.33,0,.66,.33"
 									values="12;6;12"
-								/></circle
-							><circle cx="12" cy="12" r="3" fill="currentColor"
-								><animate
+								/>
+							</circle>
+							<circle cx="12" cy="12" r="3" fill="currentColor">
+								<animate
 									attributeName="cy"
 									begin="svgSpinners3DotsBounce0.begin+0.1s"
 									calcMode="spline"
 									dur="0.6s"
 									keySplines=".33,.66,.66,1;.33,0,.66,.33"
 									values="12;6;12"
-								/></circle
-							><circle cx="20" cy="12" r="3" fill="currentColor"
-								><animate
+								/>
+							</circle>
+							<circle cx="20" cy="12" r="3" fill="currentColor">
+								<animate
 									id="svgSpinners3DotsBounce1"
 									attributeName="cy"
 									begin="svgSpinners3DotsBounce0.begin+0.2s"
@@ -320,9 +322,9 @@
 									dur="0.6s"
 									keySplines=".33,.66,.66,1;.33,0,.66,.33"
 									values="12;6;12"
-								/></circle
-							></svg
-						>
+								/>
+							</circle>
+						</svg>
 					</div>
 				</div>
 			{/if}
@@ -355,16 +357,16 @@
 						name="Send"
 						style="background-color: var(--sendButtonBG); color: var(--sendButtonIconColor);"
 					>
-						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-							><path
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+							<path
 								fill="none"
 								stroke="currentColor"
 								stroke-linecap="round"
 								stroke-linejoin="round"
 								stroke-width="2"
 								d="M9.912 12H4L2.023 4.135A.662.662 0 0 1 2 3.995c-.022-.721.772-1.221 1.46-.891L22 12L3.46 20.896c-.68.327-1.464-.159-1.46-.867a.66.66 0 0 1 .033-.186L3.5 15"
-							/></svg
-						>
+							/>
+						</svg>
 					</button>
 				{/if}
 			</div>

@@ -19,11 +19,9 @@
 			viewBox="0 0 24 24"
 			class:rotate-180={open}
 			class="transition-transform"
-			><path
-				fill="currentColor"
-				d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6l1.41-1.42Z"
-			/></svg
 		>
+			<path fill="currentColor" d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6l1.41-1.42Z" />
+		</svg>
 	</button>
 	<div class="body grid transition-all duration-500 opacity-0" aria-hidden>
 		<div class="overflow-hidden">

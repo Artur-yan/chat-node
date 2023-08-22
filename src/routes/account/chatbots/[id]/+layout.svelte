@@ -19,9 +19,9 @@
 <div class="bg-neutral">
 	<div class="container md:gap-2 flex flex-col md:flex-row justify-between items-center">
 		<div class="flex gap-2 items-center">
-			<a class="btn btn-sm btn-square text-white/50 hidden sm:flex" href="/account/chatbots"
-				>&larr;</a
-			>
+			<a class="btn btn-sm btn-square text-white/50 hidden sm:flex" href="/account/chatbots">
+				&larr;
+			</a>
 			<input
 				class="input bg-black/10 border-none rounded-none input-ghost whitespace-nowrap p-1 px-4"
 				bind:value={$currentBot.name}
@@ -51,33 +51,45 @@
 			<a
 				href="/account/chatbots/{$page.params.id}/"
 				class="tab"
-				class:tab-active={currentPath[1] === $page.params.id}>Chat</a
+				class:tab-active={currentPath[1] === $page.params.id}
 			>
+				Chat
+			</a>
 			<a
 				href="/account/chatbots/{$page.params.id}/share"
 				class="tab"
-				class:tab-active={currentPath[1] === 'share'}>Share</a
+				class:tab-active={currentPath[1] === 'share'}
 			>
+				Share
+			</a>
 			<a
 				href="/account/chatbots/{$page.params.id}/integrations"
 				class="tab"
-				class:tab-active={currentPath[1] === 'integrations'}>Integrations</a
+				class:tab-active={currentPath[1] === 'integrations'}
 			>
+				Integrations
+			</a>
 			<a
 				href="/account/chatbots/{$page.params.id}/data"
 				class="tab"
-				class:tab-active={currentPath[1] === 'data'}>Data</a
+				class:tab-active={currentPath[1] === 'data'}
 			>
+				Data
+			</a>
 			<a
 				href="/account/chatbots/{$page.params.id}/history"
 				class="tab"
-				class:tab-active={currentPath[1] === 'history'}>History</a
+				class:tab-active={currentPath[1] === 'history'}
 			>
+				History
+			</a>
 			<a
 				href="/account/chatbots/{$page.params.id}/settings"
 				class="tab"
-				class:tab-active={currentPath[0] === 'settings'}>Settings</a
+				class:tab-active={currentPath[0] === 'settings'}
 			>
+				Settings
+			</a>
 		</div>
 	</div>
 </div>

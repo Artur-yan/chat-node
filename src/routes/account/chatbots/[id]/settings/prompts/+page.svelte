@@ -91,30 +91,34 @@
 	</div> -->
 	<div>
 		<label for="greeting" class="label">
-			<span class="label-text"
-				>Greeting <span
+			<span class="label-text">
+				Greeting <span
 					class="tooltip tooltip-right badge"
 					data-tip="Your trained model will include this greeting and help it to answer the first question more naturally"
-					>?</span
-				></span
-			>
+				>
+					?
+				</span>
+			</span>
 		</label>
 		<input type="text" bind:value={$currentBot.settings.greeting} class="input w-full mb-2" />
 	</div>
 	<div>
 		<label for="system-prompt" class="label">
-			<span class="label-text"
-				>System Prompt <span
+			<span class="label-text">
+				System Prompt <span
 					class="tooltip tooltip-right badge"
 					data-tip="The system prompt helps set the behavior of the assistant. If properly crafted, the system prompt can be used to set the tone and the kind of response by the model. The default system prompt prevents hallucination from the assistant and replies only based on the trained data"
-					>?</span
-				></span
-			>
+				>
+					?
+				</span>
+			</span>
 			<button
 				type="button"
 				class="btn btn-xs text-secondary"
-				on:click={() => personalityTemplates.showModal()}>+ Add Template</button
+				on:click={() => personalityTemplates.showModal()}
 			>
+				+ Add Template
+			</button>
 			<!-- <button
 				class="btn btn-xs btn-circle btn-ghost tooltip tooltip-left"
 				data-tip="Reset to default"
@@ -141,13 +145,14 @@
 	{#if $currentBot.settings.userPrompt}
 		<div>
 			<label for="user-prompt" class="label">
-				<span class="label-text"
-					>User Prompt <span
+				<span class="label-text">
+					User Prompt <span
 						class="tooltip tooltip-right badge"
 						data-tip="The user prompt is a message put right before the context (your data) and the user message. It can help to steer the model more strongly than the system message. Use with caution, it can be quite powerful"
-						>?</span
-					></span
-				>
+					>
+						?
+					</span>
+				</span>
 			</label>
 			<textarea
 				bind:value={$currentBot.settings.userPrompt}

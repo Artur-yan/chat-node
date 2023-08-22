@@ -73,8 +73,8 @@
 							<span>{chat.enduser_name ? chat.enduser_name : ''}</span>
 							<span>{chat.enduser_email ? chat.enduser_email : ''}</span>
 						</div>
-						{date}</button
-					>
+						{date}
+					</button>
 				</li>
 			{/each}
 		</ul>

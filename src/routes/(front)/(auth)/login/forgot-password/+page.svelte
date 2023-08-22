@@ -45,8 +45,8 @@
 					<button type="submit" class="btn btn-primary w-full">
 						<span class={loading ? 'loading' : 'invisible'} />
 
-						Send link</button
-					>
+						Send link
+					</button>
 				</form>
 			{:else}
 				<div class="alert alert-success">

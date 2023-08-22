@@ -63,8 +63,9 @@
 			on:click={() => goto('/account/chatbots/create')}
 			class="btn btn-primary btn-sm btn-outline text-xs"
 			disabled={data.user.user.status !== 'active' || botUsage >= 1}
-			>New Bot <Icon icon="mdi:plus-box" class="ml-1" height="20" /></button
 		>
+			New Bot <Icon icon="mdi:plus-box" class="ml-1" height="20" />
+		</button>
 	</div>
 </div>
 
@@ -76,9 +77,9 @@
 					<div>
 						<div class="flex justify-between">
 							<h4>Messages</h4>
-							<span class="opacity-60"
-								>{data.subscription.msg_count}/{data.subscription.max_msg}</span
-							>
+							<span class="opacity-60">
+								{data.subscription.msg_count}/{data.subscription.max_msg}
+							</span>
 						</div>
 						<progress
 							class="progress progress-secondary w-full bg-neutral h-1"
@@ -130,9 +131,13 @@
 					<div class="card-body p-6">
 						<div class="flex justify-between items-center">
 							<h2 class="card-title">
-								<a href="chatbots/{bot.id}" class="text-primary text-base truncate" title={bot.name}
-									>{bot.name}</a
+								<a
+									href="chatbots/{bot.id}"
+									class="text-primary text-base truncate"
+									title={bot.name}
 								>
+									{bot.name}
+								</a>
 							</h2>
 							<div
 								class="tooltip tooltip-info tooltip-left"
@@ -160,9 +165,9 @@
 
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
 							<div class="dropdown dropdown-left dropdown-start z-10">
-								<label tabindex="0" class="btn btn-ghost btn-square" on:click|preventDefault
-									><Icon icon="tabler:dots" height="24" /></label
-								>
+								<label tabindex="0" class="btn btn-ghost btn-square" on:click|preventDefault>
+									<Icon icon="tabler:dots" height="24" />
+								</label>
 								<ul
 									tabindex="0"
 									class="dropdown-content menu p-2 shadow bg-base-100 rounded-box z-10x"
@@ -216,13 +221,14 @@
 				fill="none"
 				viewBox="0 0 24 24"
 				class="stroke-current flex-shrink-0 w-6 h-6"
-				><path
+			>
+				<path
 					stroke-linecap="round"
 					stroke-linejoin="round"
 					stroke-width="2"
 					d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-				/></svg
-			>
+				/>
+			</svg>
 			<div>
 				<h3 class="text-xl font-bold mb-2">Check your email</h3>
 				<p class="text-lg">
@@ -242,9 +248,9 @@
 			<div class="card-body items-center py-[10vh]">
 				<h2 class="card-title font-bold text-2xl">Get Started</h2>
 				<div class="card-actions justify-center">
-					<button on:click={() => goto('/account/chatbots/create')} class="btn btn-accent"
-						>Create a chatbot</button
-					>
+					<button on:click={() => goto('/account/chatbots/create')} class="btn btn-accent">
+						Create a chatbot
+					</button>
 				</div>
 			</div>
 		</div>
@@ -270,8 +276,8 @@
 				}}
 			>
 				<span class={deleting ? 'loading' : 'invisible'} />
-				Delete</button
-			>
+				Delete
+			</button>
 		</div>
 	</div>
 </dialog>
