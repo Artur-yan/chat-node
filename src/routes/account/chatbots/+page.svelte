@@ -114,7 +114,7 @@
 					</div>
 				</div>
 				{#if botUsage >= 1 || msgUsage > 0.75 || data.subscription.cancel_at}
-					<a href="/account/settings/plan" class="btn btn-warning">Upgrade</a>
+					<a href="/account/settings/subscription" class="btn btn-warning">Upgrade</a>
 				{/if}
 			</div>
 		</div>

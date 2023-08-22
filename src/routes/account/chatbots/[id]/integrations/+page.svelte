@@ -25,7 +25,7 @@
 					<p class="text-warning text-sm">
 						Slack integration is available on the pro plan and above
 					</p>
-					<a class="btn btn-warning" href="/account/settings/plan">Upgrade</a>
+					<a class="btn btn-warning" href="/account/settings/subscription">Upgrade</a>
 				{/if}
 			</div>
 		</div>
