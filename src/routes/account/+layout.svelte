@@ -54,7 +54,7 @@
 	></script>
 </svelte:head>
 
-<HeaderAdmin user={data.user} />
+<HeaderAdmin />
 
 <main class="flex flex-col flex-1">
 	<slot />
