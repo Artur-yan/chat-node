@@ -45,7 +45,7 @@
 			<p>
 				We are passionate about building a startup in the very new and very exciting field of AI. We
 				believe this technology should belong to everyone. We see ChatNode as a way to democratize
-				the influence and value that AI can bring to world.
+				the influence and value that AI can bring to the world.
 			</p>
 			<p />
 		</div>
