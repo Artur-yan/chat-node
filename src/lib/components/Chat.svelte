@@ -372,6 +372,53 @@
 			</div>
 		</div>
 	</form>
+
+	{#if collectUserInfo && !userInfoReceived && showUserInfoCollection}
+		<form
+			class="@container absolute bottom-0 left-0 right-0 grid gap-1 p-8"
+			style="background-color: var(--bg); color: var(--inputText)"
+		>
+			<div class="join join-vertical @xl:join-horizontal">
+				{#if settings.collectUserName}
+						<input
+							type="text"
+							class="input join-item w-full placeholder:text-sm"
+							style="background-color: var(--inputBG); border-color: var(--inputBorder);"
+							name="name"
+							placeholder="Name"
+							bind:value={enduserName}
+						/>
+
+				{/if}
+				{#if settings.collectUserEmail}
+					<input
+						type="text"
+						class="input join-item w-full placeholder:text-sm"
+						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
+						placeholder="Email"
+						bind:value={enduserEmail}
+					/>
+				{/if}
+				{#if settings.collectUserPhone}
+					<input
+						type="text"
+						class="input join-item w-full placeholder:text-sm"
+						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
+						placeholder="Phone"
+						bind:value={enduserPhone}
+					/>
+				{/if}
+				<input
+					type="submit"
+					class="btn join-item border-none"
+					value="Start Chatting"
+					on:click={handleUserInfoSubmit}
+					style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"
+				/>
+			</div>
+		</form>
+	{/if}
+
 	<style>
 		.message-body table,
 		.message-body td,
@@ -411,49 +458,6 @@
 		// Invert color on focus
 	</style>
 
-	{#if collectUserInfo && !userInfoReceived && showUserInfoCollection}
-		<form
-			class="absolute bottom-0 left-0 right-0 grid gap-1 p-8"
-			style="background-color: var(--bg); color: var(--inputText)"
-		>
-			<div class="join join-vertical">
-				{#if settings.collectUserName}
-					<input
-						type="text"
-						class="input join-item w-full placeholder:text-sm"
-						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						placeholder="Name"
-						bind:value={enduserName}
-					/>
-				{/if}
-				{#if settings.collectUserEmail}
-					<input
-						type="text"
-						class="input join-item w-full placeholder:text-sm"
-						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						placeholder="Email"
-						bind:value={enduserEmail}
-					/>
-				{/if}
-				{#if settings.collectUserPhone}
-					<input
-						type="text"
-						class="input join-item w-full placeholder:text-sm"
-						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						placeholder="Phone"
-						bind:value={enduserPhone}
-					/>
-				{/if}
-				<input
-					type="submit"
-					class="btn join-item border-none"
-					value="Start Chatting"
-					on:click={handleUserInfoSubmit}
-					style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"
-				/>
-			</div>
-		</form>
-	{/if}
 </div>
 
 <style lang="postcss">
