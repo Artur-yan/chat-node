@@ -22,9 +22,6 @@
 	let nextURL: string;
 	let warningIgnored = false;
 
-	$: console.log($currentBot.settings)
-
-	
 	// Merge bot with defaults
 	$currentBot.settings = {...defaultSettings, ...$currentBot.settings};
 
