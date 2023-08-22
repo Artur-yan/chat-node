@@ -2,32 +2,18 @@
 	import type { LayoutData } from './$types';
 	import { page } from '$app/stores';
 	import { currentBot, state, alert } from '$lib/stores';
-	import { updateModel } from '$lib/models';
 
 	export let data: LayoutData;
 
 	currentBot.set(data.model);
 
-	$: currentPath = $page.url.pathname.split('/').pop();
+	$: currentPath = $page.url.pathname.split('/').slice(-2);
+
+	$: console.log(currentPath);
 
 	const savedName = $currentBot.name;
 
 	$: $currentBot.name !== savedName ? ($state = 'unsaved') : ($state = 'saved');
-
-	const links = [
-		{ name: 'Chat', url: '' },
-		{ name: 'Share', url: 'share' },
-		{ name: 'Integrations', url: 'integrations' },
-		{ name: 'Data', url: 'data' },
-		{ name: 'History', url: 'history' },
-		{ name: 'Settings', url: 'settings' }
-	];
-
-	// const handleNameSave = () => {
-	// 	updateModel($currentBot.id, $currentBot.name, $currentBot.settings);
-	// 	$alert = { type: 'success', msg: 'Name saved' };
-	// 	$state = 'saved';
-	// };
 </script>
 
 <div class="bg-neutral">
@@ -61,15 +47,38 @@
 				>
 			{/if} -->
 		</div>
-
 		<div class="tabs tabs-boxed bg-neutral">
-			{#each links as link}
 				<a
-					href="/account/chatbots/{$page.params.id}/{link.url}"
+					href="/account/chatbots/{$page.params.id}/"
 					class="tab"
-					class:tab-active={link.url === currentPath}>{link.name}</a
+					class:tab-active={currentPath[1] === $page.params.id}>Chat</a
 				>
-			{/each}
+				<a
+					href="/account/chatbots/{$page.params.id}/share"
+					class="tab"
+					class:tab-active={currentPath[1] === 'share'}>Share</a
+				>
+				<a
+					href="/account/chatbots/{$page.params.id}/integrations"
+					class="tab"
+					class:tab-active={currentPath[1] === 'integrations'}>Integrations</a
+				>
+				<a
+					href="/account/chatbots/{$page.params.id}/data"
+					class="tab"
+					class:tab-active={currentPath[1] === 'data'}>Data</a
+				>
+				<a
+					href="/account/chatbots/{$page.params.id}/history"
+					class="tab"
+					class:tab-active={currentPath[1] === 'history'}>History</a
+				>
+				<a
+					href="/account/chatbots/{$page.params.id}/settings"
+					class="tab"
+					class:tab-active={currentPath[0] === 'settings'}>Settings</a
+				>
+
 		</div>
 	</div>
 </div>
