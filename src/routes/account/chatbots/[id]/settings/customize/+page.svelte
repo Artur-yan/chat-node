@@ -278,7 +278,7 @@
 	}
 
 	.themes input:checked + label {
-		@apply btn-primary;
+		@apply ring-2 ring-white/80;
 	}
 
 	:global(.color-picker label) {
