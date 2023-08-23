@@ -1,6 +1,4 @@
 <script>
-	import Icon from '@iconify/svelte';
-
 	let links = [
 		{
 			title: 'Features',
@@ -39,8 +37,8 @@
 
 					<span class="text-xl font-bold text-white tracking-wide leading-none">ChatNode</span>
 				</a>
-				<div class="hidden lg:flex">
-					<ul class="flex flex-col lg:flex-row text-sm lg:space-x-8 lg:mt-0 font-bold">
+				<div class="max-sm:hidden">
+					<ul class="flex text-sm space-x-8 font-bold">
 						{#each links as { title, href }}
 							<li>
 								<a {href}>{title}</a>
@@ -50,10 +48,27 @@
 				</div>
 			</div>
 
-			<div class="flex items-center lg:order-2">
+			<div class="flex items-center lg:order-2 max-sm:hidden">
 				<a class="btn btn-sm btn-ghost text-primary mr-2" href="/login">Sign in</a>
 				<a class="btn btn-primary" href="/register">Sign Up</a>
 			</div>
+
+
+			<div class="dropdown dropdown-end sm:hidden">
+				<label tabindex="0" class="btn m-1">			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17h14M5 12h14M5 7h14"/></svg>
+				</label>
+				<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+					{#each links as { title, href }}
+					<li>
+						<a class="justify-center py-4" {href}>{title}</a>
+					</li>
+				{/each}
+				<li>
+				<a class="text-primary py-4 justify-center" href="/login">Sign in</a>
+
+				</li>
+				</ul>
+			  </div>
 		</div>
 	</nav>
 </header>
