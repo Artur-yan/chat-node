@@ -53,15 +53,15 @@
 
 	<section class="my-20">
 		<h1 class="text-2xl font-bold mb-2">The Team</h1>
-		<div class="grid grid-cols-3 gap-8">
+		<div class="grid md:grid-cols-3 gap-8">
 			{#each team as person}
 				<div class="bg-neutral rounded-lg p-6">
-					<div class="flex gap-4">
-						<div class="basis-1/3">
+					<div class="flex flex-wrap gap-4">
+						<div class="sm:basis-1/3 md:basis-full lg:basis-1/3 max-w-[200px]">
 							<Img
 								src={person.img}
-								width={800}
-								height={800}
+								width={400}
+								height={400}
 								class="rounded"
 								alt={person.name}
 								sizes="(min-width: 56rem) 138px, 100vw - 2rem"
