@@ -3,9 +3,10 @@
 	import Chat from '$lib/components/Chat.svelte';
 	import { currentBot, state, alert } from '$lib/stores';
 	import { updateModel } from '$lib/models.js';
-	import { beforeNavigate, goto, invalidateAll } from '$app/navigation';
+	import { beforeNavigate, goto } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
 	import { defaultSettings } from '$lib/models.js';
+	import themes from '$lib/chatThemes.js';
 
 	export let data;
 
@@ -24,6 +25,7 @@
 
 	// Merge bot with defaults
 	$currentBot.settings = { ...defaultSettings, ...$currentBot.settings };
+	$currentBot.settings.theme = { ...themes[$currentBot.settings.theme.name], ...$currentBot.settings.theme };
 
 	// capture the current state of the bot on load
 	let saveState = JSON.stringify($currentBot);

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { defaultSettings } from '$lib/models';
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import themes from '$lib/chatThemes';
 	import { currentBot } from '$lib/stores.js';
@@ -9,23 +8,19 @@
 	export let data;
 	export let form;
 
-	let selectedTheme = $currentBot.settings.theme.name || 'default';
 	let uploadedImage: string | null;
 
+	let themeSaveState = JSON.stringify($currentBot.settings.theme);
+
 	const checkIfThemeSaved = () => {
-		if (
-			JSON.stringify($currentBot.settings.theme) !==
-			JSON.stringify(themes[$currentBot.settings.theme.name])
-		) {
-			selectedTheme = 'custom';
+
+	if(themeSaveState !== JSON.stringify($currentBot.settings.theme)) {
 			$currentBot.settings.theme.name = 'custom';
 		}
-	};
+	}
 
-	$: $currentBot, checkIfThemeSaved();
-
-	$: if (selectedTheme !== 'custom') {
-		$currentBot.settings.theme = themes[selectedTheme];
+	const changeTheme = (themeName) => {
+		$currentBot.settings.theme = {...themes[themeName]};
 	}
 
 	$: if (form) {
@@ -61,7 +56,8 @@
 					id="default"
 					name="theme"
 					value="default"
-					bind:group={selectedTheme}
+					bind:group={$currentBot.settings.theme.name}
+					on:input={() => changeTheme('default')}
 				/>
 				<label for="default" class="!bg-[#0F172A] !text-[#818CF8]">ChatNode</label>
 			</div>
@@ -72,7 +68,9 @@
 					id="meta-dark"
 					name="theme"
 					value="meta-dark"
-					bind:group={selectedTheme}
+					bind:group={$currentBot.settings.theme.name}
+					on:input={() => changeTheme('meta-dark')}
+
 				/>
 				<label for="meta-dark" class="!bg-[#3A3B3C] !text-[#0084FF]">Meta dark</label>
 			</div>
@@ -83,7 +81,9 @@
 					id="ios-light"
 					name="theme"
 					value="ios-light"
-					bind:group={selectedTheme}
+					bind:group={$currentBot.settings.theme.name}
+					on:input={() => changeTheme('ios-light')}
+
 				/>
 				<label for="ios-light" class="!bg-[white] !text-[#3093FF]">iOS light</label>
 			</div>
@@ -94,7 +94,9 @@
 					id="ios-dark"
 					name="theme"
 					value="ios-dark"
-					bind:group={selectedTheme}
+					bind:group={$currentBot.settings.theme.name}
+					on:input={() => changeTheme('ios-dark')}
+
 				/>
 				<label for="ios-dark" class="!bg-[black] !text-[#3093FF]">iOS dark</label>
 			</div>
@@ -105,7 +107,9 @@
 					id="neutral"
 					name="theme"
 					value="neutral"
-					bind:group={selectedTheme}
+					bind:group={$currentBot.settings.theme.name}
+					on:input={() => changeTheme('neutral')}
+
 				/>
 				<label for="neutral" class="!bg-[#666666] !text-[#333333]">Neutral</label>
 			</div>
@@ -116,7 +120,9 @@
 					id="custom"
 					name="theme"
 					value="custom"
-					bind:group={selectedTheme}
+					bind:group={$currentBot.settings.theme.name}
+					on:input={() => changeTheme('custom')}
+
 				/>
 				<label for="custom">Custom</label>
 			</div>
@@ -161,8 +167,8 @@
 						bind:value={$currentBot.settings.publicTitle}
 					/>
 				</div>
-				<ColorPicker bind:hex={$currentBot.settings.theme.headerTitle} label="Title Text" />
-				<ColorPicker bind:hex={$currentBot.settings.theme.headerBG} label="Background" />
+				<ColorPicker bind:hex={$currentBot.settings.theme.headerTitle} label="Title Text" on:input={checkIfThemeSaved} />
+				<ColorPicker bind:hex={$currentBot.settings.theme.headerBG} label="Background" on:input={checkIfThemeSaved} />
 			</div>
 		{/if}
 
@@ -173,14 +179,16 @@
 			<ColorPicker
 				bind:hex={$currentBot.settings.theme.botBubbleBG}
 				label="Bot Bubble Background"
+				on:input={checkIfThemeSaved}
 			/>
-			<ColorPicker bind:hex={$currentBot.settings.theme.botBubbleText} label="Bot Bubble Text" />
+			<ColorPicker bind:hex={$currentBot.settings.theme.botBubbleText} label="Bot Bubble Text" on:input={checkIfThemeSaved} />
 
 			<ColorPicker
 				bind:hex={$currentBot.settings.theme.userBubbleBG}
 				label="User Bubble Background"
+				on:input={checkIfThemeSaved}
 			/>
-			<ColorPicker bind:hex={$currentBot.settings.theme.userBubbleText} label="User Bubble Text" />
+			<ColorPicker bind:hex={$currentBot.settings.theme.userBubbleText} label="User Bubble Text" on:input={checkIfThemeSaved} />
 		</div>
 
 		<hr class="border-base-300 my-4" />
@@ -199,9 +207,9 @@
 					bind:value={$currentBot.settings.inputPlaceholder}
 				/>
 			</div>
-			<ColorPicker bind:hex={$currentBot.settings.theme.inputBG} label=" Background" />
-			<ColorPicker bind:hex={$currentBot.settings.theme.inputText} label="Text" />
-			<ColorPicker bind:hex={$currentBot.settings.theme.inputBorder} label="Border" />
+			<ColorPicker bind:hex={$currentBot.settings.theme.inputBG} label=" Background" on:input={checkIfThemeSaved} />
+			<ColorPicker bind:hex={$currentBot.settings.theme.inputText} label="Text" on:input={checkIfThemeSaved} />
+			<ColorPicker bind:hex={$currentBot.settings.theme.inputBorder} label="Border" on:input={checkIfThemeSaved} />
 		</div>
 
 		<hr class="border-base-300 my-4" />
@@ -223,9 +231,9 @@
 
 		{#if $currentBot.settings.sendButtonEnabled}
 			<div class="grid grid-cols-4 gap-2 items-end">
-				<ColorPicker bind:hex={$currentBot.settings.theme.sendButtonBG} label="Background" />
+				<ColorPicker bind:hex={$currentBot.settings.theme.sendButtonBG} label="Background" on:input={checkIfThemeSaved} />
 
-				<ColorPicker bind:hex={$currentBot.settings.theme.sendButtonIconColor} label="Icon Color" />
+				<ColorPicker bind:hex={$currentBot.settings.theme.sendButtonIconColor} label="Icon Color" on:input={checkIfThemeSaved} />
 			</div>
 		{/if}
 	</div>
