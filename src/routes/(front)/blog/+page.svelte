@@ -1,5 +1,6 @@
 <script>
 	export let data;
+	import { fade } from 'svelte/transition';
 
 	console.log(data);
 
@@ -14,7 +15,7 @@
 					<img src="/post-placeholder.png" width="666" height="480" alt={post.img.description} />
 				{:then postImages}
 
-					<img src={postImages[i].thumbnail} width="666" height="480" alt="" class="group-hover:scale-105 origin-bottom transition-transform" />
+					<img src={postImages[i].thumbnail} width="666" height="480" alt="" class="group-hover:scale-105 origin-bottom transition-transform" in:fade />
 
 				{/await}
 			<div class="card-body">
