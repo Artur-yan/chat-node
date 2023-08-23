@@ -1,14 +1,9 @@
 <script>
 	export let data;
 	import { fade } from 'svelte/transition';
-
-	console.log(data);
-
-
-
 </script>
 
-<div class="container grid grid-cols-3 gap-10">
+<div class="container grid md:grid-cols-2 lg:grid-cols-3 gap-10">
 	{#each data.posts as post, i}
 		<a class="card card-compact bg-neutral overflow-hidden group" href="/blog/{post.slug}">
 				{#await data.streamed.postImages }

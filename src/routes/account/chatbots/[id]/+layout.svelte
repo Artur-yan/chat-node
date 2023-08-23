@@ -9,8 +9,6 @@
 
 	$: currentPath = $page.url.pathname.split('/').slice(-2);
 
-	$: console.log(currentPath);
-
 	const savedName = $currentBot.name;
 
 	$: $currentBot.name !== savedName ? ($state = 'unsaved') : ($state = 'saved');
