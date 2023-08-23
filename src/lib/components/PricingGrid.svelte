@@ -2,6 +2,7 @@
 	import { alert } from '$lib/stores.js';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { PUBLIC_ENVIRONMENT } from '$env/static/public';
 
 	export let currentPlan: number | undefined = undefined;
 
@@ -9,8 +10,9 @@
 	let referralCode = '';
 	export let billingTerm = 'monthly';
 
+
 	onMount(() => {
-		if (rewardful) {
+		if (PUBLIC_ENVIRONMENT === 'production' && rewardful) {
 			rewardful('ready', function () {
 				if (Rewardful.referral) {
 					referralCode = Rewardful.referral;
