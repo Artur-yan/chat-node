@@ -44,6 +44,7 @@
 		#post p,
 		#post img {
 			margin-bottom: 3rem;
+			width: 100%;
 			max-width: 800px;
 		}
 
