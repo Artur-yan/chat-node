@@ -8,14 +8,6 @@
 
 	const team = [
 		{
-			fname: 'Thomas',
-			lname: 'Agaraté',
-			title: 'Marketing Director',
-			nationality: '🇫🇷',
-			bio: 'He has two passions:<br>1. Find ways to onboard awesome customers onto his business<br />2. Build the most epic customer relationships so work feels like it’s not.',
-			img: Thomas
-		},
-		{
 			fname: 'Eric',
 			lname: 'Brenner',
 			title: 'Web Developer',
@@ -24,13 +16,21 @@
 			img: Eric
 		},
 		{
+			fname: 'Thomas',
+			lname: 'Agaraté',
+			title: 'Marketing Director',
+			nationality: '🇫🇷',
+			bio: 'He has two passions:<br>1. Find ways to onboard awesome customers onto his business<br />2. Build the most epic customer relationships so work feels like it’s not.',
+			img: Thomas
+		},
+		{
 			fname: 'Sacha',
 			lname: 'Dumay',
 			title: 'Data Engineer',
 			nationality: '🇫🇷',
 			bio: 'His days at ChatNode are pretty simple.<br>8-8:30am: Checking reports to see what our customers want next.<br>8:30-10pm : Building those features with Eric.<br>(Sometimes he skips lunch. He used to work as a data analyst for Wall Street so he no time for bulls**t)',
 			img: Sacha
-		}
+		},
 	];
 </script>
 
