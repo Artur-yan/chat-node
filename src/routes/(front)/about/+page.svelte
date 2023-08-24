@@ -76,11 +76,11 @@
 							</h2>
 						</div>
 					</div>
-					<div class="pr-6">
+					<!-- <div class="pr-6">
 						<p class=" mt-4 text-sm leading-6">
 							{@html person.bio}
 						</p>
-					</div>
+					</div> -->
 				</div>
 			{/each}
 		</div>
