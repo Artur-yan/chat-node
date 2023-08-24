@@ -3,7 +3,7 @@
 
 	import Img from '@zerodevx/svelte-img';
 	import Thomas from '$lib/assets/team/Thomas-Agarate.jpg?run';
-	import Sacha from '$lib/assets/team/Thomas-Agarate.jpg?run';
+	import Sacha from '$lib/assets/team/Sacha.jpg?run';
 	import Eric from '$lib/assets/team/Eric-Brenner.jpg?run';
 
 	const team = [
