@@ -14,7 +14,7 @@
 
 	const checkIfThemeSaved = () => {
 
-	if(themeSaveState !== JSON.stringify($currentBot.settings.theme)) {
+		if(themeSaveState !== JSON.stringify($currentBot.settings.theme)) {
 			$currentBot.settings.theme.name = 'custom';
 		}
 	}
@@ -132,9 +132,9 @@
 		<h3 class="font-bold">Misc.</h3>
 
 		<div class="grid grid-cols-4 gap-2 items-end">
-			<ColorPicker bind:hex={$currentBot.settings.theme.bg} label="Chat Background" on:input={() => changeTheme('custom')} />
+			<ColorPicker bind:hex={$currentBot.settings.theme.bg} label="Chat Background" on:input={checkIfThemeSaved} />
 
-			<ColorPicker bind:hex={$currentBot.settings.theme.resetButton} label="Reset Button" on:input={() => changeTheme('custom')} />
+			<ColorPicker bind:hex={$currentBot.settings.theme.resetButton} label="Reset Button" on:input={checkIfThemeSaved} />
 		</div>
 
 		<hr class="border-base-300 my-4" />
