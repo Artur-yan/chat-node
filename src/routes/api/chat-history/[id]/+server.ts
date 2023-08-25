@@ -15,16 +15,16 @@ export const GET = async ({ params }) => {
 };
 
 export const POST = async ({ params, request }) => {
-	const { bot_id, user_id, enduser_name, enduser_email, enduser_phone } = await request.json();
+	const { bot_id, user_id, endUserInfo } = await request.json();
 
 	const chatHistory = await prismaClient.chatConversations.create({
 		data: {
 			session_id: params.id,
 			bot_id,
 			user_id,
-			enduser_name,
-			enduser_email,
-			enduser_phone
+			enduser_name: endUserInfo.name,
+			enduser_email: endUserInfo.email,
+			enduser_phone: endUserInfo.phone
 		}
 	});
 

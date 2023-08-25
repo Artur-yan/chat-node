@@ -50,17 +50,20 @@
 		}
 	};
 
-	let enduserEmail: string;
-	let enduserName: string;
-	let enduserPhone: string;
+	// let enduserEmail: string;
+	// let enduserName: string;
+	// let enduserPhone: string;
+
+
 	let collectUserInfo = false;
 	let userInfoReceived = false;
+	let endUserInfo = {}
 
 	onMount(() => {
-		enduserName = localStorage.getItem('enduserName') || '';
-		enduserEmail = localStorage.getItem('enduserEmail') || '';
-		enduserPhone = localStorage.getItem('enduserPhone') || '';
+		endUserInfo = JSON.parse(localStorage.getItem('enduserInfo')) || {};
 	});
+
+	$: console.log(endUserInfo);
 
 	$: if (settings.collectUserName || settings.collectUserEmail || settings.collectUserPhone) {
 		collectUserInfo = true;
@@ -69,7 +72,11 @@
 	}
 
 	const handleUserInfoSubmit = () => {
-		if (!enduserEmail || !enduserName) {
+		if (
+			settings.collectUserName && !endUserInfo.name ||
+			settings.collectUserEmail && !endUserInfo.email ||
+			settings.collectUserPhone && !endUserInfo.phone
+		) {
 			return;
 		}
 		userInfoReceived = true;
@@ -147,14 +154,10 @@
 			body: JSON.stringify({
 				bot_id: modelId,
 				user_id: userId,
-				enduser_name: enduserName,
-				enduser_email: enduserEmail,
-				enduser_phone: enduserPhone
+				endUserInfo
 			})
 		});
-		localStorage.setItem('enduserName', enduserName);
-		localStorage.setItem('enduserEmail', enduserEmail);
-		localStorage.setItem('enduserPhone', enduserPhone);
+		localStorage.setItem('enduserInfo', JSON.stringify(endUserInfo));
 	};
 
 	const submitQuery = () => {
@@ -385,7 +388,7 @@
 							style="background-color: var(--inputBG); border-color: var(--inputBorder);"
 							name="name"
 							placeholder="Name"
-							bind:value={enduserName}
+							bind:value={endUserInfo.name}
 						/>
 
 				{/if}
@@ -395,7 +398,7 @@
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
 						placeholder="Email"
-						bind:value={enduserEmail}
+						bind:value={endUserInfo.email}
 					/>
 				{/if}
 				{#if settings.collectUserPhone}
@@ -404,7 +407,7 @@
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
 						placeholder="Phone"
-						bind:value={enduserPhone}
+						bind:value={endUserInfo.phone}
 					/>
 				{/if}
 				<input
