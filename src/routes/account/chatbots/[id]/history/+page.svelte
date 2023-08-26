@@ -12,15 +12,6 @@
 		return msgHTML;
 	};
 
-	// function getUniqueSortedValues(data, uniqueProperty) {
-	// 	const uniqueValues = [...new Set(data.map((item) => item[uniqueProperty]))];
-
-	// 	uniqueValues.sort((a, b) => {
-	// 		return Number(b.split('-')[1]) - Number(a.split('-')[1]);
-	// 	});
-	// 	return uniqueValues;
-	// }
-
 	let currentActiveChatID: string;
 	const getChatConversation = async (chat_session_id) => {
 		const res = await fetch(`/api/chat-history/${chat_session_id}`, {

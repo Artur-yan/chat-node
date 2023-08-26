@@ -63,8 +63,6 @@
 		endUserInfo = JSON.parse(localStorage.getItem('enduserInfo')) || {};
 	});
 
-	$: console.log(endUserInfo);
-
 	$: if (settings.collectUserName || settings.collectUserEmail || settings.collectUserPhone) {
 		collectUserInfo = true;
 	} else {
