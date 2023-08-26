@@ -47,9 +47,9 @@
 	<div class="mb-4 overflow-y-auto bg-base-200 rounded-box">
 		<ul class="menu divide-y divide-neutral" role="navigation">
 			<li class="menu-title">Conversations</li>
-			<div class="flex items-center justify-between px-4">
+			<div class="flex items-center justify-between px-4 py-2">
 				<label for="sort" class="">By Date</label>
-				<select class="select select-bordered select-sm" name="sort" on:change={reverseSort}>
+				<select class="select select-bordered select-xs" name="sort" on:change={reverseSort}>
 					<option>Newest First</option>
 					<option>Oldest First</option>
 				</select>
