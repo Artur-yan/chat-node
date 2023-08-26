@@ -220,6 +220,7 @@
 		<button
 			class="z-20 absolute top-2.5 right-2.5 btn btn-circle btn-sm btn-ghost flex items-center justify-center"
 			style="color: var(--resetButton);"
+			title="Reset Chat"
 			on:click={resetChat}
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
