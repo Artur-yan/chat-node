@@ -10,7 +10,7 @@
 	export let userId: string;
 	export let sessionId: string;
 	export let subscription: string;
-	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined;
+	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | 'cancelled' | undefined;
 	export let name = 'Untitled';
 	export let existingTokenCount = 0;
 
@@ -36,7 +36,6 @@
 		urls = [];
 		selectedUrls = [];
 		selectedUrlsTokenCount = 0;
-		// loadingProgress();
 		try {
 			let body = new FormData();
 			body.append('user_id', userId);
@@ -52,6 +51,10 @@
 			let currentUrlsCount = 0;
 
 			let checkFetchingProgress = setInterval(async () => {
+				if (!busyFetchingUrls) {
+					clearInterval(checkFetchingProgress);
+					return;
+				}
 				const res = await fetch(`/api/models/scrape-urls`, {
 					method: 'POST',
 					body: JSON.stringify({
@@ -85,6 +88,18 @@
 			console.error(err);
 		}
 	};
+
+	$: console.log(urls)
+
+	const cancelFetchUrlsToScrape = () => {
+		busyFetchingUrls = false;
+		urls = undefined
+		selectedUrls = [];
+		selectedUrlsTokenCount = 0;
+		urlsTokenCount = 0
+
+
+	}
 
 	const getFileTokenCount = async () => {
 		try {
@@ -314,7 +329,7 @@
 			<table class="table table-zebra table-sm w-full max-w-full my-4">
 				<thead>
 					<tr>
-						<th>
+						<th class="w-full">
 							<label class="flex items-center">
 								<input
 									type="checkbox"
@@ -363,6 +378,9 @@
 					</tr>
 				</tfoot>
 			</table>
+			<button type="button" class="btn btn-warning btn-xs btn-outline mb-4" on:click={cancelFetchUrlsToScrape}>
+				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2.22 2.22a.749.749 0 0 1 1.06 0L6 4.939L8.72 2.22a.749.749 0 1 1 1.06 1.06L7.061 6L9.78 8.72a.749.749 0 1 1-1.06 1.06L6 7.061L3.28 9.78a.749.749 0 1 1-1.06-1.06L4.939 6L2.22 3.28a.749.749 0 0 1 0-1.06Z"/></svg>
+				<span>{!busyFetchingUrls && urls ? 'Clear URLs' : 'Cancel Scraping'}</span></button>
 			<div
 				class="alert mb-2 flex-col"
 				class:alert-warning={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}
@@ -376,18 +394,18 @@
 				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
 				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
 			</div>
-			<button
-				class="btn btn-primary"
-				on:click={() => createOrUpdateModel()}
-				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
-					selectedUrlsTokenCount == 0 ||
-					trainingStatus === 'training' ||
-					busyFetchingUrls}
-			>
-				<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
+				<button
+					class="btn btn-primary"
+					on:click={() => createOrUpdateModel()}
+					disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
+						selectedUrlsTokenCount == 0 ||
+						trainingStatus === 'training' ||
+						busyFetchingUrls}
+				>
+					<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
+					Train Bot
+				</button>
 
-				Train Bot
-			</button>
-		{/if}
-	{/if}
+			{/if}
+			{/if}
 </div>
