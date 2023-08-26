@@ -20,8 +20,10 @@
 		});
 		const data = await res.json();
 
-		visibleChatConversation = data;
-			document.querySelector(`.chat-${currentActiveChatID}`)?.classList.remove('active');
+		visibleChatConversation = chat
+
+		visibleChatConversation.messages = data;
+		document.querySelector(`.chat-${currentActiveChatID}`)?.classList.remove('active');
 		currentActiveChatID = 'chat-' + chat.session_id;
 		document.querySelector(`.${currentActiveChatID}`)?.classList.add('active');
 	};
@@ -85,7 +87,12 @@
 
 	<div class="h-full overflow-y-auto rounded-lg border border-secondary p-4">
 		{#if visibleChatConversation}
-			{#each visibleChatConversation as item}
+			{#each Array(visibleChatConversation.enduser_name, visibleChatConversation.enduser_email, visibleChatConversation.enduser_phone) as info}
+				{#if info}
+					<span class="badge badge-secondary badge-lg mr-2 mb-2">{info}</span>
+				{/if}
+			{/each}
+			{#each visibleChatConversation.messages as item}
 				<div class="chat" class:chat-end={item.message.type == 'human'}>
 					<div class="chat-bubble">
 						{@html postProcessMsgHTML(
