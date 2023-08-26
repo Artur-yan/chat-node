@@ -1,37 +1,44 @@
 <script lang="ts">
 	import { marked } from 'marked';
+	import { onMount } from 'svelte';
 
 	export let data;
 
+	let chatHistory = data.chats;
 	let visibleChatConversation;
+	let currentActiveChatID = 'chat-' + data.chats[0].session_id
 
-	$: console.log(visibleChatConversation);
 
 	const postProcessMsgHTML = (msgHTML) => {
 		msgHTML = msgHTML.replace(/<a href=/g, '<a target="_blank" href=');
 		return msgHTML;
 	};
 
-	let currentActiveChatID: string;
-	const getChatConversation = async (chat_session_id) => {
-		const res = await fetch(`/api/chat-history/${chat_session_id}`, {
+	const getChatConversation = async (chat) => {
+		const res = await fetch(`/api/chat-history/${chat.session_id}`, {
 			method: 'GET'
 		});
 		const data = await res.json();
 
 		visibleChatConversation = data;
-		if (currentActiveChatID) {
-			document.querySelector(`.${currentActiveChatID}`).classList.remove('active');
-		}
-		currentActiveChatID = 'chat-' + chat_session_id;
-		document.querySelector(`.${currentActiveChatID}`).classList.add('active');
+			document.querySelector(`.chat-${currentActiveChatID}`)?.classList.remove('active');
+		currentActiveChatID = 'chat-' + chat.session_id;
+		document.querySelector(`.${currentActiveChatID}`)?.classList.add('active');
 	};
 
-	let chatHistory = data.chats;
+	onMount(() => {
+		getChatConversation(data.chats[0])
+	})
+
 
 	const reverseSort = () => {
 		chatHistory = chatHistory.reverse();
+		console.log(currentActiveChatID)
+		const match = document.querySelector(`.${currentActiveChatID}`);
+		console.log(match?.classList)
+		match?.classList.add('active')
 	};
+
 </script>
 
 <div class="container md:grid md:grid-cols-[320px_auto] max-h-[75vh] gap-4 h-full my-4">
@@ -59,8 +66,9 @@
 				})}
 				<li>
 					<button
-						class="chat-{chat.session_id} block my-2"
-						on:click|preventDefault={() => getChatConversation(chat.session_id)}
+						class="{chat.session_id} block my-2"
+						on:click|preventDefault={() => getChatConversation(chat)}
+						class:active={currentActiveChatID == `chat-${chat.session_id}`}
 					>
 					{#if chat.enduser_name || chat.enduser_email}
 						<div class="text-secondary/70">
