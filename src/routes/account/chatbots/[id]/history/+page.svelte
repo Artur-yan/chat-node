@@ -5,6 +5,8 @@
 
 	let visibleChatConversation;
 
+	$: console.log(visibleChatConversation);
+
 	const postProcessMsgHTML = (msgHTML) => {
 		msgHTML = msgHTML.replace(/<a href=/g, '<a target="_blank" href=');
 		return msgHTML;
@@ -43,7 +45,7 @@
 
 <div class="container md:grid md:grid-cols-[320px_auto] max-h-[75vh] gap-4 h-full my-4">
 	<div class="mb-4 overflow-y-auto bg-base-200 rounded-box">
-		<ul class="menu" role="navigation">
+		<ul class="menu divide-y divide-neutral" role="navigation">
 			<li class="menu-title">Conversations</li>
 			<div class="flex items-center justify-between px-4">
 				<label for="sort" class="">By Date</label>
@@ -66,13 +68,15 @@
 				})}
 				<li>
 					<button
-						class="chat-{chat.session_id} block"
+						class="chat-{chat.session_id} block my-2"
 						on:click|preventDefault={() => getChatConversation(chat.session_id)}
 					>
-						<div class="space-x-2">
+					{#if chat.enduser_name || chat.enduser_email}
+						<div class="text-secondary/70">
 							<span>{chat.enduser_name ? chat.enduser_name : ''}</span>
-							<span>{chat.enduser_email ? chat.enduser_email : ''}</span>
+							<span>{chat.enduser_email ? '<' + chat.enduser_email + '>' : ''}</span>
 						</div>
+						{/if}
 						{date}
 					</button>
 				</li>
