@@ -29,7 +29,7 @@
 	};
 
 	onMount(() => {
-		if(data.chats[0].session_id) {
+		if(data.chats[0]?.session_id) {
 			currentActiveChatID = 'chat-' + data.chats[0].session_id
 			getChatConversation(data.chats[0])
 		} 
