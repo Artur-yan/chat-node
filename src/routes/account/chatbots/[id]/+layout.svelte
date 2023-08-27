@@ -2,6 +2,8 @@
 	import type { LayoutData } from './$types';
 	import { page } from '$app/stores';
 	import { currentBot, state, alert } from '$lib/stores';
+	import Modal from '$lib/components/Modal.svelte';
+	import { updateModel } from '$lib/models';
 
 	export let data: LayoutData;
 
@@ -12,38 +14,33 @@
 	const savedName = $currentBot.name;
 
 	$: $currentBot.name !== savedName ? ($state = 'unsaved') : ($state = 'saved');
+
+	const handleNameSave = async () => {
+		$state = 'saving';
+		try {
+			await updateModel($currentBot.id, $currentBot.name, $currentBot.settings);
+		} catch (err) {
+			$alert = { type: 'error', msg: err };
+			$state = 'error';
+			return;
+		}
+		$state = 'saved';
+		$alert = { type: 'success', msg: 'Name saved' };
+	};
 </script>
 
 <div class="bg-neutral">
 	<div class="container md:gap-2 flex flex-col md:flex-row justify-between items-center">
-		<div class="flex gap-2 items-center">
+		<div class="flex gap-3 items-center flex-1">
 			<a class="btn btn-sm btn-square text-white/50 hidden sm:flex" href="/account/chatbots">
 				&larr;
 			</a>
-			<input
-				class="input bg-black/10 border-none rounded-none input-ghost whitespace-nowrap p-1 px-4"
-				bind:value={$currentBot.name}
-			/>
-			<!-- {#if $state == 'unsaved'}
-				<button class="btn btn-xs btn-success btn-square btn-outline" on:click={handleNameSave}
-					><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-						><path
-							fill="currentColor"
-							d="m10.586 13.414l-2.829-2.828L6.343 12l4.243 4.243l7.07-7.071l-1.413-1.415l-5.657 5.657Z"
-						/></svg
-					></button
-				>
-				<button
-					class="btn btn-xs btn-error btn-square btn-outline"
-					on:click={() => ($currentBot.name = savedName)}
-					><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-						><path
-							fill="currentColor"
-							d="m16.192 6.344l-4.243 4.242l-4.242-4.242l-1.414 1.414L10.535 12l-4.242 4.242l1.414 1.414l4.242-4.242l4.243 4.242l1.414-1.414L13.364 12l4.242-4.242z"
-						/></svg
-					></button
-				>
-			{/if} -->
+			<h1
+				class="whitespace-nowrap w-full overflow-clip group"
+			>
+			{$currentBot.name}
+				<button class="btn btn-xs md:hidden md:group-hover:inline-block ml-2" on:click={() => editBotName.showModal()}>edit</button>
+			</h1>
 		</div>
 		<div class="tabs tabs-boxed bg-neutral">
 			<a
@@ -93,3 +90,17 @@
 </div>
 
 <slot />
+
+<Modal id="editBotName" title="Edit Name" >
+		<input
+			class="input input-bordered w-full"
+			type="text"
+			name="name"
+			placeholder="Bot Name"
+			bind:value={$currentBot.name}
+		/>
+	<svelte:fragment slot="actions">
+		<button class="btn btn-outline join-item btn-error">Discard</button>
+		<button class="btn btn-success btn-outline join-item" on:click={handleNameSave}>Save</button>
+	</svelte:fragment>
+</Modal>
