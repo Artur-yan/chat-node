@@ -6,7 +6,7 @@
 
 	let chatHistory = data.chats;
 	let visibleChatConversation;
-	let currentActiveChatID = 'chat-' + data.chats[0].session_id
+	let currentActiveChatID
 
 
 	const postProcessMsgHTML = (msgHTML) => {
@@ -29,7 +29,10 @@
 	};
 
 	onMount(() => {
-		getChatConversation(data.chats[0])
+		if(data.chats[0].session_id) {
+			currentActiveChatID = 'chat-' + data.chats[0].session_id
+			getChatConversation(data.chats[0])
+		} 
 	})
 
 
@@ -54,34 +57,37 @@
 					<option>Oldest First</option>
 				</select>
 			</div>
-			{#if chatHistory.length == 0}
+			{#if chatHistory.length === 0}
 				<li class="menu-title text-base-content">No chat history</li>
+			{:else}
+				{#each chatHistory as chat}
+					<!-- {chat.enduser_phone ? chat.enduser_phone : ''} -->
+					{@const date = chat.created_at.toLocaleString([], {
+						year: 'numeric',
+						month: 'numeric',
+						day: 'numeric',
+						hour: '2-digit',
+						minute: '2-digit'
+					})}
+					<li>
+						<button
+							class="{chat.session_id} block my-2"
+							on:click|preventDefault={() => getChatConversation(chat)}
+							class:active={currentActiveChatID == `chat-${chat.session_id}`}
+						>
+						{#if chat.enduser_name || chat.enduser_email}
+							<div class="text-secondary/70">
+								<span>{chat.enduser_name ? chat.enduser_name : ''}</span>
+								<span>{chat.enduser_email ? '<' + chat.enduser_email + '>' : ''}</span>
+							</div>
+							{/if}
+							{date}
+						</button>
+					</li>
+				{/each}
 			{/if}
-			{#each chatHistory as chat}
-				<!-- {chat.enduser_phone ? chat.enduser_phone : ''} -->
-				{@const date = chat.created_at.toLocaleString([], {
-					year: 'numeric',
-					month: 'numeric',
-					day: 'numeric',
-					hour: '2-digit',
-					minute: '2-digit'
-				})}
-				<li>
-					<button
-						class="{chat.session_id} block my-2"
-						on:click|preventDefault={() => getChatConversation(chat)}
-						class:active={currentActiveChatID == `chat-${chat.session_id}`}
-					>
-					{#if chat.enduser_name || chat.enduser_email}
-						<div class="text-secondary/70">
-							<span>{chat.enduser_name ? chat.enduser_name : ''}</span>
-							<span>{chat.enduser_email ? '<' + chat.enduser_email + '>' : ''}</span>
-						</div>
-						{/if}
-						{date}
-					</button>
-				</li>
-			{/each}
+
+
 		</ul>
 	</div>
 
