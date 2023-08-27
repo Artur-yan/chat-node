@@ -386,7 +386,7 @@
 							class="input join-item w-full placeholder:text-sm"
 							style="background-color: var(--inputBG); border-color: var(--inputBorder);"
 							name="name"
-							placeholder="Name"
+							placeholder={settings.collectUserNameLabel}
 							bind:value={endUserInfo.name}
 						/>
 
@@ -396,7 +396,8 @@
 						type="text"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						placeholder="Email"
+						placeholder={settings.collectUserEmailLabel}
+
 						bind:value={endUserInfo.email}
 					/>
 				{/if}
@@ -405,7 +406,7 @@
 						type="text"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						placeholder="Phone"
+						placeholder={settings.collectUserPhoneLabel}
 						bind:value={endUserInfo.phone}
 					/>
 				{/if}
