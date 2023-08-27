@@ -2,6 +2,11 @@
 	export let data;
 </script>
 
+<svelte:head>
+	<title>Roadmap | ChatNode</title>
+	<meta name="description" content="See what features we have planned next and what we've recently launched." />
+</svelte:head>
+
 <div class="container">
 	<h1 class="text-2xl font-bold mb-4">Roadmap</h1>
 
