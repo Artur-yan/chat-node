@@ -14,19 +14,35 @@
 		$currentBot.settings.allowedUrls = [...$currentBot.settings.allowedUrls];
 	};
 
-	let enableEverywhere = false;
+	let enableEverywhere = $currentBot.settings.allowedUrls[0] == '*';
 
 	const currentAllowedUrls = $currentBot.settings.allowedUrls;
 
-	$: enableEverywhere
-		? ($currentBot.settings.allowedUrls = ['*'])
-		: ($currentBot.settings.allowedUrls = currentAllowedUrls);
+	// $: if(enableEverywhere) {
+	// 	$currentBot.settings.allowedUrls[0] = '*'
+	// } else if (currentAllowedUrls[0] !== '*'){
+	// 	$currentBot.settings.allowedUrls = currentAllowedUrls
+	// } else {
+
+	// 	// $currentBot.settings.allowedUrls = ['']
+	// }
 
 	onMount(() => {
 		if ($currentBot.settings.allowedUrls[0] == '*') {
 			enableEverywhere = true;
 		}
 	});
+
+	const handleEnableEverywhereChange = () => {
+		if(enableEverywhere) {
+			$currentBot.settings.allowedUrls = ['*']
+		} else if (currentAllowedUrls[0] !== '*') {
+			$currentBot.settings.allowedUrls = currentAllowedUrls
+		} else {
+			$currentBot.settings.allowedUrls = ['']
+		}
+
+	}
 
 	const checkUrlTroubleSigns = (url: string) => {
 		const urlTroubleStrings = ['http', 'www'];
@@ -94,6 +110,7 @@
 						type="checkbox"
 						class="toggle toggle-info toggle-sm"
 						bind:checked={enableEverywhere}
+						on:change={handleEnableEverywhereChange}
 					/>
 					<span class="label-text">Enable everywhere</span>
 				</label>
