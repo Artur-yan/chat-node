@@ -104,7 +104,7 @@
 								name="url-{i}"
 								bind:value={$currentBot.settings.allowedUrls[i]}
 								class="input w-full"
-								placeholder="chatnode.com"
+								placeholder="e.g. chatnode.com"
 								autofocus
 								on:focusout={() => {
 									if ($currentBot.settings.allowedUrls[i] === '') {
