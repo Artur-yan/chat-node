@@ -36,6 +36,7 @@
 		urls = [];
 		selectedUrls = [];
 		selectedUrlsTokenCount = 0;
+		urlsTokenCount = 0;
 		try {
 			let body = new FormData();
 			body.append('user_id', userId);
@@ -86,28 +87,21 @@
 		} catch (err) {
 			busyFetchingUrls = false;
 			console.error(err);
+			clearInterval(checkFetchingProgress);
+			$alert = { msg: 'Something went wrong', type: 'error' };
 		}
 	};
 
-	$: console.log(urls)
-
 	const cancelFetchUrlsToScrape = () => {
 		busyFetchingUrls = false;
-		// urls = undefined
-		// selectedUrls = [];
-		// selectedUrlsTokenCount = 0;
-		// urlsTokenCount = 0
-
-
 	}
+
 	const clearFetchUrlsToScrape = () => {
 		busyFetchingUrls = false;
 		urls = undefined
 		selectedUrls = [];
 		selectedUrlsTokenCount = 0;
 		urlsTokenCount = 0
-
-
 	}
 
 	const getFileTokenCount = async () => {
@@ -313,7 +307,7 @@
 			</button>
 		</div>
 	{:else if activeTab == 2}
-		<form on:submit={() => fetchUrlsToScrape()}>
+		<form on:submit|preventDefault={() => fetchUrlsToScrape()}>
 			<div class="form-control">
 				<div class="join">
 					<input
