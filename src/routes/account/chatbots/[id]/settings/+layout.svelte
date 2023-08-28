@@ -164,7 +164,7 @@
 		</button>
 	</svelte:fragment>
 </Modal>
-<Modal id="confirmDiscard" title="Are you sure you want to dicard your edits?">
+<Modal id="confirmDiscard" title="Are you sure you want to discard your edits?">
 	<svelte:fragment slot="actions">
 		<button class="btn btn-success btn-outline">Cancel</button>
 		<button class="btn btn-error btn-outline" on:click={handleDiscard}>Discard Changes</button>
