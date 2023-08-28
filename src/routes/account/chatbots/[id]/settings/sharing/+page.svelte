@@ -18,15 +18,6 @@
 
 	const currentAllowedUrls = $currentBot.settings.allowedUrls;
 
-	// $: if(enableEverywhere) {
-	// 	$currentBot.settings.allowedUrls[0] = '*'
-	// } else if (currentAllowedUrls[0] !== '*'){
-	// 	$currentBot.settings.allowedUrls = currentAllowedUrls
-	// } else {
-
-	// 	// $currentBot.settings.allowedUrls = ['']
-	// }
-
 	onMount(() => {
 		if ($currentBot.settings.allowedUrls[0] == '*') {
 			enableEverywhere = true;
@@ -40,6 +31,7 @@
 			$currentBot.settings.allowedUrls = currentAllowedUrls
 		} else {
 			$currentBot.settings.allowedUrls = ['']
+
 		}
 
 	}
