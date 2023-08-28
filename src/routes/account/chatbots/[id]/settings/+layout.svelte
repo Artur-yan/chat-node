@@ -68,7 +68,7 @@
 	};
 
 	beforeNavigate(({ to, cancel }) => {
-		if ($state != 'saved' && !warningIgnored) {
+		if ($state == 'unsaved' && !warningIgnored) {
 			cancel();
 			nextURL = to.url.pathname;
 			confirmUnsavedNavigate.showModal();
