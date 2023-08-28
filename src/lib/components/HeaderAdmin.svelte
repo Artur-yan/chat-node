@@ -1,5 +1,6 @@
 <script>
 	import Icon from '@iconify/svelte';
+	import { redirectToStripeBilling } from '$lib/account';
 
 	let links = [
 		{
@@ -81,15 +82,21 @@
 						<Icon icon="mdi:account-circle-outline" width="24" />
 					</label>
 					<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-					<div
+					<ul
 						tabindex="0"
-						class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-64 z-10"
+						class="dropdown-content menu p-2 shadow-lg border border-base-100 bg-neutral rounded-box w-56 z-10"
 					>
-						<a href="/account/settings" class="btn btn-ghost">Account Settings</a>
-						<form action="/logout" method="POST" class="contents">
-							<button type="submit" class="btn btn-ghost btn-sm my-2 w-32 mx-auto">Sign out</button>
-						</form>
-					</div>
+					<li class="menu-title">Account</li>
+						<li><a href="/account/settings">Settings</a></li>
+						<li><a href="/account/settings/subscription">Subscription</a></li>
+						<li><a href="/account/settings">API Access</a></li>
+						<li><button on:click={redirectToStripeBilling}>Billing</button></li>
+						<li>
+							<form action="/logout" method="POST" class="contents">
+								<button type="submit" class="btn btn-ghost btn-xs my-2 w-32 ml-auto">Sign out</button>
+							</form>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
