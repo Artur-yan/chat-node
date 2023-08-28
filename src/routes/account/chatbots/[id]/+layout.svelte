@@ -11,9 +11,7 @@
 
 	$: currentPath = $page.url.pathname.split('/').slice(-2);
 
-	const savedName = $currentBot.name;
-
-	$: $currentBot.name !== savedName ? ($state = 'unsaved') : ($state = 'saved');
+	let savedName = $currentBot.name;
 
 	const handleNameSave = async () => {
 		$state = 'saving';
@@ -25,8 +23,16 @@
 			return;
 		}
 		$state = 'saved';
+		savedName = $currentBot.name;
 		$alert = { type: 'success', msg: 'Name saved' };
+		editBotName.close();
 	};
+
+	const handleNameDiscard = () => {
+		$currentBot.name = savedName;
+		editBotName.close();
+	}
+
 </script>
 
 <div class="bg-neutral">
@@ -91,16 +97,20 @@
 
 <slot />
 
-<Modal id="editBotName" title="Edit Name" >
+<Modal id="editBotName" title="Edit Name" closeOnOutsideClick={false} >
+	<form on:submit|preventDefault={handleNameSave}>
 		<input
 			class="input input-bordered w-full"
 			type="text"
 			name="name"
 			placeholder="Bot Name"
 			bind:value={$currentBot.name}
+			autofocus
 		/>
+
+	</form>
 	<svelte:fragment slot="actions">
-		<button class="btn btn-outline join-item btn-error">Discard</button>
-		<button class="btn btn-success btn-outline join-item" on:click={handleNameSave}>Save</button>
+		<button on:click={handleNameDiscard} class="btn btn-outline join-item btn-error">Discard</button>
+		<button type="button" class="btn btn-success btn-outline join-item" on:click={handleNameSave}>Save</button>
 	</svelte:fragment>
 </Modal>

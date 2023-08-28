@@ -18,7 +18,7 @@
 		{ name: 'Chat-GPT', url: 'gpt' },
 		{ name: 'Delete', url: 'delete' }
 	];
-	let saved = true;
+	$state = 'saved';
 	let showUserInfoCollection = true;
 	let nextURL: string;
 	let warningIgnored = false;
@@ -32,9 +32,9 @@
 
 	const checkIfSaved = () => {
 		if (saveState === JSON.stringify($currentBot)) {
-			saved = true;
+			$state = 'saved'
 		} else {
-			saved = false;
+			$state = 'unsaved'
 		}
 	};
 
@@ -43,7 +43,7 @@
 		$currentBot = JSON.parse(saveState);
 		goto(nextURL);
 		warningIgnored = false;
-		saved = true;
+		$state = 'saved'
 	};
 
 	const handleSave = async () => {
@@ -57,7 +57,6 @@
 		}
 		saveState = JSON.stringify($currentBot);
 		$state = 'saved';
-		saved = true;
 		$alert = { type: 'success', msg: 'Settings saved' };
 	};
 
@@ -65,11 +64,11 @@
 		warningIgnored = true;
 		currentBot.set(JSON.parse(saveState));
 		warningIgnored = false;
-		saved = true;
+		$state = 'saved'
 	};
 
 	beforeNavigate(({ to, cancel }) => {
-		if (!saved && !warningIgnored) {
+		if ($state != 'saved' && !warningIgnored) {
 			cancel();
 			nextURL = to.url.pathname;
 			confirmUnsavedNavigate.showModal();
@@ -101,7 +100,7 @@
 			<div class="flex my-4 gap-2 items-center">
 				<button
 					class="btn btn-outline btn-warning btn-sm btn-square"
-					disabled={saved}
+					disabled={$state == 'saved'}
 					type="button"
 					on:click={() => confirmDiscard.showModal()}
 				>
@@ -114,7 +113,7 @@
 				</button>
 				<button
 					class="btn btn-outline btn-success flex-1"
-					disabled={saved}
+					disabled={$state == 'saved'}
 					type="submit"
 					on:click={handleSave}
 				>
