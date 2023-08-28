@@ -170,7 +170,7 @@
 								</label>
 								<ul
 									tabindex="0"
-									class="dropdown-content menu p-2 shadow bg-base-100 rounded-box z-10x"
+									class="dropdown-content menu p-2 shadow-xl bg-base-100 rounded-box z-10x"
 								>
 									<li>
 										<a href="/account/chatbots/{bot.id}/share">
