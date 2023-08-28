@@ -164,7 +164,7 @@
 							</div>
 
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
-							<div class="dropdown dropdown-left dropdown-start z-10">
+							<div class="dropdown dropdown-left dropdown-start z-[1]">
 								<label tabindex="0" class="btn btn-ghost btn-square" on:click|preventDefault>
 									<Icon icon="tabler:dots" height="24" />
 								</label>
