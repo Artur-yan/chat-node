@@ -38,9 +38,7 @@
 
 	const reverseSort = () => {
 		chatHistory = chatHistory.reverse();
-		console.log(currentActiveChatID)
 		const match = document.querySelector(`.${currentActiveChatID}`);
-		console.log(match?.classList)
 		match?.classList.add('active')
 	};
 
