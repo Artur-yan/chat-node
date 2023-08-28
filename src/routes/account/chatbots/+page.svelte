@@ -174,12 +174,7 @@
 								>
 									<li>
 										<a href="/account/chatbots/{bot.id}/share">
-											<Icon icon="mdi:code" width="18" /> Share
-										</a>
-									</li>
-									<li>
-										<a href="/account/chatbots/{bot.id}/integrations">
-											<Icon icon="mdi:transit-connection-variant" width="18" /> Integrations
+											<Icon icon="mdi:code" width="18" /> Share/Integrate
 										</a>
 									</li>
 									<li>
