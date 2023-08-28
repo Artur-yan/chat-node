@@ -61,15 +61,15 @@
 				class="tab"
 				class:tab-active={currentPath[1] === 'share'}
 			>
-				Share
+				Share/Integrate
 			</a>
-			<a
+			<!-- <a
 				href="/account/chatbots/{$page.params.id}/integrations"
 				class="tab"
 				class:tab-active={currentPath[1] === 'integrations'}
 			>
 				Integrations
-			</a>
+			</a> -->
 			<a
 				href="/account/chatbots/{$page.params.id}/data"
 				class="tab"
