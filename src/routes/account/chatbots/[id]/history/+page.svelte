@@ -42,6 +42,16 @@
 		match?.classList.add('active')
 	};
 
+	const formatDate = (date: Date) => {
+		return date.toLocaleString([], {
+			year: 'numeric',
+			month: 'numeric',
+			day: 'numeric',
+			hour: '2-digit',
+			minute: '2-digit'
+		});
+	};
+
 </script>
 
 <div class="container md:grid md:grid-cols-[320px_auto] gap-4 min-h-0 flex-1 basis-0 my-4">
@@ -60,13 +70,6 @@
 			{:else}
 				{#each chatHistory as chat}
 					<!-- {chat.enduser_phone ? chat.enduser_phone : ''} -->
-					{@const date = chat.created_at.toLocaleString([], {
-						year: 'numeric',
-						month: 'numeric',
-						day: 'numeric',
-						hour: '2-digit',
-						minute: '2-digit'
-					})}
 					<li>
 						<button
 							class="{chat.session_id} block my-2"
@@ -79,7 +82,7 @@
 								<span>{chat.enduser_email ? '<' + chat.enduser_email + '>' : ''}</span>
 							</div>
 							{/if}
-							{date}
+							{formatDate(chat.created_at)}
 						</button>
 					</li>
 				{/each}
@@ -91,13 +94,23 @@
 
 	<div class="h-full overflow-y-auto rounded-lg border border-secondary p-4">
 		{#if visibleChatConversation}
-			{#each Array(visibleChatConversation.enduser_name, visibleChatConversation.enduser_email, visibleChatConversation.enduser_phone) as info}
-				{#if info}
-					<span class="badge badge-secondary badge-lg mr-2 mb-2">{info}</span>
-				{/if}
-			{/each}
+		<div class="mb-4 flex justify-between gap-2 flex-wrap">
+			<div class="flex gap-2 flex-wrap">
+				{#each Array(visibleChatConversation.enduser_name, visibleChatConversation.enduser_email, visibleChatConversation.enduser_phone) as info}
+					{#if info}
+						<span class="badge badge-secondary badge-lg">{info}</span>
+					{/if}
+				{/each}
+			</div>
+			<div class="badge badge-neutral badge-lg">{formatDate(visibleChatConversation.created_at)}</div>
+		</div>
 			{#each visibleChatConversation.messages as item}
-				<div class="chat" class:chat-end={item.message.type == 'human'}>
+				<div class="chat {item.message.type == 'human' ? 'chat-end' : 'chat-start'}">
+					<div class="chat-header">
+						<time class="text-xs opacity-50">
+							{new Date(item.created_at).toLocaleTimeString()}
+						</time>
+					  </div>
 					<div class="chat-bubble">
 						{@html postProcessMsgHTML(
 							marked.parse(item.message.data.content, { mangle: false, headerIds: false })
