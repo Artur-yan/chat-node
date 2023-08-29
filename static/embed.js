@@ -15,7 +15,7 @@ function toggleChat() {
 }
 const html = `
 <div style="position:fixed; bottom: 20px; right: 20px; z-index:9999999; overflow: visible;">
-    <div style="display: none; border-radius: 12px; overflow: hidden; position: fixed; bottom: 90px; right: 20px; width: 360px; max-width: calc(100% - 44px); height: calc(100vh - 114px); max-height: 600px;" id="chatbot-${id}">
+    <div style="display: none; border-radius: 18px; overflow: hidden; position: fixed; bottom: 90px; right: 20px; width: 360px; max-width: calc(100% - 44px); height: calc(100vh - 114px); max-height: 600px;" id="chatbot-${id}">
         <iframe src="https://www.chatnode.ai/embed/${id}" width="100%" height="100%" style="border: none;" ${
 					openOnLoad ? 'onload="toggleChat()"' : ''
 				}></iframe>
