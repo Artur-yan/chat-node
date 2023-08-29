@@ -1,10 +1,17 @@
 <script lang="ts">
-	import BotStatus from '$lib/components/BotStatus.svelte';
 	import Chat from '$lib/components/Chat.svelte';
+	import { onMount } from 'svelte';
 
 	export let data;
 
 	let settings = data.bot.settings;
+
+	console.log(data);
+
+	onMount(() => {
+		document.body.style.backgroundColor = settings.theme.bg;
+	});
+
 </script>
 
 <svelte:head>
