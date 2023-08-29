@@ -94,7 +94,7 @@
 		<div class="card bg-neutral">
 			<div class="card-body">
 				<h2 class="card-title">API Key</h2>
-				<p>Fetch your chat history via JS</p>
+				<p>Fetch your chat history and query your bots with our API</p>
 				{#if plansWithApiFeature.includes(data.subscription.plan)}
 					<div class="join">
 						<input
