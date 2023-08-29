@@ -70,9 +70,9 @@
 						<ColorPicker bind:hex={color2} label="Background Color" />
 					</div>
 					<p class="text-sm mt-4">
-						To further customise the design visit the <a
+						To further customize the design visit the <a
 							class="link"
-							href="settings"
+							href="settings/customize"
 						>
 							settings page
 						</a>
