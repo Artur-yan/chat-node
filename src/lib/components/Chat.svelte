@@ -6,6 +6,7 @@
 	import { fade } from 'svelte/transition';
 	import CopyButton from './CopyButton.svelte';
 	import { onMount } from 'svelte';
+	import '$lib/assets/css/chat.postcss'
 
 	export let modelId: string;
 	export let disabled = false;
@@ -456,8 +457,6 @@
 			list-style: decimal;
 			margin-left: 2em;
 		}
-
-		// Invert color on focus
 	</style>
 
 </div>

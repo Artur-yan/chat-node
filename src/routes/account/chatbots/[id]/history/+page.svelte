@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { marked } from 'marked';
 	import { onMount } from 'svelte';
+	import '$lib/assets/css/chat.postcss'
 
 	export let data;
 
@@ -112,9 +113,11 @@
 						</time>
 					  </div>
 					<div class="chat-bubble">
-						{@html postProcessMsgHTML(
-							marked.parse(item.message.data.content, { mangle: false, headerIds: false })
-						)}
+						<div class="message-body">
+							{@html postProcessMsgHTML(
+								marked.parse(item.message.data.content, { mangle: false, headerIds: false })
+							)}
+						</div>
 					</div>
 				</div>
 			{/each}
