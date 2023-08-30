@@ -413,6 +413,51 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="flex items-center gap-16 w-full max-w-4xl mx-auto my-16">
+		<div class="p-4 text-center">
+			<h3 class="text-2xl font-bold mb-2 text-accent">
+				Addons
+			</h3>
+			<p class="font-light text-lg">Customize any plan</p>
+		</div>
+		<div class="rounded-xl p-4 flex-1">
+			<div class="overflow-x-auto">
+				<table class="table table-sm">
+				  <!-- head -->
+				  <thead>
+					<tr>
+					  <th>Addon</th>
+					  <th>Unit</th>
+					  <th>Price</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<tr>
+					  <td class="font-bold">Messages</td>
+					  <td>1000</td>
+					  <td>$7</td>
+					</tr>
+					<tr>
+						<td class="font-bold">Bots</td>
+					  <td>each</td>
+					  <td>$5</td>
+					</tr>
+					<tr>
+						<td class="font-bold">Tokens</td>
+					  <td>{Number(250000).toLocaleString()}</td>
+					  <td>$8</td>
+					</tr>
+					<tr>
+						<td class="font-bold">Remove Branding</td>
+					  <td>On all bots</td>
+					  <td>$15</td>
+					</tr>
+				  </tbody>
+				</table>
+			  </div>
+		</div>
+	</div>
 </div>
 
 <!-- Open the modal using ID.showModal() method -->
