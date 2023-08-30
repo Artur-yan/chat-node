@@ -105,7 +105,6 @@
 			name="name"
 			placeholder="Bot Name"
 			bind:value={$currentBot.name}
-			autofocus
 		/>
 
 	</form>
