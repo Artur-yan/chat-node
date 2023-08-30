@@ -61,7 +61,7 @@
 					<Code code={jsEmbedCode} />
 				</div>
 				<p class="text-sm my-2">
-					Place this code wherever you'd like the iframe to appear on your website.
+					Place this code in your &lt;head&gt; tag.
 				</p>
 				<div class="mt-10">
 					<h4 class="font-bold">Customise</h4>
@@ -70,9 +70,9 @@
 						<ColorPicker bind:hex={color2} label="Background Color" />
 					</div>
 					<p class="text-sm mt-4">
-						To further customise the design visit the <a
+						To further customize the design visit the <a
 							class="link"
-							href="settings"
+							href="settings/customize"
 						>
 							settings page
 						</a>
@@ -102,10 +102,10 @@
 			<div class="mb-10">
 				<h2 class="card-title">Embedded (iframe)</h2>
 		
+				<Code code={iframeEmbedCode} />
 				<p class="text-sm my-2">
 					Place this code wherever you'd like the iframe to appear on your website.
 				</p>
-				<Code code={iframeEmbedCode} />
 			</div>
 
 			<h2 class="card-title">Slack</h2>

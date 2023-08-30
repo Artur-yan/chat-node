@@ -94,6 +94,7 @@
 		<div class="card bg-neutral">
 			<div class="card-body">
 				<h2 class="card-title">API Key</h2>
+				<p>Fetch your chat history and query your bots with our API</p>
 				{#if plansWithApiFeature.includes(data.subscription.plan)}
 					<div class="join">
 						<input
@@ -111,6 +112,7 @@
 							Generate
 						</button>
 					</div>
+					<div><a href="https://api.public.chatnode.ai/redoc" class="btn btn-sm" target="_blank">View Documentation</a></div>
 				{:else}
 					<div class="alert mb-2 text-warning justify-between flex">API access is available on the Enterprise plans <a href="/account/settings/subscription" class="btn">Upgrade</a></div>
 				{/if}

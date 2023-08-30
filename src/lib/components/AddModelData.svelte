@@ -252,7 +252,7 @@
 			</div>
 		</div>
 		<div
-			class="alert flex-col"
+			class="alert"
 			class:hidden={filesTokenCount === 0}
 			class:alert-warning={filesTokenCount + existingTokenCount > subscription.max_tocken}
 		>
@@ -289,9 +289,14 @@
 				class="alert mt-2"
 				class:alert-warning={approxTextTokenCount + existingTokenCount > subscription.max_tocken}
 			>
-				Your included text contains approx. {approxTextTokenCount.toLocaleString()} tokens.
-				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
-				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
+				<p>
+					Your included text contains approx. {approxTextTokenCount.toLocaleString()} tokens.
+					{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
+					Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
+				</p>
+				{#if approxTextTokenCount + existingTokenCount > subscription.max_tocken}
+					<a href="/account/settings/subscription" class="btn">Upgrade</a>
+				{/if}
 			</div>
 			<button
 				class="btn btn-primary mt-8"
@@ -387,17 +392,17 @@
 				<span>{!busyFetchingUrls && urls ? 'Clear URLs' : 'Stop Scraping'}</span></button>
 			{/if}
 			<div
-				class="alert mb-2 flex-col"
+				class="alert mb-2"
 				class:alert-warning={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}
 			>
-				<progress
-					class="progress progress-success w-full"
-					value={selectedUrlsTokenCount + existingTokenCount}
-					max={subscription.max_tocken}
-				/>
-				Your selected urls contain {selectedUrlsTokenCount.toLocaleString()} tokens.
-				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
-				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
+				<p>
+					Your selected urls contain {selectedUrlsTokenCount.toLocaleString()} tokens.
+					{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
+					Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
+				</p>
+				{#if selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}
+					<a href="/account/settings/subscription" class="btn">Upgrade</a>
+				{/if}
 			</div>
 				<button
 					class="btn btn-primary"
