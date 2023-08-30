@@ -330,7 +330,7 @@
 			</div>
 		</form>
 		<p class="help">
-			We will check your website for any sub-pages and you can choose which to include in your data
+			Add any public url for a website, Google doc, PDF, and much more and we'll check for any sub-pages. You can select the pages to be included from our results before adding them to your bot.
 		</p>
 
 		{#if urls}
