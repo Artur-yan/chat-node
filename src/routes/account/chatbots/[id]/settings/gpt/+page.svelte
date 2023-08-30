@@ -70,11 +70,13 @@
 		{/if}
 		<div>
 			<input
-				class="input w-full max-w-lg"
+				class="input w-full"
 				type="text"
 				bind:value={$currentBot.settings.openai_api_key}
+				placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 				disabled={!plansWthCustomApiKey.includes(plan)}
 			/>
+			<p class="mt-2 mx-1 max-w-md text-sm leading-6">Input your own secret api key from OpenAI and when you exhaust your messages in your ChatNode account, we will use your OpenAI credits to complete your requests.</p>
 		</div>
 	</div>
 </div>

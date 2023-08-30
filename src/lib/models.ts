@@ -66,8 +66,11 @@ const defaultSettings = {
 	sendButtonEnabled: false,
 	headerEnabled: false,
 	collectUserName: false,
+	collectUserNameLabel: 'Name',
 	collectUserEmail: false,
+	collectUserEmailLabel: 'Email',
 	collectUserPhone: false,
+	collectUserPhoneLabel: 'Phone',
 	theme: {
 		name: 'default',
 		bg: '#0F172A',

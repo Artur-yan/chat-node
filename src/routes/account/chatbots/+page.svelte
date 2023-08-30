@@ -164,22 +164,17 @@
 							</div>
 
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
-							<div class="dropdown dropdown-left dropdown-start z-10">
+							<div class="dropdown dropdown-left dropdown-start z-[1]">
 								<label tabindex="0" class="btn btn-ghost btn-square" on:click|preventDefault>
 									<Icon icon="tabler:dots" height="24" />
 								</label>
 								<ul
 									tabindex="0"
-									class="dropdown-content menu p-2 shadow bg-base-100 rounded-box z-10x"
+									class="dropdown-content menu p-2 shadow-xl bg-base-100 rounded-box z-10x"
 								>
 									<li>
 										<a href="/account/chatbots/{bot.id}/share">
-											<Icon icon="mdi:code" width="18" /> Share
-										</a>
-									</li>
-									<li>
-										<a href="/account/chatbots/{bot.id}/integrations">
-											<Icon icon="mdi:transit-connection-variant" width="18" /> Integrations
+											<Icon icon="mdi:code" width="18" /> Share/Integrate
 										</a>
 									</li>
 									<li>

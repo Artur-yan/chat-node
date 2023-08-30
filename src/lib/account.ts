@@ -1,4 +1,5 @@
 import { goto } from '$app/navigation';
+import { alert } from '$lib/stores';
 
 const deleteAccount = async () => {
 	await fetch('/api/account/delete', {
@@ -33,4 +34,26 @@ const updateApiKey = async () => {
 	}
 };
 
-export { deleteAccount, updateAccountEmail, updateApiKey };
+const redirectToStripeBilling = async () => {
+	try {
+		alert.set('Redirecting you to Stripe billing portal')
+
+		const res = await fetch('/api/account/billing', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: ''
+		});
+		if (res.status == 200) {
+			const url = await res.json();
+			goto(url);
+		} else {
+			alert.set('Failed to redirect to Stripe billing portal')
+		}
+	} catch (err) {
+		console.error(err);
+	}
+};
+
+export { deleteAccount, updateAccountEmail, updateApiKey, redirectToStripeBilling };

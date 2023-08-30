@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { currentBot } from '$lib/stores.js';
 
 	import { deleteModel } from '$lib/models.js';
 
-	import { state, alert } from '$lib/stores.js';
+	import { state, alert, currentBot } from '$lib/stores.js';
 
 	import { goto } from '$app/navigation';
 

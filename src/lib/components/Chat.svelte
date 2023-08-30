@@ -6,6 +6,7 @@
 	import { fade } from 'svelte/transition';
 	import CopyButton from './CopyButton.svelte';
 	import { onMount } from 'svelte';
+	import '$lib/assets/css/chat.postcss'
 
 	export let modelId: string;
 	export let disabled = false;
@@ -62,8 +63,6 @@
 	onMount(() => {
 		endUserInfo = JSON.parse(localStorage.getItem('enduserInfo')) || {};
 	});
-
-	$: console.log(endUserInfo);
 
 	$: if (settings.collectUserName || settings.collectUserEmail || settings.collectUserPhone) {
 		collectUserInfo = true;
@@ -220,6 +219,7 @@
 		<button
 			class="z-20 absolute top-2.5 right-2.5 btn btn-circle btn-sm btn-ghost flex items-center justify-center"
 			style="color: var(--resetButton);"
+			title="Reset Chat"
 			on:click={resetChat}
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
@@ -387,7 +387,7 @@
 							class="input join-item w-full placeholder:text-sm"
 							style="background-color: var(--inputBG); border-color: var(--inputBorder);"
 							name="name"
-							placeholder="Name"
+							placeholder={settings.collectUserNameLabel}
 							bind:value={endUserInfo.name}
 						/>
 
@@ -397,7 +397,8 @@
 						type="text"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						placeholder="Email"
+						placeholder={settings.collectUserEmailLabel}
+
 						bind:value={endUserInfo.email}
 					/>
 				{/if}
@@ -406,7 +407,7 @@
 						type="text"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						placeholder="Phone"
+						placeholder={settings.collectUserPhoneLabel}
 						bind:value={endUserInfo.phone}
 					/>
 				{/if}
@@ -456,8 +457,6 @@
 			list-style: decimal;
 			margin-left: 2em;
 		}
-
-		// Invert color on focus
 	</style>
 
 </div>

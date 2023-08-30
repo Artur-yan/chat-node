@@ -10,7 +10,7 @@
 	export let userId: string;
 	export let sessionId: string;
 	export let subscription: string;
-	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | undefined;
+	export let trainingStatus: 'training' | 'ready' | 'failed' | 'not started' | 'cancelled' | undefined;
 	export let name = 'Untitled';
 	export let existingTokenCount = 0;
 
@@ -36,7 +36,7 @@
 		urls = [];
 		selectedUrls = [];
 		selectedUrlsTokenCount = 0;
-		// loadingProgress();
+		urlsTokenCount = 0;
 		try {
 			let body = new FormData();
 			body.append('user_id', userId);
@@ -52,6 +52,10 @@
 			let currentUrlsCount = 0;
 
 			let checkFetchingProgress = setInterval(async () => {
+				if (!busyFetchingUrls) {
+					clearInterval(checkFetchingProgress);
+					return;
+				}
 				const res = await fetch(`/api/models/scrape-urls`, {
 					method: 'POST',
 					body: JSON.stringify({
@@ -83,8 +87,22 @@
 		} catch (err) {
 			busyFetchingUrls = false;
 			console.error(err);
+			clearInterval(checkFetchingProgress);
+			$alert = { msg: 'Something went wrong', type: 'error' };
 		}
 	};
+
+	const cancelFetchUrlsToScrape = () => {
+		busyFetchingUrls = false;
+	}
+
+	const clearFetchUrlsToScrape = () => {
+		busyFetchingUrls = false;
+		urls = undefined
+		selectedUrls = [];
+		selectedUrlsTokenCount = 0;
+		urlsTokenCount = 0
+	}
 
 	const getFileTokenCount = async () => {
 		try {
@@ -234,7 +252,7 @@
 			</div>
 		</div>
 		<div
-			class="alert flex-col"
+			class="alert"
 			class:hidden={filesTokenCount === 0}
 			class:alert-warning={filesTokenCount + existingTokenCount > subscription.max_tocken}
 		>
@@ -271,9 +289,14 @@
 				class="alert mt-2"
 				class:alert-warning={approxTextTokenCount + existingTokenCount > subscription.max_tocken}
 			>
-				Your included text contains approx. {approxTextTokenCount.toLocaleString()} tokens.
-				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
-				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
+				<p>
+					Your included text contains approx. {approxTextTokenCount.toLocaleString()} tokens.
+					{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
+					Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
+				</p>
+				{#if approxTextTokenCount + existingTokenCount > subscription.max_tocken}
+					<a href="/account/settings/subscription" class="btn">Upgrade</a>
+				{/if}
 			</div>
 			<button
 				class="btn btn-primary mt-8"
@@ -289,7 +312,7 @@
 			</button>
 		</div>
 	{:else if activeTab == 2}
-		<form on:submit={() => fetchUrlsToScrape()}>
+		<form on:submit|preventDefault={() => fetchUrlsToScrape()}>
 			<div class="form-control">
 				<div class="join">
 					<input
@@ -307,14 +330,14 @@
 			</div>
 		</form>
 		<p class="help">
-			We will check your website for any sub-pages and you can choose which to include in your data
+			Add any public url for a website, Google doc, PDF, and much more and we'll check for any sub-pages. You can select the pages to be included from our results before adding them to your bot.
 		</p>
 
 		{#if urls}
-			<table class="table table-zebra table-sm w-full max-w-full my-4">
+			<table class="table table-sm w-full max-w-full my-4">
 				<thead>
 					<tr>
-						<th>
+						<th class="w-full">
 							<label class="flex items-center">
 								<input
 									type="checkbox"
@@ -363,31 +386,36 @@
 					</tr>
 				</tfoot>
 			</table>
+			{#if busyFetchingUrls}
+			<button type="button" class="btn btn-warning btn-xs btn-outline mb-4" on:click={cancelFetchUrlsToScrape}>
+				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2.22 2.22a.749.749 0 0 1 1.06 0L6 4.939L8.72 2.22a.749.749 0 1 1 1.06 1.06L7.061 6L9.78 8.72a.749.749 0 1 1-1.06 1.06L6 7.061L3.28 9.78a.749.749 0 1 1-1.06-1.06L4.939 6L2.22 3.28a.749.749 0 0 1 0-1.06Z"/></svg>
+				<span>{!busyFetchingUrls && urls ? 'Clear URLs' : 'Stop Scraping'}</span></button>
+			{/if}
 			<div
-				class="alert mb-2 flex-col"
+				class="alert mb-2"
 				class:alert-warning={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}
 			>
-				<progress
-					class="progress progress-success w-full"
-					value={selectedUrlsTokenCount + existingTokenCount}
-					max={subscription.max_tocken}
-				/>
-				Your selected urls contain {selectedUrlsTokenCount.toLocaleString()} tokens.
-				{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
-				Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
+				<p>
+					Your selected urls contain {selectedUrlsTokenCount.toLocaleString()} tokens.
+					{#if existingTokenCount > 0}{existingTokenCount.toLocaleString()} tokens are already in use.{/if}
+					Your plan allows {subscription.max_tocken.toLocaleString()} tokens/bot.
+				</p>
+				{#if selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken}
+					<a href="/account/settings/subscription" class="btn">Upgrade</a>
+				{/if}
 			</div>
-			<button
-				class="btn btn-primary"
-				on:click={() => createOrUpdateModel()}
-				disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
-					selectedUrlsTokenCount == 0 ||
-					trainingStatus === 'training' ||
-					busyFetchingUrls}
-			>
-				<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
+				<button
+					class="btn btn-primary"
+					on:click={() => createOrUpdateModel()}
+					disabled={selectedUrlsTokenCount + existingTokenCount > subscription.max_tocken ||
+						selectedUrlsTokenCount == 0 ||
+						trainingStatus === 'training' ||
+						busyFetchingUrls}
+				>
+					<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
+					Train Bot
+				</button>
 
-				Train Bot
-			</button>
-		{/if}
-	{/if}
+			{/if}
+			{/if}
 </div>

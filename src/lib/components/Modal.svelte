@@ -2,6 +2,8 @@
 	export let id: string;
 	export let title: string;
 	export let maxWidth = '32rem';
+	export let hookClose = () => {};
+	export let closeOnOutsideClick = true;
 </script>
 
 <dialog {id} class="modal">
@@ -12,7 +14,9 @@
 			<slot name="actions" />
 		</div>
 	</form>
-	<form method="dialog" class="modal-backdrop">
-		<button>close</button>
-	</form>
+	{#if closeOnOutsideClick}
+		<form method="dialog" class="modal-backdrop">
+			<button on:click={hookClose}>close</button>
+		</form>
+	{/if}
 </dialog>

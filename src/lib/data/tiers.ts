@@ -52,6 +52,10 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: true,
 				label: 'Remove ChatNode Branding'
+			},
+			chat_history: {
+				included: true,
+				label: '60 Day Chat History'
 			}
 		}
 	},
@@ -72,6 +76,10 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: true,
 				label: 'Remove ChatNode Branding'
+			},
+			chat_history: {
+				included: true,
+				label: '60 Day Chat History'
 			}
 		}
 	},
@@ -92,6 +100,10 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: true,
 				label: 'Remove ChatNode Branding'
+			},
+			chat_history: {
+				included: true,
+				label: '60 Day Chat History'
 			}
 		}
 	}

@@ -1,31 +1,32 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	// import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { alert } from '$lib/stores';
+	// import { alert } from '$lib/stores';
+	import { redirectToStripeBilling } from '$lib/account';
 
 	export let data;
 
-	const redirectToStripeBilling = async () => {
-		try {
-			$alert = 'Redirecting you to Stripe billing portal';
+	// const redirectToStripeBilling = async () => {
+	// 	try {
+	// 		$alert = 'Redirecting you to Stripe billing portal';
 
-			const res = await fetch('/api/account/billing', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: ''
-			});
-			if (res.status == 200) {
-				const url = await res.json();
-				goto(url);
-			} else {
-				$alert = 'Failed to redirect to Stripe billing portal';
-			}
-		} catch (err) {
-			console.error(err);
-		}
-	};
+	// 		const res = await fetch('/api/account/billing', {
+	// 			method: 'POST',
+	// 			headers: {
+	// 				'Content-Type': 'application/json'
+	// 			},
+	// 			body: ''
+	// 		});
+	// 		if (res.status == 200) {
+	// 			const url = await res.json();
+	// 			goto(url);
+	// 		} else {
+	// 			$alert = 'Failed to redirect to Stripe billing portal';
+	// 		}
+	// 	} catch (err) {
+	// 		console.error(err);
+	// 	}
+	// };
 
 	const subscriptionPath = '/account/settings/subscription';
 	const settingsPath = '/account/settings';

@@ -3,6 +3,11 @@
 	import { fade } from 'svelte/transition';
 </script>
 
+<svelte:head>
+	<title>Blog | ChatNode</title>
+	<meta name="description" content="Discover the many ways to use custom AI models, new features and ways to better implement your chatbots." />
+</svelte:head>
+
 <div class="container grid md:grid-cols-2 lg:grid-cols-3 gap-10">
 	{#each data.posts as post, i}
 		<a class="card card-compact bg-neutral overflow-hidden group" href="/blog/{post.slug}">

@@ -20,7 +20,7 @@ const html = `
 					openOnLoad ? 'onload="toggleChat()"' : ''
 				}></iframe>
     </div>
-    <div role="button" style="outline: 0; border: none; position: absolute; bottom: 0; right: 0; width:64px; height: 64px;" onclick="toggleChat()">
+    <div role="button" style="outline: 0; border: none; position: absolute; bottom: 0; right: 0; width:64px; height: 64px;" onclick="toggleChat()" aria-label="Open AI Chat">
 	<svg clip-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><g><path d="m0 32c0-17.673 14.327-32 32-32s32 14.327 32 32-14.327 32-32 32-32-14.327-32-32z" fill="${color2}"/><path d="m26 16c-5.5228 0-10 4.4772-10 10v12c0 5.5228 4.4772 10 10 10h19.5c1.3807 0 2.5-1.1193 2.5-2.5v-19.5c0-5.5228-4.4772-10-10-10h-12zm-0.75 16c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm8.75 0c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm6.75 2c1.1046 0 2-0.8954 2-2s-0.8954-2-2-2-2 0.8954-2 2 0.8954 2 2 2z" fill="${color1}" fill-rule="evenodd"/></g></svg>
 	</div>
 </div>
