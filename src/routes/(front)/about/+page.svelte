@@ -43,7 +43,7 @@
 </svelte:head>
 
 <div class="container">
-	<section>
+	<section id="company">
 		<h1 class="text-2xl font-bold mb-5">The Company</h1>
 		<div class="text-2xl max-w-4xl leading-9">
 			<p>
@@ -55,7 +55,7 @@
 		</div>
 	</section>
 
-	<section class="my-20">
+	<section class="my-20" id="team">
 		<h1 class="text-2xl font-bold mb-2">The Team</h1>
 		<div class="grid md:grid-cols-3 gap-8">
 			{#each team as person}
