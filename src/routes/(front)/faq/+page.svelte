@@ -2,8 +2,7 @@
 	import Accordian from '$lib/components/Accordian.svelte';
 </script>
 
-<svelte:head>
-</svelte:head>
+<svelte:head />
 
 <section class="container py-20">
 	<h2 class="text-4xl text-center 2xl:text-5xl font-bold mb-8">FAQ</h2>

@@ -31,8 +31,7 @@
 	const handleNameDiscard = () => {
 		$currentBot.name = savedName;
 		editBotName.close();
-	}
-
+	};
 </script>
 
 <div class="bg-neutral">
@@ -41,11 +40,14 @@
 			<a class="btn btn-sm btn-square text-white/50 hidden sm:flex" href="/account/chatbots">
 				&larr;
 			</a>
-			<h1
-				class="whitespace-nowrap w-full overflow-clip group"
-			>
-			{$currentBot.name}
-				<button class="btn btn-xs md:hidden md:group-hover:inline-block ml-2" on:click={() => editBotName.showModal()}>edit</button>
+			<h1 class="whitespace-nowrap w-full overflow-clip group">
+				{$currentBot.name}
+				<button
+					class="btn btn-xs md:hidden md:group-hover:inline-block ml-2"
+					on:click={() => editBotName.showModal()}
+				>
+					edit
+				</button>
 			</h1>
 		</div>
 		<div class="tabs tabs-boxed bg-neutral">
@@ -97,7 +99,7 @@
 
 <slot />
 
-<Modal id="editBotName" title="Edit Name" closeOnOutsideClick={false} >
+<Modal id="editBotName" title="Edit Name" closeOnOutsideClick={false}>
 	<form on:submit|preventDefault={handleNameSave}>
 		<input
 			class="input input-bordered w-full"
@@ -106,10 +108,13 @@
 			placeholder="Bot Name"
 			bind:value={$currentBot.name}
 		/>
-
 	</form>
 	<svelte:fragment slot="actions">
-		<button on:click={handleNameDiscard} class="btn btn-outline join-item btn-error">Discard</button>
-		<button type="button" class="btn btn-success btn-outline join-item" on:click={handleNameSave}>Save</button>
+		<button on:click={handleNameDiscard} class="btn btn-outline join-item btn-error">
+			Discard
+		</button>
+		<button type="button" class="btn btn-success btn-outline join-item" on:click={handleNameSave}>
+			Save
+		</button>
 	</svelte:fragment>
 </Modal>

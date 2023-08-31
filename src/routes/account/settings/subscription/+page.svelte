@@ -39,7 +39,7 @@
 	{#if currentPlan > 1000}
 		<h1 class="font-bold text-3xl mb-4 mt-10">
 			You purchased a lifetime <span class="text-primary">{tier.name}</span>
-			 plan
+			plan
 		</h1>
 
 		<p class="font-bold text-secondary text-lg mb-2">Your plan includes:</p>

@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { marked } from 'marked';
 	import { onMount } from 'svelte';
-	import '$lib/assets/css/chat.postcss'
+	import '$lib/assets/css/chat.postcss';
 
 	export let data;
 
 	let chatHistory = data.chats;
 	let visibleChatConversation;
-	let currentActiveChatID
-
+	let currentActiveChatID;
 
 	const postProcessMsgHTML = (msgHTML) => {
 		msgHTML = msgHTML.replace(/<a href=/g, '<a target="_blank" href=');
@@ -21,7 +20,7 @@
 		});
 		const data = await res.json();
 
-		visibleChatConversation = chat
+		visibleChatConversation = chat;
 
 		visibleChatConversation.messages = data;
 		document.querySelector(`.chat-${currentActiveChatID}`)?.classList.remove('active');
@@ -30,17 +29,16 @@
 	};
 
 	onMount(() => {
-		if(data.chats[0]?.session_id) {
-			currentActiveChatID = 'chat-' + data.chats[0].session_id
-			getChatConversation(data.chats[0])
-		} 
-	})
-
+		if (data.chats[0]?.session_id) {
+			currentActiveChatID = 'chat-' + data.chats[0].session_id;
+			getChatConversation(data.chats[0]);
+		}
+	});
 
 	const reverseSort = () => {
 		chatHistory = chatHistory.reverse();
 		const match = document.querySelector(`.${currentActiveChatID}`);
-		match?.classList.add('active')
+		match?.classList.add('active');
 	};
 
 	const formatDate = (date: Date) => {
@@ -52,7 +50,6 @@
 			minute: '2-digit'
 		});
 	};
-
 </script>
 
 <div class="container md:grid md:grid-cols-[320px_auto] gap-4 min-h-0 flex-1 basis-0 my-4">
@@ -77,41 +74,41 @@
 							on:click|preventDefault={() => getChatConversation(chat)}
 							class:active={currentActiveChatID == `chat-${chat.session_id}`}
 						>
-						{#if chat.enduser_name || chat.enduser_email}
-							<div class="text-secondary/70">
-								<span>{chat.enduser_name ? chat.enduser_name : ''}</span>
-								<span>{chat.enduser_email ? '<' + chat.enduser_email + '>' : ''}</span>
-							</div>
+							{#if chat.enduser_name || chat.enduser_email}
+								<div class="text-secondary/70">
+									<span>{chat.enduser_name ? chat.enduser_name : ''}</span>
+									<span>{chat.enduser_email ? '<' + chat.enduser_email + '>' : ''}</span>
+								</div>
 							{/if}
 							{formatDate(chat.created_at)}
 						</button>
 					</li>
 				{/each}
 			{/if}
-
-
 		</ul>
 	</div>
 
 	<div class="h-full overflow-y-auto rounded-lg border border-secondary p-4">
 		{#if visibleChatConversation}
-		<div class="mb-4 flex justify-between gap-2 flex-wrap">
-			<div class="flex gap-2 flex-wrap">
-				{#each Array(visibleChatConversation.enduser_name, visibleChatConversation.enduser_email, visibleChatConversation.enduser_phone) as info}
-					{#if info}
-						<span class="badge badge-secondary badge-lg">{info}</span>
-					{/if}
-				{/each}
+			<div class="mb-4 flex justify-between gap-2 flex-wrap">
+				<div class="flex gap-2 flex-wrap">
+					{#each Array(visibleChatConversation.enduser_name, visibleChatConversation.enduser_email, visibleChatConversation.enduser_phone) as info}
+						{#if info}
+							<span class="badge badge-secondary badge-lg">{info}</span>
+						{/if}
+					{/each}
+				</div>
+				<div class="badge badge-neutral badge-lg">
+					{formatDate(visibleChatConversation.created_at)}
+				</div>
 			</div>
-			<div class="badge badge-neutral badge-lg">{formatDate(visibleChatConversation.created_at)}</div>
-		</div>
 			{#each visibleChatConversation.messages as item}
 				<div class="chat {item.message.type == 'human' ? 'chat-end' : 'chat-start'}">
 					<div class="chat-header">
 						<time class="text-xs opacity-50">
 							{new Date(item.created_at).toLocaleTimeString()}
 						</time>
-					  </div>
+					</div>
 					<div class="chat-bubble">
 						<div class="message-body">
 							{@html postProcessMsgHTML(

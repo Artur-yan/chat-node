@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { PUBLIC_SITE_URL, PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import CopyButton from '$lib/components/CopyButton.svelte';
-	import Code from '$lib/components/Code.svelte';	
+	import Code from '$lib/components/Code.svelte';
 	import ColorPicker from 'svelte-awesome-color-picker';
-	
+
 	export let data;
-	
+
 	let color1 = '#3ABFF7';
 	let color2 = '#0E1729';
 	let openChatByDefault = false;
 	let jsEmbedCode;
-	
+
 	const plansWithSlackIntegration = [2, 3, 4, 5, 102, 103, 104, 105, 1001, 1002, 1003, 1004, 1005];
 	const iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="100%" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 	const url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
@@ -52,7 +52,6 @@
 	{/if}
 
 	<div class="md:grid md:grid-cols-2 gap-12">
-
 		<div class="mb-12">
 			<h2 class="card-title">Popup Chat</h2>
 
@@ -60,9 +59,7 @@
 				<div>
 					<Code code={jsEmbedCode} />
 				</div>
-				<p class="text-sm my-2">
-					Place this code in your &lt;head&gt; tag.
-				</p>
+				<p class="text-sm my-2">Place this code in your &lt;head&gt; tag.</p>
 				<div class="mt-10">
 					<h4 class="font-bold">Customise</h4>
 					<div class="flex gap-4 mt-4">
@@ -70,10 +67,7 @@
 						<ColorPicker bind:hex={color2} label="Background Color" />
 					</div>
 					<p class="text-sm mt-4">
-						To further customize the design visit the <a
-							class="link"
-							href="settings/customize"
-						>
+						To further customize the design visit the <a class="link" href="settings/customize">
 							settings page
 						</a>
 						.
@@ -86,7 +80,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 
 		<div>
@@ -101,7 +94,7 @@
 
 			<div class="mb-10">
 				<h2 class="card-title">Embedded (iframe)</h2>
-		
+
 				<Code code={iframeEmbedCode} />
 				<p class="text-sm my-2">
 					Place this code wherever you'd like the iframe to appear on your website.
@@ -122,7 +115,9 @@
 								</a>
 							{:else}
 								<div class="badge badge-outline badge-success">Enabled</div>
-								<a class="btn btn-xs" href="{PUBLIC_CHAT_API_URL}/slack/install">+ Slack Workspace</a>
+								<a class="btn btn-xs" href="{PUBLIC_CHAT_API_URL}/slack/install">
+									+ Slack Workspace
+								</a>
 							{/if}
 						{:else}
 							<p class="text-warning text-sm">
@@ -133,15 +128,8 @@
 					</div>
 				</div>
 			</div>
-		
 		</div>
-
 	</div>
-
-
-
-
-	
 </div>
 
 <style lang="postcss">

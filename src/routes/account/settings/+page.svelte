@@ -36,7 +36,6 @@
 
 <section class="container my-10 grid md:grid-cols-2 gap-8">
 	<div>
-
 		<div class="card bg-neutral mb-8">
 			<div class="card-body">
 				<h2 class="card-title">Email</h2>
@@ -55,7 +54,7 @@
 				</div>
 			</div>
 		</div>
-	
+
 		<div class="card bg-neutral">
 			<div class="card-body">
 				<h2 class="card-title">Create new password</h2>
@@ -71,7 +70,9 @@
 						/>
 					</div>
 					<div>
-						<label class="label" for="email"><span class="label-text">Confirm password</span></label>
+						<label class="label" for="email">
+							<span class="label-text">Confirm password</span>
+						</label>
 						<input
 							class="input w-full"
 							type="password"
@@ -112,9 +113,20 @@
 							Generate
 						</button>
 					</div>
-					<div><a href="https://api.public.chatnode.ai/redoc" class="btn btn-sm" target="_blank">View Documentation</a></div>
+					<div>
+						<a href="https://api.public.chatnode.ai/redoc" class="btn btn-sm" target="_blank">
+							View Documentation
+						</a>
+					</div>
 				{:else}
-					<div class="alert mb-2 text-warning justify-between flex">API access is available on the Enterprise plans <a href="/account/settings/subscription" class="btn">Upgrade</a></div>
+					<div class="alert mb-2 text-warning justify-between flex">
+						API access is available on the Enterprise plans <a
+							href="/account/settings/subscription"
+							class="btn"
+						>
+							Upgrade
+						</a>
+					</div>
 				{/if}
 			</div>
 		</div>

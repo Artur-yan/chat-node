@@ -30,13 +30,16 @@
 			nationality: '🇫🇷',
 			bio: 'His days at ChatNode are pretty simple.<br>8-8:30am: Checking reports to see what our customers want next.<br>8:30-10pm : Building those features with Eric.<br>(Sometimes he skips lunch. He used to work as a data analyst for Wall Street so he no time for bulls**t)',
 			img: Sacha
-		},
+		}
 	];
 </script>
 
 <svelte:head>
 	<title>About | ChatNode</title>
-	<meta name="description" content="We are passionate about building a startup in the very new and very exciting field of AI. We 	believe this technology should belong to everyone. We see ChatNode as a way to democratize the influence and value that AI can bring to the world." />
+	<meta
+		name="description"
+		content="We are passionate about building a startup in the very new and very exciting field of AI. We 	believe this technology should belong to everyone. We see ChatNode as a way to democratize the influence and value that AI can bring to the world."
+	/>
 </svelte:head>
 
 <div class="container">

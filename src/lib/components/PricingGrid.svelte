@@ -10,7 +10,6 @@
 	let referralCode = '';
 	export let billingTerm = 'monthly';
 
-
 	onMount(() => {
 		if (PUBLIC_ENVIRONMENT === 'production' && rewardful) {
 			rewardful('ready', function () {
@@ -102,11 +101,11 @@
 			<ul>
 				<li>
 					<span class="figure">50</span>
-					 messages/mo.
+					messages/mo.
 				</li>
 				<li>
 					<span class="figure">1</span>
-					 chatbot
+					chatbot
 				</li>
 				<li>
 					<div
@@ -114,7 +113,7 @@
 						data-tip="approx. 400,000 characters"
 					>
 						<span class="figure">100,000</span>
-						 tokens/bot
+						tokens/bot
 					</div>
 				</li>
 			</ul>
@@ -162,11 +161,11 @@
 			<ul>
 				<li>
 					<span class="figure">2,000</span>
-					 messages/mo.
+					messages/mo.
 				</li>
 				<li>
 					<span class="figure">5</span>
-					 Chatbots
+					Chatbots
 				</li>
 				<li>
 					<div
@@ -174,12 +173,12 @@
 						data-tip="approx. 1,600,000 characters"
 					>
 						<span class="figure">400,000</span>
-						 tokens/bot
+						tokens/bot
 					</div>
 				</li>
 				<li>
 					<span class="figure">3 Day</span>
-					 chat history
+					chat history
 				</li>
 			</ul>
 		</div>
@@ -227,11 +226,11 @@
 				<ul>
 					<li>
 						<span class="figure">5,000</span>
-						 message/mo.
+						message/mo.
 					</li>
 					<li>
 						<span class="figure">10</span>
-						 Chatbots
+						Chatbots
 					</li>
 					<li>
 						<div
@@ -239,12 +238,12 @@
 							data-tip="approx. 3,200,000 characters"
 						>
 							<span class="figure">800,000</span>
-							 tokens/bot
+							tokens/bot
 						</div>
 					</li>
 					<li>
 						<span class="figure">7 Day</span>
-						 chat history
+						chat history
 					</li>
 				</ul>
 				<ul class="extra">
@@ -309,11 +308,11 @@
 				<ul>
 					<li>
 						<span class="figure">10,000</span>
-						 messages/mo.
+						messages/mo.
 					</li>
 					<li>
 						<span class="figure">20</span>
-						 Chatbots
+						Chatbots
 					</li>
 					<li>
 						<div
@@ -321,12 +320,12 @@
 							data-tip="approx. 4,000,000 characters"
 						>
 							<span class="figure">1,000,000</span>
-							 tokens/bot
+							tokens/bot
 						</div>
 					</li>
 					<li>
 						<span class="figure">30 Day</span>
-						 chat history
+						chat history
 					</li>
 				</ul>
 				<ul class="extra">
@@ -387,11 +386,11 @@
 				<ul>
 					<li>
 						<span class="figure">40,000</span>
-						 messages/mo.
+						messages/mo.
 					</li>
 					<li>
 						<span class="figure">40</span>
-						 Chatbots
+						Chatbots
 					</li>
 					<li>
 						<div
@@ -399,12 +398,12 @@
 							data-tip="approx. 12,000,000 characters"
 						>
 							<span class="figure">3,000,000</span>
-							 tokens/bot
+							tokens/bot
 						</div>
 					</li>
 					<li>
 						<span class="figure">60 Day</span>
-						 chat history
+						chat history
 					</li>
 				</ul>
 				<ul class="extra">
@@ -416,46 +415,44 @@
 
 	<div class="flex items-center gap-16 w-full max-w-4xl mx-auto my-16">
 		<div class="p-4 text-center">
-			<h3 class="text-2xl font-bold mb-2 text-accent">
-				Addons
-			</h3>
+			<h3 class="text-2xl font-bold mb-2 text-accent">Addons</h3>
 			<p class="font-light text-lg">Customize any plan</p>
 		</div>
 		<div class="rounded-xl p-4 flex-1">
 			<div class="overflow-x-auto">
 				<table class="table table-sm">
-				  <!-- head -->
-				  <thead>
-					<tr>
-					  <th>Addon</th>
-					  <th>Unit</th>
-					  <th>Price</th>
-					</tr>
-				  </thead>
-				  <tbody>
-					<tr>
-					  <td class="font-bold">Messages</td>
-					  <td>1000</td>
-					  <td>$7</td>
-					</tr>
-					<tr>
-						<td class="font-bold">Bots</td>
-					  <td>each</td>
-					  <td>$5</td>
-					</tr>
-					<tr>
-						<td class="font-bold">Tokens</td>
-					  <td>{Number(250000).toLocaleString()}</td>
-					  <td>$8</td>
-					</tr>
-					<tr>
-						<td class="font-bold">Remove Branding</td>
-					  <td>On all bots</td>
-					  <td>$15</td>
-					</tr>
-				  </tbody>
+					<!-- head -->
+					<thead>
+						<tr>
+							<th>Addon</th>
+							<th>Unit</th>
+							<th>Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="font-bold">Messages</td>
+							<td>1000</td>
+							<td>$7</td>
+						</tr>
+						<tr>
+							<td class="font-bold">Bots</td>
+							<td>each</td>
+							<td>$5</td>
+						</tr>
+						<tr>
+							<td class="font-bold">Tokens</td>
+							<td>{Number(250000).toLocaleString()}</td>
+							<td>$8</td>
+						</tr>
+						<tr>
+							<td class="font-bold">Remove Branding</td>
+							<td>On all bots</td>
+							<td>$15</td>
+						</tr>
+					</tbody>
 				</table>
-			  </div>
+			</div>
 		</div>
 	</div>
 </div>

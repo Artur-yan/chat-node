@@ -25,16 +25,19 @@
 
 	// Merge bot with defaults
 	$currentBot.settings = { ...defaultSettings, ...$currentBot.settings };
-	$currentBot.settings.theme = { ...themes[$currentBot.settings.theme.name], ...$currentBot.settings.theme };
+	$currentBot.settings.theme = {
+		...themes[$currentBot.settings.theme.name],
+		...$currentBot.settings.theme
+	};
 
 	// capture the current state of the bot on load
 	let saveState = JSON.stringify($currentBot);
 
 	const checkIfSaved = () => {
 		if (saveState === JSON.stringify($currentBot)) {
-			$state = 'saved'
+			$state = 'saved';
 		} else {
-			$state = 'unsaved'
+			$state = 'unsaved';
 		}
 	};
 
@@ -43,7 +46,7 @@
 		$currentBot = JSON.parse(saveState);
 		goto(nextURL);
 		warningIgnored = false;
-		$state = 'saved'
+		$state = 'saved';
 	};
 
 	const handleSave = async () => {
@@ -64,7 +67,7 @@
 		warningIgnored = true;
 		currentBot.set(JSON.parse(saveState));
 		warningIgnored = false;
-		$state = 'saved'
+		$state = 'saved';
 	};
 
 	beforeNavigate(({ to, cancel }) => {

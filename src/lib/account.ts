@@ -36,7 +36,7 @@ const updateApiKey = async () => {
 
 const redirectToStripeBilling = async () => {
 	try {
-		alert.set('Redirecting you to Stripe billing portal')
+		alert.set('Redirecting you to Stripe billing portal');
 
 		const res = await fetch('/api/account/billing', {
 			method: 'POST',
@@ -49,7 +49,7 @@ const redirectToStripeBilling = async () => {
 			const url = await res.json();
 			goto(url);
 		} else {
-			alert.set('Failed to redirect to Stripe billing portal')
+			alert.set('Failed to redirect to Stripe billing portal');
 		}
 	} catch (err) {
 		console.error(err);

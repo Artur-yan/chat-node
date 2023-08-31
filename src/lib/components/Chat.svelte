@@ -6,7 +6,7 @@
 	import { fade } from 'svelte/transition';
 	import CopyButton from './CopyButton.svelte';
 	import { onMount } from 'svelte';
-	import '$lib/assets/css/chat.postcss'
+	import '$lib/assets/css/chat.postcss';
 
 	export let modelId: string;
 	export let disabled = false;
@@ -55,10 +55,9 @@
 	// let enduserName: string;
 	// let enduserPhone: string;
 
-
 	let collectUserInfo = false;
 	let userInfoReceived = false;
-	let endUserInfo = {}
+	let endUserInfo = {};
 
 	onMount(() => {
 		endUserInfo = JSON.parse(localStorage.getItem('enduserInfo')) || {};
@@ -72,9 +71,9 @@
 
 	const handleUserInfoSubmit = () => {
 		if (
-			settings.collectUserName && !endUserInfo.name ||
-			settings.collectUserEmail && !endUserInfo.email ||
-			settings.collectUserPhone && !endUserInfo.phone
+			(settings.collectUserName && !endUserInfo.name) ||
+			(settings.collectUserEmail && !endUserInfo.email) ||
+			(settings.collectUserPhone && !endUserInfo.phone)
 		) {
 			return;
 		}
@@ -382,15 +381,14 @@
 		>
 			<div class="join join-vertical @xl:join-horizontal">
 				{#if settings.collectUserName}
-						<input
-							type="text"
-							class="input join-item w-full placeholder:text-sm"
-							style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-							name="name"
-							placeholder={settings.collectUserNameLabel}
-							bind:value={endUserInfo.name}
-						/>
-
+					<input
+						type="text"
+						class="input join-item w-full placeholder:text-sm"
+						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
+						name="name"
+						placeholder={settings.collectUserNameLabel}
+						bind:value={endUserInfo.name}
+					/>
 				{/if}
 				{#if settings.collectUserEmail}
 					<input
@@ -398,7 +396,6 @@
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
 						placeholder={settings.collectUserEmailLabel}
-
 						bind:value={endUserInfo.email}
 					/>
 				{/if}
@@ -458,7 +455,6 @@
 			margin-left: 2em;
 		}
 	</style>
-
 </div>
 
 <style lang="postcss">

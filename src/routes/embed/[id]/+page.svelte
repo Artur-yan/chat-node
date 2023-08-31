@@ -12,7 +12,6 @@
 		document.body.style.backgroundColor = settings.theme.bg;
 		document.documentElement.style.backgroundColor = settings.theme.bg;
 	});
-
 </script>
 
 <svelte:head>

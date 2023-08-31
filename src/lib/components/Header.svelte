@@ -61,28 +61,42 @@
 				<a class="btn btn-primary" href="/register">Sign Up</a>
 			</div>
 
-
 			<div class="dropdown dropdown-end sm:hidden">
-				<label tabindex="0" class="btn m-1">			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17h14M5 12h14M5 7h14"/></svg>
+				<label tabindex="0" class="btn m-1">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+						<path
+							fill="none"
+							stroke="currentColor"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M5 17h14M5 12h14M5 7h14"
+						/>
+					</svg>
 				</label>
-				<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+				<ul
+					tabindex="0"
+					class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+				>
 					{#each links as { title, href }}
+						<li>
+							<a class="justify-center py-4" {href}>{title}</a>
+						</li>
+					{/each}
 					<li>
-						<a class="justify-center py-4" {href}>{title}</a>
+						<a class="text-primary py-4 justify-center" href="/login">Sign in</a>
 					</li>
-				{/each}
-				<li>
-				<a class="text-primary py-4 justify-center" href="/login">Sign in</a>
-
-				</li>
 				</ul>
-			  </div>
+			</div>
 		</div>
 	</nav>
 </header>
 
-
-<header id="header-sticky" class="fixed py-3 top-0 left-0 right-0 bg-base-300 z-20 -translate-y-full transition-transform" class:translate-y-0={scrollY > 500}>
+<header
+	id="header-sticky"
+	class="fixed py-3 top-0 left-0 right-0 bg-base-300 z-20 -translate-y-full transition-transform"
+	class:translate-y-0={scrollY > 500}
+>
 	<nav class="container">
 		<div class="flex flex-wrap justify-between items-center">
 			<div class="flex items-center justify-center gap-8">
@@ -101,7 +115,6 @@
 							/>
 						</svg>
 					</div>
-
 				</a>
 				<div class="max-sm:hidden">
 					<ul class="flex text-sm space-x-8 font-bold">
@@ -119,22 +132,33 @@
 				<a class="btn btn-sm btn-primary" href="/register">Sign Up</a>
 			</div>
 
-
 			<div class="dropdown dropdown-end sm:hidden">
-				<label tabindex="0" class="btn m-1">			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17h14M5 12h14M5 7h14"/></svg>
+				<label tabindex="0" class="btn m-1">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+						<path
+							fill="none"
+							stroke="currentColor"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M5 17h14M5 12h14M5 7h14"
+						/>
+					</svg>
 				</label>
-				<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+				<ul
+					tabindex="0"
+					class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+				>
 					{#each links as { title, href }}
+						<li>
+							<a class="justify-center py-4" {href}>{title}</a>
+						</li>
+					{/each}
 					<li>
-						<a class="justify-center py-4" {href}>{title}</a>
+						<a class="text-primary py-4 justify-center" href="/login">Sign in</a>
 					</li>
-				{/each}
-				<li>
-				<a class="text-primary py-4 justify-center" href="/login">Sign in</a>
-
-				</li>
 				</ul>
-			  </div>
+			</div>
 		</div>
 	</nav>
 </header>

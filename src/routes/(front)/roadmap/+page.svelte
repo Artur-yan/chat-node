@@ -4,7 +4,10 @@
 
 <svelte:head>
 	<title>Roadmap | ChatNode</title>
-	<meta name="description" content="See what features we have planned next and what we've recently launched." />
+	<meta
+		name="description"
+		content="See what features we have planned next and what we've recently launched."
+	/>
 </svelte:head>
 
 <div class="container">

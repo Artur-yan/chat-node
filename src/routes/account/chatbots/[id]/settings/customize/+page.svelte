@@ -13,15 +13,14 @@
 	let themeSaveState = JSON.stringify($currentBot.settings.theme);
 
 	const checkIfThemeSaved = () => {
-
-		if(themeSaveState !== JSON.stringify($currentBot.settings.theme)) {
+		if (themeSaveState !== JSON.stringify($currentBot.settings.theme)) {
 			$currentBot.settings.theme.name = 'custom';
 		}
-	}
+	};
 
 	const changeTheme = (themeName) => {
-		$currentBot.settings.theme = {...themes[themeName]};
-	}
+		$currentBot.settings.theme = { ...themes[themeName] };
+	};
 
 	$: if (form) {
 		$alert = {
@@ -70,7 +69,6 @@
 					value="meta-dark"
 					bind:group={$currentBot.settings.theme.name}
 					on:input={() => changeTheme('meta-dark')}
-
 				/>
 				<label for="meta-dark" class="!bg-[#3A3B3C] !text-[#0084FF]">Meta dark</label>
 			</div>
@@ -83,7 +81,6 @@
 					value="ios-light"
 					bind:group={$currentBot.settings.theme.name}
 					on:input={() => changeTheme('ios-light')}
-
 				/>
 				<label for="ios-light" class="!bg-[white] !text-[#3093FF]">iOS light</label>
 			</div>
@@ -96,7 +93,6 @@
 					value="ios-dark"
 					bind:group={$currentBot.settings.theme.name}
 					on:input={() => changeTheme('ios-dark')}
-
 				/>
 				<label for="ios-dark" class="!bg-[black] !text-[#3093FF]">iOS dark</label>
 			</div>
@@ -109,7 +105,6 @@
 					value="neutral"
 					bind:group={$currentBot.settings.theme.name}
 					on:input={() => changeTheme('neutral')}
-
 				/>
 				<label for="neutral" class="!bg-[#666666] !text-[#333333]">Neutral</label>
 			</div>
@@ -122,7 +117,6 @@
 					value="custom"
 					bind:group={$currentBot.settings.theme.name}
 					on:input={() => changeTheme('custom')}
-
 				/>
 				<label for="custom">Custom</label>
 			</div>
@@ -132,9 +126,17 @@
 		<h3 class="font-bold">Misc.</h3>
 
 		<div class="grid grid-cols-4 gap-2 items-end">
-			<ColorPicker bind:hex={$currentBot.settings.theme.bg} label="Chat Background" on:input={checkIfThemeSaved} />
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.bg}
+				label="Chat Background"
+				on:input={checkIfThemeSaved}
+			/>
 
-			<ColorPicker bind:hex={$currentBot.settings.theme.resetButton} label="Reset Button" on:input={checkIfThemeSaved} />
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.resetButton}
+				label="Reset Button"
+				on:input={checkIfThemeSaved}
+			/>
 		</div>
 
 		<hr class="border-base-300 my-4" />
@@ -167,8 +169,16 @@
 						bind:value={$currentBot.settings.publicTitle}
 					/>
 				</div>
-				<ColorPicker bind:hex={$currentBot.settings.theme.headerTitle} label="Title Text" on:input={checkIfThemeSaved} />
-				<ColorPicker bind:hex={$currentBot.settings.theme.headerBG} label="Background" on:input={checkIfThemeSaved} />
+				<ColorPicker
+					bind:hex={$currentBot.settings.theme.headerTitle}
+					label="Title Text"
+					on:input={checkIfThemeSaved}
+				/>
+				<ColorPicker
+					bind:hex={$currentBot.settings.theme.headerBG}
+					label="Background"
+					on:input={checkIfThemeSaved}
+				/>
 			</div>
 		{/if}
 
@@ -181,14 +191,22 @@
 				label="Bot Bubble Background"
 				on:input={checkIfThemeSaved}
 			/>
-			<ColorPicker bind:hex={$currentBot.settings.theme.botBubbleText} label="Bot Bubble Text" on:input={checkIfThemeSaved} />
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.botBubbleText}
+				label="Bot Bubble Text"
+				on:input={checkIfThemeSaved}
+			/>
 
 			<ColorPicker
 				bind:hex={$currentBot.settings.theme.userBubbleBG}
 				label="User Bubble Background"
 				on:input={checkIfThemeSaved}
 			/>
-			<ColorPicker bind:hex={$currentBot.settings.theme.userBubbleText} label="User Bubble Text" on:input={checkIfThemeSaved} />
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.userBubbleText}
+				label="User Bubble Text"
+				on:input={checkIfThemeSaved}
+			/>
 		</div>
 
 		<hr class="border-base-300 my-4" />
@@ -207,9 +225,21 @@
 					bind:value={$currentBot.settings.inputPlaceholder}
 				/>
 			</div>
-			<ColorPicker bind:hex={$currentBot.settings.theme.inputBG} label=" Background" on:input={checkIfThemeSaved} />
-			<ColorPicker bind:hex={$currentBot.settings.theme.inputText} label="Text" on:input={checkIfThemeSaved} />
-			<ColorPicker bind:hex={$currentBot.settings.theme.inputBorder} label="Border" on:input={checkIfThemeSaved} />
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.inputBG}
+				label=" Background"
+				on:input={checkIfThemeSaved}
+			/>
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.inputText}
+				label="Text"
+				on:input={checkIfThemeSaved}
+			/>
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.inputBorder}
+				label="Border"
+				on:input={checkIfThemeSaved}
+			/>
 		</div>
 
 		<hr class="border-base-300 my-4" />
@@ -231,9 +261,17 @@
 
 		{#if $currentBot.settings.sendButtonEnabled}
 			<div class="grid grid-cols-4 gap-2 items-end">
-				<ColorPicker bind:hex={$currentBot.settings.theme.sendButtonBG} label="Background" on:input={checkIfThemeSaved} />
+				<ColorPicker
+					bind:hex={$currentBot.settings.theme.sendButtonBG}
+					label="Background"
+					on:input={checkIfThemeSaved}
+				/>
 
-				<ColorPicker bind:hex={$currentBot.settings.theme.sendButtonIconColor} label="Icon Color" on:input={checkIfThemeSaved} />
+				<ColorPicker
+					bind:hex={$currentBot.settings.theme.sendButtonIconColor}
+					label="Icon Color"
+					on:input={checkIfThemeSaved}
+				/>
 			</div>
 		{/if}
 	</div>
