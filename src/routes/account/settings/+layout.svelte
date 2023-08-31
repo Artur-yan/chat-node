@@ -6,30 +6,9 @@
 
 	export let data;
 
-	// const redirectToStripeBilling = async () => {
-	// 	try {
-	// 		$alert = 'Redirecting you to Stripe billing portal';
-
-	// 		const res = await fetch('/api/account/billing', {
-	// 			method: 'POST',
-	// 			headers: {
-	// 				'Content-Type': 'application/json'
-	// 			},
-	// 			body: ''
-	// 		});
-	// 		if (res.status == 200) {
-	// 			const url = await res.json();
-	// 			goto(url);
-	// 		} else {
-	// 			$alert = 'Failed to redirect to Stripe billing portal';
-	// 		}
-	// 	} catch (err) {
-	// 		console.error(err);
-	// 	}
-	// };
-
 	const subscriptionPath = '/account/settings/subscription';
 	const settingsPath = '/account/settings';
+	const addonsPath = '/account/settings/addons';
 
 	let daysLeftInBillingCycle = Math.ceil(
 		(new Date(data.subscription?.next_billing_cycle).getTime() - new Date().getTime()) /
@@ -50,6 +29,13 @@
 				class:tab-active={subscriptionPath == $page.url.pathname}
 			>
 				Subscription
+			</a>
+			<a
+				href={addonsPath}
+				class="tab"
+				class:tab-active={addonsPath == $page.url.pathname}
+			>
+				Addons
 			</a>
 			<button on:click={redirectToStripeBilling} class="tab">Billing</button>
 		</div>

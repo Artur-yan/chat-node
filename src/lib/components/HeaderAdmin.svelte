@@ -89,6 +89,7 @@
 					<li class="menu-title">Account</li>
 						<li><a href="/account/settings">Settings</a></li>
 						<li><a href="/account/settings/subscription">Subscription</a></li>
+						<li><a href="/account/settings/addons">Addons</a></li>
 						<li><a href="/account/settings">API Access</a></li>
 						<li><button on:click={redirectToStripeBilling}>Billing</button></li>
 						<li>
