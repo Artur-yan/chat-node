@@ -7,12 +7,10 @@
 
 	const addons = data.subscription.addons;
 
-	let messagesToAdd = addons['10000']?.qty || 0;
-	let botsToAdd = addons['10001']?.qty || 0;
-	let addBranding = addons['10002']?.qty || 0;
-	let tokensToAdd = addons['10003']?.qty || 0;
-
-	[{ id: 10001, qty: 1, stripe_sb: 'string' }];
+	let messagesToAdd = addons['10001']?.qty || 0;
+	let botsToAdd = addons['10002']?.qty || 0;
+	let addBranding = addons['10003']?.qty || 0;
+	let tokensToAdd = addons['10004']?.qty || 0;
 
 	const handleCheckout = async (addon: number, qty: number) => {
 		const res = await fetch(PUBLIC_CHAT_API_URL + '/api/update-addon', {
@@ -112,7 +110,7 @@
 				</div>
 				<button
 					class="btn btn-primary btn-outline"
-					on:click={() => handleCheckout(10000, messagesToAdd)}
+					on:click={() => handleCheckout(10001, messagesToAdd)}
 					disabled={messagesToAdd === 0}
 				>
 					Purchase <span class="badge badge-sm" class:opacity-20={messagesToAdd === 0}>
@@ -181,11 +179,11 @@
 			<p>Remove the ChatNode branding from all of your bots.</p>
 			<div class="flex mt-10 items-center gap-2 justify-end">
 				{#if addBranding === 0}
-					<button class="btn btn-primary btn-outline" on:click={() => handleCheckout(10002, 1)}>
+					<button class="btn btn-primary btn-outline" on:click={() => handleCheckout(10004, 1)}>
 						Purchase <span class="badge badge-sm">$14</span>
 					</button>
 				{:else}
-					<button class="btn btn-primary btn-outline" on:click={() => handleCheckout(10002, 0)}>
+					<button class="btn btn-primary btn-outline" on:click={() => handleCheckout(10004, 0)}>
 						Remove
 					</button>
 				{/if}
