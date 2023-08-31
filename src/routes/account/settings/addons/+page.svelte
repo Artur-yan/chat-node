@@ -33,7 +33,7 @@
     };
 </script>
 
-<div class="container grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="container grid md:grid-cols-2 gap-8">
     <div class="card bg-neutral">
         <div class="card-body">
                 <h2 class="card-title gap-4">
