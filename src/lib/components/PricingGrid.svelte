@@ -417,6 +417,9 @@
 		<div class="p-4 text-center">
 			<h3 class="text-2xl font-bold mb-2 text-accent">Addons</h3>
 			<p class="font-light text-lg">Customize any plan</p>
+			{#if currentPlan}
+				<a href="/account/settings/addons" class="btn btn-primary btn-sm mt-8">Purchase</a>
+			{/if}
 		</div>
 		<div class="rounded-xl p-4 flex-1">
 			<div class="overflow-x-auto">
@@ -457,6 +460,8 @@
 	</div>
 </div>
 
+{#if currentPlan}
+
 <!-- Open the modal using ID.showModal() method -->
 <dialog id="modalConfirmPlanChange" class="modal">
 	<form method="dialog" class="modal-box">
@@ -482,6 +487,7 @@
 	</form>
 </dialog>
 
+{/if}
 <style lang="postcss">
 	h2 {
 		@apply text-2xl font-bold text-secondary;
