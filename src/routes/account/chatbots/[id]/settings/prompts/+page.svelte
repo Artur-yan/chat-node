@@ -1,79 +1,11 @@
 <script lang="ts">
 	import { currentBot } from '$lib/stores.js';
-	import { defaultSettings } from '$lib/models.js';
+	import { defaultSettings, personalities } from '$lib/models.js';
 	import Modal from '$lib/components/Modal.svelte';
-	import CopyButton from '$lib/components/CopyButton.svelte';
 
-	const personalities = {
-		default: {
-			label: 'Default',
-			systemPrompt:
-				'You are a helpful assistant named "Assistant Al". You limit your knowledge to the context provided. Never break character. Always answer in the language of my message.'
-		},
-		airbnb: {
-			label: 'AirBnB Host',
-			systemPrompt: `I want you to act as a property customer support AI that I am having a conversation with. Your name is "YOUR PROPERTY NAME property AI". You will provide me with answers related to YOUR PROPERTY NAME property. You will be as detailed as possible. Refuse to answer any question not about the text or YOUR PROPERTY NAME property. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.  Please use simple and clear formatting`
-		},
-		support: {
-			label: 'Customer Support',
-			systemPrompt:
-				'I want you to act as a customer support AI from YOUR WEBSITE/COMPANY that I am having a conversation with. Your name is "YOUR WEBSITE/COMPANY AI". You will provide me with answers related to WEBSITE/COMPANY. You will be as detailed as possible. Refuse to answer any question not about the text or WEBSITE/COMPANY. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message. Please use simple and clear formatting'
-		},
-		documentation: {
-			label: 'Documentation',
-			systemPrompt:
-				'I want you to act as a documentation support AI from WEBSITE/COMPANY that I am having a conversation with. Your name is "WEBSITE/COMPANY documentation support AI". You will provide me with answers related to WEBSITE/COMPANY documentation. You will be as detailed as possible. Refuse to answer any question not about the text or WEBSITE/COMPANY. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message. Please use simple and clear formatting'
-		},
-		coder: {
-			label: 'Coding Assistant',
-			systemPrompt:
-				'I want you to act as a assistant coder AI from WEBSITE/COMPANY that I am having a conversation with. Your name is "WEBSITE/COMPANY assistant coder AI". You will provide me with answers related to WEBSITE/COMPANY documentation. You will be as detailed as possible. Refuse to answer any question not about the text or WEBSITE/COMPANY. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message. Please use simple and clear formatting'
-		},
-		writer: {
-			label: 'Writing Assistant',
-			systemPrompt:
-				'I want you to act as an assistant writer AI that I am having a conversation with. Your name is "Assistant writer AI". You will help me to write and rephrase text. You will use your context to provide better answer.  Never break character. Do NOT say "Based on the given information." Always answer in the language of my message.  Please use simple and clear formatting'
-		},
-		personal: {
-			label: 'Personal Brand',
-			systemPrompt:
-				'I want you to act as "YOUR NAME". You are a LAWYER/PODCASTER/CELEBRITY that I am having a conversation with. Your name is "<your personal brand name>". You will provide me with answers related to LAW/PODCAST TOPIC in a FRIENDLY/PROFESSIONAL style. You will be as detailed as possible. Refuse to answer any question not about the text or related to YOUR NAME/TOPIC. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message. Please use simple and clear formatting'
-		}
-	};
-
-	// let personality: keyof typeof personalities = $currentBot.settings.personality || 'default';
-
-	// const setPersonality = () => {
-	// 	$currentBot.settings.greeting = personailites[personality].greeting;
-	// 	$currentBot.settings.supportMessage = personailites[personality].supportMessage;
-	// 	$currentBot.settings.systemPrompt = personailites[personality].systemPrompt;
-	// 	$currentBot.settings.temperature = personailites[personality].creativity;
-	// 	$currentBot.settings.personalityCustomized = false;
-	// }
-
-	// const handleAddTemplate = (personality: string) => {
-	// 	$currentBot.settings.systemPrompt = personailites[personality].systemPrompt;
-	// }
 </script>
 
 <form>
-	<!-- <div class="card bg-neutral mb-4">
-		<div class="card-body">
-			<h2 class="card-title">Personality</h2>
-			<p>Choose a personality from the dropdown as a starting point for your bot with pre-defined prompts, then customize however you like.</p>
-			<select class="select" bind:value={personality} on:change={setPersonality} >
-				{#each Object.entries(personailites) as [key, value]}
-					<option value={key}>{value.label}</option>
-				{/each}
-			</select>
-			{#if $currentBot.settings.personalityCustomized}
-			<div>
-				<span class="badge badge-secondary">Customized</span>
-				<button class="btn btn-xs btn-ghost btn-warning" on:click={setPersonality}>Reset to {personailites[personality].label}</button>
-			</div>
-			{/if}
-		</div>
-	</div> -->
 	<div>
 		<label for="greeting" class="label">
 			<span class="label-text">
@@ -104,18 +36,6 @@
 			>
 				+ Add Template
 			</button>
-			<!-- <button
-				class="btn btn-xs btn-circle btn-ghost tooltip tooltip-left"
-				data-tip="Reset to default"
-				on:click|preventDefault={() =>
-					($currentBot.settings.systemPrompt = defaultSettings.systemPrompt)}
-				><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-					><path
-						fill="currentColor"
-						d="M20 13.5a6.5 6.5 0 0 1-6.5 6.5H6v-2h7.5c2.5 0 4.5-2 4.5-4.5S16 9 13.5 9H7.83l3.08 3.09L9.5 13.5L4 8l5.5-5.5l1.42 1.41L7.83 7h5.67a6.5 6.5 0 0 1 6.5 6.5Z"
-					/></svg
-				></button
-			> -->
 		</label>
 
 		<textarea
