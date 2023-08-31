@@ -10,6 +10,8 @@
 	</div>
 	<div>
 		<span class="footer-title">About</span>
+		<a class="link link-hover" href="/about#company">Company</a>
+		<a class="link link-hover" href="/about#team">Team</a>
 		<a class="link link-hover" href="/#features">Features</a>
 		<a class="link link-hover" href="/#pricing">Pricing</a>
 		<a class="link link-hover" href="/blog">Blog</a>
