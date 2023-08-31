@@ -112,7 +112,7 @@
 				</div>
 				<button
 					class="btn btn-primary btn-outline"
-					on:click={() => handleCheckout(10000, botsToAdd)}
+					on:click={() => handleCheckout(10000, messagesToAdd)}
 					disabled={messagesToAdd === 0}
 				>
 					Purchase <span class="badge badge-sm" class:opacity-20={messagesToAdd === 0}>
