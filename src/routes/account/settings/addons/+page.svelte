@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
+	import { json } from '@sveltejs/kit';
 
 	export let data;
 
@@ -38,8 +39,9 @@
 				})
 			});
 
-			const { url } = await res.json();
-			goto(url)
+			const json = await res.json();
+			console.log(json);
+			goto(json.url)
 		} catch (err) {
 			console.error(err);
 		}
