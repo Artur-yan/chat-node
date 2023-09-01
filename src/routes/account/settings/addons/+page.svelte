@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 
 	export let data;
@@ -13,18 +14,22 @@
 	let tokensToAdd = addons['10004']?.qty || 0;
 
 	const handleCheckout = async (addon: number, qty: number) => {
-		const res = await fetch(PUBLIC_CHAT_API_URL + '/api/update-addon', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				user_id: data.subscription?.user_id,
-				adds_on: addon,
-				qty
-			})
-		});
-		console.log(await res.json());
+		try {
+			const res = await fetch(PUBLIC_CHAT_API_URL + '/api/update-addon', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					user_id: data.subscription?.user_id,
+					adds_on: addon,
+					qty
+				})
+			});
+			goto(await res.json())
+		} catch (err) {
+			console.error(err);
+		}
 	};
 </script>
 
