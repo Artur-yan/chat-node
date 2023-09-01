@@ -4,14 +4,25 @@
 
 	export let data;
 
-	console.log(data);
 
-	const addons = data.subscription.addons;
+	const addons = (data.subscription?.addons);
 
-	let messagesToAdd = addons['10001']?.qty || 0;
-	let botsToAdd = addons['10002']?.qty || 0;
-	let addBranding = addons['10003']?.qty || 0;
-	let tokensToAdd = addons['10004']?.qty || 0;
+	console.log(addons);
+
+	let messagesToAdd = 0;
+	let botsToAdd = 0;
+	let addBranding = 0;
+	let tokensToAdd = 0;
+
+
+
+
+	if (addons) {
+		messagesToAdd = addons['10001']?.qty * 1000 || 0;
+		botsToAdd = addons['10002']?.qty || 0;
+		addBranding = addons['10003']?.qty || 0;
+		tokensToAdd = addons['10004']?.qty * 250000 || 0;
+	}
 
 	const handleCheckout = async (addon: number, qty: number) => {
 		try {
