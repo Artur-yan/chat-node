@@ -37,7 +37,9 @@
 					qty
 				})
 			});
-			goto(await res.json())
+
+			const { url } = await res.json();
+			goto(url)
 		} catch (err) {
 			console.error(err);
 		}
