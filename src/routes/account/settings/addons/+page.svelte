@@ -9,17 +9,21 @@
 	const addons = (data.subscription?.addons);
 
 	let messagesToAdd = 0;
+	let messages = 0
 	let botsToAdd = 0;
+	let bots = 0;
 	let addBranding = 0;
+	let branding = 0;
 	let tokensToAdd = 0;
+	let tokens = 0;
 
 	console.log(data)
 
 	if (addons) {
-		messagesToAdd = addons['10001']?.qty * 1000 || 0;
-		botsToAdd = addons['10002']?.qty || 0;
-		addBranding = addons['10003']?.qty || 0;
-		tokensToAdd = addons['10004']?.qty * 250000 || 0;
+		messagesToAdd = messages = addons['10001']?.qty * 1000 || 0;
+		botsToAdd = bots = addons['10002']?.qty || 0;
+		addBranding = branding = addons['10003']?.qty || 0;
+		tokensToAdd = tokens = addons['10004']?.qty * 250000 || 0;
 	}
 
 	const handleCheckout = async (addon: number, qty: number) => {
@@ -49,7 +53,7 @@
 	{#if data.subscription?.plan === 0}
 		<div class="alert mb-8 text-warning justify-between flex">
 			<p>You must have an active subscription to purchase addons.</p>
-			<div class="btn btn-warning">Upgrade</div>
+			<a href="subscription" class="btn btn-warning">Upgrade</a>
 		</div>
 	{/if}
 	
@@ -67,6 +71,7 @@
 							class="btn btn-ghost btn-circle text-error"
 							on:click={() => botsToAdd--}
 							disabled={botsToAdd === 0}
+							aria-label="Remove Bot"
 						>
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
 								<path
@@ -76,7 +81,7 @@
 							</svg>
 						</button>
 						<div>{botsToAdd}</div>
-						<button class="btn btn-ghost btn-circle text-success" on:click={() => botsToAdd++} disabled={data.subscription?.plan === 0}>
+						<button class="btn btn-ghost btn-circle text-success" on:click={() => botsToAdd++} disabled={data.subscription?.plan === 0} aria-label="Add Bot">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
 								<path
 									fill="currentColor"
@@ -85,15 +90,15 @@
 							</svg>
 						</button>
 					</div>
-					<button
-						class="btn btn-primary btn-outline"
-						on:click={() => handleCheckout(10001, botsToAdd)}
-						disabled={botsToAdd === 0}
-					>
-						Purchase <span class="badge badge-sm" class:opacity-20={botsToAdd === 0}>
-							${botsToAdd * 7}
-						</span>
-					</button>
+						<button
+							class="btn btn-primary btn-outline"
+							on:click={() => handleCheckout(10001, botsToAdd)}
+							disabled={botsToAdd === bots}
+						>
+							Purchase <span class="badge badge-sm" class:opacity-20={botsToAdd === 0}>
+								${botsToAdd * 7}
+							</span>
+						</button>
 				</div>
 	
 				<div class="card-actions justify-end" />
@@ -207,7 +212,7 @@
 				<div class="flex mt-10 items-center gap-2 justify-end">
 					{#if addBranding === 0}
 						<button class="btn btn-primary btn-outline" disabled={data.subscription?.plan === 0} on:click={() => handleCheckout(10004, 1)}>
-							Purchase <span class="badge badge-sm">$14</span>
+							Purchase
 						</button>
 					{:else}
 						<button class="btn btn-primary btn-outline" on:click={() => handleCheckout(10004, 0)}>
