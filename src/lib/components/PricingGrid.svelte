@@ -23,10 +23,16 @@
 	let planToChangeTo: number;
 	const handleConfirmPlanChange = (plan: number) => {
 		planToChangeTo = plan;
-		modalConfirmPlanChange.showModal();
+		if(currentPlan === 0) {
+			updatePlan(plan);
+			return;
+		} else {
+			modalConfirmPlanChange.showModal();
+		}
 	};
 
 	const updatePlan = async (newPlan: number) => {
+		console.log(newPlan)
 		try {
 			busyChangingPlan = true;
 			const res = await fetch('/api/account/plan', {
@@ -77,385 +83,345 @@
 			</ul>
 		</div>
 	</div>
-
-	<div class="my-8 grid md:grid-cols-3 gap-y-8 lg:gap-y-20">
-		<div class="rounded-xl md:rounded-r-none p-8 border border-secondary md:my-4 bg-base-300">
-			<div class="flex justify-between mb-8">
-				<div>
-					<h2>Free</h2>
-				</div>
-				{#if currentPlan !== undefined}
-					<button
-						on:click={() => handleConfirmPlanChange(0)}
-						class="btn btn-outline btn-secondary"
-						disabled={currentPlan === 0}
-					>
-						{currentPlan === 0 ? 'Current plan' : 'Change plan'}
-					</button>
-				{:else}
-					<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
-				{/if}
+<div class="relative">
+		{#if busyChangingPlan}
+			<div class="bg-base-100 w-full h-full absolute z-10 opacity-70 flex items-center justify-center pb-20">
+				<div class="loading loading-spinner text-successs loading-lg text-primary"></div>
 			</div>
-			<ul>
-				<li>
-					<span class="figure">50</span>
-					messages/mo.
-				</li>
-				<li>
-					<span class="figure">1</span>
-					chatbot
-				</li>
-				<li>
-					<div
-						class="tooltip border-b border-dotted border-white/30"
-						data-tip="approx. 400,000 characters"
-					>
-						<span class="figure">100,000</span>
-						tokens/bot
+		{/if}
+		<div class="my-8 grid md:grid-cols-3 gap-y-8 lg:gap-y-20">
+			<div class="rounded-xl md:rounded-r-none p-8 border border-secondary md:my-4 bg-base-300">
+				<div class="flex justify-between mb-8">
+					<div>
+						<h2>Free</h2>
 					</div>
-				</li>
-			</ul>
-		</div>
-		<div class="border border-secondary p-8 py-12 md:-mx-[1px] rounded-2xl bg-base-100 shadow-xl">
-			<div class="flex justify-between mb-8">
-				<div>
-					<h2>Basic</h2>
-					<h3 class="text-lg font-bold">
-						{#if billingTerm === 'monthly'}
-							<div>
-								$19
-								<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
-							</div>
-						{:else}
-							<div>
-								$190
-								<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span>
-							</div>
-						{/if}
-					</h3>
-				</div>
-				{#if currentPlan !== undefined}
-					{#if billingTerm == 'monthly'}
+					{#if currentPlan !== undefined}
 						<button
-							on:click={() => handleConfirmPlanChange(1)}
+							on:click={() => handleConfirmPlanChange(0)}
 							class="btn btn-outline btn-secondary"
-							disabled={currentPlan === 1}
+							disabled={currentPlan === 0}
 						>
-							{currentPlan === 1 ? 'Current plan' : 'Change plan'}
+							{currentPlan === 0 ? 'Current plan' : 'Change plan'}
 						</button>
 					{:else}
-						<button
-							on:click={() => handleConfirmPlanChange(101)}
-							class="btn btn-outline btn-secondary"
-							disabled={currentPlan === 101}
-						>
-							{currentPlan === 101 ? 'Current plan' : 'Change plan'}
-						</button>
+						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
-				{:else}
-					<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
-				{/if}
-			</div>
-			<ul>
-				<li>
-					<span class="figure">2,000</span>
-					messages/mo.
-				</li>
-				<li>
-					<span class="figure">5</span>
-					Chatbots
-				</li>
-				<li>
-					<div
-						class="tooltip border-b border-dotted border-white/30"
-						data-tip="approx. 1,600,000 characters"
-					>
-						<span class="figure">400,000</span>
-						tokens/bot
-					</div>
-				</li>
-				<li>
-					<span class="figure">3 Day</span>
-					chat history
-				</li>
-			</ul>
-		</div>
-		<div class="p-8 border border-secondary rounded-xl md:rounded-l-none md:my-4 bg-base-300">
-			<div class="flex justify-between mb-8">
-				<div>
-					<h2>Pro</h2>
-					<h3 class="text-lg font-bold">
-						{#if billingTerm === 'monthly'}
-							<div>
-								$49
-								<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
-							</div>
-						{:else}
-							<div>
-								$490
-								<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span>
-							</div>
-						{/if}
-					</h3>
 				</div>
-				{#if currentPlan !== undefined}
-					{#if billingTerm == 'monthly'}
-						<button
-							on:click={() => handleConfirmPlanChange(2)}
-							class="btn btn-outline btn-secondary"
-							disabled={currentPlan === 2}
-						>
-							{currentPlan === 2 ? 'Current plan' : 'Change plan'}
-						</button>
-					{:else}
-						<button
-							on:click={() => handleConfirmPlanChange(102)}
-							class="btn btn-outline btn-secondary"
-							disabled={currentPlan === 102}
-						>
-							{currentPlan === 102 ? 'Current plan' : 'Change plan'}
-						</button>
-					{/if}
-				{:else}
-					<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
-				{/if}
-			</div>
-			<div class="grid lg:grid-cols-2">
 				<ul>
 					<li>
-						<span class="figure">5,000</span>
-						message/mo.
+						<span class="figure">50</span>
+						 messages/mo.
 					</li>
 					<li>
-						<span class="figure">10</span>
-						Chatbots
+						<span class="figure">1</span>
+						 chatbot
 					</li>
 					<li>
 						<div
 							class="tooltip border-b border-dotted border-white/30"
-							data-tip="approx. 3,200,000 characters"
+							data-tip="approx. 400,000 characters"
 						>
-							<span class="figure">800,000</span>
-							tokens/bot
+							<span class="figure">100,000</span>
+							 tokens/bot
 						</div>
 					</li>
-					<li>
-						<span class="figure">7 Day</span>
-						chat history
-					</li>
-				</ul>
-				<ul class="extra">
-					<li>Remove ChatNode branding</li>
-					<li>Bring your own OpenAI API key</li>
-					<li>Slack integration</li>
-					<li>GPT-4</li>
 				</ul>
 			</div>
-		</div>
-	</div>
-	<div class="grid gap-y-8 md:grid-cols-2 max-w-7xl mx-auto">
-		<div
-			class="border border-secondary p-8 rounded-2xl md:rounded-r-none md:border-r-0 bg-base-300"
-		>
-			<div class="flex justify-between">
-				<div class="flex items-center justify-between mb-8">
+			<div class="border border-secondary p-8 py-12 md:-mx-[1px] rounded-2xl bg-base-100 shadow-xl">
+				<div class="flex justify-between mb-8">
 					<div>
-						<h2>Enterprise</h2>
+						<h2>Basic</h2>
 						<h3 class="text-lg font-bold">
 							{#if billingTerm === 'monthly'}
 								<div>
-									$99
+									$19
 									<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
 								</div>
 							{:else}
 								<div>
-									$990
+									$190
 									<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span>
 								</div>
 							{/if}
 						</h3>
 					</div>
-				</div>
-				<div>
 					{#if currentPlan !== undefined}
 						{#if billingTerm == 'monthly'}
 							<button
-								on:click={() => handleConfirmPlanChange(3)}
+								on:click={() => handleConfirmPlanChange(1)}
 								class="btn btn-outline btn-secondary"
-								disabled={currentPlan === 3}
+								disabled={currentPlan === 1}
 							>
-								{currentPlan === 3 ? 'Current plan' : 'Change plan'}
+								{currentPlan === 1 ? 'Current plan' : 'Change plan'}
 							</button>
 						{:else}
 							<button
-								on:click={() => handleConfirmPlanChange(103)}
+								on:click={() => handleConfirmPlanChange(101)}
 								class="btn btn-outline btn-secondary"
-								disabled={currentPlan === 103}
+								disabled={currentPlan === 101}
 							>
-								{currentPlan === 103 ? 'Current plan' : 'Change plan'}
+								{currentPlan === 101 ? 'Current plan' : 'Change plan'}
 							</button>
 						{/if}
 					{:else}
-						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
-							Sign up
-						</a>
+						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
 				</div>
-			</div>
-			<div class="grid grid-cols-2">
 				<ul>
 					<li>
-						<span class="figure">10,000</span>
-						messages/mo.
+						<span class="figure">2,000</span>
+						 messages/mo.
 					</li>
 					<li>
-						<span class="figure">20</span>
-						Chatbots
+						<span class="figure">5</span>
+						 Chatbots
 					</li>
 					<li>
 						<div
 							class="tooltip border-b border-dotted border-white/30"
-							data-tip="approx. 4,000,000 characters"
+							data-tip="approx. 1,600,000 characters"
 						>
-							<span class="figure">1,000,000</span>
-							tokens/bot
+							<span class="figure">400,000</span>
+							 tokens/bot
 						</div>
 					</li>
 					<li>
-						<span class="figure">30 Day</span>
-						chat history
+						<span class="figure">3 Day</span>
+						 chat history
 					</li>
 				</ul>
-				<ul class="extra">
-					<li>Everything from Pro</li>
-					<li>API Access</li>
-				</ul>
 			</div>
-		</div>
-		<div class="border border-secondary p-8 rounded-2xl md:rounded-l-none bg-base-300">
-			<div class="flex justify-between">
-				<div class="flex items-center justify-between mb-8">
+			<div class="p-8 border border-secondary rounded-xl md:rounded-l-none md:my-4 bg-base-300">
+				<div class="flex justify-between mb-8">
 					<div>
-						<h2>
-							Enterprise <span class="text-white/80">+</span>
-						</h2>
+						<h2>Pro</h2>
 						<h3 class="text-lg font-bold">
 							{#if billingTerm === 'monthly'}
 								<div>
-									$399
+									$49
 									<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
 								</div>
 							{:else}
 								<div>
-									$3990
+									$490
 									<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span>
 								</div>
 							{/if}
 						</h3>
 					</div>
-				</div>
-				<div>
 					{#if currentPlan !== undefined}
 						{#if billingTerm == 'monthly'}
 							<button
-								on:click={() => handleConfirmPlanChange(4)}
+								on:click={() => handleConfirmPlanChange(2)}
 								class="btn btn-outline btn-secondary"
-								disabled={currentPlan === 4}
+								disabled={currentPlan === 2}
 							>
-								{currentPlan === 4 ? 'Current plan' : 'Change plan'}
+								{currentPlan === 2 ? 'Current plan' : 'Change plan'}
 							</button>
 						{:else}
 							<button
-								on:click={() => handleConfirmPlanChange(104)}
+								on:click={() => handleConfirmPlanChange(102)}
 								class="btn btn-outline btn-secondary"
-								disabled={currentPlan === 104}
+								disabled={currentPlan === 102}
 							>
-								{currentPlan === 104 ? 'Current plan' : 'Change plan'}
+								{currentPlan === 102 ? 'Current plan' : 'Change plan'}
 							</button>
 						{/if}
 					{:else}
-						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
-							Sign up
-						</a>
+						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
 				</div>
+				<div class="grid lg:grid-cols-2">
+					<ul>
+						<li>
+							<span class="figure">5,000</span>
+							 message/mo.
+						</li>
+						<li>
+							<span class="figure">10</span>
+							 Chatbots
+						</li>
+						<li>
+							<div
+								class="tooltip border-b border-dotted border-white/30"
+								data-tip="approx. 3,200,000 characters"
+							>
+								<span class="figure">800,000</span>
+								 tokens/bot
+							</div>
+						</li>
+						<li>
+							<span class="figure">7 Day</span>
+							 chat history
+						</li>
+					</ul>
+					<ul class="extra">
+						<li>Remove ChatNode branding</li>
+						<li>Bring your own OpenAI API key</li>
+						<li>Slack integration</li>
+						<li>GPT-4</li>
+					</ul>
+				</div>
 			</div>
-			<div class="grid grid-cols-2">
-				<ul>
-					<li>
-						<span class="figure">40,000</span>
-						messages/mo.
-					</li>
-					<li>
-						<span class="figure">40</span>
-						Chatbots
-					</li>
-					<li>
-						<div
-							class="tooltip border-b border-dotted border-white/30"
-							data-tip="approx. 12,000,000 characters"
-						>
-							<span class="figure">3,000,000</span>
-							tokens/bot
+		</div>
+		<div class="grid gap-y-8 md:grid-cols-2 max-w-7xl mx-auto">
+			<div
+				class="border border-secondary p-8 rounded-2xl md:rounded-r-none md:border-r-0 bg-base-300"
+			>
+				<div class="flex justify-between">
+					<div class="flex items-center justify-between mb-8">
+						<div>
+							<h2>Enterprise</h2>
+							<h3 class="text-lg font-bold">
+								{#if billingTerm === 'monthly'}
+									<div>
+										$99
+										<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
+									</div>
+								{:else}
+									<div>
+										$990
+										<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span>
+									</div>
+								{/if}
+							</h3>
 						</div>
-					</li>
-					<li>
-						<span class="figure">60 Day</span>
-						chat history
-					</li>
-				</ul>
-				<ul class="extra">
-					<li>Everything from Enterprise</li>
-				</ul>
+					</div>
+					<div>
+						{#if currentPlan !== undefined}
+							{#if billingTerm == 'monthly'}
+								<button
+									on:click={() => handleConfirmPlanChange(3)}
+									class="btn btn-outline btn-secondary"
+									disabled={currentPlan === 3}
+								>
+									{currentPlan === 3 ? 'Current plan' : 'Change plan'}
+								</button>
+							{:else}
+								<button
+									on:click={() => handleConfirmPlanChange(103)}
+									class="btn btn-outline btn-secondary"
+									disabled={currentPlan === 103}
+								>
+									{currentPlan === 103 ? 'Current plan' : 'Change plan'}
+								</button>
+							{/if}
+						{:else}
+							<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
+								Sign up
+							</a>
+						{/if}
+					</div>
+				</div>
+				<div class="grid grid-cols-2">
+					<ul>
+						<li>
+							<span class="figure">10,000</span>
+							 messages/mo.
+						</li>
+						<li>
+							<span class="figure">20</span>
+							 Chatbots
+						</li>
+						<li>
+							<div
+								class="tooltip border-b border-dotted border-white/30"
+								data-tip="approx. 4,000,000 characters"
+							>
+								<span class="figure">1,000,000</span>
+								 tokens/bot
+							</div>
+						</li>
+						<li>
+							<span class="figure">30 Day</span>
+							 chat history
+						</li>
+					</ul>
+					<ul class="extra">
+						<li>Everything from Pro</li>
+						<li>API Access</li>
+					</ul>
+				</div>
+			</div>
+			<div class="border border-secondary p-8 rounded-2xl md:rounded-l-none bg-base-300">
+				<div class="flex justify-between">
+					<div class="flex items-center justify-between mb-8">
+						<div>
+							<h2>
+								Enterprise <span class="text-white/80">+</span>
+							</h2>
+							<h3 class="text-lg font-bold">
+								{#if billingTerm === 'monthly'}
+									<div>
+										$399
+										<span class="text-xs opacity-70 ml-1 align-top">/ mo.</span>
+									</div>
+								{:else}
+									<div>
+										$3990
+										<span class="text-xs opacity-70 ml-1 align-top">/ yr.</span>
+									</div>
+								{/if}
+							</h3>
+						</div>
+					</div>
+					<div>
+						{#if currentPlan !== undefined}
+							{#if billingTerm == 'monthly'}
+								<button
+									on:click={() => handleConfirmPlanChange(4)}
+									class="btn btn-outline btn-secondary"
+									disabled={currentPlan === 4}
+								>
+									{currentPlan === 4 ? 'Current plan' : 'Change plan'}
+								</button>
+							{:else}
+								<button
+									on:click={() => handleConfirmPlanChange(104)}
+									class="btn btn-outline btn-secondary"
+									disabled={currentPlan === 104}
+								>
+									{currentPlan === 104 ? 'Current plan' : 'Change plan'}
+								</button>
+							{/if}
+						{:else}
+							<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
+								Sign up
+							</a>
+						{/if}
+					</div>
+				</div>
+				<div class="grid grid-cols-2">
+					<ul>
+						<li>
+							<span class="figure">40,000</span>
+							 messages/mo.
+						</li>
+						<li>
+							<span class="figure">40</span>
+							 Chatbots
+						</li>
+						<li>
+							<div
+								class="tooltip border-b border-dotted border-white/30"
+								data-tip="approx. 12,000,000 characters"
+							>
+								<span class="figure">3,000,000</span>
+								 tokens/bot
+							</div>
+						</li>
+						<li>
+							<span class="figure">60 Day</span>
+							 chat history
+						</li>
+					</ul>
+					<ul class="extra">
+						<li>Everything from Enterprise</li>
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
-
-	<div class="flex items-center gap-16 w-full max-w-4xl mx-auto my-16">
-		<div class="p-4 text-center">
-			<h3 class="text-2xl font-bold mb-2 text-accent">Addons</h3>
-			<p class="font-light text-lg">Customize any plan</p>
-			{#if currentPlan}
-				<a href="/account/settings/addons" class="btn btn-primary btn-sm mt-8">Purchase</a>
-			{/if}
-		</div>
-		<div class="rounded-xl p-4 flex-1">
-			<div class="overflow-x-auto">
-				<table class="table table-sm">
-					<!-- head -->
-					<thead>
-						<tr>
-							<th>Addon</th>
-							<th>Unit</th>
-							<th>Price</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="font-bold">Messages</td>
-							<td>1000</td>
-							<td>$7</td>
-						</tr>
-						<tr>
-							<td class="font-bold">Bots</td>
-							<td>each</td>
-							<td>$5</td>
-						</tr>
-						<tr>
-							<td class="font-bold">Tokens</td>
-							<td>{Number(250000).toLocaleString()}</td>
-							<td>$8</td>
-						</tr>
-						<tr>
-							<td class="font-bold">Remove Branding</td>
-							<td>On all bots</td>
-							<td>$15</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+</div>
 </div>
 
 {#if currentPlan}
