@@ -365,7 +365,7 @@
 								class="btn btn-outline btn-secondary"
 								disabled={currentPlan === 4}
 							>
-								{currentPlan === 3 ? 'Current plan' : 'Change plan'}
+								{currentPlan === 4 ? 'Current plan' : 'Change plan'}
 							</button>
 						{:else}
 							<button

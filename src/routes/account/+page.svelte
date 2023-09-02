@@ -1,5 +1,5 @@
 <script>
-	import { goto, invalidate } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { PUBLIC_ENVIRONMENT } from '$env/static/public';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
@@ -35,9 +35,9 @@
 					break;
 			}
 		}
+		$alert = 'Plan changed successfully!';
+		goto('/account/chatbots', { invalidateAll: true });
 	});
-	$alert = 'Plan changed successfully!';
-	goto('/account/chatbots', { invalidateAll: true });
 </script>
 
 <svelte:head>
