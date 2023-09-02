@@ -22,10 +22,8 @@
 
 	let planToChangeTo: number;
 	const handleConfirmPlanChange = (plan: number) => {
-		if (currentPlan !== 0) {
-			planToChangeTo = plan;
-			modalConfirmPlanChange.showModal();
-		}
+		planToChangeTo = plan;
+		modalConfirmPlanChange.showModal();
 	};
 
 	const updatePlan = async (newPlan: number) => {
@@ -364,7 +362,7 @@
 								class="btn btn-outline btn-secondary"
 								disabled={currentPlan === 4}
 							>
-								{currentPlan === 3 ? 'Current plan' : 'Change plan'}
+								{currentPlan === 4 ? 'Current plan' : 'Change plan'}
 							</button>
 						{:else}
 							<button
