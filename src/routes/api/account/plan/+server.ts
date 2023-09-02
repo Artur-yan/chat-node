@@ -4,7 +4,6 @@ export const PUT = async ({ request, locals }) => {
 	const { newPlan, referralCode } = await request.json();
 	const session = await locals.auth.validate();
 
-	console.log('newPlan', newPlan);
 	try {
 		const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
 			method: 'POST',
