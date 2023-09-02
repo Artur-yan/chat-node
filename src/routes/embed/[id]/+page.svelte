@@ -6,8 +6,6 @@
 
 	let settings = data.bot.settings;
 
-	console.log(data);
-
 	onMount(() => {
 		document.body.style.backgroundColor = settings.theme.bg;
 		document.documentElement.style.backgroundColor = settings.theme.bg;
