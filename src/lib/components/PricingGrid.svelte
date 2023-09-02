@@ -23,10 +23,8 @@
 
 	let planToChangeTo: number;
 	const handleConfirmPlanChange = (plan: number) => {
-		if (currentPlan !== 0) {
-			planToChangeTo = plan;
-			modalConfirmPlanChange.showModal();
-		}
+		planToChangeTo = plan;
+		modalConfirmPlanChange.showModal();
 	};
 
 	const updatePlan = async (newPlan: number) => {
