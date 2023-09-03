@@ -1,10 +1,7 @@
 <svelte:head>
-	<title>Terms of Service | ChatNode</title>
-	<meta
-		name="description"
-		content="Our services allow you to generate and use chatbots that are trained on your data."
-	/>
-	<link rel="“canonical”" href="https://www.chatnode.ai/terms" />
+	<title>Privacy Policy | ChatNode</title>
+	<meta name="description" content="We are committed to protecting and respecting your privacy." />
+	<link rel="“canonical”" href="https://www.chatnode.ai/privacy" />
 </svelte:head>
 
 <div>
