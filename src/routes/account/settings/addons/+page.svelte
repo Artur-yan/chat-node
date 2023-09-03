@@ -80,7 +80,7 @@
 					{/if}
 					
 					<div class="card-actions mt-10 items-center">
-						<button class="btn btn-primary btn-outline" on:click={() => modifyBots = !modifyBots} class:hidden={modifyBots}>Modify Plan</button>
+						<button class="btn btn-primary btn-outline" on:click={() => modifyBots = !modifyBots} class:hidden={modifyBots}>{bots ? 'Modify' : 'Purchase'} Addon</button>
 						{#if modifyBots}
 						<div class="flex join">
 							<div class="flex join-item items-center border border-primary">
@@ -117,7 +117,7 @@
 						</div>
 						<button
 							class="btn btn-error btn-xs btn-outline border-none"
-							on:click={() => handleCheckout(10002, botsToAdd)}
+							on:click={() => handleCheckout(10002, 0)}
 						>
 						Remove
 						</button>
