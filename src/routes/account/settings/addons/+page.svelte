@@ -19,6 +19,8 @@
 	let tokensToAdd = 0;
 	let tokens = 0;
 
+	console.log(addons);
+
 	if (addons) {
 		messagesToAdd = messages = addons['10001']?.quantity || 0;
 		botsToAdd = bots = addons['10002']?.quantity || 0;
@@ -83,7 +85,7 @@
 							</svg>
 						</button>
 						<div>{botsToAdd}</div>
-						<button class="btn btn-ghost btn-circle text-success" on:click={() => botsToAdd++} disabled={data.subscription?.plan === 0} aria-label="Add Bot">
+						<button class="btn btn-ghost btn-circle text-primary" on:click={() => botsToAdd++} disabled={data.subscription?.plan === 0} aria-label="Add Bot">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
 								<path
 									fill="currentColor"
@@ -94,10 +96,10 @@
 					</div>
 						<button
 							class="btn btn-primary btn-outline"
-							on:click={() => handleCheckout(10001, botsToAdd)}
+							on:click={() => handleCheckout(10002, botsToAdd)}
 							disabled={botsToAdd === bots}
 						>
-							Purchase <span class="badge badge-sm" class:opacity-20={botsToAdd === 0}>
+							{bots > 0 ? "Modify" : 'Purchase'} <span class="badge badge-sm" class:hidden={botsToAdd === 0}>
 								${botsToAdd * 7}
 							</span>
 						</button>
@@ -132,7 +134,7 @@
 						</button>
 						<div>{(messagesToAdd * 1000).toLocaleString()}</div>
 						<button
-							class="btn btn-ghost btn-circle text-success"
+							class="btn btn-ghost btn-circle text-primary"
 							on:click={() => (messagesToAdd++)}
 							disabled={data.subscription?.plan === 0}
 						>
@@ -184,7 +186,7 @@
 						</button>
 						<div>{(tokensToAdd * 250000).toLocaleString()}</div>
 						<button
-							class="btn btn-ghost btn-circle text-success"
+							class="btn btn-ghost btn-circle text-primary"
 							on:click={() => (tokensToAdd++)}
 							disabled={data.subscription?.plan === 0}
 						>
@@ -217,12 +219,12 @@
 					<span class="badge">$14/mo.</span>
 				</h2>
 				<p>Remove the ChatNode branding from all of your bots.</p>
-				{#if branding !== 0}
+				{#if branding}
 					<p class="badge badge-success badge-lg">Installed</p>
 				{/if}
 
 				<div class="flex mt-10 items-center gap-2 justify-end">
-					{#if branding !== 0}
+					{#if !branding}
 						<button class="btn btn-primary btn-outline" disabled={data.subscription?.plan === 0} on:click={() => handleCheckout(10004, 1)}>
 							Purchase
 						</button>
