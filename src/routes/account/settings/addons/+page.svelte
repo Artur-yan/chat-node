@@ -24,6 +24,8 @@
 	let modifyTokens = false
 	let modifyBranding = false
 
+	let loadingStripe = false;
+
 	console.log(addons);
 
 	if (addons) {
@@ -42,6 +44,7 @@
 	}
 
 	const handleCheckout = async (addon: number, qty: number) => {
+		loadingStripe = true;
 		try {
 			const res = await fetch(PUBLIC_CHAT_API_URL + '/api/update-addon', {
 				method: 'POST',
@@ -57,8 +60,10 @@
 
 			const json = await res.json();
 			goto(json.url)
+			loadingStripe = false;
 		} catch (err) {
 			console.error(err);
+			loadingStripe = false;
 		}
 	};
 </script>
@@ -82,6 +87,9 @@
 				{#if bots}
 					<div class="mt-4 items-center flex gap-4 justify-start">
 						<div class="badge badge-success badge-lg">Installed</div>
+						{#if data.subscription?.addons['10002'].cancel_at}
+							<div class="badge badge-warning ">Expiring {data.subscription?.addons['10002'].cancel_at.toLocaleString()}</div>
+						{/if}
 						<div class="badge badge-lg">{bots}x </div>
 						<div class="badge badge-lg">${bots * 5}/mo.</div>
 					</div>
@@ -117,9 +125,14 @@
 								<button
 									class="join-item btn btn-primary"
 									on:click={() => handleCheckout(10002, botsToAdd)}
-									disabled={bots === botsToAdd}
+									disabled={bots === botsToAdd || loadingStripe}
 								>
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 11l4-7m10 7l-4-7M2 11h20M3.5 11l1.6 7.4a2 2 0 0 0 2 1.6h9.8c.9 0 1.8-.7 2-1.6l1.7-7.4M9 11l1 9m-5.5-4.5h15M15 11l-1 9"/></svg>
+								{#if loadingStripe}
+									<span class="loading loading-spinner" />
+								{:else}
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 11l4-7m10 7l-4-7M2 11h20M3.5 11l1.6 7.4a2 2 0 0 0 2 1.6h9.8c.9 0 1.8-.7 2-1.6l1.7-7.4M9 11l1 9m-5.5-4.5h15M15 11l-1 9"/></svg>
+								{/if}
+
 								</button>
 							</div>
 						</div>
