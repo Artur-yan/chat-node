@@ -27,10 +27,18 @@
 	console.log(addons);
 
 	if (addons) {
-		messagesToAdd = messages = addons['10001']?.quantity || 0;
-		botsToAdd = bots = addons['10002']?.quantity || 0;
-		tokensToAdd = tokens = addons['10003']?.quantity || 0;
-		addBranding = branding = addons['10004']?.quantity || 0;
+		if (addons['10001']?.quantity) {
+			messagesToAdd = messages = addons['10001']?.quantity;
+		}
+		if (addons['10002']?.quantity) {
+			botsToAdd = bots = addons['10002']?.quantity;
+		}
+		if (addons['10003']?.quantity) {
+			tokensToAdd = tokens = addons['10003']?.quantity;
+		}
+		if (addons['10004']?.quantity) {
+			addBranding = branding = addons['10004']?.quantity;
+		}
 	}
 
 	const handleCheckout = async (addon: number, qty: number) => {
