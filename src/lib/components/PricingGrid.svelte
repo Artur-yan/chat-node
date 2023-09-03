@@ -32,7 +32,6 @@
 	};
 
 	const updatePlan = async (newPlan: number) => {
-		console.log(newPlan)
 		try {
 			busyChangingPlan = true;
 			const res = await fetch('/api/account/plan', {
