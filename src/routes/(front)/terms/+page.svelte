@@ -1,3 +1,19 @@
+<script>
+  import { onMount } from "svelte";
+
+  onMount(() => {
+    if (typeof window !== "undefined") {
+      (function(d, s, id) {
+    var js, tjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://app.termly.io/embed-policy.min.js";
+    tjs.parentNode.insertBefore(js, tjs);
+  }(document, 'script', 'termly-jssdk'));
+    }
+  });
+</script>
+
 <svelte:head>
 	<title>Terms of Service | ChatNode</title>
 	<meta
@@ -7,13 +23,6 @@
 	<link rel="“canonical”" href="https://www.chatnode.ai/terms" />
 </svelte:head>
 
-<div>
-	<div name="termly-embed" data-id="3f2d25ad-6a63-49f0-ad4b-3e0615a49ead"></div>
-	<script type="text/javascript">(function(d, s, id) {
-	  var js, tjs = d.getElementsByTagName(s)[0];
-	  if (d.getElementById(id)) return;
-	  js = d.createElement(s); js.id = id;
-	  js.src = "https://app.termly.io/embed-policy.min.js";
-	  tjs.parentNode.insertBefore(js, tjs);
-	}(document, 'script', 'termly-jssdk'));</script>
+<div class="container">
+  <div name="termly-embed" data-id="515d9ae0-2f38-497b-aace-c1250d149dd1"></div>
 </div>
