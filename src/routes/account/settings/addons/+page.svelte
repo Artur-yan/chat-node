@@ -8,6 +8,8 @@
 
 	const addons = (data.subscription?.addons);
 
+	console.log(addons);
+
 	let messagesToAdd = 0;
 	let messages = 0
 	let botsToAdd = 0;
@@ -17,13 +19,11 @@
 	let tokensToAdd = 0;
 	let tokens = 0;
 
-	console.log(data)
-
 	if (addons) {
-		messagesToAdd = messages = addons['10001']?.qty * 1000 || 0;
-		botsToAdd = bots = addons['10002']?.qty || 0;
-		addBranding = branding = addons['10003']?.qty || 0;
-		tokensToAdd = tokens = addons['10004']?.qty * 250000 || 0;
+		messagesToAdd = messages = addons['10001']?.quantity || 0;
+		botsToAdd = bots = addons['10002']?.quantity || 0;
+		tokensToAdd = tokens = addons['10003']?.quantity || 0;
+		addBranding = branding = addons['10004']?.quantity || 0;
 	}
 
 	const handleCheckout = async (addon: number, qty: number) => {
@@ -41,7 +41,6 @@
 			});
 
 			const json = await res.json();
-			console.log(json);
 			goto(json.url)
 		} catch (err) {
 			console.error(err);
@@ -65,6 +64,9 @@
 					<span class="badge">$5/mo. each</span>
 				</h2>
 				<p>Add individual bots to your plan allowance.</p>
+				{#if bots !== 0}
+					<p class="badge badge-success badge-lg">Installed</p>
+				{/if}
 				<div class="flex mt-10 items-center gap-2">
 					<div class="flex gap-1 flex-1 items-center">
 						<button
@@ -111,11 +113,14 @@
 					<span class="badge">$8/mo. per {Number(1000).toLocaleString()}</span>
 				</h2>
 				<p>Add messages to your plan usable by any of your bots.</p>
+				{#if messages !== 0}
+					<p class="badge badge-success badge-lg">Installed</p>
+				{/if}
 				<div class="flex mt-10 items-center gap-2">
 					<div class="flex gap-1 flex-1 items-center">
 						<button
 							class="btn btn-ghost btn-circle text-error"
-							on:click={() => (messagesToAdd -= 1000)}
+							on:click={() => (messagesToAdd--)}
 							disabled={messagesToAdd === 0}
 						>
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
@@ -125,10 +130,10 @@
 								/>
 							</svg>
 						</button>
-						<div>{messagesToAdd.toLocaleString()}</div>
+						<div>{(messagesToAdd * 1000).toLocaleString()}</div>
 						<button
 							class="btn btn-ghost btn-circle text-success"
-							on:click={() => (messagesToAdd += 1000)}
+							on:click={() => (messagesToAdd++)}
 							disabled={data.subscription?.plan === 0}
 						>
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
@@ -145,7 +150,7 @@
 						disabled={messagesToAdd === 0}
 					>
 						Purchase <span class="badge badge-sm" class:opacity-20={messagesToAdd === 0}>
-							${(messagesToAdd / 1000) * 7}
+							${messagesToAdd * 7}
 						</span>
 					</button>
 				</div>
@@ -160,11 +165,14 @@
 					<span class="badge">$8/mo. per {Number(250000).toLocaleString()}</span>
 				</h2>
 				<p>Add additional tokens to your bots to train on larger data sets.</p>
+				{#if tokens !== 0}
+					<p class="badge badge-success badge-lg">Installed</p>
+				{/if}
 				<div class="flex mt-10 items-center gap-2">
 					<div class="flex gap-1 flex-1 items-center">
 						<button
 							class="btn btn-ghost btn-circle text-error"
-							on:click={() => (tokensToAdd -= 250000)}
+							on:click={() => (tokensToAdd--)}
 							disabled={tokensToAdd === 0}
 						>
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
@@ -174,10 +182,10 @@
 								/>
 							</svg>
 						</button>
-						<div>{tokensToAdd.toLocaleString()}</div>
+						<div>{(tokensToAdd * 250000).toLocaleString()}</div>
 						<button
 							class="btn btn-ghost btn-circle text-success"
-							on:click={() => (tokensToAdd += 250000)}
+							on:click={() => (tokensToAdd++)}
 							disabled={data.subscription?.plan === 0}
 						>
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
@@ -194,7 +202,7 @@
 						disabled={tokensToAdd === 0}
 					>
 						Purchase <span class="badge badge-sm" class:opacity-20={tokensToAdd === 0}>
-							${(tokensToAdd / 250000) * 8}
+							${tokensToAdd * 8}
 						</span>
 					</button>
 				</div>
@@ -209,15 +217,19 @@
 					<span class="badge">$14/mo.</span>
 				</h2>
 				<p>Remove the ChatNode branding from all of your bots.</p>
+				{#if branding !== 0}
+					<p class="badge badge-success badge-lg">Installed</p>
+				{/if}
+
 				<div class="flex mt-10 items-center gap-2 justify-end">
-					{#if addBranding === 0}
+					{#if branding !== 0}
 						<button class="btn btn-primary btn-outline" disabled={data.subscription?.plan === 0} on:click={() => handleCheckout(10004, 1)}>
 							Purchase
 						</button>
 					{:else}
-						<button class="btn btn-primary btn-outline" on:click={() => handleCheckout(10004, 0)}>
-							Remove
-						</button>
+							<button class="btn btn-error btn-xs btn-outline" on:click={() => handleCheckout(10004, 0)}>
+								Remove
+							</button>
 					{/if}
 				</div>
 	
