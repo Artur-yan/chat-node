@@ -5,8 +5,6 @@ import tiersMap from '$lib/data/tiers';
 import { prismaClient } from '$lib/server/prisma';
 
 export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
-	const user = await locals.auth.validateUser();
-	let removeBranding = false
 	try {
 		const bot = await prismaClient.bots.findUniqueOrThrow({
 			where: {
@@ -18,12 +16,6 @@ export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 				user_id: user.user?.userId
 			}
 		});
-
-		const plan = subscription?.plan?.toString()
-
-		if(tiersMap[plan].features.remove_chatnode_branding?.included || subscription?.free_no_branding) {
-			removeBranding = true
-		}
 
 		
 		
@@ -41,7 +33,7 @@ export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 			// 	'Content-Security-Policy': `frame-ancestors 'self'`
 			// });
 		}
-		return { bot, removeBranding };
+		return { bot };
 	} catch (err) {
 		if (err.code == 'P2025') {
 			throw error(400, 'Bot not found');
