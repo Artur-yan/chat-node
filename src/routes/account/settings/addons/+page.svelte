@@ -33,11 +33,11 @@
 	{/if}
 	
 	<div class="grid md:grid-cols-2 gap-8">
-		<Addon name="Bots" description="Add individual bots to your plan allowance." price={5} subscription={messagesSubscription} addonId="10002" user_id={data.subscription?.user_id} />
+		<Addon name="Bots" description="Add individual bots to your plan allowance." price={7} subscription={messagesSubscription} addonId="10002" user_id={data.subscription?.user_id} />
 		
-		<Addon name="Messages" description="Add messages to your plan usable by any of your bots." price={8} bundleQty={1000} subscription={botsSubscription} addonId="10001" user_id={data.subscription?.user_id} />
+		<Addon name="Messages" description="Add messages to your plan usable by any of your bots." price={10} bundleQty={1000} subscription={botsSubscription} addonId="10001" user_id={data.subscription?.user_id} />
 
-		<Addon name="Tokens" description="Add additional tokens to your bots to train on larger data sets." price={8} bundleQty={25000} subscription={tokenSubscription} addonId="10003" user_id={data.subscription?.user_id} />
+		<Addon name="Tokens" description="Add additional tokens to your bots to train on larger data sets." price={7} bundleQty={250000} subscription={tokenSubscription} addonId="10003" user_id={data.subscription?.user_id} />
 
 		<Addon name="No Branding" description="Remove the ChatNode branding from all of your bots." price={15} subscription={brandingSubscription} addonId="10004" user_id={data.subscription?.user_id} />
 
