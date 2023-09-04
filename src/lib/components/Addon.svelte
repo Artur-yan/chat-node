@@ -128,7 +128,7 @@
                         </button>
                     </div>
                 </div>
-                {#if subscription?.cancel_at}
+                {#if qty && !subscription?.cancel_at}
                 <button
                     class="btn btn-error btn-xs btn-outline border-none"
                     on:click={() => handleCheckout(0)}
