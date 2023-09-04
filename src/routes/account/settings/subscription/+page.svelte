@@ -56,9 +56,11 @@
 		</div>
 
 		<div class="text-lg mb-4 leading-8">
-			<!-- Conert object to arrtay for looping -->
+			<!-- Convert object to array for looping -->
 			{#each Object.entries(tier.features) as [key, value]}
-				<p>{value.label}</p>
+				{#if value.included}
+					<p>{value.label}</p>
+				{/if}
 			{/each}
 		</div>
 
