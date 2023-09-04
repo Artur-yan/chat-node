@@ -6,6 +6,9 @@
 
 	let settings = data.bot.settings;
 
+	const { removeBranding } = data
+
+
 	onMount(() => {
 		document.body.style.backgroundColor = settings.theme.bg;
 		document.documentElement.style.backgroundColor = settings.theme.bg;
@@ -16,4 +19,4 @@
 	<title>{data.bot.name} | ChatNode</title>
 </svelte:head>
 
-<Chat modelId={data.bot.id} {settings} avatar={data.bot.avatar_img} userId={data.bot.user_id} />
+<Chat modelId={data.bot.id} {settings} avatar={data.bot.avatar_img} userId={data.bot.user_id} {removeBranding} />
