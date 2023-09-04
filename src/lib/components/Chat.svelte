@@ -217,7 +217,7 @@
 	{/if}
 	<div class="overflow-y-auto scroll-smooth h-full flex-1" bind:this={chatWindow}>
 		<button
-			class="z-20 absolute top-2.5 right-2.5 btn btn-circle btn-sm btn-ghost flex items-center justify-center"
+			class="z-[1] absolute top-2.5 right-2.5 btn btn-circle btn-sm btn-ghost flex items-center justify-center"
 			style="color: var(--resetButton);"
 			title="Reset Chat"
 			on:click={resetChat}
