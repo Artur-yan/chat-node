@@ -178,9 +178,9 @@
 					<li>
 						<div
 							class="tooltip border-b border-dotted border-white/30"
-							data-tip="approx. 1,600,000 characters"
+							data-tip="approx. 2,000,000 characters"
 						>
-							<span class="figure">400,000</span>
+							<span class="figure">500,000</span>
 							 tokens/bot
 						</div>
 					</li>
@@ -243,9 +243,9 @@
 						<li>
 							<div
 								class="tooltip border-b border-dotted border-white/30"
-								data-tip="approx. 3,200,000 characters"
+								data-tip="approx. 4,000,000 characters"
 							>
-								<span class="figure">800,000</span>
+								<span class="figure">1,000,000</span>
 								 tokens/bot
 							</div>
 						</li>
@@ -325,9 +325,9 @@
 						<li>
 							<div
 								class="tooltip border-b border-dotted border-white/30"
-								data-tip="approx. 4,000,000 characters"
+								data-tip="approx. 12,000,000 characters"
 							>
-								<span class="figure">1,000,000</span>
+								<span class="figure">3,000,000</span>
 								 tokens/bot
 							</div>
 						</li>
@@ -403,9 +403,9 @@
 						<li>
 							<div
 								class="tooltip border-b border-dotted border-white/30"
-								data-tip="approx. 12,000,000 characters"
+								data-tip="approx. 32,000,000 characters"
 							>
-								<span class="figure">3,000,000</span>
+								<span class="figure">8,000,000</span>
 								 tokens/bot
 							</div>
 						</li>
