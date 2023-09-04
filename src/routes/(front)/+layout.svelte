@@ -22,6 +22,13 @@
 	<link rel="canonical" href="https://www.chatnode.ai{$page.url.pathname}" />
 
 	{#if PUBLIC_ENVIRONMENT === 'production'}
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-THN99BCW');</script>
+		<!-- End Google Tag Manager -->
 		<script>
 			// Rewardful
 			(function (w, r) {
@@ -80,6 +87,13 @@
 <Header />
 
 <main id="main" class="flex-1">
+	{#if PUBLIC_ENVIRONMENT === 'production'}
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-THN99BCW"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+	{/if}
+
 	<slot />
 </main>
 
