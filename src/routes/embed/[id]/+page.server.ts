@@ -15,13 +15,15 @@ export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 		});
 		const subscription = await prismaClient.subscriptions.findUnique({
 			where: {
-				user_id: user.user?.userId
+				user_id: bot.user_id
 			}
 		});
 
+		console.log(subscription)
+
 		const plan = subscription?.plan?.toString()
 
-		if(tiersMap[plan].features.remove_chatnode_branding?.included || subscription?.free_no_branding) {
+		if(tiersMap[plan].features.remove_chatnode_branding.included || subscription?.free_no_branding) {
 			removeBranding = true
 		}
 
