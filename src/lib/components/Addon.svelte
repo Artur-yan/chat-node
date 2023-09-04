@@ -9,6 +9,7 @@
     export let description
     export let price
     export let bundleQty = 1
+    export let max1 = false
 
 
 
@@ -16,6 +17,7 @@
     let qtyToAdd = 1
     let modifying = false
     let loadingStripe = false
+
 
     console.log(subscription)
 
@@ -48,13 +50,24 @@
 		}
 	};
 
+    let unit = 'each'
+
+    if(bundleQty != 1 && !max1) {
+        unit = 'per ' + bundleQty.toLocaleString();
+    } else if(max1) {
+        unit = ''
+    }
+
+
 </script>
 
 <div class="card bg-neutral">
     <div class="card-body">
         <h2 class="card-title gap-4">
             <span>{name}</span>
-            <span class="badge">${price}/mo. {bundleQty !== 1 ? '/ ' + bundleQty.toLocaleString() : 'each'}</span>
+            <span class="badge">
+                ${price}/mo. {unit}
+            </span>
         </h2>
         <p>{description}</p>
         {#if qty}
@@ -69,7 +82,14 @@
             {/if}
             
             <div class="card-actions mt-10 items-center">
-                <button class="btn btn-primary btn-outline" on:click={() => modifying = !modifying} class:hidden={modifying}>{qty ? 'Modify' : 'Purchase'} Addon</button>
+                <button class="btn btn-primary btn-outline" 
+                on:click={() => {
+                    if(max1) {
+                        handleCheckout(1)
+                    } else {
+                        modifying = !modifying
+                    }
+                }} class:hidden={modifying}>{qty ? 'Modify' : 'Purchase'} Addon</button>
                 {#if modifying}
                 <div class="flex join">
                     <div class="flex join-item items-center border border-primary">
@@ -87,7 +107,7 @@
                             </svg>
                         </button>
                         <div class="badge badge-primary badge-lg mx-2">{(qtyToAdd * bundleQty).toLocaleString()}</div>
-                        <button class="btn btn-ghost btn-square text-success" on:click={() => qtyToAdd++} aria-label="Add Bot">
+                        <button class="btn btn-ghost btn-square text-success" on:click={() => qtyToAdd++} aria-label="Add {name}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
                                 <path
                                     fill="currentColor"
