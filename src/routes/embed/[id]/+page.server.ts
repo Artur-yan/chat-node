@@ -11,11 +11,6 @@ export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 				id: params.id
 			}
 		});
-		const subscription = await prismaClient.subscriptions.findUnique({
-			where: {
-				user_id: user.user?.userId
-			}
-		});
 
 		
 		
