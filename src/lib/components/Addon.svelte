@@ -17,7 +17,12 @@
     let modifying = false
     let loadingStripe = false
 
-	const handleCheckout = async (qty: number) => {
+    if (subscription) {
+        qty = qtyToAdd = subscription.quantity
+    }
+
+    	const handleCheckout = async (qty: number) => {
+        // console.log(user_id, addonId, qty)
 		loadingStripe = true;
 		try {
 			const res = await fetch(PUBLIC_CHAT_API_URL + '/api/update-addon', {
