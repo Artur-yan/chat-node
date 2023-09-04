@@ -25,7 +25,7 @@
         qty = qtyToAdd = subscription.quantity
     }
 
-    	const handleCheckout = async (qty: number) => {
+    const handleCheckout = async (qty: number) => {
 		loadingStripe = true;
 		try {
 			const res = await fetch(PUBLIC_CHAT_API_URL + '/api/update-addon', {
@@ -75,7 +75,7 @@
                 {#if subscription.cancel_at}
                     <div class="badge badge-warning ">Expiring {subscription.cancel_at.toLocaleString()}</div>
                 {/if}
-                <div class="badge badge-lg">{qty}x </div>
+                <div class="badge badge-lg">{qty} x {bundleQty > 1 ? bundleQty.toLocaleString() : ''}</div>
                 <div class="badge badge-lg">${qty * price}/mo.</div>
             </div>
             {/if}

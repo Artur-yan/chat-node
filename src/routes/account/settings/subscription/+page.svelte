@@ -5,6 +5,7 @@
 
 	import tiersMap from '$lib/data/tiers';
 	import { invalidateAll } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	export let data;
 	export let form;
@@ -29,6 +30,10 @@
 		invalidateAll();
 		tier = tiersMap[currentPlan];
 	}
+
+	onMount(() => {
+		invalidateAll()
+	});
 </script>
 
 <svelte:head>

@@ -43,7 +43,7 @@
 
 		<Addon name="Tokens" description="Add additional tokens to your bots to train on larger data sets." price={7} bundleQty={250000} subscription={tokenSubscription} addonId="10003" user_id={data.subscription?.user_id} />
 
-		<Addon name="No Branding" max1={true} description="Remove the ChatNode branding from all of your bots." price={15} subscription={brandingSubscription} addonId="10004" user_id={data.subscription?.user_id} />
+		<Addon name="No Branding" max1={true} description="Remove the ChatNode branding from all of your bots." price={19} subscription={brandingSubscription} addonId="10004" user_id={data.subscription?.user_id} />
 
 	</div>
 </div>
