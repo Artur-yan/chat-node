@@ -17,6 +17,8 @@
     let modifying = false
     let loadingStripe = false
 
+    console.log(subscription)
+
     if (subscription) {
         qty = qtyToAdd = subscription.quantity
     }
@@ -107,7 +109,7 @@
                         </button>
                     </div>
                 </div>
-                {#if !subscription?.cancel_at}
+                {#if subscription?.cancel_at}
                 <button
                     class="btn btn-error btn-xs btn-outline border-none"
                     on:click={() => handleCheckout(0)}
