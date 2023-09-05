@@ -35,7 +35,7 @@ const specialPlans = {
 		plan: 1003,
 		max_bot: 40,
 		max_msg: 6000,
-		max_tocken: 200000
+		max_tocken: 2000000
 	},
 	appsumo4: {
 		plan: 1004,
