@@ -12,6 +12,10 @@ const tiersMap = {
 			gpt_api: {
 				included: false,
 				label: 'Bring Your Own ChatGPT API Key'
+			},
+			remove_chatnode_branding: {
+				included: false,
+				label: 'Remove ChatNode Branding'
 			}
 		}
 	},
@@ -28,11 +32,11 @@ const tiersMap = {
 			gpt_api: {
 				included: false,
 				label: 'Bring Your Own ChatGPT API Key'
+			},
+			remove_chatnode_branding: {
+				included: false,
+				label: 'Remove ChatNode Branding'
 			}
-		},
-		remove_chatnode_branding: {
-			included: false,
-			label: 'Remove ChatNode Branding'
 		}
 	},
 	2: {

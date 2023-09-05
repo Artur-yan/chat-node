@@ -9,9 +9,7 @@
 		<h2 class="font-bold text-secondary text-xs">ChatNode</h2>
 	</div>
 	<div>
-		<span class="footer-title">About</span>
-		<a class="link link-hover" href="/about#company">Company</a>
-		<a class="link link-hover" href="/about#team">Team</a>
+		<span class="footer-title"><a class="link link-hover" href="/about">About</a></span>
 		<a class="link link-hover" href="/#features">Features</a>
 		<a class="link link-hover" href="/#pricing">Pricing</a>
 		<a class="link link-hover" href="/blog">Blog</a>

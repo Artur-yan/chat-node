@@ -52,10 +52,6 @@
 		}
 	};
 
-	// let enduserEmail: string;
-	// let enduserName: string;
-	// let enduserPhone: string;
-
 	let collectUserInfo = false;
 	let userInfoReceived = false;
 	let endUserInfo = {};
