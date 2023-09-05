@@ -5,7 +5,7 @@
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 	import { deleteModel } from '$lib/models';
-	import { PUBLIC_ENVIRONMENT } from '$env/static/public';
+	import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
 
 	export let data;
 
@@ -25,15 +25,13 @@
 	$: botUsage = data.bots.length / data.subscription.max_bot;
 
 	onMount(() => {
-		if (PUBLIC_ENVIRONMENT === 'production') {
-			const { trackEvent } = Plausible({
-				domain: 'chatnode.ai',
-				apiHost: 'https://www.chatnode.ai/events'
-			});
-			if ($page.url.searchParams.get('signup') == 'success') {
+		if ($page.url.searchParams.get('signup') == 'success') {
+				const { trackEvent } = Plausible({
+					domain: PUBLIC_PLAUSIBLE_DOMAIN,
+					apiHost: PUBLIC_PLAUSIBLE_API_HOST
+				});
 				trackEvent('Signup');
 			}
-		}
 	});
 
 	const today = new Date();
