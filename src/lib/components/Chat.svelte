@@ -139,7 +139,7 @@
 	const generateNewSessionId = () => {
 		return Math.random().toString(36).slice(2, 9) + '-' + Date.now();
 	};
-	const chatSessionId = generateNewSessionId();
+	let chatSessionId = generateNewSessionId();
 
 	const initConversation = async () => {
 		await fetch(`/api/chat-history/${chatSessionId}`, {
@@ -179,7 +179,7 @@
 	const resetChat = () => {
 		messages = [];
 		addMessage(settings.greeting);
-		generateNewSessionId();
+		chatSessionId = generateNewSessionId();
 		isThinking = false;
 	};
 </script>
