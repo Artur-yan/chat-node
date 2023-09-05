@@ -83,7 +83,7 @@
 						placeholder="Enter up to 5 AppSumo codes here each on a new line"
 						bind:value={appsumoCodes}
 					/>
-					<input type="hidden" value={data.user.user.email}>
+					<input type="hidden" name="email" value={data.user.user.email}>
 					{#if form?.success === false}
 						<p class="text-error">{form.message || ''}</p>
 					{/if}
