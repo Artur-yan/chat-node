@@ -13,13 +13,11 @@
 	export let data: LayoutData;
 
 	onMount(() => {
-		if (PUBLIC_ENVIRONMENT === 'production') {
 			const { enableAutoPageviews } = Plausible({
 				domain: PUBLIC_PLAUSIBLE_DOMAIN,
 				apiHost: PUBLIC_PLAUSIBLE_API_HOST
 		});
-			enableAutoPageviews();
-		}
+		enableAutoPageviews();
 	});
 
 	if (systemSettings.maintenanceAlert) {
