@@ -256,7 +256,13 @@
 					</ul>
 					<ul class="extra">
 						<li>Remove ChatNode branding</li>
-						<li>Bring your own OpenAI API key</li>
+						<li>Bring your own OpenAI API key
+							<span
+							class="tooltip tooltip-left badge"
+							data-tip="After you've used up your ChatNode messages, we'll automatically switch to your OpenAI API key"
+						>
+							?
+						</span></li>
 						<li>Slack integration</li>
 						<li>GPT-4</li>
 					</ul>
