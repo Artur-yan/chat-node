@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 	import '$lib/assets/css/chat.postcss';
 
-	export let removeBranding = true;
+	export let removeBranding = false;
 
 
 	export let modelId: string;
