@@ -7,9 +7,7 @@
 	import Plausible from 'plausible-tracker';
 
 	onMount(async () => {
-		if (
-			$page.url.searchParams.get('plan-change')
-		) {
+		if ( $page.url.searchParams.get('plan-change') ) {
 			const planChange = $page.url.searchParams.get('plan-change')
 			const { trackEvent } = Plausible({
 				domain: PUBLIC_PLAUSIBLE_DOMAIN,
