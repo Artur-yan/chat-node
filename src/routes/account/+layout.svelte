@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { LayoutData } from './$types';
-	import { PUBLIC_ENVIRONMENT } from '$env/static/public';
+	import { PUBLIC_ENVIRONMENT, PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
 
 	import '../../app.postcss';
 	import HeaderAdmin from '$lib/components/HeaderAdmin.svelte';
@@ -15,9 +15,9 @@
 	onMount(() => {
 		if (PUBLIC_ENVIRONMENT === 'production') {
 			const { enableAutoPageviews } = Plausible({
-				domain: 'chatnode.ai',
-				apiHost: 'https://www.chatnode.ai/events'
-			});
+				domain: PUBLIC_PLAUSIBLE_DOMAIN,
+				apiHost: PUBLIC_PLAUSIBLE_API_HOST
+		});
 			enableAutoPageviews();
 		}
 	});
