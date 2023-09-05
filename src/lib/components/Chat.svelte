@@ -9,6 +9,7 @@
 
 	export let removeBranding = true;
 
+
 	export let modelId: string;
 	export let disabled = false;
 	export let isThinking = false;
