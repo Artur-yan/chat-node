@@ -140,7 +140,6 @@
 						/>
 					</svg>
 					API
-					<span class="badge badge-xs badge-neutral">beta</span>
 				</h3>
 				<div class="dot dot-tl" />
 				<div class="dot dot-tr" />

@@ -35,19 +35,19 @@ const specialPlans = {
 		plan: 1003,
 		max_bot: 40,
 		max_msg: 6000,
-		max_tocken: 1500000
+		max_tocken: 200000
 	},
 	appsumo4: {
 		plan: 1004,
 		max_bot: 60,
 		max_msg: 8000,
-		max_tocken: 2000000
+		max_tocken: 4000000
 	},
 	appsumo5: {
 		plan: 1005,
 		max_bot: 80,
 		max_msg: 10000,
-		max_tocken: 3000000
+		max_tocken: 8000000
 	}
 };
 const domainBlacklist = ['givmail.com', 'givmail.io', 'givmail.co', 'inboxbear.com', 'vomoto.com'];

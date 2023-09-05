@@ -1,37 +1,30 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { PUBLIC_ENVIRONMENT } from '$env/static/public';
+	import { PUBLIC_ENVIRONMENT, PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { alert } from '$lib/stores';
 	import Plausible from 'plausible-tracker';
 
 	onMount(async () => {
-		if (
-			$page.url.searchParams.get('plan-change') === 'success' &&
-			PUBLIC_ENVIRONMENT === 'production'
-		) {
+		if ( $page.url.searchParams.get('plan-change') ) {
+			const planChange = $page.url.searchParams.get('plan-change')
 			const { trackEvent } = Plausible({
-				domain: 'chatnode.ai',
-				apiHost: 'https://www.chatnode.ai/events'
+				domain: PUBLIC_PLAUSIBLE_DOMAIN,
+				apiHost: PUBLIC_PLAUSIBLE_API_HOST
 			});
-			trackEvent('Upgrade to Paid');
-
-			switch ($page.url.searchParams.get('plan')) {
-				case '0':
-					trackEvent('Switch to Free');
+			switch (planChange) {
+				case 'convert':
+					trackEvent('Convert to Paid');
 					break;
-				case '1':
-					trackEvent('Switch to Basic');
+				case 'upgrade':
+					trackEvent('Upgrade');
 					break;
-				case '2':
-					trackEvent('Switch to Pro');
+				case 'downgrade':
+					trackEvent('Downgrade');
 					break;
-				case '3':
-					trackEvent('Switch to Enterprise');
-					break;
-				case '4':
-					trackEvent('Switch to Enterprise+');
+				case 'cancel':
+					trackEvent('Cancel');
 					break;
 			}
 		}

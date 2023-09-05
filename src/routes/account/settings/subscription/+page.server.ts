@@ -25,6 +25,7 @@ export const actions = {
 
 		const form = await request.formData();
 		const appsumoCodes = form.get('appsumo-codes');
+		const email = form.get('email');
 
 		let tooManyCodes = false;
 		let codesAlreadyRedeemed = false;
@@ -93,7 +94,7 @@ export const actions = {
 					data: {
 						redeemed: true,
 						redeemed_date: new Date(),
-						redeemed_by: user.email
+						redeemed_by: email
 					}
 				});
 

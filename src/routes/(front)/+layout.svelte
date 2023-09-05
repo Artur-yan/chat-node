@@ -5,16 +5,14 @@
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
-	import { PUBLIC_ENVIRONMENT } from '$env/static/public';
+	import { PUBLIC_ENVIRONMENT, PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
 
 	onMount(() => {
-		if (PUBLIC_ENVIRONMENT === 'production') {
-			const { enableAutoPageviews } = Plausible({
-				domain: 'chatnode.ai',
-				apiHost: 'https://www.chatnode.ai/events'
-			});
-			enableAutoPageviews();
-		}
+		const { enableAutoPageviews } = Plausible({
+			domain: PUBLIC_PLAUSIBLE_DOMAIN,
+			apiHost: PUBLIC_PLAUSIBLE_API_HOST
+		});
+		enableAutoPageviews();
 	});
 </script>
 
