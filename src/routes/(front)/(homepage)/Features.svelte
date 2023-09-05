@@ -38,19 +38,27 @@
 			</div>
 			<div>
 				<h3>
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-						<path
-							fill="none"
-							stroke="currentColor"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="1.5"
-							d="M13.5 6L10 18.5m-3.5-10L3 12l3.5 3.5m11-7L21 12l-3.5 3.5"
-						/>
-					</svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g transform="translate(24 0) scale(-1 1)"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0-7.605-4.185L3 21l4.185-1.395A8.958 8.958 0 0 0 12 21z"/></g></svg>
 					Popup Chat
 				</h3>
 				<div class="dot dot-bl" />
+			</div>
+			<div>
+				<h3>
+					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+						<path
+							fill="currentColor"
+							d="M7.75 8.99A5.766 5.766 0 0 0 6 13.13C6 16.37 8.69 19 12 19V4.81L7.75 8.99z"
+							opacity=".3"
+						/>
+						<path
+							fill="currentColor"
+							d="M17.65 7.56L12 2L6.35 7.56C4.9 8.99 4 10.96 4 13.13C4 17.48 7.58 21 12 21s8-3.52 8-7.87c0-2.17-.9-4.14-2.35-5.57zM6 13.13c0-1.56.62-3.03 1.75-4.14L12 4.81V19c-3.31 0-6-2.63-6-5.87z"
+						/>
+					</svg>
+					Your Brand
+				</h3>
+				<div class="dot dot-tr" />
 			</div>
 		</div>
 		<div class="flex flex-wrap items-end justify-center">
@@ -124,38 +132,6 @@
 			</div>
 			<div>
 				<h3>
-					<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24">
-						<path
-							fill="currentColor"
-							d="m20.58 19.37l-2.99-8.36c-.21-.55-.68-.89-1.22-.89s-1 .34-1.23.91l-2.98 8.34a.75.75 0 1 0 1.41.51l.62-1.73h4.35l.62 1.73c.11.31.4.5.71.5c.08 0 .17-.01.25-.04a.75.75 0 0 0 .45-.96Zm-5.84-2.73l1.64-4.59l1.64 4.59h-3.28Zm-2.55-8.79c-2.26 3.57-4.3 5.73-6.78 7.17a.746.746 0 0 1-1.02-.27a.738.738 0 0 1 .27-1.02c2.1-1.22 3.82-2.97 5.75-5.87H4.12c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h3.75V4.38c0-.41.34-.75.75-.75s.75.34.75.75v1.98h3.75c.41 0 .75.34.75.75s-.34.75-.75.75h-.94Zm.04 7.27c-.13 0-.26-.03-.38-.1c-.65-.38-1.28-.8-1.87-1.24a.75.75 0 0 1 .9-1.2c.54.41 1.13.79 1.73 1.14a.752.752 0 0 1-.38 1.4Z"
-						/>
-					</svg>
-					95 Languages
-				</h3>
-				<div class="dot dot-bl" />
-				<div class="dot dot-tr" />
-			</div>
-		</div>
-		<div class="flex items-end justify-center">
-			<div>
-				<h3>
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-						<path
-							fill="currentColor"
-							d="M7.75 8.99A5.766 5.766 0 0 0 6 13.13C6 16.37 8.69 19 12 19V4.81L7.75 8.99z"
-							opacity=".3"
-						/>
-						<path
-							fill="currentColor"
-							d="M17.65 7.56L12 2L6.35 7.56C4.9 8.99 4 10.96 4 13.13C4 17.48 7.58 21 12 21s8-3.52 8-7.87c0-2.17-.9-4.14-2.35-5.57zM6 13.13c0-1.56.62-3.03 1.75-4.14L12 4.81V19c-3.31 0-6-2.63-6-5.87z"
-						/>
-					</svg>
-					Your Brand
-				</h3>
-				<div class="dot dot-tr" />
-			</div>
-			<div>
-				<h3>
 					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48">
 						<path
 							fill="none"
@@ -169,6 +145,30 @@
 					API
 				</h3>
 				<div class="dot dot-tl" />
+				<div class="dot dot-tr" />
+			</div>
+		</div>
+		<div class="flex items-end justify-center">
+
+			<div>
+				<h3>
+					<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24">
+						<path
+							fill="currentColor"
+							d="m20.58 19.37l-2.99-8.36c-.21-.55-.68-.89-1.22-.89s-1 .34-1.23.91l-2.98 8.34a.75.75 0 1 0 1.41.51l.62-1.73h4.35l.62 1.73c.11.31.4.5.71.5c.08 0 .17-.01.25-.04a.75.75 0 0 0 .45-.96Zm-5.84-2.73l1.64-4.59l1.64 4.59h-3.28Zm-2.55-8.79c-2.26 3.57-4.3 5.73-6.78 7.17a.746.746 0 0 1-1.02-.27a.738.738 0 0 1 .27-1.02c2.1-1.22 3.82-2.97 5.75-5.87H4.12c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h3.75V4.38c0-.41.34-.75.75-.75s.75.34.75.75v1.98h3.75c.41 0 .75.34.75.75s-.34.75-.75.75h-.94Zm.04 7.27c-.13 0-.26-.03-.38-.1c-.65-.38-1.28-.8-1.87-1.24a.75.75 0 0 1 .9-1.2c.54.41 1.13.79 1.73 1.14a.752.752 0 0 1-.38 1.4Z"
+						/>
+					</svg>
+					95 Languages
+				</h3>
+				<div class="dot dot-bl" />
+				<div class="dot dot-tr" />
+			</div>
+			<div>
+				<h3>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path stroke="currentColor" stroke-width="1.5" d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke="currentColor" stroke-width="1.5" d="M5 11c0-2.828 0-4.243.879-5.121C6.757 5 8.172 5 11 5h2c2.828 0 4.243 0 5.121.879C19 6.757 19 8.172 19 11v2c0 2.828 0 4.243-.879 5.121C17.243 19 15.828 19 13 19h-2c-2.828 0-4.243 0-5.121-.879C5 17.243 5 15.828 5 13v-2Z"/><path stroke="currentColor" stroke-width="1.5" d="M8 12a4 4 0 1 1 8 0a4 4 0 0 1-8 0Z"/><path fill="currentColor" d="M13.5 12a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0Z"/><path stroke="currentColor" stroke-width="1.5" d="M12 12V8m0 4l3.5 1.5M12 12l-3.5 1.5"/><path stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M4.5 7v3m0 4v3"/></g></svg>
+					GDPR Compliant
+				</h3>
+				<div class="dot dot-bl" />
 				<div class="dot dot-tr" />
 			</div>
 		</div>
