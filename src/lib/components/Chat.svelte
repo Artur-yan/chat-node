@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 	import '$lib/assets/css/chat.postcss';
 
-	export let removeBranding = false;
+	export let removeBranding = true;
 
 
 	export let modelId: string;
@@ -392,7 +392,7 @@
 				{/if}
 				{#if settings.collectUserEmail}
 					<input
-						type="text"
+						type="email"
 						name="email"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
@@ -414,7 +414,7 @@
 					type="submit"
 					class="btn join-item border-none"
 					value={settings.collectUserInfoSubmitButtonText || 'Start Chatting'}
-					on:click|preventDefault={handleUserInfoSubmit}
+					on:click={handleUserInfoSubmit}
 					style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"
 				/>
 			</div>
