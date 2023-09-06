@@ -383,9 +383,9 @@
 				{#if settings.collectUserName}
 					<input
 						type="text"
+						name="name"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						name="name"
 						placeholder={settings.collectUserNameLabel}
 						bind:value={endUserInfo.name}
 					/>
@@ -393,6 +393,7 @@
 				{#if settings.collectUserEmail}
 					<input
 						type="text"
+						name="email"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
 						placeholder={settings.collectUserEmailLabel}
@@ -401,6 +402,7 @@
 				{/if}
 				{#if settings.collectUserPhone}
 					<input
+						name="phone"
 						type="text"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
