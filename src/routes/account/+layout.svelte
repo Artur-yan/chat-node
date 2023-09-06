@@ -8,7 +8,7 @@
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 	import { alert } from '$lib/stores';
-	import systemSettings from '$lib/systemSettings';
+	import {systemSettings} from '$lib/systemSettings';
 
 	export let data: LayoutData;
 
