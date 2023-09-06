@@ -50,7 +50,7 @@
 						class="input input-sm"
 						name="collectUserEmailLabel"
 						placeholder="Email"
-						bind:value={$currentBot.settings.collectUserEmaileLabel}
+						bind:value={$currentBot.settings.collectUserEmailLabel}
 					/>
 				</div>
 			</div>
