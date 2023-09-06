@@ -71,6 +71,7 @@ const defaultSettings = {
 	collectUserEmailLabel: 'Email',
 	collectUserPhone: false,
 	collectUserPhoneLabel: 'Phone',
+	collectUserInfoSubmitButtonText: 'Start Chatting',
 	theme: {
 		name: 'default',
 		bg: '#0F172A',

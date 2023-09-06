@@ -386,7 +386,7 @@
 						name="name"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						placeholder={settings.collectUserNameLabel}
+						placeholder={settings.collectUserNameLabel || 'Name'}
 						bind:value={endUserInfo.name}
 					/>
 				{/if}
@@ -396,7 +396,7 @@
 						name="email"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						placeholder={settings.collectUserEmailLabel}
+						placeholder={settings.collectUserEmailLabel || 'Email'}
 						bind:value={endUserInfo.email}
 					/>
 				{/if}
@@ -406,15 +406,15 @@
 						type="text"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						placeholder={settings.collectUserPhoneLabel}
+						placeholder={settings.collectUserPhoneLabel  || 'Phone'}
 						bind:value={endUserInfo.phone}
 					/>
 				{/if}
 				<input
 					type="submit"
 					class="btn join-item border-none"
-					value="Start Chatting"
-					on:click={handleUserInfoSubmit}
+					value={settings.collectUserInfoSubmitButtonText || 'Start Chatting'}
+					on:click|preventDefault={handleUserInfoSubmit}
 					style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"
 				/>
 			</div>
