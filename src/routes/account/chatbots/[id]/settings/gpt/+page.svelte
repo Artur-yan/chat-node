@@ -30,7 +30,7 @@
 					/>
 					ChatGPT 3.5 Turbo
 				</label>
-				<!-- <label
+				<label
 					class="btn join-item btn-outline {plansWithGPT4.includes(plan) ||
 					$currentBot.settings.openai_api_key
 						? 'btn-neutral'
@@ -44,7 +44,7 @@
 						disabled={!plansWithGPT4.includes(plan) && !$currentBot.settings.openai_api_key}
 					/>
 					ChatGPT-16K
-				</label> -->
+				</label>
 				<label
 					class="btn join-item btn-outline {plansWithGPT4.includes(plan) ||
 					$currentBot.settings.openai_api_key
