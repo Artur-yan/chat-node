@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { currentBot } from '$lib/stores.js';
 
+	$: console.log($currentBot);
+
 	export let data;
 
 	let plan = data.subscription.plan;
@@ -91,10 +93,24 @@
 				placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 				disabled={!plansWithCustomApiKey.includes(plan)}
 			/>
-			<p class="mt-2 mx-1 max-w-md text-sm leading-6">
+			<!-- <p class="mt-2 max-w-md text-sm leading-6">
 				Input your own secret api key from OpenAI and when you exhaust your messages in your
 				ChatNode account, we will use your OpenAI credits to complete your requests.
-			</p>
+			</p> -->
 		</div>
+		{#if $currentBot.settings.openai_api_key}
+		<div class="mt-4">
+				<h3 class="text-lg font-bold">Use ChatNode Messages</h3>
+				<div class="form-control">
+					<label class="cursor-pointer label justify-start gap-4">
+					<span class="label-text">OFF</span> 
+					<input type="checkbox" class="toggle toggle-primary" bind:checked={$currentBot.settings.useChatNodeMsgs} />
+					<span class="label-text">ON</span> 
+					</label>
+				</div>
+				<p class="mt-2 max-w-md text-sm leading-6">
+					If turned on, we will use your ChatNode messages first and then use your OpenAI credits. You can turn this off and this bot will only use your OpenAI credits.
+			</div>
+		{/if}
 	</div>
 </div>
