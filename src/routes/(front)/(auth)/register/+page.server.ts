@@ -50,7 +50,7 @@ const specialPlans = {
 		max_tocken: 8000000
 	}
 };
-const domainBlacklist = ['givmail.com', 'givmail.io', 'givmail.co', 'inboxbear.com', 'vomoto.com'];
+const domainBlacklist = ['givmail.com', 'givmail.io', 'givmail.co', 'inboxbear.com', 'vomoto.com', 'fexpost.com'];
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
