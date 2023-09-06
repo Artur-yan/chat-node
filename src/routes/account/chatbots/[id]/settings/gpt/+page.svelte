@@ -5,7 +5,7 @@
 
 	let plan = data.subscription.plan;
 
-	const plansWthCustomApiKey = [2, 3, 4, 102, 103, 104, 1001, 1002, 1003, 1004, 1005];
+	const plansWithCustomApiKey = [2, 3, 4, 102, 103, 104, 1001, 1002, 1003, 1004, 1005];
 	const plansWithGPT4 = [2, 3, 4, 102, 103, 104];
 </script>
 
@@ -14,7 +14,7 @@
 		<div class="card-title">
 			<h2>GPT Version</h2>
 		</div>
-		{#if plan === 0}
+		{#if !plansWithGPT4.includes(plan)}
 			<div class="alert text-warning mb-2 font-bold">
 				This feature is available on the Pro plan or greater.
 			</div>
@@ -30,6 +30,21 @@
 					/>
 					ChatGPT 3.5 Turbo
 				</label>
+				<!-- <label
+					class="btn join-item btn-outline {plansWithGPT4.includes(plan) ||
+					$currentBot.settings.openai_api_key
+						? 'btn-neutral'
+						: 'btn-disabled'}"
+				>
+					<input
+						class="radio radio-sm radio-primary"
+						type="radio"
+						value="3.5-16"
+						bind:group={$currentBot.settings.gptVersion}
+						disabled={!plansWithGPT4.includes(plan) && !$currentBot.settings.openai_api_key}
+					/>
+					ChatGPT-16K
+				</label> -->
 				<label
 					class="btn join-item btn-outline {plansWithGPT4.includes(plan) ||
 					$currentBot.settings.openai_api_key
@@ -63,7 +78,7 @@
 		<div class="card-title">
 			<h2>Personal OpenAI API Key</h2>
 		</div>
-		{#if !plansWthCustomApiKey.includes(plan)}
+		{#if !plansWithCustomApiKey.includes(plan)}
 			<div class="alert text-warning mb-2 font-bold">
 				This feature is available on the Pro plan or greater.
 			</div>
@@ -74,7 +89,7 @@
 				type="text"
 				bind:value={$currentBot.settings.openai_api_key}
 				placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-				disabled={!plansWthCustomApiKey.includes(plan)}
+				disabled={!plansWithCustomApiKey.includes(plan)}
 			/>
 			<p class="mt-2 mx-1 max-w-md text-sm leading-6">
 				Input your own secret api key from OpenAI and when you exhaust your messages in your
