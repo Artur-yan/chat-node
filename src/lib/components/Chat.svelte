@@ -213,7 +213,7 @@
 			</h1>
 		</header>
 	{/if}
-	<div class="overflow-y-auto scroll-smooth h-full flex-1" bind:this={chatWindow}>
+	<div class="overflow-y-auto scroll-smooth h-0 basis-auto flex-1" bind:this={chatWindow}>
 		<button
 			class="z-[1] absolute top-2.5 right-2.5 btn btn-circle btn-sm btn-ghost flex items-center justify-center"
 			class:!right-12={context === 'popup'}
