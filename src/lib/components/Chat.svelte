@@ -19,9 +19,10 @@
 		{
 			text: settings.greeting,
 			sender: 'bot'
-		}
+		}	
 	];
 	export let userId: string;
+	export let context: string
 
 	// Merge default settings with user settings
 	// Merge nested object
@@ -200,7 +201,7 @@
 	--sendButtonBG: {settings.theme.sendButtonBG};
 	--sendButtonIconColor: {settings.theme.sendButtonIconColor};
     background-color: var(--bg)"
-	class="h-full flex flex-col justify-between rounded-2xl overflow-hidden flex-1 relative"
+	class="h-full flex flex-col justify-between overflow-hidden flex-1 relative"
 >
 	{#if settings?.headerEnabled && settings.publicTitle !== ''}
 		<header style="background-color: var(--headerBG)" class="flex p-4 items-center gap-2">
@@ -215,6 +216,7 @@
 	<div class="overflow-y-auto scroll-smooth h-full flex-1" bind:this={chatWindow}>
 		<button
 			class="z-[1] absolute top-2.5 right-2.5 btn btn-circle btn-sm btn-ghost flex items-center justify-center"
+			class:right-10={context === 'popup'}
 			style="color: var(--resetButton);"
 			title="Reset Chat"
 			on:click={resetChat}

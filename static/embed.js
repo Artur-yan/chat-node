@@ -27,7 +27,7 @@ if (openOnLoad) {
 	toggleChat();
 }
 const iframe = `
-<iframe src="http://www.chatnode.ai/embed/${id}" width="100%" height="100%"></iframe>
+<iframe src="https://www.chatnode.ai/embed/${id}?context=popup" width="100%" height="100%"></iframe>
 `;
 const html = `	
 <div id="chatbot-${id}">

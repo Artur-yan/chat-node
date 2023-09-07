@@ -109,7 +109,7 @@
 		</div>
 	</div>
 	<div>
-		<div class="h-[calc(100vh_-_16rem)] sticky top-4 mb-10 hidden sm:block">
+		<div class="h-[calc(100vh_-_16rem)] sticky top-4 mb-10 hidden sm:block rounded-2xl overflow-hidden">
 			<Chat
 				{modelId}
 				bind:trainingStatus
