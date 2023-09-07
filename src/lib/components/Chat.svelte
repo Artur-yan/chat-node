@@ -201,7 +201,7 @@
 	--sendButtonBG: {settings.theme.sendButtonBG};
 	--sendButtonIconColor: {settings.theme.sendButtonIconColor};
     background-color: var(--bg)"
-	class="flex flex-col justify-between overflow-hidden flex-1 relative"
+	class="flex h-full flex-col justify-between overflow-hidden flex-1 relative"
 >
 	{#if settings?.headerEnabled && settings.publicTitle !== ''}
 		<header style="background-color: var(--headerBG)" class="flex p-4 items-center gap-2">
