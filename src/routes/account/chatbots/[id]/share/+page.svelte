@@ -67,7 +67,7 @@
 			<span>
 				Update your settings to change where your bot can be embedded.
 			</span>
-			<a class="btn btn-primary btn-outline" href="settings/sharing">Share Settings</a>
+			<a class="btn btn-primary btn-outline" href="settings/sharing">View Share Settings</a>
 		</div>
 	{/if}
 
