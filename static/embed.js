@@ -64,11 +64,11 @@ const html = `
 		}
 
 		#chatbot-${id} .btn{
+			box-sizing: content-box;
 			position: fixed;
 			outline: 0;
 			border: none;
-			position:
-			absolute;
+			position: absolute;
 			bottom: 10px;
 			right: 10px;
 			width:56px;
@@ -80,6 +80,7 @@ const html = `
 			border: none;
 		}
 		#chatbot-${id} .close-btn{
+			box-sizing: content-box;
 			border: none;
 			position: absolute;
 			top:0.625rem;
