@@ -6,6 +6,19 @@ const openOnLoad = document.currentScript.hasAttribute('data-open');
 let chatOpen = false;
 let chatLoaded = false;
 
+
+
+function preloadChat() {
+	const chat = document.getElementById(`chatbot-${id}-chat`)
+
+
+	if (!chatLoaded) {
+		chat.innerHTML += iframe
+		chatLoaded = true;
+		console.log('loaded')
+	}
+}
+
 function toggleChat() {
 	const chat = document.getElementById(`chatbot-${id}-chat`)
 
@@ -36,7 +49,7 @@ const html = `
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m7 7l10 10M7 17L17 7"/></svg>
 </div>
 </div>
-    <div id="toggle-btn-${id}" role="button" onclick="toggleChat()" aria-label="Open AI Chat">
+    <div id="toggle-btn-${id}" role="button" onclick="toggleChat()" onmouseover="preloadChat()" aria-label="Open AI Chat">
 	<svg clip-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><g><path d="m0 32c0-17.673 14.327-32 32-32s32 14.327 32 32-14.327 32-32 32-32-14.327-32-32z" fill="${color2}"/><path d="m26 16c-5.5228 0-10 4.4772-10 10v12c0 5.5228 4.4772 10 10 10h19.5c1.3807 0 2.5-1.1193 2.5-2.5v-19.5c0-5.5228-4.4772-10-10-10h-12zm-0.75 16c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm8.75 0c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm6.75 2c1.1046 0 2-0.8954 2-2s-0.8954-2-2-2-2 0.8954-2 2 0.8954 2 2 2z" fill="${color1}" fill-rule="evenodd"/></g></svg>
 	</div>
 	<style>
@@ -115,50 +128,3 @@ document.addEventListener('DOMContentLoaded', () => {
 	const body = document.querySelector('body');
 	body.insertAdjacentHTML('beforeend', html);
 });
-
-
-{/* <div id="chatbot-${id}">
-    <div class="chat"></div>
-    <div role="button" onclick="toggleChat()" aria-label="Open AI Chat">
-	<svg clip-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><g><path d="m0 32c0-17.673 14.327-32 32-32s32 14.327 32 32-14.327 32-32 32-32-14.327-32-32z" fill="${color2}"/><path d="m26 16c-5.5228 0-10 4.4772-10 10v12c0 5.5228 4.4772 10 10 10h19.5c1.3807 0 2.5-1.1193 2.5-2.5v-19.5c0-5.5228-4.4772-10-10-10h-12zm-0.75 16c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm8.75 0c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm6.75 2c1.1046 0 2-0.8954 2-2s-0.8954-2-2-2-2 0.8954-2 2 0.8954 2 2 2z" fill="${color1}" fill-rule="evenodd"/></g></svg>
-	</div>
-	<style>
-		#chatbot-${id} {
-			position: fixed;
-			z-index:9999999;
-			overflow: visible;
-		}
-		#chatbot-${id} .chat{
-			display: none; 
-			border-radius: 18px;
-			overflow: hidden;
-			position: fixed;
-			bottom: 90px;
-			right: 20px;
-			width: 100%;
-			height: calc(100vh - 114px);
-		}
-		#chatbot-${id} .button{
-			outline: 0;
-			border: none;
-			position:
-			absolute;
-			bottom: 0;
-			right: 0;
-			width:64px;
-			height: 64px;
-		}
-		#chatbot-${id} iframe{
-			border: none;
-		}
-		@media(min-width: 768px){
-			#chatbot-${id}{
-				width: 420px;
-				height: calc(100vh - 114px);
-				max-height: 600px;
-			}
-			#chatbot-${id}
-		}
-
-	</style>
-</div> */}
