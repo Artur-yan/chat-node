@@ -8,7 +8,7 @@ let chatLoaded = false;
 
 
 
-function preloadChat() {
+function loadChat() {
 	const chat = document.getElementById(`chatbot-${id}-chat`)
 
 
@@ -20,12 +20,8 @@ function preloadChat() {
 }
 
 function toggleChat() {
-	const chat = document.getElementById(`chatbot-${id}-chat`)
+	loadChat();
 
-	if (!chatLoaded) {
-		chat.innerHTML += iframe
-		chatLoaded = true;
-	}
 	if (chatOpen) {
 		chat.style.display = 'none';
 		chat.classList.remove('open');
