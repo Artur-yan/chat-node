@@ -65,8 +65,9 @@
 				/>
 			</svg>
 			<span>
-				Update your <a class="underline text-primary" href="settings/sharing">share settings</a> to change where your bot can be embedded.
+				Update your settings to change where your bot can be embedded.
 			</span>
+			<a class="btn btn-primary btn-outline" href="settings/sharing">Share Settings</a>
 		</div>
 	{/if}
 
