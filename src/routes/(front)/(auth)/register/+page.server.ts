@@ -6,6 +6,7 @@ import type { PageServerLoad } from './$types';
 import { prismaClient } from '$lib/server/prisma';
 import { sendAccountEmailConfirmation } from '$lib/server/messenger';
 import { v4 as uuidv4 } from 'uuid';
+import { domainBlacklist } from '$lib/systemSettings';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -50,7 +51,6 @@ const specialPlans = {
 		max_tocken: 8000000
 	}
 };
-const domainBlacklist = ['givmail.com', 'givmail.io', 'givmail.co', 'inboxbear.com', 'vomoto.com', 'fexpost.com'];
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {

@@ -2,8 +2,8 @@
 	import { page } from '$app/stores';
 </script>
 
-<div>
-	<h1>{$page.error.message}</h1>
+<div class="flex items-center justify-center">
+	<h1 class="font-bold">{$page.error.message}</h1>
 
 	<style>
 		body {
