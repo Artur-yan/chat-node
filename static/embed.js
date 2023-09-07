@@ -8,9 +8,8 @@ let chatLoaded = false;
 
 
 
-function loadChat() {
+function preloadChat() {
 	const chat = document.getElementById(`chatbot-${id}-chat`)
-
 
 	if (!chatLoaded) {
 		chat.innerHTML += iframe
@@ -20,13 +19,15 @@ function loadChat() {
 }
 
 function toggleChat() {
-	loadChat();
+	const chat = document.getElementById(`chatbot-${id}-chat`)
 
+	if (!chatLoaded) {
+		chat.innerHTML += iframe
+		chatLoaded = true;
+	}
 	if (chatOpen) {
-		chat.style.display = 'none';
 		chat.classList.remove('open');
 	} else {
-		chat.style.display = 'block';
 		chat.classList.add('open');
 	}
 	chatOpen = !chatOpen;
@@ -55,21 +56,25 @@ const html = `
 		}
 		#chatbot-${id}-chat{
 			position: fixed;
-			display: none; 
 			border-radius: 18px 18px 0 0;
 			overflow: hidden;
 			position: fixed;
 			bottom: 0;
 			right: 0;
 			left: 0;
-			top: 60px;
+			height: 0;
 			z-index: 9999999;
-			transition: all 0.3s ease-in-out;
+			transition-property: transform, opacity;
+			transition-duration: 0.2s;
 			opacity: 0;
+			transform: translateY(10%);
 		}
 		#chatbot-${id}-chat.open{
+			height: auto;
 			top:40px;
 			opacity: 1;
+			transform: translateY(0%);
+
 		}
 
 		#toggle-btn-${id}{
@@ -106,7 +111,6 @@ const html = `
 		@media(min-width: 768px){
 			#chatbot-${id}-chat{
 				width: 440px;
-				height: calc(100vh - 114px);
 				bottom: 72px;
 				left: auto;
 				top: auto !important;
@@ -114,7 +118,12 @@ const html = `
 				max-height: 600px;
 				border-radius: 18px;
 			}
+			#chatbot-${id}-chat.open{
+				height: calc(100vh - 114px);
+			}
 		}
+
+
 
 	</style>
 </div>
