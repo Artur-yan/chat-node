@@ -5,6 +5,7 @@
 
 	import tiersMap from '$lib/data/tiers';
 	import { invalidateAll } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	export let data;
 	export let form;
@@ -29,6 +30,10 @@
 		invalidateAll();
 		tier = tiersMap[currentPlan];
 	}
+
+	onMount(() => {
+		invalidateAll()
+	});
 </script>
 
 <svelte:head>
@@ -51,9 +56,11 @@
 		</div>
 
 		<div class="text-lg mb-4 leading-8">
-			<!-- Conert object to arrtay for looping -->
+			<!-- Convert object to array for looping -->
 			{#each Object.entries(tier.features) as [key, value]}
-				<p>{value.label}</p>
+				{#if value.included}
+					<p>{value.label}</p>
+				{/if}
 			{/each}
 		</div>
 
@@ -67,7 +74,7 @@
 
 			{#if showAppsumoKeysField}
 				<form method="POST" action="?/upgradeAppsumo" use:enhance>
-					<label class="label" for="email"><span class="label-text">AppSumo Code(s)</span></label>
+					<label class="label" for="appsumo-codes"><span class="label-text">AppSumo Code(s)</span></label>
 					<textarea
 						class="textarea textarea-bordered w-full textarea-xs max-w-lg"
 						spellcheck="false"
@@ -76,6 +83,7 @@
 						placeholder="Enter up to 5 AppSumo codes here each on a new line"
 						bind:value={appsumoCodes}
 					/>
+					<input type="hidden" name="email" value={data.user.user.email}>
 					{#if form?.success === false}
 						<p class="text-error">{form.message || ''}</p>
 					{/if}

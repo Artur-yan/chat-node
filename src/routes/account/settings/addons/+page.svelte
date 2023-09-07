@@ -1,52 +1,27 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-	import { json } from '@sveltejs/kit';
+	import Addon from '$lib/components/Addon.svelte';
 
 	export let data;
 
+	let messagesSubscription
+	let botsSubscription
+	let tokenSubscription
+	let brandingSubscription
 
-	const addons = (data.subscription?.addons);
-
-	let messagesToAdd = 0;
-	let messages = 0
-	let botsToAdd = 0;
-	let bots = 0;
-	let addBranding = 0;
-	let branding = 0;
-	let tokensToAdd = 0;
-	let tokens = 0;
-
-	console.log(data)
-
-	if (addons) {
-		messagesToAdd = messages = addons['10001']?.qty * 1000 || 0;
-		botsToAdd = bots = addons['10002']?.qty || 0;
-		addBranding = branding = addons['10003']?.qty || 0;
-		tokensToAdd = tokens = addons['10004']?.qty * 250000 || 0;
-	}
-
-	const handleCheckout = async (addon: number, qty: number) => {
-		try {
-			const res = await fetch(PUBLIC_CHAT_API_URL + '/api/update-addon', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					user_id: data.subscription?.user_id,
-					adds_on: addon,
-					qty
-				})
-			});
-
-			const json = await res.json();
-			console.log(json);
-			goto(json.url)
-		} catch (err) {
-			console.error(err);
+	if(data.subscription?.addons) {
+		if(data.subscription?.addons['10001']) {
+			messagesSubscription = data.subscription?.addons['10001']			
 		}
-	};
+		if(data.subscription?.addons['10002']) {
+			botsSubscription = data.subscription?.addons['10002']			
+		}
+		if(data.subscription?.addons['10003']) {
+			tokenSubscription = data.subscription?.addons['10003']
+		}
+		if(data.subscription?.addons['10004']) {
+			brandingSubscription = data.subscription?.addons['10004']			
+		}
+	}
 </script>
 
 <div class="container my-10">
@@ -57,172 +32,18 @@
 		</div>
 	{/if}
 	
-	<div class="grid md:grid-cols-2 gap-8">
-		<div class="card bg-neutral">
-			<div class="card-body">
-				<h2 class="card-title gap-4">
-					<span>Bots</span>
-					<span class="badge">$5/mo. each</span>
-				</h2>
-				<p>Add individual bots to your plan allowance.</p>
-				<div class="flex mt-10 items-center gap-2">
-					<div class="flex gap-1 flex-1 items-center">
-						<button
-							class="btn btn-ghost btn-circle text-error"
-							on:click={() => botsToAdd--}
-							disabled={botsToAdd === 0}
-							aria-label="Remove Bot"
-						>
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
-								<path
-									fill="currentColor"
-									d="M16 3C8.832 3 3 8.832 3 16s5.832 13 13 13s13-5.832 13-13S23.168 3 16 3zm0 2c6.087 0 11 4.913 11 11s-4.913 11-11 11S5 22.087 5 16S9.913 5 16 5zm-6 10v2h12v-2H10z"
-								/>
-							</svg>
-						</button>
-						<div>{botsToAdd}</div>
-						<button class="btn btn-ghost btn-circle text-success" on:click={() => botsToAdd++} disabled={data.subscription?.plan === 0} aria-label="Add Bot">
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
-								<path
-									fill="currentColor"
-									d="M16 3C8.832 3 3 8.832 3 16s5.832 13 13 13s13-5.832 13-13S23.168 3 16 3zm0 2c6.087 0 11 4.913 11 11s-4.913 11-11 11S5 22.087 5 16S9.913 5 16 5zm-1 5v5h-5v2h5v5h2v-5h5v-2h-5v-5h-2z"
-								/>
-							</svg>
-						</button>
-					</div>
-						<button
-							class="btn btn-primary btn-outline"
-							on:click={() => handleCheckout(10001, botsToAdd)}
-							disabled={botsToAdd === bots}
-						>
-							Purchase <span class="badge badge-sm" class:opacity-20={botsToAdd === 0}>
-								${botsToAdd * 7}
-							</span>
-						</button>
-				</div>
-	
-				<div class="card-actions justify-end" />
-			</div>
-		</div>
-		<div class="card bg-neutral">
-			<div class="card-body">
-				<h2 class="card-title gap-4">
-					<span>Messages</span>
-					<span class="badge">$8/mo. per {Number(1000).toLocaleString()}</span>
-				</h2>
-				<p>Add messages to your plan usable by any of your bots.</p>
-				<div class="flex mt-10 items-center gap-2">
-					<div class="flex gap-1 flex-1 items-center">
-						<button
-							class="btn btn-ghost btn-circle text-error"
-							on:click={() => (messagesToAdd -= 1000)}
-							disabled={messagesToAdd === 0}
-						>
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
-								<path
-									fill="currentColor"
-									d="M16 3C8.832 3 3 8.832 3 16s5.832 13 13 13s13-5.832 13-13S23.168 3 16 3zm0 2c6.087 0 11 4.913 11 11s-4.913 11-11 11S5 22.087 5 16S9.913 5 16 5zm-6 10v2h12v-2H10z"
-								/>
-							</svg>
-						</button>
-						<div>{messagesToAdd.toLocaleString()}</div>
-						<button
-							class="btn btn-ghost btn-circle text-success"
-							on:click={() => (messagesToAdd += 1000)}
-							disabled={data.subscription?.plan === 0}
-						>
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
-								<path
-									fill="currentColor"
-									d="M16 3C8.832 3 3 8.832 3 16s5.832 13 13 13s13-5.832 13-13S23.168 3 16 3zm0 2c6.087 0 11 4.913 11 11s-4.913 11-11 11S5 22.087 5 16S9.913 5 16 5zm-1 5v5h-5v2h5v5h2v-5h5v-2h-5v-5h-2z"
-								/>
-							</svg>
-						</button>
-					</div>
-					<button
-						class="btn btn-primary btn-outline"
-						on:click={() => handleCheckout(10001, messagesToAdd)}
-						disabled={messagesToAdd === 0}
-					>
-						Purchase <span class="badge badge-sm" class:opacity-20={messagesToAdd === 0}>
-							${(messagesToAdd / 1000) * 7}
-						</span>
-					</button>
-				</div>
-	
-				<div class="card-actions justify-end" />
-			</div>
-		</div>
-		<div class="card bg-neutral">
-			<div class="card-body">
-				<h2 class="card-title gap-4">
-					<span>Tokens</span>
-					<span class="badge">$8/mo. per {Number(250000).toLocaleString()}</span>
-				</h2>
-				<p>Add additional tokens to your bots to train on larger data sets.</p>
-				<div class="flex mt-10 items-center gap-2">
-					<div class="flex gap-1 flex-1 items-center">
-						<button
-							class="btn btn-ghost btn-circle text-error"
-							on:click={() => (tokensToAdd -= 250000)}
-							disabled={tokensToAdd === 0}
-						>
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
-								<path
-									fill="currentColor"
-									d="M16 3C8.832 3 3 8.832 3 16s5.832 13 13 13s13-5.832 13-13S23.168 3 16 3zm0 2c6.087 0 11 4.913 11 11s-4.913 11-11 11S5 22.087 5 16S9.913 5 16 5zm-6 10v2h12v-2H10z"
-								/>
-							</svg>
-						</button>
-						<div>{tokensToAdd.toLocaleString()}</div>
-						<button
-							class="btn btn-ghost btn-circle text-success"
-							on:click={() => (tokensToAdd += 250000)}
-							disabled={data.subscription?.plan === 0}
-						>
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
-								<path
-									fill="currentColor"
-									d="M16 3C8.832 3 3 8.832 3 16s5.832 13 13 13s13-5.832 13-13S23.168 3 16 3zm0 2c6.087 0 11 4.913 11 11s-4.913 11-11 11S5 22.087 5 16S9.913 5 16 5zm-1 5v5h-5v2h5v5h2v-5h5v-2h-5v-5h-2z"
-								/>
-							</svg>
-						</button>
-					</div>
-					<button
-						class="btn btn-primary btn-outline"
-						on:click={() => handleCheckout(10003, tokensToAdd)}
-						disabled={tokensToAdd === 0}
-					>
-						Purchase <span class="badge badge-sm" class:opacity-20={tokensToAdd === 0}>
-							${(tokensToAdd / 250000) * 8}
-						</span>
-					</button>
-				</div>
-	
-				<div class="card-actions justify-end" />
-			</div>
-		</div>
-		<div class="card bg-neutral">
-			<div class="card-body">
-				<h2 class="card-title gap-4">
-					<span>No Branding</span>
-					<span class="badge">$14/mo.</span>
-				</h2>
-				<p>Remove the ChatNode branding from all of your bots.</p>
-				<div class="flex mt-10 items-center gap-2 justify-end">
-					{#if addBranding === 0}
-						<button class="btn btn-primary btn-outline" disabled={data.subscription?.plan === 0} on:click={() => handleCheckout(10004, 1)}>
-							Purchase
-						</button>
-					{:else}
-						<button class="btn btn-primary btn-outline" on:click={() => handleCheckout(10004, 0)}>
-							Remove
-						</button>
-					{/if}
-				</div>
-	
-				<div class="card-actions justify-end" />
-			</div>
-		</div>
+	<div class="grid md:grid-cols-2 gap-8 relative">
+		{#if data.subscription?.plan === 0}
+			<div class="absolute inset-0 bg-base-100/50 z-10"></div>
+		{/if}
+
+		<Addon name="Bots" description="Add individual bots to your plan allowance." price={7} subscription={botsSubscription} addonId="10002" user_id={data.subscription?.user_id} />
+		
+		<Addon name="Messages" description="Add messages to your plan usable by any of your bots." price={10} bundleQty={1000} subscription={messagesSubscription} addonId="10001" user_id={data.subscription?.user_id} />
+
+		<Addon name="Tokens" description="Add additional tokens to your bots to train on larger data sets." price={7} bundleQty={250000} subscription={tokenSubscription} addonId="10003" user_id={data.subscription?.user_id} />
+
+		<Addon name="No Branding" max1={true} description="Remove the ChatNode branding from all of your bots." price={19} subscription={brandingSubscription} addonId="10004" user_id={data.subscription?.user_id} />
+
 	</div>
 </div>

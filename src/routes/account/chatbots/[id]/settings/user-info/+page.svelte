@@ -50,7 +50,7 @@
 						class="input input-sm"
 						name="collectUserEmailLabel"
 						placeholder="Email"
-						bind:value={$currentBot.settings.collectUserEmaileLabel}
+						bind:value={$currentBot.settings.collectUserEmailLabel}
 					/>
 				</div>
 			</div>
@@ -73,6 +73,20 @@
 						name="collectUserPhoneLabel"
 						placeholder="Phone"
 						bind:value={$currentBot.settings.collectUserPhoneLabel}
+					/>
+				</div>
+			</div>
+			<div class="flex items-center gap-10 mt-10">
+				<div class="flex gap-2">
+					<label class="label" for="collectUserPhoneLabel">
+						<span class="label-text">Submit Button Label</span>
+					</label>
+					<input
+						type="text"
+						class="input input-sm"
+						name="collectUserInfoSubmitButtonText"
+						placeholder="Start Chatting"
+						bind:value={$currentBot.settings.collectUserInfoSubmitButtonText}
 					/>
 				</div>
 			</div>
