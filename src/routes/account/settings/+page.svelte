@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let data;
+	export let form: { message?: string };
 
-	import { page } from '$app/stores';
 
 	import { updateAccountEmail, updateApiKey } from '$lib/account.js';
 	import { alert } from '$lib/stores.js';
@@ -9,9 +9,7 @@
 	let apiKey = data.user.user.api_key;
 
 	let userEmail = data.user.user.email;
-	let deleteConfirm = '';
 
-	export let form: { message?: string };
 
 	const handleEmailChange = async () => {
 		updateAccountEmail(userEmail);
