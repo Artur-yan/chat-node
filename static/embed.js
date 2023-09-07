@@ -53,6 +53,7 @@ const html = `
 		#chatbot-${id} {
 			z-index:9999999;
 			overflow: visible;
+			user-select: none;
 		}
 		#chatbot-${id}-chat{
 			position: fixed;
