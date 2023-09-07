@@ -81,7 +81,6 @@ const html = `
 			position: fixed;
 			outline: 0;
 			border: none;
-			position: absolute;
 			bottom: 10px;
 			right: 10px;
 			width:56px;
