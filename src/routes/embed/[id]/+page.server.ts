@@ -19,6 +19,8 @@ export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 			}
 		});
 
+		console.log(subscription)
+
 		const plan = subscription?.plan?.toString()
 
 		if(tiersMap[plan].features.remove_chatnode_branding.included || subscription?.free_no_branding) {
