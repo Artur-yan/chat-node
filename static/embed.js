@@ -85,7 +85,8 @@ const html = `
 			top:0.625rem;
 			right: 0.625rem;
 			z-index: 9;
-			background: #fff;
+			background: ${color2};
+			color: ${color1};
 			padding: 6px;
 			width: 20px;
 			height: 20px;
