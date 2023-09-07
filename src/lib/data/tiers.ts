@@ -143,7 +143,7 @@ const tiersMap = {
 		name: 'AppSumo: Tier 3',
 		max_bot: 40,
 		max_msg: 6000,
-		max_tocken: 1500000,
+		max_tocken: 2000000,
 		features: {
 			slack: {
 				included: true,
@@ -167,7 +167,7 @@ const tiersMap = {
 		name: 'AppSumo: Tier 4',
 		max_bot: 60,
 		max_msg: 8000,
-		max_tocken: 3000000,
+		max_tocken: 4000000,
 		features: {
 			slack: {
 				included: true,

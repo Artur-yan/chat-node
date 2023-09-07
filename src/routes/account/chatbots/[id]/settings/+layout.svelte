@@ -15,7 +15,7 @@
 		{ name: 'Sharing', url: 'sharing' },
 		{ name: 'User Info', url: 'user-info' },
 		{ name: 'Customize', url: 'customize' },
-		{ name: 'Chat-GPT', url: 'gpt' },
+		{ name: 'ChatGPT', url: 'gpt' },
 		{ name: 'Delete', url: 'delete' }
 	];
 	$state = 'saved';
@@ -133,7 +133,7 @@
 	</div>
 
 	<div class="h-full min-h-[24rem] relative hidden sm:block">
-		<div class="sticky top-4 h-full max-h-[40rem]">
+		<div class="sticky top-4 h-full max-h-[40rem] rounded-2xl overflow-hidden">
 			<Chat
 				modelId={data.model.id}
 				settings={$currentBot.settings}

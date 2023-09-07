@@ -89,7 +89,7 @@
 						$alert = { type: 'error', msg: 'Failed to fetch web pages from the provided URL' };
 					}
 				}
-			}, 2500);
+			}, 10000);
 		} catch (err) {
 			busyFetchingUrls = false;
 			console.error(err);
@@ -250,7 +250,7 @@
 				<!-- <button class="btn btn-primary" type="submit" on:click={getFileTokenCount}>Upload</button> -->
 			</div>
 			<div class="label">
-				<p>.pdf, .txt, or .doc/docx files only (MAX 50MB)</p>
+				<p>.pdf, .txt, or .doc/docx files only (MAX 150MB)</p>
 				<div class="badge badge-warning invisible" class:!visible={busyCheckingFile}>
 					<span class="loading loading-xs" />
 					Uploading
@@ -395,19 +395,22 @@
 				</tfoot>
 			</table>
 			{#if busyFetchingUrls}
-				<button
-					type="button"
-					class="btn btn-warning btn-xs btn-outline mb-4"
-					on:click={cancelFetchUrlsToScrape}
-				>
-					<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
-						<path
-							fill="currentColor"
-							d="M2.22 2.22a.749.749 0 0 1 1.06 0L6 4.939L8.72 2.22a.749.749 0 1 1 1.06 1.06L7.061 6L9.78 8.72a.749.749 0 1 1-1.06 1.06L6 7.061L3.28 9.78a.749.749 0 1 1-1.06-1.06L4.939 6L2.22 3.28a.749.749 0 0 1 0-1.06Z"
-						/>
-					</svg>
-					<span>{!busyFetchingUrls && urls ? 'Clear URLs' : 'Stop Scraping'}</span>
-				</button>
+				<div class="flex space-between gap-2 flex-wrap px-3 py-1">
+					<p>Large websites may take up to 2 minutes to fully scrape.</p>
+					<button
+						type="button"
+						class="btn btn-warning btn-xs btn-outline mb-4"
+						on:click={cancelFetchUrlsToScrape}
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
+							<path
+								fill="currentColor"
+								d="M2.22 2.22a.749.749 0 0 1 1.06 0L6 4.939L8.72 2.22a.749.749 0 1 1 1.06 1.06L7.061 6L9.78 8.72a.749.749 0 1 1-1.06 1.06L6 7.061L3.28 9.78a.749.749 0 1 1-1.06-1.06L4.939 6L2.22 3.28a.749.749 0 0 1 0-1.06Z"
+							/>
+						</svg>
+						<span>{!busyFetchingUrls && urls ? 'Clear URLs' : 'Stop Scraping'}</span>
+					</button>
+				</div>
 			{/if}
 			<div
 				class="alert mb-2"

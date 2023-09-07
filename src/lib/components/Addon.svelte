@@ -19,8 +19,6 @@
     let loadingStripe = false
 
 
-    console.log(subscription)
-
     if (subscription) {
         qty = qtyToAdd = subscription.quantity
     }

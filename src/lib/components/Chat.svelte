@@ -9,6 +9,7 @@
 
 	export let removeBranding = true;
 
+
 	export let modelId: string;
 	export let disabled = false;
 	export let isThinking = false;
@@ -18,9 +19,10 @@
 		{
 			text: settings.greeting,
 			sender: 'bot'
-		}
+		}	
 	];
 	export let userId: string;
+	export let context: string
 
 	// Merge default settings with user settings
 	// Merge nested object
@@ -138,7 +140,7 @@
 	const generateNewSessionId = () => {
 		return Math.random().toString(36).slice(2, 9) + '-' + Date.now();
 	};
-	const chatSessionId = generateNewSessionId();
+	let chatSessionId = generateNewSessionId();
 
 	const initConversation = async () => {
 		await fetch(`/api/chat-history/${chatSessionId}`, {
@@ -178,7 +180,7 @@
 	const resetChat = () => {
 		messages = [];
 		addMessage(settings.greeting);
-		generateNewSessionId();
+		chatSessionId = generateNewSessionId();
 		isThinking = false;
 	};
 </script>
@@ -199,7 +201,7 @@
 	--sendButtonBG: {settings.theme.sendButtonBG};
 	--sendButtonIconColor: {settings.theme.sendButtonIconColor};
     background-color: var(--bg)"
-	class="h-full flex flex-col justify-between rounded-2xl overflow-hidden flex-1 relative"
+	class="h-full flex flex-col justify-between overflow-hidden flex-1 relative"
 >
 	{#if settings?.headerEnabled && settings.publicTitle !== ''}
 		<header style="background-color: var(--headerBG)" class="flex p-4 items-center gap-2">
@@ -214,6 +216,7 @@
 	<div class="overflow-y-auto scroll-smooth h-full flex-1" bind:this={chatWindow}>
 		<button
 			class="z-[1] absolute top-2.5 right-2.5 btn btn-circle btn-sm btn-ghost flex items-center justify-center"
+			class:right-12={context === 'popup'}
 			style="color: var(--resetButton);"
 			title="Reset Chat"
 			on:click={resetChat}
@@ -382,35 +385,37 @@
 				{#if settings.collectUserName}
 					<input
 						type="text"
+						name="name"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						name="name"
-						placeholder={settings.collectUserNameLabel}
+						placeholder={settings.collectUserNameLabel || 'Name'}
 						bind:value={endUserInfo.name}
 					/>
 				{/if}
 				{#if settings.collectUserEmail}
 					<input
-						type="text"
+						type="email"
+						name="email"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						placeholder={settings.collectUserEmailLabel}
+						placeholder={settings.collectUserEmailLabel || 'Email'}
 						bind:value={endUserInfo.email}
 					/>
 				{/if}
 				{#if settings.collectUserPhone}
 					<input
+						name="phone"
 						type="text"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						placeholder={settings.collectUserPhoneLabel}
+						placeholder={settings.collectUserPhoneLabel  || 'Phone'}
 						bind:value={endUserInfo.phone}
 					/>
 				{/if}
 				<input
 					type="submit"
 					class="btn join-item border-none"
-					value="Start Chatting"
+					value={settings.collectUserInfoSubmitButtonText || 'Start Chatting'}
 					on:click={handleUserInfoSubmit}
 					style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"
 				/>

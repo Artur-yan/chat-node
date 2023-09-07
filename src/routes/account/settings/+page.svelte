@@ -35,8 +35,8 @@
 </svelte:head>
 
 <section class="container my-10 grid md:grid-cols-2 gap-8">
-	<div>
-		<div class="card bg-neutral mb-8">
+	<div class="space-y-8">
+		<div class="card bg-neutral">
 			<div class="card-body">
 				<h2 class="card-title">Email</h2>
 				<div class="form-control">
@@ -89,9 +89,6 @@
 				</form>
 			</div>
 		</div>
-	</div>
-
-	<div>
 		<div class="card bg-neutral">
 			<div class="card-body">
 				<h2 class="card-title">API Key</h2>
@@ -130,6 +127,23 @@
 				{/if}
 			</div>
 		</div>
+		<div class="card bg-neutral">
+			<div class="card-body">
+				<h2 class="card-title">Privacy</h2>
+				<div>
+					<a href="#"
+					class="btn"
+					onclick="window.displayPreferenceModal();return false;"
+					id="termly-consent-preferences">Consent Preferences</a>
+					<a class="btn" href="https://app.termly.io/notify/3f2d25ad-6a63-49f0-ad4b-3e0615a49ead">DSAR Form</a>
+				</div>
+				
+			</div>
+
+		</div>
+	</div>
+
+	<div>
 	</div>
 
 	<!-- <div class="max-w-xl">
