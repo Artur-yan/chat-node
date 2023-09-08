@@ -100,7 +100,7 @@
 				ChatNode account, we will use your OpenAI credits to complete your requests.
 			</p> -->
 		</div>
-		<!-- <div class="mt-4">
+		<div class="mt-4">
 				<h3 class="text-lg font-bold">Use ChatNode Messages</h3>
 				<div class="form-control">
 					<label class="cursor-pointer label justify-start gap-4">
@@ -111,6 +111,6 @@
 				</div>
 				<p class="mt-2 max-w-md text-sm leading-6">
 					If turned on, we will use your ChatNode messages first and then use your OpenAI credits. You can turn this off and this bot will only use your OpenAI credits.
-			</div> -->
+			</div>
 	</div>
 </div>
