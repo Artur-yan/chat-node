@@ -10,6 +10,10 @@
 
 	$: if (!$currentBot.settings.openai_api_key) {
 		$currentBot.settings.useChatNodeMsgs = true
+
+		if(!plansWithGPT4.includes(plan)) {
+			$currentBot.settings.gptVersion = '3.5'
+		}
 	}
 </script>
 
