@@ -14,7 +14,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	if (PUBLIC_ENVIRONMENT !== 'production' && !user && event.url.pathname !== '/login') {
 		if(event.url.searchParams.get('pw') !== 'f8g4t9grn4t94gbv9g3bi34g9hg') {
-			console.log(event.url.searchParams.get('pw'))
 			throw redirect(303, '/login');
 		}
 	}

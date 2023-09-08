@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { currentBot } from '$lib/stores.js';
 
-	$: console.log($currentBot);
-
 	export let data;
 
 	let plan = data.subscription.plan;

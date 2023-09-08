@@ -14,7 +14,6 @@ function preloadChat() {
 	if (!chatLoaded) {
 		chat.innerHTML += iframe
 		chatLoaded = true;
-		console.log('loaded')
 	}
 }
 
