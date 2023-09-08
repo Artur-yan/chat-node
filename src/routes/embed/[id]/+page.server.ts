@@ -11,15 +11,21 @@ export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 		const bot = await prismaClient.bots.findUniqueOrThrow({
 			where: {
 				id: params.id
+			},
+			select: {
+				id: true,
+				user_id: true,
+				settings: true,
+				avatar_img: true,
+				name: true,
 			}
+				
 		});
 		const subscription = await prismaClient.subscriptions.findUnique({
 			where: {
 				user_id: bot.user_id
 			}
 		});
-
-		console.log(subscription)
 
 		const plan = subscription?.plan?.toString()
 
