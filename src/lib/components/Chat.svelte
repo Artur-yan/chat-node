@@ -110,8 +110,13 @@
 				})
 			});
 			// const data = await res.json();
-			const data = res.body;
 			isThinking = false;
+			if(res.headers.get('content-type') === 'application/json') {
+				const data = await res.json();
+				addMessage(data.message, 'bot');
+				return;
+			}
+			const data = res.body;
 			const reader = data.getReader();
 			reader.read().then(function pump({ done, value }) {
 				if (done) {
