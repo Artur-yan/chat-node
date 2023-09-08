@@ -33,9 +33,7 @@ function toggleChat() {
 	chatOpen = !chatOpen;
 }
 
-if (openOnLoad) {
-	toggleChat();
-}
+
 const iframe = `
 <iframe src="https://www.chatnode.ai/embed/${id}?context=popup" width="100%" height="100%"></iframe>
 `;
@@ -132,4 +130,8 @@ const html = `
 document.addEventListener('DOMContentLoaded', () => {
 	const body = document.querySelector('body');
 	body.insertAdjacentHTML('beforeend', html);
+
+	if (openOnLoad) {
+		toggleChat();
+	}
 });
