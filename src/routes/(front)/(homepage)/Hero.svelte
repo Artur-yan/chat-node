@@ -89,7 +89,6 @@
 							avatar="https://res.cloudinary.com/duoacapcy/image/upload/v1687011043/ChatNode-Logo-Avatar_fdyalc.svg"
 							settings={chatSettings}
 							userId="5uDVaFgS32peeLl"
-							removeBranding={false}
 						/>
 					</div>
 				</div>
