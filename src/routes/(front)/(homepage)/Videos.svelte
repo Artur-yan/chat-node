@@ -36,41 +36,17 @@
 		</div>
 		<div>
 			{#if activeTab === 0}
-				<iframe
-					width="1792"
-					height="1080"
-					class="w-full h-auto aspect-[10/6.02]"
-					src="https://www.youtube.com/embed/htCr57TlMnk?autoplay=1"
-					title="YouTube video player"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-					allowfullscreen
-					in:fade
-				/>
+			<video controls="controls">
+				<source src="ChatNode Demo - Train ChatGPT on your own data.mp4" type="video/mp4" />
+			</video>
 			{:else if activeTab === 1}
-				<iframe
-					width="1792"
-					height="1080"
-					class="w-full h-auto aspect-[10/6.29]"
-					src="https://www.youtube.com/embed/53BMrkB82Bc?autoplay=1"
-					title="YouTube video player"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-					allowfullscreen
-					in:fade
-				/>
-			{:else if activeTab === 2}
-				<iframe
-					width="1792"
-					height="1080"
-					class="w-full h-auto aspect-[10/6.29]"
-					src="https://www.youtube.com/embed/vsHybuETz9E?autoplay=1"
-					title="YouTube video player"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-					allowfullscreen
-					in:fade
-				/>
+				<video controls="controls">
+					<source src="Embed an AI chatbot on your website.mp4" type="video/mp4" />
+				</video>
+				{:else if activeTab === 2}
+				<video controls="controls">
+					<source src="Use your own OpenAI API key.mp4" type="video/mp4" />
+				</video>
 			{/if}
 		</div>
 	</div>
@@ -83,7 +59,7 @@
 		/* animation: gradient 15s ease infinite; */
 	}
 
-	iframe {
+	video {
 		@apply md:rounded-lg;
 	}
 
