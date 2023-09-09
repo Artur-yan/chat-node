@@ -36,15 +36,15 @@
 		</div>
 		<div>
 			{#if activeTab === 0}
-			<video controls="controls">
+			<video controls="controls" height="1194" width="720" in:fade>
 				<source src="ChatNode Demo - Train ChatGPT on your own data.mp4" type="video/mp4" />
 			</video>
 			{:else if activeTab === 1}
-				<video controls="controls">
+				<video controls="controls" height="1144" width="720" in:fade>
 					<source src="Embed an AI chatbot on your website.mp4" type="video/mp4" />
 				</video>
 				{:else if activeTab === 2}
-				<video controls="controls">
+				<video controls="controls" height="1144" width="720" in:fade>
 					<source src="Use your own OpenAI API key.mp4" type="video/mp4" />
 				</video>
 			{/if}
@@ -60,7 +60,7 @@
 	}
 
 	video {
-		@apply md:rounded-lg;
+		@apply md:rounded-lg w-full;
 	}
 
 	/* @keyframes gradient {
