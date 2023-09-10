@@ -6,6 +6,8 @@
 
 	export let data;
 
+	$: console.log(data)
+
 	let color1 = '#3ABFF7';
 	let color2 = '#0E1729';
 	let openChatByDefault = false;
@@ -26,126 +28,112 @@
 	<title>Embed | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container my-4">
-	{#if data.model.settings.public == false}
-		<div class="alert alert-warning mb-4">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				class="stroke-current shrink-0 w-6 h-6"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-				/>
-			</svg>
-			<span>
-				Your chatbot is currently set to private. To share it, you must make it public first.
-			</span>
-			<div>
-				<a class="btn btn-sm" href="/account/chatbots/{data.model.id}/settings/sharing">Settings</a>
-			</div>
-		</div>
-	{:else}
-		<div class="alert mb-4">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				class="stroke-current shrink-0 w-6 h-6"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-				/>
-			</svg>
-			<span>
-				Update your settings to change where your bot can be embedded.
-			</span>
-			<a class="btn btn-primary btn-outline" href="settings/sharing">View Share Settings</a>
-		</div>
-	{/if}
-
-	<div class="md:grid md:grid-cols-2 gap-12">
-		<div class="mb-12">
-			<h2 class="card-title">Popup Chat</h2>
-
-			<div>
-				<div>
-					<Code code={jsEmbedCode} />
-				</div>
-				<p class="text-sm my-2">Place this code in your &lt;head&gt; tag.</p>
-				<div class="mt-10">
-					<h4 class="font-bold">Customise</h4>
-					<div class="flex gap-4 mt-4">
-						<ColorPicker bind:hex={color1} label="Icon Color" />
-						<ColorPicker bind:hex={color2} label="Background Color" />
-					</div>
-					<p class="text-sm mt-4">
-						To further customize the design visit the <a class="link" href="settings/customize">
-							settings page
-						</a>
-						.
-					</p>
-					<div class="form-control mt-4">
-						<label class="label cursor-pointer justify-start gap-2">
-							<input type="checkbox" class="toggle" bind:checked={openChatByDefault} />
-							<span class="label-text">Open chat window by default</span>
-						</label>
+<div class="container my-4 py-8">
+	<div class="relative">
+		{#if !data.model.settings.public}
+			<div class="inset-0 absolute bg-base-100/70 z-10 flex items-center justify-center">
+				<div class="card bg-neutral max-w-2xl">
+					<div class="card-body">
+						<h2 class="card-title">Your chatbot is currently set to private.</h2>
+						<p class="text-lg">Currently it may only be integrated with slack. To embed it or get a share url make your bot public in the share settings.</p>
+						<div class="card-actions mt-8">
+							<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing"> Settings</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		{/if}
 
 		<div>
 			<h2 class="card-title">Web Page</h2>
-			<div class="bg-neutral p-4 lg:p-8 rounded-lg flex justify-between items-center mb-12">
+			<div class="bg-neutral p-4 rounded-lg flex justify-between items-center mb-12">
 				<div>
 					{url}
 					<CopyButton textToCopy={url} />
 				</div>
 				<a href={url} class="btn btn-xs" target="_blank">view</a>
 			</div>
+		</div>
 
-			<div class="mb-10">
-				<h2 class="card-title">Embedded (iframe)</h2>
-
-				<Code code={iframeEmbedCode} />
-				<p class="text-sm my-2">
-					Place this code wherever you'd like the iframe to appear on your website.
-				</p>
-			</div>
-
-			<h2 class="card-title">Slack</h2>
-			<div class="card bg-neutral">
-				<div class="card-body">
-					<p class="text-base text-neutral-content">
-						Get responses from your custom trained chatbot directly in slack for you and your team.
-					</p>
-					<div class="card-actions justify-between mt-10 items-center">
-						{#if plansWithSlackIntegration.includes(data.subscription.plan)}
-							{#if data.model.slack_bot_status === false}
-								<a class="btn btn-primary" href="{PUBLIC_CHAT_API_URL}/slack/install">
-									Authorize Slack
-								</a>
-							{:else}
-								<div class="badge badge-outline badge-success">Enabled</div>
-								<a class="btn btn-xs" href="{PUBLIC_CHAT_API_URL}/slack/install">
-									+ Slack Workspace
-								</a>
-							{/if}
-						{:else}
-							<p class="text-warning text-sm">
-								Slack integration is available on the pro plan and above
-							</p>
-							<a class="btn btn-warning" href="/account/settings/subscription">Upgrade</a>
-						{/if}
+		<div class="relative">
+			{#if data.model.settings.public && data.model.settings.allowedUrls.length === 0}
+				<div class="inset-0 absolute bg-base-100/70 z-10 flex items-center justify-center">
+					<div class="card bg-neutral max-w-2xl">
+						<div class="card-body">
+							<h2 class="card-title">You have not defined any allowed URLS.</h2>
+							<p class="text-lg">To embed your chatbot on a website, you must specify the URLs you would like to be allowed access from your share settings.</p>
+							<div class="card-actions mt-8">
+								<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing"> Settings</a>
+							</div>
+						</div>
 					</div>
+				</div>
+			{/if}
+			<div class="mb-12">
+				<h2 class="card-title">Popup Chat</h2>
+				<div>
+					<div>
+						<Code code={jsEmbedCode} />
+					</div>
+					<p class="text-sm my-2">Place this code in your &lt;head&gt; tag.</p>
+					<div class="mt-10">
+						<h4 class="font-bold">Customise</h4>
+						<div class="flex gap-4 mt-4">
+							<ColorPicker bind:hex={color1} label="Icon Color" />
+							<ColorPicker bind:hex={color2} label="Background Color" />
+						</div>
+						<p class="text-sm mt-4">
+							To further customize the design visit the <a class="link" href="settings/customize">
+								settings page
+							</a>
+							.
+						</p>
+						<div class="form-control mt-4">
+							<label class="label cursor-pointer justify-start gap-2">
+								<input type="checkbox" class="toggle" bind:checked={openChatByDefault} />
+								<span class="label-text">Open chat window by default</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="mb-10">
+					<h2 class="card-title">Embedded (iframe)</h2>
+					<Code code={iframeEmbedCode} />
+					<p class="text-sm my-2">
+						Place this code wherever you'd like the iframe to appear on your website.
+					</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div>
+		<h2 class="card-title">Slack</h2>
+		<div class="card bg-neutral">
+			<div class="card-body">
+				<p class="text-base text-neutral-content">
+					Get responses from your custom trained chatbot directly in slack for you and your team.
+				</p>
+				<div class="card-actions justify-between mt-10 items-center">
+					{#if plansWithSlackIntegration.includes(data.subscription.plan)}
+						{#if data.model.slack_bot_status === false}
+							<a class="btn btn-primary" href="{PUBLIC_CHAT_API_URL}/slack/install">
+								Authorize Slack
+							</a>
+						{:else}
+							<div class="badge badge-outline badge-success">Enabled</div>
+							<a class="btn btn-xs" href="{PUBLIC_CHAT_API_URL}/slack/install">
+								+ Slack Workspace
+							</a>
+						{/if}
+					{:else}
+						<p class="text-warning text-sm">
+							Slack integration is available on the pro plan and above
+						</p>
+						<a class="btn btn-warning" href="/account/settings/subscription">Upgrade</a>
+					{/if}
 				</div>
 			</div>
 		</div>
