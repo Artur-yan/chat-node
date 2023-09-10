@@ -58,15 +58,28 @@
 	let userInfoReceived = false;
 	let endUserInfo = {};
 
-	onMount(() => {
-		endUserInfo = JSON.parse(localStorage.getItem('enduserInfo')) || {};
-	});
-
+	
 	$: if (settings.collectUserName || settings.collectUserEmail || settings.collectUserPhone) {
+		
 		collectUserInfo = true;
 	} else {
 		collectUserInfo = false;
 	}
+
+	onMount(() => {
+		if (collectUserInfo) {
+			endUserInfo = JSON.parse(localStorage.getItem('enduserInfo')) || {};
+			if(!settings.collectUserName) {
+				endUserInfo.name = '';
+			}
+			if(!settings.collectUserEmail) {
+				endUserInfo.email = '';
+			}
+			if(!settings.collectUserPhone) {
+				endUserInfo.phone = '';
+			}
+		}
+	});
 
 	const handleUserInfoSubmit = () => {
 		if (
