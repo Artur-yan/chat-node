@@ -1,12 +1,14 @@
 <script lang="ts">
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import themes from '$lib/chatThemes';
-	import { currentBot } from '$lib/stores.js';
+	import { currentBot, currentBotAvatarImg } from '$lib/stores.js';
 	import { enhance } from '$app/forms';
 	import { alert } from '$lib/stores';
 
 	export let data;
 	export let form;
+
+	$: console.log($currentBot);
 
 	let uploadedImage: string | null;
 
@@ -35,7 +37,7 @@
 		if (!image) return;
 		// URL.createObjectURL() creates a temporary URL for the image we can use as src for an img tag
 		uploadedImage = URL.createObjectURL(image);
-		$currentBot.avatar_img = URL.createObjectURL(image);
+		$currentBotAvatarImg = URL.createObjectURL(image);
 	};
 </script>
 
@@ -286,31 +288,52 @@
 				<a href="/account/settings/subscription" class="btn btn-info btn-sm">Upgrade</a>
 			</div>
 		{/if}
-		<div class="flex gap-2">
-			<form method="post" enctype="multipart/form-data" class="join w-full" use:enhance>
-				<input
-					disabled={data.subscription.plan < 2}
-					name="avatar-img"
-					type="file"
-					accept=".jpg, .png, .svg"
-					class="join-item file-input file-input-bordered w-full"
-					on:change={handleAvatarSelect}
-				/>
-				<input
-					name="existing-cloudinary-public-id"
-					type="hidden"
-					value={$currentBot.cloudinary_public_id}
-				/>
-				<input
-					type="submit"
-					class="btn join-item border-primary border-l-0"
-					value="Save"
-					formaction="?/updateAvatarImg"
-					disabled={!uploadedImage}
-				/>
-			</form>
-		</div>
-		<p>1MB Max. png, svg, or jpg</p>
+				<div class="flex gap-8">
+					{#if $currentBot.cloudinary_public_id}
+					<div class="text-center">
+						<img src={$currentBotAvatarImg} class="w-16 mx-auto mb-2" alt="Avatar" />
+						<form method="post" enctype="multipart/form-data">
+							<input
+							name="existing-cloudinary-public-id"
+							type="hidden"
+							value={$currentBot.cloudinary_public_id}
+						/>
+						<input
+							type="submit"
+							class="btn btn-xs btn-error btn-outline"
+							value="Remove"
+							formaction="?/removeAvatarImg"
+						/>
+						</form>
+					</div>
+					{/if}
+					<div class="flex-1">
+						<form method="post" enctype="multipart/form-data" class="join w-full">
+							<input
+								disabled={data.subscription.plan < 2}
+								name="avatar-img"
+								type="file"
+								accept=".jpg, .png, .svg"
+								class="join-item file-input file-input-bordered w-full"
+								on:change={handleAvatarSelect}
+							/>
+							<input
+								name="existing-cloudinary-public-id"
+								type="hidden"
+								value={$currentBot.cloudinary_public_id}
+							/>
+							<input
+								type="submit"
+								class="btn join-item border-primary border-l-0"
+								value="Upload"
+								formaction="?/updateAvatarImg"
+								disabled={!uploadedImage}
+							/>
+						</form>
+						<p class="help">1MB Max. png, svg, or jpg</p>
+					</div>
+				</div>
+
 	</div>
 </div>
 

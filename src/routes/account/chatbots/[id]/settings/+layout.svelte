@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Chat from '$lib/components/Chat.svelte';
-	import { currentBot, state, alert } from '$lib/stores';
+	import { currentBot, currentBotAvatarImg, state, alert } from '$lib/stores';
 	import { updateModel } from '$lib/models.js';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
@@ -9,6 +9,9 @@
 	import themes from '$lib/chatThemes.js';
 
 	export let data;
+
+	$currentBotAvatarImg = $currentBot.avatar_img
+
 
 	const links = [
 		{ name: 'Prompts', url: 'prompts' },
@@ -18,6 +21,7 @@
 		{ name: 'ChatGPT', url: 'gpt' },
 		{ name: 'Delete', url: 'delete' }
 	];
+
 	$state = 'saved';
 	let showUserInfoCollection = true;
 	let nextURL: string;
@@ -138,7 +142,7 @@
 				modelId={data.model.id}
 				settings={$currentBot.settings}
 				trainingStatus={data.model.status}
-				avatar={$currentBot.avatar_img}
+				avatar={$currentBotAvatarImg}
 				userId={data.user.session.userId}
 				{showUserInfoCollection}
 			/>

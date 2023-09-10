@@ -11,7 +11,7 @@ cloudinary.config({
 
 const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml'];
 
-const updateAvartarImg = async (bot_id: string, avatarImg: string, public_id: string) => {
+const updateAvatarImg = async (bot_id: string, avatarImg: string, public_id: string) => {
 	await prismaClient.bots.update({
 		where: {
 			id: bot_id
@@ -46,7 +46,7 @@ export const actions = {
 			if (exisitingCloudinaryPublicId) {
 				await cloudinary.uploader.destroy(exisitingCloudinaryPublicId);
 			}
-			cloudinary.uploader
+			await cloudinary.uploader
 				.upload(`data:${avatarImg.type};base64,${base64}`, {
 					folder: 'avatars',
 					width: 256,
@@ -55,12 +55,51 @@ export const actions = {
 					eager: [{ width: 80, height: 80 }]
 				})
 				.then(async (result) => {
-					await updateAvartarImg(params.id, result.secure_url, result.public_id);
+					await updateAvatarImg(params.id, result.secure_url, result.public_id);
 				});
 		}
 
 		return {
 			success: true
 		};
+	},
+
+	removeAvatarImg: async ({ request, locals, params }) => {
+		const user = await locals.auth.validateUser();
+
+		if (!user.session) {
+			throw error(401, 'Unauthorized');
+		}
+
+		const form = await request.formData();
+
+		const exisitingCloudinaryPublicId = form.get('existing-cloudinary-public-id');
+
+		try{
+			
+			await cloudinary.uploader.destroy(exisitingCloudinaryPublicId);
+	
+			await prismaClient.bots.update({
+				where: {
+					id: params.id
+				},
+				data: {
+					avatar_img: null,
+					cloudinary_public_id: null
+				}
+			});
+
+		} catch (error) {
+			console.log(error);
+			return {
+				success: false
+			};
+			
+		}
+
+		return {
+			success: true
+		};
 	}
+
 };
