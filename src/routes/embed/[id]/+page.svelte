@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.bot.settings.publicTitle || data.bot.name} | ChatNode</title>
+	<title>{data.bot.settings.publicTitle || data.bot.name}</title>
 </svelte:head>
 
 <Chat modelId={data.bot.id} {settings} avatar={data.bot.avatar_img} userId={data.bot.user_id} {removeBranding} {context} />
