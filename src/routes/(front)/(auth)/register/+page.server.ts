@@ -167,7 +167,7 @@ export const actions: Actions = {
 			// Send Email
 			await sendAccountEmailConfirmation(email, uuid);
 
-			fbEvent('Start trial', [email]);
+			fbEvent('StartTrial', [email]);
 
 			// Start Session
 			const session = await auth.createSession(user.userId);
