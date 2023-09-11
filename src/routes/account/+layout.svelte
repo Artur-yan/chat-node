@@ -60,6 +60,22 @@
 		data-color-1="#0E1729"
 		data-color-2="#3ABFF7"
 	></script>
+
+	<script>
+		(function (h, o, t, j, a, r) {
+			h.hj =
+				h.hj ||
+				function () {
+					(h.hj.q = h.hj.q || []).push(arguments);
+				};
+			h._hjSettings = { hjid: 3497330, hjsv: 6 };
+			a = o.getElementsByTagName('head')[0];
+			r = o.createElement('script');
+			r.async = 1;
+			r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+			a.appendChild(r);
+		})(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+	</script>	
 </svelte:head>
 
 <HeaderAdmin />

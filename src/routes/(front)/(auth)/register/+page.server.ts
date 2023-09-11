@@ -7,6 +7,8 @@ import { prismaClient } from '$lib/server/prisma';
 import { sendAccountEmailConfirmation } from '$lib/server/messenger';
 import { v4 as uuidv4 } from 'uuid';
 import { domainBlacklist } from '$lib/systemSettings';
+import fbEvent from '$lib/fb';
+
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -164,6 +166,8 @@ export const actions: Actions = {
 
 			// Send Email
 			await sendAccountEmailConfirmation(email, uuid);
+
+			fbEvent('Start trial', [email]);
 
 			// Start Session
 			const session = await auth.createSession(user.userId);
