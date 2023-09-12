@@ -7,7 +7,7 @@ import { prismaClient } from '$lib/server/prisma';
 import { sendAccountEmailConfirmation } from '$lib/server/messenger';
 import { v4 as uuidv4 } from 'uuid';
 import { domainBlacklist } from '$lib/systemSettings';
-import fbEvent from '$lib/fb';
+import fbEvent from '$lib/server/fb';
 
 
 export const load: PageServerLoad = async ({ locals }) => {
