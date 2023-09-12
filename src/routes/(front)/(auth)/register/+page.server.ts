@@ -61,7 +61,9 @@ export const actions: Actions = {
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
 
-		let codes
+		let codes: Array<string> = [];
+
+
 
 		let subscriptionLimits = specialPlans['free'];
 		let tooManyCodes = false;
@@ -139,6 +141,9 @@ export const actions: Actions = {
 				}
 			});
 
+			subscriptionLimits = specialPlans['appsumo' + codes.length.toString()];
+
+
 			// Create Subscription
 			let subscriptionData = {
 				user_id: user.userId,
@@ -192,7 +197,6 @@ export const actions: Actions = {
 					redeemed_by: email
 				}
 			});
-			subscriptionLimits = specialPlans['appsumo' + codes.length.toString()];
 		}
 
 
