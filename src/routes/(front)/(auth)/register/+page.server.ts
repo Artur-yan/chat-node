@@ -61,8 +61,9 @@ export const actions: Actions = {
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
 
-		let subscriptionLimits = specialPlans['free'];
+		let codes
 
+		let subscriptionLimits = specialPlans['free'];
 		let tooManyCodes = false;
 		let codesAlreadyRedeemed = false;
 		let codesDontExist = false;
@@ -82,7 +83,7 @@ export const actions: Actions = {
 		}
 
 		if (appsumoCodes) {
-			const codes = appsumoCodes.split('\r\n');
+			codes = appsumoCodes.split('\r\n');
 			const validateCodes = async () => {
 				if (codes.length > 5) {
 					tooManyCodes = true;
@@ -120,19 +121,6 @@ export const actions: Actions = {
 					message: 'Maxiumum of 5 codes allowed',
 					submitted: false
 				});
-			} else {
-				// Success
-				const matchingCodes = await prismaClient.appSumoCodes.updateMany({
-					where: {
-						code: { in: codes }
-					},
-					data: {
-						redeemed: true,
-						redeemed_date: new Date(),
-						redeemed_by: email
-					}
-				});
-				subscriptionLimits = specialPlans['appsumo' + codes.length.toString()];
 			}
 		}
 
@@ -191,18 +179,22 @@ export const actions: Actions = {
 			});
 		}
 
-		// if (appsumoCodes) {
+		// Update Codes
+		if(appsumoCodes) {
 
-		// 	return {
-		// 			success: true,
-		// 			message: 'Your AppSumo codes have been redeemed.'
-		// 	}
-		// } else {
-		// 	return {
-		// 			success: true,
-		// 			message: 'Account created'
-		// 	}
-		// }
+			await prismaClient.appSumoCodes.updateMany({
+				where: {
+					code: { in: codes }
+				},
+				data: {
+					redeemed: true,
+					redeemed_date: new Date(),
+					redeemed_by: email
+				}
+			});
+			subscriptionLimits = specialPlans['appsumo' + codes.length.toString()];
+		}
+
 
 		throw redirect(302, '/account/chatbots?signup=success');
 	}
