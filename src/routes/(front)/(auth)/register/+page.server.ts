@@ -124,6 +124,9 @@ export const actions: Actions = {
 					submitted: false
 				});
 			}
+
+			subscriptionLimits = specialPlans['appsumo' + codes.length.toString()];
+
 		}
 
 		try {
@@ -140,9 +143,6 @@ export const actions: Actions = {
 					verification_uuid: uuid
 				}
 			});
-
-			subscriptionLimits = specialPlans['appsumo' + codes.length.toString()];
-
 
 			// Create Subscription
 			let subscriptionData = {
