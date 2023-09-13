@@ -6,8 +6,6 @@
 
 	export let data;
 
-	$: console.log(data)
-
 	let color1 = '#3ABFF7';
 	let color2 = '#0E1729';
 	let openChatByDefault = false;
