@@ -11,8 +11,6 @@
 
 	let email  = data.user.user.email;
 
-	console.log('ACCOUNT', data);
-
 	onMount(async () => {
 		if ( $page.url.searchParams.get('plan-change') ) {
 			const planChange = $page.url.searchParams.get('plan-change')
@@ -37,19 +35,19 @@
 			switch (planChange) {
 				case 'convert':
 					trackEvent('Convert to Paid');
-					fbEvent('Purchase', email, amountSpent);
+					fbEvent('Purchase', [email], amountSpent);
 					break;
 				case 'upgrade':
 					trackEvent('Upgrade');
-					fbEvent('Purchase', email, amountSpent);
+					fbEvent('Purchase', [email], amountSpent);
 					break;
 				case 'downgrade':
 					trackEvent('Downgrade');
-					fbEvent('Downgrade', email);
+					fbEvent('Downgrade', [email]);
 					break;
 				case 'cancel':
 					trackEvent('Cancel');
-					fbEvent('Downgrade', email);
+					fbEvent('Downgrade', [email]);
 					break;
 			}
 		}

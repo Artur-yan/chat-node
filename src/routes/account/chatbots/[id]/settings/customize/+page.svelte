@@ -8,8 +8,6 @@
 	export let data;
 	export let form;
 
-	$: console.log($currentBot);
-
 	let uploadedImage: string | null;
 
 	let themeSaveState = JSON.stringify($currentBot.settings.theme);

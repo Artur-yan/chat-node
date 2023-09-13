@@ -8,8 +8,9 @@ const fbEvent = async ( event: string, emails: Array<string>, amountSpent = 0 ) 
             event,
             emails,
             amountSpent
-        })
+        }) 
     })
+
 }
 
 export default fbEvent;

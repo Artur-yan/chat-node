@@ -5,6 +5,8 @@ import { FACEBOOK_ACCESS_TOKEN, FACEBOOK_PIXEL_ID } from '$env/static/private';
 
 const fbEvent = (event: string, emails: Array<string>, amountSpent = 0) => {
 
+
+
 const ServerEvent = bizSdk.ServerEvent;
 const EventRequest = bizSdk.EventRequest;
 const UserData = bizSdk.UserData;
