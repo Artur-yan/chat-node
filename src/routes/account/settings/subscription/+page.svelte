@@ -43,7 +43,7 @@
 </svelte:head>
 
 <div class="container mb-20">
-	{#if currentPlan > 1000 || $page.url.search.includes('appsumo')}
+	{#if currentPlan > 1000 || currentPlan === 0 && $page.url.search.includes('appsumo')}
 
 		<h1 class="font-bold text-3xl mb-4 mt-10">
 			{#if currentPlan > 1000 }
