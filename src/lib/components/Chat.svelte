@@ -363,17 +363,25 @@
 			{/if}
 		<div>
 			<div class="relative">
-				<input
-					type="text"
+
+				<textarea
 					placeholder={settings.inputPlaceholder}
+					oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+					rows="1"
 					bind:value={inputVal}
-					class="input w-full placeholder:text-sm join-item rounded-xl focus-within:outline-none"
+					on:keydown={(e) => {
+						if (e.key === 'Enter' && !e.shiftKey) {
+							e.preventDefault();
+							submitQuery();
+						}
+					}}
+					class="textarea textarea-md min-h-0 max-h-32 w-full placeholder:text-sm leading-5 join-item rounded-xl focus-within:outline-none {settings.sendButtonEnabled ? 'pr-12' : ''}"
 					style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
 					{disabled}
 				/>
 				{#if settings.sendButtonEnabled}
 					<button
-						class="send-button btn btn-square btn-sm border-none rounded-lg join-item focus-within:outline-none absolute right-2 top-2"
+						class="send-button btn btn-square btn-sm border-none rounded-lg join-item focus-within:outline-none absolute right-2 bottom-3"
 						type="submit"
 						name="Send"
 						style="background-color: var(--sendButtonBG); color: var(--sendButtonIconColor);"
