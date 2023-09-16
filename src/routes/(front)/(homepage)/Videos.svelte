@@ -36,7 +36,7 @@
 		</div>
 		<div>
 			{#if activeTab === 0}
-			<video controls="controls" height="1194" width="720" in:fade>
+			<video controls="controls" height="1194" width="720" in:fade poster="/ChatNode Demo Poster.jpg">
 				<source src="ChatNode Demo.mp4" type="video/mp4" />
 			</video>
 			{:else if activeTab === 1}
