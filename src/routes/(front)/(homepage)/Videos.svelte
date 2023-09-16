@@ -37,7 +37,7 @@
 		<div>
 			{#if activeTab === 0}
 			<video controls="controls" height="1194" width="720" in:fade>
-				<source src="ChatNode Demo - Train ChatGPT on your own data.mp4" type="video/mp4" />
+				<source src="ChatNode Demo.mp4" type="video/mp4" />
 			</video>
 			{:else if activeTab === 1}
 				<video controls="controls" height="1144" width="720" in:fade>
