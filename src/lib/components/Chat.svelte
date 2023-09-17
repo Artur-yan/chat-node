@@ -204,6 +204,11 @@
 		chatSessionId = generateNewSessionId();
 		isThinking = false;
 	};
+
+	const askSuggestedQuestion = (question: string) => {
+		inputVal = question;
+		submitQuery()
+	};
 </script>
 
 <div
@@ -365,7 +370,13 @@
 			{/if}
 		<div>
 			<div class="relative">
-
+				{#if settings.suggestedQuestions}
+				<div class="flex gap-1 mb-2 overflow-x-auto">
+					{#each settings.suggestedQuestions as question}
+						<button class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-none hover:bg-[var(--botBubbleBG)]" type="button" on:click={() => askSuggestedQuestion(question.value)}>{question.label}</button>
+					{/each}
+				</div>
+				{/if}
 				<textarea
 					placeholder={settings.inputPlaceholder}
 					oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'

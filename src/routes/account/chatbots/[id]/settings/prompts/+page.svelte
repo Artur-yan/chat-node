@@ -1,11 +1,26 @@
 <script lang="ts">
 	import { currentBot } from '$lib/stores.js';
-	import { defaultSettings, personalities } from '$lib/models.js';
+	import { personalities } from '$lib/models.js';
 	import Modal from '$lib/components/Modal.svelte';
 
+	const addSuggestedQuestion = () => {
+		$currentBot.settings.suggestedQuestions = [
+			...$currentBot.settings.suggestedQuestions,
+			{ label: 'Who Are You?', value: 'What is your name and what is your purpose?' }
+		];
+	};
+
+	const deleteSuggestedQuestion = (index: number) => {
+
+		$currentBot.settings.suggestedQuestions.splice(index, 1);
+
+		$currentBot.settings.suggestedQuestions = [...$currentBot.settings.suggestedQuestions]
+	};
+
+	$: console.log($currentBot.settings.suggestedQuestions)
 </script>
 
-<form>
+<div>
 	<div>
 		<label for="greeting" class="label">
 			<span class="label-text">
@@ -94,7 +109,40 @@
 			<span class="label-text-alt">More Creative</span>
 		</div>
 	</div>
-</form>
+
+
+	<div class="card bg-neutral card-compact mt-8">
+		<div class="card-body">
+			<h2 class="card-title">Suggested Questions</h2>
+
+			<div class="overflow-x-auto">
+				<table class="table table-sm">
+				  <!-- head -->
+				  <thead>
+					<tr>
+					  <th>Label</th>
+					  <th>Question</th>
+					</tr>
+				  </thead>
+				  <tbody>
+						{#each $currentBot.settings.suggestedQuestions as question, i }
+							<tr>
+								<td class="w-2/5"><input class="input input-sm w-full" type="text" bind:value={$currentBot.settings.suggestedQuestions[i].label}></td>
+								<td class="w-full"><input class="input input-sm w-full" type="text" bind:value={$currentBot.settings.suggestedQuestions[i].value}></td>
+								<td>
+									<button type="button" class="btn text-error btn-ghost btn-sm btn-circle" on:click={() => deleteSuggestedQuestion(i)}>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8m0-18A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2M7 13h10v-2H7"/></svg>
+									</button>
+								</td>
+							</tr>
+						{/each}
+				  </tbody>
+				</table>
+				<button class="btn btn-sm mt-4" on:click={addSuggestedQuestion}>Add</button>
+			  </div>
+		</div>
+	</div>
+</div>
 
 <Modal id="personalityTemplates" title="Templates" maxWidth="800px">
 	<div class="alert mb-10 bg-neutral">
