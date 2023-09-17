@@ -373,7 +373,7 @@
 				{#if settings.suggestedQuestions}
 				<div class="flex gap-1 mb-2 overflow-x-auto">
 					{#each settings.suggestedQuestions as question}
-						<button class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-none hover:bg-[var(--botBubbleBG)]" type="button" on:click={() => askSuggestedQuestion(question.value)}>{question.label}</button>
+						<button class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]" type="button" on:click={() => askSuggestedQuestion(question.value)}>{question.label}</button>
 					{/each}
 				</div>
 				{/if}
@@ -388,7 +388,7 @@
 							submitQuery();
 						}
 					}}
-					class="textarea textarea-md min-h-0 max-h-32 w-full placeholder:text-sm leading-5 join-item rounded-xl focus-within:outline-none {settings.sendButtonEnabled ? 'pr-12' : ''}"
+					class="textarea textarea-md min-h-0 max-h-32 w-full placeholder:text-sm leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled ? 'pr-12' : ''}"
 					style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
 					{disabled}
 				/>
