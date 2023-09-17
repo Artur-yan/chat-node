@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { marked } from 'marked';
-	import { current_component } from 'svelte/internal';
+	import snarkdown from 'snarkdown';
 
 	export let data;
 
@@ -62,7 +61,7 @@
 				<div class="chat" class:chat-end={item.message.type == 'human'}>
 					<div class="chat-bubble">
 						{@html postProcessMsgHTML(
-							marked.parse(item.message.data.content, { mangle: false, headerIds: false })
+							snarkdown(item.message.data.content)
 						)}
 					</div>
 				</div>
