@@ -88,7 +88,8 @@ const defaultSettings = {
 		inputBorder: '#transparent',
 		sendButtonBG: '#FFFFFF',
 		sendButtonIconColor: '#000'
-	}
+	},
+	suggestedQuestions: []
 };
 
 const personalities = {

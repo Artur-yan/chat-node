@@ -6,6 +6,7 @@
 	import tiersMap from '$lib/data/tiers';
 	import { invalidateAll } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	export let data;
 	export let form;
@@ -18,6 +19,7 @@
 	let showAppsumoKeysField = false;
 
 	let appsumoCodes = '';
+
 
 	if (currentPlan > 100 && currentPlan < 1000) {
 		billingTerm = 'yearly';
@@ -41,10 +43,14 @@
 </svelte:head>
 
 <div class="container mb-20">
-	{#if currentPlan > 1000}
+	{#if currentPlan > 1000 || currentPlan === 0 && $page.url.search.includes('appsumo')}
+
 		<h1 class="font-bold text-3xl mb-4 mt-10">
-			You purchased a lifetime <span class="text-primary">{tier.name}</span>
-			plan
+			{#if currentPlan > 1000 }
+				You purchased a lifetime <span class="text-primary">{tier.name}</span> plan
+			{:else}
+				You're currently on the <span class="text-primary">Free Trial</span>
+			{/if}
 		</h1>
 
 		<p class="font-bold text-secondary text-lg mb-2">Your plan includes:</p>
