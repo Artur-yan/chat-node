@@ -383,7 +383,7 @@
 				/>
 				{#if settings.sendButtonEnabled}
 					<button
-						class="send-button btn btn-square btn-sm border-none rounded-lg join-item focus-within:outline-none absolute right-2 bottom-3"
+						class="send-button btn btn-square btn-sm border-none rounded-lg join-item focus-within:outline-none absolute right-2 bottom-1.5"
 						type="submit"
 						name="Send"
 						style="background-color: var(--sendButtonBG); color: var(--sendButtonIconColor);"
