@@ -1,4 +1,5 @@
 import { prismaClient } from '$lib/server/prisma';
+import tiersMap from '$lib/data/tiers.js';
 
 export const load = async ({ locals, params }) => {
 	const user = await locals.auth.validateUser();
@@ -9,22 +10,19 @@ export const load = async ({ locals, params }) => {
 		}
 	});
 
-	let historyLengthDays = 1;
+	let historyLengthDays = tiersMap[plan].history_length_days || 1;
 
-	switch (plan) {
-		case 1 || 101:
-			historyLengthDays = 3;
-		case 2 || 102:
-			historyLengthDays = 7;
-		case 3 || 103:
-			historyLengthDays = 30;
-		case 4 || 104:
-			historyLengthDays = 45;
-	}
+	const today = new Date();
+	const historyStartDate = new Date(today.setDate(today.getDate() - historyLengthDays));
+
+	console.log(historyStartDate)
 
 	const chats = await prismaClient.chatConversations.findMany({
 		where: {
-			bot_id: params.id
+			bot_id: params.id,
+			created_at: {
+				gt: historyStartDate
+			}
 		},
 		orderBy: {
 			created_at: 'desc'
