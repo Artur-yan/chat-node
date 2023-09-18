@@ -166,7 +166,7 @@ export const actions: Actions = {
 			const session = await auth.createSession(user.userId);
 			locals.auth.setSession(session);
 		} catch (error) {
-			console.error(error);
+			console.error('ERROR', error, 'Email', email, 'Apssumo Codes', codes, 'Limits', subscriptionLimits);
 			if (error.code === 'P2002' && error.message?.includes('email')) {
 				return fail(400, {
 					message: 'Email already in use'
