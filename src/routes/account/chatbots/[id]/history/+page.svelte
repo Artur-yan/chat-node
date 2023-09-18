@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { marked } from 'marked';
+	import snarkdown from 'snarkdown';
 	import { onMount } from 'svelte';
 	import '$lib/assets/css/chat.postcss';
 
@@ -112,7 +112,7 @@
 					<div class="chat-bubble">
 						<div class="message-body">
 							{@html postProcessMsgHTML(
-								marked.parse(item.message.data.content, { mangle: false, headerIds: false })
+								snarkdown(item.message.data.content)
 							)}
 						</div>
 					</div>

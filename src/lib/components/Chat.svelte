@@ -2,7 +2,8 @@
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import BotStatus from '$lib/components/BotStatus.svelte';
 	import { defaultSettings } from '$lib/models';
-	import { marked } from 'marked';
+	import snarkdown from 'snarkdown';
+
 	import CopyButton from './CopyButton.svelte';
 	import { onMount } from 'svelte';
 	import '$lib/assets/css/chat.postcss';
@@ -37,6 +38,8 @@
 
 	$: messages[0].text = settings.greeting;
 
+	$: console.log(inputVal)
+
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed';
 	export let avatar: string | undefined = undefined;
 
@@ -44,7 +47,7 @@
 		settings.theme = defaultSettings.theme;
 	}
 
-	let inputVal: string;
+	let inputVal = ``;
 	let chatWindow: HTMLElement;
 	const scrollToBottom = () => {
 		if (chatWindow) {
@@ -105,7 +108,7 @@
 
 	const queryModel = async (chatKey: string, chatSessionId: string, message: string) => {
 		addMessage(message, 'user');
-		inputVal = '';
+		inputVal = ``;
 		isThinking = true;
 
 		let streamedMsg = '';
@@ -201,6 +204,11 @@
 		chatSessionId = generateNewSessionId();
 		isThinking = false;
 	};
+
+	const askSuggestedQuestion = (question: string) => {
+		inputVal = question;
+		submitQuery()
+	};
 </script>
 
 <div
@@ -270,11 +278,10 @@
 								? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
 								: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
 						>
-							<div class="message-body">
+							<div class="message-body whitespace-pre-wrap">
 								{@html postProcessMsgHTML(
-									marked.parse(msg.text, { mangle: false, headerIds: false })
-								)}
-							</div>
+									snarkdown(msg.text)
+								)}</div>
 							<!-- {#if msg.sender === 'bot'}
 							<div class="absolute dropdown dropdown-bottom dropdown-end -right-10 top-0 text-sm text-white">
 								<label tabindex="0" class="m-1 btn btn-sm btn-ghost btn-circle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3c-.825 0-1.5.675-1.5 1.5S11.175 6 12 6s1.5-.675 1.5-1.5S12.825 3 12 3Zm0 15c-.825 0-1.5.675-1.5 1.5S11.175 21 12 21s1.5-.675 1.5-1.5S12.825 18 12 18Zm0-7.5c-.825 0-1.5.675-1.5 1.5s.675 1.5 1.5 1.5s1.5-.675 1.5-1.5s-.675-1.5-1.5-1.5Z"/></svg></label>
@@ -363,17 +370,31 @@
 			{/if}
 		<div>
 			<div class="relative">
-				<input
-					type="text"
+				{#if settings.suggestedQuestions}
+				<div class="flex gap-1 mb-2 overflow-x-auto">
+					{#each settings.suggestedQuestions as question}
+						<button class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]" type="button" on:click={() => askSuggestedQuestion(question.value)}>{question.label}</button>
+					{/each}
+				</div>
+				{/if}
+				<textarea
 					placeholder={settings.inputPlaceholder}
+					oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+					rows="1"
 					bind:value={inputVal}
-					class="input w-full placeholder:text-sm join-item rounded-xl focus-within:outline-none"
+					on:keydown={(e) => {
+						if (e.key === 'Enter' && !e.shiftKey) {
+							e.preventDefault();
+							submitQuery();
+						}
+					}}
+					class="textarea textarea-md min-h-0 max-h-32 w-full placeholder:text-sm leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled ? 'pr-12' : ''}"
 					style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
 					{disabled}
 				/>
 				{#if settings.sendButtonEnabled}
 					<button
-						class="send-button btn btn-square btn-sm border-none rounded-lg join-item focus-within:outline-none absolute right-2 top-2"
+						class="send-button btn btn-square btn-sm border-none rounded-lg join-item focus-within:outline-none absolute right-2 bottom-[0.4375rem]"
 						type="submit"
 						name="Send"
 						style="background-color: var(--sendButtonBG); color: var(--sendButtonIconColor);"
