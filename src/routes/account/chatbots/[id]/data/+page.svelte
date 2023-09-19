@@ -125,6 +125,8 @@
 
 					
 						{#if activeDataTab === 'urls'}
+						<div class="space-y-4">
+
 							{#each data.modelData.baseUrls as baseUrl}
 							<Accordian open={true}>
 								<h2 slot="title">{baseUrl}</h2>
@@ -137,6 +139,7 @@
 										</tr>
 									</thead>
 								{#each data.modelData.urls as url}
+								{#if url.base_url === baseUrl}
 									<tr>
 										<td>
 											{url.name}
@@ -162,10 +165,13 @@
 										</button>
 										</td>
 									</tr>
+									{/if}
 								{/each}
 							</table>
 							</Accordian>
 							{/each}
+						</div>
+
 						{:else if activeDataTab === 'files'}
 						<table class="table w-full table-xs">
 						<thead>
