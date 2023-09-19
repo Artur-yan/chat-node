@@ -107,7 +107,7 @@
 		</div>
 		<div class="card card-compact bg-neutral">
 			<div class="card-body">
-				<h2 class="card-title">Data Sources</h2>
+				<h2 class="card-title">Trained Data Sources</h2>
 				<div class="overflow-x-auto">
 					<div class="tabs tabs-boxed mb-4">
 						{#if data.modelData?.urls.length}
