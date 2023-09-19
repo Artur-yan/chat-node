@@ -59,7 +59,6 @@
 			class="textarea w-full leading-normal"
 			name="prompt"
 			rows="10"
-			maxlength="3200"
 		/>
 	</div>
 	{#if $currentBot.settings.userPrompt}
