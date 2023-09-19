@@ -43,7 +43,9 @@
 	};
 
 	const retrainUrls = async (s3_keys: Array<string>) => {
-		trainingStatus = 'training';
+		// trainingStatus = 'training';
+		$alert = { msg: 'Retraining Url in Background', type: 'success' };
+
 		let body = new FormData();
 		body.append('user_id', data.model.user_id);
 		body.append('session_id', data.user.session.sessionId);
@@ -56,9 +58,11 @@
 		});
 		const resData = await res.json();
 
+		
+
 		if (res.ok) {
-			invalidateAll();
-			restart();
+			// invalidateAll();
+			// restart();
 		}
 
 	};

@@ -10,15 +10,24 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		}
 	});
 
-	let modelData;
-
-	if (user.session.userId === model.user_id) {
-		modelData = prismaClient.botsSource.findMany({
-			where: {
-				id: model.id
-			}
-		});
+	if (user.session.userId !== model.user_id) {
+		return
 	}
 
+	const modelData = await prismaClient.botsSource.findMany({
+		where: {
+			id: model.id
+		}
+	});
+
+	console.log('modelData', modelData)
+	
+
+	const baseUrls = await Array.from(new Set(modelData.map((item) => item.original_url)))
+	console.log(baseUrls)
+
 	return { modelData };
+
+
+
 };
