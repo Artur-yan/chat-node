@@ -14,20 +14,36 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		return
 	}
 
-	const modelData = await prismaClient.botsSource.findMany({
+	const botsSource = await prismaClient.botsSource.findMany({
 		where: {
 			id: model.id
 		}
 	});
 
-	console.log('modelData', modelData)
-	
+	let modelData = {
+		urls: [],
+		files: [],
+		texts: [],
+		legacyUrls: [],
+		baseUrls: []
+	}
 
-	const baseUrls = await Array.from(new Set(modelData.map((item) => item.original_url)))
-	console.log(baseUrls)
+	botsSource.forEach((item) => {
+		if (item.source_type === 'url') {
+			modelData.urls.push(item)
+			modelData.baseUrls[item.base_url] = true
+		} else if (item.source_type === 'text') {
+			modelData.texts.push(item)
+		} else if (item.source_type === 'legacy_url') {
+			modelData.legacyUrls.push(item)
+		} else {
+			modelData.files.push(item)
+		} 
+	});
+
+	modelData.baseUrls = Object.keys(modelData.baseUrls)
+
 
 	return { modelData };
-
-
 
 };
