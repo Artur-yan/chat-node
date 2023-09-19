@@ -4,6 +4,7 @@ const tiersMap = {
 		max_bot: 1,
 		max_msg: 50,
 		max_tocken: 100000,
+		history_length_days: 1,
 		features: {
 			slack: {
 				included: false,
@@ -24,6 +25,7 @@ const tiersMap = {
 		max_bot: 5,
 		max_msg: 2000,
 		max_tocken: 400000,
+		history_length_days: 3,
 		features: {
 			slack: {
 				included: false,
@@ -44,6 +46,7 @@ const tiersMap = {
 		max_bot: 10,
 		max_msg: 5000,
 		max_tocken: 800000,
+		history_length_days: 7,
 		features: {
 			slack: {
 				included: false,
@@ -64,6 +67,7 @@ const tiersMap = {
 		max_bot: 20,
 		max_msg: 10000,
 		max_tocken: 100000,
+		history_length_days: 30,
 		features: {
 			slack: {
 				included: false,
@@ -84,6 +88,7 @@ const tiersMap = {
 		max_bot: 40,
 		max_msg: 40000,
 		max_tocken: 3000000,
+		history_length_days: 60,
 		features: {
 			slack: {
 				included: false,
@@ -104,6 +109,7 @@ const tiersMap = {
 		max_bot: 10,
 		max_msg: 2000,
 		max_tocken: 500000,
+		history_length_days: 3,
 		features: {
 			slack: {
 				included: true,
@@ -124,6 +130,7 @@ const tiersMap = {
 		max_bot: 20,
 		max_msg: 4000,
 		max_tocken: 1000000,
+		history_length_days: 3,
 		features: {
 			slack: {
 				included: true,
@@ -144,6 +151,7 @@ const tiersMap = {
 		max_bot: 40,
 		max_msg: 6000,
 		max_tocken: 2000000,
+		history_length_days: 60,
 		features: {
 			slack: {
 				included: true,
@@ -168,6 +176,7 @@ const tiersMap = {
 		max_bot: 60,
 		max_msg: 8000,
 		max_tocken: 4000000,
+		history_length_days: 60,
 		features: {
 			slack: {
 				included: true,
@@ -192,6 +201,7 @@ const tiersMap = {
 		max_bot: 80,
 		max_msg: 10000,
 		max_tocken: 8000000,
+		history_length_days: 60,
 		features: {
 			slack: {
 				included: true,
