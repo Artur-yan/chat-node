@@ -109,7 +109,7 @@
 			<div class="card-body">
 				<h2 class="card-title">Trained Data Sources</h2>
 				<div class="overflow-x-auto">
-					<div class="tabs tabs-boxed mb-4 gap-2">
+					<div class="tabs tabs-boxed bg-transparent mb-4 gap-2">
 						{#if data.modelData?.urls.length}
 
 						<button class="tab border border-primary text-white" on:click={() => activeDataTab = "urls"} class:tab-active={activeDataTab === "urls"}>URLs <span class="badge badge-sm ml-2">{data.modelData?.urls.length}</span></button>
