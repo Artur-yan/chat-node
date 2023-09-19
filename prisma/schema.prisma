@@ -60,6 +60,7 @@ model Bots {
   chat_button_img      String?
   cloudinary_public_id String?
   openai_api_key       String?
+  use_chatnode_msgs    Boolean? @default(true)
   auth_user            AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("bots")
@@ -116,6 +117,7 @@ model AppSumoCodes {
   redeemed      Boolean   @default(false)
   redeemed_date DateTime?
   redeemed_by   String?
+  refunded      Boolean?  @default(false)
 
   @@map("appsumo_codes")
 }
@@ -219,4 +221,16 @@ model chatConversations {
   enduser_phone String?
 
   @@map("chat_conversations")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model whatsapp {
+  created_at      DateTime @default(now()) @db.Timestamptz(6)
+  business_id     String
+  system_token    String?
+  phone_number_id Int
+  callback_url    String?
+
+  @@id([business_id, phone_number_id])
 }
