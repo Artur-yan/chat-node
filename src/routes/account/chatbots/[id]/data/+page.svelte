@@ -22,6 +22,8 @@
 		activeDataTab = 'files'
 	} else if(data.modelData?.texts.length) {
 		activeDataTab = 'text'
+	} else if(data.modelData?.legacyUrls.length) {
+		activeDataTab = 'legacy-urls'
 	}
 
 
@@ -112,14 +114,14 @@
 
 						<button class="tab" on:click={() => activeDataTab = "urls"} class:tab-active={activeDataTab === "urls"}>URLs <span class="badge badge-sm ml-2">{data.modelData?.urls.length}</span></button>
 						{/if}
-						{#if data.modelData?.legacyUrls.length}
-							<button class="tab" on:click={() => activeDataTab = "legacy-urls"}>Legacy URLS</button>
-						{/if}
 						{#if data.modelData?.files.length}
 						<button class="tab" on:click={() => activeDataTab = "files"} class:tab-active={activeDataTab === "files"}>Files <span class="badge badge-sm ml-2">{data.modelData?.files.length}</span></button>
 						{/if}
 						{#if data.modelData?.texts.length}
-							<button class="tab" on:click={() => activeDataTab = "text"} class:tab-active={activeDataTab === "text"}>Text <span class="badge badge-sm ml-2">{data.modelData?.texts.length}</span></button>
+						<button class="tab" on:click={() => activeDataTab = "text"} class:tab-active={activeDataTab === "text"}>Text <span class="badge badge-sm ml-2">{data.modelData?.texts.length}</span></button>
+						{/if}
+						{#if data.modelData?.legacyUrls.length}
+							<button class="tab" on:click={() => activeDataTab = "legacy-urls"} class:tab-active={activeDataTab === "legacy-urls"}>Legacy URLs</button>
 						{/if}
 					</div>
 
@@ -221,6 +223,40 @@
 						class="btn btn-sm btn-circle btn-ghost text-error"
 						on:click={() => {
 							sourceToDelete = text;
+							deleteDataSourceModal.showModal();
+						}}
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"/></svg>
+						</button>
+					</td>
+				</tr>
+			{/each}
+		</table>
+
+				{:else if activeDataTab === 'legacy-urls'}
+				<table class="table w-full table-xs">
+				<thead>
+					<tr>
+						<th class="w-full">Name</th>
+						<th class="w-full">Token count</th>
+						<th />
+					</tr>
+				</thead>
+			{#each data.modelData?.legacyUrls as url}
+				<tr>
+					<td>
+						{@html url.name.replace(/,/g, '<br>')}
+
+						<!-- replace all commas with a line break -->
+
+
+					</td>
+					<td>{url.token_count || ''}</td>
+					<td class="flex">
+						<button
+						class="btn btn-sm btn-circle btn-ghost text-error"
+						on:click={() => {
+							sourceToDelete = url;
 							deleteDataSourceModal.showModal();
 						}}
 					>

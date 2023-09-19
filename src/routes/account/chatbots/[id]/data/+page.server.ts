@@ -34,7 +34,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 			modelData.baseUrls[item.base_url] = true
 		} else if (item.source_type === 'text') {
 			modelData.texts.push(item)
-		} else if (item.source_type === 'legacy_url') {
+		} else if (item.source_type === 'urls') {
 			modelData.legacyUrls.push(item)
 		} else {
 			modelData.files.push(item)
