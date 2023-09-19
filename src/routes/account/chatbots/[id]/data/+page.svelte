@@ -102,44 +102,45 @@
 		<div class="card card-compact bg-neutral">
 			<div class="card-body">
 				<h2 class="card-title">Trained Data Sources</h2>
-				<div class="overflow-x-auto">
-					<div class="tabs tabs-boxed bg-transparent mb-4 gap-2">
-						{#if data.modelData?.urls.length}
-							<button
-								class="tab border border-primary text-white"
-								on:click={() => (activeDataTab = 'urls')}
-								class:tab-active={activeDataTab === 'urls'}
-							>
-								URLs <span class="badge badge-sm ml-2">{data.modelData?.urls.length}</span>
-							</button>
-						{/if}
-						{#if data.modelData?.files.length}
-							<button
-								class="tab border border-primary text-white"
-								on:click={() => (activeDataTab = 'files')}
-								class:tab-active={activeDataTab === 'files'}
-							>
-								Files <span class="badge badge-sm ml-2">{data.modelData?.files.length}</span>
-							</button>
-						{/if}
-						{#if data.modelData?.texts.length}
-							<button
-								class="tab border border-primary text-white"
-								on:click={() => (activeDataTab = 'text')}
-								class:tab-active={activeDataTab === 'text'}
-							>
-								Text <span class="badge badge-sm ml-2">{data.modelData?.texts.length}</span>
-							</button>
-						{/if}
-						{#if data.modelData?.legacyUrls.length}
-							<button
-								class="tab border border-primary text-white"
-								on:click={() => (activeDataTab = 'legacy-urls')}
-								class:tab-active={activeDataTab === 'legacy-urls'}
-							>
-								Legacy URLs
-							</button>
-						{/if}
+					<div class="flex">
+						<div class="tabs tabs-boxed gap-2">
+							{#if data.modelData?.urls.length}
+								<button
+									class="tab"
+									on:click={() => (activeDataTab = 'urls')}
+									class:tab-active={activeDataTab === 'urls'}
+								>
+									URLs <span class="badge badge-sm ml-2">{data.modelData?.urls.length}</span>
+								</button>
+							{/if}
+							{#if data.modelData?.files.length}
+								<button
+									class="tab"
+									on:click={() => (activeDataTab = 'files')}
+									class:tab-active={activeDataTab === 'files'}
+								>
+									Files <span class="badge badge-sm ml-2">{data.modelData?.files.length}</span>
+								</button>
+							{/if}
+							{#if data.modelData?.texts.length}
+								<button
+									class="tab"
+									on:click={() => (activeDataTab = 'text')}
+									class:tab-active={activeDataTab === 'text'}
+								>
+									Text <span class="badge badge-sm ml-2">{data.modelData?.texts.length}</span>
+								</button>
+							{/if}
+							{#if data.modelData?.legacyUrls.length}
+								<button
+									class="tab"
+									on:click={() => (activeDataTab = 'legacy-urls')}
+									class:tab-active={activeDataTab === 'legacy-urls'}
+								>
+									Legacy URLs
+								</button>
+							{/if}
+						</div>
 					</div>
 
 					{#if activeDataTab === 'urls'}
@@ -328,7 +329,6 @@
 							{/each}
 						</table>
 					{/if}
-				</div>
 			</div>
 		</div>
 	</div>
