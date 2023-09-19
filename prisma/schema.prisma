@@ -105,6 +105,8 @@ model BotsSource {
   api_version Float   @default(1.1) @db.Real
   token_count Int?
   base_url    String?
+  created_at    DateTime? @default(now()) @db.Timestamptz(6)
+
 
   @@map("bots_source")
 }
