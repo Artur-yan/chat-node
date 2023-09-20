@@ -15,6 +15,11 @@
 			$currentBot.settings.gptVersion = '3.5'
 		}
 	}
+
+	$: if ($currentBot.settings.gptVersion == '4' && plan > 1000) {
+		$currentBot.settings.useChatNodeMsgs = false
+	}
+
 </script>
 
 <div class="card bg-neutral card-compact mb-4">
@@ -22,7 +27,7 @@
 		<div class="card-title">
 			<h2>GPT Version</h2>
 		</div>
-		{#if !plansWithGPT4.includes(plan)}
+		{#if !plansWithGPT4.includes(plan) && plan < 1000}
 			<div class="alert text-warning mb-2 font-bold">
 				This feature is available on the Pro plan or greater.
 			</div>
@@ -69,7 +74,7 @@
 					GPT-4
 				</label>
 			</div>
-			{#if $currentBot.settings.gptVersion === '4'}
+			{#if $currentBot.settings.gptVersion === '4' && plan < 1000}
 				<div class="alert alert-warning font-bold mt-2">
 					<div>
 						<h3 class="text-xl mb-2">Important!</h3>
