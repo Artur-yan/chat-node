@@ -2,7 +2,9 @@
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import BotStatus from '$lib/components/BotStatus.svelte';
 	import { defaultSettings } from '$lib/models';
-	import snarkdown from 'snarkdown';
+	import { Remarkable } from 'remarkable';
+
+	const md = new Remarkable();
 
 	import CopyButton from './CopyButton.svelte';
 	import { onMount } from 'svelte';
@@ -278,10 +280,8 @@
 								? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
 								: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
 						>
-							<div class="message-body whitespace-pre-wrap">
-								{@html postProcessMsgHTML(
-									snarkdown(msg.text)
-								)}</div>
+							<div class="message-body">
+								{@html postProcessMsgHTML(md.render(msg.text))}</div>
 							<!-- {#if msg.sender === 'bot'}
 							<div class="absolute dropdown dropdown-bottom dropdown-end -right-10 top-0 text-sm text-white">
 								<label tabindex="0" class="m-1 btn btn-sm btn-ghost btn-circle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3c-.825 0-1.5.675-1.5 1.5S11.175 6 12 6s1.5-.675 1.5-1.5S12.825 3 12 3Zm0 15c-.825 0-1.5.675-1.5 1.5S11.175 21 12 21s1.5-.675 1.5-1.5S12.825 18 12 18Zm0-7.5c-.825 0-1.5.675-1.5 1.5s.675 1.5 1.5 1.5s1.5-.675 1.5-1.5s-.675-1.5-1.5-1.5Z"/></svg></label>

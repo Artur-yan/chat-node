@@ -1,9 +1,11 @@
 <script lang="ts">
-	import snarkdown from 'snarkdown';
+	import { Remarkable } from 'remarkable';
 	import { onMount } from 'svelte';
 	import '$lib/assets/css/chat.postcss';
 
 	export let data;
+
+	const md = new Remarkable();
 
 	let chatHistory = data.chats;
 	let visibleChatConversation;
@@ -112,7 +114,7 @@
 					<div class="chat-bubble">
 						<div class="message-body">
 							{@html postProcessMsgHTML(
-								snarkdown(item.message.data.content)
+								md.render(item.message.data.content)
 							)}
 						</div>
 					</div>
