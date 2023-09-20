@@ -7,6 +7,17 @@
 
 	const plansWithCustomApiKey = [2, 3, 4, 102, 103, 104, 1001, 1002, 1003, 1004, 1005];
 	const plansWithGPT4 = [2, 3, 4, 102, 103, 104];
+	let canUseChatNodeMsgs = true;
+
+
+	$: if (
+		plan > 1000 &&
+		$currentBot.settings.openai_api_key &&
+		['3.5-16', '4'].includes($currentBot.settings.gptVersion)
+	) {
+		canUseChatNodeMsgs = false
+		$currentBot.settings.useChatNodeMsgs = false
+	}
 
 	$: if (!$currentBot.settings.openai_api_key) {
 		$currentBot.settings.useChatNodeMsgs = true
@@ -14,10 +25,6 @@
 		if(!plansWithGPT4.includes(plan)) {
 			$currentBot.settings.gptVersion = '3.5'
 		}
-	}
-
-	$: if ($currentBot.settings.gptVersion == '4' && plan > 1000) {
-		$currentBot.settings.useChatNodeMsgs = false
 	}
 
 </script>
@@ -74,7 +81,7 @@
 					GPT-4
 				</label>
 			</div>
-			{#if $currentBot.settings.gptVersion === '4' && plan < 1000}
+			{#if ['3.5', '4'].includes($currentBot.settings.gptVersion) && plan < 1000}
 				<div class="alert alert-warning font-bold mt-2">
 					<div>
 						<h3 class="text-xl mb-2">Important!</h3>
@@ -114,7 +121,7 @@
 				<div class="form-control">
 					<label class="cursor-pointer label justify-start gap-4">
 					<span class="label-text">OFF</span> 
-					<input type="checkbox" class="toggle" class:toggle-success={$currentBot.settings.useChatNodeMsgs} disabled={!$currentBot.settings.openai_api_key} bind:checked={$currentBot.settings.useChatNodeMsgs} />
+					<input type="checkbox" class="toggle" class:toggle-success={$currentBot.settings.useChatNodeMsgs} disabled={!$currentBot.settings.openai_api_key || !canUseChatNodeMsgs} bind:checked={$currentBot.settings.useChatNodeMsgs} />
 					<span class="label-text">ON</span> 
 					</label>
 				</div>
