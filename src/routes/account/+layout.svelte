@@ -55,7 +55,7 @@
 		</script>`}
 	{/if}
 
-	<script>
+{@html	`<script>
 		!(function (f, b, e, v, n, t, s) {
 			if (f.fbq) return;
 			n = f.fbq = function () {
@@ -72,9 +72,11 @@
 			s = b.getElementsByTagName(e)[0];
 			s.parentNode.insertBefore(t, s);
 		})(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-		fbq('init', '588241380143151');
+		fbq('init', '588241380143151', {
+			em: '${data.user.user.email}'
+		});
 		fbq('track', 'PageView');
-	</script>
+	</script>`}
 	<noscript>
 		<img
 			height="1"

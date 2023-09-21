@@ -12,7 +12,7 @@
 	let email  = data.user.user.email;
 
 	onMount(async () => {
-		if ( $page.url.searchParams.get('plan-change') ) {
+		if ( $page.url.search.includes('plan-change') ) {
 			const planChange = $page.url.searchParams.get('plan-change')
 			const newPlan = $page.url.searchParams.get('new-plan')
 			let amountSpent = 0
@@ -50,8 +50,11 @@
 					fbEvent('Downgrade', [email]);
 					break;
 			}
+
+			$alert = 'Plan changed successfully!';
+		} else if ( $page.url.searchParams.get('signup') === 'success' ) {
+			fbq('StartTrial');
 		}
-		$alert = 'Plan changed successfully!';
 		goto('/account/chatbots', { invalidateAll: true });
 	});
 </script>
