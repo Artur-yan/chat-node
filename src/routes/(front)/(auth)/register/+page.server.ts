@@ -160,6 +160,8 @@ export const actions: Actions = {
 			// Send Email
 			await sendAccountEmailConfirmation(email, uuid);
 
+			fbEvent('StartTrial', [email]);
+
 			// Start Session
 			const session = await auth.createSession(user.userId);
 			locals.auth.setSession(session);

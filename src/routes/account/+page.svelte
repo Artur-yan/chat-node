@@ -52,9 +52,10 @@
 			}
 
 			$alert = 'Plan changed successfully!';
-		} else if ( $page.url.searchParams.get('signup') === 'success' ) {
-			fbq('track', 'StartTrial', {value: '0.00', currency: 'USD', predicted_ltv: '0.00'});
 		}
+		// else if ( $page.url.searchParams.get('signup') === 'success' ) {
+		// 	fbq('track', 'StartTrial', {value: '0.00', currency: 'USD', predicted_ltv: '0.00'});
+		// }
 		goto('/account/chatbots', { invalidateAll: true });
 	});
 </script>
