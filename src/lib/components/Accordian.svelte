@@ -3,13 +3,13 @@
 </script>
 
 <div
-	class="border border-primary/50 bg-base-300 rounded-xl hover:shadow-xl hover:bg-base-200 transition-all"
+	class="bg-base-300 rounded-xl hover:shadow-xl hover:bg-base-200 transition-all"
 	class:open
 >
 	<button
 		on:click={() => (open = !open)}
 		type="button"
-		class="flex text-lg justify-between text-left items-center w-full p-5 font-bold"
+		class="flex text-lg justify-between text-left items-center w-full p-4 font-bold"
 	>
 		<slot name="title" />
 		<svg
