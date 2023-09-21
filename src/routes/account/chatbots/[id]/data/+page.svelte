@@ -152,7 +152,7 @@
 										<thead>
 											<tr>
 												<th class="w-full">Name</th>
-												<th class="w-full">Token count</th>
+												<th class="w-full">Tokens</th>
 												<th />
 											</tr>
 										</thead>
@@ -163,7 +163,27 @@
 														{url.name}
 													</td>
 													<td>{url.token_count}</td>
-													<td class="flex">
+													<td class="flex gap-5">
+														<div class="tooltip tooltip-left" data-tip="Re-Train">
+															<button
+																class="btn btn-sm btn-circle btn-ghost"
+																on:click={() => {
+																	retrainUrls([url.s3_key]);
+																}}
+															>
+																<svg
+																	xmlns="http://www.w3.org/2000/svg"
+																	width="16"
+																	height="16"
+																	viewBox="0 0 24 24"
+																>
+																	<path
+																		fill="currentColor"
+																		d="M15 12c0-1.7-1.3-3-3-3s-3 1.3-3 3s1.3 3 3 3s3-1.3 3-3zm2-8.7C13.1 1.1 8.3 1.8 5.1 4.7V3c0-.6-.4-1-1-1s-1 .4-1 1v4.5c0 .6.4 1 1 1h4.5c.6 0 1-.4 1-1s-.4-1-1-1H6.2C7.7 4.9 9.8 4 12 4c4.4 0 8 3.6 8 8c0 .6.4 1 1 1s1-.4 1-1c0-3.6-1.9-6.9-5-8.7zm2.9 12.2h-4.5c-.6 0-1 .4-1 1s.4 1 1 1h2.4C16.3 19.1 14.2 20 12 20c-4.4 0-8-3.6-8-8c0-.6-.4-1-1-1s-1 .4-1 1c0 5.5 4.5 10 10 10c2.6 0 5-1 6.9-2.8V21c0 .6.4 1 1 1s1-.4 1-1v-4.5c0-.6-.5-1-1-1z"
+																	/>
+																</svg>
+															</button>
+														</div>
 														<button
 															class="btn btn-sm btn-circle btn-ghost text-error"
 															on:click={() => {
@@ -183,24 +203,7 @@
 																/>
 															</svg>
 														</button>
-														<button
-															class="btn btn-sm btn-circle btn-ghost"
-															on:click={() => {
-																retrainUrls([url.s3_key]);
-															}}
-														>
-															<svg
-																xmlns="http://www.w3.org/2000/svg"
-																width="16"
-																height="16"
-																viewBox="0 0 24 24"
-															>
-																<path
-																	fill="currentColor"
-																	d="M15 12c0-1.7-1.3-3-3-3s-3 1.3-3 3s1.3 3 3 3s3-1.3 3-3zm2-8.7C13.1 1.1 8.3 1.8 5.1 4.7V3c0-.6-.4-1-1-1s-1 .4-1 1v4.5c0 .6.4 1 1 1h4.5c.6 0 1-.4 1-1s-.4-1-1-1H6.2C7.7 4.9 9.8 4 12 4c4.4 0 8 3.6 8 8c0 .6.4 1 1 1s1-.4 1-1c0-3.6-1.9-6.9-5-8.7zm2.9 12.2h-4.5c-.6 0-1 .4-1 1s.4 1 1 1h2.4C16.3 19.1 14.2 20 12 20c-4.4 0-8-3.6-8-8c0-.6-.4-1-1-1s-1 .4-1 1c0 5.5 4.5 10 10 10c2.6 0 5-1 6.9-2.8V21c0 .6.4 1 1 1s1-.4 1-1v-4.5c0-.6-.5-1-1-1z"
-																/>
-															</svg>
-														</button>
+
 													</td>
 												</tr>
 											{/if}
@@ -214,7 +217,7 @@
 							<thead>
 								<tr>
 									<th class="w-full">Name</th>
-									<th class="w-full">Token count</th>
+									<th class="w-full">Tokens</th>
 									<th />
 								</tr>
 							</thead>
@@ -253,7 +256,7 @@
 							<thead>
 								<tr>
 									<th class="w-full">Name</th>
-									<th class="w-full">Token count</th>
+									<th class="w-full">Tokens</th>
 									<th />
 								</tr>
 							</thead>
@@ -292,7 +295,7 @@
 							<thead>
 								<tr>
 									<th class="w-full">Name</th>
-									<th class="w-full">Token count</th>
+									<th class="w-full">Tokens</th>
 									<th />
 								</tr>
 							</thead>
