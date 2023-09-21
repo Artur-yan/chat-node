@@ -137,7 +137,7 @@
 	</div>
 
 	<div class="h-full min-h-[24rem] relative hidden sm:block">
-		<div class="sticky top-4 h-full max-h-[40rem] rounded-2xl overflow-hidden">
+		<div class="sticky flex flex-col top-4 h-full flex-1 max-h-[40rem] rounded-2xl overflow-hidden">
 			<Chat
 				modelId={data.model.id}
 				settings={$currentBot.settings}
@@ -146,18 +146,16 @@
 				userId={data.user.session.userId}
 				{showUserInfoCollection}
 			/>
-			{#if $currentBot.settings.collectUserName || $currentBot.settings.collectUserEmail || $currentBot.settings.collectUserPhone}
-				<div class="form-control">
-					<label class="label cursor-pointer justify-start gap-2">
-						<input
-							type="checkbox"
-							class="checkbox checkbox-sm"
-							bind:checked={showUserInfoCollection}
-						/>
-						<span class="label-text">Show User Info Form Preview</span>
-					</label>
-				</div>
-			{/if}
+			<div class="form-control">
+				<label class="label cursor-pointer justify-start gap-2">
+					<input
+						type="checkbox"
+						class="checkbox checkbox-sm"
+						bind:checked={showUserInfoCollection}
+					/>
+					<span class="label-text">Show User Info Form Preview</span>
+				</label>
+			</div>
 		</div>
 	</div>
 </div>
