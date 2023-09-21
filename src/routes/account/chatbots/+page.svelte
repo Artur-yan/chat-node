@@ -32,6 +32,11 @@
 				});
 				trackEvent('Signup');
 			}
+
+		if ($page.url.search.includes('test')) {
+			fbq('track', 'Purchase', {currency: "USD", value: 20.00});
+
+		}
 	});
 
 	const today = new Date();

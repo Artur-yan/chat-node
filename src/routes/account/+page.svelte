@@ -49,9 +49,6 @@
 					trackEvent('Cancel');
 					fbEvent('Downgrade', [email]);
 					break;
-				case 'test':
-					fbq('track', 'Purchase', {currency: "USD", value: amountSpent});
-					break;
 			}
 		}
 		$alert = 'Plan changed successfully!';
