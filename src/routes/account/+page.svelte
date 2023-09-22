@@ -14,6 +14,8 @@
 	let oldPlan = $page.url.searchParams.get('old-plan')
 	let amountSpent = 0
 
+	const email = data.user.user.email;
+
 	switch (newPlan) {
 				case '1': amountSpent = 19; break;
 				case '2': amountSpent = 49; break;
@@ -32,19 +34,19 @@
 			switch (planChange) {
 				case 'convert':
 					trackEvent('Convert to Paid');
-					// fbEvent('Purchase', [email], amountSpent);
+					fbEvent('Purchase', [email], amountSpent);
 					break;
 				case 'upgrade':
 					trackEvent('Upgrade');
-					// fbEvent('Purchase', [email], amountSpent);
+					fbEvent('Purchase', [email], amountSpent);
 					break;
 				case 'downgrade':
 					trackEvent('Downgrade');
-					// fbEvent('Downgrade', [email]);
+					fbEvent('Downgrade', [email]);
 					break;
 				case 'cancel':
 					trackEvent('Cancel');
-					// fbEvent('Downgrade', [email]);
+					fbEvent('Downgrade', [email]);
 					break;
 			}
 
@@ -60,16 +62,3 @@
 <svelte:head>
 	<title>Account | ChatNode</title>
 </svelte:head>
-
-
-<div>
-	{#if planChange}
-	<script>
-		fbq('track', 'Test');
-		// fbq('track', 'StartTrial', {value: '0.00', currency: 'USD'});
-		console.log('FB EVENT FIRED')
-	</script>
-{/if}
-
-
-</div>

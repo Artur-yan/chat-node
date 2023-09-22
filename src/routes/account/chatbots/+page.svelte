@@ -77,6 +77,12 @@
 </div>
 
 <div class="container pt-4 pb-20">
+	<script>
+		{#if $page.url.searchParams.get('signup') == 'success'}
+			fbq('track', 'StartTrial', {value: '0.00', currency: 'USD'});
+			console.log('FB EVENT FIRED')
+		{/if}
+	</script>
 	<div class="card card-compact card-bordered border-neutral mb-4">
 		<div class="card-body">
 			<div class="flex gap-8 items-center">
