@@ -9,15 +9,12 @@
 
 	export let data;
 
-	let email  = data.user.user.email;
+	let planChange = $page.url.searchParams.get('plan-change')
+	let newPlan = $page.url.searchParams.get('new-plan')
+	let oldPlan = $page.url.searchParams.get('old-plan')
+	let amountSpent = 0
 
-	onMount(async () => {
-		if ( $page.url.search.includes('plan-change') ) {
-			const planChange = $page.url.searchParams.get('plan-change')
-			const newPlan = $page.url.searchParams.get('new-plan')
-			let amountSpent = 0
-
-			switch (newPlan) {
+	switch (newPlan) {
 				case '1': amountSpent = 19; break;
 				case '2': amountSpent = 49; break;
 				case '3': amountSpent = 99; break;
@@ -28,26 +25,26 @@
 				case '104': amountSpent = 3990; break;
 			}
 
-			const { trackEvent } = Plausible({	
-				domain: PUBLIC_PLAUSIBLE_DOMAIN,
-				apiHost: PUBLIC_PLAUSIBLE_API_HOST
-			});
+	onMount(async () => {
+		if ( planChange ) {
+			const { trackEvent } = Plausible({ domain: PUBLIC_PLAUSIBLE_DOMAIN, apiHost: PUBLIC_PLAUSIBLE_API_HOST });
+
 			switch (planChange) {
 				case 'convert':
 					trackEvent('Convert to Paid');
-					fbEvent('Purchase', [email], amountSpent);
+					// fbEvent('Purchase', [email], amountSpent);
 					break;
 				case 'upgrade':
 					trackEvent('Upgrade');
-					fbEvent('Purchase', [email], amountSpent);
+					// fbEvent('Purchase', [email], amountSpent);
 					break;
 				case 'downgrade':
 					trackEvent('Downgrade');
-					fbEvent('Downgrade', [email]);
+					// fbEvent('Downgrade', [email]);
 					break;
 				case 'cancel':
 					trackEvent('Cancel');
-					fbEvent('Downgrade', [email]);
+					// fbEvent('Downgrade', [email]);
 					break;
 			}
 
@@ -63,3 +60,16 @@
 <svelte:head>
 	<title>Account | ChatNode</title>
 </svelte:head>
+
+
+<div>
+	{#if planChange}
+	<script>
+		fbq('track', 'Test');
+		// fbq('track', 'StartTrial', {value: '0.00', currency: 'USD'});
+		console.log('FB EVENT FIRED')
+	</script>
+{/if}
+
+
+</div>
