@@ -94,7 +94,7 @@
 				sender: 'user'
 			},
 			{
-				text: "You can customize thew colors of everything, hide or show the send button, chenge the greeting, add a header and more!",
+				text: "You can customize the colors of everything, hide or show the send button, chenge the greeting, add a header and more!",
 				sender: 'bot'
 			}
 		];
