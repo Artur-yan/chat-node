@@ -38,10 +38,6 @@
 		...settings
 	};
 
-	$: messages[0].text = settings.greeting;
-
-	$: console.log(inputVal)
-
 	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed';
 	export let avatar: string | undefined = undefined;
 
@@ -229,7 +225,7 @@
 	--sendButtonBG: {settings.theme.sendButtonBG};
 	--sendButtonIconColor: {settings.theme.sendButtonIconColor};
     background-color: var(--bg)"
-	class="flex h-full flex-col justify-between overflow-hidden flex-1 relative"
+	class="flex h-full flex-col justify-between overflow-hidden flex-1 relative transition-colors ease-in-out duration-500"
 >
 	{#if settings?.headerEnabled && settings.publicTitle !== ''}
 		<header style="background-color: var(--headerBG)" class="flex p-4 items-center gap-2">
@@ -275,7 +271,7 @@
 							</div>
 						{/if}
 						<div
-							class="chat-bubble relative"
+							class="chat-bubble relative transition-colors"
 							style={msg.sender == 'bot'
 								? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
 								: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}

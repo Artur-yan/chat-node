@@ -1,13 +1,14 @@
 <script lang="ts">
 	import Chat from '$lib/components/Chat.svelte';
 	import { defaultSettings } from '$lib/models';
-	import Code from '$lib/components/Code.svelte';
+	import themes from '$lib/chatThemes';
 	import AOS from 'aos';
-	import MorphingText from '$lib/components/MorphingText.svelte';
 	import { onMount } from 'svelte';
+	import IntersectionObserver from '$lib/components/IntersectionObserver.svelte';
+	import showcaseThemes from '$lib/showcaseThemes';
 
 	import 'aos/dist/aos.css';
-	import WaysToShare from './WaysToShare.svelte';
+	import WaysToShare from '../../(homepage)/WaysToShare.svelte';
 
 	let chatSettings = {
 		...defaultSettings
@@ -17,46 +18,128 @@
 	const code = `<script src="https://www.chatnode.ai/embed.js" data-chatbot-id="befbfc87e25911db" data-color-1="#0E1729" data-color-2="#3ABFF7"><\/script>`;
 
 
-	let isThinking = false;
-	let messages = [
-		{
-			text: 'Hi, how can I help you?',
-			sender: 'bot'
-		}
-	];
+	let messages = []
 
 
 	const demoChat = async () => {
-		await new Promise((r) => setTimeout(r, 1000));
+		chatSettings.theme = themes['default']
+
 		messages = [
-			...messages,
 			{
-				text: 'I want to build a chat bot.',
+			text: 'Hi, how can I help you?',
+			sender: 'bot'
+			},
+			{
+				text: 'I want to create an AI Customer Support Agent',
 				sender: 'user'
+			},
+			{
+				text: "Great! I'm here to help you with that. You can create a free account at https://www.chatnode.ai/register",
+				sender: 'bot'
 			}
 		];
-		isThinking = true;
-		await new Promise((r) => setTimeout(r, 1500));
+	};
+	const demoChatPart2 = async () => {
+		chatSettings.theme = themes['meta-dark']	
+
 		messages = [
-			...messages,
 			{
-				text: "That's great! With ChatNode, you can easily build your own chatbot. You can train the chatbot using your own data and add it to your website. You can customize the chatbot's appearance, name, suggestions, and even the welcome message. If you have any specific questions or need assistance with the process, feel free to ask!",
+				text: 'Great! I\'m here to help you with that. You can create a free account at https://www.chatnode.ai/register',
+				sender: 'bot'
+			},
+			{
+				text: 'What types of files can I upload?',
+				sender: 'user'
+			},
+			{
+				text: "You can upload any text file, such as PDF, DOC, TXT, CSV, XLS, etc.",
+				sender: 'bot'
+			}
+		];
+	};
+	const demoChatPart3 = async () => {
+		chatSettings.theme = themes['ios-light']
+
+		messages = [
+			{
+				text: 'How do I add URLs',
+				sender: 'user'
+			},
+			{
+				text: "Add the url of any website and we will crawl it and all sub-pages for text to train your chatbot on.",
+				sender: 'bot'
+			}
+		];
+	};
+	const demoChatPart4 = async () => {
+		chatSettings.theme = themes['ios-dark']
+
+		messages = [
+			{
+				text: 'What is a prompt?',
+				sender: 'user'
+			},
+			{
+				text: "A prompt allows you to change the tone and behvaior of your chatbot's personality.",
+				sender: 'bot'
+			}
+		];
+	};
+	const demoChatPart5 = async () => {
+		chatSettings.theme = themes['default']
+
+		messages = [
+			{
+				text: 'What can I customize?',
+				sender: 'user'
+			},
+			{
+				text: "You can customize thew colors of everything, hide or show the send button, chenge the greeting, add a header and more!",
 				sender: 'bot'
 			}
 		];
 	};
 
+	const showcaseTheme = (themeName) => {
+		chatSettings.theme = showcaseThemes[themeName]
+	}
+
+	
+	let topSectionIntersecting = false
+	let uploadSectionIntersecting = false
+	let urlSectionIntersecting = false
+	let promptSectionIntersecting = false
+	let brandSectionIntersecting = false
+
+	$: if (topSectionIntersecting) {
+		demoChat()
+	}
+	$: if (uploadSectionIntersecting) {
+		demoChatPart2()
+	}
+	$: if (urlSectionIntersecting) {
+		demoChatPart3()
+	}
+	$: if (promptSectionIntersecting) {
+		demoChatPart4()
+	}
+	$: if (brandSectionIntersecting) {
+		demoChatPart5()
+	}
+	
 	onMount(() => {
 		AOS.init();
 		demoChat();
 	});
-
 </script>
 
+
 <section>
+	<IntersectionObserver bind:intersecting={topSectionIntersecting} top={0} />
+
 	<div class="grid container lg:grid-cols-[3fr_2fr] items-stretch gap-8 mx-auto pt-[5vh] pb-[10vh]">
 		<div class="max-lg:text-center">
-			<div class="pb-20">
+			<div class="pb-20 h-screen">
 				<div>
 					<h2
 						class="my-6 text-[10vw] sm:text-4xl md:text-5xl lg:text-7xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-full max-lg:mx-auto"
@@ -77,8 +160,9 @@
 				</div>
 			</div>
 
-			<section class="md:h-[50vh] md:min-h-[30em] pb-10">
+			<section class="md:h-screen md:min-h-40em] pb-10">
 				<div class="md:sticky top-20 py-10">
+					<IntersectionObserver bind:intersecting={uploadSectionIntersecting} top={0} />
 					
 					<h2 class="text-5xl font-bold flex items-center gap-4">
 						<span class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center">1</span>
@@ -115,8 +199,10 @@
 					</div>
 				</div>
 			</section>
-			<section class="md:h-[50vh] md:min-h-[30em] pb-10">
+			<section class="md:h-screen md:min-h-[40em] pb-10">
+				
 				<div class="md:sticky top-20 py-10">
+					<IntersectionObserver bind:intersecting={urlSectionIntersecting} top={0} />
 					
 					<h2 class="text-5xl font-bold flex items-center gap-4">
 						<span class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center">1.1</span>
@@ -160,12 +246,14 @@
 
 			<section class="md:h-screen md:min-h-[50em]">
 				<div class="md:sticky top-20 py-10">
+					<IntersectionObserver bind:intersecting={promptSectionIntersecting} top={0} />
+
 					<h2 class="text-5xl font-bold flex items-center gap-4">
 						<span class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center">2</span>
 						<span>Customize Your Prompt.</span>
 					</h2>
-					<div class="my-10 rounded-lg bg-base-300 p-4 leading-7">
-						I want you to act as a customer support AI from YOUR WEBSITE/COMPANY that I am having a conversation with. Your name is "YOUR WEBSITE/COMPANY AI". You will provide me with answers related to WEBSITE/COMPANY. You will be as detailed as possible. Refuse to answer any question not about the text or WEBSITE/COMPANY. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message. Please use simple and clear formatting.
+					<div class="my-10 rounded-xl bg-neutral p-4 leading-7 md:leading-8 md:text-lg font-light max-w-2xl">
+						I want you to act as a customer support AI for ChatNode that I am having a conversation with. Your name is "ChatNode AI". You will provide me with answers related to ChatNode. You will be as detailed as possible. Refuse to answer any question not about the text or ChatNode. Never break character. Always answer in the same language as the queston you are asked.
 
 					</div>
 				</div>
@@ -173,37 +261,46 @@
 
 			<section class="md:h-screen md:min-h-[50em]">
 				<div class="md:sticky top-20 py-10">
+					<IntersectionObserver bind:intersecting={brandSectionIntersecting} top={0} />
 					<h2 class="text-5xl font-bold flex items-center gap-4 mb-10">
 						<span class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center">3</span>
-						<span>Add to Your Website</span>
+						<span>Add Your Branding</span>
 					</h2>
-					<div class="h-[300px]">
-
-						<WaysToShare />
+					<h3 class="mb-4">Check out these actual customer designs.</h3>
+					<div class="">
+						<button class="btn btn-primary bg-white text-black" on:click={() => showcaseTheme('living-at-moens')}>Living@Moens</button>
+						Need more well designed chatbots that people have built.
 					</div>
 				</div>
 			</section>
+
+			<section class="pt-10">
+					<h2 class="text-5xl font-bold flex items-center gap-4 mb-10">
+						<span>And Publish!</span>
+					</h2>
+			</section>
 		</div>
+
 		<div>
 				<div
-					class="md:sticky top-20 mockup-window border-4 border-secondary bg-base-100 max-w-4xl mx-auto overflow-visible"
+					id="chat-wrapper"
+					class="md:sticky top-20 rounded-2xl border-secondary bg-base-100 max-w-4xl mx-auto overflow-hidden h-[calc(100vh-16em)]"
+					data-aos="fade-up"
 				>
-					<div
-						class="flex justify-center p-1 md:p-4 pt-0 min-h-[50vh] h-[20rem] border-t border-base-300"
-					>
-						<div class="w-full">
+
 							<Chat
 								modelId="befbfc87e25911db"
 								bind:messages
-								avatar="https://res.cloudinary.com/duoacapcy/image/upload/v1687011043/ChatNode-Logo-Avatar_fdyalc.svg"
 								settings={chatSettings}
 								userId="5uDVaFgS32peeLl"
 							/>
 						</div>
 					</div>
-				</div>
-		</div>
 	</div>
+</section>
+
+<section>
+	<WaysToShare />
 </section>
 
 
