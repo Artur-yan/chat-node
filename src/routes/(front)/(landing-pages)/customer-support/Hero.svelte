@@ -5,7 +5,6 @@
 	import AOS from 'aos';
 	import { onMount } from 'svelte';
 	import IntersectionObserver from '$lib/components/IntersectionObserver.svelte';
-	import showcaseThemes from '$lib/showcaseThemes';
 
 	import 'aos/dist/aos.css';
 	import WaysToShare from '../../(homepage)/WaysToShare.svelte';
@@ -15,18 +14,15 @@
 	};
 	chatSettings.theme.resetButton = '#FFFFFF88';
 
-	const code = `<script src="https://www.chatnode.ai/embed.js" data-chatbot-id="befbfc87e25911db" data-color-1="#0E1729" data-color-2="#3ABFF7"><\/script>`;
-
-
 	let messages = []
-
 
 	const demoChat = async () => {
 		chatSettings.theme = themes['default']
+		chatSettings.theme.bg = '#FFFFFFEE';
 
 		messages = [
 			{
-			text: 'Hi, how can I help you?',
+			text: '👋 Hi, I\'m here to help you create your AI chatbot',
 			sender: 'bot'
 			},
 			{
@@ -34,7 +30,7 @@
 				sender: 'user'
 			},
 			{
-				text: "Great! I'm here to help you with that. You can create a free account at https://www.chatnode.ai/register",
+				text: "That's great! With ChatNode, you can easily build an AI Customer Support Agent to quickly respond to customer inquiries 24/7. Your chatbot is trained on your website, PDFs, and more. [https://www.chatnode.ai/register](https://www.chatnode.ai/register)",
 				sender: 'bot'
 			}
 		];
@@ -44,7 +40,7 @@
 
 		messages = [
 			{
-				text: 'Great! I\'m here to help you with that. You can create a free account at https://www.chatnode.ai/register',
+				text: 'Do you have customer supprt scripts, product spec docs or FAQs as documents? You can easily upload those to train your chatbot on.',
 				sender: 'bot'
 			},
 			{
@@ -62,11 +58,14 @@
 
 		messages = [
 			{
-				text: 'How do I add URLs',
-				sender: 'user'
+				text: 'Would you like to crawl a website for data?',
+				sender: 'bot'
 			},
 			{
-				text: "Add the url of any website and we will crawl it and all sub-pages for text to train your chatbot on.",
+				text: 'Yes, how do I add URLs',
+			},
+			{
+				text: "Add the url of any website and we will scrape it and any sub-pages for text to train your chatbot on. You can select which pages to include and can always add or remove urls later.",
 				sender: 'bot'
 			}
 		];
@@ -76,11 +75,14 @@
 
 		messages = [
 			{
-				text: 'What is a prompt?',
-				sender: 'user'
+				text: "A prompt allows you to change the tone and behvaior of your chatbot's personality.",
+				sender: 'bot'
 			},
 			{
-				text: "A prompt allows you to change the tone and behvaior of your chatbot's personality.",
+				text: 'Can I use the prompt to make my chatbot speak like a customer support agent?',
+			},
+			{
+				text: "Absolutely! You can prompt your chatbot to ask certain questions up-front, repsond differently based on the answer and provide contact information if the chatbot is unable to answer the question. Get creative!",
 				sender: 'bot'
 			}
 		];
@@ -90,18 +92,21 @@
 
 		messages = [
 			{
-				text: 'What can I customize?',
-				sender: 'user'
+				text: "You can customize the colors of everything, hide or show the send button, change the greeting, add a header and more!",
+				sender: 'bot'
 			},
 			{
-				text: "You can customize the colors of everything, hide or show the send button, chenge the greeting, add a header and more!",
+				text: 'What if I am bad at design?',
+			},
+			{
+				text: "No problem! We have a bunch of pre-made themes you can choose from.",
 				sender: 'bot'
 			}
 		];
 	};
 
 	const showcaseTheme = (themeName) => {
-		chatSettings.theme = showcaseThemes[themeName]
+		chatSettings.theme = themes[themeName]
 	}
 
 	
@@ -137,14 +142,14 @@
 <section>
 	<IntersectionObserver bind:intersecting={topSectionIntersecting} top={0} />
 
-	<div class="grid container lg:grid-cols-[3fr_2fr] items-stretch gap-8 mx-auto pt-[5vh] pb-[10vh]">
+	<div class="grid container lg:grid-cols-[4fr_3fr] items-stretch gap-8 md:gap-12 lg:gap-16 mx-auto pt-[5vh] pb-[10vh]">
 		<div class="max-lg:text-center">
 			<div class="pb-20 h-screen">
 				<div>
 					<h2
-						class="my-6 text-[10vw] sm:text-4xl md:text-5xl lg:text-7xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-full max-lg:mx-auto"
+						class="my-6 text-[8vw] sm:text-3xl md:text-4xl lg:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-full max-lg:mx-auto"
 					>
-						Create your own AI <div class="text-primary">Customer Support Agent</div>
+						Create your own <div class="text-primary">AI Customer Support Agent</div>
 					</h2>
 					<div
 						class="text-2xl md:text-3xl lg:text-4xl font-bold max-w-[24ch] lg:max-w-[40ch] md:leading-10 max-lg:mx-auto"
@@ -266,25 +271,50 @@
 						<span class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center">3</span>
 						<span>Add Your Branding</span>
 					</h2>
-					<h3 class="mb-4">Check out these actual customer designs.</h3>
-					<div class="">
-						<button class="btn btn-primary bg-white text-black" on:click={() => showcaseTheme('living-at-moens')}>Living@Moens</button>
-						Need more well designed chatbots that people have built.
+					<div class="card bg-neutral card-compact mb-4">
+						<div class="card-body">
+							<div class="themes">
+									<button
+										class="btn bg-[#0F172A] text-[#818CF8]"
+										on:click={() => showcaseTheme('default')}
+									>
+										Default
+									</button>
+									<button
+										class="btn bg-[#3A3B3C] text-[#0084FF]"
+										on:click={() => showcaseTheme('meta-dark')}
+									>
+										Meta Dark
+									</button>
+									<button
+										class="btn bg-[white] text-[#3093FF]"
+										on:click={() => showcaseTheme('ios-light')}
+									>
+										iOS Light
+									</button>
+									<button
+										class="btn bg-[black] text-[#3093FF]"
+										on:click={() => showcaseTheme('ios-dark')}
+									>
+										iOS Dark
+									</button>
+									<button
+										class="btn bg-[#666666] text-[#333333]"
+										on:click={() => showcaseTheme('neutral')}
+									>
+										Neutral
+									</button>
+							</div>
+						</div>
 					</div>
 				</div>
-			</section>
-
-			<section class="pt-10">
-					<h2 class="text-5xl font-bold flex items-center gap-4 mb-10">
-						<span>And Publish!</span>
-					</h2>
 			</section>
 		</div>
 
 		<div>
 				<div
 					id="chat-wrapper"
-					class="md:sticky top-20 rounded-2xl border-secondary bg-base-100 max-w-4xl mx-auto overflow-hidden h-[calc(100vh-16em)]"
+					class="md:sticky top-1/4 rounded-2xl border-secondary bg-base-100 max-w-4xl mx-auto overflow-hidden h-[calc(50vh)]"
 					data-aos="fade-up"
 				>
 
