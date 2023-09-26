@@ -5,6 +5,7 @@
 	import Chat from '$lib/components/Chat.svelte';
 	import { alert } from '$lib/stores.js';
 	import Accordian from '$lib/components/Accordian.svelte';
+	import { getText, updateText } from '$lib/textSource';
 
 	export let data;
 
@@ -54,6 +55,31 @@
 			restart();
 		}
 	};
+
+	let textSourceToEdit: Object;
+	let textSourceValue: string;
+
+	const editTextSource = async (textObj) => {
+		textSourceToEdit = null;
+		textSourceValue = null;
+		editTextSourceModal.showModal();
+		const res = await getText(textObj.id, new Array(textObj.s3_key), data.model.user_id, data.user.session.sessionId)
+		textSourceToEdit = res;
+		textSourceValue = Object.values(res)[0];
+
+	}
+
+	const handleTextUpdate = async (source_key: string, text: string) => {
+		trainingStatus = 'training';
+		updateText(
+			source_key,
+			data.model.id,
+			text,
+			data.model.user_id,
+			data.user.session.sessionId
+		)
+	}
+
 
 	const retrainUrls = async (s3_keys: Array<string>) => {
 		// trainingStatus = 'training';
@@ -266,7 +292,7 @@
 										{text.name}
 									</td>
 									<td>{text.token_count}</td>
-									<td class="flex">
+									<td class="flex gap-2">
 										<button
 											class="btn btn-sm btn-circle btn-ghost text-error"
 											on:click={() => {
@@ -285,6 +311,12 @@
 													d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
 												/>
 											</svg>
+										</button>
+										<button
+											class="btn btn-sm btn-circle btn-ghost text-success"
+											on:click={() => editTextSource(text)}
+										>
+										<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M3 17.46v3.04c0 .28.22.5.5.5h3.04c.13 0 .26-.05.35-.15L17.81 9.94l-3.75-3.75L3.15 17.1c-.1.1-.15.22-.15.36zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83z"/></svg>
 										</button>
 									</td>
 								</tr>
@@ -371,5 +403,26 @@
 	</form>
 	<form method="dialog" class="modal-backdrop">
 		<button>close</button>
+	</form>
+</dialog>
+
+
+<dialog id="editTextSourceModal" class="modal">
+	<form method="dialog" class="modal-box max-w-none absolute inset-4 md:inset-8 lg:inset-10 w-auto flex flex-col justify-between gap-4">
+		<div class="flex-1">
+			{#if textSourceToEdit}
+				<textarea class="w-full textarea h-full" bind:value={textSourceValue}></textarea>
+			{:else}
+				<div class="flex items-center justify-center h-full">
+					<span class="loading loading-spinner loading-xs mr-2"></span> Loading Text...
+				</div>
+			{/if}
+		</div>
+		<div class="flex justify-between gap-2">
+			<button class="btn">Discard</button>
+			<button class="btn btn-success" on:click={() => handleTextUpdate(Object.keys(textSourceToEdit)[0], textSourceValue)}>
+				Save
+			</button>
+		</div>
 	</form>
 </dialog>
