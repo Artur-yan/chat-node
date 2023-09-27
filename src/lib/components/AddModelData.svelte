@@ -5,6 +5,7 @@
 	import { alert } from '$lib/stores.js';
 	import { fade } from 'svelte/transition';
 	import { goto } from '$app/navigation';
+	import Modal from './Modal.svelte';
 
 	export let modelId: string = '';
 	export let userId: string;
@@ -323,8 +324,9 @@
 				<div class="join">
 					<input
 						type="text"
-						class="input input-bordered w-full join-item"
+						class="input input-bordered w-full join-item placeholder:text-sm"
 						bind:value={url}
+						placeholder="e.g. https://chatnode.ai or https://chatnode.ai/sitemap.xml"
 						required
 						autofocus
 					/>
@@ -335,11 +337,8 @@
 				</div>
 			</div>
 		</form>
-		<p class="help">
-			Add any public url for a website, Google doc, PDF, and much more and we'll check for any
-			sub-pages. You can select the pages to be included from our results before adding them to your
-			bot.
-		</p>
+
+		<button class="btn btn-xs my-4" on:click={() => urlHelp.showModal()}>help</button>
 
 		{#if urls}
 			<table class="table table-sm w-full max-w-full my-4">
@@ -439,3 +438,22 @@
 		{/if}
 	{/if}
 </div>
+
+
+<Modal title="Training your bot on URLs" id="urlHelp">
+	<h3 class="font-bold mb-4">Websites</h3>
+	<p>
+		Add any public url for a website and we will check it for sub-pages. You can select which pages to include/exclude in adding data to your bot.
+	</p>
+
+	<h3 class="font-bold mb-4 mt-8">Google Docs / Notion / Online PDFs / + more</h3>
+	<p>
+		Any text based site that is pubically available can be use to train your bot. For Google docs or notion, make sure that the content is public and paste the share url here.
+	</p>
+
+	<h3 class="font-bold mb-4 mt-8">Sitemaps</h3>
+	<p>
+		Add the url of any XML sitemap and we will scrape every url included.
+	</p>
+
+</Modal>
