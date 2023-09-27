@@ -63,23 +63,20 @@
 		textSourceToEdit = null;
 		textSourceValue = null;
 		editTextSourceModal.showModal();
-		const res = await getText(textObj.id, new Array(textObj.s3_key), data.model.user_id, data.user.session.sessionId)
+		const res = await getText(
+			textObj.id,
+			new Array(textObj.s3_key),
+			data.model.user_id,
+			data.user.session.sessionId
+		);
 		textSourceToEdit = res;
 		textSourceValue = Object.values(res)[0];
-
-	}
+	};
 
 	const handleTextUpdate = async (source_key: string, text: string) => {
 		trainingStatus = 'training';
-		updateText(
-			source_key,
-			data.model.id,
-			text,
-			data.model.user_id,
-			data.user.session.sessionId
-		)
-	}
-
+		updateText(source_key, data.model.id, text, data.model.user_id, data.user.session.sessionId);
+	};
 
 	const retrainUrls = async (s3_keys: Array<string>) => {
 		// trainingStatus = 'training';
@@ -128,93 +125,73 @@
 		<div class="card card-compact bg-neutral">
 			<div class="card-body">
 				<h2 class="card-title">Trained Data Sources</h2>
-					<div class="flex">
-						<div class="tabs tabs-boxed gap-2">
-							{#if data.modelData?.urls.length}
-								<button
-									class="tab"
-									on:click={() => (activeDataTab = 'urls')}
-									class:tab-active={activeDataTab === 'urls'}
-								>
-									URLs <span class="badge badge-sm ml-2">{data.modelData?.urls.length}</span>
-								</button>
-							{/if}
-							{#if data.modelData?.files.length}
-								<button
-									class="tab"
-									on:click={() => (activeDataTab = 'files')}
-									class:tab-active={activeDataTab === 'files'}
-								>
-									Files <span class="badge badge-sm ml-2">{data.modelData?.files.length}</span>
-								</button>
-							{/if}
-							{#if data.modelData?.texts.length}
-								<button
-									class="tab"
-									on:click={() => (activeDataTab = 'text')}
-									class:tab-active={activeDataTab === 'text'}
-								>
-									Text <span class="badge badge-sm ml-2">{data.modelData?.texts.length}</span>
-								</button>
-							{/if}
-							{#if data.modelData?.legacyUrls.length}
-								<button
-									class="tab"
-									on:click={() => (activeDataTab = 'legacy-urls')}
-									class:tab-active={activeDataTab === 'legacy-urls'}
-								>
-									Legacy URLs
-								</button>
-							{/if}
-						</div>
+				<div class="flex">
+					<div class="tabs tabs-boxed gap-2">
+						{#if data.modelData?.urls.length}
+							<button
+								class="tab"
+								on:click={() => (activeDataTab = 'urls')}
+								class:tab-active={activeDataTab === 'urls'}
+							>
+								URLs <span class="badge badge-sm ml-2">{data.modelData?.urls.length}</span>
+							</button>
+						{/if}
+						{#if data.modelData?.files.length}
+							<button
+								class="tab"
+								on:click={() => (activeDataTab = 'files')}
+								class:tab-active={activeDataTab === 'files'}
+							>
+								Files <span class="badge badge-sm ml-2">{data.modelData?.files.length}</span>
+							</button>
+						{/if}
+						{#if data.modelData?.texts.length}
+							<button
+								class="tab"
+								on:click={() => (activeDataTab = 'text')}
+								class:tab-active={activeDataTab === 'text'}
+							>
+								Text <span class="badge badge-sm ml-2">{data.modelData?.texts.length}</span>
+							</button>
+						{/if}
+						{#if data.modelData?.legacyUrls.length}
+							<button
+								class="tab"
+								on:click={() => (activeDataTab = 'legacy-urls')}
+								class:tab-active={activeDataTab === 'legacy-urls'}
+							>
+								Legacy URLs
+							</button>
+						{/if}
 					</div>
+				</div>
 
-					{#if activeDataTab === 'urls'}
-						<div class="space-y-4">
-							{#each data.modelData.baseUrls as baseUrl}
-								<Accordian open={true}>
-									<h2 slot="title">{baseUrl}</h2>
-									<table class="table w-full table-xs">
-										<thead>
+				{#if activeDataTab === 'urls'}
+					<div class="space-y-4">
+						{#each data.modelData.baseUrls as baseUrl}
+							<Accordian open={true}>
+								<h2 slot="title">{baseUrl}</h2>
+								<table class="table w-full table-xs">
+									<thead>
+										<tr>
+											<th class="w-full">Name</th>
+											<th class="w-full">Tokens</th>
+											<th />
+										</tr>
+									</thead>
+									{#each data.modelData.urls as url}
+										{#if url.base_url === baseUrl}
 											<tr>
-												<th class="w-full">Name</th>
-												<th class="w-full">Tokens</th>
-												<th />
-											</tr>
-										</thead>
-										{#each data.modelData.urls as url}
-											{#if url.base_url === baseUrl}
-												<tr>
-													<td>
-														{url.name}
-													</td>
-													<td>{url.token_count}</td>
-													<td class="flex gap-5">
-														<div class="tooltip tooltip-left" data-tip="Re-Train">
-															<button
-																class="btn btn-sm btn-circle btn-ghost"
-																on:click={() => {
-																	retrainUrls([url.s3_key]);
-																}}
-															>
-																<svg
-																	xmlns="http://www.w3.org/2000/svg"
-																	width="16"
-																	height="16"
-																	viewBox="0 0 24 24"
-																>
-																	<path
-																		fill="currentColor"
-																		d="M15 12c0-1.7-1.3-3-3-3s-3 1.3-3 3s1.3 3 3 3s3-1.3 3-3zm2-8.7C13.1 1.1 8.3 1.8 5.1 4.7V3c0-.6-.4-1-1-1s-1 .4-1 1v4.5c0 .6.4 1 1 1h4.5c.6 0 1-.4 1-1s-.4-1-1-1H6.2C7.7 4.9 9.8 4 12 4c4.4 0 8 3.6 8 8c0 .6.4 1 1 1s1-.4 1-1c0-3.6-1.9-6.9-5-8.7zm2.9 12.2h-4.5c-.6 0-1 .4-1 1s.4 1 1 1h2.4C16.3 19.1 14.2 20 12 20c-4.4 0-8-3.6-8-8c0-.6-.4-1-1-1s-1 .4-1 1c0 5.5 4.5 10 10 10c2.6 0 5-1 6.9-2.8V21c0 .6.4 1 1 1s1-.4 1-1v-4.5c0-.6-.5-1-1-1z"
-																	/>
-																</svg>
-															</button>
-														</div>
+												<td>
+													{url.name}
+												</td>
+												<td>{url.token_count}</td>
+												<td class="flex gap-5">
+													<div class="tooltip tooltip-left" data-tip="Re-Train">
 														<button
-															class="btn btn-sm btn-circle btn-ghost text-error"
+															class="btn btn-sm btn-circle btn-ghost"
 															on:click={() => {
-																sourceToDelete = url;
-																deleteDataSourceModal.showModal();
+																retrainUrls([url.s3_key]);
 															}}
 														>
 															<svg
@@ -225,145 +202,174 @@
 															>
 																<path
 																	fill="currentColor"
-																	d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
+																	d="M15 12c0-1.7-1.3-3-3-3s-3 1.3-3 3s1.3 3 3 3s3-1.3 3-3zm2-8.7C13.1 1.1 8.3 1.8 5.1 4.7V3c0-.6-.4-1-1-1s-1 .4-1 1v4.5c0 .6.4 1 1 1h4.5c.6 0 1-.4 1-1s-.4-1-1-1H6.2C7.7 4.9 9.8 4 12 4c4.4 0 8 3.6 8 8c0 .6.4 1 1 1s1-.4 1-1c0-3.6-1.9-6.9-5-8.7zm2.9 12.2h-4.5c-.6 0-1 .4-1 1s.4 1 1 1h2.4C16.3 19.1 14.2 20 12 20c-4.4 0-8-3.6-8-8c0-.6-.4-1-1-1s-1 .4-1 1c0 5.5 4.5 10 10 10c2.6 0 5-1 6.9-2.8V21c0 .6.4 1 1 1s1-.4 1-1v-4.5c0-.6-.5-1-1-1z"
 																/>
 															</svg>
 														</button>
+													</div>
+													<button
+														class="btn btn-sm btn-circle btn-ghost text-error"
+														on:click={() => {
+															sourceToDelete = url;
+															deleteDataSourceModal.showModal();
+														}}
+													>
+														<svg
+															xmlns="http://www.w3.org/2000/svg"
+															width="16"
+															height="16"
+															viewBox="0 0 24 24"
+														>
+															<path
+																fill="currentColor"
+																d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
+															/>
+														</svg>
+													</button>
+												</td>
+											</tr>
+										{/if}
+									{/each}
+								</table>
+							</Accordian>
+						{/each}
+					</div>
+				{:else if activeDataTab === 'files'}
+					<table class="table w-full table-xs">
+						<thead>
+							<tr>
+								<th class="w-full">Name</th>
+								<th class="w-full">Tokens</th>
+								<th />
+							</tr>
+						</thead>
+						{#each data.modelData.files as file}
+							<tr>
+								<td>
+									{file.name}
+								</td>
+								<td>{file.token_count}</td>
+								<td class="flex">
+									<button
+										class="btn btn-sm btn-circle btn-ghost text-error"
+										on:click={() => {
+											sourceToDelete = file;
+											deleteDataSourceModal.showModal();
+										}}
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+										>
+											<path
+												fill="currentColor"
+												d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
+											/>
+										</svg>
+									</button>
+								</td>
+							</tr>
+						{/each}
+					</table>
+				{:else if activeDataTab === 'text'}
+					<table class="table w-full table-xs">
+						<thead>
+							<tr>
+								<th class="w-full">Name</th>
+								<th class="w-full">Tokens</th>
+								<th />
+							</tr>
+						</thead>
+						{#each data.modelData.texts as text}
+							<tr>
+								<td>
+									{text.name}
+								</td>
+								<td>{text.token_count}</td>
+								<td class="flex gap-2">
+									<button
+										class="btn btn-sm btn-circle btn-ghost text-error"
+										on:click={() => {
+											sourceToDelete = text;
+											deleteDataSourceModal.showModal();
+										}}
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+										>
+											<path
+												fill="currentColor"
+												d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
+											/>
+										</svg>
+									</button>
+									<button
+										class="btn btn-sm btn-circle btn-ghost text-success"
+										on:click={() => editTextSource(text)}
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="18"
+											height="18"
+											viewBox="0 0 24 24"
+										>
+											<path
+												fill="currentColor"
+												d="M3 17.46v3.04c0 .28.22.5.5.5h3.04c.13 0 .26-.05.35-.15L17.81 9.94l-3.75-3.75L3.15 17.1c-.1.1-.15.22-.15.36zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83z"
+											/>
+										</svg>
+									</button>
+								</td>
+							</tr>
+						{/each}
+					</table>
+				{:else if activeDataTab === 'legacy-urls'}
+					<table class="table w-full table-xs">
+						<thead>
+							<tr>
+								<th class="w-full">Name</th>
+								<th class="w-full">Tokens</th>
+								<th />
+							</tr>
+						</thead>
+						{#each data.modelData?.legacyUrls as url}
+							<tr>
+								<td>
+									{@html url.name.replace(/,/g, '<br>')}
 
-													</td>
-												</tr>
-											{/if}
-										{/each}
-									</table>
-								</Accordian>
-							{/each}
-						</div>
-					{:else if activeDataTab === 'files'}
-						<table class="table w-full table-xs">
-							<thead>
-								<tr>
-									<th class="w-full">Name</th>
-									<th class="w-full">Tokens</th>
-									<th />
-								</tr>
-							</thead>
-							{#each data.modelData.files as file}
-								<tr>
-									<td>
-										{file.name}
-									</td>
-									<td>{file.token_count}</td>
-									<td class="flex">
-										<button
-											class="btn btn-sm btn-circle btn-ghost text-error"
-											on:click={() => {
-												sourceToDelete = file;
-												deleteDataSourceModal.showModal();
-											}}
+									<!-- replace all commas with a line break -->
+								</td>
+								<td>{url.token_count || ''}</td>
+								<td class="flex">
+									<button
+										class="btn btn-sm btn-circle btn-ghost text-error"
+										on:click={() => {
+											sourceToDelete = url;
+											deleteDataSourceModal.showModal();
+										}}
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
 										>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												width="16"
-												height="16"
-												viewBox="0 0 24 24"
-											>
-												<path
-													fill="currentColor"
-													d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
-												/>
-											</svg>
-										</button>
-									</td>
-								</tr>
-							{/each}
-						</table>
-					{:else if activeDataTab === 'text'}
-						<table class="table w-full table-xs">
-							<thead>
-								<tr>
-									<th class="w-full">Name</th>
-									<th class="w-full">Tokens</th>
-									<th />
-								</tr>
-							</thead>
-							{#each data.modelData.texts as text}
-								<tr>
-									<td>
-										{text.name}
-									</td>
-									<td>{text.token_count}</td>
-									<td class="flex gap-2">
-										<button
-											class="btn btn-sm btn-circle btn-ghost text-error"
-											on:click={() => {
-												sourceToDelete = text;
-												deleteDataSourceModal.showModal();
-											}}
-										>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												width="16"
-												height="16"
-												viewBox="0 0 24 24"
-											>
-												<path
-													fill="currentColor"
-													d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
-												/>
-											</svg>
-										</button>
-										<button
-											class="btn btn-sm btn-circle btn-ghost text-success"
-											on:click={() => editTextSource(text)}
-										>
-										<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M3 17.46v3.04c0 .28.22.5.5.5h3.04c.13 0 .26-.05.35-.15L17.81 9.94l-3.75-3.75L3.15 17.1c-.1.1-.15.22-.15.36zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83z"/></svg>
-										</button>
-									</td>
-								</tr>
-							{/each}
-						</table>
-					{:else if activeDataTab === 'legacy-urls'}
-						<table class="table w-full table-xs">
-							<thead>
-								<tr>
-									<th class="w-full">Name</th>
-									<th class="w-full">Tokens</th>
-									<th />
-								</tr>
-							</thead>
-							{#each data.modelData?.legacyUrls as url}
-								<tr>
-									<td>
-										{@html url.name.replace(/,/g, '<br>')}
-
-										<!-- replace all commas with a line break -->
-									</td>
-									<td>{url.token_count || ''}</td>
-									<td class="flex">
-										<button
-											class="btn btn-sm btn-circle btn-ghost text-error"
-											on:click={() => {
-												sourceToDelete = url;
-												deleteDataSourceModal.showModal();
-											}}
-										>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												width="16"
-												height="16"
-												viewBox="0 0 24 24"
-											>
-												<path
-													fill="currentColor"
-													d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
-												/>
-											</svg>
-										</button>
-									</td>
-								</tr>
-							{/each}
-						</table>
-					{/if}
+											<path
+												fill="currentColor"
+												d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
+											/>
+										</svg>
+									</button>
+								</td>
+							</tr>
+						{/each}
+					</table>
+				{/if}
 			</div>
 		</div>
 	</div>
@@ -406,21 +412,27 @@
 	</form>
 </dialog>
 
-
 <dialog id="editTextSourceModal" class="modal">
-	<form method="dialog" class="modal-box max-w-none absolute inset-4 md:inset-8 lg:inset-10 w-auto flex flex-col justify-between gap-4">
+	<form
+		method="dialog"
+		class="modal-box max-w-none absolute inset-4 md:inset-8 lg:inset-10 w-auto flex flex-col justify-between gap-4"
+	>
 		<div class="flex-1">
 			{#if textSourceToEdit}
-				<textarea class="w-full textarea h-full" bind:value={textSourceValue}></textarea>
+				<textarea class="w-full textarea h-full" bind:value={textSourceValue} />
 			{:else}
 				<div class="flex items-center justify-center h-full">
-					<span class="loading loading-spinner loading-xs mr-2"></span> Loading Text...
+					<span class="loading loading-spinner loading-xs mr-2" />
+					 Loading Text...
 				</div>
 			{/if}
 		</div>
 		<div class="flex justify-between gap-2">
 			<button class="btn">Discard</button>
-			<button class="btn btn-success" on:click={() => handleTextUpdate(Object.keys(textSourceToEdit)[0], textSourceValue)}>
+			<button
+				class="btn btn-success"
+				on:click={() => handleTextUpdate(Object.keys(textSourceToEdit)[0], textSourceValue)}
+			>
 				Save
 			</button>
 		</div>

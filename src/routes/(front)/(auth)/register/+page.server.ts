@@ -9,7 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { domainBlacklist } from '$lib/systemSettings';
 import fbEvent from '$lib/server/fb';
 
-
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (session) throw redirect(302, '/account/chatbots');
@@ -62,8 +61,6 @@ export const actions: Actions = {
 		const appsumoCodes = form.get('appsumo-codes');
 
 		let codes: Array<string> = [];
-
-
 
 		let subscriptionLimits = specialPlans['free'];
 		let tooManyCodes = false;
@@ -126,7 +123,6 @@ export const actions: Actions = {
 			}
 
 			subscriptionLimits = specialPlans['appsumo' + codes.length.toString()];
-
 		}
 
 		try {
@@ -166,7 +162,16 @@ export const actions: Actions = {
 			const session = await auth.createSession(user.userId);
 			locals.auth.setSession(session);
 		} catch (error) {
-			console.error('ERROR', error, 'Email', email, 'Apssumo Codes', codes, 'Limits', subscriptionLimits);
+			console.error(
+				'ERROR',
+				error,
+				'Email',
+				email,
+				'Apssumo Codes',
+				codes,
+				'Limits',
+				subscriptionLimits
+			);
 			if (error.code === 'P2002' && error.message?.includes('email')) {
 				return fail(400, {
 					message: 'Email already in use'
@@ -185,8 +190,7 @@ export const actions: Actions = {
 		}
 
 		// Update Codes
-		if(appsumoCodes) {
-
+		if (appsumoCodes) {
 			await prismaClient.appSumoCodes.updateMany({
 				where: {
 					code: { in: codes }
@@ -198,7 +202,6 @@ export const actions: Actions = {
 				}
 			});
 		}
-
 
 		throw redirect(302, '/account/chatbots?signup=success');
 	}

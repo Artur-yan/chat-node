@@ -73,16 +73,14 @@ export const actions = {
 				});
 			} else {
 				// Success
-				let newPlanId
-				if(subscription.plan > 1000) {
+				let newPlanId;
+				if (subscription.plan > 1000) {
 					newPlanId = subscription.plan + codes.length;
-				} else if(subscription.plan === 0) {
+				} else if (subscription.plan === 0) {
 					newPlanId = 1000 + codes.length;
 				} else {
-					return
+					return;
 				}
-				
-
 
 				await prismaClient.subscriptions.update({
 					where: {

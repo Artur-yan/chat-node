@@ -113,9 +113,7 @@
 					</div>
 					<div class="chat-bubble">
 						<div class="message-body">
-							{@html postProcessMsgHTML(
-								md.render(item.message.data.content)
-							)}
+							{@html postProcessMsgHTML(md.render(item.message.data.content))}
 						</div>
 					</div>
 				</div>

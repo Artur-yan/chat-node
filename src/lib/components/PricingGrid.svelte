@@ -23,7 +23,7 @@
 	let planToChangeTo: number;
 	const handleConfirmPlanChange = (plan: number) => {
 		planToChangeTo = plan;
-		if(currentPlan === 0) {
+		if (currentPlan === 0) {
 			updatePlan(plan);
 			return;
 		} else {
@@ -82,10 +82,12 @@
 			</ul>
 		</div>
 	</div>
-<div class="relative">
+	<div class="relative">
 		{#if busyChangingPlan}
-			<div class="bg-base-100 w-full h-full absolute z-10 opacity-70 flex items-center justify-center pb-20">
-				<div class="loading loading-spinner text-successs loading-lg text-primary"></div>
+			<div
+				class="bg-base-100 w-full h-full absolute z-10 opacity-70 flex items-center justify-center pb-20"
+			>
+				<div class="loading loading-spinner text-successs loading-lg text-primary" />
 			</div>
 		{/if}
 		<div class="my-8 grid md:grid-cols-3 gap-y-8 lg:gap-y-20">
@@ -103,17 +105,19 @@
 							{currentPlan === 0 ? 'Current plan' : 'Change plan'}
 						</button>
 					{:else}
-						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
+						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
+							Sign up
+						</a>
 					{/if}
 				</div>
 				<ul>
 					<li>
 						<span class="figure">50</span>
-						 messages/mo.
+						messages/mo.
 					</li>
 					<li>
 						<span class="figure">1</span>
-						 chatbot
+						chatbot
 					</li>
 					<li>
 						<div
@@ -121,7 +125,7 @@
 							data-tip="approx. 400,000 characters"
 						>
 							<span class="figure">100,000</span>
-							 tokens/bot
+							tokens/bot
 						</div>
 					</li>
 				</ul>
@@ -163,17 +167,19 @@
 							</button>
 						{/if}
 					{:else}
-						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
+						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
+							Sign up
+						</a>
 					{/if}
 				</div>
 				<ul>
 					<li>
 						<span class="figure">2,000</span>
-						 messages/mo.
+						messages/mo.
 					</li>
 					<li>
 						<span class="figure">5</span>
-						 Chatbots
+						Chatbots
 					</li>
 					<li>
 						<div
@@ -181,12 +187,12 @@
 							data-tip="approx. 2,000,000 characters"
 						>
 							<span class="figure">500,000</span>
-							 tokens/bot
+							tokens/bot
 						</div>
 					</li>
 					<li>
 						<span class="figure">3 Day</span>
-						 chat history
+						chat history
 					</li>
 				</ul>
 			</div>
@@ -227,18 +233,20 @@
 							</button>
 						{/if}
 					{:else}
-						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">Sign up</a>
+						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
+							Sign up
+						</a>
 					{/if}
 				</div>
 				<div class="grid lg:grid-cols-2">
 					<ul>
 						<li>
 							<span class="figure">5,000</span>
-							 message/mo.
+							message/mo.
 						</li>
 						<li>
 							<span class="figure">10</span>
-							 Chatbots
+							Chatbots
 						</li>
 						<li>
 							<div
@@ -246,23 +254,25 @@
 								data-tip="approx. 4,000,000 characters"
 							>
 								<span class="figure">1,000,000</span>
-								 tokens/bot
+								tokens/bot
 							</div>
 						</li>
 						<li>
 							<span class="figure">7 Day</span>
-							 chat history
+							chat history
 						</li>
 					</ul>
 					<ul class="extra">
 						<li>Remove ChatNode branding</li>
-						<li>Bring your own OpenAI API key
+						<li>
+							Bring your own OpenAI API key
 							<span
-							class="tooltip tooltip-left badge"
-							data-tip="After you've used up your ChatNode messages, we'll automatically switch to your OpenAI API key"
-						>
-							?
-						</span></li>
+								class="tooltip tooltip-left badge"
+								data-tip="After you've used up your ChatNode messages, we'll automatically switch to your OpenAI API key"
+							>
+								?
+							</span>
+						</li>
 						<li>Slack integration</li>
 						<li>GPT-4</li>
 					</ul>
@@ -322,11 +332,11 @@
 					<ul>
 						<li>
 							<span class="figure">10,000</span>
-							 messages/mo.
+							messages/mo.
 						</li>
 						<li>
 							<span class="figure">20</span>
-							 Chatbots
+							Chatbots
 						</li>
 						<li>
 							<div
@@ -334,12 +344,12 @@
 								data-tip="approx. 12,000,000 characters"
 							>
 								<span class="figure">3,000,000</span>
-								 tokens/bot
+								tokens/bot
 							</div>
 						</li>
 						<li>
 							<span class="figure">30 Day</span>
-							 chat history
+							chat history
 						</li>
 					</ul>
 					<ul class="extra">
@@ -400,11 +410,11 @@
 					<ul>
 						<li>
 							<span class="figure">40,000</span>
-							 messages/mo.
+							messages/mo.
 						</li>
 						<li>
 							<span class="figure">40</span>
-							 Chatbots
+							Chatbots
 						</li>
 						<li>
 							<div
@@ -412,12 +422,12 @@
 								data-tip="approx. 32,000,000 characters"
 							>
 								<span class="figure">8,000,000</span>
-								 tokens/bot
+								tokens/bot
 							</div>
 						</li>
 						<li>
 							<span class="figure">60 Day</span>
-							 chat history
+							chat history
 						</li>
 					</ul>
 					<ul class="extra">
@@ -426,37 +436,36 @@
 				</div>
 			</div>
 		</div>
-</div>
+	</div>
 </div>
 
 {#if currentPlan}
+	<!-- Open the modal using ID.showModal() method -->
+	<dialog id="modalConfirmPlanChange" class="modal">
+		<form method="dialog" class="modal-box">
+			<h3 class="font-bold text-lg mb-4">
+				{planToChangeTo > currentPlan ? 'You will be billed immediately!' : 'Are you Sure'}
+			</h3>
+			<p class="mb-8">
+				{planToChangeTo > currentPlan
+					? 'Your card on file will be billed immediately for the new amount minus the prorated amount from your previous plan.'
+					: 'Your plan will automatically be downgraded at the end of the billing period'}
+			</p>
 
-<!-- Open the modal using ID.showModal() method -->
-<dialog id="modalConfirmPlanChange" class="modal">
-	<form method="dialog" class="modal-box">
-		<h3 class="font-bold text-lg mb-4">
-			{planToChangeTo > currentPlan ? 'You will be billed immediately!' : 'Are you Sure'}
-		</h3>
-		<p class="mb-8">
-			{planToChangeTo > currentPlan
-				? 'Your card on file will be billed immediately for the new amount minus the prorated amount from your previous plan.'
-				: 'Your plan will automatically be downgraded at the end of the billing period'}
-		</p>
-
-		<!-- <p class="py-4">Your </p> -->
-		<div class="text-right">
-			<button class="btn">Cancel</button>
-			<button class="btn btn-warning" on:click={() => updatePlan(planToChangeTo)}>
-				Confirm Change
-			</button>
-		</div>
-	</form>
-	<form method="dialog" class="modal-backdrop">
-		<button>close</button>
-	</form>
-</dialog>
-
+			<!-- <p class="py-4">Your </p> -->
+			<div class="text-right">
+				<button class="btn">Cancel</button>
+				<button class="btn btn-warning" on:click={() => updatePlan(planToChangeTo)}>
+					Confirm Change
+				</button>
+			</div>
+		</form>
+		<form method="dialog" class="modal-backdrop">
+			<button>close</button>
+		</form>
+	</dialog>
 {/if}
+
 <style lang="postcss">
 	h2 {
 		@apply text-2xl font-bold text-secondary;

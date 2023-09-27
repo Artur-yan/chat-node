@@ -1,7 +1,6 @@
 <script lang="ts">
 	export let data;
 	import Chat from '$lib/components/Chat.svelte';
-
 </script>
 
 <svelte:head>

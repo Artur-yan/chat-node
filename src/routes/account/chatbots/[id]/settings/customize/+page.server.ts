@@ -75,10 +75,9 @@ export const actions = {
 
 		const exisitingCloudinaryPublicId = form.get('existing-cloudinary-public-id');
 
-		try{
-			
+		try {
 			await cloudinary.uploader.destroy(exisitingCloudinaryPublicId);
-	
+
 			await prismaClient.bots.update({
 				where: {
 					id: params.id
@@ -88,18 +87,15 @@ export const actions = {
 					cloudinary_public_id: null
 				}
 			});
-
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 			return {
 				success: false
 			};
-			
 		}
 
 		return {
 			success: true
 		};
 	}
-
 };

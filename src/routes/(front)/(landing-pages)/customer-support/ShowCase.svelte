@@ -2,7 +2,7 @@
 	let examples = [
 		{
 			title: 'Example 1',
-			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl ut lacinia luctus, nunc nisl lacinia nunc"
+			text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl ut lacinia luctus, nunc nisl lacinia nunc'
 		},
 		{
 			title: 'Example 2',

@@ -1,6 +1,10 @@
 <script lang="ts">
 	import type { LayoutData } from './$types';
-	import { PUBLIC_ENVIRONMENT, PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
+	import {
+		PUBLIC_ENVIRONMENT,
+		PUBLIC_PLAUSIBLE_DOMAIN,
+		PUBLIC_PLAUSIBLE_API_HOST
+	} from '$env/static/public';
 
 	import '../../app.postcss';
 	import HeaderAdmin from '$lib/components/HeaderAdmin.svelte';
@@ -8,14 +12,14 @@
 	import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 	import { alert } from '$lib/stores';
-	import {systemSettings} from '$lib/systemSettings';
+	import { systemSettings } from '$lib/systemSettings';
 
 	export let data: LayoutData;
 
 	onMount(() => {
-			const { enableAutoPageviews } = Plausible({
-				domain: PUBLIC_PLAUSIBLE_DOMAIN,
-				apiHost: PUBLIC_PLAUSIBLE_API_HOST
+		const { enableAutoPageviews } = Plausible({
+			domain: PUBLIC_PLAUSIBLE_DOMAIN,
+			apiHost: PUBLIC_PLAUSIBLE_API_HOST
 		});
 		enableAutoPageviews();
 	});
@@ -30,14 +34,22 @@
 </script>
 
 <svelte:head>
-
 	{#if PUBLIC_ENVIRONMENT === 'production'}
 		<!-- Google Tag Manager -->
-		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-			})(window,document,'script','dataLayer','GTM-THN99BCW');</script>
+		<!-- Google Tag Manager -->
+		<script>
+			(function (w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+				var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s),
+					dl = l != 'dataLayer' ? '&l=' + l : '';
+				j.async = true;
+				j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, 'script', 'dataLayer', 'GTM-THN99BCW');
+		</script>
+		<!-- End Google Tag Manager -->
 		<!-- End Google Tag Manager -->
 		<script>
 			(function (w, r) {
@@ -55,7 +67,7 @@
 		</script>`}
 	{/if}
 
-{@html	`<script>
+	{@html `<script>
 		!(function (f, b, e, v, n, t, s) {
 			if (f.fbq) return;
 			n = f.fbq = function () {
@@ -88,12 +100,11 @@
 	</noscript>
 
 	<script
-	src="https://www.chatnode.ai/embed.js"
-	data-chatbot-id="befbfc87e25911db"
-	data-color-1="#0E1729"
-	data-color-2="#3ABFF7"
-></script>
-
+		src="https://www.chatnode.ai/embed.js"
+		data-chatbot-id="befbfc87e25911db"
+		data-color-1="#0E1729"
+		data-color-2="#3ABFF7"
+	></script>
 
 	<script>
 		(function (h, o, t, j, a, r) {
@@ -109,17 +120,22 @@
 			r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
 			a.appendChild(r);
 		})(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
-	</script>	
+	</script>
 </svelte:head>
 
 <HeaderAdmin />
 
 <main class="flex flex-col flex-1">
-
 	{#if PUBLIC_ENVIRONMENT === 'production'}
 		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-THN99BCW"
-			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<noscript>
+			<iframe
+				src="https://www.googletagmanager.com/ns.html?id=GTM-THN99BCW"
+				height="0"
+				width="0"
+				style="display:none;visibility:hidden"
+			/>
+		</noscript>
 		<!-- End Google Tag Manager (noscript) -->
 	{/if}
 

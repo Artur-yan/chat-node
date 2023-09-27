@@ -4,7 +4,7 @@ export const PUT = async ({ request, locals }) => {
 	const { newPlan, referralCode } = await request.json();
 	const session = await locals.auth.validate();
 
-    const handleAddonRemoval = () => {
+	const handleAddonRemoval = () => {
 		for (const addonId of ['10001', '10002', '10003', '10004']) {
 			try {
 				const res = fetch(PUBLIC_CHAT_API_URL + '/api/update-addon', {
@@ -17,7 +17,7 @@ export const PUT = async ({ request, locals }) => {
 						adds_on: addonId,
 						qty: 0
 					})
-				});	
+				});
 			} catch (err) {
 				console.error(err);
 			}
@@ -37,7 +37,7 @@ export const PUT = async ({ request, locals }) => {
 			})
 		});
 		if (newPlan === 0) {
-			handleAddonRemoval()
+			handleAddonRemoval();
 		}
 		const url = await res.json();
 		return new Response(JSON.stringify(url), { status: 200 });

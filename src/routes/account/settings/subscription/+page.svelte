@@ -20,7 +20,6 @@
 
 	let appsumoCodes = '';
 
-
 	if (currentPlan > 100 && currentPlan < 1000) {
 		billingTerm = 'yearly';
 	}
@@ -34,7 +33,7 @@
 	}
 
 	onMount(() => {
-		invalidateAll()
+		invalidateAll();
 	});
 </script>
 
@@ -43,11 +42,11 @@
 </svelte:head>
 
 <div class="container mb-20">
-	{#if currentPlan > 1000 || currentPlan === 0 && $page.url.search.includes('appsumo')}
-
+	{#if currentPlan > 1000 || (currentPlan === 0 && $page.url.search.includes('appsumo'))}
 		<h1 class="font-bold text-3xl mb-4 mt-10">
-			{#if currentPlan > 1000 }
-				You purchased a lifetime <span class="text-primary">{tier.name}</span> plan
+			{#if currentPlan > 1000}
+				You purchased a lifetime <span class="text-primary">{tier.name}</span>
+				 plan
 			{:else}
 				You're currently on the <span class="text-primary">Free Trial</span>
 			{/if}
@@ -80,7 +79,9 @@
 
 			{#if showAppsumoKeysField}
 				<form method="POST" action="?/upgradeAppsumo" use:enhance>
-					<label class="label" for="appsumo-codes"><span class="label-text">AppSumo Code(s)</span></label>
+					<label class="label" for="appsumo-codes">
+						<span class="label-text">AppSumo Code(s)</span>
+					</label>
 					<textarea
 						class="textarea textarea-bordered w-full textarea-xs max-w-lg"
 						spellcheck="false"
@@ -89,7 +90,7 @@
 						placeholder="Enter up to 5 AppSumo codes here each on a new line"
 						bind:value={appsumoCodes}
 					/>
-					<input type="hidden" name="email" value={data.user.user.email}>
+					<input type="hidden" name="email" value={data.user.user.email} />
 					{#if form?.success === false}
 						<p class="text-error">{form.message || ''}</p>
 					{/if}

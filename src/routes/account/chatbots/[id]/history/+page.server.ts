@@ -15,8 +15,6 @@ export const load = async ({ locals, params }) => {
 	const today = new Date();
 	const historyStartDate = new Date(today.setDate(today.getDate() - historyLengthDays));
 
-	console.log(historyStartDate)
-
 	const chats = await prismaClient.chatConversations.findMany({
 		where: {
 			bot_id: params.id,

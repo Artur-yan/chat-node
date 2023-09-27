@@ -1,6 +1,6 @@
 import { prismaClient } from '$lib/server/prisma';
 
-export const GET = async ( { params }) => {
+export const GET = async ({ params }) => {
 	const botId = params.id;
 
 	const bot = await prismaClient.bots.findUnique({
@@ -9,10 +9,12 @@ export const GET = async ( { params }) => {
 		}
 	});
 
-	if(bot) {
-		return new Response(String(`
+	if (bot) {
+		return new Response(
+			String(`
 			console.log(${bot})
-		`));
+		`)
+		);
 	} else {
 		return {
 			status: 404,

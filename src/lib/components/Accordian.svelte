@@ -2,10 +2,7 @@
 	export let open = false;
 </script>
 
-<div
-	class="bg-base-300 rounded-xl hover:shadow-xl hover:bg-base-200 transition-all"
-	class:open
->
+<div class="bg-base-300 rounded-xl hover:shadow-xl hover:bg-base-200 transition-all" class:open>
 	<button
 		on:click={() => (open = !open)}
 		type="button"

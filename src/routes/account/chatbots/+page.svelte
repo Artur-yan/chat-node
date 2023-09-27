@@ -26,15 +26,15 @@
 
 	onMount(() => {
 		if ($page.url.searchParams.get('signup') == 'success') {
-				const { trackEvent } = Plausible({
-					domain: PUBLIC_PLAUSIBLE_DOMAIN,
-					apiHost: PUBLIC_PLAUSIBLE_API_HOST
-				});
-				trackEvent('Signup');
-			}
+			const { trackEvent } = Plausible({
+				domain: PUBLIC_PLAUSIBLE_DOMAIN,
+				apiHost: PUBLIC_PLAUSIBLE_API_HOST
+			});
+			trackEvent('Signup');
+		}
 
 		if ($page.url.search.includes('test')) {
-			fbq('track', 'Purchase', {currency: "USD", value: 20.00});
+			fbq('track', 'Purchase', { currency: 'USD', value: 20.0 });
 		}
 	});
 
@@ -79,8 +79,8 @@
 <div class="container pt-4 pb-20">
 	{#if $page.url.searchParams.get('signup') == 'success'}
 		<script>
-			fbq('track', 'StartTrial', {value: '0.00', currency: 'USD'});
-			console.log('FB EVENT FIRED')
+			fbq('track', 'StartTrial', { value: '0.00', currency: 'USD' });
+			console.log('FB EVENT FIRED');
 		</script>
 	{/if}
 	<div class="card card-compact card-bordered border-neutral mb-4">

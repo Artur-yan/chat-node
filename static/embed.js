@@ -6,22 +6,20 @@ const openOnLoad = document.currentScript.hasAttribute('data-open');
 let chatOpen = false;
 let chatLoaded = false;
 
-
-
 function preloadChat() {
-	const chat = document.getElementById(`chatbot-${id}-chat`)
+	const chat = document.getElementById(`chatbot-${id}-chat`);
 
 	if (!chatLoaded) {
-		chat.innerHTML += iframe
+		chat.innerHTML += iframe;
 		chatLoaded = true;
 	}
 }
 
 function toggleChat() {
-	const chat = document.getElementById(`chatbot-${id}-chat`)
+	const chat = document.getElementById(`chatbot-${id}-chat`);
 
 	if (!chatLoaded) {
-		chat.innerHTML += iframe
+		chat.innerHTML += iframe;
 		chatLoaded = true;
 	}
 	if (chatOpen) {
@@ -31,7 +29,6 @@ function toggleChat() {
 	}
 	chatOpen = !chatOpen;
 }
-
 
 const iframe = `
 <iframe src="https://www.chatnode.ai/embed/${id}?context=popup" width="100%" height="100%"></iframe>

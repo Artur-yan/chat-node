@@ -11,13 +11,10 @@
 	};
 
 	const deleteSuggestedQuestion = (index: number) => {
-
 		$currentBot.settings.suggestedQuestions.splice(index, 1);
 
-		$currentBot.settings.suggestedQuestions = [...$currentBot.settings.suggestedQuestions]
+		$currentBot.settings.suggestedQuestions = [...$currentBot.settings.suggestedQuestions];
 	};
-
-	$: console.log($currentBot.settings.suggestedQuestions)
 </script>
 
 <div>
@@ -86,7 +83,7 @@
 			<span class="label-text">
 				Creativity <span
 					class="tooltip tooltip-right badge"
-					data-tip='The "creativity" in ChatGPT (known officially as "temperature") refers to the level of randomness in the generated responses. A higher temperature will result in more random and creative responses, while a lower temperature will produce more focused and deterministic responses.'
+					data-tip="The "creativity" in ChatGPT (known officially as "temperature") refers to the level of randomness in the generated responses. A higher temperature will result in more random and creative responses, while a lower temperature will produce more focused and deterministic responses."
 				>
 					?
 				</span>
@@ -109,36 +106,61 @@
 		</div>
 	</div>
 
-
 	<div class="card bg-neutral card-compact mt-8">
 		<div class="card-body">
 			<h2 class="card-title">Suggested Questions</h2>
 
 			<div class="overflow-x-auto">
 				<table class="table table-sm">
-				  <!-- head -->
-				  <thead>
-					<tr>
-					  <th>Label</th>
-					  <th>Question</th>
-					</tr>
-				  </thead>
-				  <tbody>
-						{#each $currentBot.settings.suggestedQuestions as question, i }
+					<!-- head -->
+					<thead>
+						<tr>
+							<th>Label</th>
+							<th>Question</th>
+						</tr>
+					</thead>
+					<tbody>
+						{#each $currentBot.settings.suggestedQuestions as question, i}
 							<tr>
-								<td class="w-2/5"><input class="input input-sm w-full" type="text" bind:value={$currentBot.settings.suggestedQuestions[i].label}></td>
-								<td class="w-full"><input class="input input-sm w-full" type="text" bind:value={$currentBot.settings.suggestedQuestions[i].value}></td>
+								<td class="w-2/5">
+									<input
+										class="input input-sm w-full"
+										type="text"
+										bind:value={$currentBot.settings.suggestedQuestions[i].label}
+									/>
+								</td>
+								<td class="w-full">
+									<input
+										class="input input-sm w-full"
+										type="text"
+										bind:value={$currentBot.settings.suggestedQuestions[i].value}
+									/>
+								</td>
 								<td>
-									<button type="button" class="btn text-error btn-ghost btn-sm btn-circle" on:click={() => deleteSuggestedQuestion(i)}>
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8m0-18A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2M7 13h10v-2H7"/></svg>
+									<button
+										type="button"
+										class="btn text-error btn-ghost btn-sm btn-circle"
+										on:click={() => deleteSuggestedQuestion(i)}
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+										>
+											<path
+												fill="currentColor"
+												d="M12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8m0-18A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2M7 13h10v-2H7"
+											/>
+										</svg>
 									</button>
 								</td>
 							</tr>
 						{/each}
-				  </tbody>
+					</tbody>
 				</table>
 				<button class="btn btn-sm mt-4" on:click={addSuggestedQuestion}>Add</button>
-			  </div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -148,7 +170,7 @@
 		<div>
 			Use one of these many examples as a starting point. Don't forget to replace generic
 			information with your specifics. Refer to our <a href="/blog">blog</a>
-			 for more usefult tips.
+			for more usefult tips.
 		</div>
 	</div>
 	<div class="space-y-10">

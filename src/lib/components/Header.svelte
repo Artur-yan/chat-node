@@ -74,10 +74,7 @@
 						/>
 					</svg>
 				</label>
-				<ul
-					tabindex="0"
-					class="dropdown-content z-20 menu p-2 shadow bg-base-100 rounded-box w-52"
-				>
+				<ul tabindex="0" class="dropdown-content z-20 menu p-2 shadow bg-base-100 rounded-box w-52">
 					{#each links as { title, href }}
 						<li>
 							<a class="justify-center py-4" {href}>{title}</a>

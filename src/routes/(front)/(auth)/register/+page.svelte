@@ -18,7 +18,6 @@
 		$alert = form?.message;
 		goto('/chatbots');
 	}
-	
 </script>
 
 <svelte:head>

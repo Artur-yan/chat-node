@@ -12,7 +12,6 @@
 
 	export let removeBranding = true;
 
-
 	export let modelId: string;
 	export let disabled = false;
 	export let isThinking = false;
@@ -22,10 +21,10 @@
 		{
 			text: settings.greeting,
 			sender: 'bot'
-		}	
+		}
 	];
 	export let userId: string;
-	export let context: string
+	export let context: string;
 
 	// Merge default settings with user settings
 	// Merge nested object
@@ -59,9 +58,7 @@
 	let userInfoReceived = false;
 	let endUserInfo = {};
 
-	
 	$: if (settings.collectUserName || settings.collectUserEmail || settings.collectUserPhone) {
-		
 		collectUserInfo = true;
 	} else {
 		collectUserInfo = false;
@@ -70,13 +67,13 @@
 	onMount(() => {
 		if (collectUserInfo) {
 			endUserInfo = JSON.parse(localStorage.getItem('enduserInfo')) || {};
-			if(!settings.collectUserName) {
+			if (!settings.collectUserName) {
 				endUserInfo.name = '';
 			}
-			if(!settings.collectUserEmail) {
+			if (!settings.collectUserEmail) {
 				endUserInfo.email = '';
 			}
-			if(!settings.collectUserPhone) {
+			if (!settings.collectUserPhone) {
 				endUserInfo.phone = '';
 			}
 		}
@@ -125,7 +122,7 @@
 			});
 			// const data = await res.json();
 			isThinking = false;
-			if(res.headers.get('content-type') === 'application/json') {
+			if (res.headers.get('content-type') === 'application/json') {
 				const data = await res.json();
 				addMessage(data.message, 'bot');
 				return;
@@ -205,7 +202,7 @@
 
 	const askSuggestedQuestion = (question: string) => {
 		inputVal = question;
-		submitQuery()
+		submitQuery();
 	};
 </script>
 
@@ -277,7 +274,8 @@
 								: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
 						>
 							<div class="message-body">
-								{@html postProcessMsgHTML(md.render(msg.text))}</div>
+								{@html postProcessMsgHTML(md.render(msg.text))}
+							</div>
 							<!-- {#if msg.sender === 'bot'}
 							<div class="absolute dropdown dropdown-bottom dropdown-end -right-10 top-0 text-sm text-white">
 								<label tabindex="0" class="m-1 btn btn-sm btn-ghost btn-circle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3c-.825 0-1.5.675-1.5 1.5S11.175 6 12 6s1.5-.675 1.5-1.5S12.825 3 12 3Zm0 15c-.825 0-1.5.675-1.5 1.5S11.175 21 12 21s1.5-.675 1.5-1.5S12.825 18 12 18Zm0-7.5c-.825 0-1.5.675-1.5 1.5s.675 1.5 1.5 1.5s1.5-.675 1.5-1.5s-.675-1.5-1.5-1.5Z"/></svg></label>
@@ -357,25 +355,43 @@
 
 	<form on:submit|preventDefault={submitQuery} class="form-control p-1">
 		{#if !removeBranding}
-		<div class="text-right text-xs mb-1.5 mr-2 flex justify-end gap-1 items-end leading-none">
-			<a href="https://www.chatnode.ai" target="_blank">
-				Powered by <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 300 300" fill="none">
-					<path d="M207.498 117.156C207.498 125.748 200.538 132.713 191.951 132.713H186.769C178.183 132.713 171.222 125.748 171.222 117.156L171.222 22.3358C171.222 18.1376 168.693 14.3326 164.757 12.8725C142.316 4.54795 118.043 0 92.7083 0H13.1546C5.99932 0 0.19884 5.80432 0.19884 12.9643C0.19884 38.2283 -0.189051 63.5278 0.118701 88.7948C0.170219 93.0246 3.62267 96.413 7.85274 96.413L83.1231 96.413C91.7095 96.413 98.67 103.378 98.67 111.97V117.156C98.67 125.748 91.7095 132.713 83.1231 132.713H13.504C8.6203 132.713 4.94385 137.175 6.10095 141.92C10.8745 161.493 18.4236 179.979 28.3074 196.934C31.3972 202.235 37.165 205.313 43.3003 205.313H191.951C200.538 205.313 207.498 212.279 207.498 220.871V226.056C207.498 234.648 200.538 241.613 191.951 241.613H76.0908C71.4431 241.613 69.2283 247.191 72.7581 250.215C108.992 281.253 156.054 300 207.491 300H300V207.429C300 138.818 266.711 77.9878 215.413 40.2283C212.086 37.7792 207.498 40.215 207.498 44.3462L207.498 117.156Z" fill="#818CF8"/>
-				  </svg> ChatNode
-			</a></div>
-			{/if}
+			<div class="text-right text-xs mb-1.5 mr-2 flex justify-end gap-1 items-end leading-none">
+				<a href="https://www.chatnode.ai" target="_blank">
+					Powered by <svg
+						class="inline"
+						xmlns="http://www.w3.org/2000/svg"
+						width="10"
+						height="10"
+						viewBox="0 0 300 300"
+						fill="none"
+					>
+						<path
+							d="M207.498 117.156C207.498 125.748 200.538 132.713 191.951 132.713H186.769C178.183 132.713 171.222 125.748 171.222 117.156L171.222 22.3358C171.222 18.1376 168.693 14.3326 164.757 12.8725C142.316 4.54795 118.043 0 92.7083 0H13.1546C5.99932 0 0.19884 5.80432 0.19884 12.9643C0.19884 38.2283 -0.189051 63.5278 0.118701 88.7948C0.170219 93.0246 3.62267 96.413 7.85274 96.413L83.1231 96.413C91.7095 96.413 98.67 103.378 98.67 111.97V117.156C98.67 125.748 91.7095 132.713 83.1231 132.713H13.504C8.6203 132.713 4.94385 137.175 6.10095 141.92C10.8745 161.493 18.4236 179.979 28.3074 196.934C31.3972 202.235 37.165 205.313 43.3003 205.313H191.951C200.538 205.313 207.498 212.279 207.498 220.871V226.056C207.498 234.648 200.538 241.613 191.951 241.613H76.0908C71.4431 241.613 69.2283 247.191 72.7581 250.215C108.992 281.253 156.054 300 207.491 300H300V207.429C300 138.818 266.711 77.9878 215.413 40.2283C212.086 37.7792 207.498 40.215 207.498 44.3462L207.498 117.156Z"
+							fill="#818CF8"
+						/>
+					</svg>
+					 ChatNode
+				</a>
+			</div>
+		{/if}
 		<div>
 			<div class="relative">
 				{#if settings.suggestedQuestions}
-				<div class="flex gap-1 mb-2 overflow-x-auto">
-					{#each settings.suggestedQuestions as question}
-						<button class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]" type="button" on:click={() => askSuggestedQuestion(question.value)}>{question.label}</button>
-					{/each}
-				</div>
+					<div class="flex gap-1 mb-2 overflow-x-auto">
+						{#each settings.suggestedQuestions as question}
+							<button
+								class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
+								type="button"
+								on:click={() => askSuggestedQuestion(question.value)}
+							>
+								{question.label}
+							</button>
+						{/each}
+					</div>
 				{/if}
 				<textarea
 					placeholder={settings.inputPlaceholder}
-					oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+					oninput="this.style.height = "";this.style.height = this.scrollHeight + "px""
 					rows="1"
 					bind:value={inputVal}
 					on:keydown={(e) => {
@@ -384,7 +400,9 @@
 							submitQuery();
 						}
 					}}
-					class="textarea textarea-md min-h-0 max-h-32 w-full placeholder:text-sm leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled ? 'pr-12' : ''}"
+					class="textarea textarea-md min-h-0 max-h-32 w-full placeholder:text-sm leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
+						? 'pr-12'
+						: ''}"
 					style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
 					{disabled}
 				/>
@@ -443,7 +461,7 @@
 						type="text"
 						class="input join-item w-full placeholder:text-sm"
 						style="background-color: var(--inputBG); border-color: var(--inputBorder);"
-						placeholder={settings.collectUserPhoneLabel  || 'Phone'}
+						placeholder={settings.collectUserPhoneLabel || 'Phone'}
 						bind:value={endUserInfo.phone}
 					/>
 				{/if}

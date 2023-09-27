@@ -33,9 +33,12 @@
 				<div class="card bg-neutral max-w-2xl">
 					<div class="card-body">
 						<h2 class="card-title">Your chatbot is currently set to private.</h2>
-						<p class="text-lg">Currently it may only be integrated with slack. To embed it or get a share url make your bot public in the share settings.</p>
+						<p class="text-lg">
+							Currently it may only be integrated with slack. To embed it or get a share url make
+							your bot public in the share settings.
+						</p>
 						<div class="card-actions mt-8">
-							<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing"> Settings</a>
+							<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing">Settings</a>
 						</div>
 					</div>
 				</div>
@@ -59,9 +62,14 @@
 					<div class="card bg-neutral max-w-2xl">
 						<div class="card-body">
 							<h2 class="card-title">You have not defined any allowed URLS.</h2>
-							<p class="text-lg">To embed your chatbot on a website, you must specify the URLs you would like to be allowed access from your share settings.</p>
+							<p class="text-lg">
+								To embed your chatbot on a website, you must specify the URLs you would like to be
+								allowed access from your share settings.
+							</p>
 							<div class="card-actions mt-8">
-								<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing"> Settings</a>
+								<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing">
+									Settings
+								</a>
 							</div>
 						</div>
 					</div>
@@ -103,7 +111,6 @@
 						Place this code wherever you'd like the iframe to appear on your website.
 					</p>
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -122,9 +129,7 @@
 							</a>
 						{:else}
 							<div class="badge badge-outline badge-success">Enabled</div>
-							<a class="btn btn-xs" href="{PUBLIC_CHAT_API_URL}/slack/install">
-								+ Slack Workspace
-							</a>
+							<a class="btn btn-xs" href="{PUBLIC_CHAT_API_URL}/slack/install">+ Slack Workspace</a>
 						{/if}
 					{:else}
 						<p class="text-warning text-sm">

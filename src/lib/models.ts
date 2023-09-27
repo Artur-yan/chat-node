@@ -129,5 +129,4 @@ const personalities = {
 	}
 };
 
-
 export { addModel, updateModel, deleteModel, defaultSettings, personalities };

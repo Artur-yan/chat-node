@@ -2,14 +2,12 @@
 	export let data;
 	export let form: { message?: string };
 
-
 	import { updateAccountEmail, updateApiKey } from '$lib/account.js';
 	import { alert } from '$lib/stores.js';
 
 	let apiKey = data.user.user.api_key;
 
 	let userEmail = data.user.user.email;
-
 
 	const handleEmailChange = async () => {
 		updateAccountEmail(userEmail);
@@ -129,20 +127,23 @@
 			<div class="card-body">
 				<h2 class="card-title">Privacy</h2>
 				<div>
-					<a href="#"
-					class="btn"
-					onclick="window.displayPreferenceModal();return false;"
-					id="termly-consent-preferences">Consent Preferences</a>
-					<a class="btn" href="https://app.termly.io/notify/3f2d25ad-6a63-49f0-ad4b-3e0615a49ead">DSAR Form</a>
+					<a
+						href="#"
+						class="btn"
+						onclick="window.displayPreferenceModal();return false;"
+						id="termly-consent-preferences"
+					>
+						Consent Preferences
+					</a>
+					<a class="btn" href="https://app.termly.io/notify/3f2d25ad-6a63-49f0-ad4b-3e0615a49ead">
+						DSAR Form
+					</a>
 				</div>
-				
 			</div>
-
 		</div>
 	</div>
 
-	<div>
-	</div>
+	<div />
 
 	<!-- <div class="max-w-xl">
 		<h2 class="card-title">Delete Account</h2>

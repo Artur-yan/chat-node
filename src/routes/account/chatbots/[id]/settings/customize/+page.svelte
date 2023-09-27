@@ -286,12 +286,12 @@
 				<a href="/account/settings/subscription" class="btn btn-info btn-sm">Upgrade</a>
 			</div>
 		{/if}
-				<div class="flex gap-8">
-					{#if $currentBot.cloudinary_public_id}
-					<div class="text-center">
-						<img src={$currentBotAvatarImg} class="w-16 mx-auto mb-2" alt="Avatar" />
-						<form method="post" enctype="multipart/form-data">
-							<input
+		<div class="flex gap-8">
+			{#if $currentBot.cloudinary_public_id}
+				<div class="text-center">
+					<img src={$currentBotAvatarImg} class="w-16 mx-auto mb-2" alt="Avatar" />
+					<form method="post" enctype="multipart/form-data">
+						<input
 							name="existing-cloudinary-public-id"
 							type="hidden"
 							value={$currentBot.cloudinary_public_id}
@@ -302,36 +302,35 @@
 							value="Remove"
 							formaction="?/removeAvatarImg"
 						/>
-						</form>
-					</div>
-					{/if}
-					<div class="flex-1">
-						<form method="post" enctype="multipart/form-data" class="join w-full">
-							<input
-								disabled={data.subscription.plan < 2}
-								name="avatar-img"
-								type="file"
-								accept=".jpg, .png, .svg"
-								class="join-item file-input file-input-bordered w-full"
-								on:change={handleAvatarSelect}
-							/>
-							<input
-								name="existing-cloudinary-public-id"
-								type="hidden"
-								value={$currentBot.cloudinary_public_id}
-							/>
-							<input
-								type="submit"
-								class="btn join-item border-primary border-l-0"
-								value="Upload"
-								formaction="?/updateAvatarImg"
-								disabled={!uploadedImage}
-							/>
-						</form>
-						<p class="help">1MB Max. png, svg, or jpg</p>
-					</div>
+					</form>
 				</div>
-
+			{/if}
+			<div class="flex-1">
+				<form method="post" enctype="multipart/form-data" class="join w-full">
+					<input
+						disabled={data.subscription.plan < 2}
+						name="avatar-img"
+						type="file"
+						accept=".jpg, .png, .svg"
+						class="join-item file-input file-input-bordered w-full"
+						on:change={handleAvatarSelect}
+					/>
+					<input
+						name="existing-cloudinary-public-id"
+						type="hidden"
+						value={$currentBot.cloudinary_public_id}
+					/>
+					<input
+						type="submit"
+						class="btn join-item border-primary border-l-0"
+						value="Upload"
+						formaction="?/updateAvatarImg"
+						disabled={!uploadedImage}
+					/>
+				</form>
+				<p class="help">1MB Max. png, svg, or jpg</p>
+			</div>
+		</div>
 	</div>
 </div>
 

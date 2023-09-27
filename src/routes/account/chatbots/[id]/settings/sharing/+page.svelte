@@ -72,7 +72,8 @@
 
 		{#if !$currentBot.settings.public}
 			<div class="alert alert-warning">
-				If your chatbot is private, only you will be able to access it from within your ChatNode account.
+				If your chatbot is private, only you will be able to access it from within your ChatNode
+				account.
 			</div>
 		{/if}
 	</div>

@@ -6,16 +6,15 @@
 
 	let settings = data.bot.settings;
 
-	const { removeBranding } = data
+	const { removeBranding } = data;
 
-	let context: string | null
+	let context: string | null;
 
 	onMount(() => {
 		document.body.style.backgroundColor = settings.theme.bg;
 		document.documentElement.style.backgroundColor = settings.theme.bg;
 		const urlParams = new URLSearchParams(window.location.search);
 		context = urlParams.get('context');
-
 	});
 </script>
 
@@ -23,4 +22,11 @@
 	<title>{data.bot.settings.publicTitle || data.bot.name}</title>
 </svelte:head>
 
-<Chat modelId={data.bot.id} {settings} avatar={data.bot.avatar_img} userId={data.bot.user_id} {removeBranding} {context} />
+<Chat
+	modelId={data.bot.id}
+	{settings}
+	avatar={data.bot.avatar_img}
+	userId={data.bot.user_id}
+	{removeBranding}
+	{context}
+/>

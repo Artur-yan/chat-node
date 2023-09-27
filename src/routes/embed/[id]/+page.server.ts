@@ -6,7 +6,7 @@ import { prismaClient } from '$lib/server/prisma';
 
 export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 	const user = await locals.auth.validateUser();
-	let removeBranding = false
+	let removeBranding = false;
 	try {
 		const bot = await prismaClient.bots.findUniqueOrThrow({
 			where: {
@@ -17,9 +17,8 @@ export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 				user_id: true,
 				settings: true,
 				avatar_img: true,
-				name: true,
+				name: true
 			}
-				
 		});
 		const subscription = await prismaClient.subscriptions.findUnique({
 			where: {
@@ -27,14 +26,15 @@ export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 			}
 		});
 
-		const plan = subscription?.plan?.toString()
+		const plan = subscription?.plan?.toString();
 
-		if(tiersMap[plan].features.remove_chatnode_branding.included || subscription?.free_no_branding) {
-			removeBranding = true
+		if (
+			tiersMap[plan].features.remove_chatnode_branding.included ||
+			subscription?.free_no_branding
+		) {
+			removeBranding = true;
 		}
 
-		
-		
 		// Set the Content-Security-Policy header to allow the embed to be loaded only on the whitelisted domains
 		if (bot.settings.public) {
 			setHeaders({

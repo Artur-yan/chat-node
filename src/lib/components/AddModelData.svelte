@@ -439,21 +439,19 @@
 	{/if}
 </div>
 
-
 <Modal title="Training your bot on URLs" id="urlHelp">
 	<h3 class="font-bold mb-4">Websites</h3>
 	<p>
-		Add any public url for a website and we will check it for sub-pages. You can select which pages to include/exclude in adding data to your bot.
+		Add any public url for a website and we will check it for sub-pages. You can select which pages
+		to include/exclude in adding data to your bot.
 	</p>
 
 	<h3 class="font-bold mb-4 mt-8">Google Docs / Notion / Online PDFs / + more</h3>
 	<p>
-		Any text based site that is pubically available can be use to train your bot. For Google docs or notion, make sure that the content is public and paste the share url here.
+		Any text based site that is pubically available can be use to train your bot. For Google docs or
+		notion, make sure that the content is public and paste the share url here.
 	</p>
 
 	<h3 class="font-bold mb-4 mt-8">Sitemaps</h3>
-	<p>
-		Add the url of any XML sitemap and we will scrape every url included.
-	</p>
-
+	<p>Add the url of any XML sitemap and we will scrape every url included.</p>
 </Modal>

@@ -9,24 +9,22 @@
 	const plansWithGPT4 = [2, 3, 4, 102, 103, 104];
 	let canUseChatNodeMsgs = true;
 
-
 	$: if (
 		plan > 1000 &&
 		$currentBot.settings.openai_api_key &&
 		['3.5-16', '4'].includes($currentBot.settings.gptVersion)
 	) {
-		canUseChatNodeMsgs = false
-		$currentBot.settings.useChatNodeMsgs = false
+		canUseChatNodeMsgs = false;
+		$currentBot.settings.useChatNodeMsgs = false;
 	}
 
 	$: if (!$currentBot.settings.openai_api_key) {
-		$currentBot.settings.useChatNodeMsgs = true
+		$currentBot.settings.useChatNodeMsgs = true;
 
-		if(!plansWithGPT4.includes(plan)) {
-			$currentBot.settings.gptVersion = '3.5'
+		if (!plansWithGPT4.includes(plan)) {
+			$currentBot.settings.gptVersion = '3.5';
 		}
 	}
-
 </script>
 
 <div class="card bg-neutral card-compact mb-4">
@@ -117,16 +115,24 @@
 			</p> -->
 		</div>
 		<div class="mt-4">
-				<h3 class="text-lg font-bold">Use ChatNode Messages</h3>
-				<div class="form-control">
-					<label class="cursor-pointer label justify-start gap-4">
-					<span class="label-text">OFF</span> 
-					<input type="checkbox" class="toggle" class:toggle-success={$currentBot.settings.useChatNodeMsgs} disabled={!$currentBot.settings.openai_api_key || !canUseChatNodeMsgs} bind:checked={$currentBot.settings.useChatNodeMsgs} />
-					<span class="label-text">ON</span> 
-					</label>
-				</div>
-				<p class="mt-2 max-w-md text-sm leading-6">
-					If turned on, we will use your ChatNode messages first and then use your OpenAI credits. You can turn this off and this bot will only use your OpenAI credits.
+			<h3 class="text-lg font-bold">Use ChatNode Messages</h3>
+			<div class="form-control">
+				<label class="cursor-pointer label justify-start gap-4">
+					<span class="label-text">OFF</span>
+					<input
+						type="checkbox"
+						class="toggle"
+						class:toggle-success={$currentBot.settings.useChatNodeMsgs}
+						disabled={!$currentBot.settings.openai_api_key || !canUseChatNodeMsgs}
+						bind:checked={$currentBot.settings.useChatNodeMsgs}
+					/>
+					<span class="label-text">ON</span>
+				</label>
 			</div>
+			<p class="mt-2 max-w-md text-sm leading-6">
+				If turned on, we will use your ChatNode messages first and then use your OpenAI credits. You
+				can turn this off and this bot will only use your OpenAI credits.
+			</p>
+		</div>
 	</div>
 </div>

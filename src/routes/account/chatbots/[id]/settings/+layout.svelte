@@ -10,8 +10,7 @@
 
 	export let data;
 
-	$currentBotAvatarImg = $currentBot.avatar_img
-
+	$currentBotAvatarImg = $currentBot.avatar_img;
 
 	const links = [
 		{ name: 'Prompts', url: 'prompts' },
