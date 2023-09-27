@@ -391,7 +391,7 @@
 				{/if}
 				<textarea
 					placeholder={settings.inputPlaceholder}
-					oninput="this.style.height = "";this.style.height = this.scrollHeight + "px""
+					oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
 					rows="1"
 					bind:value={inputVal}
 					on:keydown={(e) => {
