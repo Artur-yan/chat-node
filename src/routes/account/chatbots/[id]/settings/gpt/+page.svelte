@@ -16,6 +16,8 @@
 	) {
 		canUseChatNodeMsgs = false;
 		$currentBot.settings.useChatNodeMsgs = false;
+	} else {
+		canUseChatNodeMsgs = true;
 	}
 
 	$: if (!$currentBot.settings.openai_api_key) {
@@ -123,7 +125,7 @@
 						type="checkbox"
 						class="toggle"
 						class:toggle-success={$currentBot.settings.useChatNodeMsgs}
-						disabled={!$currentBot.settings.openai_api_key || !canUseChatNodeMsgs}
+						disabled={!canUseChatNodeMsgs}
 						bind:checked={$currentBot.settings.useChatNodeMsgs}
 					/>
 					<span class="label-text">ON</span>
