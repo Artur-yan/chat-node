@@ -262,7 +262,7 @@
 					>
 						{#if msg.sender === 'bot' && avatar}
 							<div class="chat-image avatar">
-								<div class="w-10">
+								<div class="w-10 rounded-full">
 									<img src={avatar} alt="" />
 								</div>
 							</div>
