@@ -400,7 +400,7 @@
 							submitQuery();
 						}
 					}}
-					class="textarea min-h-0 max-h-32 w-full placeholder:text-sm leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
+					class="textarea min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
 						? 'pr-12'
 						: ''}"
 					style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
