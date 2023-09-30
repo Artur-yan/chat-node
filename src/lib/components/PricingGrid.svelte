@@ -105,7 +105,7 @@
 							{currentPlan === 0 ? 'Current plan' : 'Change plan'}
 						</button>
 					{:else}
-						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
+						<a href="/register" class="btn btn-outline btn-secondary">
 							Sign up
 						</a>
 					{/if}
@@ -167,7 +167,7 @@
 							</button>
 						{/if}
 					{:else}
-						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
+						<a href="/register" class="btn btn-outline btn-secondary">
 							Sign up
 						</a>
 					{/if}
@@ -233,7 +233,7 @@
 							</button>
 						{/if}
 					{:else}
-						<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
+						<a href="/register" class="btn btn-outline btn-secondary">
 							Sign up
 						</a>
 					{/if}
@@ -322,7 +322,7 @@
 								</button>
 							{/if}
 						{:else}
-							<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
+							<a href="/register" class="btn btn-outline btn-secondary">
 								Sign up
 							</a>
 						{/if}
@@ -400,7 +400,7 @@
 								</button>
 							{/if}
 						{:else}
-							<a href="/account/settings/subscription" class="btn btn-outline btn-secondary">
+							<a href="/register" class="btn btn-outline btn-secondary">
 								Sign up
 							</a>
 						{/if}
