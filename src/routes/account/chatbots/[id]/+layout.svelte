@@ -111,7 +111,7 @@
 	</form>
 	<svelte:fragment slot="actions">
 		<button on:click={handleNameDiscard} class="btn btn-outline join-item btn-error">
-			Discard
+			Cancel
 		</button>
 		<button type="button" class="btn btn-success btn-outline join-item" on:click={handleNameSave}>
 			Save

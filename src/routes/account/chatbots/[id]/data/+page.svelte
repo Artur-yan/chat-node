@@ -428,7 +428,7 @@
 			{/if}
 		</div>
 		<div class="flex justify-between gap-2">
-			<button class="btn">Discard</button>
+			<button class="btn">Cancel</button>
 			<button
 				class="btn btn-success"
 				on:click={() => handleTextUpdate(Object.keys(textSourceToEdit)[0], textSourceValue)}
