@@ -273,7 +273,7 @@
 								? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
 								: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
 						>
-							<div class="message-body">
+							<div class="message-body break-words">
 								{@html postProcessMsgHTML(md.render(msg.text))}
 							</div>
 							<!-- {#if msg.sender === 'bot'}
