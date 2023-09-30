@@ -18,7 +18,7 @@ export const load = async ({ locals }) => {
 				}
 			},
 			orderBy: {
-				created: 'desc'
+				name: 'asc'
 			}
 		});
 		return { user, subscription, bots, scripts: '' };
