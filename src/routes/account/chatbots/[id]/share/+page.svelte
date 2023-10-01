@@ -3,6 +3,8 @@
 	import CopyButton from '$lib/components/CopyButton.svelte';
 	import Code from '$lib/components/Code.svelte';
 	import ColorPicker from 'svelte-awesome-color-picker';
+	import { currentBot } from '$lib/stores.js';
+	import { updateModel } from '$lib/models.js';
 
 	export let data;
 
@@ -20,6 +22,12 @@
 	}" data-color-1="${color1}" data-color-2="${color2}" ${
 		openChatByDefault ? 'data-open' : ''
 	}><\/script>`;
+
+	const makePublic = () => {
+		$currentBot.settings.public = true;
+		$currentBot.settings.allowedUrls = '*'
+		updateModel($currentBot.id, $currentBot.name, $currentBot.settings)
+	}
 </script>
 
 <svelte:head>
@@ -35,10 +43,11 @@
 						<h2 class="card-title">Your chatbot is currently set to private.</h2>
 						<p class="text-lg">
 							Currently it may only be integrated with slack. To embed it or get a share url make
-							your bot public in the share settings.
+							your bot public. You can choose to only allow it on specific URLs in the share settings.
 						</p>
 						<div class="card-actions mt-8">
-							<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing">Settings</a>
+							<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing">Share Settings</a>
+							<button class="btn btn-success" on:click={makePublic}>Make Public</button>
 						</div>
 					</div>
 				</div>
