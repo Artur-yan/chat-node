@@ -67,7 +67,7 @@
 		</script>`}
 	{/if}
 
-	{@html `<script>
+	<!-- {@html `<script>
 		!(function (f, b, e, v, n, t, s) {
 			if (f.fbq) return;
 			n = f.fbq = function () {
@@ -88,8 +88,8 @@
 			em: '${data.user.user.email}'
 		});
 		fbq('track', 'PageView');
-	</script>`}
-	<noscript>
+	</script>`} -->
+	<!-- <noscript>
 		<img
 			height="1"
 			width="1"
@@ -97,7 +97,7 @@
 	&noscript=1"
 			alt=""
 		/>
-	</noscript>
+	</noscript> -->
 
 	<script
 		src="https://www.chatnode.ai/embed.js"

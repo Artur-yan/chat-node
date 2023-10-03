@@ -78,7 +78,7 @@
 	profitwell('start', {});
 	</script>`}
 		<script async src="https://r.wdfl.co/rw.js" data-rewardful="1564fe"></script>
-		<script>
+		<!-- <script>
 			!(function (f, b, e, v, n, t, s) {
 				if (f.fbq) return;
 				n = f.fbq = function () {
@@ -106,7 +106,7 @@
 		&noscript=1"
 				alt=""
 			/>
-		</noscript>
+		</noscript> -->
 	{/if}
 
 	<script
