@@ -78,7 +78,7 @@
 	profitwell('start', {});
 	</script>`}
 		<script async src="https://r.wdfl.co/rw.js" data-rewardful="1564fe"></script>
-		<script>
+		<!-- <script>
 			!(function (f, b, e, v, n, t, s) {
 				if (f.fbq) return;
 				n = f.fbq = function () {
@@ -97,8 +97,8 @@
 			})(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 			fbq('init', '588241380143151');
 			fbq('track', 'PageView');
-		</script>
-		<noscript>
+		</script> -->
+		<!-- <noscript>
 			<img
 				height="1"
 				width="1"
@@ -106,7 +106,7 @@
 		&noscript=1"
 				alt=""
 			/>
-		</noscript>
+		</noscript> -->
 	{/if}
 
 	<script
