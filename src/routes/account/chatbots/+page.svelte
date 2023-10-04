@@ -31,6 +31,9 @@
 				apiHost: PUBLIC_PLAUSIBLE_API_HOST
 			});
 			trackEvent('Signup');
+			dataLayer.push({
+				event: 'Signup'
+			})
 		}
 	});
 
