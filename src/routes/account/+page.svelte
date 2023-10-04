@@ -5,7 +5,6 @@
 	import { page } from '$app/stores';
 	import { alert } from '$lib/stores';
 	import Plausible from 'plausible-tracker';
-	import fbEvent from '$lib/fb';
 
 	export let data;
 
@@ -53,19 +52,39 @@
 			switch (planChange) {
 				case 'convert':
 					trackEvent('Convert to Paid');
-					fbEvent('Purchase', [email], amountSpent);
+					dataLayer.push({
+						event: 'Convert',
+						ecommerce: {
+							currency: 'USD',
+							value: amountSpent
+						}
+					})
 					break;
 				case 'upgrade':
 					trackEvent('Upgrade');
-					fbEvent('Purchase', [email], amountSpent);
+					dataLayer.push({
+						event: 'Upgrade',
+						ecommerce: {
+							currency: 'USD',
+							value: amountSpent
+						}
+					})
 					break;
 				case 'downgrade':
 					trackEvent('Downgrade');
-					fbEvent('Downgrade', [email]);
+					dataLayer.push({
+						event: 'Downgrade',
+						ecommerce: {
+							currency: 'USD',
+							value: amountSpent
+						}
+					})
 					break;
 				case 'cancel':
 					trackEvent('Cancel');
-					fbEvent('Downgrade', [email]);
+					dataLayer.push({
+						event: 'cancel'
+					})
 					break;
 			}
 

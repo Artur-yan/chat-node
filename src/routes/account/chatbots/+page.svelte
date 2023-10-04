@@ -32,10 +32,6 @@
 			});
 			trackEvent('Signup');
 		}
-
-		if ($page.url.search.includes('test')) {
-			fbq('track', 'Purchase', { currency: 'USD', value: 20.0 });
-		}
 	});
 
 	const today = new Date();
@@ -77,12 +73,6 @@
 </div>
 
 <div class="container pt-4 pb-20">
-	{#if $page.url.searchParams.get('signup') == 'success'}
-		<script>
-			fbq('track', 'StartTrial', { value: '0.00', currency: 'USD' });
-			console.log('FB EVENT FIRED');
-		</script>
-	{/if}
 	<div class="card card-compact card-bordered border-neutral mb-4">
 		<div class="card-body">
 			<div class="flex gap-8 items-center">
