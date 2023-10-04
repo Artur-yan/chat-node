@@ -37,7 +37,7 @@
 <div class="container my-4 py-8">
 	<div class="relative">
 		{#if !data.model.settings.public}
-			<div class="inset-0 absolute bg-base-100/70 z-10 flex items-center justify-center">
+			<form class="inset-0 absolute bg-base-100/70 z-10 flex items-center justify-center">
 				<div class="card bg-neutral max-w-2xl">
 					<div class="card-body">
 						<h2 class="card-title">Your chatbot is currently set to private.</h2>
@@ -47,11 +47,11 @@
 						</p>
 						<div class="card-actions mt-8">
 							<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing">Share Settings</a>
-							<button class="btn btn-success" on:click={makePublic}>Make Public</button>
+							<button type="submit" class="btn btn-success" on:click={makePublic}>Make Public</button>
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		{/if}
 
 		<div>
