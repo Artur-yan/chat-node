@@ -50,6 +50,17 @@
 		(function(i,s,o,g,r,a,m){i[o]=i[o]||function(){(i[o].q=i[o].q||[]).push(arguments)}; a=s.createElement(g);m=s.getElementsByTagName(g)[0];a.async=1;a.src=r+'?auth='+s.getElementById(o+'-js').getAttribute('data-pw-auth');m.parentNode.insertBefore(a,m);})(window,document,'profitwell','script','https://public.profitwell.com/js/profitwell.js');
 		profitwell('start', { 'user_email': '${data.user.user.email}' });
 		</script>`}
+		<script>
+			(function(j,i,m,o) {
+				var s = document.createElement("script");
+
+				s.type = "text/javascript";
+				s.async = true;
+				s.src = "https://undercity.usejimo.com/jimo-invader.js";
+				j['JIMO_PROJECT_ID'] = "51210e7b-6983-43c8-be8d-652f4c5c3a2b";
+				document.getElementsByTagName("head")[0].appendChild(s);
+			})(window);
+		</script>
 	{/if}
 
 	<!-- {@html `<script>
