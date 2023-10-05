@@ -66,7 +66,7 @@
 	<title>Embed | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container my-4 py-8 grid grid-cols-1 gap-8" class:!grid-cols-2={data.subscription?.plan === 7}>
+<div class="container my-4 py-8 grid grid-cols-1 gap-8" class:!grid-cols-2={data.subscription?.plan === 1007}>
 	<div>
 		<div class="relative">
 			{#if !$currentBot.settings.public}
@@ -182,7 +182,7 @@
 			</div>
 		</div>
 	</div>
-	{#if data.subscription?.plan === 7 }
+	{#if data.subscription?.plan === 1007 }
 	<div>
 		<div class="card bg-neutral mb-12">
 			<div class="card-body">
