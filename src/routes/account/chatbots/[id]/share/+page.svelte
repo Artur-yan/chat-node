@@ -50,10 +50,12 @@
 			});
 			await updateModel($currentBot.id, $currentBot.name, $currentBot.settings)
 
-			$alert('success', 'Custom Domain Added')
+			$alert = 'Custom Domain Added'
+
 		} catch(err) {
 			console.log(err)
-			$alert('error', 'Something Went Wrong')
+			$alert = { msg: 'Something went wrong. Please try again later.', type: 'error' };
+
 
 		} finally {
 			busyAddingCustomDomain = false;
