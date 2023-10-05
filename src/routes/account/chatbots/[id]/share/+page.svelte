@@ -6,6 +6,7 @@
 	import { currentBot } from '$lib/stores.js';
 	import { updateModel } from '$lib/models.js';
 	import { alert } from '$lib/stores.js';
+	import tiersMap from '$lib/data/tiers';
 
 	export let data;
 
@@ -18,11 +19,17 @@
 	console.log(data)
 	console.log($currentBot)
 
-	const plansWithSlackIntegration = [2, 3, 4, 5, 102, 103, 104, 105, 1001, 1002, 1003, 1004, 1005, 1006, 1007];
-	const iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
-	const url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
+	const shareDomain = 'https://' + $currentBot.settings.customDomain || PUBLIC_SITE_URL;
 
-	$: jsEmbedCode = `<script src="${PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${
+	const plansWithSlackIntegration = [2, 3, 4, 5, 102, 103, 104, 105, 1001, 1002, 1003, 1004, 1005, 1006, 1007];
+	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
+	let url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
+	if($currentBot.settings.customDomain) {
+		iframeEmbedCode = `<iframe src="${shareDomain}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
+		url = shareDomain;
+	}
+
+	$: jsEmbedCode = `<script src="${shareDomain ? 'https://lkjink.com' : PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${
 		data.model.id
 	}" data-color-1="${color1}" data-color-2="${color2}" ${
 		openChatByDefault ? 'data-open' : ''
@@ -164,7 +171,7 @@
 						Get responses from your custom trained chatbot directly in slack for you and your team.
 					</p>
 					<div class="card-actions justify-between mt-10 items-center">
-						{#if plansWithSlackIntegration.includes(data.subscription.plan)}
+						{#if tiersMap[data.subscription.plan].features.slack.included}
 							{#if data.model.slack_bot_status === false}
 								<a class="btn btn-primary" href="{PUBLIC_CHAT_API_URL}/slack/install">
 									Authorize Slack

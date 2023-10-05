@@ -35,7 +35,7 @@ export const actions = {
 			const codes = appsumoCodes.split('\r\n');
 
 			const validateCodes = async () => {
-				if (codes.length > 5 - (subscription.plan - 1000)) {
+				if (codes.length > 7 - (subscription.plan - 1000)) {
 					tooManyCodes = true;
 					return;
 				}

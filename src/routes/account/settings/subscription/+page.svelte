@@ -69,7 +69,7 @@
 			{/each}
 		</div>
 
-		{#if currentPlan !== 1005}
+		{#if currentPlan !== 1007}
 			<button
 				class="btn btn-primary btn-outline"
 				on:click={() => (showAppsumoKeysField = !showAppsumoKeysField)}
@@ -86,7 +86,7 @@
 						class="textarea textarea-bordered w-full textarea-xs max-w-lg"
 						spellcheck="false"
 						name="appsumo-codes"
-						rows="5"
+						rows="7"
 						placeholder="Enter up to 5 AppSumo codes here each on a new line"
 						bind:value={appsumoCodes}
 					/>

@@ -97,7 +97,7 @@
 					<div>
 						<div class="flex justify-between">
 							<h4>Bots</h4>
-							<span class="opacity-60">{data.bots.length}/{data.subscription.max_bot}</span>
+							<span class="opacity-60">{data.bots.length}/{data.subscription.max_bot === -1 ? '∞' : data.subscription.max_bot}</span>
 						</div>
 						<progress
 							class="progress progress-secondary w-full bg-neutral h-1"

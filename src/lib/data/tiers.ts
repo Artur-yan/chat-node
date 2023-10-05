@@ -41,8 +41,50 @@ const tiersMap = {
 			}
 		}
 	},
+	101: {
+		name: 'Basic - Annual',
+		max_bot: 5,
+		max_msg: 2000,
+		max_tocken: 400000,
+		history_length_days: 3,
+		features: {
+			slack: {
+				included: false,
+				label: 'Slack Integration'
+			},
+			gpt_api: {
+				included: false,
+				label: 'Bring Your Own ChatGPT API Key'
+			},
+			remove_chatnode_branding: {
+				included: false,
+				label: 'Remove ChatNode Branding'
+			}
+		}
+	},
 	2: {
 		name: 'Pro',
+		max_bot: 10,
+		max_msg: 5000,
+		max_tocken: 800000,
+		history_length_days: 7,
+		features: {
+			slack: {
+				included: false,
+				label: 'Slack Integration'
+			},
+			gpt_api: {
+				included: false,
+				label: 'Bring Your Own ChatGPT API Key'
+			},
+			remove_chatnode_branding: {
+				included: true,
+				label: 'Remove ChatNode Branding'
+			}
+		}
+	},
+	102: {
+		name: 'Pro - Annual',
 		max_bot: 10,
 		max_msg: 5000,
 		max_tocken: 800000,
@@ -83,7 +125,49 @@ const tiersMap = {
 			}
 		}
 	},
+	103: {
+		name: 'Enterprise',
+		max_bot: 20,
+		max_msg: 10000,
+		max_tocken: 100000,
+		history_length_days: 30,
+		features: {
+			slack: {
+				included: false,
+				label: 'Slack Integration'
+			},
+			gpt_api: {
+				included: false,
+				label: 'Bring Your Own ChatGPT API Key'
+			},
+			remove_chatnode_branding: {
+				included: true,
+				label: 'Remove ChatNode Branding'
+			}
+		}
+	},
 	4: {
+		name: 'Enterprise +',
+		max_bot: 40,
+		max_msg: 40000,
+		max_tocken: 3000000,
+		history_length_days: 60,
+		features: {
+			slack: {
+				included: false,
+				label: 'Slack Integration'
+			},
+			gpt_api: {
+				included: false,
+				label: 'Bring Your Own ChatGPT API Key'
+			},
+			remove_chatnode_branding: {
+				included: true,
+				label: 'Remove ChatNode Branding'
+			}
+		}
+	},
+	104: {
 		name: 'Enterprise +',
 		max_bot: 40,
 		max_msg: 40000,
