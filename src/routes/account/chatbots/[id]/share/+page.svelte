@@ -13,6 +13,9 @@
 	let openChatByDefault = false;
 	let jsEmbedCode;
 
+	console.log(data)
+	console.log($currentBot)
+
 	const plansWithSlackIntegration = [2, 3, 4, 5, 102, 103, 104, 105, 1001, 1002, 1003, 1004, 1005];
 	const iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 	const url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
@@ -28,6 +31,22 @@
 		$currentBot.settings.allowedUrls = '*'
 		updateModel($currentBot.id, $currentBot.name, $currentBot.settings)
 	}
+
+	const addDomain = async () => {
+		const body = new FormData();
+		body.append('domain', 'example.com');
+		body.append('title', 'AI Chat');
+		body.append('bot_id', $currentBot.id);
+		body.append('user_id', data.user.user.userId);
+		body.append('session_id', data.user.session.sessionId);
+
+		await fetch(`${PUBLIC_CHAT_API_URL}/api/set-subdomain`, {
+			method: 'POST',
+			body,
+		});
+	}
+
+
 </script>
 
 <svelte:head>
@@ -64,6 +83,22 @@
 				<a href={url} class="btn btn-xs" target="_blank">view</a>
 			</div>
 		</div>
+		{#if data.subscription?.plan === 1 }
+			<div class="card bg-neutral mb-12">
+				<div class="card-body">
+					<h2 class="card-title">Enable Custom Domain</h2>
+					<form>
+						<div class="form-control">
+							<label class="label" for="domain">
+								<span class="label-text">Your domain name</span>
+							  </label>							
+							<input type="text" class="input" name="domain" />
+						</div>
+						<input type="submit" class="btn btn-success mt-4" value="Submit" />
+					</form>
+				</div>
+			</div>
+		{/if}
 
 		<div class="relative">
 			{#if data.model.settings.public && data.model.settings.allowedUrls.length === 0}
