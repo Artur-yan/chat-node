@@ -5,6 +5,7 @@
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import { currentBot } from '$lib/stores.js';
 	import { updateModel } from '$lib/models.js';
+	import { alert } from '$lib/stores.js';
 
 	export let data;
 
@@ -12,11 +13,12 @@
 	let color2 = '#0E1729';
 	let openChatByDefault = false;
 	let jsEmbedCode;
+	let busyAddingCustomDomain = false;
 
 	console.log(data)
 	console.log($currentBot)
 
-	const plansWithSlackIntegration = [2, 3, 4, 5, 102, 103, 104, 105, 1001, 1002, 1003, 1004, 1005];
+	const plansWithSlackIntegration = [2, 3, 4, 5, 102, 103, 104, 105, 1001, 1002, 1003, 1004, 1005, 1006, 1007];
 	const iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 	const url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
 
@@ -32,159 +34,205 @@
 		updateModel($currentBot.id, $currentBot.name, $currentBot.settings)
 	}
 
-	const addDomain = async () => {
+	const addCustomDomain = async () => {
+		busyAddingCustomDomain = true;
 		const body = new FormData();
-		body.append('domain', 'example.com');
+		body.append('domain', $currentBot.settings.customDomain);
 		body.append('title', 'AI Chat');
 		body.append('bot_id', $currentBot.id);
 		body.append('user_id', data.user.user.userId);
 		body.append('session_id', data.user.session.sessionId);
 
-		await fetch(`${PUBLIC_CHAT_API_URL}/api/set-subdomain`, {
-			method: 'POST',
-			body,
-		});
+		try{
+			await fetch(`${PUBLIC_CHAT_API_URL}/api/set-subdomain`, {
+				method: 'POST',
+				body,
+			});
+			await updateModel($currentBot.id, $currentBot.name, $currentBot.settings)
+
+			$alert('success', 'Custom Domain Added')
+		} catch(err) {
+			console.log(err)
+			$alert('error', 'Something Went Wrong')
+
+		} finally {
+			busyAddingCustomDomain = false;
+
+		}
 	}
-
-
 </script>
 
 <svelte:head>
 	<title>Embed | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container my-4 py-8">
-	<div class="relative">
-		{#if !$currentBot.settings.public}
-			<div class="inset-0 absolute bg-base-100/70 z-10 flex items-center justify-center">
-				<div class="card bg-neutral max-w-2xl">
-					<div class="card-body">
-						<h2 class="card-title">Your chatbot is currently set to private.</h2>
-						<p class="text-lg">
-							Currently it may only be integrated with slack. To embed it or get a share url make
-							your bot public. You can choose to only allow it on specific URLs in the share settings.
-						</p>
-						<div class="card-actions mt-8">
-							<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing">Share Settings</a>
-							<button class="btn btn-success" on:click={makePublic}>Make Public</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		{/if}
-
-		<div>
-			<h2 class="card-title">Web Page</h2>
-			<div class="bg-neutral p-4 rounded-lg flex justify-between items-center mb-12">
-				<div>
-					{url}
-					<CopyButton textToCopy={url} />
-				</div>
-				<a href={url} class="btn btn-xs" target="_blank">view</a>
-			</div>
-		</div>
-		{#if data.subscription?.plan === 1 }
-			<div class="card bg-neutral mb-12">
-				<div class="card-body">
-					<h2 class="card-title">Enable Custom Domain</h2>
-					<form>
-						<div class="form-control">
-							<label class="label" for="domain">
-								<span class="label-text">Your domain name</span>
-							  </label>							
-							<input type="text" class="input" name="domain" />
-						</div>
-						<input type="submit" class="btn btn-success mt-4" value="Submit" />
-					</form>
-				</div>
-			</div>
-		{/if}
-
+<div class="container my-4 py-8 grid grid-cols-1 gap-8" class:!grid-cols-2={data.subscription?.plan === 7}>
+	<div>
 		<div class="relative">
-			{#if data.model.settings.public && data.model.settings.allowedUrls.length === 0}
+			{#if !$currentBot.settings.public}
 				<div class="inset-0 absolute bg-base-100/70 z-10 flex items-center justify-center">
 					<div class="card bg-neutral max-w-2xl">
 						<div class="card-body">
-							<h2 class="card-title">You have not defined any allowed URLS.</h2>
+							<h2 class="card-title">Your chatbot is currently set to private.</h2>
 							<p class="text-lg">
-								To embed your chatbot on a website, you must specify the URLs you would like to be
-								allowed access from your share settings.
+								Currently it may only be integrated with slack. To embed it or get a share url make
+								your bot public. You can choose to only allow it on specific URLs in the share settings.
 							</p>
 							<div class="card-actions mt-8">
-								<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing">
-									Settings
-								</a>
+								<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing">Share Settings</a>
+								<button class="btn btn-success" on:click={makePublic}>Make Public</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			{/if}
-			<div class="mb-12">
-				<h2 class="card-title">Popup Chat</h2>
-				<div>
+			<div>
+				<h2 class="card-title">Web Page</h2>
+				<div class="bg-neutral p-4 rounded-lg flex justify-between items-center mb-12">
 					<div>
-						<Code code={jsEmbedCode} />
+						{url}
+						<CopyButton textToCopy={url} />
 					</div>
-					<p class="text-sm my-2">Place this code in your &lt;head&gt; tag.</p>
-					<div class="mt-10">
-						<h4 class="font-bold">Customise</h4>
-						<div class="flex gap-4 mt-4">
-							<ColorPicker bind:hex={color1} label="Icon Color" />
-							<ColorPicker bind:hex={color2} label="Background Color" />
+					<a href={url} class="btn btn-xs" target="_blank">view</a>
+				</div>
+			</div>
+			<div class="relative">
+				{#if data.model.settings.public && data.model.settings.allowedUrls.length === 0}
+					<div class="inset-0 absolute bg-base-100/70 z-10 flex items-center justify-center">
+						<div class="card bg-neutral max-w-2xl">
+							<div class="card-body">
+								<h2 class="card-title">You have not defined any allowed URLS.</h2>
+								<p class="text-lg">
+									To embed your chatbot on a website, you must specify the URLs you would like to be
+									allowed access from your share settings.
+								</p>
+								<div class="card-actions mt-8">
+									<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing">
+										Settings
+									</a>
+								</div>
+							</div>
 						</div>
-						<p class="text-sm mt-4">
-							To further customize the design visit the <a class="link" href="settings/customize">
-								settings page
-							</a>
-							.
-						</p>
-						<div class="form-control mt-4">
-							<label class="label cursor-pointer justify-start gap-2">
-								<input type="checkbox" class="toggle" bind:checked={openChatByDefault} />
-								<span class="label-text">Open chat window by default</span>
-							</label>
+					</div>
+				{/if}
+				<div class="mb-12">
+					<h2 class="card-title">Popup Chat</h2>
+					<div>
+						<div>
+							<Code code={jsEmbedCode} />
+						</div>
+						<p class="text-sm my-2">Place this code in your &lt;head&gt; tag.</p>
+						<div class="mt-10">
+							<h4 class="font-bold">Customise</h4>
+							<div class="flex gap-4 mt-4">
+								<ColorPicker bind:hex={color1} label="Icon Color" />
+								<ColorPicker bind:hex={color2} label="Background Color" />
+							</div>
+							<p class="text-sm mt-4">
+								To further customize the design visit the <a class="link" href="settings/customize">
+									settings page
+								</a>
+								.
+							</p>
+							<div class="form-control mt-4">
+								<label class="label cursor-pointer justify-start gap-2">
+									<input type="checkbox" class="toggle" bind:checked={openChatByDefault} />
+									<span class="label-text">Open chat window by default</span>
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>
+				<div>
+					<div class="mb-10">
+						<h2 class="card-title">Embedded (iframe)</h2>
+						<Code code={iframeEmbedCode} />
+						<p class="text-sm my-2">
+							Place this code wherever you'd like the iframe to appear on your website.
+						</p>
+					</div>
+				</div>
 			</div>
-			<div>
-				<div class="mb-10">
-					<h2 class="card-title">Embedded (iframe)</h2>
-					<Code code={iframeEmbedCode} />
-					<p class="text-sm my-2">
-						Place this code wherever you'd like the iframe to appear on your website.
+		</div>
+		<div>
+			<h2 class="card-title">Slack</h2>
+			<div class="card bg-neutral">
+				<div class="card-body">
+					<p class="text-base text-neutral-content">
+						Get responses from your custom trained chatbot directly in slack for you and your team.
 					</p>
+					<div class="card-actions justify-between mt-10 items-center">
+						{#if plansWithSlackIntegration.includes(data.subscription.plan)}
+							{#if data.model.slack_bot_status === false}
+								<a class="btn btn-primary" href="{PUBLIC_CHAT_API_URL}/slack/install">
+									Authorize Slack
+								</a>
+							{:else}
+								<div class="badge badge-outline badge-success">Enabled</div>
+								<a class="btn btn-xs" href="{PUBLIC_CHAT_API_URL}/slack/install">+ Slack Workspace</a>
+							{/if}
+						{:else}
+							<p class="text-warning text-sm">
+								Slack integration is available on the pro plan and above
+							</p>
+							<a class="btn btn-warning" href="/account/settings/subscription">Upgrade</a>
+						{/if}
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	{#if data.subscription?.plan === 7 }
 	<div>
-		<h2 class="card-title">Slack</h2>
-		<div class="card bg-neutral">
+		<div class="card bg-neutral mb-12">
 			<div class="card-body">
-				<p class="text-base text-neutral-content">
-					Get responses from your custom trained chatbot directly in slack for you and your team.
-				</p>
-				<div class="card-actions justify-between mt-10 items-center">
-					{#if plansWithSlackIntegration.includes(data.subscription.plan)}
-						{#if data.model.slack_bot_status === false}
-							<a class="btn btn-primary" href="{PUBLIC_CHAT_API_URL}/slack/install">
-								Authorize Slack
-							</a>
-						{:else}
-							<div class="badge badge-outline badge-success">Enabled</div>
-							<a class="btn btn-xs" href="{PUBLIC_CHAT_API_URL}/slack/install">+ Slack Workspace</a>
-						{/if}
-					{:else}
-						<p class="text-warning text-sm">
-							Slack integration is available on the pro plan and above
-						</p>
-						<a class="btn btn-warning" href="/account/settings/subscription">Upgrade</a>
+				<h2 class="card-title">Enable Custom Domain</h2>
+				<div class="">
+					<form on:submit={addCustomDomain} class="mb-8">
+						<div class="form-control">
+							<label class="label" for="domain">
+								<span class="label-text">Your sub-domain name</span>
+							  </label>
+							<div class="join">
+								<input type="text" class="input join-item w-full" name="domain" bind:value={$currentBot.settings.customDomain} />
+								<input type="submit" class="btn btn-success join-item" value={busyAddingCustomDomain ? 'Adding' : 'Submit'} />
+							</div>
+								<span class="help">Must be a valid sub-domain and you must be able to edit the DNS records for the domain</span>
+						</div>
+					</form>
+					{#if $currentBot.settings.customDomain }
+					<div class="overflow-x-auto">
+							<p class="text-warning text-sm font-bold mb-2">Add this entry to your DNS records for {$currentBot.settings.customDomain.split('.').slice(-2).join('.')}:</p>
+							<table class="table table-lg bg-base-300 rounded">
+							  <!-- head -->
+							  <thead>
+								<tr>
+								  <th>Type</th>
+								  <th>Host</th>
+								  <th>Value</th>
+								</tr>
+							  </thead>
+							  <tbody>
+								<!-- row 1 -->
+								<tr>
+								  <th>CNAME</th>
+								  <td>{$currentBot.settings.customDomain.split('.').slice(0, -2).join('.')}</td>
+								  <td>lkjink.com.</td>
+								</tr>
+							  </tbody>
+							</table>
+						  </div>
+						  <div class="alert alert-warning mt-4">
+							Please Allow up to 24 Hours for the changes to take effect and for your SSL certificate to be generated. If you are still experiencing issues, contact us at contact@chatnode.ai.
+						</div>
 					{/if}
 				</div>
 			</div>
 		</div>
 	</div>
+
+{/if}
+
 </div>
 
 <style lang="postcss">

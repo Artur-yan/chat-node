@@ -73,6 +73,7 @@ const defaultSettings = {
 	collectUserPhoneLabel: 'Phone',
 	collectUserInfoSubmitButtonText: 'Start Chatting',
 	useChatNodeMsgs: true,
+	customDomain: '',
 	theme: {
 		name: 'default',
 		bg: '#0F172A',
