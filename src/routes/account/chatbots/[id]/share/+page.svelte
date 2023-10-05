@@ -25,7 +25,7 @@
 
 	const makePublic = () => {
 		$currentBot.settings.public = true;
-		$currentBot.settings.allowedUrls = '*'
+		$currentBot.settings.allowedUrls = ['*']
 		updateModel($currentBot.id, $currentBot.name, $currentBot.settings)
 	}
 </script>
