@@ -306,7 +306,7 @@ const tiersMap = {
 		}
 	},
 	1006: {
-		name: 'AppSumo: Tier 5',
+		name: 'AppSumo: Tier 6',
 		max_bot: -1,
 		max_msg: 0,
 		max_tocken: 8000000,
@@ -331,7 +331,7 @@ const tiersMap = {
 		}
 	},
 	1007: {
-		name: 'AppSumo: Tier 5',
+		name: 'AppSumo: Tier 7',
 		max_bot: -1,
 		max_msg: 0,
 		max_tocken: 8000000,
