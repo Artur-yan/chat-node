@@ -15,6 +15,7 @@
 	let openChatByDefault = false;
 	let jsEmbedCode;
 	let busyAddingCustomDomain = false;
+	let currentCustomDomain = $currentBot.settings.customDomain;
 
 	console.log(data)
 	console.log($currentBot)
@@ -56,6 +57,8 @@
 				body,
 			});
 			await updateModel($currentBot.id, $currentBot.name, $currentBot.settings)
+
+			currentCustomDomain = $currentBot.settings.customDomain;
 
 			$alert = 'Custom Domain Added'
 
@@ -209,9 +212,9 @@
 								<span class="help">Must be a valid sub-domain and you must be able to edit the DNS records for the domain</span>
 						</div>
 					</form>
-					{#if $currentBot.settings.customDomain }
+					{#if currentCustomDomain }
 					<div class="overflow-x-auto">
-							<p class="text-warning text-sm font-bold mb-2">Add this entry to your DNS records for {$currentBot.settings.customDomain.split('.').slice(-2).join('.')}:</p>
+							<p class="text-warning text-sm font-bold mb-2">Add this entry to your DNS records for {currentCustomDomain.split('.').slice(-2).join('.')}:</p>
 							<table class="table table-lg bg-base-300 rounded">
 							  <!-- head -->
 							  <thead>
@@ -225,7 +228,7 @@
 								<!-- row 1 -->
 								<tr>
 								  <th>CNAME</th>
-								  <td>{$currentBot.settings.customDomain.split('.').slice(0, -2).join('.')}</td>
+								  <td>{currentCustomDomain.split('.').slice(0, -2).join('.')}</td>
 								  <td>lkjink.com.</td>
 								</tr>
 							  </tbody>
