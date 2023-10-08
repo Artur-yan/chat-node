@@ -5,8 +5,8 @@
 
 	let plan = data.subscription.plan;
 
-	const plansWithCustomApiKey = [2, 3, 4, 102, 103, 104, 1001, 1002, 1003, 1004, 1005];
-	const plansWithGPT4 = [2, 3, 4, 102, 103, 104];
+	const plansWithCustomApiKey = [2, 3, 4, 102, 103, 104, 1001, 1002, 1003, 1004, 1005, 1006, 1007];
+	const plansWithGPT4 = [2, 3, 4, 102, 103, 104, 1006, 1007];
 	let canUseChatNodeMsgs = true;
 
 	$: if (
