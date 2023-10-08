@@ -182,7 +182,7 @@
 									{#each data.modelData.urls as url}
 										{#if url.base_url === baseUrl}
 											<tr>
-												<td>
+												<td class="break-all">
 													{url.name}
 												</td>
 												<td>{url.token_count}</td>
