@@ -134,7 +134,7 @@
 			reader.read().then(function pump({ done, value }) {
 				if (done) {
 					// Do something with last chunk of data then exit reader
-					document.querySelectorAll('.message-body:last-child pre code').forEach((el) => {
+					document.querySelectorAll('.message-body:last-child code').forEach((el) => {
 						hljs.highlightElement(el);
 					});
 					return;
