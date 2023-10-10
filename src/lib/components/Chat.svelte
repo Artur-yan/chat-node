@@ -3,6 +3,8 @@
 	import BotStatus from '$lib/components/BotStatus.svelte';
 	import { defaultSettings } from '$lib/models';
 	import { Remarkable } from 'remarkable';
+	import hljs from 'highlight.js';
+	import 'highlight.js/styles/github-dark.css';
 
 	const md = new Remarkable();
 
@@ -132,6 +134,9 @@
 			reader.read().then(function pump({ done, value }) {
 				if (done) {
 					// Do something with last chunk of data then exit reader
+					document.querySelectorAll('.message-body:last-child pre code').forEach((el) => {
+						hljs.highlightElement(el);
+					});
 					return;
 				}
 				// Otherwise do something here to process current chunk
@@ -274,7 +279,7 @@
 								: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
 						>
 							<div class="message-body break-words">
-								{@html postProcessMsgHTML(md.render(msg.text))}
+								{@html (postProcessMsgHTML(md.render(msg.text)))}
 							</div>
 							<!-- {#if msg.sender === 'bot'}
 							<div class="absolute dropdown dropdown-bottom dropdown-end -right-10 top-0 text-sm text-white">
@@ -510,6 +515,12 @@
 		.message-body ol {
 			list-style: decimal;
 			margin-left: 2em;
+		}
+
+		code{
+			border-radius: 0.25rem;
+			transition-property: background-color, padding;
+			transition-duration: 300ms;
 		}
 	</style>
 </div>
