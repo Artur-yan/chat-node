@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import { alert } from '$lib/stores';
 	import Plausible from 'plausible-tracker';
+	import { v4 as uuidv4 } from 'uuid';
 
 	export let data;
 
@@ -15,7 +16,9 @@
 
 	const email = data.user.user.email;
 
-	switch (newPlan) {
+
+	onMount(async () => {
+		switch (newPlan) {
 		case '1':
 			amountSpent = 19;
 			break;
@@ -42,7 +45,6 @@
 			break;
 	}
 
-	onMount(async () => {
 		if (planChange) {
 			const { trackEvent } = Plausible({
 				domain: PUBLIC_PLAUSIBLE_DOMAIN,
@@ -52,13 +54,25 @@
 			switch (planChange) {
 				case 'convert':
 					trackEvent('Convert to Paid');
+					dataLayer.push({ ecommerce: null });
 					dataLayer.push({
 						event: 'Convert',
 						ecommerce: {
 							currency: 'USD',
-							value: amountSpent
+							value: amountSpent,
+							purchase: {
+								actionField: {
+									'id': uuidv4(),
+									'revenue': amountSpent,
+								},
+								products: [{
+									'id': newPlan,
+									'price': amountSpent,
+									'quantity': 1
+								}]
+							}
 						}
-					})
+					});
 					break;
 				case 'upgrade':
 					trackEvent('Upgrade');
