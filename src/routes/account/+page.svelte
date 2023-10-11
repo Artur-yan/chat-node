@@ -16,6 +16,29 @@
 
 	const email = data.user.user.email;
 
+	function gtmTrackPurchase(eventName) {
+		dataLayer.push({ ecommerce: null });
+		dataLayer.push({
+			event: eventName,
+			ecommerce: {
+				currency: 'USD',
+				value: amountSpent,
+				purchase: {
+					actionField: {
+						'id': uuidv4(),
+						'revenue': amountSpent,
+					},
+					products: [{
+						'id': newPlan,
+						'price': amountSpent,
+						'quantity': 1
+					}]
+				}
+			}
+		});
+	}
+
+
 
 	onMount(async () => {
 		switch (newPlan) {
@@ -54,54 +77,21 @@
 			switch (planChange) {
 				case 'convert':
 					trackEvent('Convert to Paid');
-					dataLayer.push({ ecommerce: null });
-					dataLayer.push({
-						event: 'Convert',
-						ecommerce: {
-							currency: 'USD',
-							value: amountSpent,
-							purchase: {
-								actionField: {
-									'id': uuidv4(),
-									'revenue': amountSpent,
-								},
-								products: [{
-									'id': newPlan,
-									'price': amountSpent,
-									'quantity': 1
-								}]
-							}
-						}
-					});
+					gtmTrackPurchase('Convert');
 					break;
 				case 'upgrade':
 					trackEvent('Upgrade');
-					dataLayer.push({
-						event: 'Upgrade',
-						ecommerce: {
-							currency: 'USD',
-							value: amountSpent
-						}
-					})
+					gtmTrackPurchase('Upgrade');
 					break;
 				case 'downgrade':
 					trackEvent('Downgrade');
-					dataLayer.push({
-						event: 'Downgrade',
-						ecommerce: {
-							currency: 'USD',
-							value: amountSpent
-						}
-					})
+					gtmTrackPurchase('Downgrade');
 					break;
 				case 'cancel':
 					trackEvent('Cancel');
-					dataLayer.push({
-						event: 'cancel'
-					})
+					gtmTrackPurchase('Cancel');
 					break;
 			}
-
 			$alert = 'Plan changed successfully!';
 		}
 		// else if ( $page.url.searchParams.get('signup') === 'success' ) {
