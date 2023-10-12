@@ -70,7 +70,7 @@ const tiersMap = {
 		history_length_days: 7,
 		features: {
 			slack: {
-				included: false,
+				included: true,
 				label: 'Slack Integration'
 			},
 			gpt_api: {
@@ -91,7 +91,7 @@ const tiersMap = {
 		history_length_days: 7,
 		features: {
 			slack: {
-				included: false,
+				included: true,
 				label: 'Slack Integration'
 			},
 			gpt_api: {
@@ -112,7 +112,7 @@ const tiersMap = {
 		history_length_days: 30,
 		features: {
 			slack: {
-				included: false,
+				included: true,
 				label: 'Slack Integration'
 			},
 			gpt_api: {
@@ -137,7 +137,7 @@ const tiersMap = {
 		history_length_days: 30,
 		features: {
 			slack: {
-				included: false,
+				included: true,
 				label: 'Slack Integration'
 			},
 			gpt_api: {
@@ -162,7 +162,7 @@ const tiersMap = {
 		history_length_days: 60,
 		features: {
 			slack: {
-				included: false,
+				included: true,
 				label: 'Slack Integration'
 			},
 			gpt_api: {
@@ -187,7 +187,7 @@ const tiersMap = {
 		history_length_days: 60,
 		features: {
 			slack: {
-				included: false,
+				included: true,
 				label: 'Slack Integration'
 			},
 			gpt_api: {
