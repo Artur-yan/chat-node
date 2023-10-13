@@ -261,7 +261,7 @@
 			<slot>
 				{#each messages as msg}
 					<div
-						class="chat relative !overflow-visible w-auto {msg.sender == 'bot'
+						class="chat relative w-auto {msg.sender == 'bot'
 							? 'chat-start'
 							: 'chat-end'}"
 					>
@@ -517,10 +517,11 @@
 			margin-left: 2em;
 		}
 
-		code{
+		code {
 			border-radius: 0.25rem;
 			transition-property: background-color, padding;
 			transition-duration: 300ms;
+			overflow-x-scroll: scroll;
 		}
 	</style>
 </div>
