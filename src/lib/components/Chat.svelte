@@ -273,7 +273,7 @@
 							</div>
 						{/if}
 						<div
-							class="chat-bubble relative transition-colors"
+							class="chat-bubble w-auto relative transition-colors"
 							style={msg.sender == 'bot'
 								? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
 								: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
@@ -517,11 +517,11 @@
 			margin-left: 2em;
 		}
 
-		code {
+		pre, code {
 			border-radius: 0.25rem;
 			transition-property: background-color, padding;
 			transition-duration: 300ms;
-			overflow-x-scroll: scroll;
+			overflow-x: auto;
 		}
 	</style>
 </div>
