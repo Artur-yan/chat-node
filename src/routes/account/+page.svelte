@@ -38,29 +38,6 @@
 
 	const email = data.user.user.email;
 
-	function gtmTrackPurchase(eventName) {
-		dataLayer.push({ ecommerce: null });
-		dataLayer.push({
-			event: eventName,
-			ecommerce: {
-				currency: 'USD',
-				value: amountSpent,
-				purchase: {
-					actionField: {
-						'id': uuidv4(),
-						'revenue': amountSpent,
-					},
-					products: [{
-						'id': newPlan,
-						'price': amountSpent,
-						'quantity': 1
-					}]
-				}
-			}
-		});
-	}
-
-
 
 	onMount(async () => {
 		switch (newPlan) {
