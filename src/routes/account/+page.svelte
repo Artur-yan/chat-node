@@ -14,6 +14,28 @@
 	let oldPlan = $page.url.searchParams.get('old-plan');
 	let amountSpent = 0;
 
+	function gtmTrackPurchase(eventName) {
+		dataLayer.push({ ecommerce: null });
+		dataLayer.push({
+			event: eventName,
+			ecommerce: {
+				currency: 'USD',
+				value: amountSpent,
+				purchase: {
+					actionField: {
+						'id': uuidv4(),
+						'revenue': amountSpent,
+					},
+					products: [{
+						'id': newPlan,
+						'price': amountSpent,
+						'quantity': 1
+					}]
+				}
+			}
+		});
+	}
+
 	const email = data.user.user.email;
 
 	function gtmTrackPurchase(eventName) {

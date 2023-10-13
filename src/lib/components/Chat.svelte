@@ -3,6 +3,8 @@
 	import BotStatus from '$lib/components/BotStatus.svelte';
 	import { defaultSettings } from '$lib/models';
 	import { Remarkable } from 'remarkable';
+	import hljs from 'highlight.js';
+	import 'highlight.js/styles/github-dark.css';
 
 	const md = new Remarkable();
 
@@ -132,6 +134,9 @@
 			reader.read().then(function pump({ done, value }) {
 				if (done) {
 					// Do something with last chunk of data then exit reader
+					document.querySelectorAll('.message-body:last-child code').forEach((el) => {
+						hljs.highlightElement(el);
+					});
 					return;
 				}
 				// Otherwise do something here to process current chunk
@@ -256,7 +261,7 @@
 			<slot>
 				{#each messages as msg}
 					<div
-						class="chat relative !overflow-visible w-auto {msg.sender == 'bot'
+						class="chat relative w-auto {msg.sender == 'bot'
 							? 'chat-start'
 							: 'chat-end'}"
 					>
@@ -268,13 +273,13 @@
 							</div>
 						{/if}
 						<div
-							class="chat-bubble relative transition-colors"
+							class="chat-bubble w-auto relative transition-colors"
 							style={msg.sender == 'bot'
 								? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
 								: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
 						>
 							<div class="message-body break-words">
-								{@html postProcessMsgHTML(md.render(msg.text))}
+								{@html (postProcessMsgHTML(md.render(msg.text)))}
 							</div>
 							<!-- {#if msg.sender === 'bot'}
 							<div class="absolute dropdown dropdown-bottom dropdown-end -right-10 top-0 text-sm text-white">
@@ -510,6 +515,13 @@
 		.message-body ol {
 			list-style: decimal;
 			margin-left: 2em;
+		}
+
+		pre, code {
+			border-radius: 0.25rem;
+			transition-property: background-color, padding;
+			transition-duration: 300ms;
+			overflow-x: auto;
 		}
 	</style>
 </div>
