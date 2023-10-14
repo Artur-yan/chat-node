@@ -88,7 +88,9 @@
 					break;
 				case 'cancel':
 					trackEvent('Cancel');
-					gtmTrackPurchase('Cancel');
+					dataLayer.push({
+						event: 'Cancel'
+					});
 					break;
 			}
 			$alert = 'Plan changed successfully!';
