@@ -13,25 +13,22 @@
 	let newPlan = $page.url.searchParams.get('new-plan');
 	let oldPlan = $page.url.searchParams.get('old-plan');
 	let amountSpent = 0;
+	let newPlanName = '';
 
 	function gtmTrackPurchase(eventName) {
 		dataLayer.push({ ecommerce: null });
 		dataLayer.push({
 			event: eventName,
 			ecommerce: {
-				currency: 'USD',
+				transaction_id: uuidv4(),
 				value: amountSpent,
-				purchase: {
-					actionField: {
-						'id': uuidv4(),
-						'revenue': amountSpent,
-					},
-					products: [{
-						'id': newPlan,
-						'price': amountSpent,
-						'quantity': 1
-					}]
-				}
+				currency: 'USD',
+				items: [{
+					'item_id': newPlan,
+					'item_name': newPlanName,
+					'price': amountSpent,
+					'quantity': 1
+				}]
 			}
 		});
 	}
@@ -42,27 +39,35 @@
 	onMount(async () => {
 		switch (newPlan) {
 		case '1':
+			newPlanName = 'Basic';
 			amountSpent = 19;
 			break;
 		case '2':
+			newPlanName = 'Pro';
 			amountSpent = 49;
 			break;
 		case '3':
+			newPlanName = 'Enterprise';
 			amountSpent = 99;
 			break;
 		case '4':
+			newPlanName = 'Enterprise Plus';
 			amountSpent = 399;
 			break;
 		case '101':
+			newPlanName = 'Basic - Annual';
 			amountSpent = 190;
 			break;
 		case '102':
+			newPlanName = 'Pro - Annual';
 			amountSpent = 490;
 			break;
 		case '103':
+			newPlanName = 'Enterprise - Annual';
 			amountSpent = 990;
 			break;
 		case '104':
+			newPlanName = 'Enterprise Plus - Annual';
 			amountSpent = 3990;
 			break;
 	}
