@@ -13,7 +13,8 @@ export const auth = lucia({
 			userId: user.id,
 			email: user.email,
 			status: user.status,
-			api_key: user.api_key
+			api_key: user.api_key,
+			default_openai_key: user.default_openai_key,
 		};
 	}
 });

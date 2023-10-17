@@ -306,7 +306,7 @@ const tiersMap = {
 		}
 	},
 	1006: {
-		name: 'AppSumo: Tier 5',
+		name: 'AppSumo: Tier 6',
 		max_bot: -1,
 		max_msg: 0,
 		max_tocken: 8000000,
@@ -327,35 +327,6 @@ const tiersMap = {
 			chat_history: {
 				included: true,
 				label: '60 Day Chat History'
-			}
-		}
-	},
-	1007: {
-		name: 'AppSumo: Tier 5',
-		max_bot: -1,
-		max_msg: 0,
-		max_tocken: 8000000,
-		history_length_days: 60,
-		features: {
-			slack: {
-				included: true,
-				label: 'Slack Integration'
-			},
-			gpt_api: {
-				included: true,
-				label: 'Bring Your Own ChatGPT API Key'
-			},
-			remove_chatnode_branding: {
-				included: true,
-				label: 'Remove ChatNode Branding'
-			},
-			chat_history: {
-				included: true,
-				label: '60 Day Chat History'
-			},
-			custom_domain: {
-				included: true,
-				label: 'Custom Domain Names'
 			}
 		}
 	}

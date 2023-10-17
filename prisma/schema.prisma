@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
 }
 
 model AuthUser {
@@ -15,6 +16,7 @@ model AuthUser {
   new_email         String?        @unique
   created           DateTime       @default(now())
   api_key           String?        @unique
+  default_openai_key  String?
   auth_key          AuthKey?
   auth_session      AuthSession[]
   bots              Bots[]

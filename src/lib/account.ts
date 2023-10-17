@@ -1,6 +1,7 @@
 import { goto } from '$app/navigation';
 import { alert } from '$lib/stores';
 
+
 const deleteAccount = async () => {
 	await fetch('/api/account/delete', {
 		method: 'POST'
@@ -34,6 +35,21 @@ const updateApiKey = async () => {
 	}
 };
 
+const updateDefaultOpenAIKey = async (key: string) => {
+	try {
+		const res = await fetch('/api/account/update-default-openai-key', {
+			method: 'POST',
+			body: JSON.stringify({
+				key
+			})
+		});
+		alert.set('Updated default OpenAI key');
+
+	} catch (err) {
+		console.error(err);
+	}
+};
+
 const redirectToStripeBilling = async () => {
 	try {
 		alert.set('Redirecting you to Stripe billing portal');
@@ -56,4 +72,4 @@ const redirectToStripeBilling = async () => {
 	}
 };
 
-export { deleteAccount, updateAccountEmail, updateApiKey, redirectToStripeBilling };
+export { deleteAccount, updateAccountEmail, updateApiKey, redirectToStripeBilling, updateDefaultOpenAIKey };

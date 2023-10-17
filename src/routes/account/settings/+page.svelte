@@ -2,10 +2,11 @@
 	export let data;
 	export let form: { message?: string };
 
-	import { updateAccountEmail, updateApiKey } from '$lib/account.js';
+	import { updateAccountEmail, updateApiKey, updateDefaultOpenAIKey } from '$lib/account.js';
 	import { alert } from '$lib/stores.js';
 
 	let apiKey = data.user.user.api_key;
+	let defaultOpenAIKey = data.user.user.default_openai_key || '';
 
 	let userEmail = data.user.user.email;
 
@@ -23,7 +24,11 @@
 		}
 	};
 
-	const plansWithApiFeature = [3, 4, 103, 104, 1001, 1002, 1003, 1004, 1005];
+	const handleUpdateDefaultOpenAIKey = () => {
+		updateDefaultOpenAIKey(defaultOpenAIKey);
+	};
+
+	const plansWithApiFeature = [3, 4, 103, 104, 1001, 1002, 1003, 1004, 1005, 1006];
 </script>
 
 <svelte:head>
@@ -87,6 +92,26 @@
 		</div>
 		<div class="card bg-neutral">
 			<div class="card-body">
+				<h2 class="card-title">Privacy</h2>
+				<div>
+					<a
+						href="#"
+						class="btn"
+						onclick="window.displayPreferenceModal();return false;"
+						id="termly-consent-preferences"
+					>
+						Consent Preferences
+					</a>
+					<a class="btn" href="https://app.termly.io/notify/3f2d25ad-6a63-49f0-ad4b-3e0615a49ead">
+						DSAR Form
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="space-y-8">
+		<div class="card bg-neutral">
+			<div class="card-body">
 				<h2 class="card-title">API Key</h2>
 				<p>Fetch your chat history and query your bots with our API</p>
 				{#if plansWithApiFeature.includes(data.subscription.plan)}
@@ -125,22 +150,24 @@
 		</div>
 		<div class="card bg-neutral">
 			<div class="card-body">
-				<h2 class="card-title">Privacy</h2>
-				<div>
-					<a
-						href="#"
-						class="btn"
-						onclick="window.displayPreferenceModal();return false;"
-						id="termly-consent-preferences"
-					>
-						Consent Preferences
-					</a>
-					<a class="btn" href="https://app.termly.io/notify/3f2d25ad-6a63-49f0-ad4b-3e0615a49ead">
-						DSAR Form
-					</a>
-				</div>
+				<h2 class="card-title">Default OpenAI API Key</h2>
+				<p>Enter an OpenAI API key that all bots will use by default. You can override this key per bot. If a bot currently has an OpenAI key defined, it will continue to use that key. All other bots will use this key once your message limit has been reached.</p>
+					<div class="join">
+						<input
+							class="join-item input w-full"
+							type="text"
+							bind:value={defaultOpenAIKey}
+						/>
+						<button
+							class="btn btn-outline btn-secondary join-item"
+							on:click={handleUpdateDefaultOpenAIKey}
+						>
+							Update
+						</button>
+					</div>
 			</div>
 		</div>
+
 	</div>
 
 	<div />
