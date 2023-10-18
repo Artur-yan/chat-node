@@ -55,7 +55,7 @@
 		<p class="font-bold text-secondary text-lg mb-2">Your plan includes:</p>
 
 		<div class="text-lg mb-4 leading-8">
-			<p>{data.subscription?.max_bot} Chatbots</p>
+			<p>{data.subscription?.max_bot === -1 ? 'Unlimited' : data.subscription?.max_bot} Chatbots</p>
 			<p>{data.subscription?.max_tocken.toLocaleString()} Tokens/Bot</p>
 			<p>{data.subscription?.max_msg} Messages/Month</p>
 		</div>
