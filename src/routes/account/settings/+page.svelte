@@ -148,6 +148,7 @@
 				{/if}
 			</div>
 		</div>
+		{#if data.subscription.plan === 1006}
 		<div class="card bg-neutral">
 			<div class="card-body">
 				<h2 class="card-title">Default OpenAI API Key</h2>
@@ -167,6 +168,7 @@
 					</div>
 			</div>
 		</div>
+		{/if}
 
 	</div>
 
