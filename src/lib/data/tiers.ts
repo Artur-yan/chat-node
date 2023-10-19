@@ -70,7 +70,7 @@ const tiersMap = {
 		history_length_days: 7,
 		features: {
 			slack: {
-				included: false,
+				included: true,
 				label: 'Slack Integration'
 			},
 			gpt_api: {
@@ -91,7 +91,7 @@ const tiersMap = {
 		history_length_days: 7,
 		features: {
 			slack: {
-				included: false,
+				included: true,
 				label: 'Slack Integration'
 			},
 			gpt_api: {
@@ -112,12 +112,16 @@ const tiersMap = {
 		history_length_days: 30,
 		features: {
 			slack: {
-				included: false,
+				included: true,
 				label: 'Slack Integration'
 			},
 			gpt_api: {
 				included: false,
 				label: 'Bring Your Own ChatGPT API Key'
+			},
+			chatnode_api: {
+				included: true,
+				label: 'ChatNode API'
 			},
 			remove_chatnode_branding: {
 				included: true,
@@ -133,12 +137,16 @@ const tiersMap = {
 		history_length_days: 30,
 		features: {
 			slack: {
-				included: false,
+				included: true,
 				label: 'Slack Integration'
 			},
 			gpt_api: {
 				included: false,
 				label: 'Bring Your Own ChatGPT API Key'
+			},
+			chatnode_api: {
+				included: true,
+				label: 'ChatNode API'
 			},
 			remove_chatnode_branding: {
 				included: true,
@@ -154,12 +162,16 @@ const tiersMap = {
 		history_length_days: 60,
 		features: {
 			slack: {
-				included: false,
+				included: true,
 				label: 'Slack Integration'
 			},
 			gpt_api: {
-				included: false,
+				included: true,
 				label: 'Bring Your Own ChatGPT API Key'
+			},
+			chatnode_api: {
+				included: true,
+				label: 'ChatNode API'
 			},
 			remove_chatnode_branding: {
 				included: true,
@@ -175,12 +187,16 @@ const tiersMap = {
 		history_length_days: 60,
 		features: {
 			slack: {
-				included: false,
+				included: true,
 				label: 'Slack Integration'
 			},
 			gpt_api: {
 				included: false,
 				label: 'Bring Your Own ChatGPT API Key'
+			},
+			chatnode_api: {
+				included: true,
+				label: 'ChatNode API'
 			},
 			remove_chatnode_branding: {
 				included: true,
@@ -203,6 +219,10 @@ const tiersMap = {
 				included: true,
 				label: 'Bring Your Own ChatGPT API Key'
 			},
+			chatnode_api: {
+				included: true,
+				label: 'ChatNode API'
+			},
 			remove_chatnode_branding: {
 				included: false,
 				label: 'Remove ChatNode Branding'
@@ -224,6 +244,10 @@ const tiersMap = {
 				included: true,
 				label: 'Bring Your Own ChatGPT API Key'
 			},
+			chatnode_api: {
+				included: true,
+				label: 'ChatNode API'
+			},
 			remove_chatnode_branding: {
 				included: true,
 				label: 'Remove ChatNode Branding'
@@ -244,6 +268,10 @@ const tiersMap = {
 			gpt_api: {
 				included: true,
 				label: 'Bring Your Own ChatGPT API Key'
+			},
+			chatnode_api: {
+				included: true,
+				label: 'ChatNode API'
 			},
 			remove_chatnode_branding: {
 				included: true,
@@ -270,6 +298,10 @@ const tiersMap = {
 				included: true,
 				label: 'Bring Your Own ChatGPT API Key'
 			},
+			chatnode_api: {
+				included: true,
+				label: 'ChatNode API'
+			},
 			remove_chatnode_branding: {
 				included: true,
 				label: 'Remove ChatNode Branding'
@@ -295,6 +327,10 @@ const tiersMap = {
 				included: true,
 				label: 'Bring Your Own ChatGPT API Key'
 			},
+			chatnode_api: {
+				included: true,
+				label: 'ChatNode API'
+			},
 			remove_chatnode_branding: {
 				included: true,
 				label: 'Remove ChatNode Branding'
@@ -319,6 +355,10 @@ const tiersMap = {
 			gpt_api: {
 				included: true,
 				label: 'Bring Your Own ChatGPT API Key'
+			},
+			chatnode_api: {
+				included: true,
+				label: 'ChatNode API'
 			},
 			remove_chatnode_branding: {
 				included: true,

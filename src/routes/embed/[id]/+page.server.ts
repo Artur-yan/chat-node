@@ -38,7 +38,7 @@ export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 		// Set the Content-Security-Policy header to allow the embed to be loaded only on the whitelisted domains
 
 		let allowedUrls
-		if(bot.settings.allowedUrls === Array) {
+		if(bot.settings.allowedUrls.length) {
 			allowedUrls = bot.settings.allowedUrls.join(' ')
 		} else {
 			allowedUrls = bot.settings.allowedUrls;
@@ -53,9 +53,6 @@ export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 			if (!user.session) {
 				throw error(403, 'You are not allowed to view this bot');
 			}
-			// setHeaders({
-			// 	'Content-Security-Policy': `frame-ancestors 'self'`
-			// });
 		}
 		return { bot, removeBranding };
 	} catch (err) {

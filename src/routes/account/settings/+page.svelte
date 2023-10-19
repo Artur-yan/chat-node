@@ -4,6 +4,7 @@
 
 	import { updateAccountEmail, updateApiKey, updateDefaultOpenAIKey } from '$lib/account.js';
 	import { alert } from '$lib/stores.js';
+	import tiersMap from '$lib/data/tiers.js';
 
 	let apiKey = data.user.user.api_key;
 	let defaultOpenAIKey = data.user.user.default_openai_key || '';
@@ -114,7 +115,7 @@
 			<div class="card-body">
 				<h2 class="card-title">API Key</h2>
 				<p>Fetch your chat history and query your bots with our API</p>
-				{#if plansWithApiFeature.includes(data.subscription.plan)}
+				{#if tiersMap[data.subscription.plan].features.chatnode_api}
 					<div class="join">
 						<input
 							class="join-item input w-full"
@@ -126,7 +127,7 @@
 						<button
 							class="btn btn-outline btn-secondary join-item"
 							on:click={handleUpdateApiKey}
-							disabled={!plansWithApiFeature.includes(data.subscription.plan)}
+							disabled={!tiersMap[data.subscription.plan].features.chatnode_api}
 						>
 							Generate
 						</button>
