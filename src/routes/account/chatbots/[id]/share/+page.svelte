@@ -194,7 +194,7 @@
 			</div>
 		</div>
 	</div>
-	{#if data.subscription?.plan === 1007 }
+	{#if data.subscription?.plan === 1006 }
 	<div>
 		<div class="card bg-neutral mb-12">
 			<div class="card-body">
