@@ -159,7 +159,29 @@
 			</div>
 		</div>
 	{:else if currentPlan === 1006}
-	You purchased a lifetime <span class="text-primary">Agency Plan</span>
+
+			<h2 class="font-bold text-2xl mb-4 mt-8">You purchased a lifetime <span class="text-accent">Agency Plan</span></h2>
+			<ul class="text-xl mb-4">
+				<li><span class="text-accent font-medium">Unlimited</span> Chatbots</li>
+				<li><span class="text-accent font-medium">Unlimited</span> Messages</li>
+				<li>{new Number(8000000).toLocaleString()} Tokens/Bot</li>
+			</ul>
+			<ul class="text-lg mb-6 text-white font-bold">
+				<li>Bring your own domain using CNAME</li>
+			</ul>
+
+			<h3 class="font-bold text-white">Plus everything from Enterprise</h3>
+			<ul>
+				<li>Slack Integration</li>
+				<li>ChatNode API</li>
+				<li>Remove ChatNode Branding</li>
+				<li>60 Day Chat History</li>
+			</ul>
+
+
+			<p class="my-8">Agency Plan <span class="font-bold text-white">requires that you use your own OpenAI API Key.</span><br>You may set a default key for all bots and override the key per bot.</p>
+
+
 
 
 		
