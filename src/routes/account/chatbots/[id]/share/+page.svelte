@@ -7,6 +7,7 @@
 	import { updateModel } from '$lib/models.js';
 	import { alert } from '$lib/stores.js';
 	import tiersMap from '$lib/data/tiers';
+	import { enhance } from '$app/forms';
 
 	export let data;
 
@@ -17,8 +18,6 @@
 	let busyAddingCustomDomain = false;
 	let currentCustomDomain = $currentBot.settings.customDomain;
 
-	console.log(data)
-	console.log($currentBot)
 
 	const shareDomain = 'https://' + $currentBot.settings.customDomain || PUBLIC_SITE_URL;
 
@@ -65,8 +64,6 @@
 		} catch(err) {
 			console.log(err)
 			$alert = { msg: 'Something went wrong. Please try again later.', type: 'error' };
-
-
 		} finally {
 			busyAddingCustomDomain = false;
 
@@ -200,14 +197,18 @@
 			<div class="card-body">
 				<h2 class="card-title">Enable Custom Domain</h2>
 				<div class="">
-					<form on:submit={addCustomDomain} class="mb-8">
+					<form on:submit|preventDefault={addCustomDomain} class="mb-8">
 						<div class="form-control">
 							<label class="label" for="domain">
 								<span class="label-text">Your sub-domain name</span>
 							  </label>
 							<div class="join">
 								<input type="text" class="input join-item w-full" name="domain" bind:value={$currentBot.settings.customDomain} />
-								<input type="submit" class="btn btn-success join-item" value={busyAddingCustomDomain ? 'Adding' : 'Submit'} />
+								<button type="submit" class="btn btn-success join-item" disabled={busyAddingCustomDomain}>
+									{#if busyAddingCustomDomain}
+										<span class="loading loading-spinner text-primary mr-2 loading-sm"></span>
+									{/if}
+									{busyAddingCustomDomain ? 'Adding' : 'Submit'}</button>
 							</div>
 								<span class="help">Must be a valid sub-domain and you must be able to edit the DNS records for the domain</span>
 						</div>
