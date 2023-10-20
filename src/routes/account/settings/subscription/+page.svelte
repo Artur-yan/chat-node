@@ -140,7 +140,7 @@
 					</ul>
 
 
-					<p class="my-8">Agency Plan <span class="font-bold text-white">requires that you use your own OpenAI API Key.</span><br>You may set a default key for all bots and override the key per bot.</p>
+					<p class="my-8">Agency Plan <span class="font-bold text-white">requires that you use your own OpenAI API Key.<br><span class="text-error">There are no free messages included.</span></span><br>You may set a default key for all bots and override the key per bot.</p>
 					<div class="flex items-center gap-4">
 						<button
 							class="btn btn-accent"
@@ -148,7 +148,14 @@
 							on:click={upgradeToAgency}
 						>
 							Upgrade to Agency
-							<span class="badge badge-neutral badge-lg font-bold"><s class="mr-2 opacity-80">$399</s> ${400 - (currentPlan - 1000) * 50}</span>
+							<span class="badge badge-neutral badge-lg font-bold">
+								{#if currentPlan > 1000}
+									<s class="mr-2 opacity-80">$399</s>
+									${400 - (currentPlan - 1000) * 50}
+								{:else}
+									$399
+								{/if}
+							</span>
 						</button>
 						<div>
 						</div>
@@ -180,10 +187,6 @@
 
 
 			<p class="my-8">Agency Plan <span class="font-bold text-white">requires that you use your own OpenAI API Key.</span><br>You may set a default key for all bots and override the key per bot.</p>
-
-
-
-
 		
 	{:else if currentPlan < 1000}
 		<PricingGrid {currentPlan} {billingTerm} />
