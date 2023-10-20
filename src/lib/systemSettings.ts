@@ -1,5 +1,5 @@
 const systemSettings = {
-	maintenanceAlert: true,
+	maintenanceAlert: false,
 	maintenanceMsg:
 		'We are currently performing routine maintenance. Service may be impacted for a short period.'
 };
