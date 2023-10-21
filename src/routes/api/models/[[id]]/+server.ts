@@ -1,4 +1,25 @@
 import { prismaClient } from '$lib/server/prisma';
+import { json } from '@sveltejs/kit';
+
+export const GET = async ({ locals, params }) => {
+	const session = await locals.auth.validate();
+
+	if (session) {
+		const model = await prismaClient.bots.findUnique({
+			where: {
+				id: params.id
+			}
+		});
+
+		if(session.userId == model.user_id) {
+			return json(model);
+		} else {
+			return new Response(JSON.stringify({ status: 401 }));
+		}
+	} else {
+		return new Response(JSON.stringify({ status: 401 }));
+	}
+};
 
 export const POST = async ({ locals, request }) => {
 	const { id, name, settings } = await request.json();

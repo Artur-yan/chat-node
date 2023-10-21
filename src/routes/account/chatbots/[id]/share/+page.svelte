@@ -7,7 +7,7 @@
 	import { updateModel } from '$lib/models.js';
 	import { alert } from '$lib/stores.js';
 	import tiersMap from '$lib/data/tiers';
-	import { enhance } from '$app/forms';
+	import { onMount } from 'svelte';
 
 	export let data;
 
@@ -16,8 +16,8 @@
 	let openChatByDefault = false;
 	let jsEmbedCode;
 	let busyAddingCustomDomain = false;
+	let busyGettingBotData = false;
 	let currentCustomDomain = $currentBot.settings.customDomain;
-
 
 	const shareDomain = 'https://' + $currentBot.settings.customDomain || PUBLIC_SITE_URL;
 
@@ -55,9 +55,8 @@
 				method: 'POST',
 				body,
 			});
-			await updateModel($currentBot.id, $currentBot.name, $currentBot.settings)
 
-			currentCustomDomain = $currentBot.settings.customDomain;
+			getBotData(data.model.id);
 
 			$alert = 'Custom Domain Added'
 
@@ -69,6 +68,42 @@
 
 		}
 	}
+
+	const checkIfCustomDomainIsCurrent = async () => {
+		if(currentCustomDomain == $currentBot.settings.customDomain) {
+			return;
+		} else {
+			await new Promise(r => setTimeout(r, 20000));
+			getBotData(data.model.id);
+			console.log('checking')
+			checkIfCustomDomainIsCurrent()
+		}
+	}
+
+	const getBotData = async (id: string) => {
+		busyGettingBotData = true;
+		try {
+			const res = await fetch(`/api/models/${id}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			const resData = await res.json();
+			$currentBot = resData;
+			currentCustomDomain = $currentBot.settings.customDomain;
+
+		} catch (err) {
+			console.error(err);
+			$alert = { msg: 'Something went wrong', type: 'error' };
+		} finally {
+			busyGettingBotData = false;
+		}
+	};
+
+	onMount(() => {
+		// checkIfCustomDomainIsCurrent()
+	});
 </script>
 
 <svelte:head>
@@ -195,7 +230,14 @@
 	<div>
 		<div class="card bg-neutral mb-12">
 			<div class="card-body">
-				<h2 class="card-title">Enable Custom Domain</h2>
+				<h2 class="card-title justify-between">
+					Enable Custom Domain
+					<button class="btn btn-sm" on:click={() => getBotData(data.model.id)} disabled={busyGettingBotData}>
+						{#if busyGettingBotData}
+							<span class="loading loading-spinner text-primary mr-2 loading-sm"></span>
+						{/if}
+						Check for changes</button>
+				</h2>
 				<div class="">
 					<form on:submit|preventDefault={addCustomDomain} class="mb-8">
 						<div class="form-control">
