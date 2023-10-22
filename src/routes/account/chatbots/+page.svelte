@@ -9,12 +9,6 @@
 
 	export let data;
 
-	Date.prototype.addDays = function (days) {
-		var date = new Date(this.valueOf());
-		date.setDate(date.getDate() + days);
-		return date;
-	};
-
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
 	let idOfModelToDelete: string;
@@ -37,18 +31,18 @@
 		}
 	});
 
-	const today = new Date();
-	const resetDate = new Date(today.setDate(15));
+	let today = new Date();
+	let resetDate = new Date();
+
 	if (today.getDate() < 15) {
-		const resetDate = new Date(today.setMonth(today.getMonth() + 1));
+		resetDate = new Date(resetDate.setMonth(resetDate.getMonth() + 1));
+	} else {
+		resetDate = new Date(resetDate.setMonth(resetDate.getMonth() + 1));
 	}
-	// resetDate.setDate(15);
+	resetDate.setDate(15);
 	let daysLeftUntilAllotmentsReset = Math.ceil(
 		(resetDate - new Date().getTime()) / (1000 * 3600 * 24)
 	);
-
-	const trialExpirationDate = new Date(data.subscription.created_datetime).addDays(7);
-	const trialExpirationDateProgress = new Date(data.subscription.created_datetime).addDays(7);
 </script>
 
 <svelte:head>
