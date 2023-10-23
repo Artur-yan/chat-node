@@ -1,4 +1,4 @@
-import { goto } from '$app/navigation';
+import { goto, invalidateAll } from '$app/navigation';
 import { alert } from '$lib/stores';
 
 
@@ -44,6 +44,7 @@ const updateDefaultOpenAIKey = async (key: string) => {
 			})
 		});
 		alert.set('Updated default OpenAI key');
+		invalidateAll()
 
 	} catch (err) {
 		console.error(err);

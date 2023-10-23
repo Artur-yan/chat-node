@@ -150,7 +150,7 @@
 			</div>
 		</div>
 		{#if data.subscription.plan === 1006}
-		<div class="card bg-neutral">
+		<form class="card bg-neutral">
 			<div class="card-body">
 				<h2 class="card-title">Default OpenAI API Key</h2>
 				<p>Enter an OpenAI API key that all bots will use by default. You can override this key per bot. If a bot currently has an OpenAI key defined, it will continue to use that key. All other bots will use this key once your message limit has been reached.</p>
@@ -162,13 +162,14 @@
 						/>
 						<button
 							class="btn btn-outline btn-secondary join-item"
+							type="submit"
 							on:click={handleUpdateDefaultOpenAIKey}
 						>
 							Update
 						</button>
 					</div>
 			</div>
-		</div>
+		</form>
 		{/if}
 
 	</div>

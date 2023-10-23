@@ -13,8 +13,11 @@
 	import { onMount } from 'svelte';
 	import { alert } from '$lib/stores';
 	import { systemSettings } from '$lib/systemSettings';
+	import { slide } from 'svelte/transition';
 
 	export let data: LayoutData;
+
+	console.log(data)
 
 	onMount(() => {
 		const { enableAutoPageviews } = Plausible({
@@ -122,6 +125,21 @@
 <HeaderAdmin />
 
 <main class="flex flex-col flex-1">
+
+	{#if data.subscription.plan === 1006 && !data.user.user.default_openai_key}
+	<div class="container my-4">
+		<div class="alert bg-neutral justify-between flex items-center border-warning" transition:slide>
+			<div>
+				<h3 class="text-lg font-bold text-warning">Default OpenAI API Key</h3>
+				<p>
+					Your agency plan requires entering a default OpenAI key. You can override the api key per bot.
+				</p>
+			</div>
+			<a class="btn" href="/account/settings">Go to Settings</a>
+		</div>
+	</div>
+	{/if}
+	
 	{#if PUBLIC_ENVIRONMENT === 'production'}
 		<!-- Google Tag Manager (noscript) -->
 		<noscript>
