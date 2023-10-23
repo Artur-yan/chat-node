@@ -66,7 +66,7 @@
 
 <div class="container mb-20">
 	{#if currentPlan > 1000 && currentPlan < 1006 || (currentPlan === 0 && $page.url.search.includes('appsumo'))}
-	<div class="grid grid-cols-[4fr_3fr] my-8 gap-8">
+	<div class="grid md:grid-cols-[4fr_3fr] my-8 gap-8">
 			<div>
 				<h1 class="font-bold text-3xl mb-4">
 					{#if currentPlan > 1000}
@@ -121,14 +121,14 @@
 			</div>
 			<div class="card bg-neutral">
 				<div class="card-body">
-					<h2 class="text-accent font-bold text-2xl mb-4">Upgrade to Agency</h2>
+					<h2 class="text-accent font-bold text-2xl mb-4">Upgrade to Agency <span class="badge">Lifetime Deal</span></h2>
 					<ul class="text-xl mb-4">
 						<li><span class="text-accent font-medium">Unlimited</span> Chatbots</li>
 						<li><span class="text-accent font-medium">Unlimited</span> Messages</li>
 						<li>{new Number(8000000).toLocaleString()} Tokens/Bot</li>
 					</ul>
 					<ul class="text-lg mb-6 text-white font-bold">
-						<li>Bring your own domain using CNAME</li>
+						<li>Bring your own domain using CNAME<span class="badge ml-2 badge-outline">Customize per Bot</span></li>
 					</ul>
 
 					<h3 class="font-bold text-white">Plus everything from Enterprise</h3>
@@ -140,23 +140,24 @@
 					</ul>
 
 
-					<p class="my-8">Agency Plan <span class="font-bold text-white">requires that you use your own OpenAI API Key.<br><span class="text-error">There are no free messages included.</span></span><br>You may set a default key for all bots and override the key per bot.</p>
-					<div class="flex items-center gap-4">
+					<p class="my-8">Agency Plan <span class="font-bold text-white">requires that you use your own OpenAI API Key.<br><span class="text-error">There are no free messages included.</span></span><br>You may set a default OpenAI key for all bots and specify a different OpenAI key per bot.</p>
+					<div class="flex items-center gap-4 flex-wrap">
 						<button
-							class="btn btn-accent"
+							class="btn btn-accent flex-wrap"
 							type="button"
 							on:click={upgradeToAgency}
 						>
 							Upgrade to Agency
-							<span class="badge badge-neutral badge-lg font-bold">
-								{#if currentPlan > 1000}
-									<s class="mr-2 opacity-80">$399</s>
-									${400 - (currentPlan - 1000) * 50}
-								{:else}
-									$399
-								{/if}
-							</span>
 						</button>
+						<span class="badge badge-accent badge-lg font-bold">
+							{#if currentPlan > 1000}
+								<s class="mr-2 opacity-80">$399</s>
+								${400 - (currentPlan - 1000) * 50}
+							{:else}
+								$399
+							{/if}
+						</span>
+						<span class="badge font-bold">One-Time Fee</span>
 						<div>
 						</div>
 					</div>
