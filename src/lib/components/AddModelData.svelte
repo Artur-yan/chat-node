@@ -335,6 +335,7 @@
 						Fetch URLs
 					</button>
 				</div>
+				<p class="help">Up to 5000 URLs</p>
 			</div>
 		</form>
 
@@ -395,7 +396,7 @@
 			</table>
 			{#if busyFetchingUrls}
 				<div class="flex space-between gap-2 flex-wrap px-3 py-1">
-					<p>Large websites may take up to 2 minutes to fully scrape.</p>
+					<p>Large websites may take up to 15 minutes to fully scrape.</p>
 					<button
 						type="button"
 						class="btn btn-warning btn-xs btn-outline mb-4"
@@ -444,6 +445,11 @@
 	<p>
 		Add any public url for a website and we will check it for sub-pages. You can select which pages
 		to include/exclude in adding data to your bot.
+	</p>
+
+	<h3 class="font-bold mb-4 mt-8">Multiple/Specific URLs</h3>
+	<p>
+		You can enter a comma seperated list of urls to scrape. Sub-pages will not be crawled.
 	</p>
 
 	<h3 class="font-bold mb-4 mt-8">Google Docs / Notion / Online PDFs / + more</h3>
