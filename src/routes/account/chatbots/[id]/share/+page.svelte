@@ -75,7 +75,6 @@
 		} else {
 			await new Promise(r => setTimeout(r, 20000));
 			getBotData(data.model.id);
-			console.log('checking')
 			checkIfCustomDomainIsCurrent()
 		}
 	}

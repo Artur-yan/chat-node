@@ -12,7 +12,6 @@ export const GET = async ({ params }) => {
 	if (bot) {
 		return new Response(
 			String(`
-			console.log(${bot})
 		`)
 		);
 	} else {

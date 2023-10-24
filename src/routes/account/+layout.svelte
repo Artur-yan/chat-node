@@ -17,8 +17,6 @@
 
 	export let data: LayoutData;
 
-	console.log(data)
-
 	onMount(() => {
 		const { enableAutoPageviews } = Plausible({
 			domain: PUBLIC_PLAUSIBLE_DOMAIN,
