@@ -1,5 +1,6 @@
 import { prismaClient } from '$lib/server/prisma';
 import { v4 as uuidv4 } from 'uuid';
+import tiersMap from '$lib/data/tiers.js';
 
 export const POST = async ({ locals }) => {
 	const { user } = await locals.auth.validateUser();
@@ -10,9 +11,8 @@ export const POST = async ({ locals }) => {
 		}
 	});
 
-	const plansWithApiFeature = [3, 4, 103, 104, 1001, 1002, 1003, 1004, 1005];
 
-	if (!plansWithApiFeature.includes(plan)) {
+	if (!tiersMap[plan].features?.chatnode_api?.included) {
 		return new Response();
 	}
 
