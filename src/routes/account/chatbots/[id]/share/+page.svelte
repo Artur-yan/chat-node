@@ -50,23 +50,19 @@
 		body.append('user_id', data.user.user.userId);
 		body.append('session_id', data.user.session.sessionId);
 
-		try{
-			await fetch(`${PUBLIC_CHAT_API_URL}/api/set-subdomain`, {
-				method: 'POST',
-				body,
-			});
-
+		const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/set-subdomain`, {
+			method: 'POST',
+			body,
+		});
+		
+		if(res.ok) {
 			getBotData(data.model.id);
-
 			$alert = 'Custom Domain Added'
-
-		} catch(err) {
-			console.log(err)
+		} else {
 			$alert = { msg: 'Something went wrong. Please try again later.', type: 'error' };
-		} finally {
-			busyAddingCustomDomain = false;
-
 		}
+
+		busyAddingCustomDomain = false;
 	}
 
 	const checkIfCustomDomainIsCurrent = async () => {
