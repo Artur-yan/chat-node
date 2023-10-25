@@ -37,6 +37,7 @@
 	let approxTextTokenCount = 0;
 	let fileKeys: Array<string> = [];
 	let selectAllUrlsCheckbox: HTMLInputElement;
+	let maxFileSizeMB = 150;
 
 	const fetchUrlsToScrape = async () => {
 		busyFetchingUrls = true;
@@ -203,7 +204,7 @@
 	$: approxTextTokenCount = Math.ceil(textData.length / 3.5);
 
 	$: {
-		if (files && files[0].size > 50 * 1024 * 1024) {
+		if (files && files[0].size > maxFileSizeMB * 1024 * 1024) {
 			$alert = 'This file is too large';
 			fileInput.value = '';
 		}
