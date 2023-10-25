@@ -29,7 +29,7 @@
 		url = shareDomain;
 	}
 
-	$: jsEmbedCode = `<script src="${shareDomain ? 'https://lkjink.com' : PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${
+	$: jsEmbedCode = `<script src="${currentCustomDomain ? 'https://lkjink.com' : PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${
 		data.model.id
 	}" data-color-1="${color1}" data-color-2="${color2}" ${
 		openChatByDefault ? 'data-open' : ''
