@@ -17,6 +17,9 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	const botsSource = await prismaClient.botsSource.findMany({
 		where: {
 			id: model.id
+		},
+		orderBy: {
+			created_at: 'desc'
 		}
 	});
 

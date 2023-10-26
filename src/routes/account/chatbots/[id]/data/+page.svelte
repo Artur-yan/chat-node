@@ -175,6 +175,7 @@
 									<thead>
 										<tr>
 											<th class="w-full">Name</th>
+											<th class="w-full">Date</th>
 											<th class="w-full">Tokens</th>
 											<th />
 										</tr>
@@ -185,8 +186,16 @@
 												<td class="break-all">
 													{url.name}
 												</td>
+												<td>
+													<div
+													class="tooltip tooltip-info tooltip-left"
+													data-tip={url.created_at.toLocaleTimeString([], {minute: '2-digit', hour: '2-digit'})}
+												>
+													<h3 class="text-xs">{url.created_at.toLocaleDateString()}</h3>
+												</div>
+											</td>
 												<td>{url.token_count}</td>
-												<td class="flex gap-5">
+												<td class="flex gap-2">
 													<div class="tooltip tooltip-left" data-tip="Re-Train">
 														<button
 															class="btn btn-sm btn-circle btn-ghost"
@@ -239,6 +248,7 @@
 						<thead>
 							<tr>
 								<th class="w-full">Name</th>
+								<th class="w-full">Date</th>
 								<th class="w-full">Tokens</th>
 								<th />
 							</tr>
@@ -248,6 +258,14 @@
 								<td>
 									{file.name}
 								</td>
+								<td>
+									<div
+									class="tooltip tooltip-info tooltip-left"
+									data-tip={file.created_at.toLocaleTimeString([], {minute: '2-digit', hour: '2-digit'})}
+								>
+									<h3 class="text-xs">{file.created_at.toLocaleDateString()}</h3>
+								</div>
+							</td>
 								<td>{file.token_count}</td>
 								<td class="flex">
 									<button
@@ -278,6 +296,7 @@
 						<thead>
 							<tr>
 								<th class="w-full">Name</th>
+								<th class="w-full">Date</th>
 								<th class="w-full">Tokens</th>
 								<th />
 							</tr>
@@ -287,6 +306,14 @@
 								<td>
 									{text.name}
 								</td>
+								<td>
+									<div
+									class="tooltip tooltip-info tooltip-left"
+									data-tip={text.created_at.toLocaleTimeString([], {minute: '2-digit', hour: '2-digit'})}
+								>
+									<h3 class="text-xs">{text.created_at.toLocaleDateString()}</h3>
+								</div>
+							</td>
 								<td>{text.token_count}</td>
 								<td class="flex gap-2">
 									<button
