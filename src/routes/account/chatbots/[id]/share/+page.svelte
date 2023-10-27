@@ -21,7 +21,6 @@
 
 	const shareDomain = 'https://' + $currentBot.settings.customDomain || PUBLIC_SITE_URL;
 
-	const plansWithSlackIntegration = [2, 3, 4, 5, 102, 103, 104, 105, 1001, 1002, 1003, 1004, 1005, 1006, 1007];
 	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 	let url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
 	if($currentBot.settings.customDomain) {
@@ -29,7 +28,7 @@
 		url = shareDomain;
 	}
 
-	$: jsEmbedCode = `<script src="${currentCustomDomain ? 'https://lkjink.com' : PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${
+	$: jsEmbedCode = `<script src="${currentCustomDomain ? currentCustomDomain : PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${
 		data.model.id
 	}" data-color-1="${color1}" data-color-2="${color2}" ${
 		openChatByDefault ? 'data-open' : ''
