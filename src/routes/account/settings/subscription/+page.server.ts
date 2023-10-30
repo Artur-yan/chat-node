@@ -4,6 +4,15 @@ import { prismaClient } from '$lib/server/prisma';
 import { fail } from '@sveltejs/kit';
 import tiersMap from '$lib/data/tiers.js';
 
+async function fetchTestimonials() {
+	const testimonials = await fetch(`${PUBLIC_CMS_PATH}/api/content/tree/testimonials`, {
+		method: 'GET',
+		headers: {
+			'api-key': CMS_API_KEY
+		}
+	});
+	return await testimonials.json();}
+
 export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (!session) return;
@@ -19,15 +28,7 @@ export const load = async ({ locals }) => {
 		console.error(err);
 	}
 
-	async function fetchTestimonials() {
-		const testimonials = await fetch(`${PUBLIC_CMS_PATH}/api/content/items/testimonial`, {
-			method: 'GET',
-			headers: {
-				'api-key': CMS_API_KEY
-			}
-		});
-		return await testimonials.json();
-	}
+
 };
 
 export const actions = {

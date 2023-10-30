@@ -15,7 +15,6 @@
 		options={{
 			gap: '2em',
 			perPage: 2,
-			autoplay: true,
 			type: 'loop',
 			breakpoints: {
 				'960': {

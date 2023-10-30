@@ -4,7 +4,7 @@ import { PUBLIC_CMS_PATH } from '$env/static/public'
 export const load = async () => {
 
 	async function fetchTestimonials() {
-		const testimonials = await fetch(`${PUBLIC_CMS_PATH}/api/content/items/testimonial`, {
+		const testimonials = await fetch(`${PUBLIC_CMS_PATH}/api/content/tree/testimonials`, {
 			method: 'GET',
 			headers: {
 				'api-key': CMS_API_KEY
