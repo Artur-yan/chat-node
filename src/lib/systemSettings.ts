@@ -1,7 +1,7 @@
 const systemSettings = {
-	maintenanceAlert: false,
+	maintenanceAlert: true,
 	maintenanceMsg:
-		'We are currently performing routine maintenance. Service may be impacted for a short period.'
+		'OpenAI is currently experiencing outages preventing responses from being generated.'
 };
 
 const domainBlacklist = [
