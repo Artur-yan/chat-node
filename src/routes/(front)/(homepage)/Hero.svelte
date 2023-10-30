@@ -6,6 +6,7 @@
 		...defaultSettings
 	};
 	chatSettings.theme.resetButton = '#FFFFFF88';
+	chatSettings.headerEnabled = false;
 
 	import MorphingText from '$lib/components/MorphingText.svelte';
 
