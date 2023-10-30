@@ -1,11 +1,11 @@
-const cmsPath = 'https://cms.chatnode.ai';
-const apiKey = 'API-0abe8486ae9683f1dfd7fe8565ee10cf82dddea2';
+import {CMS_API_KEY} from '$env/static/private'
+import {PUBLIC_CMS_PATH} from '$env/static/public'
 
 export const load = async () => {
-	const data = await fetch(`${cmsPath}/api/content/items/post`, {
+	const data = await fetch(`${PUBLIC_CMS_PATH}/api/content/items/post`, {
 		method: 'GET',
 		headers: {
-			'api-key': apiKey
+			'api-key': CMS_API_KEY
 		}
 	});
 	const posts = await data.json();
@@ -14,11 +14,11 @@ export const load = async () => {
 		let postImages = [];
 		for (let i = 0; i < posts.length; i++) {
 			const res = await fetch(
-				`${cmsPath}/api/assets/image/${posts[i].img._id}?m=thumbnail&w=666&h=480`,
+				`${PUBLIC_CMS_PATH}/api/assets/image/${posts[i].img._id}?m=thumbnail&w=666&h=480`,
 				{
 					method: 'GET',
 					headers: {
-						'api-key': apiKey
+						'api-key': CMS_API_KEY
 					}
 				}
 			);

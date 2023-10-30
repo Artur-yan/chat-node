@@ -6,6 +6,13 @@
 	import UseCases from './UseCases.svelte';
 	import WaysToShare from './WaysToShare.svelte';
 	import PopupCallout from './PopupCallout.svelte';
+	import Testimonials from '$lib/components/Testimonials.svelte';
+
+	export let data
+
+	const { testimonials } = data.streamed
+
+
 </script>
 
 <svelte:head>
@@ -32,6 +39,8 @@
 <WaysToShare />
 
 <Features />
+
+<Testimonials {testimonials} />
 
 <section id="pricing" class="bg-base-300py py-10 lg:py-20">
 	<div class="container">

@@ -30,8 +30,8 @@
 
 	$: jsEmbedCode = `<script src="${currentCustomDomain ? currentCustomDomain : PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${
 		data.model.id
-	}" data-color-1="${color1}" data-color-2="${color2}" ${
-		openChatByDefault ? 'data-open' : ''
+	}" data-color-1="${$currentBot.settings.theme.popupButtonIcon}" data-color-2="${$currentBot.settings.theme.popupButtonBG}" ${
+		$currentBot.settings.openChatByDefault ? 'data-open' : ''
 	}><\/script>`;
 
 	const makePublic = () => {
@@ -159,25 +159,11 @@
 						<div>
 							<Code code={jsEmbedCode} />
 						</div>
-						<p class="text-sm my-2">Place this code in your &lt;head&gt; tag.</p>
-						<div class="mt-10">
-							<h4 class="font-bold">Customise</h4>
-							<div class="flex gap-4 mt-4">
-								<ColorPicker bind:hex={color1} label="Icon Color" />
-								<ColorPicker bind:hex={color2} label="Background Color" />
-							</div>
-							<p class="text-sm mt-4">
-								To further customize the design visit the <a class="link" href="settings/customize">
-									settings page
-								</a>
-								.
-							</p>
-							<div class="form-control mt-4">
-								<label class="label cursor-pointer justify-start gap-2">
-									<input type="checkbox" class="toggle" bind:checked={openChatByDefault} />
-									<span class="label-text">Open chat window by default</span>
-								</label>
-							</div>
+						<div class="flex justify-between text-sm mt-2">
+							<p>Place this code in your &lt;head&gt; tag.</p>
+							<a class="btn btn-xs btn-primary" href="settings/customize">
+								Customize
+							</a>
 						</div>
 					</div>
 				</div>

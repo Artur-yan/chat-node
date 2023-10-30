@@ -8,7 +8,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { h3 } from 'lucia-auth/middleware';
+	import Testimonials from '$lib/components/Testimonials.svelte';
 
 	export let data;
 	export let form;
@@ -193,3 +193,5 @@
 		<PricingGrid {currentPlan} {billingTerm} />
 	{/if}
 </div>
+
+<Testimonials testimonials={data.streamed?.testimonials} />

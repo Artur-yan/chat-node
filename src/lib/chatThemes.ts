@@ -13,7 +13,9 @@ const themes = {
 		inputText: '#000',
 		inputBorder: 'transparent',
 		sendButtonBG: '#FFFFFF',
-		sendButtonIconColor: '#38BDF7'
+		sendButtonIconColor: '#38BDF7',
+		popupButtonBG: '#3ABFF7',
+		popupButtonIcon: '#0F172A'
 	},
 	'meta-dark': {
 		name: 'meta-dark',
@@ -29,7 +31,9 @@ const themes = {
 		inputText: '#E4E6EB',
 		inputBorder: 'transparent',
 		sendButtonBG: '#3A3B3C',
-		sendButtonIconColor: '#666768'
+		sendButtonIconColor: '#666768',
+		popupButtonBG: '#0084FF',
+		popupButtonIcon: '#FFFFFF'
 	},
 	'ios-dark': {
 		name: 'ios-dark',
@@ -45,7 +49,9 @@ const themes = {
 		inputText: '#FFFFFF',
 		inputBorder: '#4A494E',
 		sendButtonBG: '#3093FF',
-		sendButtonIconColor: '#FFFFFF'
+		sendButtonIconColor: '#FFFFFF',
+		popupButtonBG: '#3093FF',
+		popupButtonIcon: '#000000'
 	},
 	'ios-light': {
 		name: 'ios-light',
@@ -61,7 +67,9 @@ const themes = {
 		inputText: '#000000',
 		inputBorder: '#BBBBBE',
 		sendButtonBG: '#3194FE',
-		sendButtonIconColor: '#FFFFFF'
+		sendButtonIconColor: '#FFFFFF',
+		popupButtonBG: '#3194FE',
+		popupButtonIcon: '#FFFFFF'
 	},
 	neutral: {
 		name: 'neutral',
@@ -77,7 +85,9 @@ const themes = {
 		inputText: '#000000',
 		inputBorder: '#BBBBBE',
 		sendButtonBG: '#333333',
-		sendButtonIconColor: '#FFFFFF'
+		sendButtonIconColor: '#FFFFFF',
+		popupButtonBG: '#333333',
+		popupButtonIcon: '#FFFFFF'
 	},
 	custom: {
 		name: 'custom',
@@ -93,7 +103,9 @@ const themes = {
 		inputText: '#000000',
 		inputBorder: '#BBBBBE',
 		sendButtonBG: '#333333',
-		sendButtonIconColor: '#FFFFFF'
+		sendButtonIconColor: '#FFFFFF',
+		popupButtonBG: '#333333',
+		popupButtonIcon: '#FFFFFF'
 	}
 };
 

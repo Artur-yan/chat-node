@@ -64,7 +64,7 @@ const defaultSettings = {
 	temperature: 0.1,
 	inputPlaceholder: 'Type your message',
 	sendButtonEnabled: false,
-	headerEnabled: false,
+	headerEnabled: true,
 	collectUserName: false,
 	collectUserNameLabel: 'Name',
 	collectUserEmail: false,
@@ -88,8 +88,11 @@ const defaultSettings = {
 		inputText: '#000',
 		inputBorder: '#transparent',
 		sendButtonBG: '#FFFFFF',
-		sendButtonIconColor: '#000'
+		sendButtonIconColor: '#000',
+		popupButtonBG: '#0E1729',
+		popupButtonIcon: '#3ABFF7',
 	},
+	openChatByDefault: false,
 	suggestedQuestions: []
 };
 
