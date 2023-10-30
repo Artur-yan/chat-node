@@ -70,8 +70,9 @@
 								</div>
 								<img src='/AppSumo-logo.svg' class="" alt="AppSumo" width="64" height="10">
 							</div>
-							<h3 class="card-title my-4">{testimonial.title}</h3>
-							<div>{testimonial.body}</div>
+							<h3 class="card-title my-4 text-white">{testimonial.title}</h3>
+							<div class="leading-[1.5em] font-light" style="font-size: {16 + (Math.max(0, 800 - testimonial.body.length)) * 0.02}px">{testimonial.body}</div>
+							{testimonial.body.length}
 						</div>
 						{#if testimonial.url}
 						<div class="flex self-end p-4">
