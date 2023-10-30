@@ -73,9 +73,11 @@
 							<h3 class="card-title my-4">{testimonial.title}</h3>
 							<div>{testimonial.body}</div>
 						</div>
+						{#if testimonial.url}
 						<div class="flex self-end p-4">
-							<a href="/" class="btn btn-xs btn-primary btn-outline">View →</a>
+							<a href={testimonial.url} class="btn btn-xs btn-primary btn-outline">View →</a>
 						</div>
+						{/if}
 					</div>
 				</SplideSlide>
 			{/each}
