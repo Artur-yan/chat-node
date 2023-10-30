@@ -43,17 +43,21 @@
 <Features />
 
 <section class="py-10 overflow-hidden">
-	<h2 class="text-3xl font-bold text-center mb-8">Testimonials</h2>
+	<h2 class="text-3xl font-bold text-center mb-8">Reviews</h2>
 	{#await testimonials then testimonials}
 
 	<Splide aria-label="Testimonials"
 		hasTrack={false}
 		options={{
 			gap: '2em',
-			perPage: 3,
+			perPage: 2,
 			autoplay: true,
 			type: 'loop',
-	
+			breakpoints: {
+				'960': {
+					perPage: 1,
+				},
+			},	
 		}}
 		class="overflow-visible container"
 	>
@@ -72,10 +76,9 @@
 							</div>
 							<h3 class="card-title my-4 text-white">{testimonial.title}</h3>
 							<div class="leading-[1.5em] font-light" style="font-size: {16 + (Math.max(0, 800 - testimonial.body.length)) * 0.02}px">{testimonial.body}</div>
-							{testimonial.body.length}
 						</div>
 						{#if testimonial.url}
-						<div class="flex self-end p-4">
+						<div class="flex self-end px-4 pb-2">
 							<a href={testimonial.url} class="btn btn-xs btn-primary btn-outline">View →</a>
 						</div>
 						{/if}
