@@ -1,7 +1,7 @@
 const systemSettings = {
 	maintenanceAlert: true,
 	maintenanceMsg:
-		'OpenAI is currently experiencing outages preventing responses from being generated.'
+		'Cloudflare is currently experiencing outages affecting ChatNode services.'
 };
 
 const domainBlacklist = [
