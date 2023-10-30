@@ -92,7 +92,7 @@
 		<input
 			type="range"
 			min={0}
-			max={2.0}
+			max={1}
 			class="range range-xs range-primary"
 			step={0.1}
 			name="temp"
