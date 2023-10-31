@@ -506,6 +506,10 @@
 				list-style: decimal;
 				margin-left: 2em;
 			}
+
+			.message-body p + p{
+				margin-top: 1em;
+			}
 	
 			pre, code {
 				border-radius: 0.25rem;
