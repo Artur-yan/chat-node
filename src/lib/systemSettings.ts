@@ -1,5 +1,5 @@
 const systemSettings = {
-	maintenanceAlert: true,
+	maintenanceAlert: false,
 	maintenanceMsg:
 		'Cloudflare is currently experiencing outages affecting ChatNode services.'
 };
