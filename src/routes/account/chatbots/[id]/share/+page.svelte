@@ -11,9 +11,7 @@
 
 	export let data;
 
-	let color1 = '#3ABFF7';
-	let color2 = '#0E1729';
-	let openChatByDefault = false;
+
 	let jsEmbedCode;
 	let busyAddingCustomDomain = false;
 	let busyGettingBotData = false;
@@ -28,7 +26,7 @@
 		url = shareDomain;
 	}
 
-	$: jsEmbedCode = `<script src="${currentCustomDomain ? currentCustomDomain : PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${
+	$: jsEmbedCode = `<script src="${currentCustomDomain ? 'https://' + currentCustomDomain : PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${
 		data.model.id
 	}" data-color-1="${$currentBot.settings.theme.popupButtonIcon}" data-color-2="${$currentBot.settings.theme.popupButtonBG}" ${
 		$currentBot.settings.openChatByDefault ? 'data-open' : ''
