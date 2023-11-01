@@ -21,7 +21,7 @@ export const actions = {
 			});
 		}
 		try {
-			const key = await auth.useKey('username', email, password);
+			const key = await auth.useKey('username', email.toLowerCase(), password);
 			const session = await auth.createSession(key.userId);
 			locals.auth.setSession(session);
 		} catch (error) {

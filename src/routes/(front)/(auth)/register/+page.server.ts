@@ -59,6 +59,7 @@ export const actions: Actions = {
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
 
+
 		let codes: Array<string> = [];
 
 		let subscriptionLimits = specialPlans['free'];
@@ -130,7 +131,7 @@ export const actions: Actions = {
 			const user = await auth.createUser({
 				primaryKey: {
 					providerId: 'username',
-					providerUserId: email,
+					providerUserId: email.toLowerCase(),
 					password
 				},
 				attributes: {
