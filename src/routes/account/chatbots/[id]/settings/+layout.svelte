@@ -145,6 +145,7 @@
 				userId={data.user.session.userId}
 				{showUserInfoCollection}
 			/>
+			{#if $currentBot.settings.collectUserEmail || $currentBot.settings.collectUserName || $currentBot.settings.collectUserPhone}
 			<div class="form-control">
 				<label class="label cursor-pointer justify-start gap-2">
 					<input
@@ -155,6 +156,7 @@
 					<span class="label-text">Show User Info Form Preview</span>
 				</label>
 			</div>
+			{/if}
 		</div>
 	</div>
 </div>
