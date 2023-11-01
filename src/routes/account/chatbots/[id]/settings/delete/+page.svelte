@@ -37,7 +37,7 @@
 				d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
 			/>
 		</svg>
-		Delete permanaently
+		Delete Permanently
 	</label>
 </div>
 
@@ -49,7 +49,7 @@
 			<label for="my-modal" class="btn">Cancel</label>
 			<button class="btn btn-error" type="button" on:click={handleDelete}>
 				<span class={$state == 'deletingModel' ? 'loading' : 'invisible'} />
-				Delete permanaently
+				Delete permanently
 			</button>
 		</div>
 	</div>
