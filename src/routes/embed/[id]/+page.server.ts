@@ -38,15 +38,17 @@ export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 		// Set the Content-Security-Policy header to allow the embed to be loaded only on the whitelisted domains
 
 		let allowedUrls
+		let allowedSubDomains
 		if(bot.settings.allowedUrls.length) {
 			allowedUrls = bot.settings.allowedUrls.join(' ')
+			allowedSubDomains = '*.' + bot.settings.allowedUrls.join(' *.')
 		} else {
 			allowedUrls = bot.settings.allowedUrls;
 		}
 
 		if (bot.settings.public) {
 			setHeaders({
-				'Content-Security-Policy': `frame-ancestors 'self' ${allowedUrls};`
+				'Content-Security-Policy': `frame-ancestors 'self' ${allowedUrls} ${allowedSubDomains};`
 			});
 		} else {
 			const user = await locals.auth.validateUser();
