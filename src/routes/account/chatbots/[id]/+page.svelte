@@ -7,7 +7,7 @@
 	<title>{data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="flex flex-col flex-1">
+<div class="flex flex-col flex-1 p-10">
 	<Chat
 		modelId={data.model.id}
 		trainingStatus={data.model.status}
@@ -15,4 +15,12 @@
 		avatar={data.model?.avatar_img}
 		userId={data.user.user.userId}
 	/>
+</div>
+
+<div>
+	<style>
+		#toggle-btn-befbfc87e25911db{
+			display: none;
+		}
+	</style>
 </div>
