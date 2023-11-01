@@ -372,16 +372,19 @@
 			<div>
 				<div class="relative">
 					{#if settings.suggestedQuestions}
-						<div class="flex gap-1 mb-2 overflow-x-auto">
-							{#each settings.suggestedQuestions as question}
-								<button
-									class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
-									type="button"
-									on:click={() => askSuggestedQuestion(question.value)}
-								>
-									{question.label}
-								</button>
-							{/each}
+						<div class="relative">
+							<div class="absolute right-0 top-0 bottom-0 w-12 z-1" style="background: linear-gradient(90deg, {settings.theme.bg}00, var(--bg) 96%);" />
+							<div class="flex gap-1 mb-2 overflow-x-auto w-full">
+								{#each settings.suggestedQuestions as question}
+									<button
+										class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
+										type="button"
+										on:click={() => askSuggestedQuestion(question.value)}
+									>
+										{question.label}
+									</button>
+								{/each}
+							</div>
 						</div>
 					{/if}
 					<textarea
