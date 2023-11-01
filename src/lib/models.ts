@@ -78,7 +78,7 @@ const defaultSettings = {
 		name: 'default',
 		bg: '#0F172A',
 		headerBG: 'transparent',
-		headerTitle: '#000',	
+		headerTitle: '#FFFFFF',	
 		resetButton: '#FFFFFF88',
 		botBubbleBG: '#818CF8',
 		botBubbleText: '#00074B',
