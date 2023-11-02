@@ -36,12 +36,23 @@
 
 	$: data.modelData, restart();
 
-	const deleteBotSource = async (s3_key: string) => {
+	const gatherSubUrlsS3Keys = (url: string) => {
+		let s3Keys = [];
+		data.modelData?.urls.forEach((urlObj) => {
+			if (urlObj.base_url === url) {
+				s3Keys.push(urlObj.s3_key);
+			}
+		});
+
+		return s3Keys;
+	};
+
+	const deleteBotSource = async (s3_keys: Array<string>) => {
 		let body = new FormData();
 		body.append('user_id', data.model.user_id);
 		body.append('session_id', data.user.session.sessionId);
 		body.append('bot_id', data.model.id);
-		body.append('s3_key', s3_key);
+		body.append('s3_keys', s3_keys);
 
 		const res = await fetch(PUBLIC_CHAT_API_URL + '/api/delete-data', {
 			method: 'POST',
@@ -169,14 +180,37 @@
 				{#if activeDataTab === 'urls'}
 					<div class="space-y-4">
 						{#each data.modelData.baseUrls as baseUrl}
-							<Accordian open={true}>
-								<h2 slot="title">{baseUrl}</h2>
+							<Accordian>
+								
+								<h2 slot="title">
+									{baseUrl}
+
+									<button
+									class="btn btn-sm btn-circle btn-ghost text-error"
+									on:click|stopPropagation={() => {
+										sourceToDelete = baseUrl;
+										deleteEntireWebsiteModal.showModal();
+									}}
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+									>
+										<path
+											fill="currentColor"
+											d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
+										/>
+									</svg>
+								</button>
+								</h2>
 								<table class="table w-full table-xs">
 									<thead>
 										<tr>
 											<th class="w-full">Name</th>
 											<th class="w-full">Date</th>
-											<th class="w-full">Tokens</th>
+											<th class="w-full">Tokens</th>	
 											<th />
 										</tr>
 									</thead>
@@ -421,7 +455,7 @@
 			<h3 class="font-bold text-lg">Are you sure you want to delete this data source?</h3>
 			<p class="py-4" />
 			<button class="btn">Cancel</button>
-			<button class="btn btn-error" on:click={() => deleteBotSource(sourceToDelete.s3_key)}>
+			<button class="btn btn-error" on:click={() => deleteBotSource([sourceToDelete.s3_key])}>
 				Delete
 			</button>
 		{:else}
@@ -433,6 +467,20 @@
 			</div>
 			<button class="btn">Ok</button>
 		{/if}
+	</form>
+	<form method="dialog" class="modal-backdrop">
+		<button>close</button>
+	</form>
+</dialog>
+
+<dialog id="deleteEntireWebsiteModal" class="modal">
+	<form method="dialog" class="modal-box">
+			<h3 class="font-bold text-lg">This will delete all sub-urls. Are you sure you want to continue?</h3>
+			<p class="py-4" />
+			<button class="btn">Cancel</button>
+			<button class="btn btn-error" on:click={() => deleteBotSource(gatherSubUrlsS3Keys(sourceToDelete))}>
+				Delete
+			</button>
 	</form>
 	<form method="dialog" class="modal-backdrop">
 		<button>close</button>
