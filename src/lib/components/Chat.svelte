@@ -26,7 +26,7 @@
 		}
 	];
 	export let userId: string;
-	export let context: string;
+	export let context = ''
 
 	// Merge default settings with user settings
 	// Merge nested object
