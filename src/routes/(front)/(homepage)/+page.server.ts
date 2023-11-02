@@ -13,8 +13,6 @@ export const load = async () => {
 		return await testimonials.json();
 	}
 
-    console.log(fetchTestimonials())
-
 	return {
         streamed: {
 			testimonials: fetchTestimonials()
