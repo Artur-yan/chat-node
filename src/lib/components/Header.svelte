@@ -1,4 +1,6 @@
 <script lang="ts">
+	import LoadingProgress from "./LoadingProgress.svelte";
+
 	let links = [
 		{
 			title: 'Features',
@@ -23,7 +25,10 @@
 
 <svelte:window bind:scrollY />
 
+<LoadingProgress />
+
 <header id="header" class="py-10">
+	
 	<nav class="container">
 		<div class="flex flex-wrap justify-between items-center">
 			<div class="flex items-end justify-center gap-10 -mt-3">
