@@ -12,7 +12,7 @@ export const POST: RequestHandler = async ({ locals }) => {
 		await auth.invalidateSession(session.sessionId);
 		locals.auth.setSession(null);
 	} catch(e) {
-		console.log(e);
+		console.error(e);
 	}
 
 	throw redirect(302, '/');
