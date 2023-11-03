@@ -269,7 +269,6 @@
 															/>
 														</svg>
 													</button>
-													{url.status}
 												</td>
 											</tr>
 										{/if}
