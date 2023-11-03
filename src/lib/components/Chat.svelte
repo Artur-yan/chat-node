@@ -17,6 +17,7 @@
 	export let modelId: string;
 	export let disabled = false;
 	export let isThinking = false;
+	export let isResponding = false;
 	export let settings = defaultSettings;
 	export let showUserInfoCollection = true;
 	export let messages = [
@@ -124,11 +125,13 @@
 			const data = res.body;
 			const reader = data.getReader();
 			reader.read().then(function pump({ done, value }) {
+				isResponding = true;
 				if (done) {
 					// Do something with last chunk of data then exit reader
 					document.querySelectorAll('.message-body:last-child code').forEach((el) => {
 						hljs.highlightElement(el);
 					});
+					isResponding = false
 					return;
 				}
 				// Otherwise do something here to process current chunk
@@ -177,6 +180,8 @@
 		if (isThinking) {
 			addMessage('Please wait for me to finish thinking...');
 			return;
+		} else if (isResponding){
+			return
 		} else if (inputVal.trim() === '') {
 			return;
 		} else if (!modelId) {

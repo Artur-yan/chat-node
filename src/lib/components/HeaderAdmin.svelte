@@ -1,5 +1,6 @@
 <script>
 	import { redirectToStripeBilling } from '$lib/account';
+	import LoadingProgress from "./LoadingProgress.svelte";
 
 	let links = [
 		{
@@ -12,6 +13,8 @@
 		}
 	];
 </script>
+
+<LoadingProgress />
 
 <header id="header" class="bg-base-300 border-b border-black/80">
 	<nav class="container">
