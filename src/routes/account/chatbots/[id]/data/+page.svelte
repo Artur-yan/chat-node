@@ -1,13 +1,15 @@
 <script lang="ts">
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-	import { invalidateAll } from '$app/navigation';
 	import AddModelData from '$lib/components/AddModelData.svelte';
 	import Chat from '$lib/components/Chat.svelte';
 	import { alert } from '$lib/stores.js';
 	import Accordian from '$lib/components/Accordian.svelte';
 	import { getText, updateText } from '$lib/textSource';
+	import { slide } from 'svelte/transition';
 
 	export let data;
+
+	let { urls } = data.modelData
 
 	let trainingStatus = 'ready';
 	let modelId = data.model.id;
@@ -16,7 +18,7 @@
 
 	let activeDataTab: string;
 
-	if (data.modelData?.urls.length) {
+	if (urls) {
 		activeDataTab = 'urls';
 	} else if (data.modelData?.files.length) {
 		activeDataTab = 'files';
@@ -58,14 +60,17 @@
 			method: 'POST',
 			body
 		});
-		const resData = await res.json();
 
 		if (res.ok) {
 			$alert = { msg: 'Data deleted', type: 'success' };
-			invalidateAll();
-			restart();
+			const elem = document.getElementById(sourceToDelete.s3_key)
+			elem.remove();
 		}
 	};
+
+	function updateBotSources(s3_keys: Array<string>) {
+		
+	}
 
 	let textSourceToEdit: Object;
 	let textSourceValue: string;
@@ -103,7 +108,6 @@
 			method: 'POST',
 			body
 		});
-		const resData = await res.json();
 
 		if (res.ok) {
 			// invalidateAll();
@@ -138,13 +142,13 @@
 				<h2 class="card-title">Trained Data Sources</h2>
 				<div class="flex">
 					<div class="tabs tabs-boxed gap-2">
-						{#if data.modelData?.urls.length}
+						{#if urls}
 							<button
 								class="tab"
 								on:click={() => (activeDataTab = 'urls')}
 								class:tab-active={activeDataTab === 'urls'}
 							>
-								URLs <span class="badge badge-sm ml-2">{data.modelData?.urls.length}</span>
+								URLs
 							</button>
 						{/if}
 						{#if data.modelData?.files.length}
@@ -179,31 +183,30 @@
 
 				{#if activeDataTab === 'urls'}
 					<div class="space-y-4">
-						{#each data.modelData.baseUrls as baseUrl}
-							<Accordian>
-								
+						{#each Object.entries(urls) as [baseUrl, items]}
+							<Accordian>						
 								<h2 slot="title">
 									{baseUrl}
 
 									<button
-									class="btn btn-sm btn-circle btn-ghost text-error"
-									on:click|stopPropagation={() => {
-										sourceToDelete = baseUrl;
-										deleteEntireWebsiteModal.showModal();
-									}}
-								>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
+										class="btn btn-sm btn-circle btn-ghost text-error"
+										on:click|stopPropagation={() => {
+											sourceToDelete = baseUrl;
+											deleteEntireWebsiteModal.showModal();
+										}}
 									>
-										<path
-											fill="currentColor"
-											d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
-										/>
-									</svg>
-								</button>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+										>
+											<path
+												fill="currentColor"
+												d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
+											/>
+										</svg>
+									</button>
 								</h2>
 								<table class="table w-full table-xs">
 									<thead>
@@ -214,9 +217,8 @@
 											<th />
 										</tr>
 									</thead>
-									{#each data.modelData.urls as url}
-										{#if url.base_url === baseUrl}
-											<tr>
+									{#each items as url}
+											<tr id={url.s3_key}>
 												<td class="break-all">
 													{url.name}
 												</td>
@@ -272,7 +274,6 @@
 													{url.status}
 												</td>
 											</tr>
-										{/if}
 									{/each}
 								</table>
 							</Accordian>

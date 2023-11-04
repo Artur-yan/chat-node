@@ -1,3 +1,14 @@
+const getModel = async (id: string) => {
+	const res = await fetch(`/api/models/${id}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
+
+	return res.json();
+}
+
 const addModel = async (id: string, name: string, settings?: Object) => {
 	try {
 		const res = await fetch('/api/models', {
@@ -7,7 +18,7 @@ const addModel = async (id: string, name: string, settings?: Object) => {
 			},
 			body: JSON.stringify({
 				id,
-				name,
+				name,	
 				settings
 			})
 		});
@@ -133,4 +144,4 @@ const personalities = {
 	}
 };
 
-export { addModel, updateModel, deleteModel, defaultSettings, personalities };
+export { addModel, updateModel, deleteModel, getModel, defaultSettings, personalities };
