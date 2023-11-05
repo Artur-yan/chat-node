@@ -260,7 +260,7 @@
 										</tr>
 									</thead>
 									{#each items as url}
-											<tr id={url.s3_key} class="relative" data-training-status={url.status}>
+											<tr id={url.s3_key} class="hover" data-training-status={url.status}>
 												<td class="break-all">
 													<div class="training-status badge font-bold uppercase badge-xs badge-warning">{url.status}</div>
 													{url.name}
