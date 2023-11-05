@@ -11,13 +11,13 @@
 	export let data;
 
 	let { urls } = data.modelData
-
 	let trainingStatus = 'ready';
 	let modelId = data.model.id;
 	let sourceToDelete: Object;
 	let unique = [{}]; // every {} is unique, {} === {} evaluates to false
-
 	let activeDataTab: string;
+	let textSourceToEdit: Object;
+	let textSourceValue: string;
 
 	if (urls) {
 		activeDataTab = 'urls';
@@ -33,13 +33,7 @@
 		unique = [{}];
 	}
 
-	$: if (trainingStatus == 'complete') {
-		restart();
-	}
-
-	$: data.modelData, restart();
-
-	const gatherSubUrlsS3Keys = (base_url: string) => {
+	async function gatherSubUrlsS3Keys(base_url: string) {
 		let s3Keys = [];
 		data.modelData?.urls[base_url].forEach((urlObj) => {
 			s3Keys.push(urlObj.s3_key);
@@ -48,7 +42,7 @@
 		return s3Keys;
 	};
 
-	const deleteBotSource = async (s3_keys: Array<string>, base_url: string | undefined) => {
+	async function deleteBotSource(s3_keys: Array<string>, base_url: string | undefined) {
 		let body = new FormData();
 		body.append('user_id', data.model.user_id);
 		body.append('session_id', data.user.session.sessionId);
@@ -74,16 +68,11 @@
 	};
 
 	async function updateBotSources(s3_keys: Array<string>) {
-
-		console.log(s3_keys)
-
 		if(s3_keys.length === 0) {
 			return;
 		}
 
 		let incompleteSourcesS3Keys: Array<string> = [];
-
-		await new Promise((r) => setTimeout(r, 3000));
 
 		let res = await fetch('/api/data-sources/update', {
 			method: 'POST',
@@ -107,16 +96,12 @@
 			}
 		});
 
-		updateBotSources(incompleteSourcesS3Keys);
+		await new Promise((r) => setTimeout(r, 3000));
 
+		updateBotSources(incompleteSourcesS3Keys);
 	}
 
-
-
-	let textSourceToEdit: Object;
-	let textSourceValue: string;
-
-	const editTextSource = async (textObj) => {
+	async function editTextSource(textObj) {
 		textSourceToEdit = null;
 		textSourceValue = null;
 		editTextSourceModal.showModal();
@@ -130,14 +115,17 @@
 		textSourceValue = Object.values(res)[0];
 	};
 
-	const handleTextUpdate = async (source_key: string, text: string) => {
+	async function handleTextUpdate (source_key: string, text: string) {
 		trainingStatus = 'training';
 		updateText(source_key, data.model.id, text, data.model.user_id, data.user.session.sessionId);
 	};
 
-	const retrainUrls = async (s3_keys: Array<string>) => {
-		// trainingStatus = 'training';
-		$alert = { msg: 'Retraining Urls', type: 'success' };
+	async function retrainUrls(s3_keys: Array<string>) {
+		s3_keys.forEach((s3_key) => {
+			const row = document.getElementById(s3_key)
+			row?.setAttribute('data-training-status', 'scraping')
+			row.querySelector('.training-status').innerHTML = 'starting';
+		});
 
 		let body = new FormData();
 		body.append('user_id', data.model.user_id);
@@ -152,12 +140,14 @@
 
 		if (res.ok) {
 			updateBotSources(s3_keys);
-
-			// invalidateAll();
-			// restart();
 		}
 	};
 
+	// $: if (trainingStatus == 'complete') {
+	// 	restart();
+	// }
+
+	// $: data.modelData, restart();
 
 	onMount(() => {
 		updateBotSources(data.modelData.urlsInTrainingS3Keys)
@@ -233,7 +223,7 @@
 				{#if activeDataTab === 'urls'}
 					<div class="space-y-4">
 						{#each Object.entries(urls) as [baseUrl, items]}
-							<Accordian id={baseUrl}>						
+							<Accordian id={baseUrl} open={true}>						
 								<h2 slot="title" class="w-full">
 									{baseUrl}
 								</h2>
@@ -272,7 +262,7 @@
 									{#each items as url}
 											<tr id={url.s3_key} class="relative" data-training-status={url.status}>
 												<td class="break-all">
-													<div class="training-status badge text-xs uppercase badge-xs badge-warning">{url.status}</div>
+													<div class="training-status badge font-bold uppercase badge-xs badge-warning">{url.status}</div>
 													{url.name}
 												</td>
 												<td>
@@ -572,5 +562,14 @@
 <style lang="postcss">
 	tr[data-training-status="trained"] .training-status {
 		@apply hidden;
+	}
+	tr[data-training-status="training"] .training-status {
+		@apply badge-primary;
+	}
+	tr:is([data-training-status="training"], [data-training-status="scraping"]) .training-status {
+		@apply animate-pulse;
+	}
+	tr[data-training-status="failed"] .training-status {
+		@apply !badge-error;
 	}
 </style>
