@@ -6,6 +6,7 @@
 	import Accordian from '$lib/components/Accordian.svelte';
 	import { getText, updateText } from '$lib/textSource';
 	import { slide } from 'svelte/transition';
+	import { onMount } from 'svelte';
 
 	export let data;
 
@@ -38,18 +39,16 @@
 
 	$: data.modelData, restart();
 
-	const gatherSubUrlsS3Keys = (url: string) => {
+	const gatherSubUrlsS3Keys = (base_url: string) => {
 		let s3Keys = [];
-		data.modelData?.urls.forEach((urlObj) => {
-			if (urlObj.base_url === url) {
-				s3Keys.push(urlObj.s3_key);
-			}
+		data.modelData?.urls[base_url].forEach((urlObj) => {
+			s3Keys.push(urlObj.s3_key);
 		});
 
 		return s3Keys;
 	};
 
-	const deleteBotSource = async (s3_keys: Array<string>) => {
+	const deleteBotSource = async (s3_keys: Array<string>, base_url: string | undefined) => {
 		let body = new FormData();
 		body.append('user_id', data.model.user_id);
 		body.append('session_id', data.user.session.sessionId);
@@ -63,14 +62,56 @@
 
 		if (res.ok) {
 			$alert = { msg: 'Data deleted', type: 'success' };
-			const elem = document.getElementById(sourceToDelete.s3_key)
-			elem.remove();
+
+			if (base_url) {
+				const elem = document.getElementById(base_url)
+				elem.remove();
+			} else {
+				const elem = document.getElementById(sourceToDelete.s3_key)
+				elem.remove();
+			}
 		}
 	};
 
-	function updateBotSources(s3_keys: Array<string>) {
-		
+	async function updateBotSources(s3_keys: Array<string>) {
+
+		console.log(s3_keys)
+
+		if(s3_keys.length === 0) {
+			return;
+		}
+
+		let incompleteSourcesS3Keys: Array<string> = [];
+
+		await new Promise((r) => setTimeout(r, 3000));
+
+		let res = await fetch('/api/data-sources/update', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				s3_keys
+			})
+		});
+
+		let updatedDataSources = await res.json();
+
+		updatedDataSources.forEach(source => {
+			const row = document.getElementById(source.s3_key)
+			row?.setAttribute('data-training-status', source.status)
+			row.querySelector('.training-status').innerHTML = source.status || 'error';
+			row.querySelector('.token-count').innerHTML = source.token_count || '-'
+			if(source.status !== 'trained') {
+				incompleteSourcesS3Keys.push(source.s3_key)
+			}
+		});
+
+		updateBotSources(incompleteSourcesS3Keys);
+
 	}
+
+
 
 	let textSourceToEdit: Object;
 	let textSourceValue: string;
@@ -96,7 +137,7 @@
 
 	const retrainUrls = async (s3_keys: Array<string>) => {
 		// trainingStatus = 'training';
-		$alert = { msg: 'Retraining Url in Background', type: 'success' };
+		$alert = { msg: 'Retraining Urls', type: 'success' };
 
 		let body = new FormData();
 		body.append('user_id', data.model.user_id);
@@ -110,10 +151,18 @@
 		});
 
 		if (res.ok) {
+			updateBotSources(s3_keys);
+
 			// invalidateAll();
 			// restart();
 		}
 	};
+
+
+	onMount(() => {
+		updateBotSources(data.modelData.urlsInTrainingS3Keys)
+	})
+
 </script>
 
 <svelte:head>
@@ -142,7 +191,7 @@
 				<h2 class="card-title">Trained Data Sources</h2>
 				<div class="flex">
 					<div class="tabs tabs-boxed gap-2">
-						{#if urls}
+						{#if Object.keys(urls).length}
 							<button
 								class="tab"
 								on:click={() => (activeDataTab = 'urls')}
@@ -184,30 +233,33 @@
 				{#if activeDataTab === 'urls'}
 					<div class="space-y-4">
 						{#each Object.entries(urls) as [baseUrl, items]}
-							<Accordian>						
-								<h2 slot="title">
+							<Accordian id={baseUrl}>						
+								<h2 slot="title" class="w-full">
 									{baseUrl}
-
-									<button
-										class="btn btn-sm btn-circle btn-ghost text-error"
-										on:click|stopPropagation={() => {
-											sourceToDelete = baseUrl;
-											deleteEntireWebsiteModal.showModal();
-										}}
-									>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="16"
-											height="16"
-											viewBox="0 0 24 24"
-										>
-											<path
-												fill="currentColor"
-												d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
-											/>
-										</svg>
-									</button>
 								</h2>
+
+								<div class="text-right mb-4">
+									<button
+									class="btn btn-xs btn-outline text-error"
+									on:click|stopPropagation={() => {
+										sourceToDelete = baseUrl;
+										deleteEntireWebsiteModal.showModal();
+									}}
+																>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+									>
+										<path
+											fill="currentColor"
+											d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
+										/>
+									</svg>
+									Delete All
+																</button>
+								</div>
 								<table class="table w-full table-xs">
 									<thead>
 										<tr>
@@ -218,8 +270,9 @@
 										</tr>
 									</thead>
 									{#each items as url}
-											<tr id={url.s3_key}>
+											<tr id={url.s3_key} class="relative" data-training-status={url.status}>
 												<td class="break-all">
+													<div class="training-status badge text-xs uppercase badge-xs badge-warning">{url.status}</div>
 													{url.name}
 												</td>
 												<td>
@@ -228,9 +281,9 @@
 													data-tip={url.created_at.toLocaleTimeString([], {minute: '2-digit', hour: '2-digit'})}
 												>
 													<h3 class="text-xs">{url.created_at.toLocaleDateString()}</h3>
-												</div>
-											</td>
-												<td>{url.token_count}</td>
+													</div>
+												</td>
+												<td class="token-count">{url.token_count === 0 ? '-' : url.token_count}</td>
 												<td class="flex gap-2">
 													<div class="tooltip tooltip-left" data-tip="Re-Train">
 														<button
@@ -271,7 +324,6 @@
 															/>
 														</svg>
 													</button>
-													{url.status}
 												</td>
 											</tr>
 									{/each}
@@ -480,7 +532,7 @@
 			<h3 class="font-bold text-lg">This will delete all sub-urls. Are you sure you want to continue?</h3>
 			<p class="py-4" />
 			<button class="btn">Cancel</button>
-			<button class="btn btn-error" on:click={() => deleteBotSource(gatherSubUrlsS3Keys(sourceToDelete))}>
+			<button class="btn btn-error" on:click={() => deleteBotSource(gatherSubUrlsS3Keys(sourceToDelete), sourceToDelete)}>
 				Delete
 			</button>
 	</form>
@@ -515,3 +567,10 @@
 		</div>
 	</form>
 </dialog>
+
+
+<style lang="postcss">
+	tr[data-training-status="trained"] .training-status {
+		@apply hidden;
+	}
+</style>

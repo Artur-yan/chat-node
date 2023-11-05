@@ -27,8 +27,8 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		urls: {},
 		files: [],
 		texts: [],
-		legacyUrls: []
-		// baseUrls: []
+		legacyUrls: [],
+		urlsInTrainingS3Keys: []
 	};
 
 	botsSource.forEach((item) => {
@@ -36,7 +36,11 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 			if(!modelData.urls[item.base_url]) {
 				modelData.urls[item.base_url] = [];
 			}
+			console.log(item);
 			modelData.urls[item.base_url].push(item);
+			if(['scraping', 'training'].includes(item.status)) {
+				modelData.urlsInTrainingS3Keys.push(item.s3_key)
+			}
 			// modelData.baseUrls[item.base_url] = true;
 		} else if (item.source_type === 'text') {
 			modelData.texts.push(item);
