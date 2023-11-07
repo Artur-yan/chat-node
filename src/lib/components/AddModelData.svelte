@@ -22,14 +22,14 @@
 	export let existingTokenCount = 0;
 
 	let settings = defaultSettings;
-	let activeTab: number;
+	let activeTab = 0;
 	let busyFetchingUrls = false;
 	let busyCheckingFile = false;
 	let fileInput: HTMLInputElement;
 	let files: FileList | undefined;
 	let textData = '';
-	let url: string;
-	let urls: Array<Array<string | number>>;
+	let url: string | undefined;
+	let urls: Array<Array<string | number>> = [];
 	let selectedUrls: Array<string> = [];
 	let urlsTokenCount = 0;
 	let filesTokenCount = 0;
@@ -38,6 +38,20 @@
 	let fileKeys: Array<string> = [];
 	let selectAllUrlsCheckbox: HTMLInputElement;
 	let maxFileSizeMB = 150;
+
+	function resetAddDataForm() {
+		activeTab = 0;
+		files = undefined;
+		textData = '';
+		url = undefined;
+		urls = []
+		selectedUrls = []
+		urlsTokenCount = 0;
+		filesTokenCount = 0;
+		selectedUrlsTokenCount = 0;
+		approxTextTokenCount = 0;
+		fileKeys = []
+	}
 
 	const fetchUrlsToScrape = async () => {
 		busyFetchingUrls = true;
@@ -188,8 +202,10 @@
 				goto(`/account/chatbots/${modelId}/settings`);
 			}
 		} catch (err) {
+			$alert = { msg: 'Something went wrong.', type: 'error' };
 			console.error(err);
-			$alert = { msg: 'Something went wrong. Please try again later.', type: 'error' };
+		} finally {
+			resetAddDataForm()
 		}
 	};
 
@@ -224,20 +240,20 @@
 
 <div>
 	<div class="grid grid-cols-3 gap-2 mb-4">
-		<label class="btn" class:btn-outline={activeTab == 0}>
-			<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
-			+ File
-		</label>
 		<label class="btn" class:btn-outline={activeTab == 1}>
 			<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
-			+ Text
+			+ File
 		</label>
 		<label class="btn" class:btn-outline={activeTab == 2}>
 			<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
+			+ Text
+		</label>
+		<label class="btn" class:btn-outline={activeTab == 3}>
+			<input type="radio" name="tab" bind:group={activeTab} value={3} class="hidden peer" />
 			+ URL
 		</label>
 	</div>
-	{#if activeTab == 0}
+	{#if activeTab == 1}
 		<div class="form-control">
 			<div class="input-group">
 				<input
@@ -284,7 +300,7 @@
 			<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
 			Train Bot
 		</button>
-	{:else if activeTab == 1}
+	{:else if activeTab == 2}
 		<div>
 			<textarea
 				placeholder="Paste your text"
@@ -319,7 +335,7 @@
 				Train Bot
 			</button>
 		</div>
-	{:else if activeTab == 2}
+	{:else if activeTab == 3}
 		<form on:submit|preventDefault={() => fetchUrlsToScrape()}>
 			<div class="form-control">
 				<div class="join">
