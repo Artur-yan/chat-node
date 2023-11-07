@@ -29,7 +29,7 @@
 	let files: FileList | undefined;
 	let textData = '';
 	let url: string | undefined;
-	let urls: Array<Array<string | number>> = [];
+	let urls: Array<Array<string | number>> = undefined;
 	let selectedUrls: Array<string> = [];
 	let urlsTokenCount = 0;
 	let filesTokenCount = 0;
@@ -44,7 +44,7 @@
 		files = undefined;
 		textData = '';
 		url = undefined;
-		urls = []
+		urls = undefined
 		selectedUrls = []
 		urlsTokenCount = 0;
 		filesTokenCount = 0;
