@@ -303,7 +303,7 @@
 	{:else if activeTab == 2}
 		<div>
 			<textarea
-				placeholder="Paste your text"
+				placeholder="Enter your text"
 				class="textarea textarea-bordered textarea-sm w-full"
 				bind:value={textData}
 				rows="8"
