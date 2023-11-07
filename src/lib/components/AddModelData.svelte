@@ -207,6 +207,7 @@
 		} finally {
 			resetAddDataForm();
 		}
+		invalidateAll()
 	};
 
 	const handleSelectAllUrls = () => {

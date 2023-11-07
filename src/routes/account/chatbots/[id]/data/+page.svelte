@@ -192,7 +192,7 @@
 								on:click={() => (activeDataTab = 'files')}
 								class:tab-active={activeDataTab === 'files'}
 							>
-								Files <span class="badge badge-sm ml-2">{data.modelData?.files.length}</span>
+								Files
 							</button>
 						{/if}
 						{#if data.modelData?.texts.length}
@@ -201,7 +201,7 @@
 								on:click={() => (activeDataTab = 'text')}
 								class:tab-active={activeDataTab === 'text'}
 							>
-								Text <span class="badge badge-sm ml-2">{data.modelData?.texts.length}</span>
+								Text
 							</button>
 						{/if}
 						{#if data.modelData?.legacyUrls.length}
@@ -401,7 +401,7 @@
 										<h3 class="text-xs">{text.created_at.toLocaleDateString()}</h3>
 									</div>
 								</td>
-								<td>{text.token_count}</td>
+								<td class="token-count">{text.token_count === 0 ? '-' : text.token_count}</td>
 								<td class="flex gap-2">
 									<button
 										class="btn btn-sm btn-circle btn-ghost text-error"
