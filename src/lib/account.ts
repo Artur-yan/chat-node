@@ -1,7 +1,6 @@
 import { goto, invalidateAll } from '$app/navigation';
 import { alert } from '$lib/stores';
 
-
 const deleteAccount = async () => {
 	await fetch('/api/account/delete', {
 		method: 'POST'
@@ -44,8 +43,7 @@ const updateDefaultOpenAIKey = async (key: string) => {
 			})
 		});
 		alert.set('Updated default OpenAI key');
-		invalidateAll()
-
+		invalidateAll();
 	} catch (err) {
 		console.error(err);
 	}
@@ -73,4 +71,10 @@ const redirectToStripeBilling = async () => {
 	}
 };
 
-export { deleteAccount, updateAccountEmail, updateApiKey, redirectToStripeBilling, updateDefaultOpenAIKey };
+export {
+	deleteAccount,
+	updateAccountEmail,
+	updateApiKey,
+	redirectToStripeBilling,
+	updateDefaultOpenAIKey
+};

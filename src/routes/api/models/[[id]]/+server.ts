@@ -11,7 +11,7 @@ export const GET = async ({ locals, params }) => {
 			}
 		});
 
-		if(session.userId == model.user_id) {
+		if (session.userId == model.user_id) {
 			return json(model);
 		} else {
 			return new Response(JSON.stringify({ status: 401 }));

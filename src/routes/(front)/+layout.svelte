@@ -46,7 +46,22 @@
 	</script>
 
 	{#if PUBLIC_ENVIRONMENT === 'production'}
-		<!-- Google Tag Manager --> <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://web.chatnode.ai/zaxunjhy.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-THN99BCW');</script> <!-- End Google Tag Manager -->
+		<!-- Google Tag Manager -->
+		<!-- Google Tag Manager -->
+		<script>
+			(function (w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+				var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s),
+					dl = l != 'dataLayer' ? '&l=' + l : '';
+				j.async = true;
+				j.src = 'https://web.chatnode.ai/zaxunjhy.js?id=' + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, 'script', 'dataLayer', 'GTM-THN99BCW');
+		</script>
+		<!-- End Google Tag Manager -->
+		<!-- End Google Tag Manager -->
 		<script>
 			// Rewardful
 			(function (w, r) {
@@ -64,14 +79,14 @@
 		</script>`}
 		<script async src="https://r.wdfl.co/rw.js" data-rewardful="1564fe"></script>
 		<script>
-			(function(j,i,m,o) {
-				var s = document.createElement("script");
+			(function (j, i, m, o) {
+				var s = document.createElement('script');
 
-				s.type = "text/javascript";
+				s.type = 'text/javascript';
 				s.async = true;
-				s.src = "https://undercity.usejimo.com/jimo-invader.js";
-				j['JIMO_PROJECT_ID'] = "51210e7b-6983-43c8-be8d-652f4c5c3a2b";
-				document.getElementsByTagName("head")[0].appendChild(s);
+				s.src = 'https://undercity.usejimo.com/jimo-invader.js';
+				j['JIMO_PROJECT_ID'] = '51210e7b-6983-43c8-be8d-652f4c5c3a2b';
+				document.getElementsByTagName('head')[0].appendChild(s);
 			})(window);
 		</script>
 	{/if}

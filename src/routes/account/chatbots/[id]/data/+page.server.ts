@@ -33,12 +33,12 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	botsSource.forEach((item) => {
 		if (item.source_type === 'url') {
-			if(!modelData.urls[item.base_url]) {
+			if (!modelData.urls[item.base_url]) {
 				modelData.urls[item.base_url] = [];
 			}
 			modelData.urls[item.base_url].push(item);
-			if(['scraping', 'training'].includes(item.status)) {
-				modelData.urlsInTrainingS3Keys.push(item.s3_key)
+			if (['scraping', 'training'].includes(item.status)) {
+				modelData.urlsInTrainingS3Keys.push(item.s3_key);
 			}
 			// modelData.baseUrls[item.base_url] = true;
 		} else if (item.source_type === 'text') {
@@ -50,7 +50,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		}
 	});
 
-	// modelData.baseUrls = Object.keys(modelData.baseUrls);	
+	// modelData.baseUrls = Object.keys(modelData.baseUrls);
 
 	return { modelData };
 };

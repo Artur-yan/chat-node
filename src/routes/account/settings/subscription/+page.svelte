@@ -14,7 +14,7 @@
 	export let form;
 
 	let billingTerm = 'monthly';
-	let busyChangingPlan
+	let busyChangingPlan;
 
 	let currentPlan = data.subscription.plan;
 	$: currentPlan = data.subscription.plan;
@@ -43,7 +43,7 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ 'newPlan': 1006, 'referralCode': '' })
+				body: JSON.stringify({ newPlan: 1006, referralCode: '' })
 			});
 			const data = await res.json();
 			goto(data.url);
@@ -65,20 +65,22 @@
 </svelte:head>
 
 <div class="container mb-20">
-	{#if currentPlan > 1000 && currentPlan < 1006 || (currentPlan === 0 && $page.url.search.includes('appsumo'))}
-	<div class="grid md:grid-cols-[4fr_3fr] my-8 gap-8">
+	{#if (currentPlan > 1000 && currentPlan < 1006) || (currentPlan === 0 && $page.url.search.includes('appsumo'))}
+		<div class="grid md:grid-cols-[4fr_3fr] my-8 gap-8">
 			<div>
 				<h1 class="font-bold text-3xl mb-4">
 					{#if currentPlan > 1000}
 						You purchased a lifetime <span class="text-primary">{tier.name}</span>
-						 plan
+						plan
 					{:else}
 						You're currently on the <span class="text-primary">Free Trial</span>
 					{/if}
 				</h1>
 				<p class="font-bold text-secondary text-lg mb-2">Your plan includes:</p>
 				<div class="text-lg mb-4 leading-8">
-					<p>{data.subscription?.max_bot === -1 ? 'Unlimited' : data.subscription?.max_bot} Chatbots</p>
+					<p>
+						{data.subscription?.max_bot === -1 ? 'Unlimited' : data.subscription?.max_bot} Chatbots
+					</p>
 					<p>{data.subscription?.max_tocken.toLocaleString()} Tokens/Bot</p>
 					<p>{data.subscription?.max_msg} Messages/Month</p>
 				</div>
@@ -121,14 +123,25 @@
 			</div>
 			<div class="card bg-neutral">
 				<div class="card-body">
-					<h2 class="text-accent font-bold text-2xl mb-4">Upgrade to Agency <span class="badge">Lifetime Deal</span></h2>
+					<h2 class="text-accent font-bold text-2xl mb-4">
+						Upgrade to Agency <span class="badge">Lifetime Deal</span>
+					</h2>
 					<ul class="text-xl mb-4">
-						<li><span class="text-accent font-medium">Unlimited</span> Chatbots</li>
-						<li><span class="text-accent font-medium">Unlimited</span> Messages</li>
+						<li>
+							<span class="text-accent font-medium">Unlimited</span>
+							 Chatbots
+						</li>
+						<li>
+							<span class="text-accent font-medium">Unlimited</span>
+							 Messages
+						</li>
 						<li>{new Number(8000000).toLocaleString()} Tokens/Bot</li>
 					</ul>
 					<ul class="text-lg mb-6 text-white font-bold">
-						<li>Bring your own domain using CNAME<span class="badge ml-2 badge-outline">Customize per Bot</span></li>
+						<li>
+							Bring your own domain using CNAME
+							<span class="badge ml-2 badge-outline">Customize per Bot</span>
+						</li>
 					</ul>
 
 					<h3 class="font-bold text-white">Plus everything from Enterprise</h3>
@@ -139,14 +152,18 @@
 						<li>60 Day Chat History</li>
 					</ul>
 
-
-					<p class="my-8">Agency Plan <span class="font-bold text-white">requires that you use your own OpenAI API Key.<br><span class="text-error">There are no free messages included.</span></span><br>You may set a default OpenAI key for all bots and specify a different OpenAI key per bot.</p>
+					<p class="my-8">
+						Agency Plan <span class="font-bold text-white">
+							requires that you use your own OpenAI API Key.
+							<br />
+							<span class="text-error">There are no free messages included.</span>
+						</span>
+						<br />
+						You may set a default OpenAI key for all bots and specify a different OpenAI key per
+						bot.
+					</p>
 					<div class="flex items-center gap-4 flex-wrap">
-						<button
-							class="btn btn-accent flex-wrap"
-							type="button"
-							on:click={upgradeToAgency}
-						>
+						<button class="btn btn-accent flex-wrap" type="button" on:click={upgradeToAgency}>
 							Upgrade to Agency
 						</button>
 						<span class="badge badge-accent badge-lg font-bold">
@@ -158,37 +175,45 @@
 							{/if}
 						</span>
 						<span class="badge font-bold">One-Time Fee</span>
-						<div>
-						</div>
+						<div />
 					</div>
 				</div>
-
-
 			</div>
 		</div>
 	{:else if currentPlan === 1006}
+		<h2 class="font-bold text-2xl mb-4 mt-8">
+			You purchased a lifetime <span class="text-accent">Agency Plan</span>
+		</h2>
+		<ul class="text-xl mb-4">
+			<li>
+				<span class="text-accent font-medium">Unlimited</span>
+				 Chatbots
+			</li>
+			<li>
+				<span class="text-accent font-medium">Unlimited</span>
+				 Messages
+			</li>
+			<li>{new Number(8000000).toLocaleString()} Tokens/Bot</li>
+		</ul>
+		<ul class="text-lg mb-6 text-white font-bold">
+			<li>Bring your own domain using CNAME</li>
+		</ul>
 
-			<h2 class="font-bold text-2xl mb-4 mt-8">You purchased a lifetime <span class="text-accent">Agency Plan</span></h2>
-			<ul class="text-xl mb-4">
-				<li><span class="text-accent font-medium">Unlimited</span> Chatbots</li>
-				<li><span class="text-accent font-medium">Unlimited</span> Messages</li>
-				<li>{new Number(8000000).toLocaleString()} Tokens/Bot</li>
-			</ul>
-			<ul class="text-lg mb-6 text-white font-bold">
-				<li>Bring your own domain using CNAME</li>
-			</ul>
+		<h3 class="font-bold text-white">Plus everything from Enterprise</h3>
+		<ul>
+			<li>Slack Integration</li>
+			<li>ChatNode API</li>
+			<li>Remove ChatNode Branding</li>
+			<li>60 Day Chat History</li>
+		</ul>
 
-			<h3 class="font-bold text-white">Plus everything from Enterprise</h3>
-			<ul>
-				<li>Slack Integration</li>
-				<li>ChatNode API</li>
-				<li>Remove ChatNode Branding</li>
-				<li>60 Day Chat History</li>
-			</ul>
-
-
-			<p class="my-8">Agency Plan <span class="font-bold text-white">requires that you use your own OpenAI API Key.</span><br>You may set a default key for all bots and override the key per bot.</p>
-		
+		<p class="my-8">
+			Agency Plan <span class="font-bold text-white">
+				requires that you use your own OpenAI API Key.
+			</span>
+			<br />
+			You may set a default key for all bots and override the key per bot.
+		</p>
 	{:else if currentPlan < 1000}
 		<PricingGrid {currentPlan} {billingTerm} />
 	{/if}

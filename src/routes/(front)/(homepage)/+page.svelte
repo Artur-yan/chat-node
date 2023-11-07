@@ -8,11 +8,9 @@
 	import PopupCallout from './PopupCallout.svelte';
 	import Testimonials from '$lib/components/Testimonials.svelte';
 
-	export let data
+	export let data;
 
-	const { testimonials } = data.streamed
-
-
+	const { testimonials } = data.streamed;
 </script>
 
 <svelte:head>

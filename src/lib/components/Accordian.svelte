@@ -2,14 +2,18 @@
 	export let open = false;
 </script>
 
-<div class="bg-base-300 rounded-xl hover:shadow-xl hover:bg-base-200 transition-all w-full overflow-hidden" class:open  {...$$restProps}>
+<div
+	class="bg-base-300 rounded-xl hover:shadow-xl hover:bg-base-200 transition-all w-full overflow-hidden"
+	class:open
+	{...$$restProps}
+>
 	<button
 		on:click={() => (open = !open)}
 		type="button"
 		class="flex text-lg justify-between text-left items-center w-full p-4 font-bold"
 	>
 		<slot name="title" />
-		
+
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="24"

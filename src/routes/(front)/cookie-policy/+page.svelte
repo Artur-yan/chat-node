@@ -82,8 +82,7 @@
 						<strong>us</strong>
 						," and "
 						<strong>our</strong>
-						") uses cookies and similar technologies to recognize you when you visit our website at
-						&nbsp;
+						") uses cookies and similar technologies to recognize you when you visit our website at &nbsp;
 					</span>
 				</span>
 				<span style="color: rgb(0, 58, 250); font-size: 15px;">
@@ -99,8 +98,8 @@
 					<span data-custom-class="body_text">
 						("
 						<strong>Website</strong>
-						"). It explains what these technologies are and why we use them, as well as your rights
-						to control our use of them.
+						"). It explains what these technologies are and why we use them, as well as your rights to
+						control our use of them.
 					</span>
 				</span>
 			</span>
@@ -142,12 +141,11 @@
 				<span style="color: rgb(89, 89, 89); font-size: 15px;">
 					<span data-custom-class="body_text">
 						Cookies set by the website owner (in this case, <bdt class="question">SDATAS LLC</bdt>
-						) are called "first-party cookies." Cookies set by parties other than the website owner
-						are called "third-party cookies." Third-party cookies enable third-party features or
-						functionality to be provided on or through the website (e.g., advertising, interactive
-						content, and analytics). The parties that set these third-party cookies can recognize
-						your computer both when it visits the website in question and also when it visits
-						certain other websites.
+						) are called "first-party cookies." Cookies set by parties other than the website owner are
+						called "third-party cookies." Third-party cookies enable third-party features or functionality
+						to be provided on or through the website (e.g., advertising, interactive content, and analytics).
+						The parties that set these third-party cookies can recognize your computer both when it visits
+						the website in question and also when it visits certain other websites.
 					</span>
 				</span>
 			</span>
@@ -169,13 +167,12 @@
 						<bdt class="block-component" />
 						and third-
 						<bdt class="statement-end-if-in-editor" />
-						party cookies for several reasons. Some cookies are required for technical reasons in
-						order for our Website to operate, and we refer to these as "essential" or "strictly
-						necessary" cookies. Other cookies also enable us to track and target the interests of
-						our users to enhance the experience on our Online Properties.
+						party cookies for several reasons. Some cookies are required for technical reasons in order
+						for our Website to operate, and we refer to these as "essential" or "strictly necessary"
+						cookies. Other cookies also enable us to track and target the interests of our users to enhance
+						the experience on our Online Properties.
 						<bdt class="block-component" />
-						Third parties serve cookies through our Website for advertising, analytics, and other
-						purposes.
+						Third parties serve cookies through our Website for advertising, analytics, and other purposes.
 						<bdt class="statement-end-if-in-editor" />
 						This is described in more detail below.
 					</span>
@@ -1678,7 +1675,7 @@
 						<span data-custom-class="body_text">
 							If you have any questions about our use of cookies or other technologies, please email
 							us at <bdt class="question">contact@chatnode.ai</bdt>
-							 or by post to:
+							or by post to:
 						</span>
 					</span>
 				</span>

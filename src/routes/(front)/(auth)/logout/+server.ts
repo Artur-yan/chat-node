@@ -8,10 +8,10 @@ export const POST: RequestHandler = async ({ locals }) => {
 		throw redirect(302, '/');
 	}
 
-	try{
+	try {
 		await auth.invalidateSession(session.sessionId);
 		locals.auth.setSession(null);
-	} catch(e) {
+	} catch (e) {
 		console.error(e);
 	}
 

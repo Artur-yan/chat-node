@@ -7,7 +7,7 @@ const getModel = async (id: string) => {
 	});
 
 	return res.json();
-}
+};
 
 const addModel = async (id: string, name: string, settings?: Object) => {
 	try {
@@ -18,7 +18,7 @@ const addModel = async (id: string, name: string, settings?: Object) => {
 			},
 			body: JSON.stringify({
 				id,
-				name,	
+				name,
 				settings
 			})
 		});
@@ -68,8 +68,7 @@ const defaultSettings = {
 	allowedUrls: [],
 	supportMessage:
 		'If the answer is not included, say exactly "Hmm, I don\'t know" and stop after that.',
-	systemPrompt:
-		`I want you to act as a funny and friendly customer support AI from my company. Your name is “Assistant AI". You limit your knowledge to the context provided. You will provide me with accurate answers related to my company only from your context. You will be as detailed as possible. Do not make up answers. Refuse to answer any question not about the documents or my company. Never break character. Always answer in the language of my message. Please use simple formatting. Answer like you are part of the team using we/us and not they. Give hyperlinks when needed.\n\rRESTRICTIONS:\rDo NOT say "Based on the given information.\rDo not makeup answers if you are not sure about the answer. If you don't know the answer, say "I'm not sure about this, could you please send us an email at contact@mycompany.com and stop after that.`,
+	systemPrompt: `I want you to act as a funny and friendly customer support AI from my company. Your name is “Assistant AI". You limit your knowledge to the context provided. You will provide me with accurate answers related to my company only from your context. You will be as detailed as possible. Do not make up answers. Refuse to answer any question not about the documents or my company. Never break character. Always answer in the language of my message. Please use simple formatting. Answer like you are part of the team using we/us and not they. Give hyperlinks when needed.\n\rRESTRICTIONS:\rDo NOT say "Based on the given information.\rDo not makeup answers if you are not sure about the answer. If you don't know the answer, say "I'm not sure about this, could you please send us an email at contact@mycompany.com and stop after that.`,
 	userPrompt: '',
 	gptVersion: '3.5',
 	temperature: 0.1,
@@ -89,7 +88,7 @@ const defaultSettings = {
 		name: 'default',
 		bg: '#0F172A',
 		headerBG: 'transparent',
-		headerTitle: '#FFFFFF',	
+		headerTitle: '#FFFFFF',
 		resetButton: '#FFFFFF88',
 		botBubbleBG: '#818CF8',
 		botBubbleText: '#00074B',
@@ -101,7 +100,7 @@ const defaultSettings = {
 		sendButtonBG: '#FFFFFF',
 		sendButtonIconColor: '#000',
 		popupButtonBG: '#0E1729',
-		popupButtonIcon: '#3ABFF7',
+		popupButtonIcon: '#3ABFF7'
 	},
 	openChatByDefault: false,
 	suggestedQuestions: []
@@ -110,8 +109,7 @@ const defaultSettings = {
 const personalities = {
 	default: {
 		label: 'Default',
-		systemPrompt:
-			defaultSettings.systemPrompt
+		systemPrompt: defaultSettings.systemPrompt
 	},
 	airbnb: {
 		label: 'AirBnB Host',

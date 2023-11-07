@@ -11,7 +11,6 @@
 
 	export let data;
 
-
 	let jsEmbedCode;
 	let busyAddingCustomDomain = false;
 	let busyGettingBotData = false;
@@ -21,22 +20,24 @@
 
 	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 	let url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
-	if($currentBot.settings.customDomain) {
+	if ($currentBot.settings.customDomain) {
 		iframeEmbedCode = `<iframe src="${shareDomain}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 		url = shareDomain;
 	}
 
-	$: jsEmbedCode = `<script src="${currentCustomDomain ? 'https://' + currentCustomDomain : PUBLIC_SITE_URL}/embed.js" data-chatbot-id="${
-		data.model.id
-	}" data-color-1="${$currentBot.settings.theme.popupButtonIcon}" data-color-2="${$currentBot.settings.theme.popupButtonBG}" ${
+	$: jsEmbedCode = `<script src="${
+		currentCustomDomain ? 'https://' + currentCustomDomain : PUBLIC_SITE_URL
+	}/embed.js" data-chatbot-id="${data.model.id}" data-color-1="${
+		$currentBot.settings.theme.popupButtonIcon
+	}" data-color-2="${$currentBot.settings.theme.popupButtonBG}" ${
 		$currentBot.settings.openChatByDefault ? 'data-open' : ''
 	}><\/script>`;
 
 	const makePublic = () => {
 		$currentBot.settings.public = true;
-		$currentBot.settings.allowedUrls = ['*']
-		updateModel($currentBot.id, $currentBot.name, $currentBot.settings)
-	}
+		$currentBot.settings.allowedUrls = ['*'];
+		updateModel($currentBot.id, $currentBot.name, $currentBot.settings);
+	};
 
 	const addCustomDomain = async () => {
 		busyAddingCustomDomain = true;
@@ -49,28 +50,28 @@
 
 		const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/set-subdomain`, {
 			method: 'POST',
-			body,
+			body
 		});
-		
-		if(res.ok) {
+
+		if (res.ok) {
 			getBotData(data.model.id);
-			$alert = 'Custom Domain Added'
+			$alert = 'Custom Domain Added';
 		} else {
 			$alert = { msg: 'Something went wrong. Please try again later.', type: 'error' };
 		}
 
 		busyAddingCustomDomain = false;
-	}
+	};
 
 	const checkIfCustomDomainIsCurrent = async () => {
-		if(currentCustomDomain == $currentBot.settings.customDomain) {
+		if (currentCustomDomain == $currentBot.settings.customDomain) {
 			return;
 		} else {
-			await new Promise(r => setTimeout(r, 20000));
+			await new Promise((r) => setTimeout(r, 20000));
 			getBotData(data.model.id);
-			checkIfCustomDomainIsCurrent()
+			checkIfCustomDomainIsCurrent();
 		}
-	}
+	};
 
 	const getBotData = async (id: string) => {
 		busyGettingBotData = true;
@@ -84,7 +85,6 @@
 			const resData = await res.json();
 			$currentBot = resData;
 			currentCustomDomain = $currentBot.settings.customDomain;
-
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
@@ -102,7 +102,10 @@
 	<title>Embed | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container my-4 py-8 grid grid-cols-1 gap-8" class:!grid-cols-2={data.subscription?.plan === 1007}>
+<div
+	class="container my-4 py-8 grid grid-cols-1 gap-8"
+	class:!grid-cols-2={data.subscription?.plan === 1007}
+>
 	<div>
 		<div class="relative">
 			{#if !$currentBot.settings.public}
@@ -112,10 +115,13 @@
 							<h2 class="card-title">Your chatbot is currently set to private.</h2>
 							<p class="text-lg">
 								Currently it may only be integrated with slack. To embed it or get a share url make
-								your bot public. You can choose to only allow it on specific URLs in the share settings.
+								your bot public. You can choose to only allow it on specific URLs in the share
+								settings.
 							</p>
 							<div class="card-actions mt-8">
-								<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing">Share Settings</a>
+								<a class="btn" href="/account/chatbots/{data.model.id}/settings/sharing">
+									Share Settings
+								</a>
 								<button class="btn btn-success" on:click={makePublic}>Make Public</button>
 							</div>
 						</div>
@@ -159,9 +165,7 @@
 						</div>
 						<div class="flex justify-between text-sm mt-2">
 							<p>Place this code in your &lt;head&gt; tag.</p>
-							<a class="btn btn-xs btn-primary" href="settings/customize">
-								Customize
-							</a>
+							<a class="btn btn-xs btn-primary" href="settings/customize">Customize</a>
 						</div>
 					</div>
 				</div>
@@ -191,7 +195,9 @@
 								</a>
 							{:else}
 								<div class="badge badge-outline badge-success">Enabled</div>
-								<a class="btn btn-xs" href="{PUBLIC_CHAT_API_URL}/slack/install">+ Slack Workspace</a>
+								<a class="btn btn-xs" href="{PUBLIC_CHAT_API_URL}/slack/install">
+									+ Slack Workspace
+								</a>
 							{/if}
 						{:else}
 							<p class="text-warning text-sm">
@@ -204,68 +210,91 @@
 			</div>
 		</div>
 	</div>
-	{#if data.subscription?.plan === 1006 }
-	<div>
-		<div class="card bg-neutral mb-12">
-			<div class="card-body">
-				<h2 class="card-title justify-between">
-					Enable Custom Domain
-					<button class="btn btn-sm" on:click={() => getBotData(data.model.id)} disabled={busyGettingBotData}>
-						{#if busyGettingBotData}
-							<span class="loading loading-spinner text-primary mr-2 loading-sm"></span>
-						{/if}
-						Check for changes</button>
-				</h2>
-				<div class="">
-					<form on:submit|preventDefault={addCustomDomain} class="mb-8">
-						<div class="form-control">
-							<label class="label" for="domain">
-								<span class="label-text">Your sub-domain name</span>
-							  </label>
-							<div class="join">
-								<input type="text" class="input join-item w-full" name="domain" bind:value={$currentBot.settings.customDomain} />
-								<button type="submit" class="btn btn-success join-item" disabled={busyAddingCustomDomain}>
-									{#if busyAddingCustomDomain}
-										<span class="loading loading-spinner text-primary mr-2 loading-sm"></span>
-									{/if}
-									{busyAddingCustomDomain ? 'Adding' : 'Submit'}</button>
+	{#if data.subscription?.plan === 1006}
+		<div>
+			<div class="card bg-neutral mb-12">
+				<div class="card-body">
+					<h2 class="card-title justify-between">
+						Enable Custom Domain
+						<button
+							class="btn btn-sm"
+							on:click={() => getBotData(data.model.id)}
+							disabled={busyGettingBotData}
+						>
+							{#if busyGettingBotData}
+								<span class="loading loading-spinner text-primary mr-2 loading-sm" />
+							{/if}
+							Check for changes
+						</button>
+					</h2>
+					<div class="">
+						<form on:submit|preventDefault={addCustomDomain} class="mb-8">
+							<div class="form-control">
+								<label class="label" for="domain">
+									<span class="label-text">Your sub-domain name</span>
+								</label>
+								<div class="join">
+									<input
+										type="text"
+										class="input join-item w-full"
+										name="domain"
+										bind:value={$currentBot.settings.customDomain}
+									/>
+									<button
+										type="submit"
+										class="btn btn-success join-item"
+										disabled={busyAddingCustomDomain}
+									>
+										{#if busyAddingCustomDomain}
+											<span class="loading loading-spinner text-primary mr-2 loading-sm" />
+										{/if}
+										{busyAddingCustomDomain ? 'Adding' : 'Submit'}
+									</button>
+								</div>
+								<span class="help">
+									Must be a valid sub-domain and you must be able to edit the DNS records for the
+									domain
+								</span>
 							</div>
-								<span class="help">Must be a valid sub-domain and you must be able to edit the DNS records for the domain</span>
-						</div>
-					</form>
-					{#if currentCustomDomain }
-					<div class="overflow-x-auto">
-							<p class="text-warning text-sm font-bold mb-2">Add this entry to your DNS records for {currentCustomDomain.split('.').slice(-2).join('.')}:</p>
-							<table class="table table-lg bg-base-300 rounded">
-							  <!-- head -->
-							  <thead>
-								<tr>
-								  <th>Type</th>
-								  <th>Host</th>
-								  <th>Value</th>
-								</tr>
-							  </thead>
-							  <tbody>
-								<!-- row 1 -->
-								<tr>
-								  <th>CNAME</th>
-								  <td>{currentCustomDomain.split('.').slice(0, -2).join('.')}</td>
-								  <td>lkjink.com.</td>
-								</tr>
-							  </tbody>
-							</table>
-						  </div>
-						  <div class="alert alert-warning mt-4">
-							Please Allow up to 24 Hours for the changes to take effect and for your SSL certificate to be generated. If you are still experiencing issues, contact us at contact@chatnode.ai.
-						</div>
-					{/if}
+						</form>
+						{#if currentCustomDomain}
+							<div class="overflow-x-auto">
+								<p class="text-warning text-sm font-bold mb-2">
+									Add this entry to your DNS records for {currentCustomDomain
+										.split('.')
+										.slice(-2)
+										.join('.')}:
+								</p>
+								<table class="table table-lg bg-base-300 rounded">
+									<!-- head -->
+									<thead>
+										<tr>
+											<th>Type</th>
+											<th>Host</th>
+											<th>Value</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!-- row 1 -->
+										<tr>
+											<th>CNAME</th>
+											<td>{currentCustomDomain.split('.').slice(0, -2).join('.')}</td>
+											<td>lkjink.com.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="alert alert-warning mt-4">
+								Please Allow up to 24 Hours for the changes to take effect and for your SSL
+								certificate to be generated. If you are still experiencing issues, contact us at
+								contact@chatnode.ai.
+							</div>
+						{/if}
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-{/if}
-
+	{/if}
 </div>
 
 <style lang="postcss">

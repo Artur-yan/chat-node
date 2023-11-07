@@ -1,5 +1,5 @@
-import {CMS_API_KEY} from '$env/static/private'
-import {PUBLIC_CMS_PATH} from '$env/static/public'
+import { CMS_API_KEY } from '$env/static/private';
+import { PUBLIC_CMS_PATH } from '$env/static/public';
 
 export const load = async () => {
 	const data = await fetch(`${PUBLIC_CMS_PATH}/api/content/items/post`, {

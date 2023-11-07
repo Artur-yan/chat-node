@@ -8,38 +8,45 @@
 	let canToggleChatNodeMsgs = true;
 	let canOnlyUseGPT3 = false;
 	let canUseCustomAPIKey = true;
-	let customAPIKeyRequired = false
+	let customAPIKeyRequired = false;
 
-	$: if (plan > 1000 && plan < 1006) { // Appsumo Users
-		if($currentBot.settings.openai_api_key) { // Who have an OpenAI API Key
+	$: if (plan > 1000 && plan < 1006) {
+		// Appsumo Users
+		if ($currentBot.settings.openai_api_key) {
+			// Who have an OpenAI API Key
 			canOnlyUseGPT3 = false;
 			canToggleChatNodeMsgs = true;
-			if ($currentBot.settings.gptVersion != '3.5') { // Who switch to GPT-4
-				$currentBot.settings.useChatNodeMsgs = false
+			if ($currentBot.settings.gptVersion != '3.5') {
+				// Who switch to GPT-4
+				$currentBot.settings.useChatNodeMsgs = false;
 				canToggleChatNodeMsgs = false;
 			}
-		} else { // Who DON'T have an OpenAI API Key
+		} else {
+			// Who DON'T have an OpenAI API Key
 			canOnlyUseGPT3 = true;
 			canToggleChatNodeMsgs = false;
-			$currentBot.settings.useChatNodeMsgs = true
+			$currentBot.settings.useChatNodeMsgs = true;
 		}
-	} else if ([2,3,4,102,103,104].includes(plan)) { // Pro and Enterprise Users
-		if(!$currentBot.settings.openai_api_key) {
-			$currentBot.settings.useChatNodeMsgs = true
+	} else if ([2, 3, 4, 102, 103, 104].includes(plan)) {
+		// Pro and Enterprise Users
+		if (!$currentBot.settings.openai_api_key) {
+			$currentBot.settings.useChatNodeMsgs = true;
 			canToggleChatNodeMsgs = false;
 		} else {
 			canToggleChatNodeMsgs = true;
 		}
-	}  else if (plan === 1006) { // For Agency Users
+	} else if (plan === 1006) {
+		// For Agency Users
 		canUseCustomAPIKey = true;
-		$currentBot.settings.useChatNodeMsgs = false
+		$currentBot.settings.useChatNodeMsgs = false;
 		canToggleChatNodeMsgs = false;
-		customAPIKeyRequired = true
-	} else { // For Basic, and Free Users
+		customAPIKeyRequired = true;
+	} else {
+		// For Basic, and Free Users
 		canUseCustomAPIKey = false;
 		canOnlyUseGPT3 = true;
 		canToggleChatNodeMsgs = false;
-		$currentBot.settings.useChatNodeMsgs = true
+		$currentBot.settings.useChatNodeMsgs = true;
 	}
 
 	$: if (canOnlyUseGPT3) $currentBot.settings.gptVersion = '3.5';
@@ -66,8 +73,7 @@
 					/>
 					ChatGPT 3.5 Turbo
 				</label>
-				<label
-					class="btn join-item btn-outline" class:btn-disabled={canOnlyUseGPT3}>
+				<label class="btn join-item btn-outline" class:btn-disabled={canOnlyUseGPT3}>
 					<input
 						class="radio radio-sm radio-primary"
 						type="radio"
@@ -77,8 +83,7 @@
 					/>
 					ChatGPT-16K
 				</label>
-				<label
-					class="btn join-item btn-outline" class:btn-disabled={canOnlyUseGPT3}>
+				<label class="btn join-item btn-outline" class:btn-disabled={canOnlyUseGPT3}>
 					<input
 						class="radio radio-sm radio-primary"
 						type="radio"
@@ -94,9 +99,11 @@
 					<div>
 						<h3 class="text-xl mb-2">Important!</h3>
 						{#if $currentBot.settings.gptVersion === '4'}
-							By enabling GPT-4 <strong>every message you send will debit 20 messages</strong> from your monthly allowance.
+							By enabling GPT-4 <strong>every message you send will debit 20 messages</strong>
+							 from your monthly allowance.
 						{:else}
-							By enabling GPT-3.5 16K <strong>every message you send will debit 4 messages</strong> from your monthly allowance.
+							By enabling GPT-3.5 16K <strong>every message you send will debit 4 messages</strong>
+							 from your monthly allowance.
 						{/if}
 					</div>
 				</div>
@@ -120,11 +127,9 @@
 				class="input w-full"
 				type="text"
 				bind:value={$currentBot.settings.openai_api_key}
-				placeholder={
-					data.user.user.default_openai_key
-						? "Using Default Open AI Key"
-						: "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-				}
+				placeholder={data.user.user.default_openai_key
+					? 'Using Default Open AI Key'
+					: 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'}
 				class:placeholder:text-success={data.user.user.default_openai_key}
 				disabled={!canUseCustomAPIKey}
 			/>

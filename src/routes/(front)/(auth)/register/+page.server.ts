@@ -59,7 +59,6 @@ export const actions: Actions = {
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
 
-
 		let codes: Array<string> = [];
 
 		let subscriptionLimits = specialPlans['free'];

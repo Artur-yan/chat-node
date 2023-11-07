@@ -1,7 +1,6 @@
 const systemSettings = {
 	maintenanceAlert: false,
-	maintenanceMsg:
-		'Cloudflare is currently experiencing outages affecting ChatNode services.'
+	maintenanceMsg: 'Cloudflare is currently experiencing outages affecting ChatNode services.'
 };
 
 const domainBlacklist = [

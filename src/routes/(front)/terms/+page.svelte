@@ -219,8 +219,8 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					)
 					<bdt class="block-component" />
 					<bdt class="block-component" />
-					, as well as any other related products and services that refer or link to these legal
-					terms (the
+					, as well as any other related products and services that refer or link to these legal terms
+					(the
 					<bdt class="block-component" />
 					"
 					<strong>Legal Terms</strong>
@@ -298,10 +298,10 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					<bdt class="statement-end-if-in-editor" />
 					), and
 					<bdt class="question">SDATAS LLC</bdt>
-					, concerning your access to and use of the Services. You agree that by accessing the
-					Services, you have read, understood, and agreed to be bound by all of these Legal Terms.
-					IF YOU DO NOT AGREE WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM
-					USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY.
+					, concerning your access to and use of the Services. You agree that by accessing the Services,
+					you have read, understood, and agreed to be bound by all of these Legal Terms. IF YOU DO NOT
+					AGREE WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SERVICES
+					AND YOU MUST DISCONTINUE USE IMMEDIATELY.
 					<bdt class="block-component" />
 				</span>
 			</div>
@@ -323,10 +323,10 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					"Last updated"
 					<bdt class="statement-end-if-in-editor" />
 					date of these Legal Terms, and you waive any right to receive specific notice of each such
-					change. It is your responsibility to periodically review these Legal Terms to stay
-					informed of updates. You will be subject to, and will be deemed to have been made aware of
-					and to have accepted, the changes in any revised Legal Terms by your continued use of the
-					Services after the date such revised Legal Terms are posted.
+					change. It is your responsibility to periodically review these Legal Terms to stay informed
+					of updates. You will be subject to, and will be deemed to have been made aware of and to have
+					accepted, the changes in any revised Legal Terms by your continued use of the Services after
+					the date such revised Legal Terms are posted.
 					<bdt class="else-block" />
 				</span>
 			</div>
@@ -801,7 +801,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					<bdt class="block-component" />
 					personal, non-commercial use or internal business purpose
 					<bdt class="statement-end-if-in-editor" />
-					 only.
+					only.
 				</span>
 			</div>
 			<div class="MsoNormal" style="line-height: 1.5;"><br /></div>
@@ -828,7 +828,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					<bdt class="block-component" />
 					license
 					<bdt class="statement-end-if-in-editor" />
-					 to:
+					to:
 				</span>
 			</div>
 			<ul>
@@ -878,10 +878,10 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					>
 						contact@chatnode.ai
 					</bdt>
-					. If we ever grant you the permission to post, reproduce, or publicly display any part of
-					our Services or Content, you must identify us as the owners or licensors of the Services,
-					Content, or Marks and ensure that any copyright or proprietary notice appears or is
-					visible on posting, reproducing, or displaying our Content.
+					. If we ever grant you the permission to post, reproduce, or publicly display any part of our
+					Services or Content, you must identify us as the owners or licensors of the Services, Content,
+					or Marks and ensure that any copyright or proprietary notice appears or is visible on posting,
+					reproducing, or displaying our Content.
 				</span>
 			</div>
 		</div>
@@ -928,7 +928,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					<bdt class="block-component" />
 					"
 					<bdt class="statement-end-if-in-editor" />
-					 section carefully prior to using our Services to understand the (a) rights you give us and
+					section carefully prior to using our Services to understand the (a) rights you give us and
 					(b) obligations you have when you post or upload any content through the Services.
 				</span>
 			</div>
@@ -936,15 +936,15 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 			<div class="MsoNormal" data-custom-class="body_text" style="line-height: 1.5;">
 				<span style="font-size: 15px;">
 					<strong>Submissions:</strong>
-					By directly sending us any question, comment, suggestion, idea, feedback, or other
-					information about the Services (
+					By directly sending us any question, comment, suggestion, idea, feedback, or other information
+					about the Services (
 					<bdt class="block-component" />
 					"Submissions"
 					<bdt class="statement-end-if-in-editor" />
-					), you agree to assign to us all intellectual property rights in such Submission. You
-					agree that we shall own this Submission and be entitled to its unrestricted use and
-					dissemination for any lawful purpose, commercial or otherwise, without acknowledgment or
-					compensation to you.
+					), you agree to assign to us all intellectual property rights in such Submission. You agree
+					that we shall own this Submission and be entitled to its unrestricted use and dissemination
+					for any lawful purpose, commercial or otherwise, without acknowledgment or compensation to
+					you.
 					<bdt class="block-component" />
 				</span>
 			</div>
@@ -956,7 +956,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					<bdt class="block-component" />
 					through any part of the Services
 					<bdt class="block-component" />
-					 you:
+					you:
 				</span>
 			</div>
 			<ul>
@@ -973,10 +973,9 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 						<bdt class="block-component" />
 						"
 						<bdt class="statement-end-if-in-editor" />
-						and will not post, send, publish, upload, or transmit through the Services any
-						Submission
+						and will not post, send, publish, upload, or transmit through the Services any Submission
 						<bdt class="block-component" />
-						 that is illegal, harassing, hateful, harmful, defamatory, obscene, bullying, abusive, discriminatory,
+						that is illegal, harassing, hateful, harmful, defamatory, obscene, bullying, abusive, discriminatory,
 						threatening to any person or group, sexually explicit, false, inaccurate, deceitful, or misleading;
 					</span>
 				</li>
@@ -998,8 +997,8 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 						<bdt class="statement-end-if-in-editor" />
 						to submit such Submissions
 						<bdt class="block-component" />
-						and that you have full authority to grant us the above-mentioned rights in relation to
-						your Submissions
+						and that you have full authority to grant us the above-mentioned rights in relation to your
+						Submissions
 						<bdt class="block-component" />
 						; and
 					</span>
@@ -1008,7 +1007,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					<span style="font-size: 15px;">
 						warrant and represent that your Submissions
 						<bdt class="block-component" />
-						 do not constitute confidential information.
+						do not constitute confidential information.
 					</span>
 				</li>
 			</ul>
@@ -1016,8 +1015,8 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 				You are solely responsible for your Submissions
 				<bdt class="block-component" />
 				and you expressly agree to reimburse us for any and all losses that we may suffer because of
-				your breach of (a) this section, (b) any third party’s intellectual property rights, or (c)
-				applicable law.
+				your breach of (a) this section, (b) any third party’s intellectual property rights, or (c) applicable
+				law.
 				<bdt class="block-component" />
 				<bdt class="block-component" />
 			</div>
@@ -1127,7 +1126,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 						) you will not use the Services for any illegal or <bdt class="block-component" />
 						unauthorized
 						<bdt class="statement-end-if-in-editor" />
-						 purpose; and (
+						purpose; and (
 					</span>
 					<span style="color: rgb(89, 89, 89); font-size: 14.6667px;">7</span>
 					<span style="color: rgb(89, 89, 89); font-size: 11pt;">
@@ -1451,7 +1450,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					<bdt class="block-component" />
 					You can cancel your subscription at any time by logging into your account.
 					<bdt class="block-component" />
-					 Your cancellation will take effect at the end of the current paid term.
+					Your cancellation will take effect at the end of the current paid term.
 				</span>
 			</div>
 			<div class="MsoNormal" style="line-height: 1.5;"><br /></div>
@@ -1515,7 +1514,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 						/>
 						endeavors
 						<bdt class="statement-end-if-in-editor" />
-						 except those that are specifically endorsed or approved by us.
+						except those that are specifically endorsed or approved by us.
 					</span>
 				</div>
 			</div>
@@ -1701,7 +1700,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 													Engage in <bdt class="block-component" />
 													unauthorized
 													<bdt class="statement-end-if-in-editor" />
-													 framing of or linking to the Services.
+													framing of or linking to the Services.
 												</span>
 											</span>
 										</span>
@@ -1821,8 +1820,8 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 													<bdt class="block-component" />
 													"gifs"
 													<bdt class="statement-end-if-in-editor" />
-													), 1×1 pixels, web bugs, cookies, or other similar devices (sometimes
-													referred to as
+													), 1×1 pixels, web bugs, cookies, or other similar devices (sometimes referred
+													to as
 													<bdt class="block-component" />
 													"spyware" or "passive collection mechanisms" or "pcms"
 													<bdt class="statement-end-if-in-editor" />
@@ -1966,7 +1965,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 													/>
 													unauthorized
 													<bdt class="statement-end-if-in-editor" />
-													 script or other software.
+													script or other software.
 												</span>
 											</span>
 										</span>
@@ -2012,9 +2011,8 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 													unauthorized
 													<bdt class="statement-end-if-in-editor" />
 													use of the Services, including collecting usernames and/or email addresses
-													of users by electronic or other means for the purpose of sending
-													unsolicited email, or creating user accounts by automated means or under
-													false
+													of users by electronic or other means for the purpose of sending unsolicited
+													email, or creating user accounts by automated means or under false
 													<bdt class="block-component" />
 													pretenses
 													<bdt class="statement-end-if-in-editor" />
@@ -2045,7 +2043,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 													/>
 													endeavor
 													<bdt class="statement-end-if-in-editor" />
-													 or commercial enterprise.
+													or commercial enterprise.
 												</span>
 												<span
 													style="font-size: 11pt; line-height: 16.8667px; color: rgb(89, 89, 89);font-family: sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: justify; text-indent: -29.4px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; color: rgb(89, 89, 89);"
@@ -2122,22 +2120,22 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 													>
 														The Services does not offer users to submit or post content.
 														<bdt class="block-component" />
-														We may provide you with the opportunity to create, submit, post,
-														display, transmit, perform, publish, distribute, or broadcast content
-														and materials to us or on the Services, including but not limited to
-														text, writings, video, audio, photographs, graphics, comments,
-														suggestions, or personal information or other material (collectively,
+														We may provide you with the opportunity to create, submit, post, display,
+														transmit, perform, publish, distribute, or broadcast content and materials
+														to us or on the Services, including but not limited to text, writings, video,
+														audio, photographs, graphics, comments, suggestions, or personal information
+														or other material (collectively,
 														<bdt class="block-component" />
 														"Contributions"
 														<bdt class="statement-end-if-in-editor" />
-														). Contributions may be viewable by other users of the Services and
-														through third-party websites.
+														). Contributions may be viewable by other users of the Services and through
+														third-party websites.
 														<bdt class="block-component" />
-														As such, any Contributions you transmit may be treated in accordance
-														with the Services' Privacy Policy.
+														As such, any Contributions you transmit may be treated in accordance with
+														the Services' Privacy Policy.
 														<bdt class="statement-end-if-in-editor" />
-														When you create or make available any Contributions, you thereby
-														represent and warrant that:
+														When you create or make available any Contributions, you thereby represent
+														and warrant that:
 														<span
 															style="font-size: 11pt; line-height: 16.8667px; color: rgb(89, 89, 89);"
 														>
@@ -2182,7 +2180,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 								<bdt class="block-component" />
 								authorize
 								<bdt class="statement-end-if-in-editor" />
-								 us, the Services, and other users of the Services to use your Contributions in any manner
+								us, the Services, and other users of the Services to use your Contributions in any manner
 								contemplated by the Services and these Legal Terms.
 							</span>
 						</span>
@@ -2216,7 +2214,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 								Your Contributions are not unsolicited or <bdt class="block-component" />
 								unauthorized
 								<bdt class="statement-end-if-in-editor" />
-								 advertising, promotional materials, pyramid schemes, chain letters, spam, mass mailings,
+								advertising, promotional materials, pyramid schemes, chain letters, spam, mass mailings,
 								or other forms of solicitation.
 							</span>
 						</span>
@@ -2384,7 +2382,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 						<bdt class="block-component" />
 						following the terms of the Privacy Policy
 						<bdt class="statement-end-if-in-editor" />
-						 and your choices (including settings).
+						and your choices (including settings).
 					</span>
 				</span>
 			</div>
@@ -2556,16 +2554,15 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 						</a>
 					</bdt>
 				</strong>
-				. By using the Services, you agree to be bound by our Privacy Policy, which is incorporated
-				into these Legal Terms. Please be advised the Services are hosted in
+				. By using the Services, you agree to be bound by our Privacy Policy, which is incorporated into
+				these Legal Terms. Please be advised the Services are hosted in
 				<bdt class="block-component" />
 				the
 				<bdt class="question">United States</bdt>
 				<bdt class="block-component" />
 				<bdt class="block-component" />
-				. If you access the Services from any other region of the world with laws or other
-				requirements governing personal data collection, use, or disclosure that differ from
-				applicable laws in
+				. If you access the Services from any other region of the world with laws or other requirements
+				governing personal data collection, use, or disclosure that differ from applicable laws in
 				<span style="font-size: 11pt; line-height: 16.8667px; color: rgb(89, 89, 89);">
 					<bdt class="block-component" />
 					the
@@ -2700,8 +2697,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					</bdt>
 					<bdt class="statement-end-if-in-editor" data-type="close" />
 				</bdt>
-				ANY CONTENT OR INFORMATION THAT YOU POSTED AT ANY TIME, WITHOUT WARNING, IN OUR SOLE
-				DISCRETION.
+				ANY CONTENT OR INFORMATION THAT YOU POSTED AT ANY TIME, WITHOUT WARNING, IN OUR SOLE DISCRETION.
 			</span>
 		</div>
 		<div class="MsoNormal" style="line-height: 1.5; text-align: left;"><br /></div>
@@ -2754,7 +2750,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 				or for any reason at our sole discretion without notice. However, we have no obligation to
 				update any information on our Services.
 				<bdt class="block-component" />
-				 We will not be liable to you or any third party for any modification, price change, suspension,
+				We will not be liable to you or any third party for any modification, price change, suspension,
 				or discontinuance of the Services.
 			</span>
 		</div>
@@ -2935,14 +2931,13 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 				<bdt class="block-component" />
 				defenses
 				<bdt class="statement-end-if-in-editor" />
-				of lack of personal jurisdiction and forum non conveniens with respect to venue and
-				jurisdiction in such
+				of lack of personal jurisdiction and forum non conveniens with respect to venue and jurisdiction
+				in such
 				<bdt class="block-component" />
 				state and federal courts
 				<bdt class="statement-end-if-in-editor" />
-				. Application of the United Nations Convention on Contracts for the International Sale of
-				Goods and the Uniform Computer Information Transaction Act (UCITA) are excluded from these
-				Legal Terms.
+				. Application of the United Nations Convention on Contracts for the International Sale of Goods
+				and the Uniform Computer Information Transaction Act (UCITA) are excluded from these Legal Terms.
 				<bdt class="block-component" />
 			</span>
 			<bdt class="block-component" />
@@ -3004,7 +2999,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 							</span>
 						</strong>
 					</span>
-					 DISCLAIMER
+					DISCLAIMER
 				</strong>
 			</span>
 		</div>
@@ -3030,22 +3025,22 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 				SERVICES, (3) ANY <bdt class="block-component" />
 				UNAUTHORIZED
 				<bdt class="statement-end-if-in-editor" />
-				ACCESS TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND ALL PERSONAL INFORMATION AND/OR
-				FINANCIAL INFORMATION STORED THEREIN, (4) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO
-				OR FROM THE SERVICES, (5) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE WHICH MAY BE
-				TRANSMITTED TO OR THROUGH THE SERVICES BY ANY THIRD PARTY, AND/OR (6) ANY ERRORS OR
-				OMISSIONS IN ANY CONTENT AND MATERIALS OR FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A
-				RESULT OF THE USE OF ANY CONTENT POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE
-				SERVICES. WE DO NOT WARRANT, ENDORSE, GUARANTEE, OR ASSUME RESPONSIBILITY FOR ANY PRODUCT OR
-				SERVICE ADVERTISED OR OFFERED BY A THIRD PARTY THROUGH THE SERVICES, ANY HYPERLINKED
-				WEBSITE, OR ANY WEBSITE OR MOBILE APPLICATION FEATURED IN ANY BANNER OR OTHER ADVERTISING,
-				AND WE WILL NOT BE A PARTY TO OR IN ANY WAY BE RESPONSIBLE FOR MONITORING ANY TRANSACTION
-				BETWEEN YOU AND ANY THIRD-PARTY PROVIDERS OF PRODUCTS OR SERVICES. AS WITH THE PURCHASE OF A
-				PRODUCT OR SERVICE THROUGH ANY MEDIUM OR IN ANY ENVIRONMENT, YOU SHOULD USE YOUR BEST
+				ACCESS TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND ALL PERSONAL INFORMATION AND/OR FINANCIAL
+				INFORMATION STORED THEREIN, (4) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THE
+				SERVICES, (5) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE WHICH MAY BE TRANSMITTED TO OR THROUGH
+				THE SERVICES BY ANY THIRD PARTY, AND/OR (6) ANY ERRORS OR OMISSIONS IN ANY CONTENT AND MATERIALS
+				OR FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT POSTED,
+				TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE SERVICES. WE DO NOT WARRANT, ENDORSE, GUARANTEE,
+				OR ASSUME RESPONSIBILITY FOR ANY PRODUCT OR SERVICE ADVERTISED OR OFFERED BY A THIRD PARTY THROUGH
+				THE SERVICES, ANY HYPERLINKED WEBSITE, OR ANY WEBSITE OR MOBILE APPLICATION FEATURED IN ANY BANNER
+				OR OTHER ADVERTISING, AND WE WILL NOT BE A PARTY TO OR IN ANY WAY BE RESPONSIBLE FOR MONITORING
+				ANY TRANSACTION BETWEEN YOU AND ANY THIRD-PARTY PROVIDERS OF PRODUCTS OR SERVICES. AS WITH THE
+				PURCHASE OF A PRODUCT OR SERVICE THROUGH ANY MEDIUM OR IN ANY ENVIRONMENT, YOU SHOULD USE YOUR
+				BEST
 				<bdt class="block-component" />
 				JUDGMENT
 				<bdt class="statement-end-if-in-editor" />
-				 AND EXERCISE CAUTION WHERE APPROPRIATE.
+				AND EXERCISE CAUTION WHERE APPROPRIATE.
 			</span>
 		</div>
 		<div class="MsoNormal" style="line-height: 1.5; text-align: left;"><br /></div>
@@ -3133,7 +3128,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 															>
 																six (6)
 															</bdt>
-															 mONTH PERIOD PRIOR TO ANY CAUSE OF ACTION ARISING
+															mONTH PERIOD PRIOR TO ANY CAUSE OF ACTION ARISING
 														</span>
 													</bdt>
 												</bdt>
@@ -3228,18 +3223,18 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					) your violation of the rights of a third party, including but not limited to intellectual
 					property rights; or (
 					<span style="font-size: 14.6667px;">5</span>
-					) any overt harmful act toward any other user of the Services with whom you connected via
-					the Services. Notwithstanding the foregoing, we reserve the right, at your expense, to
-					assume the exclusive
+					) any overt harmful act toward any other user of the Services with whom you connected via the
+					Services. Notwithstanding the foregoing, we reserve the right, at your expense, to assume the
+					exclusive
 					<bdt class="block-component" />
 					defense
 					<bdt class="statement-end-if-in-editor" />
-					and control of any matter for which you are required to indemnify us, and you agree to
-					cooperate, at your expense, with our
+					and control of any matter for which you are required to indemnify us, and you agree to cooperate,
+					at your expense, with our
 					<bdt class="block-component" />
 					defense
 					<bdt class="statement-end-if-in-editor" />
-					 of such claims. We will use reasonable efforts to notify you of any such claim, action, or
+					of such claims. We will use reasonable efforts to notify you of any such claim, action, or
 					proceeding which is subject to this indemnification upon becoming aware of it.
 				</bdt>
 			</span>
@@ -3434,7 +3429,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 				/>
 				defenses
 				<bdt class="statement-end-if-in-editor" />
-				 you may have based on the electronic form of these Legal Terms and the lack of signing by the
+				you may have based on the electronic form of these Legal Terms and the lack of signing by the
 				parties hereto to execute these Legal Terms.
 			</span>
 		</div>

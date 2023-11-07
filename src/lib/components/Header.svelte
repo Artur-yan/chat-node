@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LoadingProgress from "./LoadingProgress.svelte";
+	import LoadingProgress from './LoadingProgress.svelte';
 
 	let links = [
 		{
@@ -28,7 +28,6 @@
 <LoadingProgress />
 
 <header id="header" class="py-10">
-	
 	<nav class="container">
 		<div class="flex flex-wrap justify-between items-center">
 			<div class="flex items-end justify-center gap-10 -mt-3">

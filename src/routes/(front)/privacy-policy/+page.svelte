@@ -212,9 +212,9 @@
 					<span style="color: rgb(127, 127, 127);">
 						<span data-custom-class="body_text">
 							<strong>Questions or concerns?&nbsp;</strong>
-							Reading this privacy notice will help you understand your privacy rights and choices.
-							If you do not agree with our policies and practices, please do not use our Services.
-							If you still have any questions or concerns, please contact us at
+							Reading this privacy notice will help you understand your privacy rights and choices. If
+							you do not agree with our policies and practices, please do not use our Services. If you
+							still have any questions or concerns, please contact us at
 							<bdt class="question">contact@chatnode.ai</bdt>
 							.
 						</span>
@@ -259,12 +259,12 @@
 				<span style="font-size: 15px;">
 					<span data-custom-class="body_text">
 						<strong>What personal information do we process?</strong>
-						When you visit, use, or navigate our Services, we may process personal information
-						depending on how you interact with
+						When you visit, use, or navigate our Services, we may process personal information depending
+						on how you interact with
 						<bdt class="block-component" />
 						<bdt class="question">ChatNode AI</bdt>
 						<bdt class="else-block" />
-						 and the Services, the choices you make, and the products and features you use. Learn more
+						and the Services, the choices you make, and the products and features you use. Learn more
 						about&nbsp;
 					</span>
 				</span>
@@ -302,7 +302,7 @@
 				<span style="font-size: 15px;">
 					<span data-custom-class="body_text">
 						<strong>How do we process your information?</strong>
-						 We process your information to provide, improve, and administer our Services, communicate
+						We process your information to provide, improve, and administer our Services, communicate
 						with you, for security and fraud prevention, and to comply with law. We may also process
 						your information for other purposes with your consent. We process your information only when
 						we have a valid legal reason to do so. Learn more about&nbsp;
@@ -347,7 +347,7 @@
 				<span style="font-size: 15px;">
 					<span data-custom-class="body_text">
 						<strong>What are your rights?</strong>
-						 Depending on where you are located geographically, the applicable privacy law may mean you
+						Depending on where you are located geographically, the applicable privacy law may mean you
 						have certain rights regarding your personal information. Learn more about&nbsp;
 					</span>
 				</span>
@@ -368,8 +368,8 @@
 						visiting
 						<bdt class="question">contact@chatnode.ai</bdt>
 						<bdt class="else-block" />
-						, or by contacting us. We will consider and act upon any request in accordance with
-						applicable data protection laws.
+						, or by contacting us. We will consider and act upon any request in accordance with applicable
+						data protection laws.
 					</span>
 				</span>
 			</div>
@@ -380,7 +380,7 @@
 						Want to learn more about what <bdt class="block-component" />
 						<bdt class="question">ChatNode AI</bdt>
 						<bdt class="else-block" />
-						 does with any information we collect?&nbsp;
+						does with any information we collect?&nbsp;
 					</span>
 				</span>
 				<a data-custom-class="link" href="#toc">
@@ -683,9 +683,9 @@
 					<span style="font-size: 15px; color: rgb(89, 89, 89);">
 						<span data-custom-class="body_text">
 							<strong>Personal Information Provided by You.</strong>
-							The personal information that we collect depends on the context of your interactions
-							with us and the Services, the choices you make, and the products and features you use.
-							The personal information we collect may include the following:
+							The personal information that we collect depends on the context of your interactions with
+							us and the Services, the choices you make, and the products and features you use. The personal
+							information we collect may include the following:
 							<span style="font-size: 15px;">
 								<span data-custom-class="body_text"><bdt class="forloop-component" /></span>
 							</span>
@@ -751,9 +751,9 @@
 					<span style="font-size: 15px; color: rgb(89, 89, 89);">
 						<span data-custom-class="body_text">
 							<strong>Payment Data.</strong>
-							We may collect data necessary to process your payment if you make purchases, such as
-							your payment instrument number, and the security code associated with your payment
-							instrument. All payment data is stored by
+							We may collect data necessary to process your payment if you make purchases, such as your
+							payment instrument number, and the security code associated with your payment instrument.
+							All payment data is stored by
 							<bdt class="forloop-component" />
 							<span style="font-size: 15px; color: rgb(89, 89, 89);">
 								<span style="font-size: 15px; color: rgb(89, 89, 89);">
@@ -885,10 +885,9 @@
 					<span style="font-size: 15px; color: rgb(89, 89, 89);">
 						<span data-custom-class="body_text">
 							<strong>Social Media Login Data.&nbsp;</strong>
-							We may provide you with the option to register with us using your existing social
-							media account details, like your Facebook, Twitter, or other social media account. If
-							you choose to register in this way, we will collect the information described in the
-							section called
+							We may provide you with the option to register with us using your existing social media
+							account details, like your Facebook, Twitter, or other social media account. If you choose
+							to register in this way, we will collect the information described in the section called
 							<bdt class="block-component" />
 							"
 							<bdt class="statement-end-if-in-editor" />
@@ -906,7 +905,7 @@
 							<bdt class="block-component" />
 							"
 							<bdt class="statement-end-if-in-editor" />
-							 below.
+							below.
 						</span>
 					</span>
 				</span>
@@ -1022,8 +1021,8 @@
 									To facilitate account creation and authentication and otherwise manage user
 									accounts.&nbsp;
 								</strong>
-								We may process your information so you can create and log in to your account, as
-								well as keep your account in working order.
+								We may process your information so you can create and log in to your account, as well
+								as keep your account in working order.
 								<span style="font-size: 15px; color: rgb(89, 89, 89);">
 									<span style="font-size: 15px; color: rgb(89, 89, 89);">
 										<span data-custom-class="body_text">
@@ -1185,7 +1184,7 @@
 																														To save or protect an individual's vital
 																														interest.
 																													</strong>
-																													 We may process your information when necessary
+																													We may process your information when necessary
 																													to save or protect an individual’s vital interest,
 																													such as to prevent harm.
 																												</span>
@@ -1236,25 +1235,25 @@
 																											<span style="font-size: 15px;">
 																												<span data-custom-class="body_text">
 																													<strong>In Short:&nbsp;</strong>
-																													We only process your personal information
-																													when we believe it is necessary and we
-																													have a valid legal reason (i.e.
+																													We only process your personal information when
+																													we believe it is necessary and we have a valid
+																													legal reason (i.e.
 																													<bdt class="block-component" />
 																													,
 																													<bdt class="statement-end-if-in-editor" />
-																													legal basis) to do so under applicable
-																													law, like with your consent, to comply
-																													with laws, to provide you with services to
-																													enter into or
+																													legal basis) to do so under applicable law,
+																													like with your consent, to comply with laws,
+																													to provide you with services to enter into
+																													or
 																													<bdt class="block-component" />
 																													fulfill
 																													<bdt class="statement-end-if-in-editor" />
-																													our contractual obligations, to protect
-																													your rights, or to
+																													our contractual obligations, to protect your
+																													rights, or to
 																													<bdt class="block-component" />
 																													fulfill
 																													<bdt class="statement-end-if-in-editor" />
-																													 our legitimate business interests.
+																													our legitimate business interests.
 																												</span>
 																											</span>
 																										</em>
@@ -1305,14 +1304,14 @@
 																											<span style="font-size: 15px;">
 																												<span data-custom-class="body_text">
 																													<strong>Consent.&nbsp;</strong>
-																													We may process your information if you
-																													have given us permission (i.e.
+																													We may process your information if you have
+																													given us permission (i.e.
 																													<bdt class="block-component" />
 																													,
 																													<bdt class="statement-end-if-in-editor" />
-																													 consent) to use your personal information
-																													for a specific purpose. You can withdraw your
-																													consent at any time. Learn more about&nbsp;
+																													consent) to use your personal information for
+																													a specific purpose. You can withdraw your consent
+																													at any time. Learn more about&nbsp;
 																												</span>
 																											</span>
 																											<a
@@ -1352,13 +1351,12 @@
 																													<span style="font-size: 15px;">
 																														<strong>Legal Obligations.</strong>
 																														We may process your information where we
-																														believe it is necessary for compliance
-																														with our legal obligations, such as to
-																														cooperate with a law enforcement body or
-																														regulatory agency, exercise or defend
-																														our legal rights, or disclose your
-																														information as evidence in litigation in
-																														which we are involved.
+																														believe it is necessary for compliance with
+																														our legal obligations, such as to cooperate
+																														with a law enforcement body or regulatory
+																														agency, exercise or defend our legal rights,
+																														or disclose your information as evidence
+																														in litigation in which we are involved.
 																														<bdt
 																															class="statement-end-if-in-editor"
 																														/>
@@ -1379,7 +1377,7 @@
 																												<span data-custom-class="body_text">
 																													<span style="font-size: 15px;">
 																														<strong>Vital Interests.</strong>
-																														 We may process your information where we
+																														We may process your information where we
 																														believe it is necessary to protect your vital
 																														interests or the vital interests of a third
 																														party, such as situations involving potential
@@ -1432,14 +1430,13 @@
 																													<bdt class="block-component" />
 																													,
 																													<bdt class="statement-end-if-in-editor" />
-																													express consent) to use your personal
-																													information for a specific purpose, or in
-																													situations where your permission can be
-																													inferred (i.e.
+																													express consent) to use your personal information
+																													for a specific purpose, or in situations where
+																													your permission can be inferred (i.e.
 																													<bdt class="block-component" />
 																													,
 																													<bdt class="statement-end-if-in-editor" />
-																													 implied consent). You can&nbsp;
+																													implied consent). You can&nbsp;
 																												</span>
 																											</span>
 																											<a
@@ -1785,8 +1782,8 @@
 																											<span style="font-size: 15px;">
 																												<span data-custom-class="body_text">
 																													We <bdt class="block-component" />
-																													may need to share your personal
-																													information in the following situations:
+																													may need to share your personal information
+																													in the following situations:
 																												</span>
 																											</span>
 																										</div>
@@ -1795,7 +1792,7 @@
 																												<span style="font-size: 15px;">
 																													<span data-custom-class="body_text">
 																														<strong>Business Transfers.</strong>
-																														 We may share or transfer your information
+																														We may share or transfer your information
 																														in connection with, or during negotiations
 																														of, any merger, sale of company assets, financing,
 																														or acquisition of all or a portion of our
@@ -2327,7 +2324,7 @@
 																																				<bdt
 																																					class="statement-end-if-in-editor"
 																																				/>
-																																				 the purposes outlined in this
+																																				the purposes outlined in this
 																																				privacy notice unless otherwise
 																																				required by law.
 																																			</em>
@@ -2361,9 +2358,8 @@
 																																				class="block-component"
 																																			/>
 																																			No purpose in this notice will
-																																			require us keeping your
-																																			personal information for
-																																			longer than
+																																			require us keeping your personal
+																																			information for longer than
 																																			<span
 																																				style="font-size: 15px;"
 																																			>
@@ -2382,8 +2378,8 @@
 																																			<bdt
 																																				class="block-component"
 																																			/>
-																																			the period of time in which
-																																			users have an account with us
+																																			the period of time in which users
+																																			have an account with us
 																																			<bdt
 																																				class="block-component"
 																																			/>
@@ -2431,15 +2427,14 @@
 																																			<bdt
 																																				class="statement-end-if-in-editor"
 																																			/>
-																																			such information, or, if this
-																																			is not possible (for example,
-																																			because your personal
-																																			information has been stored in
-																																			backup archives), then we will
-																																			securely store your personal
-																																			information and isolate it
-																																			from any further processing
-																																			until deletion is possible.
+																																			such information, or, if this is
+																																			not possible (for example, because
+																																			your personal information has been
+																																			stored in backup archives), then
+																																			we will securely store your personal
+																																			information and isolate it from
+																																			any further processing until deletion
+																																			is possible.
 																																			<span
 																																				style="color: rgb(89, 89, 89);"
 																																			>
@@ -2522,8 +2517,7 @@
 																																				to <bdt
 																																					class="block-component"
 																																				/>
-																																				children under 18 years of
-																																				age
+																																				children under 18 years of age
 																																				<bdt class="else-block" />
 																																				.
 																																			</em>
@@ -2672,16 +2666,14 @@
 																																				<bdt
 																																					class="block-component"
 																																				/>
-																																				the European Economic Area
-																																				(EEA), United Kingdom (UK),
-																																				and Canada
+																																				the European Economic Area (EEA),
+																																				United Kingdom (UK), and Canada
 																																				<bdt
 																																					class="block-component"
 																																				/>
 																																				, you have rights that allow
-																																				you greater access to and
-																																				control over your personal
-																																				information.
+																																				you greater access to and control
+																																				over your personal information.
 																																				<span
 																																					style="color: rgb(89, 89, 89);"
 																																				>
@@ -2700,9 +2692,8 @@
 																																					</span>
 																																					&nbsp;
 																																				</span>
-																																				You may review, change, or
-																																				terminate your account at
-																																				any time.
+																																				You may review, change, or terminate
+																																				your account at any time.
 																																			</em>
 																																			<span
 																																				style="color: rgb(89, 89, 89);"
@@ -2739,27 +2730,22 @@
 																																			<bdt
 																																				class="block-component"
 																																			/>
-																																			), you have certain rights
-																																			under applicable data
-																																			protection laws. These may
-																																			include the right (i) to
-																																			request access and obtain a
-																																			copy of your personal
-																																			information, (ii) to request
-																																			rectification or erasure;
-																																			(iii) to restrict the
-																																			processing of your personal
-																																			information; and (iv) if
-																																			applicable, to data
-																																			portability. In certain
-																																			circumstances, you may also
-																																			have the right to object to
-																																			the processing of your
-																																			personal information. You can
-																																			make such a request by
-																																			contacting us by using the
-																																			contact details provided in
-																																			the section
+																																			), you have certain rights under
+																																			applicable data protection laws.
+																																			These may include the right (i)
+																																			to request access and obtain a
+																																			copy of your personal information,
+																																			(ii) to request rectification or
+																																			erasure; (iii) to restrict the
+																																			processing of your personal information;
+																																			and (iv) if applicable, to data
+																																			portability. In certain circumstances,
+																																			you may also have the right to
+																																			object to the processing of your
+																																			personal information. You can make
+																																			such a request by contacting us
+																																			by using the contact details provided
+																																			in the section
 																																			<bdt
 																																				class="block-component"
 																																			/>
@@ -2805,7 +2791,7 @@
 																																			<bdt
 																																				class="statement-end-if-in-editor"
 																																			/>
-																																			 below.
+																																			below.
 																																		</span>
 																																	</span>
 																																</span>
@@ -2914,7 +2900,7 @@
 																																					</span>
 																																				</span>
 																																			</span>
-																																			 or&nbsp;
+																																			or&nbsp;
 																																		</span>
 																																	</span>
 																																</span>
@@ -3030,24 +3016,22 @@
 																																					Withdrawing your consent:
 																																				</u>
 																																			</strong>
-																																			If we are relying on your
-																																			consent to process your
-																																			personal information,
+																																			If we are relying on your consent
+																																			to process your personal information,
 																																			<bdt
 																																				class="block-component"
 																																			/>
-																																			which may be express and/or
-																																			implied consent depending on
-																																			the applicable law,
+																																			which may be express and/or implied
+																																			consent depending on the applicable
+																																			law,
 																																			<bdt
 																																				class="statement-end-if-in-editor"
 																																			/>
 																																			you have the right to withdraw
-																																			your consent at any time. You
-																																			can withdraw your consent at
-																																			any time by contacting us by
-																																			using the contact details
-																																			provided in the section
+																																			your consent at any time. You can
+																																			withdraw your consent at any time
+																																			by contacting us by using the contact
+																																			details provided in the section
 																																			<bdt
 																																				class="block-component"
 																																			/>
@@ -3124,10 +3108,9 @@
 																																			class="statement-end-if-in-editor"
 																																		/>
 																																		will it affect the processing of
-																																		your personal information
-																																		conducted in reliance on lawful
-																																		processing grounds other than
-																																		consent.
+																																		your personal information conducted
+																																		in reliance on lawful processing
+																																		grounds other than consent.
 																																		<bdt class="block-component" />
 																																	</span>
 																																</span>
@@ -3147,9 +3130,9 @@
 																																			</u>
 																																		</strong>
 																																		<strong><u>&nbsp;</u></strong>
-																																		You can unsubscribe from our
-																																		marketing and promotional
-																																		communications at any time by
+																																		You can unsubscribe from our marketing
+																																		and promotional communications at
+																																		any time by
 																																		<bdt class="block-component" />
 																																		clicking on the unsubscribe link
 																																		in the emails that we send,
@@ -3158,8 +3141,8 @@
 																																		/>
 																																		<bdt class="block-component" />
 																																		<bdt class="block-component" />
-																																		or by contacting us using the
-																																		details provided in the section
+																																		or by contacting us using the details
+																																		provided in the section
 																																		<bdt class="block-component" />
 																																		"
 																																		<bdt
@@ -3189,10 +3172,10 @@
 																																		<bdt
 																																			class="statement-end-if-in-editor"
 																																		/>
-																																		 below. You will then be removed
-																																		from the marketing lists. However,
-																																		we may still communicate with you
-																																		— for example, to send you service-related
+																																		below. You will then be removed from
+																																		the marketing lists. However, we
+																																		may still communicate with you —
+																																		for example, to send you service-related
 																																		messages that are necessary for the
 																																		administration and use of your account,
 																																		to respond to service requests, or
@@ -3359,16 +3342,15 @@
 																																					technologies:
 																																				</u>
 																																			</strong>
-																																			Most Web browsers are set to
-																																			accept cookies by default. If
-																																			you prefer, you can usually
-																																			choose to set your browser to
-																																			remove cookies and to reject
-																																			cookies. If you choose to
-																																			remove cookies or reject
-																																			cookies, this could affect
-																																			certain features or services
-																																			of our Services. You may also
+																																			Most Web browsers are set to accept
+																																			cookies by default. If you prefer,
+																																			you can usually choose to set your
+																																			browser to remove cookies and to
+																																			reject cookies. If you choose to
+																																			remove cookies or reject cookies,
+																																			this could affect certain features
+																																			or services of our Services. You
+																																			may also
 																																			<span
 																																				style="color: rgb(48, 48, 241);"
 																																			>
@@ -3408,8 +3390,8 @@
 																																					</span>
 																																				</span>
 																																			</span>
-																																			For further information,
-																																			please see our Cookie Notice:
+																																			For further information, please
+																																			see our Cookie Notice:
 																																			<span
 																																				style="font-size: 15px;"
 																																			>
@@ -3560,14 +3542,12 @@
 																																			<bdt
 																																				class="statement-end-if-in-editor"
 																																			/>
-																																			) feature or setting you can
-																																			activate to signal your
-																																			privacy preference not to have
-																																			data about your online
-																																			browsing activities monitored
-																																			and collected. At this stage
-																																			no uniform technology standard
-																																			for
+																																			) feature or setting you can activate
+																																			to signal your privacy preference
+																																			not to have data about your online
+																																			browsing activities monitored and
+																																			collected. At this stage no uniform
+																																			technology standard for
 																																			<bdt
 																																				class="block-component"
 																																			/>
@@ -3575,8 +3555,8 @@
 																																			<bdt
 																																				class="statement-end-if-in-editor"
 																																			/>
-																																			and implementing DNT signals
-																																			has been
+																																			and implementing DNT signals has
+																																			been
 																																			<bdt
 																																				class="block-component"
 																																			/>
@@ -3586,16 +3566,14 @@
 																																			/>
 																																			. As such, we do not currently
 																																			respond to DNT browser signals
-																																			or any other mechanism that
-																																			automatically communicates
-																																			your choice not to be tracked
-																																			online. If a standard for
-																																			online tracking is adopted
-																																			that we must follow in the
-																																			future, we will inform you
-																																			about that practice in a
-																																			revised version of this
-																																			privacy notice.
+																																			or any other mechanism that automatically
+																																			communicates your choice not to
+																																			be tracked online. If a standard
+																																			for online tracking is adopted
+																																			that we must follow in the future,
+																																			we will inform you about that practice
+																																			in a revised version of this privacy
+																																			notice.
 																																		</span>
 																																	</span>
 																																</span>
@@ -3687,7 +3665,7 @@
 																																			<bdt
 																																				class="statement-end-if-in-editor"
 																																			/>
-																																			 law, permits our users who are
+																																			law, permits our users who are
 																																			California residents to request
 																																			and obtain from us, once a year
 																																			and free of charge, information
@@ -3808,7 +3786,7 @@
 																																							<bdt
 																																								class="statement-end-if-in-editor"
 																																							/>
-																																							 as:
+																																							as:
 																																						</span>
 																																					</span>
 																																				</span>
@@ -3907,7 +3885,7 @@
 																																			<bdt
 																																				class="statement-end-if-in-editor"
 																																			/>
-																																			 applies to you, we must adhere
+																																			applies to you, we must adhere
 																																			to certain rights and obligations
 																																			regarding your personal information.
 																																		</span>
@@ -4514,9 +4492,8 @@
 																																							<bdt
 																																								class="statement-end-if-in-editor"
 																																							/>
-																																							, interest data, and
-																																							interactions with our
-																																							and other websites,
+																																							, interest data, and interactions
+																																							with our and other websites,
 																																							applications, systems,
 																																							and advertisements
 																																						</span>
@@ -5811,12 +5788,10 @@
 																																														/>
 																																														agent to
 																																														exercise
-																																														your
-																																														right to
-																																														opt out
-																																														we may
-																																														deny a
-																																														request
+																																														your right
+																																														to opt out
+																																														we may deny
+																																														a request
 																																														if the
 																																														<bdt
 																																															class="block-component"
@@ -5825,15 +5800,11 @@
 																																														<bdt
 																																															class="statement-end-if-in-editor"
 																																														/>
-																																														agent
-																																														does not
-																																														submit
-																																														proof
-																																														that
-																																														they
-																																														have
-																																														been
-																																														validly
+																																														agent does
+																																														not submit
+																																														proof that
+																																														they have
+																																														been validly
 																																														<bdt
 																																															class="block-component"
 																																														/>
@@ -5841,7 +5812,7 @@
 																																														<bdt
 																																															class="statement-end-if-in-editor"
 																																														/>
-																																														 to act on
+																																														to act on
 																																														your behalf.
 																																													</span>
 																																												</span>
@@ -5982,8 +5953,7 @@
 																																														<bdt
 																																															class="statement-end-if-in-editor"
 																																														/>
-																																														of your
-																																														personal
+																																														of your personal
 																																														information.
 																																														<span
 																																															style="color: rgb(89, 89, 89); font-size: 15px;"
@@ -6066,20 +6036,15 @@
 																																															&nbsp;
 																																														</span>
 																																														will not
-																																														sell or
-																																														share
+																																														sell or share
 																																														personal
 																																														information
-																																														in the
-																																														future
+																																														in the future
 																																														belonging
-																																														to
-																																														website
+																																														to website
 																																														visitors,
-																																														users,
-																																														and
-																																														other
-																																														consumers.
+																																														users, and
+																																														other consumers.
 																																														<span
 																																															style="color: rgb(89, 89, 89);"
 																																														>
@@ -7378,7 +7343,7 @@
 																																														<bdt
 																																															class="statement-end-if-in-editor"
 																																														/>
-																																														 phone or
+																																														phone or
 																																														email) that
 																																														you have
 																																														previously
@@ -7823,21 +7788,16 @@
 																																															<bdt
 																																																class="statement-end-if-in-editor"
 																																															/>
-																																															agent
-																																															to
+																																															agent to
 																																															make a
 																																															request
-																																															under
-																																															the
-																																															CCPA
-																																															on
-																																															your
-																																															behalf.
+																																															under the
+																																															CCPA on
+																																															your behalf.
 																																															We may
 																																															deny a
 																																															request
-																																															from
-																																															an
+																																															from an
 																																															<bdt
 																																																class="block-component"
 																																															/>
@@ -7845,17 +7805,12 @@
 																																															<bdt
 																																																class="statement-end-if-in-editor"
 																																															/>
-																																															agent
-																																															that
-																																															does
-																																															not
+																																															agent that
+																																															does not
 																																															submit
-																																															proof
-																																															that
-																																															they
-																																															have
-																																															been
-																																															validly
+																																															proof that
+																																															they have
+																																															been validly
 																																															<bdt
 																																																class="block-component"
 																																															/>
@@ -7864,13 +7819,10 @@
 																																																class="statement-end-if-in-editor"
 																																															/>
 																																															to act
-																																															on
-																																															your
+																																															on your
 																																															behalf
-																																															in
-																																															accordance
-																																															with
-																																															the
+																																															in accordance
+																																															with the
 																																															CCPA.
 																																															<span
 																																																style="font-size: 15px; color: rgb(89, 89, 89);"
@@ -8387,7 +8339,7 @@
 																																													<bdt
 																																														class="statement-end-if-in-editor"
 																																													/>
-																																													 means a natural
+																																													means a natural
 																																													person who
 																																													is a resident
 																																													of the Commonwealth
@@ -8425,32 +8377,25 @@
 																																													<bdt
 																																														class="block-component"
 																																													/>
-																																													"Personal
-																																													data"
+																																													"Personal data"
 																																													<bdt
 																																														class="statement-end-if-in-editor"
 																																													/>
-																																													means any
-																																													information
-																																													that is
-																																													linked or
-																																													reasonably
-																																													linkable
-																																													to an
-																																													identified
-																																													or
-																																													identifiable
-																																													natural
-																																													person.
+																																													means any information
+																																													that is linked
+																																													or reasonably
+																																													linkable to
+																																													an identified
+																																													or identifiable
+																																													natural person.
 																																													<bdt
 																																														class="block-component"
 																																													/>
-																																													"Personal
-																																													data"
+																																													"Personal data"
 																																													<bdt
 																																														class="statement-end-if-in-editor"
 																																													/>
-																																													 does not include
+																																													does not include
 																																													de-identified
 																																													data or publicly
 																																													available information.
@@ -8478,16 +8423,14 @@
 																																													<bdt
 																																														class="block-component"
 																																													/>
-																																													"Sale of
-																																													personal
+																																													"Sale of personal
 																																													data"
 																																													<bdt
 																																														class="statement-end-if-in-editor"
 																																													/>
-																																													 means the
-																																													exchange of
-																																													personal data
-																																													for monetary
+																																													means the exchange
+																																													of personal
+																																													data for monetary
 																																													consideration.
 																																												</span>
 																																											</span>
@@ -8518,7 +8461,7 @@
 																																													<bdt
 																																														class="statement-end-if-in-editor"
 																																													/>
-																																													 applies to
+																																													applies to
 																																													you, we must
 																																													adhere to certain
 																																													rights and
@@ -8559,7 +8502,7 @@
 																																														SDATAS
 																																														LLC
 																																													</bdt>
-																																													 and our Services.
+																																													and our Services.
 																																													To find out
 																																													more, please
 																																													visit the following
@@ -8942,27 +8885,21 @@
 																																												</bdt>
 																																												has not sold
 																																												any personal
-																																												data to
-																																												third
-																																												parties for
-																																												business or
-																																												commercial
+																																												data to third
+																																												parties for business
+																																												or commercial
 																																												purposes.
 																																												<bdt
 																																													class="question"
 																																												>
 																																													SDATAS LLC
 																																												</bdt>
-																																												will not
-																																												sell
-																																												personal
-																																												data in the
-																																												future
+																																												will not sell
+																																												personal data
+																																												in the future
 																																												belonging to
-																																												website
-																																												visitors,
-																																												users, and
-																																												other
+																																												website visitors,
+																																												users, and other
 																																												consumers.
 																																												<bdt
 																																													class="else-block"
@@ -9018,8 +8955,7 @@
 																																												<bdt
 																																													class="block-component"
 																																												/>
-																																												and our
-																																												Cookie
+																																												and our Cookie
 																																												Notice:
 																																												<bdt
 																																													class="block-component"
@@ -9073,8 +9009,7 @@
 																																													<bdt
 																																														class="block-component"
 																																													/>
-																																													by
-																																													visiting
+																																													by visiting
 																																													<bdt
 																																														class="question"
 																																													>
@@ -9083,14 +9018,11 @@
 																																													<bdt
 																																														class="else-block"
 																																													/>
-																																													, or by
-																																													referring
-																																													to the
-																																													contact
+																																													, or by referring
+																																													to the contact
 																																													details at
 																																													the bottom
-																																													of this
-																																													document.
+																																													of this document.
 																																												</span>
 																																											</span>
 																																										</div>
@@ -9116,12 +9048,10 @@
 																																													<bdt
 																																														class="statement-end-if-in-editor"
 																																													/>
-																																													agent to
-																																													exercise
-																																													your
-																																													rights, we
-																																													may deny a
-																																													request if
+																																													agent to exercise
+																																													your rights,
+																																													we may deny
+																																													a request if
 																																													the
 																																													<bdt
 																																														class="block-component"
@@ -9133,8 +9063,7 @@
 																																													agent does
 																																													not submit
 																																													proof that
-																																													they have
-																																													been
+																																													they have been
 																																													validly
 																																													<bdt
 																																														class="block-component"
@@ -9143,8 +9072,8 @@
 																																													<bdt
 																																														class="statement-end-if-in-editor"
 																																													/>
-																																													 to act on
-																																													your behalf.
+																																													to act on your
+																																													behalf.
 																																												</span>
 																																											</span>
 																																										</div>
@@ -9206,9 +9135,9 @@
 																																													<bdt
 																																														class="statement-end-if-in-editor"
 																																													/>
-																																													 agent, we
-																																													may need to
-																																													collect additional
+																																													agent, we may
+																																													need to collect
+																																													additional
 																																													information
 																																													to verify your
 																																													identity before
@@ -9352,34 +9281,23 @@
 																																													<bdt
 																																														class="else-block"
 																																													/>
-																																													. Within
-																																													sixty (60)
-																																													days of
+																																													. Within sixty
+																																													(60) days of
 																																													receipt of
 																																													an appeal,
-																																													we will
-																																													inform you
-																																													in writing
-																																													of any
-																																													action
-																																													taken or
-																																													not taken
-																																													in
-																																													response
-																																													to the
-																																													appeal,
-																																													including
-																																													a written
-																																													explanation
-																																													of the
-																																													reasons
-																																													for the
-																																													decisions.
-																																													If your
-																																													appeal if
-																																													denied,
-																																													you may
-																																													contact
+																																													we will inform
+																																													you in writing
+																																													of any action
+																																													taken or not
+																																													taken in response
+																																													to the appeal,
+																																													including a
+																																													written explanation
+																																													of the reasons
+																																													for the decisions.
+																																													If your appeal
+																																													if denied,
+																																													you may contact
 																																													the&nbsp;
 																																												</span>
 																																											</span>
@@ -9484,19 +9402,13 @@
 																																																In
 																																																Short:&nbsp;
 																																															</strong>
-																																															Yes,
-																																															we
-																																															will
-																																															update
-																																															this
-																																															notice
-																																															as
-																																															necessary
-																																															to
-																																															stay
+																																															Yes, we
+																																															will update
+																																															this notice
+																																															as necessary
+																																															to stay
 																																															compliant
-																																															with
-																																															relevant
+																																															with relevant
 																																															laws.
 																																														</em>
 																																													</span>
@@ -9541,7 +9453,7 @@
 																																														<bdt
 																																															class="statement-end-if-in-editor"
 																																														/>
-																																														 date and
+																																														date and
 																																														the updated
 																																														version will
 																																														be effective
@@ -9655,8 +9567,7 @@
 																																																	class="block-component"
 																																																/>
 																																																email
-																																																us
-																																																at
+																																																us at
 																																																<bdt
 																																																	class="question"
 																																																>
@@ -10066,28 +9977,20 @@
 																																															class="block-component"
 																																														/>
 																																														Based on
-																																														the
-																																														applicable
-																																														laws of
-																																														your
+																																														the applicable
+																																														laws of your
 																																														country,
-																																														you may
-																																														have the
-																																														right to
-																																														request
-																																														access
-																																														to the
-																																														personal
+																																														you may have
+																																														the right
+																																														to request
+																																														access to
+																																														the personal
 																																														information
-																																														we
-																																														collect
-																																														from
-																																														you,
-																																														change
-																																														that
+																																														we collect
+																																														from you,
+																																														change that
 																																														information,
-																																														or
-																																														delete
+																																														or delete
 																																														it.
 																																														<bdt
 																																															class="else-block"
@@ -10095,15 +9998,11 @@
 																																															<bdt
 																																																class="block-component"
 																																															/>
-																																															To
-																																															request
-																																															to
-																																															review,
+																																															To request
+																																															to review,
 																																															update,
-																																															or
-																																															delete
-																																															your
-																																															personal
+																																															or delete
+																																															your personal
 																																															information,
 																																															please
 																																															<bdt

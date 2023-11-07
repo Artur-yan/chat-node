@@ -1,5 +1,5 @@
-import { CMS_API_KEY } from '$env/static/private'
-import { PUBLIC_CMS_PATH } from '$env/static/public'
+import { CMS_API_KEY } from '$env/static/private';
+import { PUBLIC_CMS_PATH } from '$env/static/public';
 import { prismaClient } from '$lib/server/prisma';
 import { fail } from '@sveltejs/kit';
 import tiersMap from '$lib/data/tiers.js';
@@ -11,7 +11,8 @@ async function fetchTestimonials() {
 			'api-key': CMS_API_KEY
 		}
 	});
-	return await testimonials.json();}
+	return await testimonials.json();
+}
 
 export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -23,12 +24,10 @@ export const load = async ({ locals }) => {
 			streamed: {
 				testimonials: fetchTestimonials()
 			}
-		}
+		};
 	} catch (err) {
 		console.error(err);
 	}
-
-
 };
 
 export const actions = {

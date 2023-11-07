@@ -1,6 +1,6 @@
 <script>
 	import { redirectToStripeBilling } from '$lib/account';
-	import LoadingProgress from "./LoadingProgress.svelte";
+	import LoadingProgress from './LoadingProgress.svelte';
 
 	let links = [
 		{

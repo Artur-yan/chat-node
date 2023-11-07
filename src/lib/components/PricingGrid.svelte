@@ -105,9 +105,7 @@
 							{currentPlan === 0 ? 'Current plan' : 'Change plan'}
 						</button>
 					{:else}
-						<a href="/register" class="btn btn-outline btn-secondary">
-							Sign up
-						</a>
+						<a href="/register" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
 				</div>
 				<ul>
@@ -167,9 +165,7 @@
 							</button>
 						{/if}
 					{:else}
-						<a href="/register" class="btn btn-outline btn-secondary">
-							Sign up
-						</a>
+						<a href="/register" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
 				</div>
 				<ul>
@@ -233,9 +229,7 @@
 							</button>
 						{/if}
 					{:else}
-						<a href="/register" class="btn btn-outline btn-secondary">
-							Sign up
-						</a>
+						<a href="/register" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
 				</div>
 				<div class="grid lg:grid-cols-2">
@@ -322,9 +316,7 @@
 								</button>
 							{/if}
 						{:else}
-							<a href="/register" class="btn btn-outline btn-secondary">
-								Sign up
-							</a>
+							<a href="/register" class="btn btn-outline btn-secondary">Sign up</a>
 						{/if}
 					</div>
 				</div>
@@ -400,9 +392,7 @@
 								</button>
 							{/if}
 						{:else}
-							<a href="/register" class="btn btn-outline btn-secondary">
-								Sign up
-							</a>
+							<a href="/register" class="btn btn-outline btn-secondary">Sign up</a>
 						{/if}
 					</div>
 				</div>

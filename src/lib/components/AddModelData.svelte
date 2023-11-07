@@ -44,13 +44,13 @@
 		files = undefined;
 		textData = '';
 		url = undefined;
-		urls = undefined
-		selectedUrls = []
+		urls = undefined;
+		selectedUrls = [];
 		urlsTokenCount = 0;
 		filesTokenCount = 0;
 		selectedUrlsTokenCount = 0;
 		approxTextTokenCount = 0;
-		fileKeys = []
+		fileKeys = [];
 	}
 
 	const fetchUrlsToScrape = async () => {
@@ -205,7 +205,7 @@
 			$alert = { msg: 'Something went wrong.', type: 'error' };
 			console.error(err);
 		} finally {
-			resetAddDataForm()
+			resetAddDataForm();
 		}
 	};
 
@@ -465,9 +465,7 @@
 	</p>
 
 	<h3 class="font-bold mb-4 mt-8">Multiple/Specific URLs</h3>
-	<p>
-		You can enter a comma seperated list of urls to scrape. Sub-pages will not be crawled.
-	</p>
+	<p>You can enter a comma seperated list of urls to scrape. Sub-pages will not be crawled.</p>
 
 	<h3 class="font-bold mb-4 mt-8">Google Docs / Notion / Online PDFs / + more</h3>
 	<p>

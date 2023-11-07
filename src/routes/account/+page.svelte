@@ -23,54 +23,55 @@
 				transaction_id: uuidv4(),
 				value: amountSpent,
 				currency: 'USD',
-				items: [{
-					'item_id': newPlan,
-					'item_name': newPlanName,
-					'price': amountSpent,
-					'quantity': 1
-				}]
+				items: [
+					{
+						item_id: newPlan,
+						item_name: newPlanName,
+						price: amountSpent,
+						quantity: 1
+					}
+				]
 			}
 		});
 	}
 
 	const email = data.user.user.email;
 
-
 	onMount(async () => {
 		switch (newPlan) {
-		case '1':
-			newPlanName = 'Basic';
-			amountSpent = 19;
-			break;
-		case '2':
-			newPlanName = 'Pro';
-			amountSpent = 49;
-			break;
-		case '3':
-			newPlanName = 'Enterprise';
-			amountSpent = 99;
-			break;
-		case '4':
-			newPlanName = 'Enterprise Plus';
-			amountSpent = 399;
-			break;
-		case '101':
-			newPlanName = 'Basic - Annual';
-			amountSpent = 190;
-			break;
-		case '102':
-			newPlanName = 'Pro - Annual';
-			amountSpent = 490;
-			break;
-		case '103':
-			newPlanName = 'Enterprise - Annual';
-			amountSpent = 990;
-			break;
-		case '104':
-			newPlanName = 'Enterprise Plus - Annual';
-			amountSpent = 3990;
-			break;
-	}
+			case '1':
+				newPlanName = 'Basic';
+				amountSpent = 19;
+				break;
+			case '2':
+				newPlanName = 'Pro';
+				amountSpent = 49;
+				break;
+			case '3':
+				newPlanName = 'Enterprise';
+				amountSpent = 99;
+				break;
+			case '4':
+				newPlanName = 'Enterprise Plus';
+				amountSpent = 399;
+				break;
+			case '101':
+				newPlanName = 'Basic - Annual';
+				amountSpent = 190;
+				break;
+			case '102':
+				newPlanName = 'Pro - Annual';
+				amountSpent = 490;
+				break;
+			case '103':
+				newPlanName = 'Enterprise - Annual';
+				amountSpent = 990;
+				break;
+			case '104':
+				newPlanName = 'Enterprise Plus - Annual';
+				amountSpent = 3990;
+				break;
+		}
 
 		if (planChange) {
 			const { trackEvent } = Plausible({

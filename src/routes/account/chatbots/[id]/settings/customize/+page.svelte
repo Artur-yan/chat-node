@@ -276,7 +276,7 @@
 		{/if}
 
 		<hr class="border-base-300 my-4" />
-	
+
 		<div>
 			<div>
 				<h3 class="font-bold mb-2">Popup Chat</h3>
@@ -300,25 +300,55 @@
 					</div>
 					<div class="form-control">
 						<label class="label cursor-pointer justify-start gap-2">
-							<input type="checkbox" class="toggle" bind:checked={$currentBot.settings.openChatByDefault} />
+							<input
+								type="checkbox"
+								class="toggle"
+								bind:checked={$currentBot.settings.openChatByDefault}
+							/>
 							<span class="label-text">Open chat window by default</span>
 						</label>
 					</div>
 				</div>
 				<div>
-					<svg clip-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" version="1.1" width="56" height="56" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><g><path d="m0 32c0-17.673 14.327-32 32-32s32 14.327 32 32-14.327 32-32 32-32-14.327-32-32z" fill="{$currentBot.settings.theme.popupButtonBG}"/><path d="m26 16c-5.5228 0-10 4.4772-10 10v12c0 5.5228 4.4772 10 10 10h19.5c1.3807 0 2.5-1.1193 2.5-2.5v-19.5c0-5.5228-4.4772-10-10-10h-12zm-0.75 16c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm8.75 0c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm6.75 2c1.1046 0 2-0.8954 2-2s-0.8954-2-2-2-2 0.8954-2 2 0.8954 2 2 2z" fill="{$currentBot.settings.theme.popupButtonIcon}" fill-rule="evenodd"/></g></svg>
+					<svg
+						clip-rule="evenodd"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-miterlimit="10"
+						version="1.1"
+						width="56"
+						height="56"
+						viewBox="0 0 64 64"
+						xml:space="preserve"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<g>
+							<path
+								d="m0 32c0-17.673 14.327-32 32-32s32 14.327 32 32-14.327 32-32 32-32-14.327-32-32z"
+								fill={$currentBot.settings.theme.popupButtonBG}
+							/>
+							<path
+								d="m26 16c-5.5228 0-10 4.4772-10 10v12c0 5.5228 4.4772 10 10 10h19.5c1.3807 0 2.5-1.1193 2.5-2.5v-19.5c0-5.5228-4.4772-10-10-10h-12zm-0.75 16c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm8.75 0c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm6.75 2c1.1046 0 2-0.8954 2-2s-0.8954-2-2-2-2 0.8954-2 2 0.8954 2 2 2z"
+								fill={$currentBot.settings.theme.popupButtonIcon}
+								fill-rule="evenodd"
+							/>
+						</g>
+					</svg>
 				</div>
 			</div>
 			<div class="text-white mt-8 flex items-end gap-1">
 				<div class="text-warning">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1024 1024"><path fill="currentColor" d="M928.99 755.83L574.6 203.25c-12.89-20.16-36.76-32.58-62.6-32.58s-49.71 12.43-62.6 32.58L95.01 755.83c-12.91 20.12-12.9 44.91.01 65.03c12.92 20.12 36.78 32.51 62.59 32.49h708.78c25.82.01 49.68-12.37 62.59-32.49c12.91-20.12 12.92-44.91.01-65.03zM554.67 768h-85.33v-85.33h85.33V768zm0-426.67v298.66h-85.33V341.32l85.33.01z"/></svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1024 1024">
+						<path
+							fill="currentColor"
+							d="M928.99 755.83L574.6 203.25c-12.89-20.16-36.76-32.58-62.6-32.58s-49.71 12.43-62.6 32.58L95.01 755.83c-12.91 20.12-12.9 44.91.01 65.03c12.92 20.12 36.78 32.51 62.59 32.49h708.78c25.82.01 49.68-12.37 62.59-32.49c12.91-20.12 12.92-44.91.01-65.03zM554.67 768h-85.33v-85.33h85.33V768zm0-426.67v298.66h-85.33V341.32l85.33.01z"
+						/>
+					</svg>
 				</div>
 				You will need to copy/paste the new embed script on your site whenever you make changes here.
 			</div>
-
 		</div>
 	</div>
-
 </div>
 
 <div class="card bg-neutral card-compact mb-4">

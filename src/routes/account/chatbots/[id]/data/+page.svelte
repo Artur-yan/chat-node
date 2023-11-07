@@ -10,7 +10,7 @@
 
 	export let data;
 
-	let { urls } = data.modelData
+	let { urls } = data.modelData;
 	let trainingStatus = 'ready';
 	let modelId = data.model.id;
 	let sourceToDelete: Object;
@@ -29,10 +29,6 @@
 		activeDataTab = 'legacy-urls';
 	}
 
-	function restart() {
-		unique = [{}];
-	}
-
 	async function gatherSubUrlsS3Keys(base_url: string) {
 		let s3Keys = [];
 		data.modelData?.urls[base_url].forEach((urlObj) => {
@@ -40,7 +36,7 @@
 		});
 
 		return s3Keys;
-	};
+	}
 
 	async function deleteBotSource(s3_keys: Array<string>, base_url: string | undefined) {
 		let body = new FormData();
@@ -58,17 +54,17 @@
 			$alert = { msg: 'Data deleted', type: 'success' };
 
 			if (base_url) {
-				const elem = document.getElementById(base_url)
+				const elem = document.getElementById(base_url);
 				elem.remove();
 			} else {
-				const elem = document.getElementById(sourceToDelete.s3_key)
+				const elem = document.getElementById(sourceToDelete.s3_key);
 				elem.remove();
 			}
 		}
-	};
+	}
 
 	async function updateBotSources(s3_keys: Array<string>) {
-		if(s3_keys.length === 0) {
+		if (s3_keys.length === 0) {
 			return;
 		}
 
@@ -86,13 +82,13 @@
 
 		let updatedDataSources = await res.json();
 
-		updatedDataSources.forEach(source => {
-			const row = document.getElementById(source.s3_key)
-			row?.setAttribute('data-training-status', source.status)
+		updatedDataSources.forEach((source) => {
+			const row = document.getElementById(source.s3_key);
+			row?.setAttribute('data-training-status', source.status);
 			row.querySelector('.training-status').innerHTML = source.status || 'error';
-			row.querySelector('.token-count').innerHTML = source.token_count || '-'
-			if(source.status !== 'trained') {
-				incompleteSourcesS3Keys.push(source.s3_key)
+			row.querySelector('.token-count').innerHTML = source.token_count || '-';
+			if (source.status !== 'trained') {
+				incompleteSourcesS3Keys.push(source.s3_key);
 			}
 		});
 
@@ -105,6 +101,7 @@
 		textSourceToEdit = null;
 		textSourceValue = null;
 		editTextSourceModal.showModal();
+
 		const res = await getText(
 			textObj.id,
 			new Array(textObj.s3_key),
@@ -113,17 +110,17 @@
 		);
 		textSourceToEdit = res;
 		textSourceValue = Object.values(res)[0];
-	};
+	}
 
-	async function handleTextUpdate (source_key: string, text: string) {
+	async function handleTextUpdate(source_key: string, text: string) {
 		trainingStatus = 'training';
 		updateText(source_key, data.model.id, text, data.model.user_id, data.user.session.sessionId);
-	};
+	}
 
 	async function retrainUrls(s3_keys: Array<string>) {
 		s3_keys.forEach((s3_key) => {
-			const row = document.getElementById(s3_key)
-			row?.setAttribute('data-training-status', 'scraping')
+			const row = document.getElementById(s3_key);
+			row?.setAttribute('data-training-status', 'scraping');
 			row.querySelector('.training-status').innerHTML = 'starting';
 		});
 
@@ -141,7 +138,7 @@
 		if (res.ok) {
 			updateBotSources(s3_keys);
 		}
-	};
+	}
 
 	// $: if (trainingStatus == 'complete') {
 	// 	restart();
@@ -150,9 +147,8 @@
 	// $: data.modelData, restart();
 
 	onMount(() => {
-		updateBotSources(data.modelData.urlsInTrainingS3Keys)
-	})
-
+		updateBotSources(data.modelData.urlsInTrainingS3Keys);
+	});
 </script>
 
 <svelte:head>
@@ -223,83 +219,70 @@
 				{#if activeDataTab === 'urls'}
 					<div class="space-y-4">
 						{#each Object.entries(urls) as [baseUrl, items]}
-							<Accordian id={baseUrl} open={true}>						
+							<Accordian id={baseUrl} open={true}>
 								<h2 slot="title" class="w-full">
 									{baseUrl}
 								</h2>
 
 								<div class="text-right mb-4">
 									<button
-									class="btn btn-xs btn-outline text-error"
-									on:click|stopPropagation={() => {
-										sourceToDelete = baseUrl;
-										deleteEntireWebsiteModal.showModal();
-									}}
-																>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
+										class="btn btn-xs btn-outline text-error"
+										on:click|stopPropagation={() => {
+											sourceToDelete = baseUrl;
+											deleteEntireWebsiteModal.showModal();
+										}}
 									>
-										<path
-											fill="currentColor"
-											d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
-										/>
-									</svg>
-									Delete All
-																</button>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+										>
+											<path
+												fill="currentColor"
+												d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
+											/>
+										</svg>
+										Delete All
+									</button>
 								</div>
 								<table class="table w-full table-xs">
 									<thead>
 										<tr>
 											<th class="w-full">Name</th>
 											<th class="w-full">Date</th>
-											<th class="w-full">Tokens</th>	
+											<th class="w-full">Tokens</th>
 											<th />
 										</tr>
 									</thead>
 									{#each items as url}
-											<tr id={url.s3_key} class="hover" data-training-status={url.status}>
-												<td class="break-all">
-													<div class="training-status badge font-bold uppercase badge-xs badge-warning">{url.status}</div>
-													{url.name}
-												</td>
-												<td>
-													<div
+										<tr id={url.s3_key} class="hover" data-training-status={url.status}>
+											<td class="break-all">
+												<div
+													class="training-status badge font-bold uppercase badge-xs badge-warning"
+												>
+													{url.status}
+												</div>
+												{url.name}
+											</td>
+											<td>
+												<div
 													class="tooltip tooltip-info tooltip-left"
-													data-tip={url.created_at.toLocaleTimeString([], {minute: '2-digit', hour: '2-digit'})}
+													data-tip={url.created_at.toLocaleTimeString([], {
+														minute: '2-digit',
+														hour: '2-digit'
+													})}
 												>
 													<h3 class="text-xs">{url.created_at.toLocaleDateString()}</h3>
-													</div>
-												</td>
-												<td class="token-count">{url.token_count === 0 ? '-' : url.token_count}</td>
-												<td class="flex gap-2">
-													<div class="tooltip tooltip-left" data-tip="Re-Train">
-														<button
-															class="btn btn-sm btn-circle btn-ghost"
-															on:click={() => {
-																retrainUrls([url.s3_key]);
-															}}
-														>
-															<svg
-																xmlns="http://www.w3.org/2000/svg"
-																width="16"
-																height="16"
-																viewBox="0 0 24 24"
-															>
-																<path
-																	fill="currentColor"
-																	d="M15 12c0-1.7-1.3-3-3-3s-3 1.3-3 3s1.3 3 3 3s3-1.3 3-3zm2-8.7C13.1 1.1 8.3 1.8 5.1 4.7V3c0-.6-.4-1-1-1s-1 .4-1 1v4.5c0 .6.4 1 1 1h4.5c.6 0 1-.4 1-1s-.4-1-1-1H6.2C7.7 4.9 9.8 4 12 4c4.4 0 8 3.6 8 8c0 .6.4 1 1 1s1-.4 1-1c0-3.6-1.9-6.9-5-8.7zm2.9 12.2h-4.5c-.6 0-1 .4-1 1s.4 1 1 1h2.4C16.3 19.1 14.2 20 12 20c-4.4 0-8-3.6-8-8c0-.6-.4-1-1-1s-1 .4-1 1c0 5.5 4.5 10 10 10c2.6 0 5-1 6.9-2.8V21c0 .6.4 1 1 1s1-.4 1-1v-4.5c0-.6-.5-1-1-1z"
-																/>
-															</svg>
-														</button>
-													</div>
+												</div>
+											</td>
+											<td class="token-count">{url.token_count === 0 ? '-' : url.token_count}</td>
+											<td class="flex gap-2">
+												<div class="tooltip tooltip-left" data-tip="Re-Train">
 													<button
-														class="btn btn-sm btn-circle btn-ghost text-error"
+														class="btn btn-sm btn-circle btn-ghost"
 														on:click={() => {
-															sourceToDelete = url;
-															deleteDataSourceModal.showModal();
+															retrainUrls([url.s3_key]);
 														}}
 													>
 														<svg
@@ -310,12 +293,32 @@
 														>
 															<path
 																fill="currentColor"
-																d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
+																d="M15 12c0-1.7-1.3-3-3-3s-3 1.3-3 3s1.3 3 3 3s3-1.3 3-3zm2-8.7C13.1 1.1 8.3 1.8 5.1 4.7V3c0-.6-.4-1-1-1s-1 .4-1 1v4.5c0 .6.4 1 1 1h4.5c.6 0 1-.4 1-1s-.4-1-1-1H6.2C7.7 4.9 9.8 4 12 4c4.4 0 8 3.6 8 8c0 .6.4 1 1 1s1-.4 1-1c0-3.6-1.9-6.9-5-8.7zm2.9 12.2h-4.5c-.6 0-1 .4-1 1s.4 1 1 1h2.4C16.3 19.1 14.2 20 12 20c-4.4 0-8-3.6-8-8c0-.6-.4-1-1-1s-1 .4-1 1c0 5.5 4.5 10 10 10c2.6 0 5-1 6.9-2.8V21c0 .6.4 1 1 1s1-.4 1-1v-4.5c0-.6-.5-1-1-1z"
 															/>
 														</svg>
 													</button>
-												</td>
-											</tr>
+												</div>
+												<button
+													class="btn btn-sm btn-circle btn-ghost text-error"
+													on:click={() => {
+														sourceToDelete = url;
+														deleteDataSourceModal.showModal();
+													}}
+												>
+													<svg
+														xmlns="http://www.w3.org/2000/svg"
+														width="16"
+														height="16"
+														viewBox="0 0 24 24"
+													>
+														<path
+															fill="currentColor"
+															d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
+														/>
+													</svg>
+												</button>
+											</td>
+										</tr>
 									{/each}
 								</table>
 							</Accordian>
@@ -332,18 +335,21 @@
 							</tr>
 						</thead>
 						{#each data.modelData.files as file}
-							<tr>
+							<tr id={file.s3_key}>
 								<td>
 									{file.name}
 								</td>
 								<td>
 									<div
-									class="tooltip tooltip-info tooltip-left"
-									data-tip={file.created_at.toLocaleTimeString([], {minute: '2-digit', hour: '2-digit'})}
-								>
-									<h3 class="text-xs">{file.created_at.toLocaleDateString()}</h3>
-								</div>
-							</td>
+										class="tooltip tooltip-info tooltip-left"
+										data-tip={file.created_at.toLocaleTimeString([], {
+											minute: '2-digit',
+											hour: '2-digit'
+										})}
+									>
+										<h3 class="text-xs">{file.created_at.toLocaleDateString()}</h3>
+									</div>
+								</td>
 								<td>{file.token_count}</td>
 								<td class="flex">
 									<button
@@ -380,18 +386,21 @@
 							</tr>
 						</thead>
 						{#each data.modelData.texts as text}
-							<tr>
+							<tr id={text.s3_key}>
 								<td>
 									{text.name}
 								</td>
 								<td>
 									<div
-									class="tooltip tooltip-info tooltip-left"
-									data-tip={text.created_at.toLocaleTimeString([], {minute: '2-digit', hour: '2-digit'})}
-								>
-									<h3 class="text-xs">{text.created_at.toLocaleDateString()}</h3>
-								</div>
-							</td>
+										class="tooltip tooltip-info tooltip-left"
+										data-tip={text.created_at.toLocaleTimeString([], {
+											minute: '2-digit',
+											hour: '2-digit'
+										})}
+									>
+										<h3 class="text-xs">{text.created_at.toLocaleDateString()}</h3>
+									</div>
+								</td>
 								<td>{text.token_count}</td>
 								<td class="flex gap-2">
 									<button
@@ -519,12 +528,17 @@
 
 <dialog id="deleteEntireWebsiteModal" class="modal">
 	<form method="dialog" class="modal-box">
-			<h3 class="font-bold text-lg">This will delete all sub-urls. Are you sure you want to continue?</h3>
-			<p class="py-4" />
-			<button class="btn">Cancel</button>
-			<button class="btn btn-error" on:click={() => deleteBotSource(gatherSubUrlsS3Keys(sourceToDelete), sourceToDelete)}>
-				Delete
-			</button>
+		<h3 class="font-bold text-lg">
+			This will delete all sub-urls. Are you sure you want to continue?
+		</h3>
+		<p class="py-4" />
+		<button class="btn">Cancel</button>
+		<button
+			class="btn btn-error"
+			on:click={() => deleteBotSource(gatherSubUrlsS3Keys(sourceToDelete), sourceToDelete)}
+		>
+			Delete
+		</button>
 	</form>
 	<form method="dialog" class="modal-backdrop">
 		<button>close</button>
@@ -542,7 +556,7 @@
 			{:else}
 				<div class="flex items-center justify-center h-full">
 					<span class="loading loading-spinner loading-xs mr-2" />
-					 Loading Text...
+					Loading Text...
 				</div>
 			{/if}
 		</div>
@@ -558,18 +572,17 @@
 	</form>
 </dialog>
 
-
 <style lang="postcss">
-	tr[data-training-status="trained"] .training-status {
+	tr[data-training-status='trained'] .training-status {
 		@apply hidden;
 	}
-	tr[data-training-status="training"] .training-status {
+	tr[data-training-status='training'] .training-status {
 		@apply badge-primary;
 	}
-	tr:is([data-training-status="training"], [data-training-status="scraping"]) .training-status {
+	tr:is([data-training-status='training'], [data-training-status='scraping']) .training-status {
 		@apply animate-pulse;
 	}
-	tr[data-training-status="failed"] .training-status {
+	tr[data-training-status='failed'] .training-status {
 		@apply !badge-error;
 	}
 </style>

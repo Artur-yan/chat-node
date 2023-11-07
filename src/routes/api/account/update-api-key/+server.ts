@@ -11,7 +11,6 @@ export const POST = async ({ locals }) => {
 		}
 	});
 
-
 	if (!tiersMap[plan].features?.chatnode_api?.included) {
 		return new Response();
 	}

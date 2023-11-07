@@ -36,7 +36,22 @@
 
 <svelte:head>
 	{#if PUBLIC_ENVIRONMENT === 'production'}
-		<!-- Google Tag Manager --> <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://web.chatnode.ai/zaxunjhy.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-THN99BCW');</script> <!-- End Google Tag Manager -->
+		<!-- Google Tag Manager -->
+		<!-- Google Tag Manager -->
+		<script>
+			(function (w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+				var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s),
+					dl = l != 'dataLayer' ? '&l=' + l : '';
+				j.async = true;
+				j.src = 'https://web.chatnode.ai/zaxunjhy.js?id=' + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, 'script', 'dataLayer', 'GTM-THN99BCW');
+		</script>
+		<!-- End Google Tag Manager -->
+		<!-- End Google Tag Manager -->
 		<script>
 			(function (w, r) {
 				w._rwq = r;
@@ -52,14 +67,14 @@
 		profitwell('start', { 'user_email': '${data.user.user.email}' });
 		</script>`}
 		<script>
-			(function(j,i,m,o) {
-				var s = document.createElement("script");
+			(function (j, i, m, o) {
+				var s = document.createElement('script');
 
-				s.type = "text/javascript";
+				s.type = 'text/javascript';
 				s.async = true;
-				s.src = "https://undercity.usejimo.com/jimo-invader.js";
-				j['JIMO_PROJECT_ID'] = "51210e7b-6983-43c8-be8d-652f4c5c3a2b";
-				document.getElementsByTagName("head")[0].appendChild(s);
+				s.src = 'https://undercity.usejimo.com/jimo-invader.js';
+				j['JIMO_PROJECT_ID'] = '51210e7b-6983-43c8-be8d-652f4c5c3a2b';
+				document.getElementsByTagName('head')[0].appendChild(s);
 			})(window);
 		</script>
 	{/if}
@@ -96,6 +111,15 @@
 		/>
 	</noscript> -->
 
+	<!-- <noscript>
+		<img
+			height="1"
+			width="1"
+			src="https://www.facebook.com/tr?id=588241380143151&ev=PageView
+	&noscript=1"
+			alt=""
+		/>
+	</noscript> -->
 	<script
 		src="https://www.chatnode.ai/embed.js"
 		data-chatbot-id="befbfc87e25911db"
@@ -123,21 +147,24 @@
 <HeaderAdmin />
 
 <main class="flex flex-col flex-1">
-
 	{#if data.subscription.plan === 1006 && !data.user.user.default_openai_key}
-	<div class="container my-4">
-		<div class="alert bg-neutral justify-between flex items-center border-warning" transition:slide>
-			<div>
-				<h3 class="text-lg font-bold text-warning">Default OpenAI API Key</h3>
-				<p>
-					Your agency plan requires entering a default OpenAI key. You can override the api key per bot.
-				</p>
+		<div class="container my-4">
+			<div
+				class="alert bg-neutral justify-between flex items-center border-warning"
+				transition:slide
+			>
+				<div>
+					<h3 class="text-lg font-bold text-warning">Default OpenAI API Key</h3>
+					<p>
+						Your agency plan requires entering a default OpenAI key. You can override the api key
+						per bot.
+					</p>
+				</div>
+				<a class="btn" href="/account/settings">Go to Settings</a>
 			</div>
-			<a class="btn" href="/account/settings">Go to Settings</a>
 		</div>
-	</div>
 	{/if}
-	
+
 	{#if PUBLIC_ENVIRONMENT === 'production'}
 		<!-- Google Tag Manager (noscript) -->
 		<noscript>
