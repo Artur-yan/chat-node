@@ -63,8 +63,8 @@
 </script>
 
 {#if trainingStatus !== 'ready'}
-	<div class="flex flex-start mb-2" bind:this={statusMessageElement}>
-		<div class="alert pr-8 w-auto {alertClass} flex justify-start self-start">
+	<div class="flex flex-start m-4 mr-10" bind:this={statusMessageElement}>
+		<div class="alert pr-6 p-2 w-auto uppercase text-xs font-bold {alertClass} flex justify-start self-start gap-2">
 			<div>{@html icon}</div>
 			{trainingMessage}
 		</div>
