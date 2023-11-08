@@ -36,7 +36,7 @@
 		out:fly={{ y: -80, duration: 350 }}
 	>
 		<div class="alert {alertClass}">
-			<div>{$alert.msg}</div>
+			<div>{@html $alert.msg}</div>
 			<button on:click={() => ($alert = undefined)} class="p-2">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
 					<path
