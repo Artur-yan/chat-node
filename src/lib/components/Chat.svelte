@@ -83,8 +83,6 @@
 			return;
 		}
 		userInfoReceived = true;
-		// addMessage('Thank you for providing your info.');
-		// queryModel(modelId, chatSessionId, withheldMessage);
 	};
 
 	const postProcessMsgHTML = (msgHTML) => {
