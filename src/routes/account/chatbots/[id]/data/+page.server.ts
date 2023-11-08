@@ -50,7 +50,5 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		}
 	});
 
-	// modelData.baseUrls = Object.keys(modelData.baseUrls);
-
 	return { modelData };
 };
