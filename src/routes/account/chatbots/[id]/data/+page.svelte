@@ -5,7 +5,6 @@
 	import { alert } from '$lib/stores.js';
 	import Accordian from '$lib/components/Accordian.svelte';
 	import { getText, updateText } from '$lib/textSource';
-	import { slide } from 'svelte/transition';
 	import { onMount } from 'svelte';
 
 	export let data;
@@ -14,7 +13,6 @@
 	let trainingStatus = 'ready';
 	let modelId = data.model.id;
 	let sourceToDelete: Object;
-	let unique = [{}]; // every {} is unique, {} === {} evaluates to false
 	let activeDataTab: string;
 	let textSourceToEdit: Object;
 	let textSourceValue: string;
@@ -82,11 +80,15 @@
 
 		let updatedDataSources = await res.json();
 
+		console.log(updatedDataSources);
+
+
 		updatedDataSources.forEach((source) => {
 			const row = document.getElementById(source.s3_key);
 			row?.setAttribute('data-training-status', source.status);
 			row.querySelector('.training-status').innerHTML = source.status || 'error';
 			row.querySelector('.token-count').innerHTML = source.token_count || '-';
+			row.querySelector('.name').innerHTML = source.name;
 			if (source.status !== 'trained') {
 				incompleteSourcesS3Keys.push(source.s3_key);
 			}
@@ -113,14 +115,14 @@
 	}
 
 	async function handleTextUpdate(source_key: string, text: string) {
-		trainingStatus = 'training';
-		updateText(source_key, data.model.id, text, data.model.user_id, data.user.session.sessionId);
+		await updateText(source_key, data.model.id, text, data.model.user_id, data.user.session.sessionId);
+		updateBotSources([source_key])
 	}
 
 	async function retrainUrls(s3_keys: Array<string>) {
 		s3_keys.forEach((s3_key) => {
 			const row = document.getElementById(s3_key);
-			row?.setAttribute('data-training-status', 'scraping');
+			row?.setAttribute('data-training-status', 'starting');
 			row.querySelector('.training-status').innerHTML = 'starting';
 		});
 
@@ -140,14 +142,8 @@
 		}
 	}
 
-	// $: if (trainingStatus == 'complete') {
-	// 	restart();
-	// }
-
-	// $: data.modelData, restart();
-
 	onMount(() => {
-		updateBotSources(data.modelData.urlsInTrainingS3Keys);
+		updateBotSources(data.modelData?.areTraining);
 	});
 </script>
 
@@ -160,16 +156,14 @@
 		<div class="card card-compact bg-neutral border-primary border mb-4">
 			<div class="card-body">
 				<div class="card-title">Add Data</div>
-				{#key unique}
-					<AddModelData
-						bind:modelId
-						userId={data.user.user.userId}
-						sessionId={data.user.session.sessionId}
-						subscription={data.subscription}
-						existingTokenCount={data.model.tocken_count}
-						bind:trainingStatus
-					/>
-				{/key}
+				<AddModelData
+					bind:modelId
+					userId={data.user.user.userId}
+					sessionId={data.user.session.sessionId}
+					subscription={data.subscription}
+					existingTokenCount={data.model.tocken_count}
+					bind:trainingStatus
+				/>
 			</div>
 		</div>
 		<div class="card card-compact bg-neutral">
@@ -335,8 +329,13 @@
 							</tr>
 						</thead>
 						{#each data.modelData.files as file}
-							<tr id={file.s3_key}>
+							<tr id={file.s3_key} data-training-status={file.status}>
 								<td>
+									<div
+										class="training-status badge font-bold uppercase badge-xs badge-warning"
+									>
+										{file.status}
+									</div>
 									{file.name}
 								</td>
 								<td>
@@ -386,9 +385,14 @@
 							</tr>
 						</thead>
 						{#each data.modelData.texts as text}
-							<tr id={text.s3_key}>
+							<tr id={text.s3_key} data-training-status={text.status}>
 								<td>
-									{text.name}
+									<div
+										class="training-status badge font-bold uppercase badge-xs badge-warning"
+									>
+										{text.status}
+									</div>
+									<div class="name inline-block">{text.name}</div>
 								</td>
 								<td>
 									<div
@@ -452,7 +456,7 @@
 							</tr>
 						</thead>
 						{#each data.modelData?.legacyUrls as url}
-							<tr>
+							<tr id={url.s3_key}>
 								<td>
 									{@html url.name.replace(/,/g, '<br>')}
 

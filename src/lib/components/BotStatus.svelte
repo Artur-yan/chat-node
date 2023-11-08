@@ -25,7 +25,6 @@
 
 				if (status == 'ready') {
 					trainingStatus = 'complete';
-					invalidateAll();
 					clearInterval(listenForTrainingStatus);
 				}
 			} catch (err) {
