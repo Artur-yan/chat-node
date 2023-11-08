@@ -1,5 +1,5 @@
 const systemSettings = {
-	maintenanceAlert: true,
+	maintenanceAlert: false,
 	maintenanceMsg: 'OpenAI is currently experiencing outages affecting ChatNode services. <a href="https://status.openai.com/" target="_blank">https://status.openai.com/</a>'
 };
 
