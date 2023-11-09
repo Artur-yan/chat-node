@@ -17,7 +17,7 @@
 	let textSourceToEdit: Object;
 	let textSourceValue: string;
 
-	if (urls) {
+	if (Object.keys(urls).length) {
 		activeDataTab = 'urls';
 	} else if (data.modelData?.files.length) {
 		activeDataTab = 'files';
