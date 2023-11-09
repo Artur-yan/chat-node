@@ -13,7 +13,7 @@
 			title: 'Web Developer',
 			bio: 'Eric is obsessed with design and efficiency. He’s joined forces in building websites for some huge brands to try to make the internet a more enjoyable place.',
 			nationality: '🇺🇸',
-			img: Eric
+			img: Eric,
 		},
 		{
 			fname: 'Thomas',
@@ -29,7 +29,8 @@
 			title: 'Data Engineer',
 			nationality: '🇫🇷',
 			bio: 'His days at ChatNode are pretty simple.<br>8-8:30am: Checking reports to see what our customers want next.<br>8:30-10pm : Building those features with Eric.<br>(Sometimes he skips lunch. He used to work as a data analyst for Wall Street so he no time for bulls**t)',
-			img: Sacha
+			img: Sacha,
+			twitter: 'https://twitter.com/park_sacha_'
 		}
 	];
 </script>
@@ -71,20 +72,18 @@
 								sizes="(min-width: 56rem) 138px, 100vw - 2rem"
 							/>
 						</div>
-						<div class="flex items-center gap-2">
-							<h2>
-								<div class="inline-block text-secondary text-xl font-bold">{person.fname}</div>
-								<div class="inline-block text-xl font-light opacity-90">{person.lname}</div>
-								{person.nationality}
-								<h3>{person.title}</h3>
-							</h2>
+						<div class="md:mt-4">
+							<div class="inline-block text-secondary text-xl font-bold">{person.fname}</div>
+							<div class="inline-block text-xl font-light opacity-90">{person.lname}</div>
+							{person.nationality}
+							<h3>{person.title}</h3>
+							{#if person.twitter}
+								<a href={person.twitter} target="_blank" class="btn btn-circle btn-neutral btn-sm mt-4  btn-outline">
+									<svg class="invert hover:invert-0" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 128 128"><path d="M75.916 54.2L122.542 0h-11.05L71.008 47.06L38.672 0H1.376l48.898 71.164L1.376 128h11.05L55.18 78.303L89.328 128h37.296L75.913 54.2ZM60.782 71.79l-4.955-7.086l-39.42-56.386h16.972L65.19 53.824l4.954 7.086l41.353 59.15h-16.97L60.782 71.793Z"/></svg>
+								</a>
+							{/if}
 						</div>
 					</div>
-					<!-- <div class="pr-6">
-						<p class=" mt-4 text-sm leading-6">
-							{@html person.bio}
-						</p>
-					</div> -->
 				</div>
 			{/each}
 		</div>
