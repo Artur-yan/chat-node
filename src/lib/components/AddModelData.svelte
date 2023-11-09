@@ -22,14 +22,14 @@
 	export let existingTokenCount = 0;
 
 	let settings = defaultSettings;
-	let activeTab: number;
+	let activeTab = 0;
 	let busyFetchingUrls = false;
 	let busyCheckingFile = false;
 	let fileInput: HTMLInputElement;
 	let files: FileList | undefined;
 	let textData = '';
-	let url: string;
-	let urls: Array<Array<string | number>>;
+	let url: string | undefined;
+	let urls: Array<Array<string | number>> = undefined;
 	let selectedUrls: Array<string> = [];
 	let urlsTokenCount = 0;
 	let filesTokenCount = 0;
@@ -38,6 +38,20 @@
 	let fileKeys: Array<string> = [];
 	let selectAllUrlsCheckbox: HTMLInputElement;
 	let maxFileSizeMB = 150;
+
+	function resetAddDataForm() {
+		activeTab = 0;
+		files = undefined;
+		textData = '';
+		url = undefined;
+		urls = undefined;
+		selectedUrls = [];
+		urlsTokenCount = 0;
+		filesTokenCount = 0;
+		selectedUrlsTokenCount = 0;
+		approxTextTokenCount = 0;
+		fileKeys = [];
+	}
 
 	const fetchUrlsToScrape = async () => {
 		busyFetchingUrls = true;
@@ -102,14 +116,6 @@
 
 	const cancelFetchUrlsToScrape = () => {
 		busyFetchingUrls = false;
-	};
-
-	const clearFetchUrlsToScrape = () => {
-		busyFetchingUrls = false;
-		urls = undefined;
-		selectedUrls = [];
-		selectedUrlsTokenCount = 0;
-		urlsTokenCount = 0;
 	};
 
 	const getFileTokenCount = async () => {
@@ -177,6 +183,7 @@
 					method: 'POST',
 					body
 				});
+				resetAddDataForm();
 			} else {
 				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
 					method: 'POST',
@@ -188,8 +195,10 @@
 				goto(`/account/chatbots/${modelId}/settings`);
 			}
 		} catch (err) {
+			resetAddDataForm();
+
+			$alert = { msg: 'Something went wrong.', type: 'error' };
 			console.error(err);
-			$alert = { msg: 'Something went wrong. Please try again later.', type: 'error' };
 		}
 	};
 
@@ -224,20 +233,20 @@
 
 <div>
 	<div class="grid grid-cols-3 gap-2 mb-4">
-		<label class="btn" class:btn-outline={activeTab == 0}>
-			<input type="radio" name="tab" bind:group={activeTab} value={0} class="hidden peer" />
-			+ File
-		</label>
 		<label class="btn" class:btn-outline={activeTab == 1}>
 			<input type="radio" name="tab" bind:group={activeTab} value={1} class="hidden peer" />
-			+ Text
+			+ File
 		</label>
 		<label class="btn" class:btn-outline={activeTab == 2}>
 			<input type="radio" name="tab" bind:group={activeTab} value={2} class="hidden peer" />
+			+ Text
+		</label>
+		<label class="btn" class:btn-outline={activeTab == 3}>
+			<input type="radio" name="tab" bind:group={activeTab} value={3} class="hidden peer" />
 			+ URL
 		</label>
 	</div>
-	{#if activeTab == 0}
+	{#if activeTab == 1}
 		<div class="form-control">
 			<div class="input-group">
 				<input
@@ -284,10 +293,10 @@
 			<span class={trainingStatus === 'training' ? 'loading' : 'invisible'} />
 			Train Bot
 		</button>
-	{:else if activeTab == 1}
+	{:else if activeTab == 2}
 		<div>
 			<textarea
-				placeholder="Paste your text"
+				placeholder="Enter your text"
 				class="textarea textarea-bordered textarea-sm w-full"
 				bind:value={textData}
 				rows="8"
@@ -319,7 +328,7 @@
 				Train Bot
 			</button>
 		</div>
-	{:else if activeTab == 2}
+	{:else if activeTab == 3}
 		<form on:submit|preventDefault={() => fetchUrlsToScrape()}>
 			<div class="form-control">
 				<div class="join">
@@ -449,9 +458,7 @@
 	</p>
 
 	<h3 class="font-bold mb-4 mt-8">Multiple/Specific URLs</h3>
-	<p>
-		You can enter a comma seperated list of urls to scrape. Sub-pages will not be crawled.
-	</p>
+	<p>You can enter a comma seperated list of urls to scrape. Sub-pages will not be crawled.</p>
 
 	<h3 class="font-bold mb-4 mt-8">Google Docs / Notion / Online PDFs / + more</h3>
 	<p>
