@@ -17,13 +17,11 @@ export const actions: Actions = {
 			});
 		}
 
-		let user;
-
 		try {
 			const uuid = uuidv4();
-			user = await prismaClient.authUser.update({
+			await prismaClient.authUser.update({
 				where: {
-					email
+					email: email.toLowerCase()
 				},
 				data: {
 					verification_uuid: uuid

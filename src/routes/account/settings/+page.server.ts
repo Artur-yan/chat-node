@@ -7,7 +7,7 @@ export const actions: Actions = {
 		const form = await request.formData();
 		const password = form.get('password');
 		const confirmPassword = form.get('confirm-password');
-		const email = form.get('email');
+		const email = String(form.get('email')).toLowerCase();
 		if (password !== confirmPassword) {
 			return fail(400, {
 				message: 'Passwords do not match'
