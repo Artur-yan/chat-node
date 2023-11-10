@@ -108,7 +108,7 @@ const tiersMap = {
 		name: 'Enterprise',
 		max_bot: 20,
 		max_msg: 10000,
-		max_tocken: 100000,
+		max_tocken: 3000000,
 		history_length_days: 30,
 		features: {
 			slack: {
@@ -133,7 +133,7 @@ const tiersMap = {
 		name: 'Enterprise',
 		max_bot: 20,
 		max_msg: 10000,
-		max_tocken: 100000,
+		max_tocken: 3000000,
 		history_length_days: 30,
 		features: {
 			slack: {
@@ -158,7 +158,7 @@ const tiersMap = {
 		name: 'Enterprise +',
 		max_bot: 40,
 		max_msg: 40000,
-		max_tocken: 3000000,
+		max_tocken: 8000000,
 		history_length_days: 60,
 		features: {
 			slack: {
@@ -183,7 +183,7 @@ const tiersMap = {
 		name: 'Enterprise +',
 		max_bot: 40,
 		max_msg: 40000,
-		max_tocken: 3000000,
+		max_tocken: 8000000,
 		history_length_days: 60,
 		features: {
 			slack: {
