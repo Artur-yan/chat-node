@@ -66,7 +66,7 @@ const tiersMap = {
 		name: 'Pro',
 		max_bot: 10,
 		max_msg: 5000,
-		max_tocken: 800000,
+		max_tocken: 1000000,
 		history_length_days: 7,
 		features: {
 			slack: {
@@ -87,7 +87,7 @@ const tiersMap = {
 		name: 'Pro - Annual',
 		max_bot: 10,
 		max_msg: 5000,
-		max_tocken: 800000,
+		max_tocken: 1000000,
 		history_length_days: 7,
 		features: {
 			slack: {
