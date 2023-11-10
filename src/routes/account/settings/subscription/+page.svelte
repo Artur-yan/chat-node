@@ -92,7 +92,7 @@
 						{/if}
 					{/each}
 				</div>
-				{#if currentPlan !== 1005}
+				{#if currentPlan > 1000 && currentPlan < 1005}
 					<button
 						class="btn btn-primary btn-outline mr-2"
 						on:click={() => (showAppsumoKeysField = !showAppsumoKeysField)}
