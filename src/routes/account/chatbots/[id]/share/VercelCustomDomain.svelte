@@ -88,10 +88,10 @@
 			</h2>
             {#if $currentBot.custom_domain}
                 <div class="border rounded-xl p-4 border-base-100">
-                    <div class="flex justify-between items-center mb-4">
+                    <!-- <div class="flex justify-between items-center mb-4">
                         <h2 class="text-2xl font-light">{$currentBot.custom_domain}</h2>
                         <button class="btn btn-outline" on:click={getDomainConfig}>Update</button>
-                    </div>
+                    </div> -->
                     <table class="table bg-base-100 rounded overflow-hidden">
 
                         <!-- head -->
