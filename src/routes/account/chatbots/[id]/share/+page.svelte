@@ -2,12 +2,11 @@
 	import { PUBLIC_SITE_URL, PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import CopyButton from '$lib/components/CopyButton.svelte';
 	import Code from '$lib/components/Code.svelte';
-	import ColorPicker from 'svelte-awesome-color-picker';
 	import { currentBot } from '$lib/stores.js';
 	import { updateModel } from '$lib/models.js';
 	import { alert } from '$lib/stores.js';
 	import tiersMap from '$lib/data/tiers';
-	import { onMount } from 'svelte';
+	import VercelCustomDomain from './VercelCustomDomain.svelte';
 
 	export let data;
 
@@ -63,6 +62,8 @@
 		busyAddingCustomDomain = false;
 	};
 
+
+
 	const checkIfCustomDomainIsCurrent = async () => {
 		if (currentCustomDomain == $currentBot.settings.customDomain) {
 			return;
@@ -93,9 +94,6 @@
 		}
 	};
 
-	onMount(() => {
-		// checkIfCustomDomainIsCurrent()
-	});
 </script>
 
 <svelte:head>
@@ -211,11 +209,12 @@
 		</div>
 	</div>
 	{#if data.subscription?.plan === 1006}
+		<VercelCustomDomain />
 		<div>
 			<div class="card bg-neutral mb-12">
 				<div class="card-body">
 					<h2 class="card-title justify-between">
-						Enable Custom Domain
+						Legacy Custom Domain
 						<button
 							class="btn btn-sm"
 							on:click={() => getBotData(data.model.id)}
@@ -227,7 +226,7 @@
 							Check for changes
 						</button>
 					</h2>
-					<div class="">
+					<div>
 						<form on:submit|preventDefault={addCustomDomain} class="mb-8">
 							<div class="form-control">
 								<label class="label" for="domain">

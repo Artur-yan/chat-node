@@ -80,8 +80,6 @@
 
 		let updatedDataSources = await res.json();
 
-		console.log(updatedDataSources);
-
 
 		updatedDataSources.forEach((source) => {
 			const row = document.getElementById(source.s3_key);
