@@ -32,6 +32,8 @@
 
         if(res.error){
             error = res.error
+        } else {
+            $currentBot.custom_domain = newDomain
         }
         
         busyAddingCustomDomain = false   
