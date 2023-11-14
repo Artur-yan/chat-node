@@ -1,16 +1,34 @@
 <script lang="ts">
     import { alert } from '$lib/stores'
     import { currentBot } from '$lib/stores.js'
+	import { parse } from 'postcss';
 	let newDomain
     let busyAddingCustomDomain = false
     let error
+    let parsedURL: Object
+
+    console.log(parseURL('chatnode.app'))
+
+    if($currentBot.custom_domain) { 
+        parsedURL = parseURL($currentBot.custom_domain)
+    }
 
     function parseURL(url: string) {
-        try {
-            return new URL(url)
-        } catch (err) {
-            return false
+        const urlSplit = url.split('.')
+        let parsedURL = {
+            apexDomain: '',
+            subdomain: '',
         }
+
+        if (urlSplit.length < 3) {
+            parsedURL.apexDomain = url
+            parsedURL.subdomain = 'www'
+        } else {
+            if(urlSplit[0] == 'www') parsedURL.apexDomain = urlSplit.slice(-2).join('.')
+            parsedURL.subdomain = urlSplit.slice(0, -2).join('.')
+        }
+
+        return parsedURL
     }
 
     async function addVercelCustomDomain() {
@@ -34,11 +52,12 @@
             error = res.error
         } else {
             $currentBot.custom_domain = newDomain
+            parsedURL = parseURL(newDomain)
         }
-        
-        busyAddingCustomDomain = false   
 
+        busyAddingCustomDomain = false
 	}
+
     async function removeVercelCustomDomain() {
 
         let res = await fetch('/api/vercel/custom-domain', {
@@ -78,46 +97,49 @@
     }
 </script>
 
-<div>
 	<div class="card bg-neutral mb-12">
-		<div class="card-body">
-			<h2 class="card-title">
-				<div>
-					Custom Domain <span class="badge badge-accent">NEW Upgraded System</span>
-				</div>
-			</h2>
-            {#if $currentBot.custom_domain}
-                <div class="border rounded-xl p-4 border-base-100">
-                    <!-- <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-2xl font-light">{$currentBot.custom_domain}</h2>
-                        <button class="btn btn-outline" on:click={getDomainConfig}>Update</button>
-                    </div> -->
-                    <table class="table bg-base-100 rounded overflow-hidden">
-
-                        <!-- head -->
-                        <thead class="bg-base-300">
-                            <tr>
-                                <th>Type</th>
-                                <th>Host</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- row 1 -->
-                            <tr>
-                                <th>CNAME</th>
-                                <td>{$currentBot.custom_domain.split('.')[0]}</td>
-                                <td>cname.vercel-dns.com.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button class="btn btn-error btn-outline btn-sm mt-4" on:click={removeVercelCustomDomain}>Remove</button>
-
-                </div>
-
-            {:else}
-                <div>
-                    <form on:submit|preventDefault={addVercelCustomDomain} class="mb-8">
+		<div class="card-body grid md:grid-cols-[3fr_2fr] gap-12 items-stretch">
+			<div>
+                <h2 class="card-title mb-4">
+                        Custom Domain <span class="badge badge-accent">NEW Upgraded System</span>
+                </h2>
+                {#if $currentBot.custom_domain}
+                    <div class="border rounded-xl p-4 border-base-100">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl text-white">{$currentBot.custom_domain}</h2>
+                            <!-- <button class="btn btn-outline" on:click={getDomainConfig}>Update</button> -->
+                        </div>
+                        <table class="table bg-base-100 rounded overflow-hidden">
+    
+                            <!-- head -->
+                            <thead class="bg-base-300">
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Host</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>CNAME</th>
+                                    <td>{parsedURL.subdomain}</td>
+                                    <td>cname.vercel-dns.com.</td>
+                                </tr>
+                                {#if parsedURL.apexDomain}
+                                    <tr>
+                                        <th>A</th>
+                                        <td>{parsedURL.subdomain}</td>
+                                        <td>76.76.21.21</td>
+                                    </tr>
+                                {/if}
+                            </tbody>
+                        </table>
+                        <div class="text-right"><button class="btn btn-error btn-outline btn-sm mt-4" on:click={removeVercelCustomDomain}>Remove</button></div>
+    
+                    </div>
+    
+                {:else}
+                    <form on:submit|preventDefault={addVercelCustomDomain}>
                         <div class="form-control">
                             <label class="label" for="domain">
                                 <span class="label-text">Add Domain Name</span>
@@ -131,7 +153,7 @@
                                 />
                                 <button
                                     type="submit"
-                                    class="btn btn-success join-item"
+                                    class="btn btn-primary join-item"
                                     disabled={busyAddingCustomDomain}
                                 >
                                     {#if busyAddingCustomDomain}
@@ -147,8 +169,20 @@
                             {/if}
                         </div>
                     </form>
+                {/if}
+            </div>
+
+            <div class="p-6 rounded-lg flex items-center -m-8 justify-center">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-accent">What's new:</h3>
+                    <ul class="text-white">
+                        <li>Faster loading</li>
+                        <li>0 mentions of ChatNode in the source code</li>
+                        <li>Add apex domains (not just sub-domains)</li>
+                        <li>Faster SSL Generation</li>
+                        <li>Domain Verification</li>
+                    </ul>
                 </div>
-            {/if}
+            </div>
 		</div>
 	</div>
-</div>

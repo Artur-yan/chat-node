@@ -15,7 +15,7 @@
 	let busyGettingBotData = false;
 	let currentCustomDomain = $currentBot.settings.customDomain;
 
-	const shareDomain = 'https://' + $currentBot.settings.customDomain || PUBLIC_SITE_URL;
+	const shareDomain = 'https://' + $currentBot.custom_domain || $currentBot.settings.customDomain || PUBLIC_SITE_URL;
 
 	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 	let url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
@@ -25,7 +25,7 @@
 	}
 
 	$: jsEmbedCode = `<script src="${
-		currentCustomDomain ? 'https://' + currentCustomDomain : PUBLIC_SITE_URL
+		shareDomain
 	}/embed.js" data-chatbot-id="${data.model.id}" data-color-1="${
 		$currentBot.settings.theme.popupButtonIcon
 	}" data-color-2="${$currentBot.settings.theme.popupButtonBG}" ${
