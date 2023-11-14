@@ -15,7 +15,8 @@
 	let busyGettingBotData = false;
 	let currentCustomDomain = $currentBot.settings.customDomain;
 
-	const shareDomain = 'https://' + $currentBot.custom_domain || $currentBot.settings.customDomain || PUBLIC_SITE_URL;
+	let shareDomain = "https://"
+	shareDomain += $currentBot.custom_domain || $currentBot.settings.customDomain || PUBLIC_SITE_URL;
 
 	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 	let url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
