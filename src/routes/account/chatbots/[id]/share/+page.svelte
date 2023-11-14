@@ -10,19 +10,29 @@
 
 	export let data;
 
+	let shareDomain
+	let customDomain = false
+	let iframeEmbedCode
 	let jsEmbedCode;
 	let busyAddingCustomDomain = false;
 	let busyGettingBotData = false;
 	let currentCustomDomain = $currentBot.settings.customDomain;
 
-	let shareDomain = "https://"
-	shareDomain += $currentBot.custom_domain || $currentBot.settings.customDomain || PUBLIC_SITE_URL;
+	$: if ($currentBot.custom_domain) {
+		shareDomain = 'https://' + $currentBot.custom_domain;
+		customDomain = true;
+	} else if ($currentBot.settings.customDomain) {
+		shareDomain = 'https://' + $currentBot.settings.customDomain;
+		customDomain = true
+	} else {
+		shareDomain = 'https://' + PUBLIC_SITE_URL;
+	}
 
-	let iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
-	let url = `${PUBLIC_SITE_URL}/embed/${data.model.id}`;
-	if ($currentBot.settings.customDomain) {
+
+	$: if (customDomain) {
 		iframeEmbedCode = `<iframe src="${shareDomain}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
-		url = shareDomain;
+	} else {
+		iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 	}
 
 	$: jsEmbedCode = `<script src="${
@@ -131,10 +141,10 @@
 				<h2 class="card-title">Web Page</h2>
 				<div class="bg-neutral p-4 rounded-lg flex justify-between items-center mb-12">
 					<div>
-						{url}
-						<CopyButton textToCopy={url} />
+						{shareDomain}
+						<CopyButton textToCopy={shareDomain} />
 					</div>
-					<a href={url} class="btn btn-xs" target="_blank">view</a>
+					<a href={shareDomain} class="btn btn-xs" target="_blank">view</a>
 				</div>
 			</div>
 			<div class="relative">

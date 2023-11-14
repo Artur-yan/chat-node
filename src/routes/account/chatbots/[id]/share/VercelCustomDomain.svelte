@@ -1,13 +1,9 @@
 <script lang="ts">
-    import { alert } from '$lib/stores'
     import { currentBot } from '$lib/stores.js'
-	import { parse } from 'postcss';
 	let newDomain
     let busyAddingCustomDomain = false
     let error
     let parsedURL: Object
-
-    console.log(parseURL('chatnode.app'))
 
     if($currentBot.custom_domain) { 
         parsedURL = parseURL($currentBot.custom_domain)
@@ -52,7 +48,7 @@
             error = res.error
         } else {
             $currentBot.custom_domain = newDomain
-            parsedURL = parseURL(newDomain)
+            parsedURL = parseURL($currentBot.custom_domain)
         }
 
         busyAddingCustomDomain = false
@@ -78,23 +74,21 @@
         }
 
         $currentBot.custom_domain = undefined
-        
 	}
 
-    async function getDomainConfig() {
-        let res = await fetch('/api/vercel/custom-domain/configuration', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                domain: $currentBot.custom_domain
-            })
-        });
+    // async function getDomainConfig() {
+    //     let res = await fetch('/api/vercel/custom-domain/configuration', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             domain: $currentBot.custom_domain
+    //         })
+    //     });
 
-        console.log(await res.json())
-
-    }
+    //     console.log(await res.json())
+    // }
 </script>
 
 	<div class="card bg-neutral mb-12">
@@ -135,9 +129,7 @@
                             </tbody>
                         </table>
                         <div class="text-right"><button class="btn btn-error btn-outline btn-sm mt-4" on:click={removeVercelCustomDomain}>Remove</button></div>
-    
                     </div>
-    
                 {:else}
                     <form on:submit|preventDefault={addVercelCustomDomain}>
                         <div class="form-control">
