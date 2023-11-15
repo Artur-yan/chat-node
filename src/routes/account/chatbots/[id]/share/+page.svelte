@@ -113,11 +113,10 @@
 
 <div
 	class="container my-4 py-8 grid grid-cols-1 gap-8"
-	class:!grid-cols-2={data.subscription?.plan === 1007}
 >
 	<div>
 		<div class="relative">
-			{#if !$currentBot.settings.public}
+			{#if !$currentBot.settings.public && !$currentBot.custom_domain}
 				<div class="inset-0 absolute bg-base-100/70 z-10 flex items-center justify-center">
 					<div class="card bg-neutral max-w-2xl">
 						<div class="card-body">
