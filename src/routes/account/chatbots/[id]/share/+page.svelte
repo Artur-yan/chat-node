@@ -25,7 +25,7 @@
 		shareDomain = 'https://' + $currentBot.settings.customDomain;
 		customDomain = true
 	} else {
-		shareDomain = 'https://' + PUBLIC_SITE_URL;
+		shareDomain = PUBLIC_SITE_URL;
 	}
 
 
