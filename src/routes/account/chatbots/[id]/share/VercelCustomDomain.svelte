@@ -1,8 +1,8 @@
 <script lang="ts">
     import { currentBot } from '$lib/stores.js'
-	let newDomain
+	let newDomain: string
     let busyAddingCustomDomain = false
-    let error
+    let error: Object | undefined
     let parsedURL: Object
     let busyRemovingCustomDomain = false
 
@@ -77,7 +77,7 @@
         }
 
         $currentBot.custom_domain = undefined
-
+        newDomain = ''
         busyRemovingCustomDomain = false
 	}
 
