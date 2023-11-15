@@ -5,6 +5,8 @@
     let error: Object | undefined
     let parsedURL: Object
     let busyRemovingCustomDomain = false
+	import { updateModel } from '$lib/models';
+
 
     if($currentBot.custom_domain) { 
         parsedURL = parseURL($currentBot.custom_domain)
@@ -43,13 +45,21 @@
             })
         });
 
+        
         res = await res.json()
-
+        
         if(res.error){
             error = res.error
         } else {
             $currentBot.custom_domain = newDomain
             parsedURL = parseURL($currentBot.custom_domain)
+
+            if ($currentBot.settings.customDomain ) {
+                $currentBot.settings.customDomain = '' // Clear Out old domain info
+                await updateModel($currentBot.id, $currentBot.name, $currentBot.settings);
+            }
+
+
         }
 
         busyAddingCustomDomain = false

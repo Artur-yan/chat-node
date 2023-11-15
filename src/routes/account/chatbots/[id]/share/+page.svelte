@@ -221,7 +221,9 @@
 	</div>
 	{#if data.subscription?.plan === 1006}
 		<VercelCustomDomain />
-		<div>
+
+		<!-- Legacy Domain -->
+		{#if $currentBot.settings.customDomain}
 			<div class="card bg-neutral mb-12">
 				<div class="card-body">
 					<h2 class="card-title justify-between">
@@ -303,7 +305,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		{/if}
 	{/if}
 </div>
 
