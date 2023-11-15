@@ -7,7 +7,6 @@
     let busyRemovingCustomDomain = false
 	import { updateModel } from '$lib/models';
 
-
     if($currentBot.custom_domain) { 
         parsedURL = parseURL($currentBot.custom_domain)
     }
@@ -54,6 +53,19 @@
             $currentBot.custom_domain = newDomain
             parsedURL = parseURL($currentBot.custom_domain)
 
+            if(parsedURL.apexDomain) {
+                await fetch('/api/vercel/custom-domain', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        domain: 'www.' + parsedURL.apexDomain,
+                        botId: $currentBot.id
+                    })
+                });
+            }
+
             if ($currentBot.settings.customDomain ) {
                 $currentBot.settings.customDomain = '' // Clear Out old domain info
                 await updateModel($currentBot.id, $currentBot.name, $currentBot.settings);
@@ -69,6 +81,8 @@
 
         busyRemovingCustomDomain = true
 
+        let parsedURL = parseURL($currentBot.custom_domain)
+
         let res = await fetch('/api/vercel/custom-domain', {
             method: 'DELETE',
             headers: {
@@ -79,6 +93,19 @@
                 botId: $currentBot.id
             })
         });
+
+        if(parsedURL.apexDomain) {
+            await fetch('/api/vercel/custom-domain', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    domain: 'www.' + parsedURL.apexDomain,
+                    botId: $currentBot.id
+                })
+            });
+        }
 
         res = await res.json()
 
@@ -137,7 +164,7 @@
                                 {#if parsedURL.apexDomain}
                                     <tr>
                                         <th>A</th>
-                                        <td>{parsedURL.subdomain}</td>
+                                        <td>@</td>
                                         <td>76.76.21.21</td>
                                     </tr>
                                 {/if}
