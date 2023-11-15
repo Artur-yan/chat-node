@@ -4,6 +4,7 @@
     let busyAddingCustomDomain = false
     let error
     let parsedURL: Object
+    let busyRemovingCustomDomain = false
 
     if($currentBot.custom_domain) { 
         parsedURL = parseURL($currentBot.custom_domain)
@@ -56,6 +57,8 @@
 
     async function removeVercelCustomDomain() {
 
+        busyRemovingCustomDomain = true
+
         let res = await fetch('/api/vercel/custom-domain', {
             method: 'DELETE',
             headers: {
@@ -74,6 +77,8 @@
         }
 
         $currentBot.custom_domain = undefined
+
+        busyRemovingCustomDomain = false
 	}
 
     // async function getDomainConfig() {
@@ -128,7 +133,14 @@
                                 {/if}
                             </tbody>
                         </table>
-                        <div class="text-right"><button class="btn btn-error btn-outline btn-sm mt-4" on:click={removeVercelCustomDomain}>Remove</button></div>
+                        <div class="text-right">
+                            <button class="btn btn-error btn-outline btn-sm mt-4" disabled={busyRemovingCustomDomain} on:click={removeVercelCustomDomain}>
+                                {#if busyRemovingCustomDomain}
+                                    <span class="loading loading-spinner loading-xs text-error" />
+                                {/if}
+                                Remove
+                            </button>
+                        </div>
                     </div>
                 {:else}
                     <form on:submit|preventDefault={addVercelCustomDomain}>
