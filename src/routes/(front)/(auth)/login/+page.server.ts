@@ -1,7 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import { auth } from '$lib/server/lucia';
 import { redirect } from '@sveltejs/kit';
-import { LuciaError } from 'lucia-auth';
+import { LuciaError } from 'lucia';
 
 export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -14,15 +14,21 @@ export const actions = {
 		const form = await request.formData();
 		const email = form.get('email');
 		const password = form.get('password');
+
 		if (!email || !password || typeof email !== 'string' || typeof password !== 'string') {
 			return fail(400, {
 				submitted: false,
 				message: 'Invalid input'
 			});
 		}
+
 		try {
+			console.log(auth)
 			const key = await auth.useKey('username', email.toLowerCase(), password);
-			const session = await auth.createSession(key.userId);
+			const session = await auth.createSession({
+				userId: key.userId,
+				attributes: {}
+			});
 			locals.auth.setSession(session);
 		} catch (error) {
 			if (

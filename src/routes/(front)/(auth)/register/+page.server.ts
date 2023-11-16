@@ -1,7 +1,7 @@
 import { auth } from '$lib/server/lucia';
 import { fail, type Actions } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
-import { LuciaError } from 'lucia-auth';
+import { LuciaError } from 'lucia';
 import type { PageServerLoad } from './$types';
 import { prismaClient } from '$lib/server/prisma';
 import { sendAccountEmailConfirmation } from '$lib/server/messenger';
