@@ -2,10 +2,6 @@ import { sendPasswordReset } from '$lib/server/messenger';
 import { prismaClient } from '$lib/server/prisma';
 import { fail, type Actions } from '@sveltejs/kit';
 import { v4 as uuidv4 } from 'uuid';
-import { PUBLIC_SITE_URL, PUBLIC_EMAIL_ADDRESS } from '$env/static/public';
-
-let emailBody = '';
-let emailSubject = '';
 
 export const actions: Actions = {
 	default: async ({ request }) => {
