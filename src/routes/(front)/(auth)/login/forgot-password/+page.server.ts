@@ -30,12 +30,12 @@ export const actions: Actions = {
 
 			sendPasswordReset(email, uuid);
 
-			return {
-				success: true,
-				submitted: false
-			};
 		} catch (err) {
 			console.error(err);
 		}
+		return {
+			success: true,
+			submitted: false
+		};
 	}
 };
