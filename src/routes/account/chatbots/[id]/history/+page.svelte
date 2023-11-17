@@ -9,14 +9,16 @@
 
 	let chatHistory = data.chats;
 	let visibleChatConversation;
-	let currentActiveChatID;
+	let currentActiveChatID: string;
+	let busyGettingChatConversation = false;
 
 	const postProcessMsgHTML = (msgHTML) => {
 		msgHTML = msgHTML.replace(/<a href=/g, '<a target="_blank" href=');
 		return msgHTML;
 	};
 
-	const getChatConversation = async (chat) => {
+	const getChatConversation = async (chat: Object) => {
+		busyGettingChatConversation = true;
 		const res = await fetch(`/api/chat-history/${chat.session_id}`, {
 			method: 'GET'
 		});
@@ -25,17 +27,16 @@
 		visibleChatConversation = chat;
 
 		visibleChatConversation.messages = data;
-		document.querySelector(`.chat-${currentActiveChatID}`)?.classList.remove('active');
-		currentActiveChatID = 'chat-' + chat.session_id;
-		document.querySelector(`.${currentActiveChatID}`)?.classList.add('active');
-	};
+		currentActiveChatID = chat.session_id;
 
-	onMount(() => {
-		if (data.chats[0]?.session_id) {
-			currentActiveChatID = 'chat-' + data.chats[0].session_id;
-			getChatConversation(data.chats[0]);
-		}
-	});
+		busyGettingChatConversation = false;
+		document.querySelector(`.${currentActiveChatID} .read-indicator`)?.remove();
+
+
+		// e.target.classList.remove('active');
+		// e.target.classList.add('active');
+		// e.target.querySelector('.read-indicator')?.remove();
+	};
 
 	const reverseSort = () => {
 		chatHistory = chatHistory.reverse();
@@ -69,20 +70,25 @@
 				<li class="menu-title text-base-content">No chat history</li>
 			{:else}
 				{#each chatHistory as chat}
-					<!-- {chat.enduser_phone ? chat.enduser_phone : ''} -->
 					<li>
 						<button
-							class="{chat.session_id} block my-2"
-							on:click|preventDefault={() => getChatConversation(chat)}
-							class:active={currentActiveChatID == `chat-${chat.session_id}`}
+						type="button"
+						class="{chat.session_id} border border-base-200 my-2 w-full flex items-center cursor-pointer"
+						on:click={(e) => getChatConversation(chat)}
+						class:active={currentActiveChatID === chat.session_id}
 						>
-							{#if chat.enduser_name || chat.enduser_email}
-								<div class="text-secondary/70">
-									<span>{chat.enduser_name ? chat.enduser_name : ''}</span>
-									<span>{chat.enduser_email ? '<' + chat.enduser_email + '>' : ''}</span>
-								</div>
+							{#if !chat.read}
+								<div class="read-indicator bg-primary rounded-full w-1 h-1"></div>
 							{/if}
-							{formatDate(chat.created_at)}
+							<div>
+								{#if chat.enduser_name || chat.enduser_email}
+									<div class="text-secondary/70">
+										<span>{chat.enduser_name ? chat.enduser_name : ''}</span>
+										<span>{chat.enduser_email ? '<' + chat.enduser_email + '>' : ''}</span>
+									</div>
+								{/if}
+								{formatDate(chat.created_at)}
+							</div>
 						</button>
 					</li>
 				{/each}
@@ -91,7 +97,11 @@
 	</div>
 
 	<div class="h-full overflow-y-auto rounded-lg border border-secondary p-4">
-		{#if visibleChatConversation}
+		{#if busyGettingChatConversation}
+			<div class="flex flex-col justify-center items-center h-full">
+				<div class="loading loading-spinner loading-lg text-primary"></div>
+			</div>
+		{:else if visibleChatConversation}
 			<div class="mb-4 flex justify-between gap-2 flex-wrap">
 				<div class="flex gap-2 flex-wrap">
 					{#each Array(visibleChatConversation.enduser_name, visibleChatConversation.enduser_email, visibleChatConversation.enduser_phone) as info}
