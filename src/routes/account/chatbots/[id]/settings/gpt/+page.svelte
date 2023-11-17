@@ -93,6 +93,16 @@
 					/>
 					GPT-4
 				</label>
+				<label class="btn join-item btn-outline" class:btn-disabled={canOnlyUseGPT3}>
+					<input
+						class="radio radio-sm radio-primary"
+						type="radio"
+						value="4-preview"
+						bind:group={$currentBot.settings.gptVersion}
+						disabled={canOnlyUseGPT3}
+					/>
+					GPT-4 Preview
+				</label>
 			</div>
 			{#if ['3.5-16', '4'].includes($currentBot.settings.gptVersion) && !$currentBot.settings.openai_api_key}
 				<div class="alert alert-warning font-bold mt-2">
