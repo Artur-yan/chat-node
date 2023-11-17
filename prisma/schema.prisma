@@ -10,6 +10,7 @@ datasource db {
 
 model AuthUser {
   id                 String         @id @unique
+  username           String?        @unique
   email              String         @unique
   status             String?
   verification_uuid  String?        @unique
