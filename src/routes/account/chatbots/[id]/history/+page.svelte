@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Remarkable } from 'remarkable';
-	import { onMount } from 'svelte';
 	import '$lib/assets/css/chat.postcss';
 
 	export let data;
@@ -9,7 +8,7 @@
 
 	let chatHistory = data.chats;
 	let visibleChatConversation;
-	let currentActiveChatID: string;
+	let currentActiveChatClass: string;
 	let busyGettingChatConversation = false;
 
 	const postProcessMsgHTML = (msgHTML) => {
@@ -27,20 +26,18 @@
 		visibleChatConversation = chat;
 
 		visibleChatConversation.messages = data;
-		currentActiveChatID = chat.session_id;
+		document.querySelector(`.${currentActiveChatClass}`)?.classList.remove('active');
+		
+		currentActiveChatClass = 'chat-' + chat.session_id; // chat- prefix necessary for classes that start with numbers
 
 		busyGettingChatConversation = false;
-		document.querySelector(`.${currentActiveChatID} .read-indicator`)?.remove();
-
-
-		// e.target.classList.remove('active');
-		// e.target.classList.add('active');
-		// e.target.querySelector('.read-indicator')?.remove();
+		document.querySelector(`.${currentActiveChatClass}`)?.classList.add('active');
+		document.querySelector(`.${currentActiveChatClass} .read-indicator`)?.remove();
 	};
 
 	const reverseSort = () => {
 		chatHistory = chatHistory.reverse();
-		const match = document.querySelector(`.${currentActiveChatID}`);
+		const match = document.querySelector(`.${currentActiveChatClass}`);
 		match?.classList.add('active');
 	};
 
@@ -73,9 +70,8 @@
 					<li>
 						<button
 						type="button"
-						class="{chat.session_id} border border-base-200 my-2 w-full flex items-center cursor-pointer"
+						class="chat-{chat.session_id} border border-base-200 my-2 w-full flex items-center cursor-pointer"
 						on:click={(e) => getChatConversation(chat)}
-						class:active={currentActiveChatID === chat.session_id}
 						>
 							{#if !chat.read}
 								<div class="read-indicator bg-primary rounded-full w-1 h-1"></div>
