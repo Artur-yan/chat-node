@@ -63,7 +63,7 @@
 			</div>
 		{/if}
 		<div>
-			<div class="join">
+			<div class="join join-vertical sm:join-horizontal">
 				<label class="btn join-item btn-outline btn-neutral aria-checked:bg-primary">
 					<input
 						class="radio radio-sm radio-primary"
