@@ -94,7 +94,7 @@
 					GPT-4
 				</label>
 			</div>
-			{#if ['3.5-16', '4'].includes($currentBot.settings.gptVersion) && plan < 1000 && !$currentBot.settings.openai_api_key}
+			{#if ['3.5-16', '4'].includes($currentBot.settings.gptVersion) && !$currentBot.settings.openai_api_key}
 				<div class="alert alert-warning font-bold mt-2">
 					<div>
 						<h3 class="text-xl mb-2">Important!</h3>
