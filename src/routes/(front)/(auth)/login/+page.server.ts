@@ -23,7 +23,6 @@ export const actions = {
 		}
 
 		try {
-			console.log(auth)
 			const key = await auth.useKey('username', email.toLowerCase(), password);
 			const session = await auth.createSession({
 				userId: key.userId,

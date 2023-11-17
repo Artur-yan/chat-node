@@ -8,12 +8,12 @@ export const auth = lucia({
 	env: dev ? 'DEV' : 'PROD',
 	middleware: sveltekit(),
 	adapter: prisma(prismaClient),
-	getUserAttributes: (data) => {
+	getUserAttributes: (user) => {
 		return {
-			email: data.email,
-			status: data.status,
-			api_key: data.api_key,
-			default_openai_key: data.default_openai_key
+			email: user.email,
+			status: user.status,
+			api_key: user.api_key,
+			default_openai_key: user.default_openai_key
 		};
 	}
 });
