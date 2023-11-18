@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { Remarkable } from 'remarkable';
 	import '$lib/assets/css/chat.postcss';
+	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
+	let busyExporting = false;
 
 	export let data;
 
@@ -8,7 +10,7 @@
 
 	let chatHistory = data.chats;
 	let visibleChatConversation;
-	let currentActiveChatClass: string;
+	let currentChatClass: string;
 	let busyGettingChatConversation = false;
 
 	const postProcessMsgHTML = (msgHTML) => {
@@ -26,18 +28,45 @@
 		visibleChatConversation = chat;
 
 		visibleChatConversation.messages = data;
-		document.querySelector(`.${currentActiveChatClass}`)?.classList.remove('active');
+		document.querySelector(`.${currentChatClass}`)?.classList.remove('active');
 		
-		currentActiveChatClass = 'chat-' + chat.session_id; // chat- prefix necessary for classes that start with numbers
+		currentChatClass = 'chat-' + chat.session_id; // chat- prefix necessary for classes that start with numbers
 
 		busyGettingChatConversation = false;
-		document.querySelector(`.${currentActiveChatClass}`)?.classList.add('active');
-		document.querySelector(`.${currentActiveChatClass} .read-indicator`)?.remove();
+		document.querySelector(`.${currentChatClass}`)?.classList.add('active');
+		document.querySelector(`.${currentChatClass} .read-indicator`)?.remove();
+	};
+
+	const getChatCSVExport = async () => {
+		busyExporting = true;
+		let params =
+			'start_date=' + new Date(2023, 1, 1).getTime()
+			+ '&end_date=' + new Date().getTime()
+			+ '&bot_id=' + data.model.id
+			+ '&user_id=' + data.user.user.userId
+			+ '&session_id=' + data.user.session.sessionId;
+			
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/download-chat-history-with-leads?${params}`);
+	
+			const { csv_url } = await res.json();
+
+			fetch(csv_url).then(function(t) {
+				return t.blob().then((b)=>{
+					var a = document.createElement("a");
+					a.href = URL.createObjectURL(b);
+					a.setAttribute("download", 'chat-history.csv');
+					a.click();
+				}
+				);
+			});
+
+			busyExporting = false;
+
 	};
 
 	const reverseSort = () => {
 		chatHistory = chatHistory.reverse();
-		const match = document.querySelector(`.${currentActiveChatClass}`);
+		const match = document.querySelector(`.${currentChatClass}`);
 		match?.classList.add('active');
 	};
 
@@ -52,44 +81,54 @@
 	};
 </script>
 
-<div class="container md:grid md:grid-cols-[320px_auto] gap-4 min-h-0 flex-1 basis-0 my-4">
-	<div class="mb-4 overflow-y-scroll h-full bg-base-200 rounded-box">
-		<ul class="menu divide-y divide-neutral" role="navigation">
-			<li class="menu-title">Conversations</li>
-			<div class="flex items-center justify-between px-4 py-2">
-				<label for="sort" class="">By Date</label>
-				<select class="select select-bordered select-xs" name="sort" on:change={reverseSort}>
-					<option>Newest First</option>
-					<option>Oldest First</option>
-				</select>
-			</div>
-			{#if chatHistory.length === 0}
-				<li class="menu-title text-base-content">No chat history</li>
-			{:else}
-				{#each chatHistory as chat}
-					<li>
-						<button
-						type="button"
-						class="chat-{chat.session_id} border border-base-200 my-2 w-full flex items-center cursor-pointer"
-						on:click={(e) => getChatConversation(chat)}
-						>
-							{#if !chat.read}
-								<div class="read-indicator bg-primary rounded-full w-1 h-1"></div>
-							{/if}
-							<div>
-								{#if chat.enduser_name || chat.enduser_email}
-									<div class="text-secondary/70">
-										<span>{chat.enduser_name ? chat.enduser_name : ''}</span>
-										<span>{chat.enduser_email ? '<' + chat.enduser_email + '>' : ''}</span>
-									</div>
+<div class="container md:grid md:grid-cols-[320px_auto] gap-4 min-h-0 h-full flex-1 basis-0 my-4">
+	<div class="h-full flex flex-col flex-1 overflow-hidden">
+		<div class="flex items-center justify-between p-2 pl-4 border-b border-neutral bg-neutral rounded-t-lg">
+			<h3 class="font-bold text-xs">Conversations</h3>
+			<label for="sort" class="hidden">By Date</label>
+			<select class="select select-bordered select-xs" name="sort" on:change={reverseSort}>
+				<option>Newest First</option>
+				<option>Oldest First</option>
+			</select>
+		</div>
+		<div class="overflow-y-scroll h-full bg-base-200">
+			<ul class="menu divide-y divide-neutral" role="navigation">
+				{#if chatHistory.length === 0}
+					<li class="menu-title text-base-content">No chat history</li>
+				{:else}
+					{#each chatHistory as chat}
+						<li>
+							<button
+							type="button"
+							class="chat-{chat.session_id} border border-base-200 my-2 w-full flex items-center cursor-pointer"
+							on:click={(e) => getChatConversation(chat)}
+							>
+								{#if !chat.read}
+									<div class="read-indicator bg-primary rounded-full w-1 h-1"></div>
 								{/if}
-								{formatDate(chat.created_at)}
-							</div>
-						</button>
-					</li>
-				{/each}
-			{/if}
-		</ul>
+								<div>
+									{#if chat.enduser_name || chat.enduser_email}
+										<div class="text-secondary/70">
+											<span>{chat.enduser_name ? chat.enduser_name : ''}</span>
+											<span>{chat.enduser_email ? '<' + chat.enduser_email + '>' : ''}</span>
+										</div>
+									{/if}
+									{formatDate(chat.created_at)}
+								</div>
+							</button>
+						</li>
+					{/each}
+				{/if}
+			</ul>
+		</div>
+		<div class="bg-neutral rounded-b-lg p-2">
+			<button class="btn btn-xs btn-outline" on:click={getChatCSVExport}>
+				{#if busyExporting}
+					<div class="loading loading-spinner loading-sm text-primary"></div>
+				{/if}				
+				Export CSV
+			</button>
+		</div>
 	</div>
 
 	<div class="h-full overflow-y-auto rounded-lg border border-secondary p-4">
