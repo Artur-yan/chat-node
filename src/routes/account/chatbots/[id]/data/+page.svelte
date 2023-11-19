@@ -72,8 +72,6 @@
 
 		let incompleteSourcesS3Keys: Array<string> = [];
 
-		console.log(incompleteSourcesS3Keys)
-
 		let res = await fetch('/api/data-sources/update', {
 			method: 'POST',
 			headers: {
@@ -89,10 +87,9 @@
 
 		updatedDataSources.forEach((source) => {
 			const row = document.getElementById(sanitizeS3KeyAsId(source.s3_key));
-			row?.setAttribute('data-training-status', source.status);
+			row.setAttribute('data-training-status', source.status);
 			row.querySelector('.training-status').innerHTML = source.status || 'error';
 			row.querySelector('.token-count').innerHTML = source.token_count || '-';
-			row.querySelector('.name').innerHTML = source.name;
 			if (source.status !== 'trained') {
 				incompleteSourcesS3Keys.push(source.s3_key);
 			}
