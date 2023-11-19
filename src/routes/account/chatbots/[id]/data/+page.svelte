@@ -36,6 +36,10 @@
 		return s3Keys;
 	}
 
+	function sanitizeS3KeyAsId(s3_key: string) {
+		return 'id-' + s3_key.replace(/\//g, '--');
+	};
+
 	async function deleteBotSource(s3_keys: Array<string>, base_url: string | undefined) {
 		let body = new FormData();
 		body.append('user_id', data.model.user_id);
@@ -55,7 +59,7 @@
 				const elem = document.getElementById(base_url);
 				elem.remove();
 			} else {
-				const elem = document.getElementById(sourceToDelete.s3_key);
+				const elem = document.getElementById(sanitizeS3KeyAsId(sourceToDelete.s3_key));
 				elem.remove();
 			}
 		}
@@ -67,6 +71,8 @@
 		}
 
 		let incompleteSourcesS3Keys: Array<string> = [];
+
+		console.log(incompleteSourcesS3Keys)
 
 		let res = await fetch('/api/data-sources/update', {
 			method: 'POST',
@@ -82,7 +88,7 @@
 
 
 		updatedDataSources.forEach((source) => {
-			const row = document.getElementById(source.s3_key);
+			const row = document.getElementById(sanitizeS3KeyAsId(source.s3_key));
 			row?.setAttribute('data-training-status', source.status);
 			row.querySelector('.training-status').innerHTML = source.status || 'error';
 			row.querySelector('.token-count').innerHTML = source.token_count || '-';
@@ -119,7 +125,7 @@
 
 	async function retrainUrls(s3_keys: Array<string>) {
 		s3_keys.forEach((s3_key) => {
-			const row = document.getElementById(s3_key);
+			const row = document.getElementById(sanitizeS3KeyAsId(s3_key));
 			row?.setAttribute('data-training-status', 'starting');
 			row.querySelector('.training-status').innerHTML = 'starting';
 		});
@@ -248,7 +254,7 @@
 										</tr>
 									</thead>
 									{#each items as url}
-										<tr id={url.s3_key} class="hover" data-training-status={url.status}>
+										<tr id={sanitizeS3KeyAsId(url.s3_key)} class="hover" data-training-status={url.status}>
 											<td class="break-all">
 												<div
 													class="training-status badge font-bold uppercase badge-xs badge-warning"
@@ -327,7 +333,7 @@
 							</tr>
 						</thead>
 						{#each data.modelData.files as file}
-							<tr id={file.s3_key} data-training-status={file.status}>
+							<tr id={sanitizeS3KeyAsId(file.s3_ke)} data-training-status={file.status}>
 								<td>
 									<div
 										class="training-status badge font-bold uppercase badge-xs badge-warning"
@@ -383,7 +389,7 @@
 							</tr>
 						</thead>
 						{#each data.modelData.texts as text}
-							<tr id={text.s3_key} data-training-status={text.status}>
+							<tr id={sanitizeS3KeyAsId(text.s3_key)} data-training-status={text.status}>
 								<td>
 									<div
 										class="training-status badge font-bold uppercase badge-xs badge-warning"
@@ -454,7 +460,7 @@
 							</tr>
 						</thead>
 						{#each data.modelData?.legacyUrls as url}
-							<tr id={url.s3_key}>
+							<tr id={sanitizeS3KeyAsId(url.s3_key)}>
 								<td>
 									{@html url.name.replace(/,/g, '<br>')}
 
