@@ -47,14 +47,11 @@
 		body.append('bot_id', data.model.id);
 		body.append('s3_keys', s3_keys);
 
-		console.log(s3_keys);
-
 		const res = await fetch(PUBLIC_CHAT_API_URL + '/api/delete-data', {
 			method: 'POST',
 			body
 		});
 
-		console.log(await res.json())
 		if (res.ok) {
 			$alert = { msg: 'Data deleted', type: 'success' };
 
