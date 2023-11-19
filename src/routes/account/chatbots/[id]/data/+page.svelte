@@ -330,7 +330,7 @@
 							</tr>
 						</thead>
 						{#each data.modelData.files as file}
-							<tr id={sanitizeS3KeyAsId(file.s3_ke)} data-training-status={file.status}>
+							<tr id={sanitizeS3KeyAsId(file.s3_key)} data-training-status={file.status}>
 								<td>
 									<div
 										class="training-status badge font-bold uppercase badge-xs badge-warning"
