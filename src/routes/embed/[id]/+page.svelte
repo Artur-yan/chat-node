@@ -37,7 +37,7 @@
 	<title>{data.bot.settings.publicTitle || data.bot.name}</title>
 </svelte:head>
 
-<div class="h-full flex justify-stretch flex-col" bind:this={wrapper}>
+<div class="h-full flex flex-1 justify-stretch flex-col" bind:this={wrapper}>
 	<Chat
 		modelId={data.bot.id}
 		{settings}
