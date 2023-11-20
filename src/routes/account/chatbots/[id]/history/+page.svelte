@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { Remarkable } from 'remarkable';
+	import tiersMap from '$lib/data/tiers';
 	import '$lib/assets/css/chat.postcss';
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	let busyExporting = false;
+	import { alert } from '$lib/stores';
 
 	export let data;
 
@@ -25,6 +27,7 @@
 		});
 		const data = await res.json();
 
+
 		visibleChatConversation = chat;
 
 		visibleChatConversation.messages = data;
@@ -36,19 +39,28 @@
 		document.querySelector(`.${currentChatClass}`)?.classList.add('active');
 		document.querySelector(`.${currentChatClass} .read-indicator`)?.remove();
 	};
+	
 
 	const getChatCSVExport = async () => {
 		busyExporting = true;
 		let params =
-			'start_date=' + new Date(2023, 1, 1).getTime()
+			'start_date=' + (new Date().getTime() - (tiersMap[data.subscription?.plan].history_length_days * 24 * 60 * 60))
 			+ '&end_date=' + new Date().getTime()
 			+ '&bot_id=' + data.model.id
 			+ '&user_id=' + data.user.user.userId
 			+ '&session_id=' + data.user.session.sessionId;
 			
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/download-chat-history-with-leads?${params}`);
-	
-			const { csv_url } = await res.json();
+
+			const json = await res.json();
+
+			if (json.error) {
+				$alert = {type: 'warning', msg: json.error};
+				busyExporting = false;
+				return;
+			}
+
+			const { csv_url } = json;
 
 			fetch(csv_url).then(function(t) {
 				return t.blob().then((b)=>{
@@ -122,7 +134,7 @@
 			</ul>
 		</div>
 		<div class="bg-neutral rounded-b-lg p-2">
-			<button class="btn btn-xs btn-outline" on:click={getChatCSVExport}>
+			<button class="btn btn-xs btn-outline" on:click={getChatCSVExport} disabled={chatHistory.length === 0}>
 				{#if busyExporting}
 					<div class="loading loading-spinner loading-sm text-primary"></div>
 				{/if}				
