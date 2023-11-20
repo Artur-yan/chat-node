@@ -41,39 +41,38 @@
 	};
 	
 
-	const getChatCSVExport = async () => {
+	const getChatExport = async (format: 'json' | 'csv') => {
 		busyExporting = true;
-		let params =
+
+		const params =
 			'start_date=' + (new Date().getTime() - (tiersMap[data.subscription?.plan].history_length_days * 24 * 60 * 60))
 			+ '&end_date=' + new Date().getTime()
 			+ '&bot_id=' + data.model.id
 			+ '&user_id=' + data.user.user.userId
-			+ '&session_id=' + data.user.session.sessionId;
+			+ '&session_id=' + data.user.session.sessionId
+			+ '&file_format=' + format
 			
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/download-chat-history-with-leads?${params}`);
+		const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/download-chat-history-with-leads?${params}`);
 
-			const json = await res.json();
+		const json = await res.json();
 
-			if (json.error) {
-				$alert = {type: 'warning', msg: json.error};
-				busyExporting = false;
-				return;
-			}
-
-			const { csv_url } = json;
-
-			fetch(csv_url).then(function(t) {
-				return t.blob().then((b)=>{
-					var a = document.createElement("a");
-					a.href = URL.createObjectURL(b);
-					a.setAttribute("download", `chat-history--${data.model.id}.csv`);
-					a.click();
-				}
-				);
-			});
-
+		if (json.error) {
+			$alert = {type: 'warning', msg: json.error};
 			busyExporting = false;
+			return;
+		}
 
+		fetch(json.url).then(function(t) {
+			return t.blob().then((b)=>{
+				var a = document.createElement("a");
+				a.href = URL.createObjectURL(b);
+				a.setAttribute("download", `chat-history--${data.model.id}.csv`);
+				a.click();
+			}
+			);
+		});
+
+		busyExporting = false;
 	};
 
 	const reverseSort = () => {
@@ -133,13 +132,17 @@
 				{/if}
 			</ul>
 		</div>
-		<div class="bg-neutral rounded-b-lg p-2">
-			<button class="btn btn-xs btn-outline" on:click={getChatCSVExport} disabled={chatHistory.length === 0}>
-				{#if busyExporting}
-					<div class="loading loading-spinner loading-sm text-primary"></div>
-				{/if}				
-				Export CSV
+		<div class="bg-neutral rounded-b-lg p-2 flex items-center gap-2">
+			<h4 class="font-bold text-xs">Export</h4>
+			<button class="btn btn-xs btn-outline" on:click={() => getChatExport('csv')} disabled={chatHistory.length === 0}>
+				CSV
 			</button>
+			<button class="btn btn-xs btn-outline" on:click={() => getChatExport('json')} disabled={chatHistory.length === 0}>			
+				JSON
+			</button>
+				{#if busyExporting}
+					<div class="loading loading-spinner loading-xs text-primary"></div>
+				{/if}	
 		</div>
 	</div>
 
