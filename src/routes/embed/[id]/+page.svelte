@@ -11,7 +11,7 @@
 	const { removeBranding } = data;
 
 	function sizeChatToWindow() {
-			wrapper.style.height = window.innerHeight + 'px';
+		wrapper.style.height = window.innerHeight + 'px';
 	}
 
 	onMount(() => {
@@ -21,6 +21,7 @@
 		context = urlParams.get('context');
 
 		if(browser && context !== 'popup') {
+			wrapper.classList.remove('flex-1')
 			sizeChatToWindow()
 			window.addEventListener('resize', function() {
 				console.log('resize')
@@ -36,7 +37,7 @@
 	<title>{data.bot.settings.publicTitle || data.bot.name}</title>
 </svelte:head>
 
-<div class="h-full flex flex-1 justify-stretch flex-col" bind:this={wrapper}>
+<div class="h-full flex justify-stretch flex-col" bind:this={wrapper}>
 	<Chat
 		modelId={data.bot.id}
 		{settings}
