@@ -59,9 +59,7 @@
 			+ '&session_id=' + data.user.session.sessionId
 			+ '&file_format=' + format
 		
-		const path = `${PUBLIC_CHAT_API_URL}/api/download-chat-history-with-leads?${params}`
-		console.log(path)
-		const res = await fetch(path);
+		const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/download-chat-history-with-leads?${params}`);
 
 		const json = await res.json();
 
