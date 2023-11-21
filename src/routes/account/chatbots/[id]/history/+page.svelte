@@ -43,16 +43,25 @@
 
 	const getChatExport = async (format: 'json' | 'csv') => {
 		busyExporting = true;
+		const today = new Date();
+		const startDate = new Date(new Date().setDate(new Date().getDate() - tiersMap[data.subscription?.plan].history_length_days));
+		const endDate = new Date(new Date().setDate(new Date().getDate() + 1));
+
+		function formatDateForAPI(date: Date) {
+			return date.toISOString().split('T')[0]
+		}
 
 		const params =
-			'start_date=' + (new Date().getTime() - (tiersMap[data.subscription?.plan].history_length_days * 24 * 60 * 60))
-			+ '&end_date=' + new Date().getTime()
+			'start_date=' + formatDateForAPI(startDate)
+			+ '&end_date=' + formatDateForAPI(endDate)
 			+ '&bot_id=' + data.model.id
 			+ '&user_id=' + data.user.user.userId
 			+ '&session_id=' + data.user.session.sessionId
 			+ '&file_format=' + format
-			
-		const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/download-chat-history-with-leads?${params}`);
+		
+		const path = `${PUBLIC_CHAT_API_URL}/api/download-chat-history-with-leads?${params}`
+		console.log(path)
+		const res = await fetch(path);
 
 		const json = await res.json();
 
