@@ -12,6 +12,7 @@
 
 	let shareDomain
 	let customDomain = false
+	let shareURL
 	let iframeEmbedCode
 	let jsEmbedCode;
 	let busyAddingCustomDomain = false;
@@ -19,13 +20,16 @@
 	let currentCustomDomain = $currentBot.settings.customDomain;
 
 	$: if ($currentBot.custom_domain) {
-		shareDomain = 'https://' + $currentBot.custom_domain;
 		customDomain = true;
+		shareDomain = 'https://' + $currentBot.custom_domain;
+		shareURL = shareDomain
 	} else if ($currentBot.settings.customDomain) {
-		shareDomain = 'https://' + $currentBot.settings.customDomain;
 		customDomain = true
+		shareDomain = 'https://' + $currentBot.settings.customDomain;
+		shareURL = shareDomain
 	} else {
-		shareDomain = `${PUBLIC_SITE_URL}/embed/${$currentBot.id}`;
+		shareDomain = `${PUBLIC_SITE_URL}`;
+		shareURL  = `${shareDomain}/embed/${data.model.id}`
 	}
 
 
@@ -140,10 +144,10 @@
 				<h2 class="card-title">Web Page</h2>
 				<div class="bg-neutral p-4 rounded-lg flex justify-between items-center mb-12">
 					<div>
-						{shareDomain}
-						<CopyButton textToCopy={shareDomain} />
+						{shareURL}
+						<CopyButton textToCopy={shareURL} />
 					</div>
-					<a href={shareDomain} class="btn btn-xs" target="_blank">view</a>
+					<a href={shareURL} class="btn btn-xs" target="_blank">view</a>
 				</div>
 			</div>
 			<div class="relative">

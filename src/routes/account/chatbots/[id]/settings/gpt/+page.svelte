@@ -63,7 +63,7 @@
 			</div>
 		{/if}
 		<div>
-			<div class="join">
+			<div class="join join-vertical sm:join-horizontal">
 				<label class="btn join-item btn-outline btn-neutral aria-checked:bg-primary">
 					<input
 						class="radio radio-sm radio-primary"
@@ -93,8 +93,18 @@
 					/>
 					GPT-4
 				</label>
+				<label class="btn join-item btn-outline" class:btn-disabled={canOnlyUseGPT3}>
+					<input
+						class="radio radio-sm radio-primary"
+						type="radio"
+						value="4-preview"
+						bind:group={$currentBot.settings.gptVersion}
+						disabled={canOnlyUseGPT3}
+					/>
+					GPT-4 Preview
+				</label>
 			</div>
-			{#if ['3.5-16', '4'].includes($currentBot.settings.gptVersion) && plan < 1000 && !$currentBot.settings.openai_api_key}
+			{#if ['3.5-16', '4'].includes($currentBot.settings.gptVersion) && !$currentBot.settings.openai_api_key}
 				<div class="alert alert-warning font-bold mt-2">
 					<div>
 						<h3 class="text-xl mb-2">Important!</h3>

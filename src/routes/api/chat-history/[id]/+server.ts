@@ -11,6 +11,15 @@ export const GET = async ({ params }) => {
 		}
 	});
 
+	await prismaClient.chatConversations.update({
+		where: {
+			session_id: params.id
+		},
+		data: {
+			read: true
+		}
+	})
+
 	return new Response(JSON.stringify(chatHistory), { status: 200 });
 };
 
