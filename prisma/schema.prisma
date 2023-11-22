@@ -42,6 +42,8 @@ model AuthKey {
   id              String   @id @unique
   hashed_password String?
   user_id         String   @unique
+  primary_key     Boolean
+  expires         BigInt?
   auth_user       AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
@@ -224,6 +226,7 @@ model chatConversations {
   enduser_email String?
   enduser_name  String?
   enduser_phone String?
+  read          Boolean?  @default(false)
 
   @@map("chat_conversations")
 }
@@ -247,5 +250,16 @@ model google_auth {
   email         String?
   access_token  String?
   refresh_token String?
+  bot_id        String?
   auth_user     AuthUser @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model webhook {
+  bot_id      String
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  type        String
+  webhook_url String
+
+  @@id([bot_id, type, webhook_url])
 }

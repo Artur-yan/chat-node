@@ -127,10 +127,10 @@
 				class="input w-full"
 				type="text"
 				bind:value={$currentBot.settings.openai_api_key}
-				placeholder={data.user.user.default_openai_key
+				placeholder={data.user.default_openai_key
 					? 'Using Default Open AI Key'
 					: 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'}
-				class:placeholder:text-success={data.user.user.default_openai_key}
+				class:placeholder:text-success={data.user.default_openai_key}
 				disabled={!canUseCustomAPIKey}
 			/>
 			<!-- <p class="mt-2 max-w-md text-sm leading-6">

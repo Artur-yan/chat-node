@@ -2,7 +2,6 @@ import { VERCEL_BEARER_TOKEN } from '$env/static/private'
 import { prismaClient } from '$lib/server/prisma';
 
 export const POST = async  ({ request }) => {
-    // const user = await locals.auth.validateUser()
     const { domain, botId } = await request.json();
     const res = await fetch("https://api.vercel.com/v10/projects/prj_YBmgo66tTQhX0pQE43qC5Hn8YKht/domains?teamId=team_Mr7OQlTcqwxCNceTx7QJ62LZ", {
         method: "POST",

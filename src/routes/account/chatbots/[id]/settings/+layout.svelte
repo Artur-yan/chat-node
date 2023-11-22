@@ -142,7 +142,7 @@
 				settings={$currentBot.settings}
 				trainingStatus={data.model.status}
 				avatar={$currentBotAvatarImg}
-				userId={data.user.session.userId}
+				userId={data.session.user.userId}
 				{showUserInfoCollection}
 			/>
 			{#if $currentBot.settings.collectUserEmail || $currentBot.settings.collectUserName || $currentBot.settings.collectUserPhone}

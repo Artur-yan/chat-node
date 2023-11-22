@@ -2,13 +2,14 @@ import { prismaClient } from '$lib/server/prisma';
 import { error } from '@sveltejs/kit';
 
 export const POST = async ({ locals, request }) => {
-	const { user } = await locals.auth.validateUser();
+	const session = await locals.auth.validate();
+
 	const { key } = await request.json();
 
 	try {
 		await prismaClient.authUser.update({
 			where: {
-				id: user?.userId
+				id: session.user.userId
 			},
 			data: {
 				default_openai_key: key

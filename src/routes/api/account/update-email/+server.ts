@@ -3,14 +3,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { sendAccountEmailUpdateConfirmation } from '$lib/server/messenger';
 
 export const POST = async ({ locals, request }) => {
-	const { user } = await locals.auth.validateUser();
+	const session = await locals.auth.validate();
+
 	const { newEmail } = await request.json();
 	const uuid = uuidv4();
 
 	try {
 		await prismaClient.authUser.update({
 			where: {
-				id: user.userId
+				id: session.user.userId
 			},
 			data: {
 				new_email: newEmail,

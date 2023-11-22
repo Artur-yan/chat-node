@@ -5,7 +5,7 @@ import tiersMap from '$lib/data/tiers';
 import { prismaClient } from '$lib/server/prisma';
 
 export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
-	const user = await locals.auth.validateUser();
+
 	let removeBranding = false;
 	try {
 		const bot = await prismaClient.bots.findUniqueOrThrow({
@@ -56,8 +56,8 @@ export const load: PageServerLoad = async ({ params, setHeaders, locals }) => {
 				'Content-Security-Policy': `frame-ancestors 'self' ${allowedUrls} ${allowedSubDomains};`
 			});
 		} else {
-			const user = await locals.auth.validateUser();
-			if (!user.session) {
+			const session = await locals.auth.validate();
+			if (!session) {
 				throw error(403, 'You are not allowed to view this bot');
 			}
 		}

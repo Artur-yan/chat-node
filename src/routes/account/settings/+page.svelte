@@ -6,10 +6,10 @@
 	import { alert } from '$lib/stores.js';
 	import tiersMap from '$lib/data/tiers.js';
 
-	let apiKey = data.user.user.api_key;
-	let defaultOpenAIKey = data.user.user.default_openai_key || '';
+	let apiKey = data.user.api_key;
+	let defaultOpenAIKey = data.user.default_openai_key || '';
 
-	let userEmail = data.user.user.email;
+	let userEmail = data.user.email;
 
 	const handleEmailChange = async () => {
 		updateAccountEmail(userEmail);
@@ -83,7 +83,7 @@
 							autocomplete="new-password"
 						/>
 					</div>
-					<input type="hidden" value={data.user.user.email} name="email" />
+					<input type="hidden" value={data.user.email} name="email" />
 					{#if form?.message}
 						<p class="text-error">{form.message || ''}</p>
 					{/if}

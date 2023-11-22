@@ -64,7 +64,7 @@
 		</script>
 		{@html `<script id="profitwell-js" data-pw-auth="64cdfa4a4526d24d3a185319fc6ca127">
 		(function(i,s,o,g,r,a,m){i[o]=i[o]||function(){(i[o].q=i[o].q||[]).push(arguments)}; a=s.createElement(g);m=s.getElementsByTagName(g)[0];a.async=1;a.src=r+'?auth='+s.getElementById(o+'-js').getAttribute('data-pw-auth');m.parentNode.insertBefore(a,m);})(window,document,'profitwell','script','https://public.profitwell.com/js/profitwell.js');
-		profitwell('start', { 'user_email': '${data.user.user.email}' });
+		profitwell('start', { 'user_email': '${data.user.email}' });
 		</script>`}
 		<script>
 			(function (j, i, m, o) {
@@ -97,7 +97,7 @@
 			s.parentNode.insertBefore(t, s);
 		})(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 		fbq('init', '588241380143151', {
-			em: '${data.user.user.email}'
+			em: '${data.user.email}'
 		});
 		fbq('track', 'PageView');
 	</script>`} -->
@@ -147,7 +147,7 @@
 <HeaderAdmin />
 
 <main class="flex flex-col flex-1">
-	{#if data.subscription.plan === 1006 && !data.user.user.default_openai_key}
+	{#if data.subscription.plan === 1006 && !data.user.default_openai_key}
 		<div class="container my-4">
 			<div
 				class="alert bg-neutral justify-between flex items-center border-warning"

@@ -35,7 +35,7 @@
 		});
 	}
 
-	const email = data.user.user.email;
+	const email = data.user.email;
 
 	onMount(async () => {
 		switch (newPlan) {
