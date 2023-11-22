@@ -6,14 +6,13 @@ export const POST: RequestHandler = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (!session) {
 		throw redirect(302, '/');
+	} else {
+		try {
+			await auth.invalidateSession(session.sessionId);
+			locals.auth.setSession(null);
+			throw redirect(302, '/');
+		} catch (e) {
+			console.error(e);
+		}
 	}
-
-	try {
-		await auth.invalidateSession(session.sessionId);
-		locals.auth.setSession(null);
-	} catch (e) {
-		console.error(e);
-	}
-
-	throw redirect(302, '/');
 };
