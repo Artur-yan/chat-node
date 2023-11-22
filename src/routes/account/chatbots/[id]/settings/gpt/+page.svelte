@@ -170,3 +170,39 @@
 		</div>
 	</div>
 </div>
+
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="card-title">
+			<h2>Enable Message Limit</h2>
+		</div>
+		<p class="text-sm leading-6">
+			Limit the number of message this bot can use within each billing cycle.
+		</p>
+		<div>
+			<div class="form-control items-start">
+				<label class="cursor-pointer label justify-start gap-4">
+					<span class="label-text">OFF</span>
+					<input
+					type="checkbox"
+					class="toggle"
+					class:toggle-success={$currentBot.settings.msgLimitEnabled !== -1}
+					bind:checked={$currentBot.settings.msgLimitEnabled}
+					/>
+					<span class="label-text">ON</span>
+				</label>
+			</div>
+		</div>
+		{#if $currentBot.settings.msgLimitEnabled}
+			<div>
+				<label class="label" for="msg-limit">Number of Messages</label>
+				<input
+					name="msg-limit"
+					class="input w-full"
+					type="number"
+					bind:value={$currentBot.settings.msgLimit}
+				/>
+			</div>
+		{/if}
+	</div>
+</div>
