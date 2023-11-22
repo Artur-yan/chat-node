@@ -84,6 +84,8 @@ const defaultSettings = {
 	collectUserInfoSubmitButtonText: 'Start Chatting',
 	useChatNodeMsgs: true,
 	customDomain: '',
+	msgLimitEnabled: false,
+	msgLimit: 200,
 	theme: {
 		name: 'default',
 		bg: '#0F172A',
