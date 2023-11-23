@@ -29,6 +29,7 @@
 		"prettier": "^2.8.8",
 		"prettier-plugin-svelte": "^2.10.1",
 		"prisma": "^5.6.0",
+		"supabase": "^1.113.2",
 		"svelte": "^3.59.1",
 		"svelte-awesome-color-picker": "^2.4.7",
 		"tailwindcss": "^3.3.2",
