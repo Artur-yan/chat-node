@@ -10,7 +10,6 @@ datasource db {
 
 model AuthUser {
   id                 String         @id @unique
-  username           String?        @unique
   email              String         @unique
   status             String?
   verification_uuid  String?        @unique
@@ -18,6 +17,7 @@ model AuthUser {
   created            DateTime       @default(now())
   api_key            String?        @unique
   default_openai_key String?
+  username           String?        @unique
   auth_key           AuthKey?
   auth_session       AuthSession[]
   bots               Bots[]
@@ -67,6 +67,7 @@ model Bots {
   use_chatnode_msgs    Boolean? @default(true)
   pinecone_info        Json     @default("{\"PINECONE_ENV\": \"us-west4-gcp\", \"PINECONE_INDEX\": \"chatnode-prod-2\"}")
   custom_domain        String?  @unique
+  msg_count            Int      @default(0)
   auth_user            AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("bots")
