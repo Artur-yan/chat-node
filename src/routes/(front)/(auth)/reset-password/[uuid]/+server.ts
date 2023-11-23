@@ -10,7 +10,7 @@ export async function GET({ locals, params }) {
 				verification_uuid: params.uuid
 			},
 			data: {
-				// verification_uuid: null
+				verification_uuid: null
 			}
 		});
 		const session = await auth.createSession(user.id);
