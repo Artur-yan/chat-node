@@ -6,7 +6,7 @@ export const POST: RequestHandler = async ({ locals }) => {
 
 	if (session) {
 		try {
-			await auth.deleteUser(session.userId);
+			await auth.deleteUser(session.user.userId);
 		} catch (err) {
 			console.error(err);
 		}

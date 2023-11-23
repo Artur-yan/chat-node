@@ -57,7 +57,7 @@
 		<button
 			on:click={() => goto('/account/chatbots/create')}
 			class="btn btn-primary btn-sm btn-outline text-xs pr-1"
-			disabled={data.user.user.status !== 'active' || botUsage >= 1}
+			disabled={data.user.status !== 'active' || botUsage >= 1}
 		>
 			New Bot <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 				<path
@@ -273,7 +273,7 @@
 			<h3 class="font-bold text-lg">Your Free Trial Has Expired</h3>
 			<a class="btn" href="/account/settings/subscription">Upgrade</a>
 		</div>
-	{:else if data.user.user.status !== 'active'}
+	{:else if data.user.status !== 'active'}
 		<div class="alert alert-warning my-4">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -299,7 +299,7 @@
 		</div>
 
 		<p class="text-sm">
-			Is your email ({data.user.user.email}) correct? Change it via
+			Is your email ({data.user.email}) correct? Change it via
 			<a href="/account/settings" class="link">account settings</a>
 		</p>
 	{:else}

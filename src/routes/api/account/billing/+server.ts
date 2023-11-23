@@ -10,7 +10,7 @@ export const POST = async ({ locals }) => {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				user_id: session.userId
+				user_id: session.user.userId
 			})
 		});
 

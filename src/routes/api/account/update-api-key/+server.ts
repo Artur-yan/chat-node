@@ -3,11 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 import tiersMap from '$lib/data/tiers.js';
 
 export const POST = async ({ locals }) => {
-	const { user } = await locals.auth.validateUser();
+	const session = await locals.auth.validate();
 
 	const { plan } = await prismaClient.subscriptions.findUnique({
 		where: {
-			user_id: user?.userId
+			user_id: session.user.userId
 		}
 	});
 
@@ -20,7 +20,7 @@ export const POST = async ({ locals }) => {
 	try {
 		await prismaClient.authUser.update({
 			where: {
-				id: user.userId
+				id: session.user.userId
 			},
 			data: {
 				api_key: apiKey

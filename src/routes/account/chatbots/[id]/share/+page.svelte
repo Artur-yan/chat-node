@@ -59,8 +59,8 @@
 		body.append('domain', $currentBot.settings.customDomain);
 		body.append('title', 'AI Chat');
 		body.append('bot_id', $currentBot.id);
-		body.append('user_id', data.user.user.userId);
-		body.append('session_id', data.user.session.sessionId);
+		body.append('user_id', data.user.userId);
+		body.append('session_id', data.session.sessionId);
 
 		const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/set-subdomain`, {
 			method: 'POST',

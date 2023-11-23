@@ -29,6 +29,7 @@
 	export let userId: string;
 	export let context = '';
 
+
 	// Merge default settings with user settings
 	// Merge nested object
 	settings.theme = {
@@ -204,6 +205,8 @@
 		inputVal = question;
 		submitQuery();
 	};
+
+
 </script>
 
 	<div
@@ -222,7 +225,7 @@
 		--sendButtonBG: {settings.theme.sendButtonBG};
 		--sendButtonIconColor: {settings.theme.sendButtonIconColor};
 		background-color: var(--bg)"
-		class="flex h-full flex-col justify-between overflow-hidden flex-1 relative transition-colors ease-in-out duration-500"
+		class="flex h-full flex-col justify-between overflow-hidden flex-1 relative transition-all ease-in-out duration-500"
 	>
 		{#if settings?.headerEnabled && settings.publicTitle !== ''}
 			<header style="background-color: var(--headerBG)" class="flex p-4 items-center gap-2">

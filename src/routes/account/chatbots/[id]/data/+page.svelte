@@ -43,7 +43,7 @@
 	async function deleteBotSource(s3_keys: Array<string>, base_url: string | undefined) {
 		let body = new FormData();
 		body.append('user_id', data.model.user_id);
-		body.append('session_id', data.user.session.sessionId);
+		body.append('session_id', data.session.sessionId);
 		body.append('bot_id', data.model.id);
 		body.append('s3_keys', s3_keys);
 
@@ -109,14 +109,14 @@
 			textObj.id,
 			new Array(textObj.s3_key),
 			data.model.user_id,
-			data.user.session.sessionId
+			data.session.sessionId
 		);
 		textSourceToEdit = res;
 		textSourceValue = Object.values(res)[0];
 	}
 
 	async function handleTextUpdate(source_key: string, text: string) {
-		await updateText(source_key, data.model.id, text, data.model.user_id, data.user.session.sessionId);
+		await updateText(source_key, data.model.id, text, data.model.user_id, data.session.sessionId);
 		updateBotSources([source_key])
 	}
 
@@ -129,7 +129,7 @@
 
 		let body = new FormData();
 		body.append('user_id', data.model.user_id);
-		body.append('session_id', data.user.session.sessionId);
+		body.append('session_id', data.session.sessionId);
 		body.append('chat_key', data.model.id);
 		body.append('source_keys', s3_keys);
 
@@ -159,8 +159,8 @@
 				<div class="card-title">Add Data</div>
 				<AddModelData
 					bind:modelId
-					userId={data.user.user.userId}
-					sessionId={data.user.session.sessionId}
+					userId={data.user.userId}
+					sessionId={data.session.sessionId}
 					subscription={data.subscription}
 					existingTokenCount={data.model.tocken_count}
 					bind:trainingStatus

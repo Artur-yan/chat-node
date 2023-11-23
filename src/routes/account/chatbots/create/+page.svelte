@@ -54,8 +54,8 @@
 					<div class="card-title">Add Data</div>
 					<AddModelData
 						bind:modelId
-						userId={data.user.user.userId}
-						sessionId={data.user.session.sessionId}
+						userId={data.user.userId}
+						sessionId={data.session.sessionId}
 						subscription={data.subscription}
 						bind:trainingStatus
 						bind:name
@@ -70,7 +70,7 @@
 					bind:messages
 					bind:trainingStatus
 					{settings}
-					userId={data.user.user.userId}
+					userId={data.user.userId}
 				/>
 			</div>
 		</div>

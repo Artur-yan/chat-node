@@ -354,9 +354,9 @@
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<h2 class="card-title">Avatar</h2>
-		{#if data.subscription.plan < 2}
+		{#if data.subscription.plan === 0}
 			<div class="alert alert-neutral text-warning justify-between flex">
-				<p>Available on the Pro plan</p>
+				<p>Available on the Basic plan</p>
 				<a href="/account/settings/subscription" class="btn btn-info btn-sm">Upgrade</a>
 			</div>
 		{/if}
@@ -382,7 +382,7 @@
 			<div class="flex-1">
 				<form method="post" enctype="multipart/form-data" class="join w-full">
 					<input
-						disabled={data.subscription.plan < 2}
+						disabled={data.subscription.plan === 0}
 						name="avatar-img"
 						type="file"
 						accept=".jpg, .png, .svg"

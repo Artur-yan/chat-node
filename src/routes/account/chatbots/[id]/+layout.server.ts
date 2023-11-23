@@ -3,7 +3,8 @@ import { prismaClient } from '$lib/server/prisma';
 import { currentBot } from '$lib/stores.js';
 
 export const load = async ({ locals, params }) => {
-	const user = await locals.auth.validateUser();
+	const session = await locals.auth.validate();
+
 
 	const model = await prismaClient.bots.findUnique({
 		where: {
@@ -11,10 +12,10 @@ export const load = async ({ locals, params }) => {
 		}
 	});
 
-	if (user.session && model && user.session.userId === model.user_id) {
+	if (session && model && session.user.userId === model.user_id) {
 		currentBot.set(model);
-		return { model, user };
-	} else if (user.session) {
+		return { model, session };
+	} else if (session) {
 		throw redirect(303, '/account/chatbots');
 	} else {
 		throw redirect(303, '/login');

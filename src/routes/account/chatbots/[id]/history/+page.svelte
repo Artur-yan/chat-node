@@ -55,8 +55,8 @@
 			'start_date=' + formatDateForAPI(startDate)
 			+ '&end_date=' + formatDateForAPI(endDate)
 			+ '&bot_id=' + data.model.id
-			+ '&user_id=' + data.user.user.userId
-			+ '&session_id=' + data.user.session.sessionId
+			+ '&user_id=' + data.session.user.userId
+			+ '&session_id=' + data.session.sessionId
 			+ '&file_format=' + format
 		
 		const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/download-chat-history-with-leads?${params}`);

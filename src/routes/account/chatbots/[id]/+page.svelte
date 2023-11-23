@@ -13,7 +13,7 @@
 		trainingStatus={data.model.status}
 		settings={data.model.settings}
 		avatar={data.model?.avatar_img}
-		userId={data.user.user.userId}
+		userId={data.user}
 	/>
 </div>
 

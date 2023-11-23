@@ -2,11 +2,11 @@ import { prismaClient } from '$lib/server/prisma';
 import tiersMap from '$lib/data/tiers.js';
 
 export const load = async ({ locals, params }) => {
-	const user = await locals.auth.validateUser();
+	const session = await locals.auth.validate();
 
 	const { plan } = await prismaClient.subscriptions.findFirst({
 		where: {
-			user_id: user.session.userId
+			user_id: session.user.userId
 		}
 	});
 

@@ -1,18 +1,13 @@
 import type { PageServerLoad } from './$types';
 import { prismaClient } from '$lib/server/prisma';
 
-export const load: PageServerLoad = async ({ params, locals }) => {
-	const user = await locals.auth.validateUser();
+export const load: PageServerLoad = async ({ params }) => {
 
 	const model = await prismaClient.bots.findUnique({
 		where: {
 			id: params.id
 		}
 	});
-
-	if (user.session.userId !== model.user_id) {
-		return;
-	}
 
 	const botsSource = await prismaClient.botsSource.findMany({
 		where: {

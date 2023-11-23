@@ -24,12 +24,7 @@ const updateAvatarImg = async (bot_id: string, avatarImg: string, public_id: str
 };
 
 export const actions = {
-	updateAvatarImg: async ({ request, locals, params }) => {
-		const user = await locals.auth.validateUser();
-
-		if (!user.session) {
-			throw error(401, 'Unauthorized');
-		}
+	updateAvatarImg: async ({ request, params }) => {
 
 		const form = await request.formData();
 
@@ -64,12 +59,7 @@ export const actions = {
 		};
 	},
 
-	removeAvatarImg: async ({ request, locals, params }) => {
-		const user = await locals.auth.validateUser();
-
-		if (!user.session) {
-			throw error(401, 'Unauthorized');
-		}
+	removeAvatarImg: async ({ request, params }) => {
 
 		const form = await request.formData();
 

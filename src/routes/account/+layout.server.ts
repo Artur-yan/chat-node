@@ -2,26 +2,29 @@ import { redirect } from '@sveltejs/kit';
 import { prismaClient } from '$lib/server/prisma';
 
 export const load = async ({ locals }) => {
-	const user = await locals.auth.validateUser();
+	const session = await locals.auth.validate();
 
-	if (user.session) {
-		const subscription = await prismaClient.subscriptions.findUnique({
-			where: {
-				user_id: user.user.userId
-			}
-		});
+	if (session) {
 
-		const bots = await prismaClient.bots.findMany({
-			where: {
-				user_id: {
-					equals: user.session.userId
+		const [subscription, bots] = await prismaClient.$transaction([
+			prismaClient.subscriptions.findUnique({
+				where: {
+					user_id: session.user.userId
 				}
-			},
-			orderBy: {
-				name: 'asc'
-			}
-		});
-		return { user, subscription, bots, scripts: '' };
+			}),
+			prismaClient.bots.findMany({
+				where: {
+					user_id: {
+						equals: session.user.userId
+					}
+				},
+				orderBy: {
+					name: 'asc'
+				}
+			})
+		]);
+
+		return { user: session.user, subscription, bots, scripts: '' };
 	} else {
 		throw redirect(303, '/login');
 	}

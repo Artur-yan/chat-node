@@ -74,10 +74,10 @@
 
 	<div class="card border-neutral text-center">
 		<div class="card-body">
-			<h2 class="!text-xl mb-4 uppercase">All plans include</h2>
+			<h2 class="!text-xl mb-4 uppercase">All Plans Include</h2>
 			<ul class="included flex items-center gap-x-10 gap-y-4 justify-center flex-wrap">
 				<li>Embed on unlimited websites</li>
-				<li>Add custom logo and colors</li>
+				<li>Customise Colors</li>
 				<li>Chat history</li>
 			</ul>
 		</div>
@@ -168,29 +168,34 @@
 						<a href="/register" class="btn btn-outline btn-secondary">Sign up</a>
 					{/if}
 				</div>
-				<ul>
-					<li>
-						<span class="figure">2,000</span>
-						messages/mo.
-					</li>
-					<li>
-						<span class="figure">5</span>
-						Chatbots
-					</li>
-					<li>
-						<div
-							class="tooltip border-b border-dotted border-white/30"
-							data-tip="approx. 2,000,000 characters"
-						>
-							<span class="figure">500,000</span>
-							tokens/bot
-						</div>
-					</li>
-					<li>
-						<span class="figure">3 Day</span>
-						chat history
-					</li>
-				</ul>
+				<div class="grid lg:grid-cols-2">
+					<ul>
+						<li>
+							<span class="figure">2,000</span>
+							messages/mo.
+						</li>
+						<li>
+							<span class="figure">5</span>
+							Chatbots
+						</li>
+						<li>
+							<div
+								class="tooltip border-b border-dotted border-white/30"
+								data-tip="approx. 2,000,000 characters"
+							>
+								<span class="figure">500,000</span>
+								tokens/bot
+							</div>
+						</li>
+						<li>
+							<span class="figure">3 Day</span>
+							chat history
+						</li>
+					</ul>
+					<ul class="extra">
+						<li>Add Avatar Image</li>
+					</ul>
+				</div>
 			</div>
 			<div class="p-8 border border-secondary rounded-xl md:rounded-l-none md:my-4 bg-base-300">
 				<div class="flex justify-between mb-8">
