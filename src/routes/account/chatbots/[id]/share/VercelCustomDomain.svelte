@@ -33,46 +33,46 @@
         error = undefined
         busyAddingCustomDomain = true
 
-        let res = await fetch('/api/vercel/custom-domain', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                domain: newDomain,
-                botId: $currentBot.id
-            })
-        });
+        try {
+            const res = await fetch('/api/vercel/custom-domain', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    domain: newDomain,
+                    botId: $currentBot.id
+                })
+            });        
+            const data = await res.json()
 
-        
-        res = await res.json()
-        
-        if(res.error){
-            error = res.error
-        } else {
-            $currentBot.custom_domain = newDomain
-            parsedURL = parseURL($currentBot.custom_domain)
+            if(data.error){
+                error = data.error
+            } else {
+                $currentBot.custom_domain = newDomain
+                parsedURL = parseURL($currentBot.custom_domain)
 
-            if(parsedURL.apexDomain) {
-                await fetch('/api/vercel/custom-domain', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        domain: 'www.' + parsedURL.apexDomain,
-                        botId: $currentBot.id
-                    })
-                });
+                if(parsedURL.apexDomain) {
+                    await fetch('/api/vercel/custom-domain', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            domain: 'www.' + parsedURL.apexDomain,
+                            botId: $currentBot.id
+                        })
+                    });
+                }
+
+                if ($currentBot.settings.customDomain ) {
+                    $currentBot.settings.customDomain = '' // Clear Out old domain info
+                    await updateModel($currentBot.id, $currentBot.name, $currentBot.settings);
+                }
             }
-
-            if ($currentBot.settings.customDomain ) {
-                $currentBot.settings.customDomain = '' // Clear Out old domain info
-                await updateModel($currentBot.id, $currentBot.name, $currentBot.settings);
-            }
-
-
-        }
+        } catch (err) {
+            console.error(err)
+        }       
 
         busyAddingCustomDomain = false
 	}

@@ -24,7 +24,6 @@
 			wrapper.classList.remove('flex-1')
 			sizeChatToWindow()
 			window.addEventListener('resize', function() {
-				console.log('resize')
 				sizeChatToWindow()
 			});
 		}

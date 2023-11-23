@@ -11,7 +11,7 @@ export const GET = async ({ locals, params }) => {
 			}
 		});
 
-		if (session.userId == model.user_id) {
+		if (session.user.userId == model.user_id) {
 			return json(model);
 		} else {
 			return new Response(JSON.stringify({ status: 401 }));
@@ -29,7 +29,7 @@ export const POST = async ({ locals, request }) => {
 		await prismaClient.bots.create({
 			data: {
 				id,
-				user_id: session.userId,
+				user_id: session.user.userId,
 				data_source_type: 'text',
 				name,
 				settings
@@ -47,7 +47,7 @@ export const PATCH = async ({ request, locals }) => {
 
 	const subscription = await prismaClient.subscriptions.findUnique({
 		where: {
-			user_id: session.userId
+			user_id: session.user.userId
 		}
 	});
 
@@ -55,7 +55,7 @@ export const PATCH = async ({ request, locals }) => {
 		await prismaClient.bots.updateMany({
 			where: {
 				id,
-				user_id: session.userId
+				user_id: session.user.userId
 			},
 			data: {
 				name,
@@ -76,7 +76,7 @@ export const DELETE = async ({ request, locals }) => {
 		await prismaClient.bots.deleteMany({
 			where: {
 				id,
-				user_id: session.userId
+				user_id: session.user.userId
 			}
 		});
 		return new Response(JSON.stringify({ status: 200 }));
