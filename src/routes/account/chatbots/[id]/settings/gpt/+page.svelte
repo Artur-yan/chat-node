@@ -177,7 +177,7 @@
 			<h2>Enable Message Limit</h2>
 		</div>
 		<p class="text-sm leading-6">
-			Limit the number of message this bot can use within each billing cycle.
+			Limit the number of messages this bot can send within each usage period.
 		</p>
 		<div>
 			<div class="form-control items-start">
