@@ -5,6 +5,7 @@
 	import { updateAccountEmail, updateApiKey, updateDefaultOpenAIKey } from '$lib/account.js';
 	import { alert } from '$lib/stores.js';
 	import tiersMap from '$lib/data/tiers.js';
+	import { enhance } from '$app/forms';
 
 	let apiKey = data.user.api_key;
 	let defaultOpenAIKey = data.user.default_openai_key || '';
@@ -28,6 +29,10 @@
 	const handleUpdateDefaultOpenAIKey = () => {
 		updateDefaultOpenAIKey(defaultOpenAIKey);
 	};
+
+	$: if(form?.alert) {
+		$alert = form.alert;
+	}
 
 	const plansWithApiFeature = [3, 4, 103, 104, 1001, 1002, 1003, 1004, 1005, 1006];
 </script>
@@ -60,7 +65,7 @@
 		<div class="card bg-neutral">
 			<div class="card-body">
 				<h2 class="card-title">Create new password</h2>
-				<form class="form-control gap-2" method="POST" action="?/changePassword">
+				<form class="form-control gap-2" method="POST" action="?/changePassword" use:enhance>
 					<div>
 						<label class="label" for="email"><span class="label-text">New password</span></label>
 						<input

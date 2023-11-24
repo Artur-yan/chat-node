@@ -1,7 +1,6 @@
 import { auth } from '$lib/server/lucia';
 import { prismaClient } from '$lib/server/prisma';
 import { redirect, type Actions } from '@sveltejs/kit';
-import { goto } from '$app/navigation';
 
 export async function GET({ locals, params }) {
 	try {
