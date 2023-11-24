@@ -12,7 +12,10 @@ export async function GET({ locals, params }) {
 				verification_uuid: null
 			}
 		});
-		const session = await auth.createSession(user.id);
+		const session = await auth.createSession({
+			userId: user.id,
+			attributes: {}
+		});
 		await locals.auth.setSession(session);
 		throw redirect(302, '/account/settings');
 	} catch (err) {
