@@ -32,10 +32,10 @@ export const GET: RequestHandler = async ({ params, url, locals }) => {
 				verification_uuid: null
 			});
 
-			// Re-initiate session
-			await auth.invalidateAllUserSessions(user.id);
-			const session = await auth.createSession(user.id);
-			locals.auth.setSession(session);
+			// // Re-initiate session
+			// await auth.invalidateAllUserSessions(user.id);
+			// const session = await auth.createSession(user.id);
+			// locals.auth.setSession(session);
 
 			// Redirect
 			throw redirect(302, `/account/settings`);
