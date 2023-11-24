@@ -17,7 +17,6 @@ model AuthUser {
   created            DateTime       @default(now())
   api_key            String?        @unique
   default_openai_key String?
-  username           String?        @unique
   auth_key           AuthKey?
   auth_session       AuthSession[]
   bots               Bots[]
@@ -42,7 +41,7 @@ model AuthKey {
   id              String   @id @unique
   hashed_password String?
   user_id         String   @unique
-  primary_key     Boolean
+  primary_key     Boolean?
   expires         BigInt?
   auth_user       AuthUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
