@@ -2,11 +2,11 @@ import { auth } from '$lib/server/lucia';
 import { fail, type Actions } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
 import { LuciaError } from 'lucia';
-import type { PageServerLoad } from './$types';
 import { prismaClient } from '$lib/server/prisma';
 import { sendAccountEmailConfirmation } from '$lib/server/messenger';
 import { v4 as uuidv4 } from 'uuid';
 import { domainBlacklist } from '$lib/systemSettings';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -128,7 +128,7 @@ export const actions: Actions = {
 			// Create User
 			const uuid = uuidv4();
 			const user = await auth.createUser({
-				primaryKey: {
+				key: {
 					providerId: 'username',
 					providerUserId: email.toLowerCase(),
 					password
@@ -158,7 +158,11 @@ export const actions: Actions = {
 			// fbEvent('StartTrial', [email]);
 
 			// Start Session
-			const session = await auth.createSession(user.userId);
+			const session = await auth.createSession({
+				userId: user.userId,
+				attributes: {}
+			});
+			const sessionCookie = auth.createSessionCookie(session);
 			locals.auth.setSession(session);
 		} catch (error) {
 			console.error(

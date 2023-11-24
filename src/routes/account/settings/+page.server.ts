@@ -22,7 +22,8 @@ export const actions: Actions = {
 				message: 'Invalid input'
 			});
 		} else {
-			const key = await auth.updateKeyPassword('username', email, password);
+			await auth.updateKeyPassword('username', email, password);
+			return { alert: 'Password Updated' };
 		}
 	}
 };
