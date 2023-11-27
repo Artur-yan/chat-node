@@ -5,15 +5,14 @@
 	import { Remarkable } from 'remarkable';
 	import hljs from 'highlight.js';
 	import 'highlight.js/styles/github-dark.css';
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	const md = new Remarkable();
 
-	import CopyButton from './CopyButton.svelte';
-	import { onMount } from 'svelte';
 	import '$lib/assets/css/chat.postcss';
 
 	export let removeBranding = true;
-
 	export let modelId: string;
 	export let disabled = false;
 	export let isThinking = false;
@@ -29,6 +28,10 @@
 	export let userId: string;
 	export let context = '';
 
+	let inputVal = ``;
+	let collectUserInfo = false;
+	let userInfoReceived = false;
+	let endUserInfo = {};
 
 	// Merge default settings with user settings
 	// Merge nested object
@@ -47,12 +50,6 @@
 	if (!settings.theme) {
 		settings.theme = defaultSettings.theme;
 	}
-
-	let inputVal = ``;
-
-	let collectUserInfo = false;
-	let userInfoReceived = false;
-	let endUserInfo = {};
 
 	$: if (settings.collectUserName || settings.collectUserEmail || settings.collectUserPhone) {
 		collectUserInfo = true;
@@ -206,6 +203,9 @@
 		submitQuery();
 	};
 
+	const transferToCrisp = () => {
+		goto('https://go.crisp.chat/chat/embed/?website_id=' + settings.crispWebsiteId);
+	};
 
 </script>
 
@@ -377,6 +377,17 @@
 			{/if}
 			<div>
 				<div class="relative">
+					{#if settings.crispEnabled}
+						<div class="flex gap-1 mb-2 overflow-x-auto w-full">
+							<button
+								class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
+								type="button"
+								on:click={() => transferToCrisp()}
+							>
+								I want to talk to a human
+							</button>
+						</div>
+					{/if}
 					{#if settings.suggestedQuestions}
 						<div class="relative">
 							<div class="absolute right-0 top-0 bottom-0 w-12 z-1" style="background: linear-gradient(90deg, {settings.theme.bg}00, var(--bg) 96%);" />

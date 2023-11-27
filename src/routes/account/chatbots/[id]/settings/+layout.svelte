@@ -17,6 +17,7 @@
 		{ name: 'Sharing', url: 'sharing' },
 		{ name: 'User Info', url: 'user-info' },
 		{ name: 'Customize', url: 'customize' },
+		{ name: 'Integrations', url: 'integrations' },
 		{ name: 'ChatGPT', url: 'gpt' },
 		{ name: 'Delete', url: 'delete' }
 	];
