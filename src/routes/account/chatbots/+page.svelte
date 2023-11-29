@@ -238,7 +238,7 @@
 								>
 									<li>
 										<a href="/account/chatbots/{bot.id}/share">
-											<Icon icon="mdi:code" width="18" /> Share/Integrate
+											<Icon icon="mdi:code" width="18" /> Share
 										</a>
 									</li>
 									<li>
