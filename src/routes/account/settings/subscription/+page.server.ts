@@ -32,11 +32,11 @@ export const load = async ({ locals }) => {
 
 export const actions = {
 	upgradeAppsumo: async ({ request, locals }) => {
-		const user = await locals.auth.validate();
+		const session = await locals.auth.validate();
 
 		const subscription = await prismaClient.subscriptions.findFirst({
 			where: {
-				user_id: user.userId
+				user_id: session.user.userId
 			}
 		});
 
@@ -101,7 +101,7 @@ export const actions = {
 
 				await prismaClient.subscriptions.update({
 					where: {
-						user_id: user.userId
+						user_id: session.user.userId
 					},
 					data: {
 						plan: newPlanId,
