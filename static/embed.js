@@ -31,7 +31,7 @@ function toggleChat() {
 }
 
 const iframe = `
-<iframe src="https://dev.chatnode.ai/embed/${id}?context=popup" width="100%" height="100%"></iframe>
+<iframe src="https://www.chatnode.ai/embed/${id}?context=popup" width="100%" height="100%"></iframe>
 `;
 const html = `	
 <div id="chatbot-${id}">
