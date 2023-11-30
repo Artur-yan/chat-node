@@ -5,9 +5,9 @@
     import Modal from '$lib/components/Modal.svelte';
 
     export let data;
-
 </script>
 
+{#if data.subscription.plan === 104}
 <div>
     <div class="card card-compact bg-neutral mb-4">
         <div class="card-body">
@@ -60,6 +60,7 @@
         </div>
     </div>
 </div>
+{/if}
 
 <div>
     <div class="card card-compact bg-neutral">
