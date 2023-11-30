@@ -28,6 +28,12 @@ const addModel = async (id: string, name: string, settings?: Object) => {
 };
 
 const updateModel = async (id: string, name: string, settings?: Object) => {
+
+		// Value checks
+	if (!settings.crispButtonText) {
+		settings.crispButtonText = defaultSettings.crispButtonText;
+	}
+	
 	try {
 		const res = await fetch('/api/models', {
 			method: 'PATCH',
@@ -86,6 +92,7 @@ const defaultSettings = {
 	customDomain: '',
 	msgLimitEnabled: false,
 	msgLimit: 200,
+	crispButtonText: 'Talk to a human',
 	theme: {
 		name: 'default',
 		bg: '#0F172A',
