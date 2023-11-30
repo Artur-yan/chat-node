@@ -377,14 +377,14 @@
 			{/if}
 			<div>
 				<div class="relative">
-					{#if settings.crispEnabled}
+					{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
 						<div class="flex gap-1 mb-2 overflow-x-auto w-full">
 							<button
 								class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
 								type="button"
 								on:click={() => transferToCrisp()}
 							>
-								I want to talk to a human
+								{settings.crispButtonText}
 							</button>
 						</div>
 					{/if}
