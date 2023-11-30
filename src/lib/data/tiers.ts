@@ -80,6 +80,10 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: true,
 				label: 'Remove ChatNode Branding'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
 			}
 		}
 	},
@@ -101,6 +105,10 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: true,
 				label: 'Remove ChatNode Branding'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
 			}
 		}
 	},
@@ -126,6 +134,10 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: true,
 				label: 'Remove ChatNode Branding'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
 			}
 		}
 	},
@@ -151,6 +163,10 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: true,
 				label: 'Remove ChatNode Branding'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
 			}
 		}
 	},
@@ -176,6 +192,10 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: true,
 				label: 'Remove ChatNode Branding'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
 			}
 		}
 	},
@@ -201,6 +221,10 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: true,
 				label: 'Remove ChatNode Branding'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
 			}
 		}
 	},
@@ -226,6 +250,10 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: false,
 				label: 'Remove ChatNode Branding'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
 			}
 		}
 	},
@@ -251,6 +279,10 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: true,
 				label: 'Remove ChatNode Branding'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
 			}
 		}
 	},
@@ -280,6 +312,10 @@ const tiersMap = {
 			chat_history: {
 				included: true,
 				label: '60 Day Chat History'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
 			}
 		}
 	},
@@ -309,6 +345,10 @@ const tiersMap = {
 			chat_history: {
 				included: true,
 				label: '60 Day Chat History'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
 			}
 		}
 	},
@@ -338,6 +378,10 @@ const tiersMap = {
 			chat_history: {
 				included: true,
 				label: '60 Day Chat History'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
 			}
 		}
 	},
@@ -367,6 +411,10 @@ const tiersMap = {
 			chat_history: {
 				included: true,
 				label: '60 Day Chat History'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
 			}
 		}
 	}

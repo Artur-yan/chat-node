@@ -3,11 +3,28 @@
     import tiersMap from '$lib/data/tiers';
     import { PUBLIC_CHAT_API_URL } from '$env/static/public';
     import Modal from '$lib/components/Modal.svelte';
-
+    
     export let data;
+    
+    let crispInPlan = false;
+
+    console.log(data.subscription.plan)
+
+
+    if (tiersMap[data.subscription.plan].features.crisp?.included) {
+        crispInPlan = true
+    } else {
+        $currentBot.settings.crispEnabled = false
+    }
 </script>
 
-{#if data.subscription.plan === 104}
+{#if !crispInPlan}
+    <div class="alert text-warning text-sm justify-between flex mb-4">
+        <p>Integrations are available on the pro plan and above</p>
+        <a class="btn btn-warning" href="/account/settings/subscription">Upgrade</a>
+    </div>
+{/if}
+
 <div>
     <div class="card card-compact bg-neutral mb-4">
         <div class="card-body">
@@ -20,10 +37,11 @@
                     <label class="cursor-pointer label justify-start gap-4">
                         <span class="label-text">OFF</span>
                         <input
-                        type="checkbox"
-                        class="toggle"
-                        class:toggle-success={$currentBot.settings.crispEnabled}
-                        bind:checked={$currentBot.settings.crispEnabled}
+                            type="checkbox"
+                            class="toggle"
+                            class:toggle-success={$currentBot.settings.crispEnabled}
+                            bind:checked={$currentBot.settings.crispEnabled}
+                            disabled={!crispInPlan}
                         />
                         <span class="label-text">ON</span>
                     </label>
@@ -60,7 +78,6 @@
         </div>
     </div>
 </div>
-{/if}
 
 <div>
     <div class="card card-compact bg-neutral">
@@ -81,11 +98,6 @@
                             + Slack Workspace
                         </a>
                     {/if}
-                {:else}
-                    <p class="text-warning text-sm">
-                        Slack integration is available on the pro plan and above
-                    </p>
-                    <a class="btn btn-warning" href="/account/settings/subscription">Upgrade</a>
                 {/if}
             </div>
         </div>
