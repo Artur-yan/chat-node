@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { currentBot } from '$lib/stores.js';
+	import VersionLabel from './versionLabel.svelte';
 
 	export let data;
 
@@ -63,56 +64,28 @@
 			</div>
 		{/if}
 		<div>
-			<div class="join join-vertical sm:join-horizontal">
-				<label class="btn join-item btn-outline btn-neutral aria-checked:bg-primary">
-					<input
-						class="radio radio-sm radio-primary"
-						type="radio"
-						value="3.5"
-						bind:group={$currentBot.settings.gptVersion}
-					/>
-					ChatGPT 3.5 Turbo
-				</label>
-				<label class="btn join-item btn-outline" class:btn-disabled={canOnlyUseGPT3}>
-					<input
-						class="radio radio-sm radio-primary"
-						type="radio"
-						value="3.5-16"
-						bind:group={$currentBot.settings.gptVersion}
-						disabled={canOnlyUseGPT3}
-					/>
-					ChatGPT-16K
-				</label>
-				<label class="btn join-item btn-outline" class:btn-disabled={canOnlyUseGPT3}>
-					<input
-						class="radio radio-sm radio-primary"
-						type="radio"
-						value="4"
-						bind:group={$currentBot.settings.gptVersion}
-						disabled={canOnlyUseGPT3}
-					/>
-					GPT-4
-				</label>
-				<label class="btn join-item btn-outline" class:btn-disabled={canOnlyUseGPT3}>
-					<input
-						class="radio radio-sm radio-primary"
-						type="radio"
-						value="4-preview"
-						bind:group={$currentBot.settings.gptVersion}
-						disabled={canOnlyUseGPT3}
-					/>
-					GPT-4 Preview
-				</label>
+			<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+				<VersionLabel title={"ChatGPT 3.5 Turbo"} value={"3.5"} {currentBot} />
+				<VersionLabel title={"ChatGPT 16K"} value={"3.5-16"} {currentBot} />
+				<VersionLabel title={"GPT 4"} value={"4"} {currentBot} />
+				<VersionLabel title={"GPT 4 Preview"} value={"4-preview"} {currentBot} />
+				<VersionLabel title={"Azure-GPT 3.5"} value={"azure-3.5"} {currentBot} />
+				<VersionLabel title={"Azure-GPT 3.5 (March)"} value={"azure-3.5-march"} {currentBot} />
+				<VersionLabel title={"Azure-GPT 4"} value={"azure-4"} {currentBot} />
 			</div>
-			{#if ['3.5-16', '4'].includes($currentBot.settings.gptVersion) && !$currentBot.settings.openai_api_key}
+	
+			{#if ['3.5-16', '4', 'azure-4'].includes($currentBot.settings.gptVersion) && !$currentBot.settings.openai_api_key}
 				<div class="alert alert-warning font-bold mt-2">
 					<div>
 						<h3 class="text-xl mb-2">Important!</h3>
 						{#if $currentBot.settings.gptVersion === '4'}
 							By enabling GPT-4 <strong>every message you send will debit 20 messages</strong>
 							 from your monthly allowance.
-						{:else}
+						{:else if $currentBot.settings.gptVersion === '3.5-16'}
 							By enabling GPT-3.5 16K <strong>every message you send will debit 4 messages</strong>
+							 from your monthly allowance.
+						{:else if $currentBot.settings.gptVersion === 'azure-4'}
+							By enabling GPT-4 Preview <strong>every message you send will debit 20 messages</strong>
 							 from your monthly allowance.
 						{/if}
 					</div>
