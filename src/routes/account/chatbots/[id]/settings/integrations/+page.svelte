@@ -5,6 +5,7 @@
     import Modal from '$lib/components/Modal.svelte';
 
     export let data;
+
 </script>
 
 <div>
@@ -12,10 +13,10 @@
         <div class="card-body">
             <h2 class="card-title">Crisp <span class="badge badge-accent badge-xs">New</span></h2>
             <p class="text-base text-neutral-content">
-                Let your customers talk to real person when your chatbot can't answer their questions.
+                Let your customers talk to a real person when your chatbot can't answer their questions.
             </p>
             <div>
-                <div class="form-control items-start">
+                <div class="form-control">
                     <label class="cursor-pointer label justify-start gap-4">
                         <span class="label-text">OFF</span>
                         <input
@@ -26,19 +27,34 @@
                         />
                         <span class="label-text">ON</span>
                     </label>
-                    </div>
-            </div>
-            <div>
-                <label class="label" for="crisp-website-id">Crisp Website ID</label>
-                <input
-                    name="crisp-website-id"
-                    class="input w-full"
-                    type="text"
-                    bind:value={$currentBot.settings.crispWebsiteId}
-                />
-            </div>
-            <div>
-                <button class="btn btn-xs" on:click={() => crispInstructions.showModal()}>How to obtain your website ID</button>
+                    
+                    {#if $currentBot.settings.crispEnabled}
+                        <div class="grid lg:grid-cols-2 lg:gap-2">
+                            <div>
+                                <label class="label" for="crisp-website-id">Crisp Website ID</label>
+                                <input
+                                name="crisp-website-id"
+                                class="input w-full"
+                                type="text"
+                                bind:value={$currentBot.settings.crispWebsiteId}
+                                />
+                                <div>
+                                    <button class="btn btn-xs mt-2" on:click={() => crispInstructions.showModal()}>How to obtain your website ID</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="label" for="crisp-button-text">Button Text</label>
+                                <input
+                                name="crisp-button-text"
+                                class="input w-full"
+                                type="text"
+                                bind:value={$currentBot.settings.crispButtonText}
+                                />
+                            </div>
+                        </div>
+
+                    {/if}
+                </div>
             </div>
     
         </div>
@@ -74,7 +90,6 @@
         </div>
     </div>
 </div>
-
 
 <Modal id="crispInstructions" title="How to obtain your crisp website ID">
     <ol>
