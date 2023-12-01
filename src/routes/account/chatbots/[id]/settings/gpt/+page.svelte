@@ -4,27 +4,28 @@
 
 	export let data;
 
-	let plan = data.subscription?.plan || 0;
-	const plansWithGPT4 = [2, 3, 4, 102, 103, 104];
-	let canToggleChatNodeMsgs = true;
-	let canOnlyUseGPT3 = false;
-	let canUseCustomAPIKey = true;
-	let customAPIKeyRequired = false;
+	let plan: number = data.subscription?.plan || 0;
+	const plansWithGPT4: number[] = [2, 3, 4, 102, 103, 104];
+
+	let onFreePlan: boolean = plan === 0;
+	let onBasicPlan: boolean = plan === 1 || plan === 101;
+
+	let canToggleChatNodeMsgs: boolean = true;
+	let canUseCustomAPIKey: boolean = true;
+	let customAPIKeyRequired: boolean = false;
 
 	$: if (plan > 1000 && plan < 1006) {
 		// Appsumo Users
 		if ($currentBot.settings.openai_api_key) {
 			// Who have an OpenAI API Key
-			canOnlyUseGPT3 = false;
 			canToggleChatNodeMsgs = true;
-			if ($currentBot.settings.gptVersion != '3.5') {
+			if (!['3.5', '3.5-june', 'azure-3.5'].includes($currentBot.settings.gptVersion)) {
 				// Who switch to GPT-4
 				$currentBot.settings.useChatNodeMsgs = false;
 				canToggleChatNodeMsgs = false;
 			}
 		} else {
 			// Who DON'T have an OpenAI API Key
-			canOnlyUseGPT3 = true;
 			canToggleChatNodeMsgs = false;
 			$currentBot.settings.useChatNodeMsgs = true;
 		}
@@ -45,12 +46,14 @@
 	} else {
 		// For Basic, and Free Users
 		canUseCustomAPIKey = false;
-		canOnlyUseGPT3 = true;
 		canToggleChatNodeMsgs = false;
 		$currentBot.settings.useChatNodeMsgs = true;
 	}
 
-	$: if (canOnlyUseGPT3) $currentBot.settings.gptVersion = '3.5';
+	// Safe Gaurd Paid Plans
+	$: if(onFreePlan && !['3.5', '3.5-june', 'azure-3.5'].includes($currentBot.settings.gptVersion)) {
+		$currentBot.settings.gptVersion = '3.5';
+	}
 </script>
 
 <div class="card bg-neutral card-compact mb-4">
@@ -65,13 +68,13 @@
 		{/if}
 		<div>
 			<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-				<VersionLabel title={"ChatGPT 3.5 Turbo"} value={"3.5"} {currentBot} />
-				<VersionLabel title={"ChatGPT 16K"} value={"3.5-16"} {currentBot} />
-				<VersionLabel title={"GPT 4"} value={"4"} {currentBot} />
-				<VersionLabel title={"GPT 4 Preview"} value={"4-preview"} {currentBot} />
-				<VersionLabel title={"Azure-GPT 3.5"} value={"azure-3.5"} {currentBot} />
-				<VersionLabel title={"Azure-GPT 3.5 (March)"} value={"azure-3.5-march"} {currentBot} />
-				<VersionLabel title={"Azure-GPT 4"} value={"azure-4"} {currentBot} />
+				<VersionLabel title={"ChatGPT 3.5 Turbo"} value={"3.5"} {currentBot} disable={false} />
+				<VersionLabel title={"ChatGPT 3.5 (June)"} value={"3.5-june"} {currentBot} disable={false} />
+				<VersionLabel title={"Azure-GPT 3.5"} value={"azure-3.5"} {currentBot} disable={false} />
+				<VersionLabel title={"ChatGPT 16K"} value={"3.5-16"} {currentBot} disable={onFreePlan || onBasicPlan} />
+				<VersionLabel title={"GPT 4"} value={"4"} {currentBot} disable={onFreePlan || onBasicPlan} />
+				<VersionLabel title={"GPT 4 Preview"} value={"4-preview"} {currentBot} disable={onFreePlan || onBasicPlan} />
+				<VersionLabel title={"Azure-GPT 4"} value={"azure-4"} {currentBot} disable={onFreePlan  || onBasicPlan} />
 			</div>
 	
 			{#if ['3.5-16', '4', 'azure-4'].includes($currentBot.settings.gptVersion) && !$currentBot.settings.openai_api_key}
