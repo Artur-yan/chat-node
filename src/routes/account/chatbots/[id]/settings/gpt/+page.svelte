@@ -70,11 +70,11 @@
 			<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
 				<VersionLabel title={"ChatGPT 3.5 Turbo"} value={"3.5"} {currentBot} disable={false} />
 				<VersionLabel title={"ChatGPT 3.5 (June)"} value={"3.5-june"} {currentBot} disable={false} />
-				<VersionLabel title={"Azure-GPT 3.5"} value={"azure-3.5"} {currentBot} disable={false} />
+<!--				<VersionLabel title={"Azure-GPT 3.5"} value={"azure-3.5"} {currentBot} disable={false} />-->
 				<VersionLabel title={"ChatGPT 16K"} value={"3.5-16"} {currentBot} disable={onFreePlan || onBasicPlan} />
 				<VersionLabel title={"GPT 4"} value={"4"} {currentBot} disable={onFreePlan || onBasicPlan} />
 				<VersionLabel title={"GPT 4 Preview"} value={"4-preview"} {currentBot} disable={onFreePlan || onBasicPlan} />
-				<VersionLabel title={"Azure-GPT 4"} value={"azure-4"} {currentBot} disable={onFreePlan  || onBasicPlan} />
+<!--				<VersionLabel title={"Azure-GPT 4"} value={"azure-4"} {currentBot} disable={onFreePlan  || onBasicPlan} />-->
 			</div>
 	
 			{#if ['3.5-16', '4', 'azure-4'].includes($currentBot.settings.gptVersion) && !$currentBot.settings.openai_api_key}
