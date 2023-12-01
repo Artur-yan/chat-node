@@ -19,7 +19,7 @@
 		if ($currentBot.settings.openai_api_key) {
 			// Who have an OpenAI API Key
 			canToggleChatNodeMsgs = true;
-			if ($currentBot.settings.gptVersion != '3.5') {
+			if (!['3.5', '3.5-june', 'azure-3.5'].includes($currentBot.settings.gptVersion)) {
 				// Who switch to GPT-4
 				$currentBot.settings.useChatNodeMsgs = false;
 				canToggleChatNodeMsgs = false;
