@@ -8,7 +8,7 @@
 
 	let busyChangingPlan = false;
 	let referralCode = '';
-	export let billingTerm = 'monthly';
+	export let billingTerm = 'yearly';
 
 	onMount(() => {
 		if (PUBLIC_ENVIRONMENT === 'production' && rewardful) {
