@@ -1,8 +1,8 @@
-import { VERCEL_BEARER_TOKEN } from '$env/static/private'
+import { VERCEL_BEARER_TOKEN, VERCEL_TEAM_ID } from '$env/static/private'
 
 export const POST = async  ({ request }) => {
     const { domain } = await request.json();
-    const res = await fetch(`https://api.vercel.com/v6/domains/${domain}/config?teamId=team_Mr7OQlTcqwxCNceTx7QJ62LZ`, {
+    const res = await fetch(`https://api.vercel.com/v6/domains/${domain}/config?teamId=${VERCEL_TEAM_ID}`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${VERCEL_BEARER_TOKEN}`

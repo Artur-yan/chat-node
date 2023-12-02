@@ -1,9 +1,9 @@
-import { VERCEL_BEARER_TOKEN } from '$env/static/private'
+import { VERCEL_BEARER_TOKEN, VERCEL_TEAM_ID, VERCEL_PROJECT_ID } from '$env/static/private'
 import { prismaClient } from '$lib/server/prisma';
 
 export const POST = async  ({ request }) => {
     const { domain, botId } = await request.json();
-    const res = await fetch("https://api.vercel.com/v10/projects/prj_YBmgo66tTQhX0pQE43qC5Hn8YKht/domains?teamId=team_Mr7OQlTcqwxCNceTx7QJ62LZ", {
+    const res = await fetch(`https://api.vercel.com/v10/projects/${VERCEL_PROJECT_ID}/domains?teamId=${VERCEL_TEAM_ID}`, {
         method: "POST",
         headers: {
             "Authorization": `Bearer ${VERCEL_BEARER_TOKEN}`
@@ -29,7 +29,7 @@ export const POST = async  ({ request }) => {
 
 export const DELETE = async  ({ request }) => {
     const { domain, botId } = await request.json();
-    const res = await fetch(`https://api.vercel.com/v9/projects/prj_YBmgo66tTQhX0pQE43qC5Hn8YKht/domains/${domain}?teamId=team_Mr7OQlTcqwxCNceTx7QJ62LZ`, {
+    const res = await fetch(`https://api.vercel.com/v9/projects/${VERCEL_PROJECT_ID}/domains/${domain}?${VERCEL_TEAM_ID}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${VERCEL_BEARER_TOKEN}`
