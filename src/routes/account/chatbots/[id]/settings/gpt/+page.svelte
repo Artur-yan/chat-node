@@ -1,29 +1,31 @@
 <script lang="ts">
-	import { currentBot } from '$lib/stores.js';
+	import { currentBot } from '$lib/stores';
+	import VersionLabel from './versionLabel.svelte';
 
 	export let data;
 
-	let plan = data.subscription?.plan || 0;
-	const plansWithGPT4 = [2, 3, 4, 102, 103, 104];
-	let canToggleChatNodeMsgs = true;
-	let canOnlyUseGPT3 = false;
-	let canUseCustomAPIKey = true;
-	let customAPIKeyRequired = false;
+	let plan: number = data.subscription?.plan || 0;
+	const plansWithGPT4: number[] = [2, 3, 4, 102, 103, 104];
+
+	let onFreePlan: boolean = plan === 0;
+	let onBasicPlan: boolean = plan === 1 || plan === 101;
+
+	let canToggleChatNodeMsgs: boolean = true;
+	let canUseCustomAPIKey: boolean = true;
+	let customAPIKeyRequired: boolean = false;
 
 	$: if (plan > 1000 && plan < 1006) {
 		// Appsumo Users
 		if ($currentBot.settings.openai_api_key) {
 			// Who have an OpenAI API Key
-			canOnlyUseGPT3 = false;
 			canToggleChatNodeMsgs = true;
-			if ($currentBot.settings.gptVersion != '3.5') {
+			if (!['3.5', '3.5-june', 'azure-3.5'].includes($currentBot.settings.gptVersion)) {
 				// Who switch to GPT-4
 				$currentBot.settings.useChatNodeMsgs = false;
 				canToggleChatNodeMsgs = false;
 			}
 		} else {
 			// Who DON'T have an OpenAI API Key
-			canOnlyUseGPT3 = true;
 			canToggleChatNodeMsgs = false;
 			$currentBot.settings.useChatNodeMsgs = true;
 		}
@@ -44,12 +46,14 @@
 	} else {
 		// For Basic, and Free Users
 		canUseCustomAPIKey = false;
-		canOnlyUseGPT3 = true;
 		canToggleChatNodeMsgs = false;
 		$currentBot.settings.useChatNodeMsgs = true;
 	}
 
-	$: if (canOnlyUseGPT3) $currentBot.settings.gptVersion = '3.5';
+	// Safe Gaurd Paid Plans
+	$: if(onFreePlan && !['3.5', '3.5-june', 'azure-3.5'].includes($currentBot.settings.gptVersion)) {
+		$currentBot.settings.gptVersion = '3.5';
+	}
 </script>
 
 <div class="card bg-neutral card-compact mb-4">
@@ -63,56 +67,28 @@
 			</div>
 		{/if}
 		<div>
-			<div class="join join-vertical sm:join-horizontal">
-				<label class="btn join-item btn-outline btn-neutral aria-checked:bg-primary">
-					<input
-						class="radio radio-sm radio-primary"
-						type="radio"
-						value="3.5"
-						bind:group={$currentBot.settings.gptVersion}
-					/>
-					ChatGPT 3.5 Turbo
-				</label>
-				<label class="btn join-item btn-outline" class:btn-disabled={canOnlyUseGPT3}>
-					<input
-						class="radio radio-sm radio-primary"
-						type="radio"
-						value="3.5-16"
-						bind:group={$currentBot.settings.gptVersion}
-						disabled={canOnlyUseGPT3}
-					/>
-					ChatGPT-16K
-				</label>
-				<label class="btn join-item btn-outline" class:btn-disabled={canOnlyUseGPT3}>
-					<input
-						class="radio radio-sm radio-primary"
-						type="radio"
-						value="4"
-						bind:group={$currentBot.settings.gptVersion}
-						disabled={canOnlyUseGPT3}
-					/>
-					GPT-4
-				</label>
-				<label class="btn join-item btn-outline" class:btn-disabled={canOnlyUseGPT3}>
-					<input
-						class="radio radio-sm radio-primary"
-						type="radio"
-						value="4-preview"
-						bind:group={$currentBot.settings.gptVersion}
-						disabled={canOnlyUseGPT3}
-					/>
-					GPT-4 Preview
-				</label>
+			<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+				<VersionLabel title="ChatGPT 3.5 Turbo" value="3.5" />
+				<VersionLabel title="ChatGPT 3.5 (June)" value="3.5-june" />
+				<!-- <VersionLabel title={"Azure-GPT 3.5"} value={"azure-3.5"} /> -->
+				<VersionLabel title="ChatGPT 16K" value="3.5-16" disabled={onFreePlan || onBasicPlan} />
+				<VersionLabel title="GPT 4" value="4" disabled={onFreePlan || onBasicPlan} />
+				<VersionLabel title="GPT 4 Preview" value="4-preview" disabled={onFreePlan || onBasicPlan} />
+				<!-- <VersionLabel title={"Azure-GPT 4"} value={"azure-4"} disabled={onFreePlan  || onBasicPlan} /> -->
 			</div>
-			{#if ['3.5-16', '4'].includes($currentBot.settings.gptVersion) && !$currentBot.settings.openai_api_key}
+	
+			{#if ['3.5-16', '4', 'azure-4'].includes($currentBot.settings.gptVersion) && !$currentBot.settings.openai_api_key}
 				<div class="alert alert-warning font-bold mt-2">
 					<div>
 						<h3 class="text-xl mb-2">Important!</h3>
 						{#if $currentBot.settings.gptVersion === '4'}
 							By enabling GPT-4 <strong>every message you send will debit 20 messages</strong>
 							 from your monthly allowance.
-						{:else}
+						{:else if $currentBot.settings.gptVersion === '3.5-16'}
 							By enabling GPT-3.5 16K <strong>every message you send will debit 4 messages</strong>
+							 from your monthly allowance.
+						{:else if $currentBot.settings.gptVersion === 'azure-4'}
+							By enabling GPT-4 Preview <strong>every message you send will debit 20 messages</strong>
 							 from your monthly allowance.
 						{/if}
 					</div>
