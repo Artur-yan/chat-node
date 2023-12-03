@@ -130,7 +130,7 @@
 
 			<div class="flex items-center lg:order-2 max-sm:hidden">
 				<a class="btn btn-xs btn-ghost text-primary mr-2" href="/login">Sign in</a>
-				<a class="btn btn-sm btn-primary" href="/register">Sign Up for Free</a>
+				<a class="btn btn-sm btn-primary" href="/register">Sign Up For Free</a>
 			</div>
 
 			<div class="dropdown dropdown-end sm:hidden">
