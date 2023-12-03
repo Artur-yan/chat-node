@@ -69,10 +69,19 @@
 		<Addon
 			name="No Branding"
 			max1={true}
-			description="Remove the ChatNode branding from all of your bots."
+			description='Remove "Powered by ChatNode" from all of your bots.'
 			price={19}
 			subscription={brandingSubscription}
 			addonId="10004"
+			user_id={data.subscription?.user_id}
+		/>
+		<Addon
+			name="CNAME"
+			max1={true}
+			description='Have your chatbot 100% white label with your own domain'
+			price={59}
+			subscription={brandingSubscription}
+			addonId="10005"
 			user_id={data.subscription?.user_id}
 		/>
 	</div>
