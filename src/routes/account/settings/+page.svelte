@@ -154,7 +154,7 @@
 				{/if}
 			</div>
 		</div>
-		{#if data.subscription.plan === 1006}
+		{#if data.subscription.plan !== 0}
 			<form class="card bg-neutral">
 				<div class="card-body">
 					<h2 class="card-title">Default OpenAI API Key</h2>
