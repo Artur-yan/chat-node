@@ -12,13 +12,13 @@
 	let chatSettings = {
 		...defaultSettings
 	};
-	chatSettings.theme.resetButton = '#FFFFFF88';
+	//chatSettings.theme.resetButton = '#FFFFFF88';
 
 	let messages = [];
 
 	const demoChat = async () => {
 		chatSettings.theme = themes['default'];
-		chatSettings.theme.bg = '#FFFFFFEE';
+		//chatSettings.theme.bg = '#FFFFFFEE';
 
 		messages = [
 			{
@@ -239,7 +239,7 @@
 						<span
 							class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center"
 						>
-							1.1
+							2
 						</span>
 						<span>Connect Any URLs...</span>
 					</h2>
@@ -334,7 +334,7 @@
 						<span
 							class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center"
 						>
-							2
+							3
 						</span>
 						<span>Customize Your Prompt.</span>
 					</h2>
@@ -357,7 +357,7 @@
 						<span
 							class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center"
 						>
-							3
+							4
 						</span>
 						<span>Add Your Branding</span>
 					</h2>
