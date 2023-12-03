@@ -193,7 +193,7 @@
 			</div>
 		</div>
 	</div>
-	{#if data.subscription?.plan === 1006}
+	{#if (data.subscription?.plan === 1006) || (data.subscription?.addons?.['10005']?.['status'])}
 		<VercelCustomDomain />
 
 		<!-- Legacy Domain -->
