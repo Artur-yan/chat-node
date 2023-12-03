@@ -13,7 +13,7 @@
 	export let data;
 	export let form;
 
-	let billingTerm = 'monthly';
+	let billingTerm = 'yearly';
 	let busyChangingPlan;
 
 	let currentPlan = data.subscription.plan;
