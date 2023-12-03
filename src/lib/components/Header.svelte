@@ -89,7 +89,7 @@
 
 			<div class="flex items-center lg:order-2 max-sm:hidden">
 				<a class="btn btn-sm btn-ghost text-primary mr-2" href="/login">Sign in</a>
-				<a class="btn btn-primary" href="/register">Sign Up For Free</a>
+				<a class="btn btn-primary" href="/register">Sign Up for Free</a>
 			</div>
 
 			<div class="dropdown dropdown-end sm:hidden">
@@ -106,11 +106,30 @@
 					</svg>
 				</label>
 				<ul tabindex="0" class="dropdown-content z-20 menu p-2 shadow bg-base-100 rounded-box w-52">
-					{#each links as { title, href }}
-						<li>
-							<a class="justify-center py-4" {href}>{title}</a>
-						</li>
-					{/each}
+					<!--{#each links as { title, href }}-->
+					<!--	<li>-->
+					<!--		<a class="justify-center py-4" {href}>{title}</a>-->
+					<!--	</li>-->
+					<!--{/each}-->
+					{#each links as link}
+							{#if link.dropdown}
+									<li class="dropdown">
+											<div tabindex="0" class="cursor-pointer">{link.title}</div>
+											<ul class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+													{#each link.dropdown as { title, href }}
+															<li>
+																<a class="justify-center py-4" href={href}>{title}</a>
+															</li>
+													{/each}
+											</ul>
+									</li>
+							{:else}
+									<li>
+											<a class="justify-center py-4" href={link.href}>{link.title}</a>
+									</li>
+							{/if}
+        	  {/each}
+
 					<li>
 						<a class="text-primary py-4 justify-center" href="/login">Sign in</a>
 					</li>
@@ -149,18 +168,36 @@
 				</a>
 				<div class="max-sm:hidden">
 					<ul class="flex text-sm space-x-8 font-bold">
-						{#each links as { title, href }}
-							<li>
-								<a {href}>{title}</a>
-							</li>
-						{/each}
+						<!--{#each links as { title, href }}-->
+						<!--	<li>-->
+						<!--		<a {href}>{title}</a>-->
+						<!--	</li>-->
+						<!--{/each}-->
+						{#each links as link}
+							{#if link.dropdown}
+									<li class="dropdown">
+											<div tabindex="0" class="cursor-pointer">{link.title}</div>
+											<ul class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+													{#each link.dropdown as { title, href }}
+															<li>
+																<a href={href}>{title}</a>
+															</li>
+													{/each}
+											</ul>
+									</li>
+							{:else}
+									<li>
+											<a href={link.href}>{link.title}</a>
+									</li>
+							{/if}
+        	  {/each}
 					</ul>
 				</div>
 			</div>
 
 			<div class="flex items-center lg:order-2 max-sm:hidden">
 				<a class="btn btn-xs btn-ghost text-primary mr-2" href="/login">Sign in</a>
-				<a class="btn btn-sm btn-primary" href="/register">Sign Up For Free</a>
+				<a class="btn btn-sm btn-primary" href="/register">Sign Up for Free</a>
 			</div>
 
 			<div class="dropdown dropdown-end sm:hidden">
@@ -180,11 +217,29 @@
 					tabindex="0"
 					class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
 				>
-					{#each links as { title, href }}
-						<li>
-							<a class="justify-center py-4" {href}>{title}</a>
-						</li>
-					{/each}
+					<!--{#each links as { title, href }}-->
+					<!--	<li>-->
+					<!--		<a class="justify-center py-4" {href}>{title}</a>-->
+					<!--	</li>-->
+					<!--{/each}-->
+					{#each links as link}
+							{#if link.dropdown}
+									<li class="dropdown">
+											<div tabindex="0" class="cursor-pointer">{link.title}</div>
+											<ul class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+													{#each link.dropdown as { title, href }}
+															<li>
+																<a class="justify-center py-4" href={href}>{title}</a>
+															</li>
+													{/each}
+											</ul>
+									</li>
+							{:else}
+									<li>
+											<a class="justify-center py-4" href={link.href}>{link.title}</a>
+									</li>
+							{/if}
+        	  {/each}
 					<li>
 						<a class="text-primary py-4 justify-center" href="/login">Sign in</a>
 					</li>
