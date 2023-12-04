@@ -82,7 +82,7 @@
 				text: 'Can I use the prompt to make my chatbot speak like a customer support agent?'
 			},
 			{
-				text: 'Absolutely! You can prompt your chatbot to ask certain questions up-front, repsond differently based on the answer and provide contact information if the chatbot is unable to answer the question. Get creative!',
+				text: 'Absolutely! You can prompt your chatbot to ask certain questions up-front, respond differently based on the answer and provide contact information if the chatbot is unable to answer the question. Get creative!',
 				sender: 'bot'
 			}
 		];
@@ -141,7 +141,7 @@
 	<IntersectionObserver bind:intersecting={topSectionIntersecting} top={0} />
 
 	<div
-		class="grid container lg:grid-cols-[4fr_3fr] items-stretch gap-8 md:gap-12 lg:gap-16 mx-auto pt-[5vh] pb-[10vh]"
+		class="grid container lg:grid-cols-[4fr_3fr] items-stretch gap-8 md:gap-12 lg:gap-16 mx-auto pt-[10vh] pb-[10vh]"
 	>
 		<div class="max-lg:text-center">
 			<div class="pb-20 h-screen">
