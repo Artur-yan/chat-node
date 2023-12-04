@@ -4,6 +4,12 @@
 	import Hero from './Hero.svelte';
 	import ShowCase from './ShowCase.svelte';
 	import PopupCallout from './PopupCallout.svelte';
+	import Testimonials from '$lib/components/Testimonials.svelte';
+
+	export let data;
+
+	const { testimonials } = data.streamed;
+
 </script>
 
 <svelte:head>
@@ -24,7 +30,9 @@
 
 <div id="features" />
 
-<ShowCase />
+<!--<ShowCase />-->
+
+<Testimonials {testimonials} />
 
 <Features />
 
