@@ -31,18 +31,18 @@
 		}
 	});
 
+	let startDate = new Date();
 	let today = new Date();
 	let resetDate = new Date();
-
-	if (today.getDate() < 15) {
-		resetDate = new Date(resetDate.setMonth(resetDate.getMonth() + 1));
-	} else {
-		resetDate = new Date(resetDate.setMonth(resetDate.getMonth() + 1));
-	}
+	startDate.setDate(15);
 	resetDate.setDate(15);
-	let daysLeftUntilAllotmentsReset = Math.ceil(
-		(resetDate - new Date().getTime()) / (1000 * 3600 * 24)
-	);
+
+	if (today.getDate() > 15) {
+		resetDate.setMonth(resetDate.getMonth() + 1);
+	} else {
+		startDate.setMonth(startDate.getMonth() - 1);
+	}
+
 </script>
 
 <svelte:head>
@@ -112,8 +112,8 @@
 						<progress
 							class="progress progress-warning w-full bg-neutral h-1"
 							class:progress-warning={data.subscription.cancel_at}
-							value={31 - daysLeftUntilAllotmentsReset}
-							max={31}
+							value={today.getTime() - startDate.getTime()}
+							max={resetDate.getTime() - startDate.getTime()}
 						/>
 					</div>
 				</div>
