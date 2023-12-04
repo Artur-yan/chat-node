@@ -148,17 +148,16 @@
 				<div>
 					<h2
 						class="my-6 text-[8vw] sm:text-3xl md:text-4xl lg:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-full max-lg:mx-auto"
-					>
-						Create your own <div class="text-primary">AI Customer Support Agent</div>
+					><div class="text-primary">AI Customer Support Agent for Crisp</div>
 					</h2>
 					<div
 						class="text-2xl md:text-3xl lg:text-4xl font-bold max-w-[24ch] lg:max-w-[40ch] md:leading-10 max-lg:mx-auto"
 					>
-						Train ChatGPT on your data and respond to customers 24/7
+						Offload 80% of your customer’s queries
 					</div>
 					<div class="flex items-center max-lg:justify-center">
 						<div class="mt-16 flex gap-4">
-							<a href="/register" class="btn btn-primary">Create A Free Customer Support Chatbot</a>
+							<a href="/register" class="btn btn-primary">Sign up For Free</a>
 						</div>
 					</div>
 					<p class="text-sm mt-2">No credit card required</p>
@@ -209,7 +208,7 @@
 										/>
 									</svg>
 								</td>
-								<td>Product Specs.xls</td>
+								<td>CS-conversation-history.xls</td>
 							</tr>
 							<tr data-aos="fade-right">
 								<td>
@@ -396,6 +395,24 @@
 								</button>
 							</div>
 						</div>
+					</div>
+				</div>
+			</section>
+			<section class="md:h-screen md:min-h-[50em]">
+				<div class="md:sticky top-20 py-10">
+					<IntersectionObserver bind:intersecting={brandSectionIntersecting} top={0} />
+					<h2 class="text-5xl font-bold flex items-center gap-4 mb-10">
+						<span
+							class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center"
+						>
+							5
+						</span>
+						<span>Connect to Crisp for live agent handling</span>
+					</h2>
+					<div
+						class="my-10 rounded-xl bg-neutral p-4 leading-7 md:leading-8 md:text-lg font-light max-w-2xl"
+					>
+						The AI will solve 80% of your customer’s queries and hand off the chat to your Crisp if it can’t answer.
 					</div>
 				</div>
 			</section>
