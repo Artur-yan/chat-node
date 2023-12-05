@@ -87,6 +87,9 @@
 					<li>
 						<a class="text-primary py-4 justify-center" href="/login">Sign in</a>
 					</li>
+					<li>
+							<a class="text-primary py-4 justify-center" href="/register">Sign Up For Free</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -157,6 +160,9 @@
 					{/each}
 					<li>
 						<a class="text-primary py-4 justify-center" href="/login">Sign in</a>
+					</li>
+					<li>
+							<a class="text-primary py-4 justify-center" href="/register">Sign Up For Free</a>
 					</li>
 				</ul>
 			</div>
