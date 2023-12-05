@@ -29,7 +29,7 @@ export const POST = async  ({ request }) => {
 
 export const DELETE = async  ({ request }) => {
     const { domain, botId } = await request.json();
-    const res = await fetch(`https://api.vercel.com/v9/projects/${VERCEL_PROJECT_ID}/domains/${domain}?${VERCEL_TEAM_ID}`, {
+    const res = await fetch(`https://api.vercel.com/v9/projects/${VERCEL_PROJECT_ID}/domains/${domain}?teamId=${VERCEL_TEAM_ID}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${VERCEL_BEARER_TOKEN}`
