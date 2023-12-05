@@ -156,8 +156,11 @@
 						Offload 80% of your customer’s queries
 					</div>
 					<div class="flex items-center max-lg:justify-center">
-						<div class="mt-16 flex gap-4">
+						<div class="mt-16 flex gap-4 mr-4">
 							<a href="/register" class="btn btn-primary">Sign up For Free</a>
+						</div>
+						<div class="mt-16 flex gap-4">
+							<a href="#demo" class="btn btn-secondary">Demo</a>
 						</div>
 					</div>
 					<p class="text-sm mt-2">No credit card required</p>
