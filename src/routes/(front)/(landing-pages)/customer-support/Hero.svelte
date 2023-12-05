@@ -40,7 +40,7 @@
 
 		messages = [
 			{
-				text: 'Do you have customer supprt scripts, product spec docs or FAQs as documents? You can easily upload those to train your chatbot on.',
+				text: 'Do you have customer support scripts, product spec docs or FAQs as documents? You can easily upload those to train your chatbot on.',
 				sender: 'bot'
 			},
 			{
@@ -75,14 +75,14 @@
 
 		messages = [
 			{
-				text: "A prompt allows you to change the tone and behvaior of your chatbot's personality.",
+				text: "A prompt allows you to change the tone and behavior of your chatbot's personality.",
 				sender: 'bot'
 			},
 			{
 				text: 'Can I use the prompt to make my chatbot speak like a customer support agent?'
 			},
 			{
-				text: 'Absolutely! You can prompt your chatbot to ask certain questions up-front, respond differently based on the answer and provide contact information if the chatbot is unable to answer the question. Get creative!',
+				text: 'Absolutely! You can prompt your chatbot to ask certain questions up-front, respond differently based on the answer and provide contact information or hand over the chat to Crisp if the chatbot is unable to answer the question. Get creative!',
 				sender: 'bot'
 			}
 		];
@@ -148,7 +148,7 @@
 				<div>
 					<h2
 						class="my-6 text-[8vw] sm:text-3xl md:text-4xl lg:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-full max-lg:mx-auto"
-					><div class="text-primary">AI Customer Support Agent for Crisp</div>
+					>AI Customer Support<div class="text-primary">Agent for Crisp</div>
 					</h2>
 					<div
 						class="text-2xl md:text-3xl lg:text-4xl font-bold max-w-[24ch] lg:max-w-[40ch] md:leading-10 max-lg:mx-auto"
