@@ -2,6 +2,7 @@
 	import PricingGrid from '$lib/components/PricingGrid.svelte';
 	import Features from './Features.svelte';
 	import Hero from './Hero.svelte';
+	import Videos from './Videos.svelte';
 	import ShowCase from './ShowCase.svelte';
 	import PopupCallout from './PopupCallout.svelte';
 	import Testimonials from '$lib/components/Testimonials.svelte';
@@ -27,9 +28,8 @@
 </svelte:head>
 
 <Hero />
-
+<Videos />
 <div id="features" />
-
 <!--<ShowCase />-->
 
 <Testimonials {testimonials} />
