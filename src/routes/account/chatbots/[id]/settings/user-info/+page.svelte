@@ -15,7 +15,7 @@
 					<span class="label-text">Collect Name?</span>
 					<input
 						type="checkbox"
-						class="toggle toggle-warning input-success"
+						class="toggle toggle-warning input-success ml-0.5"
 						bind:checked={$currentBot.settings.collectUserName}
 					/>
 				</label>
@@ -37,7 +37,7 @@
 					<span class="label-text">Collect Email?</span>
 					<input
 						type="checkbox"
-						class="toggle toggle-warning input-success"
+						class="toggle toggle-warning input-success ml-1.5"
 						bind:checked={$currentBot.settings.collectUserEmail}
 					/>
 				</label>
