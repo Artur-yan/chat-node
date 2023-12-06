@@ -8,8 +8,21 @@ const date = new Date().toISOString().split('T')[0]
 function getSitemapXML(domain: string, routes: string[]) {
     let sitemap = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     sitemap += "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n"
+
+    const addedUrls = new Set<string>();
+
     routes.forEach(route => {
-        sitemap += getSitemapUrl(domain + route)
+        if (!route.startsWith("/account") && !route.startsWith("/embed")) {
+            let cleanedRoute = route.replace(/\/\(.*?\)/g, '');
+            cleanedRoute = cleanedRoute.replace(/\/\[slug\]/g, '');
+
+            const fullUrl = domain + cleanedRoute;
+
+            if (!addedUrls.has(fullUrl)) {
+                sitemap += getSitemapUrl(fullUrl);
+                addedUrls.add(fullUrl);
+            }
+        }
     })
     sitemap += "\n</urlset>"
     return sitemap;
