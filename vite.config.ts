@@ -2,7 +2,6 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 import { imagetools } from '@zerodevx/svelte-img/vite';
 import fs from 'fs';
-import Sitemap from 'vite-plugin-sitemap'
 
 // Function to handle the robots.txt file
 function handleRobotsFile() {
@@ -16,7 +15,5 @@ function handleRobotsFile() {
 handleRobotsFile();
 
 export default defineConfig({
-	plugins: [sveltekit(), imagetools(),
-		Sitemap({generateRobotsTxt: false, outDir: "static"}
-		)],
+	plugins: [sveltekit(), imagetools()],
 });
