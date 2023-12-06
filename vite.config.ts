@@ -17,6 +17,6 @@ handleRobotsFile();
 
 export default defineConfig({
 	plugins: [sveltekit(), imagetools(),
-		Sitemap({generateRobotsTxt: false}
+		Sitemap({generateRobotsTxt: false, outDir: "static"}
 		)],
 });
