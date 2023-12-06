@@ -156,8 +156,11 @@
 						Offload 80% of your customer’s queries
 					</div>
 					<div class="flex items-center max-lg:justify-center">
-						<div class="mt-16 flex gap-4">
+						<div class="mt-16 flex gap-4 mr-4">
 							<a href="/register" class="btn btn-primary">Sign up For Free</a>
+						</div>
+						<div class="mt-16 flex gap-4">
+							<a href="#demo" class="btn btn-secondary">Demo</a>
 						</div>
 					</div>
 					<p class="text-sm mt-2">No credit card required</p>
@@ -168,7 +171,7 @@
 				<div class="md:sticky top-20 py-10">
 					<IntersectionObserver bind:intersecting={uploadSectionIntersecting} top={0} />
 
-					<h2 class="text-5xl font-bold flex items-center gap-4">
+					<h2 class="text-4xl md:text-5xl font-bold flex items-center gap-2">
 						<span
 							class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center"
 						>
@@ -234,7 +237,7 @@
 				<div class="md:sticky top-20 py-10">
 					<IntersectionObserver bind:intersecting={urlSectionIntersecting} top={0} />
 
-					<h2 class="text-5xl font-bold flex items-center gap-4">
+					<h2 class="text-4xl md:text-5xl font-bold flex items-center gap-4">
 						<span
 							class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center"
 						>
@@ -329,7 +332,7 @@
 				<div class="md:sticky top-20 py-10">
 					<IntersectionObserver bind:intersecting={promptSectionIntersecting} top={0} />
 
-					<h2 class="text-5xl font-bold flex items-center gap-4">
+					<h2 class="text-4xl md:text-5xl font-bold flex items-center gap-4">
 						<span
 							class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center"
 						>
@@ -352,7 +355,7 @@
 			<section class="md:h-screen md:min-h-[50em]">
 				<div class="md:sticky top-20 py-10">
 					<IntersectionObserver bind:intersecting={brandSectionIntersecting} top={0} />
-					<h2 class="text-5xl font-bold flex items-center gap-4 mb-10">
+					<h2 class="text-4xl md:text-5xl font-bold flex items-center gap-4 mb-10">
 						<span
 							class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center"
 						>
@@ -360,9 +363,9 @@
 						</span>
 						<span>Add Your Branding</span>
 					</h2>
-					<div class="card bg-neutral card-compact mb-4">
+					<div class="card bg-neutral card-compact mb-4  w-4/5">
 						<div class="card-body">
-							<div class="themes">
+							<div class="themes flex flex-wrap gap-3">
 								<button
 									class="btn bg-[#0F172A] text-[#818CF8]"
 									on:click={() => showcaseTheme('default')}
@@ -401,7 +404,7 @@
 			<section class="md:h-screen md:min-h-[50em]">
 				<div class="md:sticky top-20 py-10">
 					<IntersectionObserver bind:intersecting={brandSectionIntersecting} top={0} />
-					<h2 class="text-5xl font-bold flex items-center gap-4 mb-10">
+					<h2 class="text-4xl md:text-5xl font-bold flex items-center gap-4 mb-10 text-left">
 						<span
 							class="aspect-square font-extralight border-primary text-xl text-primary border rounded-full h-8 items-center flex justify-center text-center"
 						>
