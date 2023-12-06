@@ -1,6 +1,6 @@
 import dirTree from "directory-tree";
 import * as fs from "fs";
-import { PUBLIC_SITE_URL } from '$env/static/public';
+//import { PUBLIC_SITE_URL } from '$env/static/public';
 
 const baseRoute = "/";
 const routes: string[] = [baseRoute]
@@ -40,7 +40,7 @@ const tree = dirTree("./src/routes")
 getEndpoints(tree, baseRoute);
 
 // YOUR_DOMAIN should be like https://example.com
-const sitemap = getSitemapXML(PUBLIC_SITE_URL, routes)
+const sitemap = getSitemapXML("test", routes)
 
 // If you use the script in postbuild mode use
 // For vercel deployment use:
