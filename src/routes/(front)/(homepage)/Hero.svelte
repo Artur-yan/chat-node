@@ -44,11 +44,11 @@
 <section>
 	<div class="grid container lg:grid-cols-2 items-center gap-8 mx-auto pt-[5vh] pb-[10vh]">
 		<div class="max-lg:text-center">
-			<h2
+			<h1
 				class="my-6 w-[11ch] text-[10vw] sm:text-4xl md:text-5xl lg:text-7xl 2xl:text-8xl tracking-tight font-extrabold text-secondary max-w-full max-lg:mx-auto"
 			>
 				Train ChatGPT on your data
-			</h2>
+			</h1>
 
 			<div
 				class="text-2xl md:text-3xl lg:text-4xl font-bold max-w-[20ch] lg:max-w-[24ch] md:leading-10 max-lg:mx-auto"
