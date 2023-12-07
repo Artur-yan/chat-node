@@ -18,7 +18,7 @@
 	</div>
 	<div>
 		<span class="footer-title">Industries</span>
-		<a class="link link-hover" href="/customer-support">Customer Support</a>
+		<a class="link link-hover" href="/customer-support" rel="external">Customer Support</a>
 	</div>
 	<div>
 		<span class="footer-title">Legal</span>
