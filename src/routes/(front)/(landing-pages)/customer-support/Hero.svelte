@@ -365,7 +365,7 @@
 					</h2>
 					<div class="card bg-neutral card-compact mb-4">
 						<div class="card-body">
-							<div class="themes flex flex-wrap gap-2 md:gap-3">
+							<div class="themes grid grid-cols-3 md:grid-cols-5 gap-3">
 								<button
 									class="btn bg-[#0F172A] text-[#818CF8]"
 									on:click={() => showcaseTheme('default')}
