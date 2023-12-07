@@ -14,6 +14,7 @@
 </script>
 
 <svelte:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>ChatNode | Train ChatGPT on your data</title>
 	<meta
 		name="description"
@@ -28,7 +29,10 @@
 </svelte:head>
 
 <Hero />
-<Videos />
+
+<div class="mx-3">
+	<Videos />
+</div>
 <div id="features" />
 <!--<ShowCase />-->
 
