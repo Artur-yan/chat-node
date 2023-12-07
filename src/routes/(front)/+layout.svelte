@@ -22,6 +22,7 @@
 
 <svelte:head>
 	<script
+		defer
 		type="text/javascript"
 		src="https://app.termly.io/embed.min.js"
 		data-auto-block="on"
