@@ -141,10 +141,10 @@
 	<IntersectionObserver bind:intersecting={topSectionIntersecting} top={0} />
 
 	<div
-		class="grid container lg:grid-cols-[4fr_3fr] items-stretch gap-8 md:gap-12 lg:gap-16 mx-auto pt-[10vh] pb-[10vh]"
+		class="grid grid-cols-1 lg:grid-cols-[4fr_3fr] container items-stretch gap-8 md:gap-12 lg:gap-16 mx-auto pt-[10vh] pb-[10vh]"
 	>
 		<div class="max-lg:text-center">
-			<div class="pb-20 h-screen">
+			<div class="pb-20 md:h-screen">
 				<div>
 					<h2
 						class="my-6 text-[8vw] sm:text-3xl md:text-4xl lg:text-6xl 2xl:text-7xl tracking-tight font-extrabold text-secondary max-w-full max-lg:mx-auto"
@@ -163,11 +163,11 @@
 							<a href="#demo" class="btn btn-secondary">Demo</a>
 						</div>
 					</div>
-					<p class="text-sm mt-2">No credit card required</p>
+					<p class="text-sm mt-2 italic">No credit card required</p>
 				</div>
 			</div>
 
-			<section class="md:h-screen md:min-h-40em] pb-10">
+			<section class="md:h-screen md:min-h-[40em] pb-10">
 				<div class="md:sticky top-20 py-10">
 					<IntersectionObserver bind:intersecting={uploadSectionIntersecting} top={0} />
 
@@ -233,7 +233,7 @@
 					</div>
 				</div>
 			</section>
-			<section class="md:h-screen md:min-h-[40em] pb-10">
+			<section class="md:h-screen md:min-h-[40em] pb-10 overflow-auto">
 				<div class="md:sticky top-20 py-10">
 					<IntersectionObserver bind:intersecting={urlSectionIntersecting} top={0} />
 
@@ -243,10 +243,10 @@
 						>
 							2
 						</span>
-						<span>Connect Any URLs...</span>
+						<span class="text-left">Connect Any URLs...</span>
 					</h2>
 					<div class="table my-10 table-zebra text-lg">
-						<tbody>
+						<tbody class="">
 							<tr data-aos="fade-right">
 								<td>
 									<svg
@@ -338,7 +338,7 @@
 						>
 							3
 						</span>
-						<span>Customize Your Prompt.</span>
+						<span class="text-left">Customize Your Prompt.</span>
 					</h2>
 					<div
 						class="my-10 rounded-xl bg-neutral p-4 leading-7 md:leading-8 md:text-lg font-light max-w-2xl"
@@ -363,9 +363,9 @@
 						</span>
 						<span>Add Your Branding</span>
 					</h2>
-					<div class="card bg-neutral card-compact mb-4  w-4/5">
+					<div class="card bg-neutral card-compact mb-4">
 						<div class="card-body">
-							<div class="themes flex flex-wrap gap-3">
+							<div class="themes grid grid-cols-3 md:grid-cols-5 gap-3">
 								<button
 									class="btn bg-[#0F172A] text-[#818CF8]"
 									on:click={() => showcaseTheme('default')}
@@ -424,7 +424,7 @@
 		<div>
 			<div
 				id="chat-wrapper"
-				class="md:sticky top-1/4 rounded-2xl border-secondary bg-base-100 max-w-4xl mx-auto overflow-hidden h-[calc(50vh)]"
+				class="md:sticky top-1/4 rounded-2xl border-secondary bg-base-100 max-w-4xl mx-auto overflow-hidden h-[calc(50vh)] glow-box"
 				data-aos="fade-up"
 			>
 				<Chat
@@ -441,3 +441,9 @@
 <section>
 	<WaysToShare />
 </section>
+
+<style>
+	.glow-box {
+		box-shadow: 5px 5px 25px #757575, 0px 0px 20px #614ad3;
+	}
+</style>
