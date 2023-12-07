@@ -12,6 +12,7 @@
 	const md = new Remarkable();
 
 	import '$lib/assets/css/chat.postcss';
+	import { currentBot } from '$lib/stores';
 
 	export let removeBranding = true;
 	export let modelId: string;
@@ -313,7 +314,7 @@
 								{/if} -->
 								</div>
 							</div>
-							{#if msg.sender === 'bot' && msg.links && msg.links.length > 0}
+							{#if $currentBot.settings.sourceUrls && msg.sender === 'bot' && msg.links && msg.links.length > 0}
 							<ChatLinks links={links} />
 							{/if}
 						{/each}

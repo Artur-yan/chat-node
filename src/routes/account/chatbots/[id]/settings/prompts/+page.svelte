@@ -15,6 +15,10 @@
 
 		$currentBot.settings.suggestedQuestions = [...$currentBot.settings.suggestedQuestions];
 	};
+
+	const handleSourceUrlChange = () => {
+		console.log($currentBot.settings.sourceUrls)
+	};
 </script>
 
 <div>
@@ -103,6 +107,25 @@
 			<span class="label-text-alt">More Focused</span>
 			<span class="badge badge-primary">{$currentBot.settings.temperature}</span>
 			<span class="label-text-alt">More Creative</span>
+		</div>
+	</div>
+
+	<div class="card bg-neutral mt-4">
+		<div class="card-body">
+			<h2 class="card-title">Source URLs</h2>
+			<span class="label-text text-gray-400">Use source URLs in response</span> 
+			<div class="form-control">
+				<label class="cursor-pointer label w-4">
+					<span class="label-text">OFF</span> 
+					<input 
+						type="checkbox" 
+						class="toggle toggle-primary mx-3"
+						bind:checked={$currentBot.settings.sourceUrls}
+						on:change={handleSourceUrlChange}
+						/>
+					<span class="label-text">ON</span> 
+				</label>
+			</div>
 		</div>
 	</div>
 
