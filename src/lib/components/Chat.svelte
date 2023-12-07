@@ -314,7 +314,7 @@
 								{/if} -->
 								</div>
 							</div>
-							{#if $currentBot.settings.sourceUrls && msg.sender === 'bot' && msg.links && msg.links.length > 0}
+							{#if $currentBot.settings.useSourceUrls && msg.sender === 'bot' && msg.links && msg.links.length > 0}
 							<ChatLinks links={links} />
 							{/if}
 						{/each}
