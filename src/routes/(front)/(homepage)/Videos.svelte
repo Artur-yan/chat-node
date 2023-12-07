@@ -2,9 +2,7 @@
 	class="flex items-center justify-center md:p-14 from-black via-accent to-base-300 bg-gradient-to-br"
 >
 	<div class="w-full max-w-5xl">
-		<div class="aspect-w-16 aspect-h-9">
-				<iframe class="aspect-video" src="https://www.youtube.com/embed/eGTIVzKT-j8?si=sXpFqE5_c4n9xETd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-		</div>
+			<iframe class="w-full aspect-video" src="https://www.youtube.com/embed/eGTIVzKT-j8?si=sXpFqE5_c4n9xETd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</div>
 </section>
 
