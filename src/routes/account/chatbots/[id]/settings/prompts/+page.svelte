@@ -17,7 +17,7 @@
 	};
 
 	const handleSourceUrlChange = () => {
-		console.log($currentBot.settings.sourceUrls)
+		console.log($currentBot.settings.useSourceUrls)
 	};
 </script>
 
@@ -120,7 +120,7 @@
 					<input 
 						type="checkbox" 
 						class="toggle toggle-primary mx-3"
-						bind:checked={$currentBot.settings.sourceUrls}
+						bind:checked={$currentBot.settings.useSourceUrls}
 						on:change={handleSourceUrlChange}
 						/>
 					<span class="label-text">ON</span> 
