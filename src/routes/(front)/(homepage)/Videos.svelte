@@ -1,9 +1,17 @@
-<section
+<script lang="ts">
+	let video: HTMLVideoElement;
+
+	const loadVideo = () => {
+		video.preload = "auto";
+	}
+</script>
+
+<section on:mouseover={loadVideo}
 	class="flex items-center justify-center md:p-14 from-black via-accent to-base-300 bg-gradient-to-br"
 >
 	<div class="w-full max-w-5xl">
 		<div>
-			<video preload="auto" controls="controls" height="1920" width="1080" poster="/ChatNode Demo Poster-min.jpg">
+			<video bind:this={video} preload="none" controls="controls" height="1920" width="1080" poster="/ChatNode Demo Poster-min.jpg">
 				<source src="ChatNode Demo-min.mp4" type="video/mp4" />
 			</video>
 		</div>
