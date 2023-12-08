@@ -1,12 +1,22 @@
+<script lang="ts">
+	import { onMount } from "svelte";
+	let video: HTMLVideoElement;
+
+	onMount(() => {
+		video.preload = "auto";
+	});
+</script>
+
 <section id="demo"
     class="flex items-center justify-center md:p-14 from-black via-accent to-base-300 bg-gradient-to-br"
 >
     <div class="w-full max-w-5xl">
    <div>
-			<video preload="auto" controls="controls" height="1920" width="1080" poster="/Integrating Chatnode with CRISP.png">
-				<source src="Integrating Chatnode with CRISP.mp4" type="video/mp4" />
+			<video bind:this={video} preload="none" controls="controls" height="1920" width="1080" poster="/Integrating Chatnode with CRISP.png">
+				<source src="Integrating Chatnode with CRISP-small.mp4" type="video/mp4" />
 			</video>
 		</div>
+	</div>
 </section>
 
 

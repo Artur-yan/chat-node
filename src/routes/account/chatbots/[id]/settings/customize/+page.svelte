@@ -396,8 +396,8 @@
 					/>
 					<input
 						type="submit"
-						class="btn join-item border-primary border-l-0"
-						value="Upload"
+						class="btn join-item border-primary"
+						value="Confirm"
 						formaction="?/updateAvatarImg"
 						disabled={!uploadedImage}
 					/>
