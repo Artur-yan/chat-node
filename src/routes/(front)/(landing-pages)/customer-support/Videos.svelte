@@ -2,9 +2,11 @@
     class="flex items-center justify-center md:p-14 from-black via-accent to-base-300 bg-gradient-to-br"
 >
     <div class="w-full max-w-5xl">
-    <div style="position: relative; padding-bottom: 62.5%; height: 0;">
-        <iframe src="https://www.loom.com/embed/3c8b3d97a30e4787a8422b1667667504?sid=75dd9751-68c1-4237-a2e4-d55049b62f51" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
-    </div>
+   <div>
+			<video preload="auto" controls="controls" height="1920" width="1080" poster="/Integrating Chatnode with CRISP.png">
+				<source src="Integrating Chatnode with CRISP.mp4" type="video/mp4" />
+			</video>
+		</div>
 </section>
 
 
