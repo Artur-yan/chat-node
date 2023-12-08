@@ -1,13 +1,12 @@
 <script lang="ts">
-	import { onMount } from "svelte";
 	let video: HTMLVideoElement;
 
-	onMount(() => {
+	const loadVideo = () => {
 		video.preload = "auto";
-	});
+	}
 </script>
 
-<section
+<section on:mouseover={loadVideo}
 	class="flex items-center justify-center md:p-14 from-black via-accent to-base-300 bg-gradient-to-br"
 >
 	<div class="w-full max-w-5xl">
