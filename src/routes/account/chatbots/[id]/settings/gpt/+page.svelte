@@ -85,13 +85,13 @@
 							By enabling GPT-4 <strong>every message you send will debit 20 messages</strong>
 							 from your monthly allowance.
 						{:else if $currentBot.settings.gptVersion === '4-preview'}
-						By enabling GPT-4 <strong>every message you send will debit 20 messages</strong>
+						By enabling GPT-4 Preview <strong>every message you send will debit 20 messages</strong>
 						from your monthly allowance.
 						{:else if $currentBot.settings.gptVersion === '3.5-16'}
 							By enabling GPT-3.5 16K <strong>every message you send will debit 4 messages</strong>
 							 from your monthly allowance.
 						{:else if $currentBot.settings.gptVersion === 'azure-4'}
-							By enabling GPT-4 Preview <strong>every message you send will debit 20 messages</strong>
+							By enabling Azure-4 <strong>every message you send will debit 20 messages</strong>
 							 from your monthly allowance.
 						{/if}
 					</div>
