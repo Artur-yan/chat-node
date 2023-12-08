@@ -131,7 +131,9 @@
 						<button
 							class="btn btn-outline btn-secondary join-item"
 							on:click={handleUpdateApiKey}
+
 						>
+							<!--              							disabled={!tiersMap[data.subscription.plan].features.chatnode_api}-->
 							Generate
 						</button>
 					</div>
