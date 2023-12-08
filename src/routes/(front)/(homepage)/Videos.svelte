@@ -3,7 +3,7 @@
 >
 	<div class="w-full max-w-5xl">
 		<div>
-			<video preload="auto" controls="controls" height="1920" width="1080" poster="/ChatNode Demo Poster-min.jpg">
+			<video preload="none" controls="controls" height="1920" width="1080" poster="/ChatNode Demo Poster-min.jpg">
 				<source src="ChatNode Demo-min.mp4" type="video/mp4" />
 			</video>
 		</div>
