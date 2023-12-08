@@ -120,7 +120,7 @@
 			<div class="card-body">
 				<h2 class="card-title">API Key</h2>
 				<p>Fetch your chat history and query your bots with our API</p>
-				{#if tiersMap[data.subscription.plan].features.chatnode_api}
+				<!--{#if tiersMap[data.subscription.plan].features.chatnode_api} for typebot-->
 					<div class="join">
 						<input
 							class="join-item input w-full"
@@ -154,7 +154,7 @@
 				{/if}
 			</div>
 		</div>
-		<!--{#if ![0, 1, 101].includes(data.subscription.plan)} we decided to allow for all for typebot-->
+		{#if ![0, 1, 101].includes(data.subscription.plan)}
 			<form class="card bg-neutral">
 				<div class="card-body">
 					<h2 class="card-title">Default OpenAI API Key</h2>
