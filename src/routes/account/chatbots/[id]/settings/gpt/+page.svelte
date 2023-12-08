@@ -77,18 +77,21 @@
 				<!-- <VersionLabel title={"Azure-GPT 4"} value={"azure-4"} disabled={onFreePlan  || onBasicPlan} /> -->
 			</div>
 	
-			{#if ['3.5-16', '4', 'azure-4'].includes($currentBot.settings.gptVersion) && !$currentBot.settings.openai_api_key}
+			{#if ['3.5-16', '4', '4-preview', 'azure-4'].includes($currentBot.settings.gptVersion) && !$currentBot.settings.openai_api_key}
 				<div class="alert alert-warning font-bold mt-2">
 					<div>
 						<h3 class="text-xl mb-2">Important!</h3>
 						{#if $currentBot.settings.gptVersion === '4'}
 							By enabling GPT-4 <strong>every message you send will debit 20 messages</strong>
 							 from your monthly allowance.
+						{:else if $currentBot.settings.gptVersion === '4-preview'}
+						By enabling GPT-4 Preview <strong>every message you send will debit 20 messages</strong>
+						from your monthly allowance.
 						{:else if $currentBot.settings.gptVersion === '3.5-16'}
 							By enabling GPT-3.5 16K <strong>every message you send will debit 4 messages</strong>
 							 from your monthly allowance.
 						{:else if $currentBot.settings.gptVersion === 'azure-4'}
-							By enabling GPT-4 Preview <strong>every message you send will debit 20 messages</strong>
+							By enabling Azure-4 <strong>every message you send will debit 20 messages</strong>
 							 from your monthly allowance.
 						{/if}
 					</div>
