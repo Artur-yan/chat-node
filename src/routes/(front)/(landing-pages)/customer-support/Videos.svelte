@@ -4,7 +4,7 @@
     <div class="w-full max-w-5xl">
    <div>
 			<video preload="auto" controls="controls" height="1920" width="1080" poster="/Integrating Chatnode with CRISP.png">
-				<source src="Integrating Chatnode with CRISP.mp4" type="video/mp4" />
+				<source src="Integrating Chatnode with CRISP-small.mp4" type="video/mp4" />
 			</video>
 		</div>
 </section>
