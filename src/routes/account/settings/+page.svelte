@@ -154,7 +154,7 @@
 				{/if}
 			</div>
 		</div>
-		{#if ![0, 1, 101].includes(data.subscription.plan)}
+		<!--{#if ![0, 1, 101].includes(data.subscription.plan)} we decided to allow for all for typebot-->
 			<form class="card bg-neutral">
 				<div class="card-body">
 					<h2 class="card-title">Default OpenAI API Key</h2>
