@@ -22,12 +22,10 @@
 
 <svelte:head>
 	<script
-		defer
 		type="text/javascript"
 		src="https://app.termly.io/embed.min.js"
-		data-auto-block="on"
+		data-auto-block="off"
 		data-website-uuid="4f4e94f0-314b-43e8-a338-6dbd736a0242"
-		async
 	></script>
 	<link rel="canonical" href="https://www.chatnode.ai{$page.url.pathname}" />
 
