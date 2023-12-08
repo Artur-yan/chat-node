@@ -120,20 +120,20 @@
 			<div class="card-body">
 				<h2 class="card-title">API Key</h2>
 				<p>Fetch your chat history and query your bots with our API</p>
-				{#if tiersMap[data.subscription.plan].features.chatnode_api}
+				{#if true} <!-- tiersMap[data.subscription.plan].features.chatnode_api &ndash;&gt;-->
 					<div class="join">
 						<input
 							class="join-item input w-full"
 							type="text"
 							placeholder="Click generate to create an API key"
 							bind:value={apiKey}
-							disabled
 						/>
 						<button
 							class="btn btn-outline btn-secondary join-item"
 							on:click={handleUpdateApiKey}
-							disabled={!tiersMap[data.subscription.plan].features.chatnode_api}
+
 						>
+							<!--              							disabled={!tiersMap[data.subscription.plan].features.chatnode_api}-->
 							Generate
 						</button>
 					</div>
