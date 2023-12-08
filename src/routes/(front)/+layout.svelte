@@ -24,7 +24,7 @@
 	<script
 		type="text/javascript"
 		src="https://app.termly.io/embed.min.js"
-		data-auto-block="off"
+		data-auto-block="on"
 		data-website-uuid="4f4e94f0-314b-43e8-a338-6dbd736a0242"
 	></script>
 	<link rel="canonical" href="https://www.chatnode.ai{$page.url.pathname}" />
