@@ -30,7 +30,20 @@
 	<link rel="canonical" href="https://www.chatnode.ai{$page.url.pathname}" />
 
 	<script>
-		(function (h, o, t, j, a, r) {
+window.requestIdleCallback = window.requestIdleCallback ||
+ function (cb) {
+ return setTimeout(function () {
+ var start = Date.now();
+ cb({
+ didTimeout: false,
+ timeRemaining: function () {
+ return Math.max(0, 50 - (Date.now() - start));
+ }
+ });
+ }, 1);
+}
+function idleWrapper() {
+ (function (h, o, t, j, a, r) {
 			h.hj =
 				h.hj ||
 				function () {
@@ -43,6 +56,22 @@
 			r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
 			a.appendChild(r);
 		})(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+}
+window.requestIdleCallback(idleWrapper, {timeout: 10000});
+
+		// (function (h, o, t, j, a, r) {
+		// 	h.hj =
+		// 		h.hj ||
+		// 		function () {
+		// 			(h.hj.q = h.hj.q || []).push(arguments);
+		// 		};
+		// 	h._hjSettings = { hjid: 3497330, hjsv: 6 };
+		// 	a = o.getElementsByTagName('head')[0];
+		// 	r = o.createElement('script');
+		// 	r.async = 1;
+		// 	r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+		// 	a.appendChild(r);
+		// })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
 	</script>
 
 	{#if PUBLIC_ENVIRONMENT === 'production'}
