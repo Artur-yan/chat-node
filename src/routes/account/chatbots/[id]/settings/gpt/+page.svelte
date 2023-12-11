@@ -14,7 +14,6 @@
 	let canUseCustomAPIKey: boolean = true;
 	let customAPIKeyRequired: boolean = false;
 	$: appSumoUserWithoutKey = plan > 1000 && plan < 1006 && !$currentBot.settings.openai_api_key;
-	console.log('plan --->', plan);
 
 	$: if (plan > 1000 && plan < 1006) {
 			// Appsumo Users
@@ -75,7 +74,7 @@
 				<!-- <VersionLabel title={"Azure-GPT 3.5"} value={"azure-3.5"} /> -->
 				<VersionLabel title="ChatGPT 16K" value="3.5-16" disabled={onFreePlan || onBasicPlan} />
 				<VersionLabel title="GPT 4" value="4" disabled={onFreePlan || onBasicPlan || appSumoUserWithoutKey} />
-				<VersionLabel title="GPT 4 Preview" value="4-preview" disabled={onFreePlan || appSumoUserWithoutKey} />
+				<VersionLabel title="GPT 4 Preview" value="4-preview" disabled={onFreePlan || onBasicPlan || appSumoUserWithoutKey} />
 				<!-- <VersionLabel title={"Azure-GPT 4"} value={"azure-4"} disabled={onFreePlan  || onBasicPlan} /> -->
 			</div>
 	
