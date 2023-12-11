@@ -15,11 +15,25 @@
 
 <svelte:head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>ChatNode | Train ChatGPT on your data</title>
+	<title>ChatNode | AI customer support assistant for Startup</title>
+  <meta property="twitter:image" content="Twitter link preview image URL">
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:title" content="AI customer support assistant for Startup">
+	<meta property="twitter:description"
+				content="Create the best customer support experience on your website thanks to AI. Never lose a client again because you didn't reply in time."
+	/>
+
 	<meta
 		name="description"
-		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
+		content="Create the best customer support experience on your website thanks to AI. Never lose a client again because you didn't reply in time."
 	/>
+	<meta property="og:image" content="Link preview image URL">
+	<meta property="og:title" content="AI customer support assistant for Startup">
+	<meta property="og:description"
+				content="Create the best customer support experience on your website thanks to AI. Never lose a client again because you didn't reply in time."
+	/>
+	<meta property="og:url" content="Canonical link preview URL">
+
 	<script
 		src="https://www.chatnode.ai/embed.js"
 		data-chatbot-id="befbfc87e25911db"
