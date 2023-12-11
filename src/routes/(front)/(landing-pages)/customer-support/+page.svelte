@@ -33,6 +33,8 @@
 		content="Create the best customer support experience on your website thanks to AI. Never lose a client again because you didn't reply in time."
 	/>
 	<meta property="og:image" content={image_meta_link}>
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
 	<meta property="og:title" content="AI customer support assistant for Startup">
 	<meta property="og:description"
 				content="Create the best customer support experience on your website thanks to AI. Never lose a client again because you didn't reply in time."
