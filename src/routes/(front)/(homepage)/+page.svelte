@@ -33,6 +33,8 @@
 		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
 	/>
 	<meta property="og:image" content={image_meta_link}>
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
 	<meta property="og:title" content="ChatNode | Train ChatGPT on your data">
 	<meta property="og:description"
 		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
