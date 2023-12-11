@@ -5,7 +5,10 @@
     let error: Object | undefined
     let parsedURL: Object
     let busyRemovingCustomDomain = false
+    let busyCheckingDomainConfig = true
+    let customDomainConfig: Object
 	import { updateModel } from '$lib/models';
+	import { onMount } from 'svelte';
 
     if($currentBot.custom_domain) { 
         parsedURL = parseURL($currentBot.custom_domain)
@@ -72,7 +75,9 @@
             }
         } catch (err) {
             console.error(err)
-        }       
+        }
+
+        getDomainConfig()
 
         busyAddingCustomDomain = false
 	}
@@ -118,33 +123,75 @@
         busyRemovingCustomDomain = false
 	}
 
-    // async function getDomainConfig() {
-    //     let res = await fetch('/api/vercel/custom-domain/configuration', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             domain: $currentBot.custom_domain
-    //         })
-    //     });
+    async function getDomainConfig() {
+        busyCheckingDomainConfig = true
+        let res = await fetch('/api/vercel/custom-domain/configuration', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                domain: $currentBot.custom_domain
+            })
+        });
 
-    //     console.log(await res.json())
-    // }
+        customDomainConfig = await res.json()
+        busyCheckingDomainConfig = false
+
+    }
+
+    onMount(async () => {
+        if($currentBot.custom_domain) {
+            await getDomainConfig()
+        }
+    })
+
+    $: console.log(customDomainConfig)
 </script>
 
 	<div class="card bg-neutral mb-12">
-		<div class="card-body grid md:grid-cols-[3fr_2fr] gap-12 items-stretch">
+		<div class="card-body">
 			<div>
                 <h2 class="card-title mb-4">
-                        Custom Domain <span class="badge badge-accent">NEW Upgraded System</span>
+                    Custom Domain
                 </h2>
                 {#if $currentBot.custom_domain}
                     <div class="border rounded-xl p-4 border-base-100">
                         <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-xl text-white">{$currentBot.custom_domain}</h2>
-                            <!-- <button class="btn btn-outline" on:click={getDomainConfig}>Update</button> -->
+                            <div class="flex gap-3 items-center">                                
+                                <h2 class="md:text-xl text-white">{$currentBot.custom_domain}</h2>
+
+                                <div class="flex items-center">
+                                    {#if busyCheckingDomainConfig}
+                                        <div class="loading loading-spinner loading-sm text-white" />
+                                    {:else if customDomainConfig?.misconfigured || !customDomainConfig?.verified}
+                                        <div class="badge text-error gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM64 256c0-106.1 86-192 192-192c42.1 0 81 13.7 112.6 36.7L100.7 368.6C77.7 337 64 298.1 64 256zm192 192c-42.1 0-81-13.7-112.6-36.7l267.9-267.9c23 31.7 36.7 70.5 36.7 112.6c0 106.1-86 192-192 192z"/></svg>
+                                            Pending Verification
+                                        </div>
+                                    {:else}
+                                        <svg class="text-success" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="m24 4l5.253 3.832l6.503-.012l1.997 6.188l5.268 3.812L41 24l2.021 6.18l-5.268 3.812l-1.997 6.188l-6.503-.012L24 44l-5.253-3.832l-6.503.012l-1.997-6.188l-5.268-3.812L7 24l-2.021-6.18l5.268-3.812l1.997-6.188l6.503.012L24 4Z"/><path d="m17 24l5 5l10-10"/></g></svg>
+                                    {/if}
+                                </div>
+                                {#if !busyCheckingDomainConfig && (customDomainConfig?.misconfigured || !customDomainConfig?.verified)}
+                                    <button class="btn btn-outline btn-xs" on:click={getDomainConfig}>Refresh</button>
+                                {/if}
+                            </div>
+                            <div>
+                                <button class="btn btn-error btn-outline btn-xs" disabled={busyRemovingCustomDomain} on:click={removeVercelCustomDomain}>
+                                    {#if busyRemovingCustomDomain}
+                                        <span class="loading loading-spinner loading-xs text-error" />
+                                    {/if}
+                                    Remove
+                                </button>
+                            </div>
                         </div>
+                        
+                        {#if !busyCheckingDomainConfig && (customDomainConfig?.misconfigured || !customDomainConfig?.verified)}
+                            <h3 class="mb-2">Add DNS Records (After adding, it may take up to 24 hours for the changes to take effect)</h3>
+                        {:else }
+                            <h3 class="mb-2">DNS Records</h3>
+                        {/if}
                         <table class="table bg-base-100 rounded overflow-hidden">
     
                             <!-- head -->
@@ -157,27 +204,28 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th>CNAME</th>
+                                    <td>CNAME</td>
                                     <td>{parsedURL.subdomain}</td>
                                     <td>cname.vercel-dns.com.</td>
                                 </tr>
                                 {#if parsedURL.apexDomain}
                                     <tr>
-                                        <th>A</th>
+                                        <td>A</td>
                                         <td>@</td>
                                         <td>76.76.21.21</td>
                                     </tr>
                                 {/if}
+                                {#if !customDomainConfig?.verified && customDomainConfig?.verification.length}
+                                    {#each customDomainConfig.verification as record}
+                                        <tr>
+                                            <th>{record.type}</th>
+                                            <td>{record.domain}</td>
+                                            <td>{record.value}</td>
+                                        </tr>
+                                    {/each}
+                                {/if}
                             </tbody>
                         </table>
-                        <div class="text-right">
-                            <button class="btn btn-error btn-outline btn-sm mt-4" disabled={busyRemovingCustomDomain} on:click={removeVercelCustomDomain}>
-                                {#if busyRemovingCustomDomain}
-                                    <span class="loading loading-spinner loading-xs text-error" />
-                                {/if}
-                                Remove
-                            </button>
-                        </div>
                     </div>
                 {:else}
                     <form on:submit|preventDefault={addVercelCustomDomain}>
@@ -211,19 +259,6 @@
                         </div>
                     </form>
                 {/if}
-            </div>
-
-            <div class="p-6 rounded-lg flex items-center -m-8 justify-center">
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-accent">What's new:</h3>
-                    <ul class="text-white">
-                        <li>Faster loading</li>
-                        <li>0 mentions of ChatNode in the source code</li>
-                        <li>Add apex domains (not just sub-domains)</li>
-                        <li>Faster SSL Generation</li>
-                        <li>Domain Verification</li>
-                    </ul>
-                </div>
             </div>
 		</div>
 	</div>
