@@ -7,18 +7,37 @@
 	import WaysToShare from './WaysToShare.svelte';
 	import PopupCallout from './PopupCallout.svelte';
 	import Testimonials from '$lib/components/Testimonials.svelte';
+	import { PUBLIC_SITE_URL } from '$env/static/public';
 
 	export let data;
 
 	const { testimonials } = data.streamed;
+	export let image_meta_link = `${PUBLIC_SITE_URL}/landing_page_traing_gpt.png`
+	export let landing_page = `${PUBLIC_SITE_URL}`
+
 </script>
 
 <svelte:head>
 	<title>ChatNode | Train ChatGPT on your data</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="twitter:image" content={image_meta_link}>
+	<meta property="twitter:card"
+				content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like." :>
+	<meta property="twitter:title" content="ChatNode | Train ChatGPT on your data">
+	<meta property="twitter:description"
+		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
+	/>
+
 	<meta
 		name="description"
 		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
 	/>
+	<meta property="og:image" content={image_meta_link}>
+	<meta property="og:title" content="ChatNode | Train ChatGPT on your data">
+	<meta property="og:description"
+		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
+	/>
+	<meta property="og:url" content={landing_page}>
 	<script
 		src="https://www.chatnode.ai/embed.js"
 		data-chatbot-id="befbfc87e25911db"
