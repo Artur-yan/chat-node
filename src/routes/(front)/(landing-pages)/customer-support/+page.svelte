@@ -6,18 +6,23 @@
 	import ShowCase from './ShowCase.svelte';
 	import PopupCallout from './PopupCallout.svelte';
 	import Testimonials from '$lib/components/Testimonials.svelte';
+	import { PUBLIC_SITE_URL } from "$env/static/public";
 
 	export let data;
 
 	const { testimonials } = data.streamed;
+	export let image_meta_link = `${PUBLIC_SITE_URL}/landing_page_customer_support.png`
+	export let landing_page = `${PUBLIC_SITE_URL}`
+
 
 </script>
 
 <svelte:head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>ChatNode | AI customer support assistant for Startup</title>
-  <meta property="twitter:image" content="Twitter link preview image URL">
-	<meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:image" content={image_meta_link}>
+	<meta property="twitter:card" 				content="Create the best customer support experience on your website thanks to AI. Never lose a client again because you didn't reply in time."
+	/>
 	<meta property="twitter:title" content="AI customer support assistant for Startup">
 	<meta property="twitter:description"
 				content="Create the best customer support experience on your website thanks to AI. Never lose a client again because you didn't reply in time."
@@ -27,12 +32,12 @@
 		name="description"
 		content="Create the best customer support experience on your website thanks to AI. Never lose a client again because you didn't reply in time."
 	/>
-	<meta property="og:image" content="Link preview image URL">
+	<meta property="og:image" content={image_meta_link}>
 	<meta property="og:title" content="AI customer support assistant for Startup">
 	<meta property="og:description"
 				content="Create the best customer support experience on your website thanks to AI. Never lose a client again because you didn't reply in time."
 	/>
-	<meta property="og:url" content="Canonical link preview URL">
+	<meta property="og:url" content={landing_page}>
 
 	<script
 		src="https://www.chatnode.ai/embed.js"
