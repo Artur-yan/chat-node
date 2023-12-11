@@ -7,10 +7,12 @@
 	import WaysToShare from './WaysToShare.svelte';
 	import PopupCallout from './PopupCallout.svelte';
 	import Testimonials from '$lib/components/Testimonials.svelte';
+	import { PUBLIC_SITE_URL } from '$env/static/public';
 
 	export let data;
 
 	const { testimonials } = data.streamed;
+	export let image_meta = `${PUBLIC_SITE_URL}/landing_page_customer_support.png`
 </script>
 
 <svelte:head>
@@ -27,7 +29,7 @@
 		name="description"
 		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
 	/>
-	<meta property="og:image" content="https://www.chatnode.ai/landing_page customer support.png">
+	<meta property="og:image" content={image_meta}>
 	<meta property="og:title" content="ChatNode | Train ChatGPT on your data">
 	<meta property="og:description"
 		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
