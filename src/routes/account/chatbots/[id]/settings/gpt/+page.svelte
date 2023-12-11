@@ -13,22 +13,24 @@
 	let canToggleChatNodeMsgs: boolean = true;
 	let canUseCustomAPIKey: boolean = true;
 	let customAPIKeyRequired: boolean = false;
+	$: appSumoUserWithoutKey = plan > 1000 && plan < 1006 && !$currentBot.settings.openai_api_key;
+	console.log('plan --->', plan);
 
 	$: if (plan > 1000 && plan < 1006) {
-		// Appsumo Users
-		if ($currentBot.settings.openai_api_key) {
-			// Who have an OpenAI API Key
-			canToggleChatNodeMsgs = true;
-			if (!['3.5', '3.5-june', 'azure-3.5'].includes($currentBot.settings.gptVersion)) {
-				// Who switch to GPT-4
-				$currentBot.settings.useChatNodeMsgs = false;
+			// Appsumo Users
+			if ($currentBot.settings.openai_api_key) {
+				// Who have an OpenAI API Key
+				canToggleChatNodeMsgs = true;
+				if (!['3.5', '3.5-june', 'azure-3.5'].includes($currentBot.settings.gptVersion)) {
+					// Who switch to GPT-4
+					$currentBot.settings.useChatNodeMsgs = false;
+					canToggleChatNodeMsgs = false;
+				}
+			} else {
+				// Who DON'T have an OpenAI API Key
 				canToggleChatNodeMsgs = false;
+				$currentBot.settings.useChatNodeMsgs = true;
 			}
-		} else {
-			// Who DON'T have an OpenAI API Key
-			canToggleChatNodeMsgs = false;
-			$currentBot.settings.useChatNodeMsgs = true;
-		}
 	} else if ([2, 3, 4, 102, 103, 104].includes(plan)) {
 		// Pro and Enterprise Users
 		if (!$currentBot.settings.openai_api_key) {
@@ -72,8 +74,8 @@
 				<VersionLabel title="ChatGPT 3.5 (June)" value="3.5-june" />
 				<!-- <VersionLabel title={"Azure-GPT 3.5"} value={"azure-3.5"} /> -->
 				<VersionLabel title="ChatGPT 16K" value="3.5-16" disabled={onFreePlan || onBasicPlan} />
-				<VersionLabel title="GPT 4" value="4" disabled={onFreePlan || onBasicPlan} />
-				<VersionLabel title="GPT 4 Preview" value="4-preview" disabled={onFreePlan || onBasicPlan} />
+				<VersionLabel title="GPT 4" value="4" disabled={onFreePlan || onBasicPlan || appSumoUserWithoutKey} />
+				<VersionLabel title="GPT 4 Preview" value="4-preview" disabled={onFreePlan || appSumoUserWithoutKey} />
 				<!-- <VersionLabel title={"Azure-GPT 4"} value={"azure-4"} disabled={onFreePlan  || onBasicPlan} /> -->
 			</div>
 	
