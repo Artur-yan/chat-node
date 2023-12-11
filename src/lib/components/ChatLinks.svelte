@@ -2,20 +2,12 @@
   import { fade } from "svelte/transition";
   import { currentBot } from "$lib/stores";
   export let links: string[] = [];
-
-  const trimmedLinks = links.map(link => {
-    return {
-      url: link.split("://")[1]
-    }
-  });
-
-console.log(trimmedLinks)
 </script>
 
 <div in:fade={{delay: 700}} class="m-2">
   <div class="grid grid-flow-col auto-cols-min grid-rows-2 gap-2 overflow-x-auto py-8 text-base font-semibold leading-7">
-    {#each trimmedLinks as link}
-      <a href={link.url} 
+    {#each links as link}
+      <a href={link} 
          target="_blank" 
          class="inline-flex max-w-[250px] items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium" 
          style="background-color: {$currentBot.settings.theme.botBubbleBG}"
@@ -24,7 +16,7 @@ console.log(trimmedLinks)
           <circle cx="3" cy="3" r="3" />
         </svg>
         <p class="truncate" style="color: {$currentBot.settings.theme.botBubbleText}">
-          {link.url}</p>
+          {link.split("://")[1]}</p>
       </a>
     {/each}
   </div>
