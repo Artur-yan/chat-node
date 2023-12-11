@@ -4,7 +4,7 @@
   export let links: string[] = [];
 </script>
 
-<div in:fade={{delay: 700}} class="m-2">
+<div in:fade={{delay: 1200}} class="m-2">
   <div class="grid grid-flow-col auto-cols-min grid-rows-2 gap-2 overflow-x-auto py-8 text-base font-semibold leading-7">
     {#each links as link}
       <a href={link} 

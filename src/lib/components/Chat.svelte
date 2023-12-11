@@ -125,9 +125,8 @@
 				return;
 			}
 
-			// Get links from response header
 			const responseLinks = res.headers.get('urls');
-			if (typeof responseLinks === 'string') {
+			if (responseLinks !== null) {
 				// Making the string parsable
 				const contentString: string = responseLinks.replace(/'/g, '"');
 				links = JSON.parse(contentString);
@@ -314,8 +313,8 @@
 								{/if} -->
 								</div>
 							</div>
-							{#if $currentBot.settings.useSourceUrls && msg.sender === 'bot' && msg.links && msg.links.length > 0}
-							<ChatLinks links={links} />
+							{#if $currentBot.settings.useSourceUrls && msg.links.length > 0}
+							<ChatLinks links={msg.links} />
 							{/if}
 						{/each}
 					</slot>
