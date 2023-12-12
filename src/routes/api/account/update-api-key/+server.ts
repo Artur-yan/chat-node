@@ -11,9 +11,9 @@ export const POST = async ({ locals }) => {
 		}
 	});
 
-	if (!tiersMap[plan].features?.chatnode_api?.included) {
-		return new Response();
-	}
+	//if (!tiersMap[plan].features?.chatnode_api?.included) {
+	//	return new Response();
+	//}
 
 	const apiKey = 'sk-' + uuidv4();
 
