@@ -6,20 +6,41 @@
 	import ShowCase from './ShowCase.svelte';
 	import PopupCallout from './PopupCallout.svelte';
 	import Testimonials from '$lib/components/Testimonials.svelte';
+	import { PUBLIC_SITE_URL } from "$env/static/public";
 
 	export let data;
 
 	const { testimonials } = data.streamed;
+	export let image_meta_link = `${PUBLIC_SITE_URL}/landing_page_customer_support.png`
+	export let landing_page = `${PUBLIC_SITE_URL}`
+
 
 </script>
 
 <svelte:head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>ChatNode | Train ChatGPT on your data</title>
+	<title>ChatNode | AI customer support assistant for Startup</title>
+  <meta property="twitter:image" content={image_meta_link}>
+	<meta property="twitter:card" 				content="Create the best customer support experience on your website thanks to AI. Never lose a client again because you didn't reply in time."
+	/>
+	<meta property="twitter:title" content="ChatNode | AI Customer Support for Startup">
+	<meta property="twitter:description"
+				content="Create the best customer support experience on your website thanks to AI. Never lose a client again because you didn't reply in time."
+	/>
+
 	<meta
 		name="description"
-		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
+		content="Create the best customer support experience on your website thanks to AI. Never lose a client again because you didn't reply in time."
 	/>
+	<meta property="og:image" content={image_meta_link}>
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:title" content="ChatNode | AI Customer Support for Startup">
+	<meta property="og:description"
+				content="Create the best customer support experience on your website thanks to AI. Never lose a client again because you didn't reply in time."
+	/>
+	<meta property="og:url" content={landing_page}>
+
 	<script
 		src="https://www.chatnode.ai/embed.js"
 		data-chatbot-id="befbfc87e25911db"
