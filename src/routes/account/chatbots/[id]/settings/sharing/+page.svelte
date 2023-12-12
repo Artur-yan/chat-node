@@ -79,6 +79,20 @@
 	</div>
 </div>
 
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="card-title">
+			<h2>Bot ID</h2>
+		</div>
+		<input
+		class="input w-full"
+		type="text"
+		bind:value={$currentBot.id}
+		readonly
+	/>
+	</div>
+</div>
+
 {#if $currentBot.settings.public}
 	<div class="card bg-neutral card-compact mb-4">
 		<div class="card-body">
