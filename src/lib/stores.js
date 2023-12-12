@@ -7,3 +7,5 @@ export const state = writable();
 export const currentBot = writable();
 
 export const currentBotAvatarImg = writable();
+
+export const currentBotPopupImg = writable();

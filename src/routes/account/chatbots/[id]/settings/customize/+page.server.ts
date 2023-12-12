@@ -23,9 +23,20 @@ const updateAvatarImg = async (bot_id: string, avatarImg: string, public_id: str
 	});
 };
 
+const updatePopupImg = async (bot_id: string, popupImg: string, public_id: string) => {
+	await prismaClient.bots.update({
+		where: {
+			id: bot_id
+		},
+		data: {
+			chat_button_img: popupImg,
+			cloudinary_public_id: public_id
+		}
+	});
+};
+
 export const actions = {
 	updateAvatarImg: async ({ request, params }) => {
-
 		const form = await request.formData();
 
 		const avatarImg = form.get('avatar-img');
@@ -60,7 +71,6 @@ export const actions = {
 	},
 
 	removeAvatarImg: async ({ request, params }) => {
-
 		const form = await request.formData();
 
 		const exisitingCloudinaryPublicId = form.get('existing-cloudinary-public-id');
@@ -74,6 +84,70 @@ export const actions = {
 				},
 				data: {
 					avatar_img: null,
+					cloudinary_public_id: null
+				}
+			});
+		} catch (error) {
+			console.error(error);
+			return {
+				success: false
+			};
+		}
+
+		return {
+			success: true
+		};
+	},
+
+	updatePopupImg: async ({ request, params }) => {
+		console.log('updatePopupImg');
+		const popupImgForm = await request.formData();
+
+		const popupImg = popupImgForm.get('chat-button-img');
+		const exisitingCloudinaryPublicId = popupImgForm.get('existing-cloudinary-public-id');
+		const buffer = Buffer.from(await popupImg?.arrayBuffer());
+		const base64 = buffer.toString('base64');
+
+		if (!allowedFileTypes.includes(popupImg?.type)) {
+			throw error(400, 'Invalid file type');
+		} else if (popupImg?.size > 4000000) {
+			throw error(400, 'File is too large');
+		} else {
+			if (exisitingCloudinaryPublicId) {
+				await cloudinary.uploader.destroy(exisitingCloudinaryPublicId);
+			}
+			await cloudinary.uploader
+				.upload(`data:${popupImg.type};base64,${base64}`, {
+					folder: 'popups',
+					width: 256,
+					height: 256,
+					crop: 'fit',
+					eager: [{ width: 80, height: 80 }]
+				})
+				.then(async (result) => {
+					await updatePopupImg(params.id, result.secure_url, result.public_id);
+				});
+		}
+
+		return {
+			success: true
+		};
+	},
+
+	removePopupImg: async ({ request, params }) => {
+		const form = await request.formData();
+
+		const exisitingCloudinaryPublicId = form.get('existing-cloudinary-public-id');
+
+		try {
+			await cloudinary.uploader.destroy(exisitingCloudinaryPublicId);
+
+			await prismaClient.bots.update({
+				where: {
+					id: params.id
+				},
+				data: {
+					chat_button_img: null,
 					cloudinary_public_id: null
 				}
 			});

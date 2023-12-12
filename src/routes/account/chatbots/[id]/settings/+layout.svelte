@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Chat from '$lib/components/Chat.svelte';
-	import { currentBot, currentBotAvatarImg, state, alert } from '$lib/stores';
+	import { currentBot, currentBotAvatarImg, currentBotPopupImg, state, alert } from '$lib/stores';
 	import { updateModel } from '$lib/models.js';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
@@ -143,6 +143,7 @@
 				settings={$currentBot.settings}
 				trainingStatus={data.model.status}
 				avatar={$currentBotAvatarImg}
+				popUpImg={$currentBotPopupImg}
 				userId={data.session.user.userId}
 				{showUserInfoCollection}
 			/>

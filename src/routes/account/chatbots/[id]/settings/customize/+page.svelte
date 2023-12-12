@@ -1,14 +1,16 @@
 <script lang="ts">
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import themes from '$lib/chatThemes';
-	import { currentBot, currentBotAvatarImg } from '$lib/stores.js';
+	import { currentBot, currentBotAvatarImg, currentBotPopupImg } from '$lib/stores.js';
 	import { enhance } from '$app/forms';
 	import { alert } from '$lib/stores';
 
 	export let data;
 	export let form;
+	export let popupImgForm: any;
 
 	let uploadedImage: string | null;
+	let uploadedPopupImage: string | null;
 
 	let themeSaveState = JSON.stringify($currentBot.settings.theme);
 
@@ -37,6 +39,27 @@
 		uploadedImage = URL.createObjectURL(image);
 		$currentBotAvatarImg = URL.createObjectURL(image);
 	};
+
+	// Popup Functions
+
+	$: if (popupImgForm) {
+		$alert = {
+			type: 'success',
+			msg: 'Popup Updated'
+		};
+		uploadedPopupImage = null;
+	}
+
+	const handlePopupImgSelect = async (e: Event) => {
+		const image = (e.target as HTMLInputElement)?.files?.[0];
+		if (!image) return;
+		// URL.createObjectURL() creates a temporary URL for the image we can use as src for an img tag
+		uploadedPopupImage = URL.createObjectURL(image);
+		$currentBotPopupImg = URL.createObjectURL(image);
+	};
+
+	$: console.log('Avatar IMG ---->', $currentBotAvatarImg);
+	$: console.log('Popup IMG ---->', $currentBotPopupImg);
 </script>
 
 <svelte:head>
@@ -400,6 +423,64 @@
 						value="Confirm"
 						formaction="?/updateAvatarImg"
 						disabled={!uploadedImage}
+					/>
+				</form>
+				<p class="help">1MB Max. png, svg, or jpg</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Popup Button -->
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<h2 class="card-title">Popup Button</h2>
+		{#if data.subscription.plan === 0}
+			<div class="alert alert-neutral text-warning justify-between flex">
+				<p>Available on the Basic plan</p>
+				<a href="/account/settings/subscription" class="btn btn-info btn-sm">Upgrade</a>
+			</div>
+		{/if}
+		<div class="flex gap-8">
+			{#if $currentBot.cloudinary_public_id}
+				<div class="text-center">
+					<img src={$currentBotPopupImg} class="w-16 mx-auto mb-2" alt="Chat Button" />
+					<form method="post" enctype="multipart/form-data">
+						<input
+							name="existing-cloudinary-public-id"
+							type="hidden"
+							value={$currentBot.cloudinary_public_id}
+						/>
+						<input
+							type="submit"
+							class="btn btn-xs btn-error btn-outline"
+							value="Remove"
+							formaction="?/removePopupImg"
+						/>
+					</form>
+				</div>
+			{/if}
+			<div class="flex-1">
+				<form method="post" enctype="multipart/form-data" class="join w-full">
+					<input
+						disabled={data.subscription.plan === 0}
+						name="chat-button-img"
+						type="file"
+						accept=".jpg, .png, .svg"
+						class="join-item file-input file-input-bordered w-full"
+						on:change={handlePopupImgSelect}
+					/>
+					<input
+						name="existing-cloudinary-public-id"
+						type="hidden"
+						value={$currentBot.cloudinary_public_id}
+					/>
+					<input
+						type="submit"
+						class="btn join-item border-primary"
+						value="Confirm"
+						formaction="?/updatePopupImg"
+						disabled={!uploadedPopupImage}
 					/>
 				</form>
 				<p class="help">1MB Max. png, svg, or jpg</p>
