@@ -34,8 +34,49 @@
 	let inputVal = ``;
 	let collectUserInfo = false;
 	let userInfoReceived = false;
-	let endUserInfo = {};
 	let links: string[] | undefined = [];
+
+	let endUserInfo = {
+		name: '',
+		email: '',
+		phone: ''
+	};
+
+	let nameInput: HTMLInputElement;
+	let emailInput: HTMLInputElement;
+	let phoneInput: HTMLInputElement;
+
+	let nameInputIsValid = false;
+	let emailInputIsValid = false;
+	let phoneInputIsValid = false;
+
+	const phonePattern = /^(?:[+(). -]*\d){7,}$/;
+
+	$: {
+			if (endUserInfo.name && endUserInfo.name.length > 1 && nameInput) {
+					nameInput.setCustomValidity('');
+					nameInputIsValid = true;
+			} else if (settings.collectUserName && nameInput) {
+					nameInput.setCustomValidity('Please provide your name');
+					nameInputIsValid = false;
+			}
+
+			if (endUserInfo.email && endUserInfo.email.includes('@') && endUserInfo.email.includes('.') && emailInput) {
+					emailInput.setCustomValidity('');
+					emailInputIsValid = true;
+			} else if (settings.collectUserEmail && emailInput) {
+					emailInput.setCustomValidity('Please provide a valid email');
+					emailInputIsValid = false;
+			}
+
+			if (phonePattern.test(endUserInfo.phone) && phoneInput) {
+					phoneInput.setCustomValidity('');
+					phoneInputIsValid = true;
+			} else if (settings.collectUserPhone && phoneInput) {
+					phoneInput.setCustomValidity('Please provide a valid phone number');
+					phoneInputIsValid = false;
+			}
+	}
 
 	// Merge default settings with user settings
 	// Merge nested object
@@ -78,9 +119,9 @@
 
 	const handleUserInfoSubmit = () => {
 		if (
-			(settings.collectUserName && !endUserInfo.name) ||
-			(settings.collectUserEmail && !endUserInfo.email) ||
-			(settings.collectUserPhone && !endUserInfo.phone)
+			(settings.collectUserName && !nameInputIsValid) ||
+			(settings.collectUserEmail && !emailInputIsValid) ||
+			(settings.collectUserPhone && !phoneInputIsValid)
 		) {
 			return;
 		}
@@ -470,6 +511,7 @@
 				<div class="join join-vertical @xl:join-horizontal">
 					{#if settings.collectUserName}
 						<input
+							bind:this={nameInput}
 							type="text"
 							name="name"
 							class="input join-item w-full placeholder:text-sm"
@@ -480,6 +522,7 @@
 					{/if}
 					{#if settings.collectUserEmail}
 						<input
+							bind:this={emailInput}
 							type="email"
 							name="email"
 							class="input join-item w-full placeholder:text-sm"
@@ -490,8 +533,9 @@
 					{/if}
 					{#if settings.collectUserPhone}
 						<input
+							bind:this={phoneInput}
 							name="phone"
-							type="text"
+							type="tel"
 							class="input join-item w-full placeholder:text-sm"
 							style="background-color: var(--inputBG); border-color: var(--inputBorder);"
 							placeholder={settings.collectUserPhoneLabel || 'Phone'}

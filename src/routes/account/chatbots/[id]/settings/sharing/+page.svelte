@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 
 	export let data;
+	let message:string = '';
 
 	const addUrl = (url: string) => {
 		$currentBot.settings.allowedUrls = [...$currentBot.settings.allowedUrls, url];
@@ -51,6 +52,14 @@
 		}
 		return { warning: false };
 	};
+
+	const copyIdToClipboard = () => {
+		navigator.clipboard.writeText($currentBot.id);
+		message = 'Copied!';
+		setTimeout(() => {
+			message = '';
+		}, 2000);
+	};
 </script>
 
 <div class="card bg-neutral card-compact mb-4">
@@ -76,6 +85,41 @@
 				account.
 			</div>
 		{/if}
+	</div>
+</div>
+
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="card-title">
+			<h2>Bot ID</h2>
+		</div>
+		<div class="flex gap-2 items-center">
+			<input
+			class="input"
+			type="text"
+			bind:value={$currentBot.id}
+			readonly
+		/>
+		<!-- svelte-ignore a11y-mouse-events-have-key-events -->
+		<button 
+			class="btn btn-neutral btn-sm"
+			on:click={copyIdToClipboard}
+			on:mouseover={() => {
+				message = 'Copy to clipboard';
+			}}
+			on:mouseleave={() => {
+				message = '';
+			}}
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+				<path
+					fill="currentColor"
+					d="M19 21H8V7h11m0-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m-3-4H4a2 2 0 0 0-2 2v14h2V3h12V1Z"
+				/>
+			</svg>
+		</button>
+		{message}
+		</div>
 	</div>
 </div>
 

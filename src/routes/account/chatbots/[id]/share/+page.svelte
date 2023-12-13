@@ -141,8 +141,17 @@
 				</div>
 			{/if}
 			<div>
+				<h2 class="card-title">Bot ID</h2>
+				<div class="bg-neutral p-4 rounded-lg flex justify-between items-center mb-8">
+					<div>
+						{$currentBot.id}
+						<CopyButton textToCopy={$currentBot.id} />
+					</div>
+				</div>
+			</div>
+			<div>
 				<h2 class="card-title">Web Page</h2>
-				<div class="bg-neutral p-4 rounded-lg flex justify-between items-center mb-12">
+				<div class="bg-neutral p-4 rounded-lg flex justify-between items-center mb-8">
 					<div>
 						{shareURL}
 						<CopyButton textToCopy={shareURL} />
@@ -169,7 +178,7 @@
 						</div>
 					</div>
 				{/if}
-				<div class="mb-12">
+				<div class="mb-8">
 					<h2 class="card-title">Popup Chat</h2>
 					<div>
 						<div>
@@ -182,7 +191,7 @@
 					</div>
 				</div>
 				<div>
-					<div class="mb-10">
+					<div class="mb-8">
 						<h2 class="card-title">Embedded (iframe)</h2>
 						<Code code={iframeEmbedCode} />
 						<p class="text-sm my-2">
