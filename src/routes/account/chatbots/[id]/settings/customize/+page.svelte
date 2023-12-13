@@ -60,6 +60,8 @@
 
 	$: console.log('Avatar IMG ---->', $currentBotAvatarImg);
 	$: console.log('Popup IMG ---->', $currentBotPopupImg);
+	$: console.log('Cloudinary ID ---->', $currentBot.cloudinary_public_id);
+	// mouqlytqu3lfy4zglklf
 </script>
 
 <svelte:head>
