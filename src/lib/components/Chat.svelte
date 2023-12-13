@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import BotStatus from '$lib/components/BotStatus.svelte';
+	import ChatLinks from './ChatLinks.svelte';
 	import { defaultSettings } from '$lib/models';
 	import { Remarkable } from 'remarkable';
 	import hljs from 'highlight.js';
@@ -11,6 +12,7 @@
 	const md = new Remarkable();
 
 	import '$lib/assets/css/chat.postcss';
+	import { currentBot } from '$lib/stores';
 
 	export let removeBranding = true;
 	export let modelId: string;
@@ -22,7 +24,8 @@
 	export let messages = [
 		{
 			text: settings.greeting,
-			sender: 'bot'
+			sender: 'bot',
+			links: []
 		}
 	];
 	export let userId: string;
@@ -31,6 +34,8 @@
 	let inputVal = ``;
 	let collectUserInfo = false;
 	let userInfoReceived = false;
+	let links: string[] | undefined = [];
+
 	let endUserInfo = {
 		name: '',
 		email: '',
@@ -128,14 +133,15 @@
 		return msgHTML;
 	};
 
-	const addMessage = (message: string, sender = 'bot') => {
-		messages = [...messages, { text: message, sender: sender }];
+	const addMessage = (message: string, sender = 'bot', links: string[]  = []) => {
+		messages = [...messages, { text: message, sender: sender, links: links}];
 	};
 
 	const queryModel = async (chatKey: string, chatSessionId: string, message: string) => {
 		addMessage(message, 'user');
 		inputVal = ``;
 		isThinking = true;
+		links = [];
 
 		let streamedMsg = '';
 
@@ -153,12 +159,22 @@
 			});
 			// const data = await res.json();
 			isThinking = false;
+
 			if (res.headers.get('content-type') === 'application/json') {
 				const data = await res.json();
-				addMessage(data.message, 'bot');
+				addMessage(data.message, 'bot', links);
 				return;
 			}
+
+			const responseLinks = res.headers.get('urls');
+			if (responseLinks !== null) {
+				// Making the string parsable
+				const contentString: string = responseLinks.replace(/'/g, '"');
+				links = JSON.parse(contentString);
+			}
+
 			const data = res.body;
+
 			const reader = data.getReader();
 			reader.read().then(function pump({ done, value }) {
 				isResponding = true;
@@ -174,7 +190,7 @@
 				streamedMsg += new TextDecoder().decode(value);
 
 				if (chunksCount === 0) {
-					addMessage(streamedMsg, 'bot');
+					addMessage(streamedMsg, 'bot', links);
 				} else {
 					messages[messages.length - 1].text = streamedMsg;
 				}
@@ -338,6 +354,9 @@
 								{/if} -->
 								</div>
 							</div>
+							{#if $currentBot.settings.useSourceUrls && msg.links.length > 0}
+							<ChatLinks links={msg.links} />
+							{/if}
 						{/each}
 					</slot>
 					{#if isThinking}
