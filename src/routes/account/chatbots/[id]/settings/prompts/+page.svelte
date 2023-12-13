@@ -111,7 +111,7 @@
 	</div>
 
 	<div class="card bg-neutral mt-4">
-		<div class="card-body">
+		<div class="card-body p-4">
 			<h2 class="card-title">Source URLs</h2>
 			<span class="label-text text-gray-400">Add context URLs if exists in the chatbot answer</span> 
 			<div class="form-control">
