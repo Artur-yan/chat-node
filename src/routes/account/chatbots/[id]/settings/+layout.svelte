@@ -11,6 +11,8 @@
 	export let data;
 
 	$currentBotAvatarImg = $currentBot.avatar_img;
+	$currentBotPopupImg = $currentBot.chat_button_img;
+
 
 	const links = [
 		{ name: 'Prompts', url: 'prompts' },
@@ -143,7 +145,6 @@
 				settings={$currentBot.settings}
 				trainingStatus={data.model.status}
 				avatar={$currentBotAvatarImg}
-				popUpImg={$currentBotPopupImg}
 				userId={data.session.user.userId}
 				{showUserInfoCollection}
 			/>

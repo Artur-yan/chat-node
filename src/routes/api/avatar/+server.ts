@@ -1,9 +1,10 @@
 import { v2 as cloudinary } from 'cloudinary';
+import { CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } from '$env/static/private';
 
 cloudinary.config({
 	cloud_name: 'duoacapcy',
-	api_key: '816214673719747',
-	api_secret: 'l5lOGqfr4Ew65LNzC1agYGXg07A'
+	api_key: CLOUDINARY_API_KEY,
+	api_secret: CLOUDINARY_API_SECRET
 	// secure: true
 });
 

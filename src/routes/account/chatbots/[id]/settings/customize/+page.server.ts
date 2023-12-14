@@ -1,11 +1,12 @@
 import { error } from '@sveltejs/kit';
 import { v2 as cloudinary } from 'cloudinary';
 import { prismaClient } from '$lib/server/prisma';
+import { CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } from '$env/static/private';
 
 cloudinary.config({
 	cloud_name: 'duoacapcy',
-	api_key: '816214673719747',
-	api_secret: 'l5lOGqfr4Ew65LNzC1agYGXg07A',
+	api_key: CLOUDINARY_API_KEY,
+	api_secret: CLOUDINARY_API_SECRET,
 	secure: true
 });
 
@@ -30,7 +31,7 @@ const updatePopupImg = async (bot_id: string, popupImg: string, public_id: strin
 		},
 		data: {
 			chat_button_img: popupImg,
-			cloudinary_public_id: public_id
+			cloudinary_public_id_popup: public_id
 		}
 	});
 };
@@ -104,7 +105,10 @@ export const actions = {
 		const popupImgForm = await request.formData();
 
 		const popupImg = popupImgForm.get('chat-button-img');
-		const exisitingCloudinaryPublicId = popupImgForm.get('existing-cloudinary-public-id');
+		const exisitingCloudinaryPublicIdPopup = popupImgForm.get(
+			'existing-cloudinary-public-id-popup'
+		);
+
 		const buffer = Buffer.from(await popupImg?.arrayBuffer());
 		const base64 = buffer.toString('base64');
 
@@ -113,8 +117,8 @@ export const actions = {
 		} else if (popupImg?.size > 4000000) {
 			throw error(400, 'File is too large');
 		} else {
-			if (exisitingCloudinaryPublicId) {
-				await cloudinary.uploader.destroy(exisitingCloudinaryPublicId);
+			if (exisitingCloudinaryPublicIdPopup) {
+				await cloudinary.uploader.destroy(exisitingCloudinaryPublicIdPopup);
 			}
 			await cloudinary.uploader
 				.upload(`data:${popupImg.type};base64,${base64}`, {
@@ -137,10 +141,10 @@ export const actions = {
 	removePopupImg: async ({ request, params }) => {
 		const form = await request.formData();
 
-		const exisitingCloudinaryPublicId = form.get('existing-cloudinary-public-id');
+		const exisitingCloudinaryPublicIdPopup = form.get('existing-cloudinary-public-id-popup');
 
 		try {
-			await cloudinary.uploader.destroy(exisitingCloudinaryPublicId);
+			await cloudinary.uploader.destroy(exisitingCloudinaryPublicIdPopup);
 
 			await prismaClient.bots.update({
 				where: {
@@ -148,7 +152,7 @@ export const actions = {
 				},
 				data: {
 					chat_button_img: null,
-					cloudinary_public_id: null
+					cloudinary_public_id_popup: null
 				}
 			});
 		} catch (error) {

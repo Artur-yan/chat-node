@@ -49,6 +49,7 @@
 					edit
 				</button>
 			</h1>
+
 		</div>
 		<div class="tabs tabs-boxed bg-neutral">
 			<a

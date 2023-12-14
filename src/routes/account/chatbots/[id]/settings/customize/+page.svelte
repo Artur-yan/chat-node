@@ -40,8 +40,6 @@
 		$currentBotAvatarImg = URL.createObjectURL(image);
 	};
 
-	// Popup Functions
-
 	$: if (popupImgForm) {
 		$alert = {
 			type: 'success',
@@ -57,11 +55,6 @@
 		uploadedPopupImage = URL.createObjectURL(image);
 		$currentBotPopupImg = URL.createObjectURL(image);
 	};
-
-	$: console.log('Avatar IMG ---->', $currentBotAvatarImg);
-	$: console.log('Popup IMG ---->', $currentBotPopupImg);
-	$: console.log('Cloudinary ID ---->', $currentBot.cloudinary_public_id);
-	// mouqlytqu3lfy4zglklf
 </script>
 
 <svelte:head>
@@ -433,7 +426,6 @@
 	</div>
 </div>
 
-<!-- Popup Button -->
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<h2 class="card-title">Popup Button</h2>
@@ -444,14 +436,14 @@
 			</div>
 		{/if}
 		<div class="flex gap-8">
-			{#if $currentBot.cloudinary_public_id}
+			{#if $currentBot.cloudinary_public_id_popup}
 				<div class="text-center">
 					<img src={$currentBotPopupImg} class="w-16 mx-auto mb-2" alt="Chat Button" />
 					<form method="post" enctype="multipart/form-data">
 						<input
-							name="existing-cloudinary-public-id"
+							name="existing-cloudinary-public-id-popup"
 							type="hidden"
-							value={$currentBot.cloudinary_public_id}
+							value={$currentBot.cloudinary_public_id_popup}
 						/>
 						<input
 							type="submit"
@@ -473,9 +465,9 @@
 						on:change={handlePopupImgSelect}
 					/>
 					<input
-						name="existing-cloudinary-public-id"
+						name="existing-cloudinary-public-id-popup"
 						type="hidden"
-						value={$currentBot.cloudinary_public_id}
+						value={$currentBot.cloudinary_public_id_popup}
 					/>
 					<input
 						type="submit"
