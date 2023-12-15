@@ -301,7 +301,7 @@
 			</div>
 			<div class="flex justify-between">
 				<div class="flex items-end">
-					<div>
+					<!-- <div>
 						<div class="mb-2">Button Color</div>
 						<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
 							<ColorPicker
@@ -314,8 +314,9 @@
 								label="Icon"
 								on:input={checkIfThemeSaved}
 							/>
+
 						</div>
-					</div>
+					</div> -->
 					<div class="form-control">
 						<label class="label cursor-pointer justify-start gap-2">
 							<input
@@ -327,7 +328,7 @@
 						</label>
 					</div>
 				</div>
-				<div>
+				<!-- <div>
 					<svg
 						clip-rule="evenodd"
 						stroke-linecap="round"
@@ -352,9 +353,9 @@
 							/>
 						</g>
 					</svg>
-				</div>
+				</div> -->
 			</div>
-			<div class="text-white mt-8 flex items-end gap-1">
+			<!-- <div class="text-white mt-8 flex items-end gap-1">
 				<div class="text-warning">
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1024 1024">
 						<path
@@ -364,7 +365,7 @@
 					</svg>
 				</div>
 				You will need to copy/paste the new embed script on your site whenever you make changes here.
-			</div>
+			</div> -->
 		</div>
 	</div>
 </div>
@@ -381,7 +382,7 @@
 		<div class="flex gap-8">
 			{#if $currentBot.cloudinary_public_id}
 				<div class="text-center">
-					<img src={$currentBotAvatarImg} class="w-16 mx-auto mb-2" alt="Avatar" />
+					<img src={$currentBotAvatarImg} class="w-16 mx-auto mb-2 rounded-full" alt="Avatar" />
 					<form method="post" enctype="multipart/form-data">
 						<input
 							name="existing-cloudinary-public-id"
@@ -438,7 +439,7 @@
 		<div class="flex gap-8">
 			{#if $currentBot.cloudinary_public_id_popup}
 				<div class="text-center">
-					<img src={$currentBotPopupImg} class="w-16 mx-auto mb-2" alt="Chat Button" />
+					<img src={$currentBotPopupImg} class="w-16 mx-auto mb-2 rounded-full" alt="Chat Button" />
 					<form method="post" enctype="multipart/form-data">
 						<input
 							name="existing-cloudinary-public-id-popup"
@@ -453,6 +454,33 @@
 						/>
 					</form>
 				</div>
+
+				{:else}
+				<svg
+				clip-rule="evenodd"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-miterlimit="10"
+				version="1.1"
+				width="56"
+				height="56"
+				viewBox="0 0 64 64"
+				xml:space="preserve"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<g>
+					<path
+						d="m0 32c0-17.673 14.327-32 32-32s32 14.327 32 32-14.327 32-32 32-32-14.327-32-32z"
+						fill={$currentBot.settings.theme.popupButtonBG}
+					/>
+					<path
+						d="m26 16c-5.5228 0-10 4.4772-10 10v12c0 5.5228 4.4772 10 10 10h19.5c1.3807 0 2.5-1.1193 2.5-2.5v-19.5c0-5.5228-4.4772-10-10-10h-12zm-0.75 16c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm8.75 0c0 1.1046-0.8954 2-2 2s-2-0.8954-2-2 0.8954-2 2-2 2 0.8954 2 2zm6.75 2c1.1046 0 2-0.8954 2-2s-0.8954-2-2-2-2 0.8954-2 2 0.8954 2 2 2z"
+						fill={$currentBot.settings.theme.popupButtonIcon}
+						fill-rule="evenodd"
+					/>
+				</g>
+			</svg>
+
 			{/if}
 			<div class="flex-1">
 				<form method="post" enctype="multipart/form-data" class="join w-full">
@@ -480,6 +508,21 @@
 				<p class="help">1MB Max. png, svg, or jpg</p>
 			</div>
 		</div>
+		{#if !$currentBot.cloudinary_public_id_popup}
+			<div class="my-4">Button Color</div>
+			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
+				<ColorPicker
+					bind:hex={$currentBot.settings.theme.popupButtonBG}
+					label="Background"
+					on:input={checkIfThemeSaved}
+				/>
+				<ColorPicker
+					bind:hex={$currentBot.settings.theme.popupButtonIcon}
+					label="Icon"
+					on:input={checkIfThemeSaved}
+				/>
+				</div>
+		{/if}
 	</div>
 </div>
 
