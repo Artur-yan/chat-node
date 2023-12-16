@@ -3,6 +3,8 @@ import { google } from '@lucia-auth/oauth/providers';
 import { prismaClient } from '$lib/server/prisma.js';
 import { redirect } from '@sveltejs/kit';
 import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
+import { v4 as uuidv4 } from 'uuid';
+import { sendAccountEmailConfirmation } from '$lib/server/messenger';
 
 const configs = {
 	clientId: GOOGLE_CLIENT_ID,
@@ -21,9 +23,56 @@ export const GET = async ({ url, locals }) => {
 		where: { email }
 	});
 
+	// User not found
 	if (!user) {
-		throw redirect(302, '/register');
+		console.log('User not found');
+		const uuid = uuidv4();
+		const user = await auth.createUser({
+			key: {
+				providerId: 'username',
+				providerUserId: email.toLowerCase(),
+				password: uuid
+			},
+			attributes: {
+				email,
+				verification_uuid: uuid
+			}
+		});
+
+		const freePlan = {
+			plan: 0,
+			max_bot: 1,
+			max_msg: 50,
+			max_tocken: 100000
+		};
+
+		let subscriptionData = {
+			user_id: user.userId,
+			plan: freePlan.plan,
+			max_bot: freePlan.max_bot,
+			max_msg: freePlan.max_msg,
+			max_tocken: freePlan.max_tocken
+		};
+
+		await prismaClient.subscriptions.create({
+			data: subscriptionData
+		});
+
+		// @ts-ignore
+		await sendAccountEmailConfirmation(email, uuid);
+
+		const session = await auth.createSession({
+			userId: user.userId,
+			attributes: {}
+		});
+		const sessionCookie = auth.createSessionCookie(session);
+
+		// @ts-ignore
+		locals.auth.setSession(session);
+		throw redirect(302, '/account/chatbots');
 	}
+
+	// @ts-ignore
 	const session = await auth.createSession({ userId: user.id, attributes: {} });
 
 	// @ts-ignore

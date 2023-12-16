@@ -6,7 +6,7 @@ import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
 const configs = {
 	clientId: GOOGLE_CLIENT_ID,
 	clientSecret: GOOGLE_CLIENT_SECRET,
-	redirectUri: `http://localhost:5173/oauth/redirect`,
+	redirectUri: `${PUBLIC_SITE_URL}/oauth/redirect`,
 	scope: ['email']
 };
 
