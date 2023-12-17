@@ -3,13 +3,14 @@ import { google } from '@lucia-auth/oauth/providers';
 import { prismaClient } from '$lib/server/prisma.js';
 import { redirect } from '@sveltejs/kit';
 import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
+import { PUBLIC_SITE_URL } from '$env/static/public';
 import { v4 as uuidv4 } from 'uuid';
 import { sendAccountEmailConfirmation } from '$lib/server/messenger';
 
 const configs = {
 	clientId: GOOGLE_CLIENT_ID,
 	clientSecret: GOOGLE_CLIENT_SECRET,
-	redirectUri: `http://localhost:5173/oauth/redirect-google`,
+	redirectUri: `${PUBLIC_SITE_URL}/oauth/redirect-google`,
 	scope: ['email']
 };
 
