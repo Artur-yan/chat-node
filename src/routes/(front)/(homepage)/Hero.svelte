@@ -40,7 +40,6 @@
 
 	demoChat();
 </script>
-
 <section>
 	<div class="grid container lg:grid-cols-2 items-center gap-8 mx-auto pt-[5vh] pb-[10vh]">
 		<div class="max-lg:text-center">
