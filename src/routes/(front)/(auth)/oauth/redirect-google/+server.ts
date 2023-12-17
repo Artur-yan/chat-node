@@ -9,7 +9,7 @@ import { sendAccountEmailConfirmation } from '$lib/server/messenger';
 const configs = {
 	clientId: GOOGLE_CLIENT_ID,
 	clientSecret: GOOGLE_CLIENT_SECRET,
-	redirectUri: `http://localhost:5173/oauth/redirect`,
+	redirectUri: `http://localhost:5173/oauth/redirect-google`,
 	scope: ['email']
 };
 
