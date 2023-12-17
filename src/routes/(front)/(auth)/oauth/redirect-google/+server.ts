@@ -58,7 +58,6 @@ export const GET = async ({ url, locals }) => {
 			data: subscriptionData
 		});
 
-		// @ts-ignore
 		await sendAccountEmailConfirmation(email, uuid);
 
 		const session = await auth.createSession({
@@ -67,15 +66,12 @@ export const GET = async ({ url, locals }) => {
 		});
 		const sessionCookie = auth.createSessionCookie(session);
 
-		// @ts-ignore
 		locals.auth.setSession(session);
 		throw redirect(302, '/account/chatbots');
 	}
 
-	// @ts-ignore
 	const session = await auth.createSession({ userId: user.id, attributes: {} });
 
-	// @ts-ignore
 	locals.auth.setSession(session);
 
 	throw redirect(302, '/account/chatbots');
