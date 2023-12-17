@@ -40,6 +40,7 @@
 		content="Build your own AI assistant for your website or create an internal research tool by training ChatGPT on any data you'd like."
 	/>
 	<meta property="og:url" content={landing_page}>
+
 	<script
 		src="https://www.chatnode.ai/embed.js"
 		data-chatbot-id="befbfc87e25911db"
