@@ -47,7 +47,6 @@
 	// }" data-color-2="${$currentBot.settings.theme.popupButtonBG}" ${
 	// 	$currentBot.settings.openChatByDefault ? 'data-open' : ''
 	// }><\/script>`;
-
 	$: jsEmbedCode = `<script src="${
 		shareURL
 	}/popup.js"><\/script>`;
