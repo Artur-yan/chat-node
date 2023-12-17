@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PUBLIC_SITE_URL, PUBLIC_CHAT_API_URL } from '$env/static/public';
+	import { PUBLIC_SITE_URL, PUBLIC_CHAT_API_URL, PUBLIC_EMBED_URL } from '$env/static/public';
 	import CopyButton from '$lib/components/CopyButton.svelte';
 	import Code from '$lib/components/Code.svelte';
 	import { currentBot } from '$lib/stores.js';
@@ -28,24 +28,29 @@
 		shareDomain = 'https://' + $currentBot.settings.customDomain;
 		shareURL = shareDomain
 	} else {
-		shareDomain = `${PUBLIC_SITE_URL}`;
-		shareURL  = `${shareDomain}/embed/${data.model.id}`
+		shareDomain = `${PUBLIC_EMBED_URL}`;
+		shareURL  = `${PUBLIC_EMBED_URL}/${data.model.id}`
 	}
 
 
 	$: if (customDomain) {
 		iframeEmbedCode = `<iframe src="${shareDomain}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 	} else {
-		iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
+		// iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
+		iframeEmbedCode = `<iframe src="${shareURL}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 	}
 
+	// $: jsEmbedCode = `<script src="${
+	// 	shareDomain
+	// }/embed.js" data-chatbot-id="${data.model.id}" data-color-1="${
+	// 	$currentBot.settings.theme.popupButtonIcon
+	// }" data-color-2="${$currentBot.settings.theme.popupButtonBG}" ${
+	// 	$currentBot.settings.openChatByDefault ? 'data-open' : ''
+	// }><\/script>`;
+
 	$: jsEmbedCode = `<script src="${
-		shareDomain
-	}/embed.js" data-chatbot-id="${data.model.id}" data-color-1="${
-		$currentBot.settings.theme.popupButtonIcon
-	}" data-color-2="${$currentBot.settings.theme.popupButtonBG}" ${
-		$currentBot.settings.openChatByDefault ? 'data-open' : ''
-	}><\/script>`;
+		shareURL
+	}/popup.js"><\/script>`;
 
 	const makePublic = () => {
 		$currentBot.settings.public = true;
