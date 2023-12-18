@@ -349,7 +349,7 @@
 						disabled={!uploadedImage}
 					/>
 				</form>
-				<p class="help italic text-sm text-gray-500">1MB Max. png, svg, or jpg</p>
+				<p class="help italic text-sm text-gray-500">1MB Max. png, svg, jpg, or jpeg</p>
 			</div>
 		</div>
 	</div>
@@ -452,7 +452,7 @@
 						disabled={!uploadedPopupImage}
 					/>
 				</form>
-				<p class="help italic text-sm text-gray-500">1MB Max. png, svg, or jpg</p>
+				<p class="help italic text-sm text-gray-500">1MB Max. png, svg, jpg, or jpeg</p>
 				
 			</div>
 		</div>
