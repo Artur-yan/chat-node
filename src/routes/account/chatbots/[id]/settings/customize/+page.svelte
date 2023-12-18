@@ -309,7 +309,7 @@
 		<div class="flex gap-8">
 			{#if $currentBot.cloudinary_public_id}
 				<div class="text-center">
-					<img src={$currentBotAvatarImg} class="w-16 mx-auto mb-2 rounded-full" alt="Avatar" />
+					<img src={$currentBotAvatarImg} class="w-16 mx-auto mb-2" style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;" alt="Avatar" />
 					<form method="post" enctype="multipart/form-data">
 						<input
 							name="existing-cloudinary-public-id"
@@ -385,7 +385,7 @@
 		<div class="flex gap-8">
 			{#if $currentBot.cloudinary_public_id_popup}
 				<div class="text-center">
-					<img src={$currentBotPopupImg} class="w-16 mx-auto mb-2 rounded-full" alt="Chat Button" />
+					<img src={$currentBotPopupImg} class="w-16 mx-auto mb-2" style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;" alt="Chat Button" />
 					<form method="post" enctype="multipart/form-data">
 						<input
 							name="existing-cloudinary-public-id-popup"
