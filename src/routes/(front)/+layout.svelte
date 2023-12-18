@@ -21,6 +21,11 @@
 </script>
 
 <svelte:head>
+		<script data-termly-config>
+		window.TERMLY_CUSTOM_BLOCKING_MAP = {
+			"embed.chatnode.ai": "essential"
+		}
+	</script>
 	<script
 		type="text/javascript"
 		src="https://app.termly.io/embed.min.js"
