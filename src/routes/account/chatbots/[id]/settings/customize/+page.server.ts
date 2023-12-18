@@ -10,7 +10,7 @@ cloudinary.config({
 	secure: true
 });
 
-const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml'];
+const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml', 'image/gif'];
 
 const updateAvatarImg = async (bot_id: string, avatarImg: string, public_id: string) => {
 	await prismaClient.bots.update({

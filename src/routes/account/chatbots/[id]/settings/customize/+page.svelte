@@ -309,7 +309,7 @@
 		<div class="flex gap-8">
 			{#if $currentBot.cloudinary_public_id}
 				<div class="text-center">
-					<img src={$currentBotAvatarImg} class="w-16 mx-auto mb-2 rounded-full" alt="Avatar" />
+					<img src={$currentBotAvatarImg} class="w-16 mx-auto mb-2" style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;" alt="Avatar" />
 					<form method="post" enctype="multipart/form-data">
 						<input
 							name="existing-cloudinary-public-id"
@@ -331,7 +331,7 @@
 						disabled={data.subscription.plan === 0}
 						name="avatar-img"
 						type="file"
-						accept=".jpg, .png, .svg"
+						accept=".jpg, .png, .svg, .jpeg, .gif"
 						class="join-item file-input file-input-bordered w-full"
 						on:change={handleAvatarSelect}
 					/>
@@ -349,7 +349,7 @@
 						disabled={!uploadedImage}
 					/>
 				</form>
-				<p class="help italic text-sm text-gray-500">1MB Max. png, svg, or jpg</p>
+				<p class="help italic text-sm text-gray-500">1MB Max. png, svg, jpg, jpeg, or gif</p>
 			</div>
 		</div>
 	</div>
@@ -385,7 +385,7 @@
 		<div class="flex gap-8">
 			{#if $currentBot.cloudinary_public_id_popup}
 				<div class="text-center">
-					<img src={$currentBotPopupImg} class="w-16 mx-auto mb-2 rounded-full" alt="Chat Button" />
+					<img src={$currentBotPopupImg} class="w-16 mx-auto mb-2" style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;" alt="Chat Button" />
 					<form method="post" enctype="multipart/form-data">
 						<input
 							name="existing-cloudinary-public-id-popup"
@@ -434,7 +434,7 @@
 						disabled={data.subscription.plan === 0}
 						name="chat-button-img"
 						type="file"
-						accept=".jpg, .png, .svg"
+						accept=".jpg, .png, .svg, .jpeg, .gif"
 						class="join-item file-input file-input-bordered w-full"
 						on:change={handlePopupImgSelect}
 					/>
@@ -452,7 +452,7 @@
 						disabled={!uploadedPopupImage}
 					/>
 				</form>
-				<p class="help italic text-sm text-gray-500">1MB Max. png, svg, or jpg</p>
+				<p class="help italic text-sm text-gray-500">1MB Max. png, svg, jpg, jpeg, or gif</p>
 				
 			</div>
 		</div>
