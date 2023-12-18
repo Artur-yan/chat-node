@@ -22,7 +22,7 @@
 	$: if ($currentBot.custom_domain) {
 		customDomain = true;
 		shareDomain = 'https://' + $currentBot.custom_domain;
-		shareURL = shareDomain
+		shareURL  = shareDomain + `/${data.model.id}`
 	} else if ($currentBot.settings.customDomain) {
 		customDomain = true
 		shareDomain = 'https://' + $currentBot.settings.customDomain;
