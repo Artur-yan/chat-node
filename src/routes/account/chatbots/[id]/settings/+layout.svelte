@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Chat from '$lib/components/Chat.svelte';
-	import { currentBot, currentBotAvatarImg, state, alert } from '$lib/stores';
+	import { currentBot, currentBotAvatarImg, currentBotPopupImg, state, alert } from '$lib/stores';
 	import { updateModel } from '$lib/models.js';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
@@ -11,6 +11,8 @@
 	export let data;
 
 	$currentBotAvatarImg = $currentBot.avatar_img;
+	$currentBotPopupImg = $currentBot.chat_button_img;
+
 
 	const links = [
 		{ name: 'Prompts', url: 'prompts' },
