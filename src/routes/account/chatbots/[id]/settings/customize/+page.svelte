@@ -331,7 +331,7 @@
 						disabled={data.subscription.plan === 0}
 						name="avatar-img"
 						type="file"
-						accept=".jpg, .png, .svg"
+						accept=".jpg, .png, .svg, .jpeg, .gif"
 						class="join-item file-input file-input-bordered w-full"
 						on:change={handleAvatarSelect}
 					/>
@@ -349,7 +349,7 @@
 						disabled={!uploadedImage}
 					/>
 				</form>
-				<p class="help italic text-sm text-gray-500">1MB Max. png, svg, jpg, or jpeg</p>
+				<p class="help italic text-sm text-gray-500">1MB Max. png, svg, jpg, jpeg, or gif</p>
 			</div>
 		</div>
 	</div>
@@ -434,7 +434,7 @@
 						disabled={data.subscription.plan === 0}
 						name="chat-button-img"
 						type="file"
-						accept=".jpg, .png, .svg"
+						accept=".jpg, .png, .svg, .jpeg, .gif"
 						class="join-item file-input file-input-bordered w-full"
 						on:change={handlePopupImgSelect}
 					/>
@@ -452,7 +452,7 @@
 						disabled={!uploadedPopupImage}
 					/>
 				</form>
-				<p class="help italic text-sm text-gray-500">1MB Max. png, svg, jpg, or jpeg</p>
+				<p class="help italic text-sm text-gray-500">1MB Max. png, svg, jpg, jpeg, or gif</p>
 				
 			</div>
 		</div>
