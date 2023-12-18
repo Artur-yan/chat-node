@@ -26,7 +26,7 @@
 	} else if ($currentBot.settings.customDomain) {
 		customDomain = true
 		shareDomain = 'https://' + $currentBot.settings.customDomain;
-		shareURL = shareDomain
+		shareURL  = shareDomain + `/${data.model.id}`
 	} else {
 		shareDomain = `${PUBLIC_EMBED_URL}`;
 		shareURL  = `${PUBLIC_EMBED_URL}/${data.model.id}`
@@ -34,7 +34,7 @@
 
 
 	$: if (customDomain) {
-		iframeEmbedCode = `<iframe src="${shareDomain}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
+		iframeEmbedCode = `<iframe src="${shareURL}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 	} else {
 		// iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
 		iframeEmbedCode = `<iframe src="${shareURL}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
