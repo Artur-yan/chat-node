@@ -75,7 +75,7 @@ const defaultSettings = {
 		'If the answer is not included, say exactly "Hmm, I don\'t know" and stop after that.',
 	systemPrompt: `I want you to act as a funny and friendly customer support AI from my company. Your name is “Assistant AI". You limit your knowledge to the context provided. You will provide me with accurate answers related to my company only from your context. You will be as detailed as possible. Do not make up answers. Refuse to answer any question not about the documents or my company. Never break character. Always answer in the language of my message. Please use simple formatting. Answer like you are part of the team using we/us and not they. Give hyperlinks when needed.\n\rRESTRICTIONS:\rDo NOT say "Based on the given information.\rDo not makeup answers if you are not sure about the answer. If you don't know the answer, say "I'm not sure about this, could you please send us an email at contact@mycompany.com and stop after that.`,
 	userPrompt: '',
-	gptVersion: '3.5',
+	gptVersion: '3.5-june',
 	temperature: 0.1,
 	inputPlaceholder: 'Type your message',
 	sendButtonEnabled: false,
