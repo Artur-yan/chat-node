@@ -26,7 +26,6 @@ export const GET = async ({ url, locals }) => {
 
 	// User not found
 	if (!user) {
-		console.log('User not found');
 		const uuid = uuidv4();
 		const user = await auth.createUser({
 			key: {
@@ -36,7 +35,8 @@ export const GET = async ({ url, locals }) => {
 			},
 			attributes: {
 				email,
-				verification_uuid: uuid
+				verification_uuid: uuid,
+				status: 'active'
 			}
 		});
 
@@ -58,8 +58,6 @@ export const GET = async ({ url, locals }) => {
 		await prismaClient.subscriptions.create({
 			data: subscriptionData
 		});
-
-		await sendAccountEmailConfirmation(email, uuid);
 
 		const session = await auth.createSession({
 			userId: user.userId,
