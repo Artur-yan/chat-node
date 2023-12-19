@@ -36,7 +36,8 @@ export const GET = async ({ url, locals }) => {
 			},
 			attributes: {
 				email,
-				verification_uuid: uuid
+				verification_uuid: uuid,
+				status: 'active'
 			}
 		});
 
@@ -58,8 +59,6 @@ export const GET = async ({ url, locals }) => {
 		await prismaClient.subscriptions.create({
 			data: subscriptionData
 		});
-
-		await sendAccountEmailConfirmation(email, uuid);
 
 		const session = await auth.createSession({
 			userId: user.userId,
