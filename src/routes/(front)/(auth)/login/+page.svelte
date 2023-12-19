@@ -16,9 +16,9 @@
 </svelte:head>
 
 <section>
-	<div class="card w-96 bg-neutral text-neutral-content mx-auto my-20">
+	<div class="card w-96 bg-neutral text-neutral-content mx-auto md:my-16">
 		<div class="card-body">
-			<h2 class="card-title mx-auto">Welcome Back!</h2>
+			<h2 class="card-title mx-auto my-2">Welcome Back!</h2>
 			<a href="/oauth/google" class="my-4">
 				<button class="w-full -mt-4 flex items-center justify-center gap-2 rounded-lg border bg-white border-slate-700 px-4 py-2 text-slate-700 transition duration-150 hover:border-slate-400 hover:text-slate-900">
 					<img class="h-6 w-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"> 
