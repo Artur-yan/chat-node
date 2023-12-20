@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import PricingGrid from '$lib/components/PricingGrid.svelte';
 	import { alert } from '$lib/stores';
 
 	import tiersMap from '$lib/data/tiers';
@@ -9,6 +8,9 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import Testimonials from '$lib/components/Testimonials.svelte';
+	import UpdatedPricing from '$lib/components/UpdatedPricing.svelte';
+	import UpdatedAddon from '$lib/components/UpdatedAddons.svelte';
+	import Addon from '$lib/components/Addon.svelte';
 
 	export let data;
 	export let form;
@@ -18,6 +20,7 @@
 
 	let currentPlan = data.subscription.plan;
 	$: currentPlan = data.subscription.plan;
+	console.log('current plan ---->', currentPlan);
 
 	let showAppsumoKeysField = false;
 
@@ -58,6 +61,27 @@
 	onMount(() => {
 		invalidateAll();
 	});
+
+// Add-ons
+	let messagesSubscription;
+	let botsSubscription;
+	let tokenSubscription;
+	let brandingSubscription;
+
+	if (data.subscription?.addons) {
+		if (data.subscription?.addons['10001']) {
+			messagesSubscription = data.subscription?.addons['10001'];
+		}
+		if (data.subscription?.addons['10002']) {
+			botsSubscription = data.subscription?.addons['10002'];
+		}
+		if (data.subscription?.addons['10003']) {
+			tokenSubscription = data.subscription?.addons['10003'];
+		}
+		if (data.subscription?.addons['10004']) {
+			brandingSubscription = data.subscription?.addons['10004'];
+		}
+	}
 </script>
 
 <svelte:head>
@@ -217,7 +241,75 @@
 			You may set a default key for all bots and override the key per bot.
 		</p>
 	{:else if currentPlan < 1000}
-		<PricingGrid {currentPlan} {billingTerm} />
+		<UpdatedPricing 
+			includeMarketing={false} 
+			userId={data.user.id}
+			currentPlan={currentPlan}
+		/>
+		<div class="container my-10">
+			{#if data.subscription?.plan === 0}
+				<div class="alert mb-8 text-warning justify-between flex">
+					<p>You must have an active subscription to purchase addons.</p>
+					<a href="subscription" class="btn btn-warning">Upgrade</a>
+				</div>
+			{/if}
+		
+			<div class="grid md:grid-cols-2 gap-8 relative">
+				{#if data.subscription?.plan === 0}
+					<div class="absolute inset-0 bg-base-100/50 z-10" />
+				{/if}
+		
+				<Addon
+					name="Bots"
+					description="Add individual bots to your plan allowance."
+					price={7}
+					subscription={botsSubscription}
+					addonId="10002"
+					user_id={data.subscription?.user_id}
+				/>
+		
+				<Addon
+					name="Messages"
+					description="Add messages to your plan usable by any of your bots."
+					price={10}
+					bundleQty={1000}
+					subscription={messagesSubscription}
+					addonId="10001"
+					user_id={data.subscription?.user_id}
+				/>
+		
+				<Addon
+					name="Tokens"
+					description="Add additional tokens to your bots to train on larger data sets."
+					price={7}
+					bundleQty={250000}
+					subscription={tokenSubscription}
+					addonId="10003"
+					user_id={data.subscription?.user_id}
+				/>
+		
+				<Addon
+					name="No Branding"
+					max1={true}
+					description='Remove "Powered by ChatNode" from all of your bots.'
+					price={19}
+					subscription={brandingSubscription}
+					addonId="10004"
+					user_id={data.subscription?.user_id}
+				/>
+				<Addon
+					name="CNAME"
+					max1={true}
+					description='Have your chatbot 100% white label with your own domain'
+					price={59}
+					subscription={brandingSubscription}
+					addonId="10005"
+					user_id={data.subscription?.user_id}
+				/>
+			</div>
+		</div>
+		
+		
 	{/if}
 </div>
 
