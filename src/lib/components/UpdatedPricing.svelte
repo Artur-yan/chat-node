@@ -117,7 +117,7 @@
                 </li>
               </ul>
             </div>
-            <a href="/register">
+            <a href="{isAnnual ? '/register?plan=105&status=free_trial' : '/register?plan=5&status=free_trial'}">
               <button class="flex w-full justify-center mt-10 bg-black bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2  border-indigo-600">
                 <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
               </button>  
@@ -174,7 +174,7 @@
                 </li>
               </ul>
             </div>
-            <a href="/register">
+            <a href="{isAnnual ? '/register?plan=106&status=free_trial' : '/register?plan=6&status=free_trial'}">
               <button class="flex w-full justify-center mt-10 bg-black bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600">
                 <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
               </button>   
