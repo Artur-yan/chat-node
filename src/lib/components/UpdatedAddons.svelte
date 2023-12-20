@@ -1,4 +1,4 @@
-<div class="flex flex-col mx-12 md:mx-52 items-start gap-x-1 gap-y-6  bg-gray-500 bg-opacity-25 rounded-3xl p-8 ring-1 ring-gray-900/10 sm:gap-y-10 sm:p-6 lg:col-span-3 lg:flex-row lg:items-center">
+<div class="flex flex-col mx-6 md:mx-52 items-start gap-x-1 gap-y-6  bg-gray-500 bg-opacity-25 rounded-3xl p-8 ring-1 ring-gray-900/10 sm:gap-y-10 sm:p-6 lg:col-span-3 lg:flex-row lg:items-center">
   <div class="mx-auto max-w-5xl">
     <div class="flex justify-center items-center mx-auto mb-4">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-6 h-6">

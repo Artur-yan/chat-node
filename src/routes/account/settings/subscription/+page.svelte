@@ -9,7 +9,6 @@
 	import { goto } from '$app/navigation';
 	import Testimonials from '$lib/components/Testimonials.svelte';
 	import UpdatedPricing from '$lib/components/UpdatedPricing.svelte';
-	import UpdatedAddon from '$lib/components/UpdatedAddons.svelte';
 	import Addon from '$lib/components/Addon.svelte';
 
 	export let data;
@@ -20,7 +19,6 @@
 
 	let currentPlan = data.subscription.plan;
 	$: currentPlan = data.subscription.plan;
-	console.log('current plan ---->', currentPlan);
 
 	let showAppsumoKeysField = false;
 
@@ -246,71 +244,61 @@
 			userId={data.user.id}
 			currentPlan={currentPlan}
 		/>
-		<div class="container my-10">
-			{#if data.subscription?.plan === 0}
-				<div class="alert mb-8 text-warning justify-between flex">
-					<p>You must have an active subscription to purchase addons.</p>
-					<a href="subscription" class="btn btn-warning">Upgrade</a>
-				</div>
-			{/if}
-		
-			<div class="grid md:grid-cols-2 gap-8 relative">
-				{#if data.subscription?.plan === 0}
-					<div class="absolute inset-0 bg-base-100/50 z-10" />
-				{/if}
-		
-				<Addon
-					name="Bots"
-					description="Add individual bots to your plan allowance."
-					price={7}
-					subscription={botsSubscription}
-					addonId="10002"
-					user_id={data.subscription?.user_id}
-				/>
-		
-				<Addon
-					name="Messages"
-					description="Add messages to your plan usable by any of your bots."
-					price={10}
-					bundleQty={1000}
-					subscription={messagesSubscription}
-					addonId="10001"
-					user_id={data.subscription?.user_id}
-				/>
-		
-				<Addon
-					name="Tokens"
-					description="Add additional tokens to your bots to train on larger data sets."
-					price={7}
-					bundleQty={250000}
-					subscription={tokenSubscription}
-					addonId="10003"
-					user_id={data.subscription?.user_id}
-				/>
-		
-				<Addon
-					name="No Branding"
-					max1={true}
-					description='Remove "Powered by ChatNode" from all of your bots.'
-					price={19}
-					subscription={brandingSubscription}
-					addonId="10004"
-					user_id={data.subscription?.user_id}
-				/>
-				<Addon
-					name="CNAME"
-					max1={true}
-					description='Have your chatbot 100% white label with your own domain'
-					price={59}
-					subscription={brandingSubscription}
-					addonId="10005"
-					user_id={data.subscription?.user_id}
-				/>
-			</div>
-		</div>
-		
-		
 	{/if}
+
+	<div class="container bg-transparent bg-opacity-100">
+		{#if data.subscription?.plan === 0}
+			<div class="alert mb-8 text-warning justify-between flex">
+				<p>You must have an active subscription to purchase addons.</p>
+				<a href="subscription" class="btn btn-warning">Upgrade</a>
+			</div>
+		{/if}
+	
+		<div class="grid md:grid-cols-4 gap-8 relative">
+			{#if data.subscription?.plan === 0}
+				<div class="absolute inset-0 bg-base-100/50 z-10" />
+			{/if}
+	
+			<Addon
+				name="Extra Messages"
+				description="Add messages to your plan usable by any of your bots."
+				price={10}
+				bundleQty={1000}
+				subscription={messagesSubscription}
+				addonId="10001"
+				user_id={data.subscription?.user_id}
+			/>
+	
+			<Addon
+				name="Extra Tokens"
+				description="Add additional tokens to your bots to train on larger data sets."
+				price={7}
+				bundleQty={250000}
+				subscription={tokenSubscription}
+				addonId="10003"
+				user_id={data.subscription?.user_id}
+			/>
+
+			<Addon
+				name="Extra Bots"
+				description="Add individual bots to your plan allowance."
+				price={7}
+				subscription={botsSubscription}
+				addonId="10002"
+				user_id={data.subscription?.user_id}
+			/>
+
+			<Addon
+				name="Custom Domain"
+				max1={true}
+				description='Have your chatbot 100% white label with your own domain'
+				price={59}
+				subscription={brandingSubscription}
+				addonId="10005"
+				user_id={data.subscription?.user_id}
+			/>
+		</div>
+	</div>
 </div>
 
 <Testimonials testimonials={data.streamed?.testimonials} />

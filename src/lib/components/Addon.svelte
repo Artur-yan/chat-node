@@ -53,29 +53,34 @@
 	}
 </script>
 
-<div class="card bg-neutral">
-	<div class="card-body">
-		<h2 class="card-title gap-4">
+<div class="card bg-slate-700 p-0">
+	<div class="card-body p-6">
+		<h2 class="card-title gap-3">
 			<span>{name}</span>
-			<span class="badge">
-				${price}/mo. {unit}
-			</span>
+
+			{#if qty}
+				<div class="badge bg-gray-700 badge-lg p-2 border-1 border-gray-500">Installed</div>
+			{/if}
 		</h2>
-		<p>{description}</p>
+		<span class="badge p-3 bg-indigo-600 border-1 border-indigo-700">
+			${price}/mo. {unit}
+		</span>
+		<p class="text-gray-400 italic">{description}</p>
 		{#if qty}
-			<div class="mt-4 items-center flex gap-4 justify-start flex-wrap">
-				<div class="badge badge-success badge-lg">Installed</div>
+			<div class="mt-3 items-center flex gap-2 justify-start flex-wrap">
 				{#if subscription.cancel_at}
 					<div class="badge badge-warning">Expiring {subscription.cancel_at.toLocaleString()}</div>
 				{/if}
-				<div class="badge badge-lg">{qty} x {bundleQty > 1 ? bundleQty.toLocaleString() : ''}</div>
-				<div class="badge badge-lg">${qty * price}/mo.</div>
+				<div class="flex gap-2">
+					<div class="badge badge-lg bg-gray-700 border-1 border-gray-500">{qty} x {bundleQty > 1 ? bundleQty.toLocaleString() : ''}</div>
+					<div class="badge badge-lg bg-gray-700  border-1 border-gray-500">${qty * price}/mo.</div>
+				</div>
 			</div>
 		{/if}
 
-		<div class="card-actions mt-10 items-center">
+		<div class="card-actions mt-10 items-center m-3">
 			<button
-				class="btn btn-primary btn-outline"
+				class="btn bg-indigo-600 -m-4 border-2 border-indigo-600 font-bold  bg-gradient-to-r from-indigo-200 to-indigo-500 text-transparent bg-clip-text"
 				on:click={() => {
 					if (max1) {
 						handleCheckout(1);
@@ -89,7 +94,7 @@
 			</button>
 			{#if modifying}
 				<div class="flex join">
-					<div class="flex join-item items-center border border-primary">
+					<div class="flex join-item items-center border border-indigo-600">
 						<button
 							class="btn btn-ghost btn-square text-error"
 							on:click={() => qtyToAdd--}
@@ -103,7 +108,7 @@
 								/>
 							</svg>
 						</button>
-						<div class="badge badge-primary badge-lg mx-2">
+						<div class="badge bg-indigo-600 badge-lg mx-2">
 							{(qtyToAdd * bundleQty).toLocaleString()}
 						</div>
 						<button
@@ -119,23 +124,16 @@
 							</svg>
 						</button>
 						<button
-							class="join-item btn btn-primary"
+							class="join-item btn btn-indigo-600"
 							on:click={() => handleCheckout(qtyToAdd)}
 							disabled={qty === qtyToAdd || loadingStripe}
 						>
 							{#if loadingStripe}
 								<span class="loading loading-spinner" />
 							{:else}
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-									<path
-										fill="none"
-										stroke="currentColor"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="m5 11l4-7m10 7l-4-7M2 11h20M3.5 11l1.6 7.4a2 2 0 0 0 2 1.6h9.8c.9 0 1.8-.7 2-1.6l1.7-7.4M9 11l1 9m-5.5-4.5h15M15 11l-1 9"
-									/>
-								</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-6 h-6">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+							</svg>							
 							{/if}
 						</button>
 					</div>
