@@ -1,15 +1,20 @@
-<script>
+<script lang="ts">
+  export let includeMarketing: Boolean;
   let isAnnual = false;
 </script>
 
 <div id="pricing" class="isolate overflow-hidden bg-gray-900">
-  <div class="mx-auto max-w-7xl px-6 pb-96 pt-24 text-center sm:pt-32 lg:px-8">
+  <div class="mx-auto max-w-7xl px-6 pb-96 pt-12 text-center lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <h2 class="text-base font-semibold leading-7 text-indigo-400">Plans</h2>
-      <h1 class="p-2 text-4xl font-bold tracking-tight sm:text-6xl text-transparent text-white">Affordable Pricing</h1>
+      {#if includeMarketing}
+        <h2 class="text-base font-semibold leading-7 text-indigo-400">Plans</h2>
+        <h1 class="p-2 text-4xl font-bold tracking-tight sm:text-6xl text-transparent text-white">Affordable Pricing</h1>
+      {/if}
     </div>
     <div class="relative mt-2">
-      <p class="mx-auto max-w-2xl text-lg leading-8 text-white/60">Flexible Pricing for Every Business Size</p>
+      {#if includeMarketing}
+        <p class="mx-auto max-w-2xl text-lg leading-8 text-white/60">Flexible Pricing for Every Business Size</p>
+      {/if}
 
       <!-- Toggle -->
       <div 
@@ -117,7 +122,7 @@
                 </li>
               </ul>
             </div>
-            <a href="{isAnnual ? '/register?plan=105&status=free_trial' : '/register?plan=5&status=free_trial'}">
+            <a href="{isAnnual ? '/register?plan=105&status=free_trial' : '/register?plan=5&'}">
               <button class="flex w-full justify-center mt-10 bg-black bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2  border-indigo-600">
                 <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
               </button>  
