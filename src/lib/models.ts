@@ -90,6 +90,7 @@ const defaultSettings = {
 	useChatNodeMsgs: true,
 	useSourceUrls: false,
 	customDomain: '',
+	popupButtonRight: true,
 	msgLimitEnabled: false,
 	msgLimit: 200,
 	crispEnabled: false,

@@ -21,6 +21,11 @@
 </script>
 
 <svelte:head>
+		<script data-termly-config>
+		window.TERMLY_CUSTOM_BLOCKING_MAP = {
+			"embed.chatnode.ai": "essential"
+		}
+	</script>
 	<script
 		type="text/javascript"
 		src="https://app.termly.io/embed.min.js"
@@ -120,12 +125,13 @@ window.requestIdleCallback(idleWrapper, {timeout: 10000});
 		</script>
 	{/if}
 
-	<script
-		src="https://www.chatnode.ai/embed.js"
-		data-chatbot-id="befbfc87e25911db"
-		data-color-1="#0E1729"
-		data-color-2="#3ABFF7"
-	></script>
+<!--	<script-->
+<!--		src="https://www.chatnode.ai/embed.js"-->
+<!--		data-chatbot-id="befbfc87e25911db"-->
+<!--		data-color-1="#0E1729"-->
+<!--		data-color-2="#3ABFF7"-->
+<!--	></script>-->
+		<script src="https://embed.chatnode.ai/befbfc87e25911db/popup.js"></script>
 </svelte:head>
 
 <Header />

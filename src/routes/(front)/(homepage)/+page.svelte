@@ -41,12 +41,13 @@
 	/>
 	<meta property="og:url" content={landing_page}>
 
-	<script
-		src="https://www.chatnode.ai/embed.js"
-		data-chatbot-id="befbfc87e25911db"
-		data-color-1="#0E1729"
-		data-color-2="#3ABFF7"
-	></script>
+<!--	<script-->
+<!--		src="https://www.chatnode.ai/embed.js"-->
+<!--		data-chatbot-id="befbfc87e25911db"-->
+<!--		data-color-1="#0E1729"-->
+<!--		data-color-2="#3ABFF7"-->
+<!--	></script>-->
+	<script src="https://embed.chatnode.ai/befbfc87e25911db/popup.js"></script>
 </svelte:head>
 
 <Hero />

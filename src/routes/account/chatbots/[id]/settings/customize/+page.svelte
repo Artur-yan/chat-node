@@ -363,14 +363,25 @@
 				<div class="flex justify-between">
 					<div class="flex items-end">
 						<div class="form-control">
-							<label class="label cursor-pointer justify-start gap-3">
-								<input
-									type="checkbox"
-									class="toggle toggle-sm"
-									bind:checked={$currentBot.settings.openChatByDefault}
-								/>
-								<span class="label-text">Open chat window by default</span>
-							</label>
+							<div class="flex gap-3 mx-2">
+								<label class="label cursor-pointer justify-start gap-3">
+									<input
+										type="checkbox"
+										class="toggle toggle-sm"
+										bind:checked={$currentBot.settings.openChatByDefault}
+									/>
+									<span class="label-text">Open chat window by default</span>
+								</label>
+
+								<label class="label cursor-pointer justify-start gap-3">
+									<input
+										type="checkbox"
+										class="toggle toggle-sm bg-white"
+										bind:checked={$currentBot.settings.popupButtonRight}
+									/>
+									<span class="label-text">Button Placement: {$currentBot.settings.popupButtonRight ? 'Right' : 'Left'}</span>
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>
