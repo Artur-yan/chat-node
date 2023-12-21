@@ -62,7 +62,7 @@
 
 			<div class="flex items-center lg:order-2 max-sm:hidden">
 				<a class="btn btn-sm btn-ghost text-primary mr-2" href="/login">Sign in</a>
-				<a class="btn btn-primary" href="/register">Sign Up For Free</a>
+				<a class="btn btn-primary" href="#pricing">Sign Up For Free</a>
 			</div>
 
 			<div class="dropdown dropdown-end sm:hidden">
@@ -88,7 +88,7 @@
 						<a class="text-primary py-4 justify-center" href="/login">Sign in</a>
 					</li>
 					<li>
-							<a class="text-primary py-4 justify-center" href="/register">Sign Up For Free</a>
+							<a class="text-primary py-4 justify-center" href="/pricing">Sign Up For Free</a>
 					</li>
 				</ul>
 			</div>
