@@ -161,9 +161,9 @@
 
 		<hr class="border-base-300 my-4" />
 
-		<div class="flex justify-between items-center">
+		<div class="flex start items-center">
 			<h3 class="font-bold">Header</h3>
-			<div class="form-control inline-flex">
+			<div class="form-control">
 				<label class="cursor-pointer label justify-start gap-2">
 					<span class="label-text">Enable</span>
 					<input
@@ -264,7 +264,7 @@
 
 		<hr class="border-base-300 my-4" />
 
-		<div class="flex justify-between items-center">
+		<div class="flex justify-start items-center">
 			<h2 class="font-bold">Send Button</h2>
 			<div class="form-control inline-flex">
 				<label class="cursor-pointer label justify-start gap-2">
@@ -489,20 +489,43 @@
 	<div class="card-body">
 		<h2 class="card-title">Popup Message</h2>
 		<input type="text" placeholder="Your Message Here" class="input input-bordered w-full max-w-xs" />
-		<div class="w-1/3">
-			<div class="form-control my-2">
+		
+		<!-- Bottom Row -->
+		<div class="flex  mt-4">
+			<div class="w-1/3">
 				<h3 class="font-bold">Message placement</h3>
-				<label class="label cursor-pointer flex justify-start gap-8">
-					<span class="label-text">Top</span> 
-					<input type="radio" name="radio-10" class="radio checked:bg-indigo-400" />
-				</label>
+				<div class="w-1/3 ml-2">
+					<div class="form-control my-2">
+						<label class="label cursor-pointer flex justify-end gap-9">
+							<span class="label-text">Top</span> 
+							<input type="radio" name="radio-10" class="radio checked:bg-indigo-400" />
+						</label>
+					</div>
+					<div class="form-control">
+						<label class="label cursor-pointer flex justify-end gap-8">
+							<span class="label-text">Side</span> 
+							<input type="radio" name="radio-10" class="radio checked:bg-indigo-400" />
+						</label>
+					</div>
+				</div>
 			</div>
-			<div class="form-control">
-				<label class="label cursor-pointer flex justify-start gap-8">
-					<span class="label-text">Side</span> 
-					<input type="radio" name="radio-10" class="radio checked:bg-indigo-400" />
-				</label>
+
+			<!-- Colors -->
+			<div>
+				<h3 class="font-bold">Colors</h3>
+				<div class="grid grid-cols-1 gap-5 mt-4">
+					<ColorPicker
+						bind:hex={$currentBot.settings.popupButtonMessageBG}
+						label="Background"
+					/>
+					<ColorPicker
+						bind:hex={$currentBot.settings.theme.popupButtonMessageText}
+						label="Text Color"
+					/>
+					</div>
 			</div>
+				
+
 		</div>
 	</div>
 </div>
