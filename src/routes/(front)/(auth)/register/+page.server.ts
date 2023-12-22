@@ -48,7 +48,7 @@ const regularPlans: any = {
 const specialPlans: any = {
 	// -1 as a default temporary plan
 	free: {
-		plan: -1,
+		plan: 0,
 		max_bot: 3,
 		max_msg: 5000,
 		max_tocken: 500000
