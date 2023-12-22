@@ -487,8 +487,30 @@
 
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
-		<h2 class="card-title">Popup Message</h2>
-		<input type="text" placeholder="Your Message Here" class="input input-bordered w-full max-w-xs" />
+		<div class="flex items-center gap-3">
+			<h2 class="card-title">Popup Message</h2>
+			<div class="flex start items-center">
+				<div class="form-control">
+					<label class="cursor-pointer label justify-start gap-2">
+						<span class="label-text">Enable</span>
+						<input
+							type="checkbox"
+							class="toggle toggle-sm"
+							class:toggle-success={$currentBot.settings.popupButtonMessageEnabled}
+							bind:checked={$currentBot.settings.popupButtonMessageEnabled}
+						/>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		{#if $currentBot.settings.popupButtonMessageEnabled}
+		<input 
+			bind:value={$currentBot.settings.popupButtonMessageText}
+			type="text" 
+			placeholder="Your Message Here" 
+			class="input input-bordered w-full max-w-xs"
+	   />
 		
 		<!-- Bottom Row -->
 		<div class="flex  mt-4">
@@ -498,13 +520,25 @@
 					<div class="form-control my-2">
 						<label class="label cursor-pointer flex justify-end gap-9">
 							<span class="label-text">Top</span> 
-							<input type="radio" name="radio-10" class="radio checked:bg-indigo-400" />
+							<input 
+								on:click={() => $currentBot.settings.popupMessagePlacement = 'top'}
+								checked={$currentBot.settings.popupMessagePlacement === 'top'}
+								type="radio" 
+								name="radio-10" 
+								class="radio checked:bg-indigo-400" 
+							/>
 						</label>
 					</div>
 					<div class="form-control">
 						<label class="label cursor-pointer flex justify-end gap-8">
 							<span class="label-text">Side</span> 
-							<input type="radio" name="radio-10" class="radio checked:bg-indigo-400" />
+							<input
+								on:click={() => $currentBot.settings.popupMessagePlacement = 'side'}
+								checked={$currentBot.settings.popupMessagePlacement === 'side'} 
+								type="radio" 
+								name="radio-10" 
+								class="radio checked:bg-indigo-400"
+							 />
 						</label>
 					</div>
 				</div>
@@ -515,7 +549,7 @@
 				<h3 class="font-bold">Colors</h3>
 				<div class="grid grid-cols-1 gap-5 mt-4">
 					<ColorPicker
-						bind:hex={$currentBot.settings.popupButtonMessageBG}
+						bind:hex={$currentBot.settings.theme.popupButtonMessageBG}
 						label="Background"
 					/>
 					<ColorPicker
@@ -524,9 +558,8 @@
 					/>
 					</div>
 			</div>
-				
-
 		</div>
+		{/if}
 	</div>
 </div>
 

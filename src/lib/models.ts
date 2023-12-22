@@ -91,6 +91,8 @@ const defaultSettings = {
 	useSourceUrls: false,
 	customDomain: '',
 	popupButtonRight: true,
+	popupButtonMessageEnabled: false,
+	popupButtonMessageText: 'Need help?',
 	msgLimitEnabled: false,
 	msgLimit: 200,
 	crispEnabled: false,
@@ -111,7 +113,10 @@ const defaultSettings = {
 		sendButtonBG: '#FFFFFF',
 		sendButtonIconColor: '#000',
 		popupButtonBG: '#0E1729',
-		popupButtonIcon: '#3ABFF7'
+		popupButtonIcon: '#3ABFF7',
+		popupButtonMessagePlacement: 'side',
+		popupButtonMessageBG: '#FFFFFF',
+		popupButtonMessageText: '#00074B'
 	},
 	openChatByDefault: false,
 	suggestedQuestions: []
