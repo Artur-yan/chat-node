@@ -485,6 +485,28 @@
 	</div>
 </div>
 
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<h2 class="card-title">Popup Message</h2>
+		<input type="text" placeholder="Your Message Here" class="input input-bordered w-full max-w-xs" />
+		<div class="w-1/3">
+			<div class="form-control my-2">
+				<h3 class="font-bold">Message placement</h3>
+				<label class="label cursor-pointer flex justify-start gap-8">
+					<span class="label-text">Top</span> 
+					<input type="radio" name="radio-10" class="radio checked:bg-indigo-400" />
+				</label>
+			</div>
+			<div class="form-control">
+				<label class="label cursor-pointer flex justify-start gap-8">
+					<span class="label-text">Side</span> 
+					<input type="radio" name="radio-10" class="radio checked:bg-indigo-400" />
+				</label>
+			</div>
+		</div>
+	</div>
+</div>
+
 <style lang="postcss">
 	.themes {
 		@apply flex items-center gap-2 flex-wrap;
