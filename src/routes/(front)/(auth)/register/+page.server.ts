@@ -9,6 +9,10 @@ import { domainBlacklist } from '$lib/systemSettings';
 import type { PageServerLoad } from './$types';
 import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 
+const delay = (ms) => {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
 export const load: PageServerLoad = async ({ locals, url }) => {
 	const session = await locals.auth.validate();
 	if (session) throw redirect(302, '/account/chatbots');
@@ -16,12 +20,13 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 
 const regularPlans: any = {
 	'5': {
+		plan: 5,
 		max_bot: 3,
 		max_msg: 5000,
 		max_tocken: 500000
 	},
 	'6': {
-		plan: 106,
+		plan: 6,
 		max_bot: 5,
 		max_msg: 10000,
 		max_tocken: 1000000
@@ -40,44 +45,44 @@ const regularPlans: any = {
 	}
 };
 
-// const specialPlans: any = {
-// 	free: {
-// 		plan: 1000,
-// 		max_bot: 3,
-// 		max_msg: 5000,
-// 		max_tocken: 500000
-// 	},
-// 	appsumo1: {
-// 		plan: 1001,
-// 		max_bot: 10,
-// 		max_msg: 2000,
-// 		max_tocken: 500000
-// 	},
-// 	appsumo2: {
-// 		plan: 1002,
-// 		max_bot: 20,
-// 		max_msg: 4000,
-// 		max_tocken: 1000000
-// 	},
-// 	appsumo3: {
-// 		plan: 1003,
-// 		max_bot: 40,
-// 		max_msg: 6000,
-// 		max_tocken: 2000000
-// 	},
-// 	appsumo4: {
-// 		plan: 1004,
-// 		max_bot: 60,
-// 		max_msg: 8000,
-// 		max_tocken: 4000000
-// 	},
-// 	appsumo5: {
-// 		plan: 1005,
-// 		max_bot: 80,
-// 		max_msg: 10000,
-// 		max_tocken: 8000000
-// 	}
-// };
+const specialPlans: any = {
+	free: {
+		plan: 0,
+		max_bot: 3,
+		max_msg: 5000,
+		max_tocken: 500000
+	},
+	appsumo1: {
+		plan: 1001,
+		max_bot: 10,
+		max_msg: 2000,
+		max_tocken: 500000
+	},
+	appsumo2: {
+		plan: 1002,
+		max_bot: 20,
+		max_msg: 4000,
+		max_tocken: 1000000
+	},
+	appsumo3: {
+		plan: 1003,
+		max_bot: 40,
+		max_msg: 6000,
+		max_tocken: 2000000
+	},
+	appsumo4: {
+		plan: 1004,
+		max_bot: 60,
+		max_msg: 8000,
+		max_tocken: 4000000
+	},
+	appsumo5: {
+		plan: 1005,
+		max_bot: 80,
+		max_msg: 10000,
+		max_tocken: 8000000
+	}
+};
 
 export const actions: Actions = {
 	default: async ({ request, locals, url }) => {
@@ -89,10 +94,11 @@ export const actions: Actions = {
 
 		let codes: Array<string> = [];
 
-		let subscriptionLimits = regularPlans[selectedPlan];
+		let subscriptionLimits = specialPlans['free'];
 		let tooManyCodes = false;
 		let codesAlreadyRedeemed = false;
 		let codesDontExist = false;
+		let stripeLink: string;
 
 		if (domainBlacklist.includes(email.split('@')[1])) {
 			return fail(400, {
@@ -167,21 +173,6 @@ export const actions: Actions = {
 				}
 			});
 
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					user_id: user.userId,
-					plan: subscriptionLimits.plan
-					// referral: referralCode
-				})
-			});
-
-			console.log('res----->', res);
-
-			// Create Subscription
 			let subscriptionData = {
 				user_id: user.userId,
 				plan: subscriptionLimits.plan,
@@ -190,12 +181,34 @@ export const actions: Actions = {
 				max_tocken: subscriptionLimits.max_tocken
 			};
 
+			// Creating default free plan
 			await prismaClient.subscriptions.create({
 				data: subscriptionData
 			});
 
+			//Delay to create new stripe account in background
+			await delay(4000);
+
+			console.log(user.userId, selectedPlan);
+
+			// Updating plan to selected plan
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					user_id: user.userId,
+					plan: selectedPlan
+				})
+			});
+
+			const data = await res.json();
+			stripeLink = data.url;
+			console.log('Stripe Link', stripeLink);
+
 			// Send Email
-			await sendAccountEmailConfirmation(email, uuid);
+			sendAccountEmailConfirmation(email, uuid);
 
 			// fbEvent('StartTrial', [email]);
 
@@ -204,6 +217,7 @@ export const actions: Actions = {
 				userId: user.userId,
 				attributes: {}
 			});
+
 			const sessionCookie = auth.createSessionCookie(session);
 			locals.auth.setSession(session);
 		} catch (error) {
@@ -248,6 +262,6 @@ export const actions: Actions = {
 		// 	});
 		// }
 
-		throw redirect(302, '/account/chatbots?signup=success');
+		throw redirect(302, stripeLink);
 	}
 };
