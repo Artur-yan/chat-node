@@ -241,7 +241,7 @@
 	{:else if currentPlan < 1000}
 		<UpdatedPricing 
 			includeMarketing={false} 
-			userId={data.user.id}
+			userId={data.user.userId}
 			currentPlan={currentPlan}
 		/>
 	{/if}

@@ -46,7 +46,6 @@
 	});
 
   const updatePlan = async (newPlan: number) => {
-    console.log('Updating!!!')
 		try {
 			busyChangingPlan = true;
 			const res = await fetch('/api/account/plan', {
@@ -56,7 +55,6 @@
 				},
 				body: JSON.stringify({ newPlan, referralCode })
 			});
-      console.log('res ---->', res)
 			const data = await res.json();
 			goto(data.url);
 		} catch (err) {
@@ -67,9 +65,25 @@
 		}
 	};
 
-  const handleConfirmPlanChange = (plan: number) => {
+  const handleConfirmPlanChange = async (plan: number) => {
 		planToChangeTo = plan;
-		if (currentPlan === 0) {
+
+    if(currentPlan === -1) {
+      const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					user_id: userId,
+					plan: planToChangeTo
+				})
+			});
+
+      const data = await res.json();
+      const stripeLink = data.url;
+      goto(stripeLink)
+    } else if (currentPlan === 0) {
 			updatePlan(plan);
 			return;
 		} else {
@@ -204,6 +218,14 @@
                 <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
               </button>  
             </a>   
+            {:else if currentPlan === -1}
+            <button 
+            on:click={() => handleConfirmPlanChange(isAnnual ? 105 : 5)}
+            disabled={currentPlan === standardPlanState}
+            class="flex w-full justify-center mt-10 bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600 {currentPlan === standardPlanState ? 'bg-indigo-600' : 'bg-black'}"
+          >
+            <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
+          </button>  
             {:else}
               <button 
                 on:click={() => handleConfirmPlanChange(isAnnual ? 105 : 5)}
@@ -270,7 +292,15 @@
               <button class="flex w-full justify-center mt-10 bg-black bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600">
                 <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
               </button>   
-            </a>   
+            </a>  
+            {:else if currentPlan === -1}
+            <button 
+              on:click={() => handleConfirmPlanChange(isAnnual ? 106 : 6)}
+              disabled={currentPlan === grownthPlanState}
+              class="flex w-full justify-center mt-10 bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600 {currentPlan === grownthPlanState ? 'bg-indigo-600' : 'bg-black'}"
+            >
+              <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
+            </button>  
             {:else}
               <button 
                 on:click={() => handleConfirmPlanChange(isAnnual ? 106 : 6)}
