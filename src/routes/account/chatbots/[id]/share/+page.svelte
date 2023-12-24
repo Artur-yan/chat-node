@@ -130,7 +130,7 @@
 						<div class="card-body">
 							<h2 class="card-title">Your chatbot is currently set to private.</h2>
 							<p class="text-lg">
-								Currently it may only be integrated with slack. To embed it or get a share url make
+								Currently it may only be integrated with Slack. To embed it or get a share url make
 								your bot public. You can choose to only allow it on specific URLs in the share
 								settings.
 							</p>
