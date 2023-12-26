@@ -1,7 +1,8 @@
 import { PUBLIC_SITE_URL } from '$env/static/public';
 import { APIClient, SendEmailRequest } from 'customerio-node';
+import { CUSTOMER_IO_API_KEY } from '$env/static/private';
 
-const customerIO = new APIClient('eabf404902465647b9c563d6a8535681');
+const customerIO = new APIClient(CUSTOMER_IO_API_KEY);
 
 const sendAccountEmailConfirmation = (email: string, uuid: string) => {
 	const confirmationEmail = new SendEmailRequest({
