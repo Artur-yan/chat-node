@@ -170,7 +170,8 @@ export const actions: Actions = {
 				},
 				attributes: {
 					email,
-					verification_uuid: uuid
+					verification_uuid: uuid,
+					status: 'active'
 				}
 			});
 
