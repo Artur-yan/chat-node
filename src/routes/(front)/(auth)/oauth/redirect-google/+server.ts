@@ -6,24 +6,26 @@ import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
 import { PUBLIC_SITE_URL } from '$env/static/public';
 import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 import { v4 as uuidv4 } from 'uuid';
-import { sendAccountEmailConfirmation } from '$lib/server/messenger';
-
-const configs = {
-	clientId: GOOGLE_CLIENT_ID,
-	clientSecret: GOOGLE_CLIENT_SECRET,
-	redirectUri: `${PUBLIC_SITE_URL}/oauth/redirect-google`,
-	scope: ['email']
-};
 
 export const GET = async ({ url, locals }) => {
+	const configs = {
+		clientId: GOOGLE_CLIENT_ID,
+		clientSecret: GOOGLE_CLIENT_SECRET,
+		redirectUri: `${PUBLIC_SITE_URL}/oauth/redirect-google`,
+		scope: ['email']
+	};
+
 	const code = url.searchParams.get('code') as string;
-	const encryptedPlan = url.searchParams.get('plan') as string;
 
 	const googleAuth = google(auth, configs);
+	// console.log('googleAuth', googleAuth);
 	const GoogleUserAuth = await googleAuth.validateCallback(code);
-	console.log(GoogleUserAuth);
 
 	const urlData = await googleAuth.getAuthorizationUrl();
+	const x = urlData[0];
+	// console.log('x', x);
+	const state = urlData[1];
+	console.log('state', state);
 
 	const { email } = GoogleUserAuth.googleUser;
 
