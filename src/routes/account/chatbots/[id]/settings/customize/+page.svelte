@@ -521,8 +521,8 @@
 						<label class="label cursor-pointer flex justify-end gap-9">
 							<span class="label-text">Top</span> 
 							<input 
-								on:click={() => $currentBot.settings.popupMessagePlacement = 'top'}
-								checked={$currentBot.settings.popupMessagePlacement === 'top'}
+								on:click={() => $currentBot.settings.popupButtonMessagePlacement = 'top'}
+								checked={$currentBot.settings.popupButtonMessagePlacement === 'top'}
 								type="radio" 
 								name="radio-10" 
 								class="radio checked:bg-indigo-400" 
@@ -533,8 +533,8 @@
 						<label class="label cursor-pointer flex justify-end gap-8">
 							<span class="label-text">Side</span> 
 							<input
-								on:click={() => $currentBot.settings.popupMessagePlacement = 'side'}
-								checked={$currentBot.settings.popupMessagePlacement === 'side'} 
+								on:click={() => $currentBot.settings.popupButtonMessagePlacement = 'side'}
+								checked={$currentBot.settings.popupButtonMessagePlacement === 'side'} 
 								type="radio" 
 								name="radio-10" 
 								class="radio checked:bg-indigo-400"
@@ -553,7 +553,7 @@
 						label="Background"
 					/>
 					<ColorPicker
-						bind:hex={$currentBot.settings.theme.popupButtonMessageText}
+						bind:hex={$currentBot.settings.theme.popupButtonMessageTextColor}
 						label="Text Color"
 					/>
 					</div>

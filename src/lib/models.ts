@@ -93,6 +93,7 @@ const defaultSettings = {
 	popupButtonRight: true,
 	popupButtonMessageEnabled: false,
 	popupButtonMessageText: 'Need help?',
+	popupButtonMessagePlacement: 'top',
 	msgLimitEnabled: false,
 	msgLimit: 200,
 	crispEnabled: false,
@@ -114,9 +115,8 @@ const defaultSettings = {
 		sendButtonIconColor: '#000',
 		popupButtonBG: '#0E1729',
 		popupButtonIcon: '#3ABFF7',
-		popupButtonMessagePlacement: 'side',
 		popupButtonMessageBG: '#FFFFFF',
-		popupButtonMessageText: '#00074B'
+		popupButtonMessageTextColor: '#00074B'
 	},
 	openChatByDefault: false,
 	suggestedQuestions: []
