@@ -90,7 +90,7 @@ export const GET = async ({ url, locals }) => {
 	};
 
 	let subscriptionData = {
-		user_id: newUser.id,
+		user_id: newUser.userId,
 		plan: regularPlans['free'].plan,
 		max_bot: regularPlans['free'].max_bot,
 		max_msg: regularPlans['free'].max_msg,
@@ -102,7 +102,7 @@ export const GET = async ({ url, locals }) => {
 	});
 
 	const session = await auth.createSession({
-		userId: newUser.id,
+		userId: newUser.userId,
 		attributes: {}
 	});
 
