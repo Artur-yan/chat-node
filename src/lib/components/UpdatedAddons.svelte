@@ -6,7 +6,7 @@
       </svg>                      
       <h1 class="text-3xl font-bold tracking-tight bg-gradient-to-r from-slate-100 to-slate-500 text-transparent bg-clip-text">Add-ons</h1>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-2 md:gap-3">
       <div class="p-5 bg-slate-500 bg-opacity-50 rounded-md text-left text-indigo-300  border-2 border-purple-300">
         <div class="flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-5 h-5 text-purple-300">
@@ -24,7 +24,7 @@
           </svg>          
           <h3 class="text-lg font-bold">Extra Tokens</h3>
         </div>
-        <p class="text-slate-100">$7 per 25,000</p>
+        <p class="text-slate-100">$7 per 250,000</p>
       </div>
 
       <div class="p-5 bg-slate-500 bg-opacity-50 rounded-md text-left text-indigo-300  border-2 border-purple-500">

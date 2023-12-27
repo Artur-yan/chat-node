@@ -6,7 +6,7 @@
 
   export let includeMarketing: Boolean;
   export let userId: string;
-  export let currentPlan: number | null;
+  export let currentPlan: number | undefined;
   export let referralCode: string = '';
 
   let planToChangeTo: number;
@@ -16,7 +16,7 @@
   let grownthPlanState: number = 6;
 
   // Setting isAnnual based on user plan
-  if(currentPlan === 105 || currentPlan === 106) {
+  if(currentPlan === 105 || currentPlan === 106 || currentPlan === undefined) {
     isAnnual = true
   } else {
     isAnnual = false
