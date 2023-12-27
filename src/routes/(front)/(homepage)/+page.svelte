@@ -8,6 +8,8 @@
 	import PopupCallout from './PopupCallout.svelte';
 	import Testimonials from '$lib/components/Testimonials.svelte';
 	import { PUBLIC_SITE_URL } from '$env/static/public';
+	import UpdatedPricing from '$lib/components/UpdatedPricing.svelte';
+	import UpdatedAddons from '$lib/components/UpdatedAddons.svelte';
 
 	export let data;
 
@@ -63,12 +65,15 @@
 
 <Testimonials {testimonials} />
 
-<section id="pricing" class="bg-base-300py py-10 lg:py-20">
+<!-- <section id="pricing" class="bg-base-300py py-10 lg:py-20">
 	<div class="container">
 		<h2 class="text-center font-bold text-3xl">Pricing</h2>
 		<PricingGrid />
 	</div>
-</section>
+</section> -->
+
+<UpdatedPricing includeMarketing={true} />
+<UpdatedAddons />
 
 <PopupCallout />
 

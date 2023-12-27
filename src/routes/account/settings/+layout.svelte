@@ -30,9 +30,9 @@
 			>
 				Subscription
 			</a>
-			<a href={addonsPath} class="tab" class:tab-active={addonsPath == $page.url.pathname}>
+			<!-- <a href={addonsPath} class="tab" class:tab-active={addonsPath == $page.url.pathname}>
 				Addons
-			</a>
+			</a> -->
 			<button on:click={redirectToStripeBilling} class="tab">Billing</button>
 		</div>
 	</div>
