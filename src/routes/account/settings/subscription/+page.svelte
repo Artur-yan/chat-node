@@ -246,16 +246,15 @@
 		/>
 	{/if}
 
-	<div class="container bg-transparent bg-opacity-100">
-		{#if data.subscription?.plan === 0}
+	<div class="container bg-transparent bg-opacity-500">
+		{#if data.subscription?.plan === -1}
 			<div class="alert mb-8 text-warning justify-between flex">
 				<p>You must have an active subscription to purchase addons.</p>
-				<a href="subscription" class="btn btn-warning">Upgrade</a>
 			</div>
 		{/if}
 	
 		<div class="grid md:grid-cols-4 gap-8 relative">
-			{#if data.subscription?.plan === 0}
+			{#if data.subscription?.plan === -1}
 				<div class="absolute inset-0 bg-base-100/50 z-10" />
 			{/if}
 	
