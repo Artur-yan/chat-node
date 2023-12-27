@@ -556,6 +556,10 @@
 						bind:hex={$currentBot.settings.theme.popupButtonMessageTextColor}
 						label="Text Color"
 					/>
+					<ColorPicker
+					bind:hex={$currentBot.settings.theme.popupButtonMessageGlowColor}
+					label="Glow Color"
+					/>
 					</div>
 			</div>
 		</div>

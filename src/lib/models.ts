@@ -116,6 +116,7 @@ const defaultSettings = {
 		popupButtonBG: '#0E1729',
 		popupButtonIcon: '#3ABFF7',
 		popupButtonMessageBG: '#FFFFFF',
+		popupButtonMessageGlowColor: '#FFFFFF',
 		popupButtonMessageTextColor: '#00074B'
 	},
 	openChatByDefault: false,
