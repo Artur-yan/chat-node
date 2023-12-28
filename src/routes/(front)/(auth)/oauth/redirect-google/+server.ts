@@ -101,6 +101,21 @@ export const GET = async ({ url, locals }) => {
 		data: subscriptionData
 	});
 
+	// Create Stripe User
+	const stripeUser = await fetch(`${PUBLIC_CHAT_API_URL}/create-stripe-user`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer sk-868f7d2e-9e8c-4a2f-ab70-757c9d04ccfb`
+		},
+		body: JSON.stringify({
+			record: {
+				id: newUser.userId,
+				email: email
+			}
+		})
+	});
+
 	const session = await auth.createSession({
 		userId: newUser.userId,
 		attributes: {}
