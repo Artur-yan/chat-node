@@ -71,10 +71,14 @@
 				{#if subscription.cancel_at}
 					<div class="badge badge-warning">Expiring {subscription.cancel_at.toLocaleString()}</div>
 				{/if}
-				<div class="flex flex-wrap gap-2">
-					<div class="badge badge-lg bg-gray-700 border-1 border-gray-500 p-2">{qty} x {bundleQty > 1 ? bundleQty.toLocaleString() : ''}</div>
-					<div class="badge badge-lg bg-gray-700  border-1 border-gray-500 p-2">${qty * price}/mo.</div>
-				</div>
+				{#if name === 'Custom Domain'}
+					<div class="badge badge-lg bg-gray-700 border-1 border-gray-500 p-2">Enabled</div>
+				{:else}
+					<div class="flex flex-wrap gap-2">
+						<div class="badge badge-lg bg-gray-700 border-1 border-gray-500 p-2">{qty} x {bundleQty > 1 ? bundleQty.toLocaleString() : ''}</div>
+						<div class="badge badge-lg bg-gray-700  border-1 border-gray-500 p-2">${qty * price}/mo.</div>
+					</div>
+				{/if}
 			</div>
 		{/if}
 
