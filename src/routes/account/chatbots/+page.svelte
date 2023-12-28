@@ -8,9 +8,11 @@
 	import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
 
 	export let data;
+	
 
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
+	let onTrial = data.subscription.status === 'trialing';
 	let idOfModelToDelete: string;
 	let titleOfModelToDelete: string;
 	let deleting = false;
@@ -78,7 +80,10 @@
 						<div class="flex justify-between">
 							<h4>Messages</h4>
 							<span class="opacity-60">
-								{data.subscription.msg_count}/{data.subscription.max_msg}
+								{data.subscription.msg_count}/{onTrial ? 100 : data.subscription.max_msg}
+								{#if onTrial}
+									<span class="badge badge-warning font-semibold mx-1">Trial</span>
+								{/if}
 							</span>
 						</div>
 						<progress
