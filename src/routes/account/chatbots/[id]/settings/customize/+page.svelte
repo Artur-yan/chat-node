@@ -513,12 +513,11 @@
 	   />
 		
 		<!-- Bottom Row -->
-		<div class="flex  mt-4">
-			<div class="w-1/3">
+		<div class="flex gap-8 mt-4 ml-4">
+			<div class="grid grid-cols-1">
 				<h3 class="font-bold">Message placement</h3>
-				<div class="w-1/3 ml-12 md:ml-2">
-					<div class="form-control my-2">
-						<label class="label cursor-pointer flex justify-end gap-9">
+					<div class="form-control md:pt-2">
+						<label class="label cursor-pointer flex justify-start gap-9">
 							<span class="label-text">Top</span> 
 							<input 
 								on:click={() => $currentBot.settings.popupButtonMessagePlacement = 'top'}
@@ -530,7 +529,7 @@
 						</label>
 					</div>
 					<div class="form-control">
-						<label class="label cursor-pointer flex justify-end gap-8">
+						<label class="label cursor-pointer flex justify-start gap-8">
 							<span class="label-text">Side</span> 
 							<input
 								on:click={() => $currentBot.settings.popupButtonMessagePlacement = 'side'}
@@ -541,7 +540,6 @@
 							 />
 						</label>
 					</div>
-				</div>
 			</div>
 
 			<!-- Colors -->
