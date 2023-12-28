@@ -79,6 +79,9 @@
 		if (data.subscription?.addons['10004']) {
 			brandingSubscription = data.subscription?.addons['10004'];
 		}
+		if (data.subscription?.addons['10005']) {
+			brandingSubscription = data.subscription?.addons['10005'];
+		}
 	}
 </script>
 
