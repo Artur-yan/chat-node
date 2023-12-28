@@ -516,7 +516,7 @@
 		<div class="flex  mt-4">
 			<div class="w-1/3">
 				<h3 class="font-bold">Message placement</h3>
-				<div class="w-1/3 ml-2">
+				<div class="w-1/3 ml-12 md:ml-2">
 					<div class="form-control my-2">
 						<label class="label cursor-pointer flex justify-end gap-9">
 							<span class="label-text">Top</span> 
@@ -547,7 +547,7 @@
 			<!-- Colors -->
 			<div>
 				<h3 class="font-bold">Colors</h3>
-				<div class="grid grid-cols-1 gap-5 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-4">
 					<ColorPicker
 						bind:hex={$currentBot.settings.theme.popupButtonMessageBG}
 						label="Background"
