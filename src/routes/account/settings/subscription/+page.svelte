@@ -253,7 +253,7 @@
 			</div>
 		{/if}
 	
-		<div class="grid md:grid-cols-4 gap-8 relative">
+		<div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
 			{#if data.subscription?.plan === -1}
 				<div class="absolute inset-0 bg-base-100/50 z-10" />
 			{/if}
