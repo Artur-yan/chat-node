@@ -7,11 +7,7 @@ import { sendAccountEmailConfirmation } from '$lib/server/messenger';
 import { v4 as uuidv4 } from 'uuid';
 import { domainBlacklist } from '$lib/systemSettings';
 import type { PageServerLoad } from './$types';
-import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-
-const delay = (ms) => {
-	return new Promise((resolve) => setTimeout(resolve, ms));
-};
+import { PUBLIC_CHAT_API_URL, STRIPE_BEARER_TOKEN } from '$env/static/public';
 
 export const load: PageServerLoad = async ({ locals, url }) => {
 	const session = await locals.auth.validate();
@@ -188,8 +184,20 @@ export const actions: Actions = {
 				data: subscriptionData
 			});
 
-			//Delay to create new stripe account in background
-			await delay(3000);
+			// Creating Stripe User
+			const stripeUser = await fetch(`${PUBLIC_CHAT_API_URL}/create-stripe-user`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer sk-868f7d2e-9e8c-4a2f-ab70-757c9d04ccfb`
+				},
+				body: JSON.stringify({
+					record: {
+						id: user.userId,
+						email: email
+					}
+				})
+			});
 
 			console.log(user.userId, selectedPlan);
 
