@@ -3,8 +3,8 @@
 	import {
 		PUBLIC_ENVIRONMENT,
 		PUBLIC_PLAUSIBLE_DOMAIN,
-		PUBLIC_PLAUSIBLE_API_HOST
-	} from '$env/static/public';
+		PUBLIC_PLAUSIBLE_API_HOST, PUBLIC_EMBED_URL
+	} from "$env/static/public";
 
 	import '../../app.postcss';
 	import HeaderAdmin from '$lib/components/HeaderAdmin.svelte';
@@ -126,7 +126,7 @@
 <!--		data-color-1="#0E1729"-->
 <!--		data-color-2="#3ABFF7"-->
 <!--	></script>-->
-	<script src="https://embed.chatnode.ai/befbfc87e25911db/popup.js"></script>
+	{@html `<script src="${PUBLIC_EMBED_URL}/befbfc87e25911db/popup.js"></script>`}
 
 	<script>
 		(function (h, o, t, j, a, r) {

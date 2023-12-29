@@ -7,19 +7,20 @@
 	import WaysToShare from './WaysToShare.svelte';
 	import PopupCallout from './PopupCallout.svelte';
 	import Testimonials from '$lib/components/Testimonials.svelte';
-	import { PUBLIC_SITE_URL } from '$env/static/public';
+	import { PUBLIC_EMBED_URL, PUBLIC_SITE_URL } from "$env/static/public";
 	import UpdatedPricing from '$lib/components/UpdatedPricing.svelte';
 	import UpdatedAddons from '$lib/components/UpdatedAddons.svelte';
 
 	export let data;
 
 	const { testimonials } = data.streamed;
-	export let image_meta_link = `${PUBLIC_SITE_URL}/landing_page_traing_gpt.png`
-	export let landing_page = `${PUBLIC_SITE_URL}`
+	const image_meta_link = `${PUBLIC_SITE_URL}/landing_page_traing_gpt.png`;
+	const landing_page = `${PUBLIC_SITE_URL}`;
 
 </script>
 
 <svelte:head>
+	{@html `<script src="${PUBLIC_EMBED_URL}/befbfc87e25911db/popup.js"></script>`}
 	<title>ChatNode | Train ChatGPT on your data</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <meta property="twitter:image" content={image_meta_link}>
@@ -49,7 +50,6 @@
 <!--		data-color-1="#0E1729"-->
 <!--		data-color-2="#3ABFF7"-->
 <!--	></script>-->
-	<script src="https://embed.chatnode.ai/befbfc87e25911db/popup.js"></script>
 </svelte:head>
 
 <Hero />
