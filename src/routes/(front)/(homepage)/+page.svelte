@@ -12,7 +12,6 @@
 	import UpdatedAddons from '$lib/components/UpdatedAddons.svelte';
 
 	export let data;
-
 	const { testimonials } = data.streamed;
 	const image_meta_link = `${PUBLIC_SITE_URL}/landing_page_traing_gpt.png`;
 	const landing_page = `${PUBLIC_SITE_URL}`;
