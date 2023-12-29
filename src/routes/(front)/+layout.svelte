@@ -8,7 +8,7 @@
 	import {
 		PUBLIC_ENVIRONMENT,
 		PUBLIC_PLAUSIBLE_DOMAIN,
-		PUBLIC_PLAUSIBLE_API_HOST, PUBLIC_EMBED_URL
+		PUBLIC_PLAUSIBLE_API_HOST, PUBLIC_EMBED_URL, PUBLIC_BOT_ID
 	} from "$env/static/public";
 
 	onMount(() => {
@@ -131,7 +131,7 @@ window.requestIdleCallback(idleWrapper, {timeout: 10000});
 <!--		data-color-1="#0E1729"-->
 <!--		data-color-2="#3ABFF7"-->
 <!--	></script>-->
-	{@html `<script src="${PUBLIC_EMBED_URL}/befbfc87e25911db/popup.js"></script>`}
+	{@html `<script src="${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js"></script>`}
 </svelte:head>
 
 <Header />

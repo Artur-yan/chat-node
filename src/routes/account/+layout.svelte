@@ -126,7 +126,7 @@
 <!--		data-color-1="#0E1729"-->
 <!--		data-color-2="#3ABFF7"-->
 <!--	></script>-->
-	{@html `<script src="${PUBLIC_EMBED_URL}/befbfc87e25911db/popup.js"></script>`}
+	{@html `<script src="${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js"></script>`}
 
 	<script>
 		(function (h, o, t, j, a, r) {

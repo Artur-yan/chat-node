@@ -7,7 +7,7 @@
 	import WaysToShare from './WaysToShare.svelte';
 	import PopupCallout from './PopupCallout.svelte';
 	import Testimonials from '$lib/components/Testimonials.svelte';
-	import { PUBLIC_EMBED_URL, PUBLIC_SITE_URL } from "$env/static/public";
+	import { PUBLIC_EMBED_URL, PUBLIC_SITE_URL, PUBLIC_BOT_ID } from "$env/static/public";
 	import UpdatedPricing from '$lib/components/UpdatedPricing.svelte';
 	import UpdatedAddons from '$lib/components/UpdatedAddons.svelte';
 
@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-	{@html `<script src="${PUBLIC_EMBED_URL}/befbfc87e25911db/popup.js"></script>`}
+	{@html `<script src="${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js"></script>`}
 	<title>ChatNode | Train ChatGPT on your data</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <meta property="twitter:image" content={image_meta_link}>
