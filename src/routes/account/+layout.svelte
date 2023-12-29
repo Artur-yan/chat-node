@@ -3,7 +3,7 @@
 	import {
 		PUBLIC_ENVIRONMENT,
 		PUBLIC_PLAUSIBLE_DOMAIN,
-		PUBLIC_PLAUSIBLE_API_HOST, PUBLIC_EMBED_URL
+		PUBLIC_PLAUSIBLE_API_HOST, PUBLIC_EMBED_URL, PUBLIC_BOT_ID
 	} from "$env/static/public";
 
 	import '../../app.postcss';
