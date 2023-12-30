@@ -18,7 +18,6 @@ export const GET = async ({ url, locals }) => {
 	const code = url.searchParams.get('code') as string;
 	const plan = url.searchParams.get('state') || '-1';
 
-	console.log('plan---->x', plan);
 	const googleAuth = google(auth, configs);
 	const GoogleUserAuth = await googleAuth.validateCallback(code);
 	const { email } = GoogleUserAuth.googleUser as any;
@@ -41,7 +40,6 @@ export const GET = async ({ url, locals }) => {
 	}
 
 	// User not found
-	console.log('User not found');
 	const uuid = uuidv4() as string;
 	const newUser = await auth.createUser({
 		key: {

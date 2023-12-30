@@ -25,7 +25,6 @@ export const GET = async ({ url, locals }) => {
 
 	// User not found
 	if (!user) {
-		console.log('User not found');
 		const uuid = uuidv4();
 		const user = await auth.createUser({
 			key: {

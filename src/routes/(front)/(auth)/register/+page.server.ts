@@ -199,8 +199,6 @@ export const actions: Actions = {
 				})
 			});
 
-			console.log(user.userId, selectedPlan);
-
 			// Updating plan to selected plan
 			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
 				method: 'POST',
@@ -215,7 +213,6 @@ export const actions: Actions = {
 
 			const data = await res.json();
 			stripeLink = data.url;
-			console.log('Stripe Link', stripeLink);
 
 			// Send Email
 			sendAccountEmailConfirmation(email, uuid);
