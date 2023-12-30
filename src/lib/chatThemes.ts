@@ -15,7 +15,10 @@ const themes = {
 		sendButtonBG: '#FFFFFF',
 		sendButtonIconColor: '#38BDF7',
 		popupButtonBG: '#3ABFF7',
-		popupButtonIcon: '#0F172A'
+		popupButtonIcon: '#0F172A',
+		popupButtonMessageBG: '#0F172A',
+		popupButtonMessageTextColor: '#FFFFFF',
+		popupButtonMessageGlowColor: '#ffffff4d'
 	},
 	'meta-dark': {
 		name: 'meta-dark',
@@ -33,7 +36,10 @@ const themes = {
 		sendButtonBG: '#3A3B3C',
 		sendButtonIconColor: '#666768',
 		popupButtonBG: '#0084FF',
-		popupButtonIcon: '#FFFFFF'
+		popupButtonIcon: '#FFFFFF',
+		popupButtonMessageBG: '#242526',
+		popupButtonMessageTextColor: '#FFFFFF',
+		popupButtonMessageGlowColor: '#666768'
 	},
 	'ios-dark': {
 		name: 'ios-dark',
@@ -51,7 +57,10 @@ const themes = {
 		sendButtonBG: '#3093FF',
 		sendButtonIconColor: '#FFFFFF',
 		popupButtonBG: '#3093FF',
-		popupButtonIcon: '#000000'
+		popupButtonIcon: '#000000',
+		popupButtonMessageBG: '#000000',
+		popupButtonMessageTextColor: '#FFFFFF',
+		popupButtonMessageGlowColor: '#3093FF'
 	},
 	'ios-light': {
 		name: 'ios-light',
@@ -69,7 +78,10 @@ const themes = {
 		sendButtonBG: '#3194FE',
 		sendButtonIconColor: '#FFFFFF',
 		popupButtonBG: '#3194FE',
-		popupButtonIcon: '#FFFFFF'
+		popupButtonIcon: '#FFFFFF',
+		popupButtonMessageBG: '#FFFFFF',
+		popupButtonMessageTextColor: '#000000',
+		popupButtonMessageGlowColor: '#3194FE'
 	},
 	neutral: {
 		name: 'neutral',
@@ -87,7 +99,10 @@ const themes = {
 		sendButtonBG: '#333333',
 		sendButtonIconColor: '#FFFFFF',
 		popupButtonBG: '#333333',
-		popupButtonIcon: '#FFFFFF'
+		popupButtonIcon: '#FFFFFF',
+		popupButtonMessageBG: '#666666',
+		popupButtonMessageTextColor: '#FFFFFF',
+		popupButtonMessageGlowColor: '#00000060'
 	},
 	custom: {
 		name: 'custom',
@@ -105,7 +120,10 @@ const themes = {
 		sendButtonBG: '#333333',
 		sendButtonIconColor: '#FFFFFF',
 		popupButtonBG: '#333333',
-		popupButtonIcon: '#FFFFFF'
+		popupButtonIcon: '#FFFFFF',
+		popupButtonMessageBG: '#666666',
+		popupButtonMessageTextColor: '#FFFFFF',
+		popupButtonMessageGlowColor: '#00000060'
 	}
 };
 
