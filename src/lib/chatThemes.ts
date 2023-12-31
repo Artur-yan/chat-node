@@ -17,7 +17,7 @@ const themes = {
 		popupButtonBG: '#3ABFF7',
 		popupButtonIcon: '#0F172A',
 		popupButtonMessageBG: '#0F172A',
-		popupButtonMessageTextColor: '#818CF8',
+		popupButtonMessageTextColor: '#38BDF7',
 		popupButtonMessageGlowColor: '#ffffff4d'
 	},
 	'meta-dark': {
@@ -37,9 +37,9 @@ const themes = {
 		sendButtonIconColor: '#666768',
 		popupButtonBG: '#0084FF',
 		popupButtonIcon: '#FFFFFF',
-		popupButtonMessageBG: '#3E4042',
+		popupButtonMessageBG: '#FFFFFF',
 		popupButtonMessageTextColor: '#0084FF',
-		popupButtonMessageGlowColor: '#FFFFFF'
+		popupButtonMessageGlowColor: '#666768'
 	},
 	'ios-dark': {
 		name: 'ios-dark',
@@ -100,7 +100,7 @@ const themes = {
 		sendButtonIconColor: '#FFFFFF',
 		popupButtonBG: '#333333',
 		popupButtonIcon: '#FFFFFF',
-		popupButtonMessageBG: '#666666',
+		popupButtonMessageBG: '#FFFFFF',
 		popupButtonMessageTextColor: '#333333',
 		popupButtonMessageGlowColor: '#00000060'
 	},
