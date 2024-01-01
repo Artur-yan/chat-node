@@ -10,6 +10,7 @@
 	export let popupImgForm: any;
 	let savingAvatar: boolean = false;
 	let savingPopupImg: boolean = false;
+	let lastToggled: string = '';
 
 	let uploadedImage: string | null;
 	let uploadedPopupImage: string | null;
@@ -57,6 +58,16 @@
 		uploadedPopupImage = URL.createObjectURL(image);
 		$currentBotPopupImg = URL.createObjectURL(image);
 	};
+
+	$: if(lastToggled === 'openChatByDefault') {
+		console.log('last toggled is openChatByDefault')
+		$currentBot.settings.popupButtonMessageEnabled = false;
+		$currentBot.settings.openChatByDefault = true;
+	} else if (lastToggled === 'popupButtonMessageEnabled') {
+		console.log('last toggled is popupButtonMessageEnabled')
+		$currentBot.settings.openChatByDefault = false;
+		$currentBot.settings.popupButtonMessageEnabled = true;
+	}
 </script>
 
 <svelte:head>
@@ -369,6 +380,7 @@
 										type="checkbox"
 										class="toggle toggle-sm"
 										bind:checked={$currentBot.settings.openChatByDefault}
+										on:click={() => lastToggled = 'openChatByDefault'}
 									/>
 									<span class="label-text">Open chat window by default</span>
 								</label>
@@ -498,6 +510,7 @@
 							class="toggle toggle-sm"
 							class:toggle-success={$currentBot.settings.popupButtonMessageEnabled}
 							bind:checked={$currentBot.settings.popupButtonMessageEnabled}
+							on:click={() => lastToggled = 'popupButtonMessageEnabled'}
 						/>
 					</label>
 				</div>
