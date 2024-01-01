@@ -44,6 +44,12 @@
 		}
 	};
 
+	const handleIncrement = () => {
+		if(!max1) {
+			qtyToAdd++;
+		}
+	};
+
 	let unit = 'each';
 
 	if (bundleQty != 1 && !max1) {
@@ -86,7 +92,7 @@
 			<button
 				class="btn bg-indigo-600 -m-4 border-2 border-indigo-600 font-bold  bg-gradient-to-r from-indigo-200 to-indigo-500 text-transparent bg-clip-text"
 				on:click={() => {
-					if (max1) {
+					if (max1 && !qty) {
 						handleCheckout(1);
 					} else {
 						modifying = !modifying;
@@ -117,7 +123,7 @@
 						</div>
 						<button
 							class="btn btn-ghost btn-square text-success"
-							on:click={() => qtyToAdd++}
+							on:click={() => handleIncrement()}
 							aria-label="Add {name}"
 						>
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
@@ -127,24 +133,22 @@
 								/>
 							</svg>
 						</button>
-						<button
-							class="join-item btn btn-indigo-600"
-							on:click={() => handleCheckout(qtyToAdd)}
-							disabled={qty === qtyToAdd || loadingStripe}
-						>
-							{#if loadingStripe}
-								<span class="loading loading-spinner" />
-							{:else}
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-6 h-6">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-							</svg>							
-							{/if}
-						</button>
 					</div>
 				</div>
+				<button
+				class="btn btn-indigo-600 mt-2"
+				on:click={() => handleCheckout(qtyToAdd)}
+				disabled={qty === qtyToAdd || loadingStripe}
+				>
+					{#if loadingStripe}
+						<span class="loading loading-spinner" />
+					{:else}
+						Confirm 							
+					{/if}
+				</button>
 				{#if qty && !subscription?.cancel_at}
 					<button
-						class="btn btn-error btn-xs btn-outline border-none"
+						class="btn bg-red-400 text-red-700 btn-outline border-none mt-1.5"
 						on:click={() => handleCheckout(0)}
 					>
 						Remove
