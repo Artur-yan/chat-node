@@ -76,9 +76,6 @@
 		if (data.subscription?.addons['10003']) {
 			tokenSubscription = data.subscription?.addons['10003'];
 		}
-		if (data.subscription?.addons['10004']) {
-			brandingSubscription = data.subscription?.addons['10004'];
-		}
 		if (data.subscription?.addons['10005']) {
 			brandingSubscription = data.subscription?.addons['10005'];
 		}
@@ -256,7 +253,7 @@
 			</div>
 		{/if}
 	
-		<div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
 			{#if data.subscription?.plan === -1}
 				<div class="absolute inset-0 bg-base-100/50 z-10" />
 			{/if}

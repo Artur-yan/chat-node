@@ -44,6 +44,12 @@
 		}
 	};
 
+	const handleIncrement = () => {
+		if(!max1) {
+			qtyToAdd++;
+		}
+	};
+
 	let unit = 'each';
 
 	if (bundleQty != 1 && !max1) {
@@ -86,7 +92,7 @@
 			<button
 				class="btn bg-indigo-600 -m-4 border-2 border-indigo-600 font-bold  bg-gradient-to-r from-indigo-200 to-indigo-500 text-transparent bg-clip-text"
 				on:click={() => {
-					if (max1) {
+					if (max1 && !qty) {
 						handleCheckout(1);
 					} else {
 						modifying = !modifying;
@@ -117,7 +123,7 @@
 						</div>
 						<button
 							class="btn btn-ghost btn-square text-success"
-							on:click={() => qtyToAdd++}
+							on:click={() => handleIncrement()}
 							aria-label="Add {name}"
 						>
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
