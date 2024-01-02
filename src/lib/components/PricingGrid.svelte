@@ -77,7 +77,7 @@
 			<h2 class="!text-xl mb-4 uppercase">All Plans Include</h2>
 			<ul class="included flex items-center gap-x-10 gap-y-4 justify-center flex-wrap">
 				<li>Embed on unlimited websites</li>
-				<li>Customise Colors</li>
+				<li>Customize Colors</li>
 				<li>Chat history</li>
 			</ul>
 		</div>
