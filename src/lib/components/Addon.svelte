@@ -4,12 +4,15 @@
 
 	export let subscription;
 	export let user_id;
+	export let plan;
 	export let addonId;
 	export let name;
 	export let description;
 	export let price;
 	export let bundleQty = 1;
 	export let max1 = false;
+
+	const isOnAgentPlan = plan && plan === 1006;
 
 	let qty = 0;
 	let qtyToAdd = 1;
@@ -150,6 +153,7 @@
 					<button
 						class="btn bg-red-400 text-red-700 btn-outline border-none mt-1.5"
 						on:click={() => handleCheckout(0)}
+						disabled={addonId === 10005 && isOnAgentPlan}
 					>
 						Remove
 					</button>

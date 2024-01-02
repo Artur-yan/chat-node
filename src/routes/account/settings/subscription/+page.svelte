@@ -266,6 +266,7 @@
 				subscription={messagesSubscription}
 				addonId="10001"
 				user_id={data.subscription?.user_id}
+				plan={data.subscription?.plan}
 			/>
 	
 			<Addon
@@ -276,6 +277,7 @@
 				subscription={tokenSubscription}
 				addonId="10003"
 				user_id={data.subscription?.user_id}
+				plan={data.subscription?.plan}
 			/>
 
 			<Addon
@@ -285,6 +287,7 @@
 				subscription={botsSubscription}
 				addonId="10002"
 				user_id={data.subscription?.user_id}
+				plan={data.subscription?.plan}
 			/>
 
 			<Addon
@@ -295,6 +298,7 @@
 				subscription={brandingSubscription}
 				addonId="10005"
 				user_id={data.subscription?.user_id}
+				plan={data.subscription?.plan}
 			/>
 		</div>
 	</div>

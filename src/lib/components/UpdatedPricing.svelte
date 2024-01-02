@@ -316,7 +316,9 @@
             <div>
               <h3 class="text-4xl leading-7 text-gray-800 font-bold">Custom</h3>
               <div class="mt-4 flex items-baseline gap-x-2">
-                <span class="text-3xl font-bold tracking-tight text-gray-100">Contact Us</span>
+                <a href="mailto:contact@chatnode.ai">
+                  <span class="text-3xl font-bold tracking-tight text-gray-100">Contact Us</span>
+                </a>
                 <span class="text-base font-semibold leading-7 text-gray-100 hidden"></span>
               </div>
               <p class="mt-6 text-base leading-7 text-gray-300 invisible">14-days free trial</p>
@@ -347,7 +349,7 @@
                 </li>
               </ul>
             </div>
-            <a href="/contact">
+            <a href="mailto:contact@chatnode.ai">
               <button class="flex w-full justify-center mt-10 bg-black bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2  border-indigo-600">
                 <span class="mx-1 text-white font-bold text-xl">Contact Us</span>
               </button>   
