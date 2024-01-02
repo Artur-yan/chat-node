@@ -62,7 +62,7 @@
 					<a href="/register" class="btn btn-primary md:btn-lg -ml-1">Create A free chatbot</a>
 				</div>
 			</div>
-			<p class="text-sm mt-2">No credit card required</p>
+			<!-- <p class="text-sm mt-2">No credit card required</p> -->
 		</div>
 		<div>
 			<div

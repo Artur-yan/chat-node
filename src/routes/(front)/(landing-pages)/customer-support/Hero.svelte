@@ -163,7 +163,7 @@
 							<a href="#demo" class="btn btn-secondary">Demo</a>
 						</div>
 					</div>
-					<p class="text-sm mt-2 italic">No credit card required</p>
+					<!-- <p class="text-sm mt-2 italic">No credit card required</p> -->
 				</div>
 			</div>
 
