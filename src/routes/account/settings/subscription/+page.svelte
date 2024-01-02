@@ -253,7 +253,7 @@
 			</div>
 		{/if}
 	
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 relative">
 			{#if data.subscription?.plan === -1}
 				<div class="absolute inset-0 bg-base-100/50 z-10" />
 			{/if}
@@ -293,7 +293,7 @@
 			<Addon
 				name="Custom Domain"
 				max1={true}
-				description='Have your chatbot 100% white label with your own domain'
+				description='Have your Chatbots 100% white label with your own domain'
 				price={59}
 				subscription={brandingSubscription}
 				addonId="10005"
