@@ -144,7 +144,7 @@
     <div class="-mt-80">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto grid max-w-lg grid-cols-1 lg:grid-cols-3 gap-8 lg:max-w-5xl">
-          <div class="flex flex-col justify-between rounded-3x p-8 shadow-xl ring-1 ring-gray-900/10 sm:p-10 rounded-3xl bg-[#828DF8] md:bg-slate-100 md:bg-opacity-40">
+          <div class="flex flex-col justify-between rounded-3x p-8 shadow-xl ring-1 ring-gray-900/10 sm:p-4 rounded-3xl bg-[#828DF8] md:bg-slate-100 md:bg-opacity-40">
             <div>
               <h3 class="text-4xl font-semibold leading-7 text-gray-800">Standard</h3>
               <div class="mt-4 flex items-baseline gap-x-2">
@@ -154,13 +154,13 @@
                 <span class="text-4xl font-bold tracking-tight text-gray-100">{isAnnual ? "$50" : "$59"}</span>
                 <span class="text-base font-semibold leading-7 text-gray-100">/ Month</span>
               </div>
-              <p class="mt-6 text-base leading-7 text-gray-300">14-days free trial</p>
+              <p class="mt-6 text-base leading-7 text-gray-800 font-bold">14-days free trial</p>
               <ul class="mt-10 space-y-4 text-sm leading-6 text-gray-600">
-                <li class="flex gap-x-3 text-white">
+                <li class="flex items-center gap-x-3 text-white">
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                   </svg>
-                  5,000 messages credit
+                  5,000 messages credit <div class="badge bg-slate-800 border-1 border-indigo-600"> 100 free</div>
                 </li>
                 <li class="flex gap-x-3 text-white">
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -236,7 +236,7 @@
               </button>  
             {/if}   
           </div>
-          <div class="flex flex-col justify-between rounded-3xl bg-[#828DF8] md:bg-slate-100 md:bg-opacity-40 p-8 shadow-xl ring-1 ring-gray-900/10 sm:p-10">
+          <div class="flex flex-col justify-between rounded-3xl bg-[#828DF8] md:bg-slate-100 md:bg-opacity-40 p-8 shadow-xl ring-1 ring-gray-900/10 sm:p-6">
             <div>
               <h3 id="tier-team" class="text-4xl font-semibold leading-7 text-gray-800">Growth</h3>
               
@@ -247,7 +247,7 @@
                 <span class="text-4xl font-bold tracking-tight text-gray-100">{isAnnual ? "$83" : "$99"}</span>
                 <span class="text-base font-semibold leading-7 text-gray-100">/ Month</span>
               </div>
-              <p class="mt-6 text-base leading-7 text-gray-300">14-days free trial</p>
+              <p class="mt-4 text-base leading-7 text-gray-800 font-bold">14-days free trial</p>
               <ul class="mt-10 space-y-4 text-sm leading-6 text-gray-100">
                 <li class="flex gap-x-3">
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -255,11 +255,11 @@
                   </svg>
                   Everything on Standard plan
                 </li>
-                <li class="flex gap-x-3">
+                <li class="flex gap-x-3 items-center">
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                   </svg>
-                  10,000 messages credit
+                  10,000 messages credit <div class="badge bg-slate-800 border-1 border-indigo-600"> 100 free</div>
                 </li>
                 <li class="flex gap-x-3">
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -309,10 +309,10 @@
               >
                 <span class="mx-1 text-white font-bold text-xl">{currentPlan === grownthPlanState ? 'Current Plan' : 'Change Plan'}</span>
               </button>  
-            {/if}     
+            {/if}   
           </div>
 
-          <div class="flex flex-col justify-between rounded-3x p-8 shadow-xl ring-1 ring-gray-900/10 sm:p-10 rounded-3xl bg-[#828DF8] md:bg-slate-100 md:bg-opacity-40">
+          <div class="flex flex-col justify-between rounded-3x p-8 shadow-xl ring-1 ring-gray-900/10 sm:p-6 rounded-3xl bg-[#828DF8] md:bg-slate-100 md:bg-opacity-40">
             <div>
               <h3 class="text-4xl leading-7 text-gray-800 font-bold">Custom</h3>
               <div class="mt-4 flex items-baseline gap-x-2">
