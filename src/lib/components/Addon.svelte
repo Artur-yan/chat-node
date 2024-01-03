@@ -4,12 +4,15 @@
 
 	export let subscription;
 	export let user_id;
+	export let plan;
 	export let addonId;
 	export let name;
 	export let description;
 	export let price;
 	export let bundleQty = 1;
 	export let max1 = false;
+
+	const isOnAgentPlan = plan && plan === 1006;
 
 	let qty = 0;
 	let qtyToAdd = 1;
@@ -78,7 +81,33 @@
 					<div class="badge badge-warning">Expiring {subscription.cancel_at.toLocaleString()}</div>
 				{/if}
 				{#if name === 'Custom Domain'}
-					<div class="badge badge-lg bg-gray-700 border-1 border-gray-500 p-2">Enabled</div>
+					<div class="badge badge-lg bg-gray-700 border-1 border-gray-500 p-2">
+						<nav class="flex" aria-label="Breadcrumb">
+							<ol role="list" class="flex items-center space-x-4">
+								<li>
+									<div>
+										<span class="ml-1 text-xs font-medium text-gray-400 hover:text-gray-300">Dashboard</span>
+									</div>
+								</li>
+								<li>
+									<div class="flex items-center">
+										<svg class="h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+											<path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+										</svg>
+										<span class="ml-1 text-xs font-medium text-gray-400 hover:text-gray-300">Chatbot</span>
+									</div>
+								</li>
+								<li>
+									<div class="flex items-center">
+										<svg class="h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+											<path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+										</svg>
+										<span class="ml-1 text-xs font-medium text-gray-400 hover:text-gray-300" aria-current="page">Share</span>
+									</div>
+								</li>
+							</ol>
+						</nav>
+					</div>
 				{:else}
 					<div class="flex flex-wrap gap-2">
 						<div class="badge badge-lg bg-gray-700 border-1 border-gray-500 p-2">{qty} x {bundleQty > 1 ? bundleQty.toLocaleString() : ''}</div>
@@ -150,6 +179,7 @@
 					<button
 						class="btn bg-red-400 text-red-700 btn-outline border-none mt-1.5"
 						on:click={() => handleCheckout(0)}
+						disabled={addonId === 10005 && isOnAgentPlan}
 					>
 						Remove
 					</button>
