@@ -10,6 +10,8 @@
 	import { updateModel } from '$lib/models';
 	import { onMount } from 'svelte';
 
+    $: newDomain = newDomain?.toLowerCase()
+
     if($currentBot.custom_domain) { 
         parsedURL = parseURL($currentBot.custom_domain)
     }
@@ -145,8 +147,6 @@
             await getDomainConfig()
         }
     })
-
-    $: console.log(customDomainConfig)
 </script>
 
 	<div class="card bg-neutral mb-12">
