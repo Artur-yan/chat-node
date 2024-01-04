@@ -9,14 +9,11 @@
 
 	let busyChangingPlan: boolean = false;
 	const isTrialing: boolean = data.subscription?.status === 'trialing';
-	console.log('Is trialing --->', isTrialing);
 	let confirming: boolean = false;
 
 	const subscriptionPath = '/account/settings/subscription';
 	const settingsPath = '/account/settings';
 	const addonsPath = '/account/settings/addons';
-
-	console.log(data.user.userId);
 
 	let daysLeftInBillingCycle = Math.ceil(
 		(new Date(data.subscription?.next_billing_cycle).getTime() - new Date().getTime()) /
@@ -32,10 +29,12 @@
 			},
 			body: JSON.stringify({
 				user_id: data.user.userId,
+				plan: data.subscription?.plan,
 				end_trial: true
 			})
 		});
 
+		window.location.reload();
 		console.log(res);
 		} catch (error) {
 			console.log(error);
