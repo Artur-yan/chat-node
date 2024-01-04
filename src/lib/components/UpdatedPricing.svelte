@@ -16,7 +16,7 @@
   let grownthPlanState: number = 6;
 
   // Setting isAnnual based on user plan
-  if(currentPlan === 105 || currentPlan === 106 || currentPlan === undefined) {
+  if([undefined, -1, 0, 2, 3, 4, 101, 102, 103, 104, 105, 106].includes(currentPlan)) {
     isAnnual = true
   } else {
     isAnnual = false
