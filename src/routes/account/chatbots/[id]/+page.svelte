@@ -27,8 +27,9 @@
 			visibility: hidden;
 		}
 
-		#arrow {
+		#arrow, #arrow::before {
 			visibility: hidden;
+			opacity: 0;
 		}
 	</style>
 </div>
