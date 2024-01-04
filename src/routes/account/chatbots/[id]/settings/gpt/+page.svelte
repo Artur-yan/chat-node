@@ -5,7 +5,7 @@
 	export let data;
 
 	let plan: number = data.subscription?.plan || 0;
-	const plansWithGPT4: number[] = [2, 3, 4, 102, 103, 104];
+	const plansWithGPT4: number[] = [2, 3, 4, 5, 6, 102, 103, 104, 105, 106];
 
 	let onFreePlan: boolean = plan === 0;
 	let onBasicPlan: boolean = plan === 1 || plan === 101;
@@ -30,7 +30,7 @@
 				canToggleChatNodeMsgs = false;
 				$currentBot.settings.useChatNodeMsgs = true;
 			}
-	} else if ([2, 3, 4, 102, 103, 104].includes(plan)) {
+	} else if ([2, 3, 4, 5, 6, 102, 103, 104, 105, 106].includes(plan)) {
 		// Pro and Enterprise Users
 		if (!$currentBot.settings.openai_api_key) {
 			$currentBot.settings.useChatNodeMsgs = true;

@@ -8,4 +8,14 @@ export const load: PageServerLoad = async ({ locals }) => {
 	if (!session) {
 		throw redirect(302, '/');
 	}
+
+	const subscription = await prismaClient.subscriptions.findUnique({
+		where: {
+			user_id: session.user.userId
+		}
+	});
+
+	if (subscription?.plan === -1) {
+		throw redirect(302, '/account/settings/subscription');
+	}
 };

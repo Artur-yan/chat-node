@@ -4,12 +4,15 @@
 
 	export let subscription;
 	export let user_id;
+	export let plan;
 	export let addonId;
 	export let name;
 	export let description;
 	export let price;
 	export let bundleQty = 1;
 	export let max1 = false;
+
+	const isOnAgentPlan = plan && plan === 1006;
 
 	let qty = 0;
 	let qtyToAdd = 1;
@@ -44,6 +47,12 @@
 		}
 	};
 
+	const handleIncrement = () => {
+		if(!max1) {
+			qtyToAdd++;
+		}
+	};
+
 	let unit = 'each';
 
 	if (bundleQty != 1 && !max1) {
@@ -53,31 +62,66 @@
 	}
 </script>
 
-<div class="card bg-neutral">
-	<div class="card-body">
-		<h2 class="card-title gap-4">
+<div class="card bg-slate-700 p-0">
+	<div class="card-body p-6">
+		<h2 class="card-title gap-3">
 			<span>{name}</span>
-			<span class="badge">
-				${price}/mo. {unit}
-			</span>
+
+			{#if qty}
+				<div class="badge bg-gray-700 badge-lg p-2 border-1 border-gray-500">Installed</div>
+			{/if}
 		</h2>
-		<p>{description}</p>
+		<span class="badge p-3 bg-indigo-600 border-1 border-indigo-700">
+			${price}/mo. {unit}
+		</span>
+		<p class="text-gray-400 italic">{description}</p>
 		{#if qty}
-			<div class="mt-4 items-center flex gap-4 justify-start flex-wrap">
-				<div class="badge badge-success badge-lg">Installed</div>
+			<div class="mt-3 items-center flex gap-2 justify-start flex-wrap">
 				{#if subscription.cancel_at}
 					<div class="badge badge-warning">Expiring {subscription.cancel_at.toLocaleString()}</div>
 				{/if}
-				<div class="badge badge-lg">{qty} x {bundleQty > 1 ? bundleQty.toLocaleString() : ''}</div>
-				<div class="badge badge-lg">${qty * price}/mo.</div>
+				{#if name === 'Custom Domain'}
+					<div class="badge badge-lg bg-gray-700 border-1 border-gray-500 p-2">
+						<nav class="flex" aria-label="Breadcrumb">
+							<ol role="list" class="flex items-center space-x-4">
+								<li>
+									<div>
+										<span class="ml-1 text-xs font-medium text-gray-400 hover:text-gray-300">Dashboard</span>
+									</div>
+								</li>
+								<li>
+									<div class="flex items-center">
+										<svg class="h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+											<path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+										</svg>
+										<span class="ml-1 text-xs font-medium text-gray-400 hover:text-gray-300">Chatbot</span>
+									</div>
+								</li>
+								<li>
+									<div class="flex items-center">
+										<svg class="h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+											<path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+										</svg>
+										<span class="ml-1 text-xs font-medium text-gray-400 hover:text-gray-300" aria-current="page">Share</span>
+									</div>
+								</li>
+							</ol>
+						</nav>
+					</div>
+				{:else}
+					<div class="flex flex-wrap gap-2">
+						<div class="badge badge-lg bg-gray-700 border-1 border-gray-500 p-2">{qty} x {bundleQty > 1 ? bundleQty.toLocaleString() : ''}</div>
+						<div class="badge badge-lg bg-gray-700  border-1 border-gray-500 p-2">${qty * price}/mo.</div>
+					</div>
+				{/if}
 			</div>
 		{/if}
 
-		<div class="card-actions mt-10 items-center">
+		<div class="card-actions mt-10 items-center m-3">
 			<button
-				class="btn btn-primary btn-outline"
+				class="btn bg-indigo-600 -m-4 border-2 border-indigo-600 font-bold  bg-gradient-to-r from-indigo-200 to-indigo-500 text-transparent bg-clip-text"
 				on:click={() => {
-					if (max1) {
+					if (max1 && !qty) {
 						handleCheckout(1);
 					} else {
 						modifying = !modifying;
@@ -89,7 +133,7 @@
 			</button>
 			{#if modifying}
 				<div class="flex join">
-					<div class="flex join-item items-center border border-primary">
+					<div class="flex join-item items-center border border-indigo-600">
 						<button
 							class="btn btn-ghost btn-square text-error"
 							on:click={() => qtyToAdd--}
@@ -103,12 +147,12 @@
 								/>
 							</svg>
 						</button>
-						<div class="badge badge-primary badge-lg mx-2">
+						<div class="badge bg-indigo-600 badge-lg mx-2">
 							{(qtyToAdd * bundleQty).toLocaleString()}
 						</div>
 						<button
 							class="btn btn-ghost btn-square text-success"
-							on:click={() => qtyToAdd++}
+							on:click={() => handleIncrement()}
 							aria-label="Add {name}"
 						>
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
@@ -118,32 +162,24 @@
 								/>
 							</svg>
 						</button>
-						<button
-							class="join-item btn btn-primary"
-							on:click={() => handleCheckout(qtyToAdd)}
-							disabled={qty === qtyToAdd || loadingStripe}
-						>
-							{#if loadingStripe}
-								<span class="loading loading-spinner" />
-							{:else}
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-									<path
-										fill="none"
-										stroke="currentColor"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="m5 11l4-7m10 7l-4-7M2 11h20M3.5 11l1.6 7.4a2 2 0 0 0 2 1.6h9.8c.9 0 1.8-.7 2-1.6l1.7-7.4M9 11l1 9m-5.5-4.5h15M15 11l-1 9"
-									/>
-								</svg>
-							{/if}
-						</button>
 					</div>
 				</div>
+				<button
+				class="btn btn-indigo-600 mt-2"
+				on:click={() => handleCheckout(qtyToAdd)}
+				disabled={qty === qtyToAdd || loadingStripe}
+				>
+					{#if loadingStripe}
+						<span class="loading loading-spinner" />
+					{:else}
+						Confirm 							
+					{/if}
+				</button>
 				{#if qty && !subscription?.cancel_at}
 					<button
-						class="btn btn-error btn-xs btn-outline border-none"
+						class="btn bg-red-400 text-red-700 btn-outline border-none mt-1.5"
 						on:click={() => handleCheckout(0)}
+						disabled={addonId === 10005 && isOnAgentPlan}
 					>
 						Remove
 					</button>

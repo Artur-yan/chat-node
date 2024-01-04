@@ -18,7 +18,7 @@ export const GET = async ({ params }) => {
 		data: {
 			read: true
 		}
-	})
+	});
 
 	return new Response(JSON.stringify(chatHistory), { status: 200 });
 };

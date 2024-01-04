@@ -126,6 +126,7 @@
 			return;
 		}
 		userInfoReceived = true;
+		initConversation();
 	};
 
 	const postProcessMsgHTML = (msgHTML) => {
@@ -226,7 +227,7 @@
 	};
 
 	const submitQuery = () => {
-		if (messages.length === 1) {
+		if (messages.length === 1 && !collectUserInfo) {
 			initConversation();
 		}
 		if (isThinking) {

@@ -10,6 +10,7 @@
 	export let popupImgForm: any;
 	let savingAvatar: boolean = false;
 	let savingPopupImg: boolean = false;
+	let lastToggled: string = '';
 
 	let uploadedImage: string | null;
 	let uploadedPopupImage: string | null;
@@ -57,6 +58,16 @@
 		uploadedPopupImage = URL.createObjectURL(image);
 		$currentBotPopupImg = URL.createObjectURL(image);
 	};
+
+	$: if(lastToggled === 'openChatByDefault') {
+		console.log('last toggled is openChatByDefault')
+		$currentBot.settings.popupButtonMessageEnabled = false;
+		$currentBot.settings.openChatByDefault = true;
+	} else if (lastToggled === 'popupButtonMessageEnabled') {
+		console.log('last toggled is popupButtonMessageEnabled')
+		$currentBot.settings.openChatByDefault = false;
+		$currentBot.settings.popupButtonMessageEnabled = true;
+	}
 </script>
 
 <svelte:head>
@@ -161,9 +172,9 @@
 
 		<hr class="border-base-300 my-4" />
 
-		<div class="flex justify-between items-center">
+		<div class="flex start items-center">
 			<h3 class="font-bold">Header</h3>
-			<div class="form-control inline-flex">
+			<div class="form-control">
 				<label class="cursor-pointer label justify-start gap-2">
 					<span class="label-text">Enable</span>
 					<input
@@ -199,6 +210,11 @@
 					label="Background"
 					on:input={checkIfThemeSaved}
 				/>
+				<ColorPicker
+				bind:hex={$currentBot.settings.theme.headerShadow}
+				label="Background"
+				on:input={checkIfThemeSaved}
+			/>
 			</div>
 		{/if}
 
@@ -264,7 +280,7 @@
 
 		<hr class="border-base-300 my-4" />
 
-		<div class="flex justify-between items-center">
+		<div class="flex justify-start items-center">
 			<h2 class="font-bold">Send Button</h2>
 			<div class="form-control inline-flex">
 				<label class="cursor-pointer label justify-start gap-2">
@@ -369,6 +385,7 @@
 										type="checkbox"
 										class="toggle toggle-sm"
 										bind:checked={$currentBot.settings.openChatByDefault}
+										on:click={() => lastToggled = 'openChatByDefault'}
 									/>
 									<span class="label-text">Open chat window by default</span>
 								</label>
@@ -481,6 +498,87 @@
 					on:input={checkIfThemeSaved}
 				/>
 				</div>
+		{/if}
+	</div>
+</div>
+
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="flex items-center gap-3">
+			<h2 class="card-title">Popup Message</h2>
+			<div class="flex start items-center">
+				<div class="form-control">
+					<label class="cursor-pointer label justify-start gap-2">
+						<span class="label-text">Enable</span>
+						<input
+							type="checkbox"
+							class="toggle toggle-sm"
+							class:toggle-success={$currentBot.settings.popupButtonMessageEnabled}
+							bind:checked={$currentBot.settings.popupButtonMessageEnabled}
+							on:click={() => lastToggled = 'popupButtonMessageEnabled'}
+						/>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		{#if $currentBot.settings.popupButtonMessageEnabled}
+		<input 
+			bind:value={$currentBot.settings.popupButtonMessageText}
+			type="text" 
+			placeholder="Your Message Here" 
+			class="input input-bordered w-full max-w-xs"
+	   />
+		
+		<!-- Bottom Row -->
+		<div class="flex gap-8 mt-4 ml-4">
+			<div class="grid grid-cols-1">
+				<h3 class="font-bold">Message placement</h3>
+					<div class="form-control md:pt-2">
+						<label class="label cursor-pointer flex justify-start gap-9">
+							<span class="label-text">Top</span> 
+							<input 
+								on:click={() => $currentBot.settings.popupButtonMessagePlacement = 'top'}
+								checked={$currentBot.settings.popupButtonMessagePlacement === 'top'}
+								type="radio" 
+								name="radio-10" 
+								class="radio checked:bg-indigo-400" 
+							/>
+						</label>
+					</div>
+					<div class="form-control">
+						<label class="label cursor-pointer flex justify-start gap-8">
+							<span class="label-text">Side</span> 
+							<input
+								on:click={() => $currentBot.settings.popupButtonMessagePlacement = 'side'}
+								checked={$currentBot.settings.popupButtonMessagePlacement === 'side'} 
+								type="radio" 
+								name="radio-10" 
+								class="radio checked:bg-indigo-400"
+							 />
+						</label>
+					</div>
+			</div>
+
+			<!-- Colors -->
+			<div>
+				<h3 class="font-bold">Colors</h3>
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-4">
+					<ColorPicker
+						bind:hex={$currentBot.settings.theme.popupButtonMessageBG}
+						label="Background"
+					/>
+					<ColorPicker
+						bind:hex={$currentBot.settings.theme.popupButtonMessageTextColor}
+						label="Text Color"
+					/>
+					<ColorPicker
+					bind:hex={$currentBot.settings.theme.popupButtonMessageGlowColor}
+					label="Glow Color"
+					/>
+					</div>
+			</div>
+		</div>
 		{/if}
 	</div>
 </div>
