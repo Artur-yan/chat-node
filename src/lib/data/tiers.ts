@@ -228,6 +228,106 @@ const tiersMap = {
 			}
 		}
 	},
+	5: {
+		name: 'Standard - Monthly',
+		max_bot: 3,
+		max_msg: 5000,
+		max_tocken: 100000,
+		history_length_days: 60,
+		features: {
+			slack: {
+				included: true,
+				label: 'Slack Integration'
+			},
+			gpt_api: {
+				included: false,
+				label: 'Bring Your Own ChatGPT API Key'
+			},
+			remove_chatnode_branding: {
+				included: false,
+				label: 'Remove ChatNode Branding'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
+			}
+		}
+	},
+	105: {
+		name: 'Standard - Annual',
+		max_bot: 3,
+		max_msg: 5000,
+		max_tocken: 100000,
+		history_length_days: 60,
+		features: {
+			slack: {
+				included: true,
+				label: 'Slack Integration'
+			},
+			gpt_api: {
+				included: false,
+				label: 'Bring Your Own ChatGPT API Key'
+			},
+			remove_chatnode_branding: {
+				included: false,
+				label: 'Remove ChatNode Branding'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
+			}
+		}
+	},
+	6: {
+		name: 'Growth - Monthly',
+		max_bot: 5,
+		max_msg: 10000,
+		max_tocken: 1000000,
+		history_length_days: 60,
+		features: {
+			slack: {
+				included: true,
+				label: 'Slack Integration'
+			},
+			gpt_api: {
+				included: true,
+				label: 'Bring Your Own ChatGPT API Key'
+			},
+			remove_chatnode_branding: {
+				included: true,
+				label: 'Remove ChatNode Branding'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
+			}
+		}
+	},
+	106: {
+		name: 'Growth - Annual',
+		max_bot: 5,
+		max_msg: 10000,
+		max_tocken: 1000000,
+		history_length_days: 60,
+		features: {
+			slack: {
+				included: true,
+				label: 'Slack Integration'
+			},
+			gpt_api: {
+				included: true,
+				label: 'Bring Your Own ChatGPT API Key'
+			},
+			remove_chatnode_branding: {
+				included: true,
+				label: 'Remove ChatNode Branding'
+			},
+			crisp: {
+				included: true,
+				label: 'Let users talk to a real person via a Crisp integration'
+			}
+		}
+	},
 	1001: {
 		name: 'AppSumo: Tier 1',
 		max_bot: 10,

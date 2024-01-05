@@ -20,7 +20,16 @@
 <div>
 	<style>
 		#toggle-btn-befbfc87e25911db {
-			display: none;
+			visibility: hidden;
+		}
+
+		#chat-popup-tooltip {
+			visibility: hidden;
+		}
+
+		#arrow, #arrow::before {
+			visibility: hidden;
+			opacity: 0;
 		}
 	</style>
 </div>

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import PricingGrid from '$lib/components/PricingGrid.svelte';
 	import { alert } from '$lib/stores';
 
 	import tiersMap from '$lib/data/tiers';
@@ -9,6 +8,8 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import Testimonials from '$lib/components/Testimonials.svelte';
+	import UpdatedPricing from '$lib/components/UpdatedPricing.svelte';
+	import Addon from '$lib/components/Addon.svelte';
 
 	export let data;
 	export let form;
@@ -58,6 +59,27 @@
 	onMount(() => {
 		invalidateAll();
 	});
+
+// Add-ons
+	let messagesSubscription;
+	let botsSubscription;
+	let tokenSubscription;
+	let brandingSubscription;
+
+	if (data.subscription?.addons) {
+		if (data.subscription?.addons['10001']) {
+			messagesSubscription = data.subscription?.addons['10001'];
+		}
+		if (data.subscription?.addons['10002']) {
+			botsSubscription = data.subscription?.addons['10002'];
+		}
+		if (data.subscription?.addons['10003']) {
+			tokenSubscription = data.subscription?.addons['10003'];
+		}
+		if (data.subscription?.addons['10005']) {
+			brandingSubscription = data.subscription?.addons['10005'];
+		}
+	}
 </script>
 
 <svelte:head>
@@ -217,8 +239,69 @@
 			You may set a default key for all bots and override the key per bot.
 		</p>
 	{:else if currentPlan < 1000}
-		<PricingGrid {currentPlan} {billingTerm} />
+		<UpdatedPricing 
+			includeMarketing={false} 
+			userId={data.user.userId}
+			currentPlan={currentPlan}
+		/>
 	{/if}
+
+	<div class="container bg-transparent bg-opacity-500">
+		{#if data.subscription?.plan === -1}
+			<div class="alert mb-8 text-warning justify-between flex">
+				<p>You must have an active subscription to purchase addons.</p>
+			</div>
+		{/if}
+	
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 relative">
+			{#if data.subscription?.plan === -1}
+				<div class="absolute inset-0 bg-base-100/50 z-10" />
+			{/if}
+	
+			<Addon
+				name="Extra Messages"
+				description="Add messages to your plan usable by any of your bots."
+				price={10}
+				bundleQty={1000}
+				subscription={messagesSubscription}
+				addonId="10001"
+				user_id={data.subscription?.user_id}
+				plan={data.subscription?.plan}
+			/>
+	
+			<Addon
+				name="Extra Tokens"
+				description="Add additional tokens to your bots to train on larger data sets."
+				price={7}
+				bundleQty={250000}
+				subscription={tokenSubscription}
+				addonId="10003"
+				user_id={data.subscription?.user_id}
+				plan={data.subscription?.plan}
+			/>
+
+			<Addon
+				name="Extra Bots"
+				description="Add individual bots to your plan allowance."
+				price={7}
+				subscription={botsSubscription}
+				addonId="10002"
+				user_id={data.subscription?.user_id}
+				plan={data.subscription?.plan}
+			/>
+
+			<Addon
+				name="Custom Domain"
+				max1={true}
+				description='Have your Chatbots 100% white label with your own domain'
+				price={59}
+				subscription={brandingSubscription}
+				addonId="10005"
+				user_id={data.subscription?.user_id}
+				plan={data.subscription?.plan}
+			/>
+		</div>
+	</div>
 </div>
 
 <Testimonials testimonials={data.streamed?.testimonials} />

@@ -6,10 +6,9 @@
 	import ShowCase from './ShowCase.svelte';
 	import PopupCallout from './PopupCallout.svelte';
 	import Testimonials from '$lib/components/Testimonials.svelte';
-	import { PUBLIC_SITE_URL } from "$env/static/public";
+	import { PUBLIC_EMBED_URL, PUBLIC_SITE_URL, PUBLIC_BOT_ID } from "$env/static/public";
 
 	export let data;
-
 	const { testimonials } = data.streamed;
 	export let image_meta_link = `${PUBLIC_SITE_URL}/landing_page_customer_support.png`
 	export let landing_page = `${PUBLIC_SITE_URL}`
@@ -47,7 +46,9 @@
 <!--		data-color-1="#0E1729"-->
 <!--		data-color-2="#3ABFF7"-->
 <!--	></script>-->
-	<script src="https://embed.chatnode.ai/befbfc87e25911db/popup.js"></script>
+<!--	<script src="https://embed.chatnode.ai/befbfc87e25911db/popup.js"></script>-->
+	{@html `<script src="${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js"></script>`}
+
 </svelte:head>
 
 <Hero />

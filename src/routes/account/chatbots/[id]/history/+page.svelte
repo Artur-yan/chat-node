@@ -73,7 +73,7 @@
 			return t.blob().then((b)=>{
 				var a = document.createElement("a");
 				a.href = URL.createObjectURL(b);
-				a.setAttribute("download", `chat-history--${data.model.id}.csv`);
+				a.setAttribute("download", `chat-history--${data.model.id}.${format}`);
 				a.click();
 			}
 			);
