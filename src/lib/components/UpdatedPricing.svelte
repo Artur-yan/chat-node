@@ -56,7 +56,13 @@
 				body: JSON.stringify({ newPlan, referralCode })
 			});
 			const data = await res.json();
-			goto(data.url);
+
+      //Reloading if the user is on the same page
+      if (window.location.pathname === new URL(data.url).pathname) {
+        window.location.reload();
+      } else {
+        goto(data.url);
+      }
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
