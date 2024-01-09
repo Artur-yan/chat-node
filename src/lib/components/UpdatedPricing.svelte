@@ -1,6 +1,6 @@
 <script lang="ts">
   import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-  import { goto } from '$app/navigation';
+  import { goto, invalidate } from '$app/navigation';
   import { alert } from '$lib/stores';
   import { onMount } from 'svelte';
 
@@ -56,7 +56,8 @@
 				body: JSON.stringify({ newPlan, referralCode })
 			});
 			const data = await res.json();
-			goto(data.url);
+      invalidate('/account/settings/subscription');
+      goto(data.url);
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
