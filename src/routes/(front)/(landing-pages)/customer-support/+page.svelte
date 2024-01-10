@@ -9,7 +9,6 @@
 	import { PUBLIC_EMBED_URL, PUBLIC_SITE_URL, PUBLIC_BOT_ID } from "$env/static/public";
 
 	export let data;
-
 	const { testimonials } = data.streamed;
 	export let image_meta_link = `${PUBLIC_SITE_URL}/landing_page_customer_support.png`
 	export let landing_page = `${PUBLIC_SITE_URL}`

@@ -74,7 +74,6 @@
                     {/if}
                 </div>
             </div>
-    
         </div>
     </div>
 </div>
@@ -103,6 +102,27 @@
         </div>
     </div>
 </div>
+
+<!-- Zendesk -->
+{#if $currentBot.id === 'befbfc87e25911db' || $currentBot.id === '691849a768bbfc97'}
+<div class="my-6">
+    <div class="card card-compact bg-neutral">
+        <div class="card-body">
+            <h2 class="card-title">Zendesk</h2>
+            <label class="cursor-pointer label justify-start gap-4">
+                <span class="label-text">OFF</span>
+                <input
+                    type="checkbox"
+                    class="toggle"
+                    class:toggle-success={$currentBot.settings.zendeskEnabled}
+                    bind:checked={$currentBot.settings.zendeskEnabled}
+                />
+                <span class="label-text">ON</span>
+            </label>
+        </div>
+    </div>
+</div>
+{/if}
 
 <Modal id="crispInstructions" title="How to obtain your crisp website ID">
     <ol>
