@@ -58,7 +58,8 @@
 			});
 			const data = await res.json();
 
-      goto(data.url, { invalidateAll: true });
+      // goto(data.url, { invalidateAll: true });
+      window.location.reload()
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
