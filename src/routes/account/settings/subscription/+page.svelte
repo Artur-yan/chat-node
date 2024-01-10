@@ -28,7 +28,9 @@
 		billingTerm = 'yearly';
 	}
 
-	let tier = tiersMap[currentPlan];
+
+	//Falling back to [0] since -1 is not feasible in the tiersMap
+	let tier = tiersMap[currentPlan] || tiersMap[0];
 
 	$: if (form?.success) {
 		$alert = { type: 'success', msg: 'AppSumo Plan Upgraded' };
@@ -87,7 +89,7 @@
 </svelte:head>
 
 <div class="container mb-20">
-	{#if currentPlan > 1000 || currentPlan === 0 && $page.url.search.includes('agency-c7433')}
+	{#if (currentPlan > 1000 || currentPlan === 0 || currentPlan === -1) && $page.url.search.includes('agency-c7433')}
 		<div class="grid md:grid-cols-[4fr_3fr] my-8 gap-8">
 			<div>
 				<h1 class="font-bold text-3xl mb-4">
