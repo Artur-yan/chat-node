@@ -104,7 +104,7 @@
 </div>
 
 <!-- Zendesk -->
-{#if $currentBot.id === 'befbfc87e25911db' || $currentBot.id === '691849a768bbfc97'}
+{#if $currentBot.id === 'befbfc87e25911db' || $currentBot.id === '691849a768bbfc97' || $currentBot.id === 'de3c08d9c1fff938'}
 <div class="my-6">
     <div class="card card-compact bg-neutral">
         <div class="card-body">
