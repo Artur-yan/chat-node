@@ -57,9 +57,11 @@
 				body: JSON.stringify({ newPlan, referralCode })
 			});
 			const data = await res.json();
-  
-      invalidateAll();
-      window.location.href = data.url;
+      setTimeout(() => {
+        invalidateAll();
+        window.location.href = data.url;
+      }, 2000);
+
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
