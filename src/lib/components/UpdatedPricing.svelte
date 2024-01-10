@@ -15,6 +15,8 @@
   let standardPlanState: number = 5;
   let grownthPlanState: number = 6;
 
+  console.log('currentPlan ---->', currentPlan)
+
   // Setting isAnnual based on user plan
   if([undefined, -1, 0, 2, 3, 4, 101, 102, 103, 104, 105, 106].includes(currentPlan)) {
     isAnnual = true
@@ -56,7 +58,7 @@
 			});
 			const data = await res.json();
 
-      goto(data.url);
+      goto(data.url, { invalidateAll: true });
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
