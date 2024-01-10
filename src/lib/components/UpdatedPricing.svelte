@@ -60,14 +60,16 @@
       setTimeout(() => {
         invalidateAll();
         window.location.href = data.url;
+        busyChangingPlan = false;
       }, 2000);
 
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
-		} finally {
-			busyChangingPlan = false;
-		}
+		} 
+        //finally {
+		// 	busyChangingPlan = false;
+		// }
 	};
 
   const handleConfirmPlanChange = async (plan: number) => {
