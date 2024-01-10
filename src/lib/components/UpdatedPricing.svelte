@@ -1,6 +1,6 @@
 <script lang="ts">
   import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-  import { goto, invalidate } from '$app/navigation';
+  import { goto, invalidateAll } from '$app/navigation';
   import { alert } from '$lib/stores';
   import { onMount } from 'svelte';
 
@@ -55,7 +55,7 @@
 				body: JSON.stringify({ newPlan, referralCode })
 			});
 			const data = await res.json();
-      invalidate('/account/settings/subscription');
+
       goto(data.url);
 		} catch (err) {
 			console.error(err);
@@ -83,7 +83,7 @@
 
       const data = await res.json();
       const stripeLink = data.url;
-      goto(stripeLink)
+      goto(stripeLink, { invalidateAll: true })
     } else {
 			modalConfirmPlanChange.showModal();
 		}
