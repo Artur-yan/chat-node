@@ -69,7 +69,7 @@
   const handleConfirmPlanChange = async (plan: number) => {
 		planToChangeTo = plan;
 
-    if(currentPlan === -1) {
+    if(currentPlan === -1 || currentPlan === 0) {
       const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
 				method: 'POST',
 				headers: {
@@ -84,10 +84,7 @@
       const data = await res.json();
       const stripeLink = data.url;
       goto(stripeLink)
-    } else if (currentPlan === 0) {
-			updatePlan(plan);
-			return;
-		} else {
+    } else {
 			modalConfirmPlanChange.showModal();
 		}
 	};
