@@ -58,7 +58,7 @@
 			});
 			const data = await res.json();
 
-      // goto(data.url, { invalidateAll: true });
+      invalidateAll()
       window.location.reload()
 		} catch (err) {
 			console.error(err);
