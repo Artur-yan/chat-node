@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { PUBLIC_EMBED_URL , PUBLIC_BOT_ID } from '$env/static/public';
 	export let data;
-	import Chat from '$lib/components/Chat.svelte';
+
 </script>
 
 <svelte:head>
@@ -8,13 +9,7 @@
 </svelte:head>
 
 <div class="flex flex-col flex-1 overflow-hidden rounded-lg m-2 md:m-8">
-	<Chat
-		modelId={data.model.id}
-		trainingStatus={data.model.status}
-		settings={data.model.settings}
-		avatar={data.model?.avatar_img}
-		userId={data.user}
-	/>
+	<iframe class="w-full h-[80vh]" src="{PUBLIC_EMBED_URL}/{PUBLIC_BOT_ID}" frameborder="0" title=""></iframe>
 </div>
 
 <div>
