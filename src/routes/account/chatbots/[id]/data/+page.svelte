@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import AddModelData from '$lib/components/AddModelData.svelte';
-	import Chat from '$lib/components/Chat.svelte';
 	import { alert } from '$lib/stores.js';
 	import Accordian from '$lib/components/Accordian.svelte';
 	import { getText, updateText } from '$lib/textSource';
 	import { onMount } from 'svelte';
+	import { PUBLIC_EMBED_URL, PUBLIC_BOT_ID } from '$env/static/public';
 
 	export let data;
 
@@ -496,13 +496,7 @@
 		<div
 			class="h-[calc(100vh_-_16rem)] sticky top-4 mb-10 hidden sm:block rounded-2xl overflow-hidden"
 		>
-			<Chat
-				{modelId}
-				bind:trainingStatus
-				settings={data.model.settings}
-				avatar={data.model.avatar_img}
-				userId={data.model.user_id}
-			/>
+		<iframe class="w-full h-full" src="{PUBLIC_EMBED_URL}/{PUBLIC_BOT_ID}" frameborder="0"></iframe>
 		</div>
 	</div>
 </div>
