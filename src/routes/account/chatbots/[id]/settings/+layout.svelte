@@ -13,7 +13,6 @@
 	$currentBotAvatarImg = $currentBot.avatar_img;
 	$currentBotPopupImg = $currentBot.chat_button_img;
 
-
 	const links = [
 		{ name: 'Prompts', url: 'prompts' },
 		{ name: 'Sharing', url: 'sharing' },
@@ -31,11 +30,11 @@
 	let warningIgnored = false;
 
 	// Merge bot with defaults
-	$currentBot.settings = { ...defaultSettings, ...$currentBot.settings };
-	$currentBot.settings.theme = {
-		...themes[$currentBot.settings.theme.name],
-		...$currentBot.settings.theme
-	};
+	// $currentBot.settings = { ...defaultSettings, ...$currentBot.settings };
+	// $currentBot.settings.theme = {
+	// 	...themes[$currentBot.settings.theme.name],
+	// 	...$currentBot.settings.theme
+	// };
 
 	// capture the current state of the bot on load
 	let saveState = JSON.stringify($currentBot);
