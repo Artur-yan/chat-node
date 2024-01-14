@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import AddModelData from '$lib/components/AddModelData.svelte';
-	import Chat from '$lib/components/Chat.svelte';
 	import { alert } from '$lib/stores.js';
 	import Accordian from '$lib/components/Accordian.svelte';
 	import { getText, updateText } from '$lib/textSource';
@@ -27,6 +26,10 @@
 	} else if (data.modelData?.legacyUrls.length) {
 		activeDataTab = 'legacy-urls';
 	}
+
+	// $: if (urls) {
+	// 	window.location.reload();
+	// }
 
 	function gatherSubUrlsS3Keys(base_url: string) {
 		let s3Keys = [];
@@ -84,7 +87,6 @@
 		});
 
 		let updatedDataSources = await res.json();
-
 
 		updatedDataSources.forEach((source) => {
 			const row = document.getElementById(sanitizeS3KeyAsId(source.s3_key));

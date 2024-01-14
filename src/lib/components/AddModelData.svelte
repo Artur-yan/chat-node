@@ -183,7 +183,7 @@
 					method: 'POST',
 					body
 				});
-				resetAddDataForm();
+				// resetAddDataForm();
 			} else {
 				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
 					method: 'POST',
@@ -194,8 +194,9 @@
 				await addModel(modelId, name, settings);
 				goto(`/account/chatbots/${modelId}/settings`);
 			}
+			window.location.reload();
 		} catch (err) {
-			resetAddDataForm();
+			// resetAddDataForm();
 
 			$alert = { msg: 'Something went wrong.', type: 'error' };
 			console.error(err);
