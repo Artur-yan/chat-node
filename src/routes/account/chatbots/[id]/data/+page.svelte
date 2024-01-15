@@ -27,6 +27,10 @@
 		activeDataTab = 'legacy-urls';
 	}
 
+	// $: if (urls) {
+	// 	window.location.reload();
+	// }
+
 	function gatherSubUrlsS3Keys(base_url: string) {
 		let s3Keys = [];
 		data.modelData?.urls[base_url].forEach((urlObj) => {
@@ -83,7 +87,6 @@
 		});
 
 		let updatedDataSources = await res.json();
-
 
 		updatedDataSources.forEach((source) => {
 			const row = document.getElementById(sanitizeS3KeyAsId(source.s3_key));
