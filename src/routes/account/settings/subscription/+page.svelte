@@ -20,6 +20,8 @@
 	let currentPlan = data.subscription.plan;
 	$: currentPlan = data.subscription.plan;
 
+	console.log('currentPlan', currentPlan);
+
 	let showAppsumoKeysField = false;
 
 	let appsumoCodes = '';
@@ -89,7 +91,7 @@
 </svelte:head>
 
 <div class="container mb-20">
-	{#if (currentPlan > 1000 || currentPlan === 0 || currentPlan === -1) && $page.url.search.includes('agency-c7433')}
+	{#if currentPlan > 1000 || $page.url.search.includes('agency-c7433')}
 		<div class="grid md:grid-cols-[4fr_3fr] my-8 gap-8">
 			<div>
 				<h1 class="font-bold text-3xl mb-4">
