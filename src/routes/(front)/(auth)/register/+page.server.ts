@@ -7,9 +7,9 @@ import { sendAccountEmailConfirmation } from '$lib/server/messenger';
 import { v4 as uuidv4 } from 'uuid';
 import { domainBlacklist } from '$lib/systemSettings';
 import type { PageServerLoad } from './$types';
-import { PUBLIC_CHAT_API_URL, STRIPE_BEARER_TOKEN } from '$env/static/public';
+import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 
-export const load: PageServerLoad = async ({ locals, url }) => {
+export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (session) throw redirect(302, '/account/chatbots');
 };
@@ -179,42 +179,43 @@ export const actions: Actions = {
 				max_tocken: subscriptionLimits.max_tocken
 			};
 
-			// Creating default free plan
+			// Creating default free plan or appsumo plan
 			await prismaClient.subscriptions.create({
 				data: subscriptionData
 			});
 
 			// Creating Stripe User
-			const stripeUser = await fetch(`${PUBLIC_CHAT_API_URL}/create-stripe-user`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer sk-868f7d2e-9e8c-4a2f-ab70-757c9d04ccfb`
-				},
-				body: JSON.stringify({
-					record: {
-						id: user.userId,
-						email: email
-					}
-				})
-			});
+			if (!appsumoCodes) {
+				const stripeUser = await fetch(`${PUBLIC_CHAT_API_URL}/create-stripe-user`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer sk-868f7d2e-9e8c-4a2f-ab70-757c9d04ccfb`
+					},
+					body: JSON.stringify({
+						record: {
+							id: user.userId,
+							email: email
+						}
+					})
+				});
 
-			// Updating plan to selected plan
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					user_id: user.userId,
-					plan: selectedPlan
-				})
-			});
+				// Updating plan to selected plan
+				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						user_id: user.userId,
+						plan: selectedPlan
+					})
+				});
 
-			const data = await res.json();
-			stripeLink = data.url;
+				const data = await res.json();
+				stripeLink = data.url;
+			}
 
-			// Send Email
 			sendAccountEmailConfirmation(email, uuid);
 
 			// fbEvent('StartTrial', [email]);
