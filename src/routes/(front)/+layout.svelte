@@ -26,12 +26,27 @@
 			"embed.chatnode.ai": "essential"
 		}
 	</script>
-	<script
-		type="text/javascript"
-		src="https://app.termly.io/embed.min.js"
-		data-auto-block="on"
-		data-website-uuid="4f4e94f0-314b-43e8-a338-6dbd736a0242"
-	></script>
+	
+<script>
+	const script = document.createElement('script');
+	script.type = 'text/javascript';
+	script.src = 'https://app.termly.io/embed.min.js';
+	script.setAttribute('data-auto-block', 'on');
+	script.setAttribute('data-website-uuid', '4f4e94f0-314b-43e8-a338-6dbd736a0242');	
+	script.onload = () => {
+    const checkAndModifyElement = () => {
+        const cookieConsentElement = document.querySelector('div[aria-label="Cookie Consent Prompt"]');
+        if (cookieConsentElement) {
+            cookieConsentElement.style.zIndex = '999999999';
+            clearInterval(intervalId); 
+        }
+    };
+    const intervalId = setInterval(checkAndModifyElement, 500);
+};
+	document.head.appendChild(script);
+</script>
+
+
 	<link rel="canonical" href="https://www.chatnode.ai{$page.url.pathname}" />
 
 	<script>
@@ -124,6 +139,7 @@ window.requestIdleCallback(idleWrapper, {timeout: 10000});
 			})(window);
 		</script>
 	{/if}
+
 
 <!--	<script-->
 <!--		src="https://www.chatnode.ai/embed.js"-->
