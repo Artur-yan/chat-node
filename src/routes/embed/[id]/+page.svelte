@@ -1,7 +1,9 @@
 <script lang="ts">
-	import Chat from '$lib/components/Chat.svelte';
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
+	import { PUBLIC_EMBED_URL } from '$env/static/public';
+	import { currentBot } from '$lib/stores.js';
+
 
 	export let data;
 
@@ -37,12 +39,5 @@
 </svelte:head>
 
 <div class="h-full flex flex-1 justify-stretch flex-col" bind:this={wrapper}>
-	<Chat
-		modelId={data.bot.id}
-		{settings}
-		avatar={data.bot.avatar_img}
-		userId={data.bot.user_id}
-		{removeBranding}
-		{context}
-	/>
+	<iframe class="w-full h-full" src="{PUBLIC_EMBED_URL}/{$currentBot.id}" frameborder="0" title=""></iframe>
 </div>

@@ -210,11 +210,11 @@
 					label="Background"
 					on:input={checkIfThemeSaved}
 				/>
-				<ColorPicker
+				<!-- <ColorPicker
 				bind:hex={$currentBot.settings.theme.headerShadow}
-				label="Background"
+				label="Header Shadow"
 				on:input={checkIfThemeSaved}
-			/>
+				/> -->
 			</div>
 		{/if}
 
