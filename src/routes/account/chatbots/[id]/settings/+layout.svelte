@@ -139,7 +139,7 @@
 	</div>
 
 	<div class="h-full min-h-[24rem] relative hidden sm:block">
-		<div class="sticky flex flex-col top-4 h-full flex-1 max-h-[40rem] rounded-2xl overflow-hidden">
+		<div class="sticky flex flex-col top-4 h-[75vh] flex-1 max-h-[40rem] rounded-2xl overflow-hidden">
 			<Chat
 				modelId={data.model.id}
 				settings={$currentBot.settings}
