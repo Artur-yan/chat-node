@@ -6,6 +6,7 @@
 	import { fade } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import Modal from './Modal.svelte';
+	import BotStatus from './BotStatus.svelte';
 
 	export let modelId: string = '';
 	export let userId: string;
@@ -194,7 +195,9 @@
 				await addModel(modelId, name, settings);
 				goto(`/account/chatbots/${modelId}/settings`);
 			}
-			window.location.reload();
+			setTimeout(() => {
+				window.location.reload();
+			}, 1250);
 		} catch (err) {
 			// resetAddDataForm();
 
@@ -351,6 +354,7 @@
 		</form>
 
 		<button class="btn btn-xs my-4" on:click={() => urlHelp.showModal()}>help</button>
+		<BotStatus id={modelId} bind:trainingStatus />
 
 		{#if urls}
 			<table class="table table-sm w-full max-w-full my-4">

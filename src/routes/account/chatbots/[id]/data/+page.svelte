@@ -27,10 +27,6 @@
 		activeDataTab = 'legacy-urls';
 	}
 
-	// $: if (urls) {
-	// 	window.location.reload();
-	// }
-
 	function gatherSubUrlsS3Keys(base_url: string) {
 		let s3Keys = [];
 		data.modelData?.urls[base_url].forEach((urlObj) => {
