@@ -33,20 +33,22 @@
 		<div class="card-body">
 			<h2 class="card-title mx-auto">Create an account</h2>
 			<p class="-mt-2 text-center text-slate-400  bg-gradient-to-r from-cyan-200 to-cyan-500 text-transparent bg-clip-text">Train ChatGPT on your data!</p>
-			<a href="/oauth/google?plan={$page.url.searchParams.get('plan') || -1}" class="my-4">
-				<button class="w-full flex items-center justify-center gap-2 rounded-lg border bg-white border-slate-200 px-4 py-2 text-slate-700 transition duration-150 hover:border-slate-400 hover:text-slate-900">
-					<img class="h-6 w-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"> 
-					<span>Sign up with Google</span>
-				</button>
-			</a>
-			<div class="relative">
-				<div class="absolute inset-0 flex items-center" aria-hidden="true">
-					<div class="w-full border-t border-slate-600"></div>
+			{#if !promo}
+				<a href="/oauth/google?plan={$page.url.searchParams.get('plan') || -1}" class="my-4">
+					<button class="w-full flex items-center justify-center gap-2 rounded-lg border bg-white border-slate-200 px-4 py-2 text-slate-700 transition duration-150 hover:border-slate-400 hover:text-slate-900">
+						<img class="h-6 w-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"> 
+						<span>Sign up with Google</span>
+					</button>
+				</a>
+				<div class="relative">
+					<div class="absolute inset-0 flex items-center" aria-hidden="true">
+						<div class="w-full border-t border-slate-600"></div>
+					</div>
+					<div class="relative flex justify-center text-sm font-medium leading-6">
+						<span class="bg-slate-800 px-6 text-slate-600">OR</span>
+					</div>
 				</div>
-				<div class="relative flex justify-center text-sm font-medium leading-6">
-					<span class="bg-slate-800 px-6 text-slate-600">OR</span>
-				</div>
-			</div>
+			{/if}
 
 			<form
 				class="form-control gap-2"

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-  import { goto } from '$app/navigation';
+  import { goto, invalidateAll } from '$app/navigation';
   import { alert } from '$lib/stores';
   import { onMount } from 'svelte';
 
@@ -15,8 +15,10 @@
   let standardPlanState: number = 5;
   let grownthPlanState: number = 6;
 
+  $: console.log('currentPlan ---->', currentPlan)
+
   // Setting isAnnual based on user plan
-  if(currentPlan === 105 || currentPlan === 106 || currentPlan === undefined) {
+  if([undefined, -1, 0, 2, 3, 4, 101, 102, 103, 104, 105, 106].includes(currentPlan)) {
     isAnnual = true
   } else {
     isAnnual = false
@@ -55,13 +57,19 @@
 				body: JSON.stringify({ newPlan, referralCode })
 			});
 			const data = await res.json();
-			goto(data.url);
+      setTimeout(() => {
+        invalidateAll();
+        window.location.href = data.url;
+        busyChangingPlan = false;
+      }, 2000);
+
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
-		} finally {
-			busyChangingPlan = false;
-		}
+		} 
+        //finally {
+		// 	busyChangingPlan = false;
+		// }
 	};
 
   const handleConfirmPlanChange = async (plan: number) => {
@@ -82,7 +90,7 @@
 
       const data = await res.json();
       const stripeLink = data.url;
-      goto(stripeLink)
+      goto(stripeLink, { invalidateAll: true })
     } else {
 			modalConfirmPlanChange.showModal();
 		}

@@ -14,9 +14,15 @@ async function fetchTestimonials() {
 	return await testimonials.json();
 }
 
-export const load = async ({ locals }) => {
+export const load = async ({ locals, setHeaders }) => {
 	const session = await locals.auth.validate();
 	if (!session) return;
+
+	setHeaders({
+		'Cache-Control': 'no-cache, no-store, must-revalidate',
+		Pragma: 'no-cache',
+		Expires: '0'
+	});
 
 	try {
 		return {

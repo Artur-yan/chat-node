@@ -13,7 +13,6 @@
 	$currentBotAvatarImg = $currentBot.avatar_img;
 	$currentBotPopupImg = $currentBot.chat_button_img;
 
-
 	const links = [
 		{ name: 'Prompts', url: 'prompts' },
 		{ name: 'Sharing', url: 'sharing' },
@@ -31,11 +30,11 @@
 	let warningIgnored = false;
 
 	// Merge bot with defaults
-	$currentBot.settings = { ...defaultSettings, ...$currentBot.settings };
-	$currentBot.settings.theme = {
-		...themes[$currentBot.settings.theme.name],
-		...$currentBot.settings.theme
-	};
+	// $currentBot.settings = { ...defaultSettings, ...$currentBot.settings };
+	// $currentBot.settings.theme = {
+	// 	...themes[$currentBot.settings.theme.name],
+	// 	...$currentBot.settings.theme
+	// };
 
 	// capture the current state of the bot on load
 	let saveState = JSON.stringify($currentBot);
@@ -140,7 +139,7 @@
 	</div>
 
 	<div class="h-full min-h-[24rem] relative hidden sm:block">
-		<div class="sticky flex flex-col top-4 h-full flex-1 max-h-[40rem] rounded-2xl overflow-hidden">
+		<div class="sticky flex flex-col top-4 h-[75vh] flex-1 max-h-[40rem] rounded-2xl overflow-hidden">
 			<Chat
 				modelId={data.model.id}
 				settings={$currentBot.settings}
