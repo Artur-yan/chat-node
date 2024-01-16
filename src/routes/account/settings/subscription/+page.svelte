@@ -110,8 +110,7 @@
 	}
 
 	const email = data.user.email;
-	invalidateAll();
-
+	
 	onMount(async () => {
 		if(!onTrial) {
 			switch (newPlan) {
