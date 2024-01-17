@@ -215,7 +215,7 @@
                                         <td>76.76.21.21</td>
                                     </tr>
                                 {/if}
-                                {#if !customDomainConfig?.verified && customDomainConfig?.verification.length}
+                                {#if !customDomainConfig?.verified && customDomainConfig?.verification?.length}
                                     {#each customDomainConfig.verification as record}
                                         <tr>
                                             <th>{record.type}</th>
