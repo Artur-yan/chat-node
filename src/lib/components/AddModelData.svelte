@@ -7,7 +7,6 @@
 	import { goto } from '$app/navigation';
 	import Modal from './Modal.svelte';
 	import BotStatus from './BotStatus.svelte';
-	import { urlsToBeProcessed } from '$lib/stores.js';
 
 	export let modelId: string = '';
 	export let userId: string;
@@ -216,10 +215,6 @@
 	};
 
 	$: approxTextTokenCount = Math.ceil(textData.length / 3.5);
-
-	$: if(urls) {
-		urlsToBeProcessed.set(urls.map((url) => url.s3_key));
-	}
 
 	$: {
 		if (files && files[0].size > maxFileSizeMB * 1024 * 1024) {
