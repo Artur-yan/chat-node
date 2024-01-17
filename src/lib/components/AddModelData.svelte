@@ -7,6 +7,7 @@
 	import { goto } from '$app/navigation';
 	import Modal from './Modal.svelte';
 	import BotStatus from './BotStatus.svelte';
+	import { urlsToBeProcessed } from '$lib/stores.js';
 
 	export let modelId: string = '';
 	export let userId: string;
@@ -30,7 +31,7 @@
 	let files: FileList | undefined;
 	let textData = '';
 	let url: string | undefined;
-	let urls: Array<Array<string | number>> = undefined;
+	let urls: Array<Array<string | number>> | undefined = undefined;
 	let selectedUrls: Array<string> = [];
 	let urlsTokenCount = 0;
 	let filesTokenCount = 0;
@@ -184,7 +185,7 @@
 					method: 'POST',
 					body
 				});
-				// resetAddDataForm();
+				resetAddDataForm();
 			} else {
 				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
 					method: 'POST',
@@ -199,7 +200,7 @@
 				window.location.reload();
 			}, 1250);
 		} catch (err) {
-			// resetAddDataForm();
+			resetAddDataForm();
 
 			$alert = { msg: 'Something went wrong.', type: 'error' };
 			console.error(err);
@@ -215,6 +216,10 @@
 	};
 
 	$: approxTextTokenCount = Math.ceil(textData.length / 3.5);
+
+	$: if(urls) {
+		urlsToBeProcessed.set(urls.map((url) => url.s3_key));
+	}
 
 	$: {
 		if (files && files[0].size > maxFileSizeMB * 1024 * 1024) {
@@ -354,8 +359,6 @@
 		</form>
 
 		<button class="btn btn-xs my-4" on:click={() => urlHelp.showModal()}>help</button>
-		<BotStatus id={modelId} bind:trainingStatus />
-
 		{#if urls}
 			<table class="table table-sm w-full max-w-full my-4">
 				<thead>

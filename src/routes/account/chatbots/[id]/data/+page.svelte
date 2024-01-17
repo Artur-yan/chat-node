@@ -6,6 +6,8 @@
 	import { getText, updateText } from '$lib/textSource';
 	import { onMount } from 'svelte';
 	import { PUBLIC_EMBED_URL } from '$env/static/public';
+	import { urlsToBeProcessed } from '$lib/stores.js';
+	import BotStatus from '$lib/components/BotStatus.svelte';
 
 	export let data;
 
@@ -16,6 +18,7 @@
 	let activeDataTab: string;
 	let textSourceToEdit: Object;
 	let textSourceValue: string;
+	let selectedUrls: Array<string> = [];
 
 	if (Object.keys(urls).length) {
 		activeDataTab = 'urls';
@@ -67,6 +70,7 @@
 
 	async function updateBotSources(s3_keys: Array<string>) {
 		if (s3_keys.length === 0) {
+			console.log('no sources to update');
 			return;
 		}
 
@@ -143,7 +147,16 @@
 	}
 
 	onMount(() => {
-		updateBotSources(data.modelData?.areTraining);
+		console.log('data ---> ', data.modelData?.urls);
+		const objsToCheck = Object.values(data.modelData?.urls)
+		console.log('objsToCheck ---> ', objsToCheck);
+		const urlsToCheck = objsToCheck.map((obj) => {
+			return obj.map((urlObj) => {
+				return urlObj.s3_key;
+			});
+		}).flat();
+		console.log('urlsToCheck ---> ', urlsToCheck);
+		updateBotSources(urlsToCheck);
 	});
 </script>
 
@@ -169,6 +182,7 @@
 		<div class="card card-compact bg-neutral">
 			<div class="card-body">
 				<h2 class="card-title">Trained Data Sources</h2>
+				<BotStatus id={modelId} bind:trainingStatus />
 				<div class="flex">
 					<div class="tabs tabs-boxed gap-2">
 						{#if Object.keys(urls).length}
