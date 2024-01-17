@@ -19,7 +19,7 @@
 	let busyGettingBotData = false;
 	let currentCustomDomain = $currentBot.settings.customDomain;
 
-	$: $currentBot.settings.customDomain = $currentBot.settings.customDomain.toLowerCase();
+	$: $currentBot.settings.customDomain = $currentBot.settings.customDomain?.toLowerCase();
 
 	$: if ($currentBot.custom_domain) {
 		customDomain = true;
