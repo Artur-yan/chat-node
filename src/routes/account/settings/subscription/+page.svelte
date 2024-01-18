@@ -32,6 +32,7 @@
 	}
 
 
+
 	//Falling back to [0] since -1 is not feasible in the tiersMap
 	let tier = tiersMap[currentPlan] || tiersMap[0];
 
@@ -83,7 +84,6 @@
 	}
 
 	let planChange = $page.url.searchParams.get('plan-change');
-	let onTrial = $page.url.searchParams.get('trial');
 	let newPlan = $page.url.searchParams.get('new-plan');
 	let oldPlan = $page.url.searchParams.get('old-plan');
 	let amountSpent = 0;
@@ -112,7 +112,7 @@
 	const email = data.user.email;
 	
 	onMount(async () => {
-		if(!onTrial) {
+		if(oldPlan === '-1') {
 			switch (newPlan) {
 				case '1':
 					newPlanName = 'Basic';
@@ -172,6 +172,15 @@
 			});
 
 			switch (planChange) {
+				case 'free_trial_standard':
+					trackEvent('Free Trial Standard');
+					// gtmTrackPurchase('Free Trial Standard');
+					break;
+
+				case 'free_trial_growth':
+					trackEvent('Free Trial Growth');
+					// gtmTrackPurchase('Free Trial Growth');
+					break;
 				case 'convert':
 					trackEvent('Convert to Paid');
 					gtmTrackPurchase('Convert');
