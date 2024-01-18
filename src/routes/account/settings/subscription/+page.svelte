@@ -32,6 +32,7 @@
 	}
 
 
+
 	//Falling back to [0] since -1 is not feasible in the tiersMap
 	let tier = tiersMap[currentPlan] || tiersMap[0];
 
@@ -83,9 +84,19 @@
 	}
 
 	let planChange = $page.url.searchParams.get('plan-change');
-	let onTrial = $page.url.searchParams.get('trial');
 	let newPlan = $page.url.searchParams.get('new-plan');
 	let oldPlan = $page.url.searchParams.get('old-plan');
+	if (oldPlan === "-1" &&  newPlan === "5") {
+		planChange = "free_trial_standard_monthly"
+	} else if (oldPlan === "-1" &&  newPlan === "6") {
+		planChange = "free_trial_growth_monthly"
+	}
+	else if (oldPlan === "-1" &&  newPlan === "105") {
+		planChange = "free_trial_growth_yearly"
+	}
+	else if (oldPlan === "-1" &&  newPlan === "106") {
+		planChange = "free_trial_growth_yearly"
+	}
 	let amountSpent = 0;
 	let newPlanName = '';
 
@@ -112,7 +123,7 @@
 	const email = data.user.email;
 	
 	onMount(async () => {
-		if(!onTrial) {
+		if(oldPlan) {
 			switch (newPlan) {
 				case '1':
 					newPlanName = 'Basic';
@@ -172,6 +183,26 @@
 			});
 
 			switch (planChange) {
+				case 'free_trial_standard_monthly':
+					trackEvent('Free Trial Standard Monthly');
+					amountSpent = 0
+					gtmTrackPurchase('Free Trial Standard Monthly')
+					break;
+				case 'free_trial_growth_monthly':
+					trackEvent('Free Trial Growth Monthly');
+					amountSpent = 0
+					gtmTrackPurchase('Free Trial Growth Monthly');
+					break;
+				case 'free_trial_standard_yearly':
+					trackEvent('Free Trial Standard Yearly');
+					amountSpent = 0
+					gtmTrackPurchase('Free Trial Standard Yearly');
+					break;
+				case 'free_trial_growth_yearly':
+					trackEvent('Free Trial Growth Yearly');
+					amountSpent = 0
+					gtmTrackPurchase('Free Trial Growth Yearly');
+					break;
 				case 'convert':
 					trackEvent('Convert to Paid');
 					gtmTrackPurchase('Convert');
