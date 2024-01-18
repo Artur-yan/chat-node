@@ -6,16 +6,19 @@
 	import { getText, updateText } from '$lib/textSource';
 	import { onMount } from 'svelte';
 	import { PUBLIC_EMBED_URL } from '$env/static/public';
+	import BotStatus from '$lib/components/BotStatus.svelte';
 
 	export let data;
 
 	let { urls } = data.modelData;
-	let trainingStatus = 'ready';
+	let trainingStatus: any = undefined;
 	let modelId = data.model.id;
 	let sourceToDelete: Object;
 	let activeDataTab: string;
 	let textSourceToEdit: Object;
 	let textSourceValue: string;
+	let selectedUrls: Array<string> = [];
+	let trainingOnLoad = data.modelData.areTraining.length > 0;
 
 	if (Object.keys(urls).length) {
 		activeDataTab = 'urls';
@@ -67,8 +70,10 @@
 
 	async function updateBotSources(s3_keys: Array<string>) {
 		if (s3_keys.length === 0) {
+			console.log('no sources to update');
 			return;
 		}
+		trainingStatus = 'training';
 
 		let incompleteSourcesS3Keys: Array<string> = [];
 
@@ -143,7 +148,13 @@
 	}
 
 	onMount(() => {
-		updateBotSources(data.modelData?.areTraining);
+		const objsToCheck = Object.values(data.modelData?.urls)
+		const urlsToCheck = objsToCheck.map((obj) => {
+			return obj.map((urlObj) => {
+				return urlObj.s3_key;
+			});
+		}).flat();
+		updateBotSources(urlsToCheck);
 	});
 </script>
 
@@ -168,7 +179,12 @@
 		</div>
 		<div class="card card-compact bg-neutral">
 			<div class="card-body">
-				<h2 class="card-title">Trained Data Sources</h2>
+				<div class="flex">
+					<h2 class="card-title">Trained Data Sources</h2>
+					{#if trainingOnLoad}
+						<BotStatus id={modelId} bind:trainingStatus />
+					{/if}
+				</div>
 				<div class="flex">
 					<div class="tabs tabs-boxed gap-2">
 						{#if Object.keys(urls).length}
@@ -217,7 +233,6 @@
 								<h2 slot="title" class="w-full">
 									{baseUrl}
 								</h2>
-
 								<div class="text-right mb-4">
 									<button
 										class="btn btn-xs btn-outline text-error"
