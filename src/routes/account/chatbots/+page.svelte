@@ -21,7 +21,7 @@
 	$: botUsage = data.bots.length / data.subscription.max_bot;
 
 	onMount(() => {
-		if ($page.url.searchParams.get('signup') == 'success') {
+		if ($page.url.searchParams.get('signup') === 'true') {
 			const { trackEvent } = Plausible({
 				domain: PUBLIC_PLAUSIBLE_DOMAIN,
 				apiHost: PUBLIC_PLAUSIBLE_API_HOST

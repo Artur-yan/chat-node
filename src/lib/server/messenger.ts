@@ -12,7 +12,7 @@ const sendAccountEmailConfirmation = (email: string, uuid: string) => {
 		},
 		to: email,
 		message_data: {
-			passwordResetURL: `${PUBLIC_SITE_URL}/account/confirm/${uuid}`
+			passwordResetURL: `${PUBLIC_SITE_URL}/account/confirm/${uuid}?signup=true`
 		}
 	});
 
