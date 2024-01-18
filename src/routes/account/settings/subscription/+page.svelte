@@ -92,7 +92,7 @@
 		planChange = "free_trial_growth_monthly"
 	}
 	else if (oldPlan === "-1" &&  newPlan === "105") {
-		planChange = "free_trial_growth_yearly"
+		planChange = "free_trial_standard_yearly"
 	}
 	else if (oldPlan === "-1" &&  newPlan === "106") {
 		planChange = "free_trial_growth_yearly"
