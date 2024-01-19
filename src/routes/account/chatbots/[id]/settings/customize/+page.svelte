@@ -175,10 +175,10 @@
 <!-- Header Section -->
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
-		<div class="flex start items-center">
+		<div class="flex gap-4 items-center">
 			<h2 class="card-title">Header</h2>
 			<div class="form-control">
-				<label class="cursor-pointer label justify-start gap-2">
+				<label class="cursor-pointer label gap-2">
 					<span class="label-text">Enable</span>
 					<input
 						type="checkbox"
