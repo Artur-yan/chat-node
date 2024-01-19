@@ -56,16 +56,6 @@ export const GET = async ({ url, locals }) => {
 		}
 	});
 
-	// Tracking for Plausible and GTM
-	const { trackEvent } = Plausible({
-		domain: PUBLIC_PLAUSIBLE_DOMAIN,
-		apiHost: PUBLIC_PLAUSIBLE_API_HOST
-	});
-	trackEvent('Signup');
-	dataLayer.push({
-		event: 'Signup'
-	});
-
 	const regularPlans: any = {
 		free: {
 			plan: -1,
