@@ -222,6 +222,46 @@
 	</div>
 </div>
 
+<!-- Status Section -->
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="flex gap-4 items-center">
+			<h2 class="card-title">Status</h2>
+			<div class="form-control">
+				<label class="cursor-pointer label gap-2">
+					<span class="label-text">Enable</span>
+					<input
+						type="checkbox"
+						class="toggle toggle-sm"
+						class:toggle-success={$currentBot.settings.statusEnabled}
+						bind:checked={$currentBot.settings.statusEnabled}
+					/>
+				</label>
+			</div>
+		</div>
+		{#if $currentBot.settings.statusEnabled}
+			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
+				<div>
+					<label for="public-title" class="label">
+						<span class="label-text">Status Title</span>
+					</label>
+					<input
+						class="input input-sm w-full"
+						type="text"
+						name="public-title"
+						bind:value={$currentBot.settings.theme.statusMessage}
+					/>
+				</div>
+				<ColorPicker
+					bind:hex={$currentBot.settings.theme.statusColor}
+					label="Status Color"
+					on:input={checkIfThemeSaved}
+				/>
+			</div>
+		{/if}
+	</div>
+</div>
+
 
 <!-- Chat Bubbles Section -->
 <div class="card bg-neutral card-compact mb-4">
