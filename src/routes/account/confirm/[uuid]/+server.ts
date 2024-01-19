@@ -57,15 +57,6 @@ export const GET: RequestHandler = async ({ params, url, locals }) => {
 				status: 'active'
 			}
 		});
-		// Tracking for Plausible and GTM
-		const { trackEvent } = Plausible({
-			domain: PUBLIC_PLAUSIBLE_DOMAIN,
-			apiHost: PUBLIC_PLAUSIBLE_API_HOST
-		});
-		trackEvent('Signup');
-		dataLayer.push({
-			event: 'Signup'
-		});
 		throw redirect(302, `/account/chatbots`);
 	}
 };
