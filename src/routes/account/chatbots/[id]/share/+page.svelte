@@ -19,10 +19,6 @@
 	let busyGettingBotData = false;
 	let currentCustomDomain = $currentBot.settings.customDomain;
 
-	console.log(data.subscription?.addons)
-	console.log(data.subscription?.addons?.['10005'])
-	console.log(data.subscription?.addons?.['10005']?.['quantity'])
-
 	$: $currentBot.settings.customDomain = $currentBot.settings.customDomain?.toLowerCase();
 
 	$: if ($currentBot.custom_domain) {
