@@ -366,6 +366,28 @@
 	</div>
 </div>
 
+<!-- Suggested Questions Section -->
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<h2 class="card-title">Suggested Questions Button</h2>
+		<div class="flex gap-2 items-center mt-2">
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.suggestedQuestionsBG}
+				label="Button Color"
+				on:input={checkIfThemeSaved}
+			/>
+
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.suggestedQuestionsShadow}
+				label="Button Shadow"
+				on:input={checkIfThemeSaved}
+			/>
+		</div>
+	</div>
+</div>
+
+
+<!-- Avatar Section -->
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<h2 class="card-title">Avatar</h2>
@@ -424,6 +446,7 @@
 	</div>
 </div>
 
+<!-- Popup Button Section -->
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<div class="flex gap-2">
@@ -555,6 +578,7 @@
 	</div>
 </div>
 
+<!-- Popup Message Section -->
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<div class="flex items-center gap-3">
