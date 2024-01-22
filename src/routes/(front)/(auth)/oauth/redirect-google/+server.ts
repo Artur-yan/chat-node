@@ -126,21 +126,21 @@ export const GET = async ({ url, locals }) => {
 
 	// Updating plan to selected plan if plan is specified
 	if (plan === '-1') {
-		throw redirect(302, '/account/settings/subscription');
+		throw redirect(302, '/account/chatbots?signup=true');
 	} else {
-		const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				user_id: newUser.userId,
-				plan: plan
-			})
-		});
-
-		const data = await res.json();
-		const stripeLink = data.url;
-		throw redirect(302, stripeLink);
+		// const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
+		// 	method: 'POST',
+		// 	headers: {
+		// 		'Content-Type': 'application/json'
+		// 	},
+		// 	body: JSON.stringify({
+		// 		user_id: newUser.userId,
+		// 		plan: plan
+		// 	})
+		// });
+		// const data = await res.json();
+		// const stripeLink = data.url;
+		// throw redirect(302, stripeLink);
+		throw redirect(302, '/account/chatbots?signup=true&plan=' + plan);
 	}
 };

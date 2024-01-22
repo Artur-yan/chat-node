@@ -18,7 +18,8 @@ export const auth = lucia({
 			email: user.email,
 			status: user.status,
 			api_key: user.api_key,
-			default_openai_key: user.default_openai_key
+			default_openai_key: user.default_openai_key,
+			tracking_status: user.tracking_status
 		};
 	}
 });

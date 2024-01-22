@@ -5,7 +5,6 @@ import { redirect } from '@sveltejs/kit';
 import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
 import Plausible from 'plausible-tracker';
 
-
 export const GET: RequestHandler = async ({ params, url, locals }) => {
 	let update = url.searchParams.get('update');
 
@@ -57,6 +56,6 @@ export const GET: RequestHandler = async ({ params, url, locals }) => {
 				status: 'active'
 			}
 		});
-		throw redirect(302, `/account/chatbots`);
+		throw redirect(302, `/account/chatbots?signup=true`);
 	}
 };
