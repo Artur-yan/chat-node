@@ -74,10 +74,10 @@
 	<title>Customize | Settings | {data.model.name} | ChatNode</title>
 </svelte:head>
 
+<!-- Theme Section -->
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
-		<h2 class="card-title">Customize</h2>
-		<h3 class="font-bold">Theme</h3>
+		<h2 class="card-title">Theme</h2>
 		<div class="themes">
 			<div>
 				<input
@@ -169,13 +169,16 @@
 				on:input={checkIfThemeSaved}
 			/>
 		</div>
+	</div>
+</div>
 
-		<hr class="border-base-300 my-4" />
-
-		<div class="flex start items-center">
-			<h3 class="font-bold">Header</h3>
+<!-- Header Section -->
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="flex gap-4 items-center">
+			<h2 class="card-title">Header</h2>
 			<div class="form-control">
-				<label class="cursor-pointer label justify-start gap-2">
+				<label class="cursor-pointer label gap-2">
 					<span class="label-text">Enable</span>
 					<input
 						type="checkbox"
@@ -186,41 +189,84 @@
 				</label>
 			</div>
 		</div>
-
 		{#if $currentBot.settings.headerEnabled}
+		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
+			<div>
+				<label for="public-title" class="label">
+					<span class="label-text">Header Title</span>
+				</label>
+				<input
+					class="input input-sm w-full"
+					type="text"
+					name="public-title"
+					bind:value={$currentBot.settings.publicTitle}
+				/>
+			</div>
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.headerTitle}
+				label="Title Text"
+				on:input={checkIfThemeSaved}
+			/>
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.headerBG}
+				label="Background"
+				on:input={checkIfThemeSaved}
+			/>
+			<ColorPicker
+			bind:hex={$currentBot.settings.theme.headerShadow}
+			label="Header Shadow"
+			on:input={checkIfThemeSaved}
+			/>
+		</div>
+	{/if}
+	</div>
+</div>
+
+<!-- Status Section -->
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="flex gap-4 items-center">
+			<h2 class="card-title">Status</h2>
+			<div class="form-control">
+				<label class="cursor-pointer label gap-2">
+					<span class="label-text">Enable</span>
+					<input
+						type="checkbox"
+						class="toggle toggle-sm"
+						class:toggle-success={$currentBot.settings.statusEnabled}
+						bind:checked={$currentBot.settings.statusEnabled}
+					/>
+				</label>
+			</div>
+		</div>
+		{#if $currentBot.settings.statusEnabled}
 			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
 				<div>
 					<label for="public-title" class="label">
-						<span class="label-text">Header Title</span>
+						<span class="label-text">Status Title</span>
 					</label>
 					<input
 						class="input input-sm w-full"
 						type="text"
 						name="public-title"
-						bind:value={$currentBot.settings.publicTitle}
+						bind:value={$currentBot.settings.theme.statusMessage}
 					/>
 				</div>
 				<ColorPicker
-					bind:hex={$currentBot.settings.theme.headerTitle}
-					label="Title Text"
+					bind:hex={$currentBot.settings.theme.statusColor}
+					label="Status Color"
 					on:input={checkIfThemeSaved}
-				/>
-				<ColorPicker
-					bind:hex={$currentBot.settings.theme.headerBG}
-					label="Background"
-					on:input={checkIfThemeSaved}
-				/>
-				<ColorPicker
-				bind:hex={$currentBot.settings.theme.headerShadow}
-				label="Header Shadow"
-				on:input={checkIfThemeSaved}
 				/>
 			</div>
 		{/if}
+	</div>
+</div>
 
-		<hr class="border-base-300 my-4" />
 
-		<h3 class="font-bold">Chat Bubbles</h3>
+<!-- Chat Bubbles Section -->
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<h2 class="card-title">Chat Bubbles</h2>
 		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
 			<ColorPicker
 				bind:hex={$currentBot.settings.theme.botBubbleBG}
@@ -244,10 +290,14 @@
 				on:input={checkIfThemeSaved}
 			/>
 		</div>
+	</div>
+	
+</div>
 
-		<hr class="border-base-300 my-4" />
-
-		<h3 class="font-bold">Chat Input</h3>
+<!-- Chat Input Section -->
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<h2 class="card-title">Chat Input</h2>
 		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
 			<div>
 				<label for="public-title" class="label">
@@ -277,11 +327,15 @@
 				on:input={checkIfThemeSaved}
 			/>
 		</div>
+	</div>
+</div>
 
-		<hr class="border-base-300 my-4" />
 
-		<div class="flex justify-start items-center">
-			<h2 class="font-bold">Send Button</h2>
+<!-- Send Button Section -->
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="flex gap-2">
+			<h2 class="card-title">Send Button</h2>
 			<div class="form-control inline-flex">
 				<label class="cursor-pointer label justify-start gap-2">
 					<span class="label-text">Enable</span>
@@ -294,25 +348,46 @@
 				</label>
 			</div>
 		</div>
-
 		{#if $currentBot.settings.sendButtonEnabled}
-			<div class="grid grid-cols-4 gap-2 items-end">
-				<ColorPicker
-					bind:hex={$currentBot.settings.theme.sendButtonBG}
-					label="Background"
-					on:input={checkIfThemeSaved}
-				/>
+		<div class="grid grid-cols-4 gap-2 items-end mt-4">
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.sendButtonBG}
+				label="Background"
+				on:input={checkIfThemeSaved}
+			/>
 
-				<ColorPicker
-					bind:hex={$currentBot.settings.theme.sendButtonIconColor}
-					label="Icon Color"
-					on:input={checkIfThemeSaved}
-				/>
-			</div>
-		{/if}
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.sendButtonIconColor}
+				label="Icon Color"
+				on:input={checkIfThemeSaved}
+			/>
+		</div>
+	{/if}
 	</div>
 </div>
 
+<!-- Suggested Questions Section -->
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<h2 class="card-title">Suggested Questions Button</h2>
+		<div class="flex gap-2 items-center mt-2">
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.suggestedQuestionsBG}
+				label="Button Color"
+				on:input={checkIfThemeSaved}
+			/>
+
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.suggestedQuestionsShadow}
+				label="Button Shadow"
+				on:input={checkIfThemeSaved}
+			/>
+		</div>
+	</div>
+</div>
+
+
+<!-- Avatar Section -->
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<h2 class="card-title">Avatar</h2>
@@ -371,6 +446,7 @@
 	</div>
 </div>
 
+<!-- Popup Button Section -->
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<div class="flex gap-2">
@@ -502,6 +578,7 @@
 	</div>
 </div>
 
+<!-- Popup Message Section -->
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<div class="flex items-center gap-3">

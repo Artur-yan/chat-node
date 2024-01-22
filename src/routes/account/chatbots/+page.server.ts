@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 		}
 	});
 
-	if (subscription?.plan === -1) {
-		throw redirect(302, '/account/settings/subscription');
-	}
+	// if (subscription?.plan === -1) {
+	// 	throw redirect(302, '/account/settings/subscription');
+	// }
 };
