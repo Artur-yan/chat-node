@@ -48,7 +48,7 @@ const themes = {
 		bg: '#000000',
 		headerBG: 'transparent',
 		headerTitle: '#FFFFFF',
-		headerShadow: '#1E293B',
+		headerShadow: '#2E2F30',
 		resetButton: '#3093FF',
 		botBubbleBG: '#3093FF',
 		botBubbleText: '#FFFFFF',
