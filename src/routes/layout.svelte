@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import { trackPageView } from '$lib/tracking';
@@ -13,4 +13,4 @@
 
     return unsubscribe;
   });
-</script>
+</script> -->
