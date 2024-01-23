@@ -1,6 +1,6 @@
 <script lang="ts">
   import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-  import { goto } from '$app/navigation';
+  import { goto, invalidateAll } from '$app/navigation';
   import { alert } from '$lib/stores';
   import { onMount } from 'svelte';
 
@@ -16,7 +16,7 @@
   let grownthPlanState: number = 6;
 
   // Setting isAnnual based on user plan
-  if(currentPlan === 105 || currentPlan === 106 || currentPlan === undefined) {
+  if([undefined, -1, 0, 2, 3, 4, 101, 102, 103, 104, 105, 106].includes(currentPlan)) {
     isAnnual = true
   } else {
     isAnnual = false
@@ -29,7 +29,6 @@
     standardPlanState = 5
     grownthPlanState = 6
   }
-
 
   $: if(currentPlan && [0, 1, 2, 3, 4, 101, 102, 103, 104].includes(currentPlan)) {
     alert.set({ type: 'warning', msg: 'Your are currently using a legacy plan' });
@@ -56,19 +55,26 @@
 				body: JSON.stringify({ newPlan, referralCode })
 			});
 			const data = await res.json();
-			goto(data.url);
+      setTimeout(() => {
+        invalidateAll();
+        window.location.href = data.url;
+        busyChangingPlan = false;
+      }, 2000);
+
 		} catch (err) {
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
-		} finally {
-			busyChangingPlan = false;
-		}
+		} 
+        //finally {
+		// 	busyChangingPlan = false;
+		// }
 	};
 
   const handleConfirmPlanChange = async (plan: number) => {
+    console.log('upgrading --->')
 		planToChangeTo = plan;
 
-    if(currentPlan === -1) {
+    if(currentPlan === -1 || currentPlan === 0) {
       const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
 				method: 'POST',
 				headers: {
@@ -82,11 +88,8 @@
 
       const data = await res.json();
       const stripeLink = data.url;
-      goto(stripeLink)
-    } else if (currentPlan === 0) {
-			updatePlan(plan);
-			return;
-		} else {
+      goto(stripeLink, { invalidateAll: true })
+    } else {
 			modalConfirmPlanChange.showModal();
 		}
 	};
@@ -212,20 +215,20 @@
                 </li>
               </ul>
             </div>
-            {#if !currentPlan}
-            <a href="{isAnnual ? '/register?plan=105&status=free_trial' : '/register?plan=5&status=free_trial'}">
-              <button class="flex w-full justify-center mt-10 bg-black bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2  border-indigo-600">
+            {#if currentPlan === -1 || currentPlan === 0}
+              <button 
+                on:click={() => handleConfirmPlanChange(isAnnual ? 105 : 5)}
+                disabled={currentPlan === standardPlanState}
+                class="flex w-full justify-center mt-10 bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600 {currentPlan === standardPlanState ? 'bg-indigo-600' : 'bg-black'}"
+              >
                 <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
-              </button>  
-            </a>   
-            {:else if currentPlan === -1}
-            <button 
-            on:click={() => handleConfirmPlanChange(isAnnual ? 105 : 5)}
-            disabled={currentPlan === standardPlanState}
-            class="flex w-full justify-center mt-10 bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600 {currentPlan === standardPlanState ? 'bg-indigo-600' : 'bg-black'}"
-          >
-            <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
-          </button>  
+              </button>
+            {:else if !currentPlan}
+              <a href="{isAnnual ? '/register?plan=105&status=free_trial' : '/register?plan=5&status=free_trial'}">
+                <button class="flex w-full justify-center mt-10 bg-black bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2  border-indigo-600">
+                  <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
+                </button>  
+              </a>     
             {:else}
               <button 
                 on:click={() => handleConfirmPlanChange(isAnnual ? 105 : 5)}
@@ -287,20 +290,20 @@
                 </li>
               </ul>
             </div>
-            {#if !currentPlan}
-            <a href="{isAnnual ? '/register?plan=106&status=free_trial' : '/register?plan=6&status=free_trial'}">
-              <button class="flex w-full justify-center mt-10 bg-black bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600">
+            {#if currentPlan === -1 || currentPlan === 0}
+              <button 
+                on:click={() => handleConfirmPlanChange(isAnnual ? 106 : 6)}
+                disabled={currentPlan === grownthPlanState}
+                class="flex w-full justify-center mt-10 bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600 {currentPlan === grownthPlanState ? 'bg-indigo-600' : 'bg-black'}"
+              >
                 <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
-              </button>   
-            </a>  
-            {:else if currentPlan === -1}
-            <button 
-              on:click={() => handleConfirmPlanChange(isAnnual ? 106 : 6)}
-              disabled={currentPlan === grownthPlanState}
-              class="flex w-full justify-center mt-10 bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600 {currentPlan === grownthPlanState ? 'bg-indigo-600' : 'bg-black'}"
-            >
-              <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
-            </button>  
+              </button> 
+            {:else if !currentPlan}
+              <a href="{isAnnual ? '/register?plan=106&status=free_trial' : '/register?plan=6&status=free_trial'}">
+                <button class="flex w-full justify-center mt-10 bg-black bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600">
+                  <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
+                </button>   
+              </a>   
             {:else}
               <button 
                 on:click={() => handleConfirmPlanChange(isAnnual ? 106 : 6)}

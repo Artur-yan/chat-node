@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { alert } from '$lib/stores';
-
 	import tiersMap from '$lib/data/tiers';
 	import { invalidateAll } from '$app/navigation';
 	import { onMount } from 'svelte';
@@ -10,6 +9,8 @@
 	import Testimonials from '$lib/components/Testimonials.svelte';
 	import UpdatedPricing from '$lib/components/UpdatedPricing.svelte';
 	import Addon from '$lib/components/Addon.svelte';
+	import Plausible from 'plausible-tracker';
+	import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
 
 	export let data;
 	export let form;
@@ -20,6 +21,8 @@
 	let currentPlan = data.subscription.plan;
 	$: currentPlan = data.subscription.plan;
 
+	console.log('currentPlan', currentPlan);
+
 	let showAppsumoKeysField = false;
 
 	let appsumoCodes = '';
@@ -28,7 +31,10 @@
 		billingTerm = 'yearly';
 	}
 
-	let tier = tiersMap[currentPlan];
+
+
+	//Falling back to [0] since -1 is not feasible in the tiersMap
+	let tier = tiersMap[currentPlan] || tiersMap[0];
 
 	$: if (form?.success) {
 		$alert = { type: 'success', msg: 'AppSumo Plan Upgraded' };
@@ -56,10 +62,6 @@
 		}
 	};
 
-	onMount(() => {
-		invalidateAll();
-	});
-
 // Add-ons
 	let messagesSubscription;
 	let botsSubscription;
@@ -80,6 +82,150 @@
 			brandingSubscription = data.subscription?.addons['10005'];
 		}
 	}
+
+	let planChange = $page.url.searchParams.get('plan-change');
+	let newPlan = $page.url.searchParams.get('new-plan');
+	let oldPlan = $page.url.searchParams.get('old-plan');
+	if (oldPlan === "-1" &&  newPlan === "5") {
+		planChange = "free_trial_standard_monthly"
+	} else if (oldPlan === "-1" &&  newPlan === "6") {
+		planChange = "free_trial_growth_monthly"
+	}
+	else if (oldPlan === "-1" &&  newPlan === "105") {
+		planChange = "free_trial_standard_yearly"
+	}
+	else if (oldPlan === "-1" &&  newPlan === "106") {
+		planChange = "free_trial_growth_yearly"
+	}
+	let amountSpent = 0;
+	let newPlanName = '';
+
+	function gtmTrackPurchase(eventName) {
+		dataLayer.push({ ecommerce: null });
+		dataLayer.push({
+			event: eventName,
+			ecommerce: {
+				transaction_id: uuidv4(),
+				value: amountSpent,
+				currency: 'USD',
+				items: [
+					{
+						item_id: newPlan,
+						item_name: newPlanName,
+						price: amountSpent,
+						quantity: 1
+					}
+				]
+			}
+		});
+	}
+
+	const email = data.user.email;
+	
+	onMount(async () => {
+		if(oldPlan) {
+			switch (newPlan) {
+				case '1':
+					newPlanName = 'Basic';
+					amountSpent = 19;
+					break;
+				case '2':
+					newPlanName = 'Pro';
+					amountSpent = 49;
+					break;
+				case '3':
+					newPlanName = 'Enterprise';
+					amountSpent = 99;
+					break;
+				case '4':
+					newPlanName = 'Enterprise Plus';
+					amountSpent = 399;
+					break;
+				case '5':
+					newPlanName = 'Standard';
+					amountSpent = 59;
+					break;
+				case '6':
+					newPlanName = 'Growth';
+					amountSpent = 99;
+					break;
+				case '101':
+					newPlanName = 'Basic - Annual';
+					amountSpent = 190;
+					break;
+				case '102':
+					newPlanName = 'Pro - Annual';
+					amountSpent = 490;
+					break;
+				case '103':
+					newPlanName = 'Enterprise - Annual';
+					amountSpent = 990;
+					break;
+				case '104':
+					newPlanName = 'Enterprise Plus - Annual';
+					amountSpent = 3990;
+					break;
+				case '105':
+					newPlanName = 'Standard - Annual';
+					amountSpent = 600;
+					break;
+				case '106':
+					newPlanName = 'Growth - Annual';
+					amountSpent = 996;
+					break;
+			}
+		}
+
+		if (planChange) {
+			const { trackEvent } = Plausible({
+				domain: PUBLIC_PLAUSIBLE_DOMAIN,
+				apiHost: PUBLIC_PLAUSIBLE_API_HOST
+			});
+
+			switch (planChange) {
+				case 'free_trial_standard_monthly':
+					trackEvent('Free Trial Standard Monthly');
+					amountSpent = 0
+					gtmTrackPurchase('Free Trial Standard Monthly')
+					break;
+				case 'free_trial_growth_monthly':
+					trackEvent('Free Trial Growth Monthly');
+					amountSpent = 0
+					gtmTrackPurchase('Free Trial Growth Monthly');
+					break;
+				case 'free_trial_standard_yearly':
+					trackEvent('Free Trial Standard Yearly');
+					amountSpent = 0
+					gtmTrackPurchase('Free Trial Standard Yearly');
+					break;
+				case 'free_trial_growth_yearly':
+					trackEvent('Free Trial Growth Yearly');
+					amountSpent = 0
+					gtmTrackPurchase('Free Trial Growth Yearly');
+					break;
+				case 'convert':
+					trackEvent('Convert to Paid');
+					gtmTrackPurchase('Convert');
+					break;
+				case 'upgrade':
+					trackEvent('Upgrade');
+					gtmTrackPurchase('Upgrade');
+					break;
+				case 'downgrade':
+					trackEvent('Downgrade');
+					gtmTrackPurchase('Downgrade');
+					break;
+				case 'cancel':
+					trackEvent('Cancel');
+					dataLayer.push({
+						event: 'Cancel'
+					});
+					break;
+			}
+			$alert = 'Plan changed successfully!';
+		}
+	});
+	
 </script>
 
 <svelte:head>
@@ -87,7 +233,7 @@
 </svelte:head>
 
 <div class="container mb-20">
-	{#if currentPlan > 1000 || currentPlan === 0 && $page.url.search.includes('agency-c7433')}
+	{#if currentPlan > 1000 || $page.url.search.includes('agency-c7433')}
 		<div class="grid md:grid-cols-[4fr_3fr] my-8 gap-8">
 			<div>
 				<h1 class="font-bold text-3xl mb-4">

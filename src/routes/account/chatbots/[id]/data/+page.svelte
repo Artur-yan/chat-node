@@ -1,21 +1,24 @@
 <script lang="ts">
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import AddModelData from '$lib/components/AddModelData.svelte';
-	import Chat from '$lib/components/Chat.svelte';
-	import { alert } from '$lib/stores.js';
+	import { alert, currentBot } from '$lib/stores.js';
 	import Accordian from '$lib/components/Accordian.svelte';
 	import { getText, updateText } from '$lib/textSource';
 	import { onMount } from 'svelte';
+	import { PUBLIC_EMBED_URL } from '$env/static/public';
+	import BotStatus from '$lib/components/BotStatus.svelte';
 
 	export let data;
 
 	let { urls } = data.modelData;
-	let trainingStatus = 'ready';
+	let trainingStatus: any = undefined;
 	let modelId = data.model.id;
 	let sourceToDelete: Object;
 	let activeDataTab: string;
 	let textSourceToEdit: Object;
 	let textSourceValue: string;
+	let selectedUrls: Array<string> = [];
+	let trainingOnLoad = data.modelData.areTraining.length > 0;
 
 	if (Object.keys(urls).length) {
 		activeDataTab = 'urls';
@@ -67,8 +70,10 @@
 
 	async function updateBotSources(s3_keys: Array<string>) {
 		if (s3_keys.length === 0) {
+			console.log('no sources to update');
 			return;
 		}
+		trainingStatus = 'training';
 
 		let incompleteSourcesS3Keys: Array<string> = [];
 
@@ -83,7 +88,6 @@
 		});
 
 		let updatedDataSources = await res.json();
-
 
 		updatedDataSources.forEach((source) => {
 			const row = document.getElementById(sanitizeS3KeyAsId(source.s3_key));
@@ -144,7 +148,13 @@
 	}
 
 	onMount(() => {
-		updateBotSources(data.modelData?.areTraining);
+		const objsToCheck = Object.values(data.modelData?.urls)
+		const urlsToCheck = objsToCheck.map((obj) => {
+			return obj.map((urlObj) => {
+				return urlObj.s3_key;
+			});
+		}).flat();
+		updateBotSources(urlsToCheck);
 	});
 </script>
 
@@ -169,7 +179,12 @@
 		</div>
 		<div class="card card-compact bg-neutral">
 			<div class="card-body">
-				<h2 class="card-title">Trained Data Sources</h2>
+				<div class="flex">
+					<h2 class="card-title">Trained Data Sources</h2>
+					{#if trainingOnLoad}
+						<BotStatus id={modelId} bind:trainingStatus />
+					{/if}
+				</div>
 				<div class="flex">
 					<div class="tabs tabs-boxed gap-2">
 						{#if Object.keys(urls).length}
@@ -218,7 +233,6 @@
 								<h2 slot="title" class="w-full">
 									{baseUrl}
 								</h2>
-
 								<div class="text-right mb-4">
 									<button
 										class="btn btn-xs btn-outline text-error"
@@ -496,13 +510,7 @@
 		<div
 			class="h-[calc(100vh_-_16rem)] sticky top-4 mb-10 hidden sm:block rounded-2xl overflow-hidden"
 		>
-			<Chat
-				{modelId}
-				bind:trainingStatus
-				settings={data.model.settings}
-				avatar={data.model.avatar_img}
-				userId={data.model.user_id}
-			/>
+		<iframe class="w-full h-full" src="{PUBLIC_EMBED_URL}/{$currentBot.id}" frameborder="0"></iframe>
 		</div>
 	</div>
 </div>

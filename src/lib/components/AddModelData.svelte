@@ -6,6 +6,7 @@
 	import { fade } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import Modal from './Modal.svelte';
+	import BotStatus from './BotStatus.svelte';
 
 	export let modelId: string = '';
 	export let userId: string;
@@ -29,7 +30,7 @@
 	let files: FileList | undefined;
 	let textData = '';
 	let url: string | undefined;
-	let urls: Array<Array<string | number>> = undefined;
+	let urls: Array<Array<string | number>> | undefined = undefined;
 	let selectedUrls: Array<string> = [];
 	let urlsTokenCount = 0;
 	let filesTokenCount = 0;
@@ -194,6 +195,9 @@
 				await addModel(modelId, name, settings);
 				goto(`/account/chatbots/${modelId}/settings`);
 			}
+			setTimeout(() => {
+				window.location.reload();
+			}, 1250);
 		} catch (err) {
 			resetAddDataForm();
 
@@ -350,7 +354,6 @@
 		</form>
 
 		<button class="btn btn-xs my-4" on:click={() => urlHelp.showModal()}>help</button>
-
 		{#if urls}
 			<table class="table table-sm w-full max-w-full my-4">
 				<thead>

@@ -19,6 +19,8 @@
 	let busyGettingBotData = false;
 	let currentCustomDomain = $currentBot.settings.customDomain;
 
+	$: $currentBot.settings.customDomain = $currentBot.settings.customDomain?.toLowerCase();
+
 	$: if ($currentBot.custom_domain) {
 		customDomain = true;
 		shareDomain = 'https://' + $currentBot.custom_domain;
@@ -206,7 +208,7 @@
 			</div>
 		</div>
 	</div>
-	{#if (data.subscription?.plan === 1006) || (data.subscription?.addons?.['10005']?.['status'])}
+	{#if (data.subscription?.plan === 1006) || data.subscription?.addons?.['10005']?.['status'] === 'active'}
 		<VercelCustomDomain />
 
 		<!-- Legacy Domain -->
