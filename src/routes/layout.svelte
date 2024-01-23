@@ -5,11 +5,10 @@
   import { PUBLIC_PLAUSIBLE_DOMAIN } from '$env/static/public';
   onMount(() => {
     trackPageView();
-
+    
     const unsubscribe = page.subscribe(() => {
-      trackPageView();
-    });
-
+          trackPageView();
+        });
     return unsubscribe;
   });
 </script>

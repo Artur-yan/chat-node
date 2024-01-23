@@ -321,11 +321,11 @@
 				label="Text"
 				on:input={checkIfThemeSaved}
 			/>
-			<ColorPicker
+			<!-- <ColorPicker
 				bind:hex={$currentBot.settings.theme.inputBorder}
 				label="Border"
 				on:input={checkIfThemeSaved}
-			/>
+			/> -->
 		</div>
 	</div>
 </div>
