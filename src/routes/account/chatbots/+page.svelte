@@ -2,7 +2,7 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import Icon from '@iconify/svelte';
 	import { page } from '$app/stores';
-	import Plausible from 'plausible-tracker';
+	// import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 	import { deleteModel } from '$lib/models';
 	import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
@@ -24,11 +24,14 @@
 
 	onMount(async () => {
 		if ($page.url.searchParams.get('signup') === 'true' && data.user.tracking_status === false) {
-			const { trackEvent } = Plausible({
-				domain: PUBLIC_PLAUSIBLE_DOMAIN,
-				apiHost: PUBLIC_PLAUSIBLE_API_HOST
-			});
-			trackEvent('Signup');
+			// const { trackEvent } = Plausible({
+			// 	domain: PUBLIC_PLAUSIBLE_DOMAIN,
+			// 	apiHost: PUBLIC_PLAUSIBLE_API_HOST
+			// });
+
+			// trackEvent('Signup');
+
+			plausible('Signup');
 
 			if(PUBLIC_ENVIRONMENT === 'production') {
 				dataLayer.push({

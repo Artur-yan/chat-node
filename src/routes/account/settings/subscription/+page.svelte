@@ -9,7 +9,7 @@
 	import Testimonials from '$lib/components/Testimonials.svelte';
 	import UpdatedPricing from '$lib/components/UpdatedPricing.svelte';
 	import Addon from '$lib/components/Addon.svelte';
-	import Plausible from 'plausible-tracker';
+	// import Plausible from 'plausible-tracker';
 	import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
 
 	export let data;
@@ -177,46 +177,46 @@
 		}
 
 		if (planChange) {
-			const { trackEvent } = Plausible({
-				domain: PUBLIC_PLAUSIBLE_DOMAIN,
-				apiHost: PUBLIC_PLAUSIBLE_API_HOST
-			});
+			// const { trackEvent } = Plausible({
+			// 	domain: PUBLIC_PLAUSIBLE_DOMAIN,
+			// 	apiHost: PUBLIC_PLAUSIBLE_API_HOST
+			// });
 
 			switch (planChange) {
 				case 'free_trial_standard_monthly':
-					trackEvent('Free Trial Standard Monthly');
+					plausible('Free Trial Standard Monthly');
 					amountSpent = 0
 					gtmTrackPurchase('Free Trial Standard Monthly')
 					break;
 				case 'free_trial_growth_monthly':
-					trackEvent('Free Trial Growth Monthly');
+					plausible('Free Trial Growth Monthly');
 					amountSpent = 0
 					gtmTrackPurchase('Free Trial Growth Monthly');
 					break;
 				case 'free_trial_standard_yearly':
-					trackEvent('Free Trial Standard Yearly');
+					plausible('Free Trial Standard Yearly');
 					amountSpent = 0
 					gtmTrackPurchase('Free Trial Standard Yearly');
 					break;
 				case 'free_trial_growth_yearly':
-					trackEvent('Free Trial Growth Yearly');
+					plausible('Free Trial Growth Yearly');
 					amountSpent = 0
 					gtmTrackPurchase('Free Trial Growth Yearly');
 					break;
 				case 'convert':
-					trackEvent('Convert to Paid');
+					plausible('Convert to Paid');
 					gtmTrackPurchase('Convert');
 					break;
 				case 'upgrade':
-					trackEvent('Upgrade');
+					plausible('Upgrade');
 					gtmTrackPurchase('Upgrade');
 					break;
 				case 'downgrade':
-					trackEvent('Downgrade');
+					plausible('Downgrade');
 					gtmTrackPurchase('Downgrade');
 					break;
 				case 'cancel':
-					trackEvent('Cancel');
+					plausible('Cancel');
 					dataLayer.push({
 						event: 'Cancel'
 					});
