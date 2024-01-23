@@ -8,6 +8,7 @@
 	import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
 	import { PUBLIC_ENVIRONMENT, PUBLIC_CHAT_API_URL } from '$env/static/public';
 
+
 	export let data;
 	console.log('user id ---->', data.user.userId)
 	const userId = data.user.userId;
