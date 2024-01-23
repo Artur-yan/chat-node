@@ -463,24 +463,38 @@
 				<div class="relative">
 					{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
 						<div class="flex gap-1 mb-2 overflow-x-auto w-full mx-1.5">
-							<Button
+							<!-- <Button
 								question={{value: 'transfer_to_crisp', label: settings.crispButtonText}}
 								bgColor={settings.theme.suggestedQuestionsBG}
-								bgDepthColor={settings.theme.suggestedQuestionsShadow}
+								hoverColor={settings.theme.botBubbleBG}
 								functionToCall={transferToCrisp}
-							/>
+							/> -->
+							<button
+							class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
+							type="button"
+							on:click={() => transferToCrisp()}
+							>
+								{settings.crispButtonText}
+							</button>
 						</div>
 					{/if}
 					{#if settings.suggestedQuestions}
 						<div class="relative">
-							<div class="flex flex-wrap gap-1 mb-2 w-full mx-1.5">
+							<div class="absolute right-0 top-0 bottom-0 w-12 z-1" style="background: linear-gradient(90deg, {settings.theme.bg}00, var(--bg) 96%);" />
+							<div class="flex gap-1 overflow-x-auto mb-2 w-full mx-1.5">
 								{#each settings.suggestedQuestions as question}
-									<Button
+									<!-- <Button
 										question={question}
 										bgColor={settings.theme.suggestedQuestionsBG}
-										bgDepthColor={settings.theme.suggestedQuestionsShadow}
 										functionToCall={askSuggestedQuestion}
-									/>
+									/> -->
+									<button
+										class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
+										type="button"
+										on:click={() => askSuggestedQuestion(question.value, question.label)}
+									>
+										{question.label}
+									</button>
 								{/each}
 							</div>
 						</div>

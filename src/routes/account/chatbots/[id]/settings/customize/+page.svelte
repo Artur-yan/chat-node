@@ -367,7 +367,7 @@
 </div>
 
 <!-- Suggested Questions Section -->
-<div class="card bg-neutral card-compact mb-4">
+<!-- <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<h2 class="card-title">Suggested Questions Button</h2>
 		<div class="flex gap-2 items-center mt-2">
@@ -384,7 +384,7 @@
 			/>
 		</div>
 	</div>
-</div>
+</div> -->
 
 
 <!-- Avatar Section -->
