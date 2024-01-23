@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import { trackPageView } from '$lib/tracking';
-  import { PUBLIC_PLAUSIBLE_DOMAIN } from '$env/static/public';
+  import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_SITE_URL } from "$env/static/public";
   onMount(() => {
     trackPageView();
     
