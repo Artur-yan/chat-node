@@ -5,7 +5,7 @@
 			"destination": "https://plausible.io/js/script.js"
 		},
 		{
-			"source": "/stats/event",
+			"source": "/stats/api/event",
 			"destination": "https://plausible.io/api/event"
 		}
 	]
