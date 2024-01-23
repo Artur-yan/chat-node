@@ -10,7 +10,6 @@
 
 
 	export let data;
-	console.log('user id ---->', data.user.userId)
 	const userId = data.user.userId;
 	
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
