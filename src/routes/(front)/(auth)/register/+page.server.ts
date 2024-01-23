@@ -271,7 +271,6 @@ export const actions: Actions = {
 			throw redirect(302, '/account/chatbots');
 		}
 
-		// throw redirect(302, stripeLink);
-		throw redirect(302, '/account/chatbots?signup=true&plan=' + selectedPlan);
+		throw redirect(302, stripeLink);
 	}
 };

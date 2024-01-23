@@ -9,7 +9,6 @@
 	import { PUBLIC_ENVIRONMENT, PUBLIC_CHAT_API_URL } from '$env/static/public';
 
 	export let data;
-	console.log('user id ---->', data.user.userId)
 	const userId = data.user.userId;
 	
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
