@@ -1,16 +1,10 @@
-<!-- <script>
-  import { onMount } from 'svelte';
-  import { page } from '$app/stores';
-  import { trackPageView } from '$lib/tracking';
-  import { PUBLIC_PLAUSIBLE_DOMAIN } from '$env/static/public';}
+<script lang="ts">
+  import { PUBLIC_SITE_URL } from "$env/static/public";
+</script>
 
-  onMount(() => {
-    trackPageView();
 
-    const unsubscribe = page.subscribe(() => {
-      trackPageView();
-    });
+<svelte:head>
+  {@html `<script  src="/stats/js/script.js" data-api="/stats/api/event" data-domain="${PUBLIC_SITE_URL}"></script>`}
+</svelte:head>
 
-    return unsubscribe;
-  });
-</script> -->
+
