@@ -1,4 +1,3 @@
-
 <script lang="ts">
 	import { PUBLIC_ENCODED_CHAT_API_URL } from '$env/static/public';
 	import { defaultSettings } from '$lib/models';
@@ -439,7 +438,7 @@
 				<div id="chat-bottom" class="h-1" />
 			</div>
 		</div>
-		<form on:submit|preventDefault={submitQuery} class="form-control">
+		<form on:submit|preventDefault={submitQuery} class="form-control p-1">
 			{#if !removeBranding}
 				<div class="text-right text-xs mb-1.5 mr-2 flex justify-end gap-1 items-end leading-none">
 					<a href="https://www.chatnode.ai" target="_blank">
@@ -501,7 +500,6 @@
 						</div>
 					{/if}
 					<textarea
-					
 						placeholder={settings.inputPlaceholder}
 						oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
 						rows="1"
@@ -512,10 +510,10 @@
 								submitQuery();
 							}
 						}}
-						class="textarea textarea-md {context !== 'popup' ? 'rounded-xl' : 'rounded-none'} text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full resize-none border-0 leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
+						class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
 							? 'pr-12'
 							: ''}"
-						style="background-color: var(--inputBG); color: var(--inputText);"
+						style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
 						{disabled}
 					/>
 					{#if settings.sendButtonEnabled}
