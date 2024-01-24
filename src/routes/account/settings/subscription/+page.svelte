@@ -119,6 +119,7 @@
 				]
 			}
 		});
+	}
 
 	const email = data.user.email;
 	
