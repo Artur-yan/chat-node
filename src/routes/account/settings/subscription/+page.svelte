@@ -266,7 +266,7 @@
 						class="btn btn-primary btn-outline mr-2"
 						on:click={() => (showAppsumoKeysField = !showAppsumoKeysField)}
 					>
-						Add Appumo Codes
+						Add AppSumo Codes
 					</button>
 					{#if showAppsumoKeysField}
 						<form method="POST" action="?/upgradeAppsumo" use:enhance>
