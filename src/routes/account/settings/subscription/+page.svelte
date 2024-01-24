@@ -103,6 +103,7 @@
 	function gtmTrackPurchase(eventName) {
 		dataLayer.push({ ecommerce: null });
 		dataLayer.push({
+			userId : data.user.userId,
 			event: eventName,
 			ecommerce: {
 				transaction_id: uuidv4(),
@@ -118,7 +119,6 @@
 				]
 			}
 		});
-	}
 
 	const email = data.user.email;
 	

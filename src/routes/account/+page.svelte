@@ -9,6 +9,8 @@
 
 	export let data;
 
+	console.log(data.user.userId);
+
 	let planChange = $page.url.searchParams.get('plan-change');
 	let newPlan = $page.url.searchParams.get('new-plan');
 	let oldPlan = $page.url.searchParams.get('old-plan');
@@ -18,6 +20,7 @@
 	function gtmTrackPurchase(eventName) {
 		dataLayer.push({ ecommerce: null });
 		dataLayer.push({
+			userId : data.user.userId,
 			event: eventName,
 			ecommerce: {
 				transaction_id: uuidv4(),

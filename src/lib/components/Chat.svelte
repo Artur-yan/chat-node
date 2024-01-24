@@ -1,3 +1,4 @@
+
 <script lang="ts">
 	import { PUBLIC_ENCODED_CHAT_API_URL } from '$env/static/public';
 	import { defaultSettings } from '$lib/models';
@@ -511,7 +512,7 @@
 								submitQuery();
 							}
 						}}
-						class="textarea textarea-md text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full rounded-none resize-none border-0 leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
+						class="textarea textarea-md {context !== 'popup' ? 'rounded-xl' : 'rounded-none'} text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full resize-none border-0 leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
 							? 'pr-12'
 							: ''}"
 						style="background-color: var(--inputBG); color: var(--inputText);"
