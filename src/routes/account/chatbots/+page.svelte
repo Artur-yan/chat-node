@@ -22,8 +22,14 @@
 
 	$: botUsage = data.bots.length / data.subscription.max_bot;
 
+	console.log($page.url.hostname)
+
 	onMount(async () => {
-		if ($page.url.searchParams.get('signup') === 'true' && data.user.tracking_status === false) {
+		if (
+				$page.url.searchParams.get('signup') === 'true' 
+				&& data.user.tracking_status === false
+				&& $page.url.hostname !== 'localhost'
+				) {
 			// const { trackEvent } = Plausible({
 			// 	domain: PUBLIC_PLAUSIBLE_DOMAIN,
 			// 	apiHost: PUBLIC_PLAUSIBLE_API_HOST
