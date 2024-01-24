@@ -12,6 +12,7 @@ model AuthUser {
   id                 String         @id @unique
   email              String         @unique
   status             String?
+  tracking_status    Boolean?       @default(false)
   verification_uuid  String?        @unique
   new_email          String?        @unique
   created            DateTime       @default(now())

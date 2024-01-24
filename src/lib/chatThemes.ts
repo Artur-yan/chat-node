@@ -4,7 +4,9 @@ const themes = {
 		bg: '#0F172A',
 		headerBG: '#0F172A',
 		headerTitle: '#38BDF7',
-		headerShadow: '#26252A',
+		headerShadow: '#282b5aa3',
+		statusMessage: 'Online',
+		statusColor: '#40F135',
 		resetButton: '#FFFFFF',
 		botBubbleBG: '#898CF8',
 		botBubbleText: '#00074B',
@@ -19,7 +21,9 @@ const themes = {
 		popupButtonIcon: '#0F172A',
 		popupButtonMessageBG: '#0F172A',
 		popupButtonMessageTextColor: '#38BDF7',
-		popupButtonMessageGlowColor: '#ffffff4d'
+		popupButtonMessageGlowColor: '#ffffff4d',
+		suggestedQuestionsBG: '#898CF8',
+		suggestedQuestionsShadow: '#333333'
 	},
 	'meta-dark': {
 		name: 'meta-dark',
@@ -27,6 +31,8 @@ const themes = {
 		headerBG: 'transparent',
 		headerTitle: '#FFFFFF',
 		headerShadow: '#333333',
+		statusMessage: 'Online',
+		statusColor: '#40F135',
 		resetButton: '#666768',
 		botBubbleBG: '#0084FF',
 		botBubbleText: '#FFFFFF',
@@ -41,14 +47,18 @@ const themes = {
 		popupButtonIcon: '#FFFFFF',
 		popupButtonMessageBG: '#FFFFFF',
 		popupButtonMessageTextColor: '#0084FF',
-		popupButtonMessageGlowColor: '#666768'
+		popupButtonMessageGlowColor: '#666768',
+		suggestedQuestionsBG: '#0084FF',
+		suggestedQuestionsShadow: '#333333'
 	},
 	'ios-dark': {
 		name: 'ios-dark',
 		bg: '#000000',
 		headerBG: 'transparent',
 		headerTitle: '#FFFFFF',
-		headerShadow: '#1E293B',
+		headerShadow: '#242526',
+		statusMessage: 'Online',
+		statusColor: '#40F135',
 		resetButton: '#3093FF',
 		botBubbleBG: '#3093FF',
 		botBubbleText: '#FFFFFF',
@@ -63,14 +73,18 @@ const themes = {
 		popupButtonIcon: '#000000',
 		popupButtonMessageBG: '#000000',
 		popupButtonMessageTextColor: '#3093FF',
-		popupButtonMessageGlowColor: '#4A494E'
+		popupButtonMessageGlowColor: '#4A494E',
+		suggestedQuestionsBG: '#0084FF',
+		suggestedQuestionsShadow: '#333333'
 	},
 	'ios-light': {
 		name: 'ios-light',
 		bg: '#FFFFFF',
 		headerBG: 'transparent',
-		headerShadow: '#BBBBBE',
 		headerTitle: '#000000',
+		headerShadow: '#BBBBBE',
+		statusMessage: 'Online',
+		statusColor: '#3093FF',
 		resetButton: '#3093FF',
 		botBubbleBG: '#3194FE',
 		botBubbleText: '#FFFFFF',
@@ -85,7 +99,9 @@ const themes = {
 		popupButtonIcon: '#FFFFFF',
 		popupButtonMessageBG: '#FFFFFF',
 		popupButtonMessageTextColor: '#3194FE',
-		popupButtonMessageGlowColor: '#BBBBBE'
+		popupButtonMessageGlowColor: '#BBBBBE',
+		suggestedQuestionsBG: '#0084FF',
+		suggestedQuestionsShadow: '#4A494E'
 	},
 	neutral: {
 		name: 'neutral',
@@ -93,6 +109,8 @@ const themes = {
 		headerBG: 'transparent',
 		headerTitle: '#FFFFFF',
 		headerShadow: '#555555',
+		statusMessage: 'Online',
+		statusColor: '#40F135',
 		resetButton: '#00000060',
 		botBubbleBG: '#333333',
 		botBubbleText: '#FFFFFF',
@@ -107,13 +125,18 @@ const themes = {
 		popupButtonIcon: '#FFFFFF',
 		popupButtonMessageBG: '#FFFFFF',
 		popupButtonMessageTextColor: '#333333',
-		popupButtonMessageGlowColor: '#00000060'
+		popupButtonMessageGlowColor: '#00000060',
+		suggestedQuestionsBG: '#333333',
+		suggestedQuestionsShadow: '#4A494E'
 	},
 	custom: {
 		name: 'custom',
 		bg: '#666666',
 		headerBG: 'transparent',
 		headerTitle: '#FFFFFF',
+		headerShadow: '#555555',
+		statusMessage: 'Online',
+		statusColor: '#40F135',
 		resetButton: '#00000060',
 		botBubbleBG: '#333333',
 		botBubbleText: '#FFFFFF',
@@ -128,7 +151,9 @@ const themes = {
 		popupButtonIcon: '#FFFFFF',
 		popupButtonMessageBG: '#666666',
 		popupButtonMessageTextColor: '#FFFFFF',
-		popupButtonMessageGlowColor: '#00000060'
+		popupButtonMessageGlowColor: '#00000060',
+		suggestedQuestionsBG: '#333333',
+		suggestedQuestionsShadow: '#4A494E'
 	}
 };
 

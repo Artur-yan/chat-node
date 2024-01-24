@@ -1,18 +1,16 @@
 <script lang="ts">
-	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-	import BotStatus from '$lib/components/BotStatus.svelte';
-	import ChatLinks from './ChatLinks.svelte';
+	import { PUBLIC_ENCODED_CHAT_API_URL } from '$env/static/public';
 	import { defaultSettings } from '$lib/models';
 	import { Remarkable } from 'remarkable';
 	import hljs from 'highlight.js';
 	import 'highlight.js/styles/github-dark.css';
-	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-
-	const md = new Remarkable();
-
+	import { onMount } from 'svelte';
 	import '$lib/assets/css/chat.postcss';
-	import { currentBot } from '$lib/stores';
+	import ChatLinks from './ChatLinks.svelte';
+	import Button from './Button.svelte';
+	import { page } from '$app/stores';
+
 
 	export let removeBranding = true;
 	export let modelId: string;
@@ -29,9 +27,32 @@
 		}
 	];
 	export let userId: string;
-	export let context = '';
+
+	let context = $page.url.searchParams.get('context');
+
+	const md = new Remarkable();
+
+
+	// Merge default settings with user settings
+	// Merge nested object
+	settings.theme = {
+		...defaultSettings.theme,
+		...settings.theme
+	};
+	settings = {
+		...defaultSettings,
+		...settings
+	};
+
+	export let avatar: string | undefined = undefined;
+
+	if (!settings.theme) {
+		settings.theme = defaultSettings.theme;
+	}
 
 	let inputVal = ``;
+	let customMessage = ``;
+
 	let collectUserInfo = false;
 	let userInfoReceived = false;
 	let links: string[] | undefined = [];
@@ -78,24 +99,6 @@
 			}
 	}
 
-	// Merge default settings with user settings
-	// Merge nested object
-	settings.theme = {
-		...defaultSettings.theme,
-		...settings.theme
-	};
-	settings = {
-		...defaultSettings,
-		...settings
-	};
-
-	export let trainingStatus: undefined | 'training' | 'complete' | 'ready' | 'failed';
-	export let avatar: string | undefined = undefined;
-
-	if (!settings.theme) {
-		settings.theme = defaultSettings.theme;
-	}
-
 	$: if (settings.collectUserName || settings.collectUserEmail || settings.collectUserPhone) {
 		collectUserInfo = true;
 	} else {
@@ -138,8 +141,13 @@
 		messages = [...messages, { text: message, sender: sender, links: links}];
 	};
 
-	const queryModel = async (chatKey: string, chatSessionId: string, message: string) => {
-		addMessage(message, 'user');
+	const queryModel = async (chatKey: string, chatSessionId: string, message: string, customMessage: string = '') => {
+		if (customMessage) {
+			addMessage(customMessage, 'user');
+		} else {
+			addMessage(message, 'user');
+		}
+	
 		inputVal = ``;
 		isThinking = true;
 		links = [];
@@ -147,8 +155,9 @@
 		let streamedMsg = '';
 
 		let chunksCount = 0;
+
 		try {
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/chat/${chatKey}`, {
+			const res = await fetch(`${atob(PUBLIC_ENCODED_CHAT_API_URL)}/chat/${chatKey}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -161,12 +170,6 @@
 			// const data = await res.json();
 			isThinking = false;
 
-			if (res.headers.get('content-type') === 'application/json') {
-				const data = await res.json();
-				addMessage(data.message, 'bot', links);
-				return;
-			}
-
 			const responseLinks = res.headers.get('urls');
 			if (responseLinks !== null) {
 				// Making the string parsable
@@ -174,8 +177,13 @@
 				links = JSON.parse(contentString);
 			}
 
-			const data = res.body;
+			if (res.headers.get('content-type') === 'application/json') {
+				const data = await res.json();
+				addMessage(data.message, 'bot', links);
+				return;
+			}
 
+			const data = res.body;
 			const reader = data.getReader();
 			reader.read().then(function pump({ done, value }) {
 				isResponding = true;
@@ -242,7 +250,8 @@
 			inputVal = '';
 			return;
 		} else {
-			queryModel(modelId, chatSessionId, inputVal);
+			queryModel(modelId, chatSessionId, inputVal, customMessage);
+			customMessage = '';
 		}
 	};
 
@@ -255,22 +264,29 @@
 		isThinking = false;
 	};
 
-	const askSuggestedQuestion = (question: string) => {
+	const askSuggestedQuestion = (question: string, label:string) => {
 		inputVal = question;
+		customMessage = label;
 		submitQuery();
 	};
 
 	const transferToCrisp = () => {
 		goto('https://go.crisp.chat/chat/embed/?website_id=' + settings.crispWebsiteId);
 	};
-
 </script>
+
+<svelte:head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap" rel="stylesheet">
+</svelte:head>
 
 	<div
 		style="
 		--bg: {settings.theme.bg};
 		--headerBG: {settings.theme.headerBG};
 		--headerTitle: {settings.theme.headerTitle};
+		--headerShadow: {settings.theme.headerShadow};
 		--resetButton: {settings.theme.resetButton};
 		--botBubbleBG: {settings.theme.botBubbleBG};
 		--botBubbleText: {settings.theme.botBubbleText};
@@ -281,25 +297,34 @@
 		--inputBorder: {settings.theme.inputBorder};
 		--sendButtonBG: {settings.theme.sendButtonBG};
 		--sendButtonIconColor: {settings.theme.sendButtonIconColor};
-		background-color: var(--bg)"
-		class="flex h-full flex-col justify-between overflow-hidden flex-1 relative transition-all ease-in-out duration-500"
+		--statusColor: {settings.theme.statusColor};
+		background-color: var(--bg);
+		font-family: 'Mulish', sans-serif;"
+		class="flex h-full flex-col justify-between overflow-hidden flex-1 relative transition-colors ease-in-out duration-500"
 	>
 		{#if settings?.headerEnabled && settings.publicTitle !== ''}
-			<header style="background-color: var(--headerBG)" class="flex p-4 items-center gap-2">
+			<header style="background-color: var(--headerBG);" class="flex px-6 py-4 items-center gap-3 shadow-md shadow-[var(--headerShadow)]">
 				<!-- <div class="h-8">
 					<img src={avatar} alt="" class="h-full" />
 			</div> -->
-				<h1 class="font-light text-sm" style="color: var(--headerTitle)">
+				<h1 class="font-bold text-lg" style="color: var(--headerTitle)">
 					{settings.publicTitle ? settings.publicTitle : ''}
 				</h1>
+				{#if settings.statusEnabled}
+				<span class="inline-flex items-center gap-x-1.5 rounded-md text-sm font-medium text-[--statusColor]">
+					<svg class="h-1.5 w-1.5 fill-[--statusColor]" viewBox="0 0 6 6" aria-hidden="true">
+						<circle cx="3" cy="3" r="3" />
+					</svg>
+					{settings.theme.statusMessage}
+				</span>
+				{/if}
 			</header>
 		{/if}
 		<div class="flex-col-reverse flex flex-1 overflow-y-auto scroll-smooth h-0 basis-auto">
 			<div class="flex-1">
-				<button
-					class="z-[1] absolute top-2.5 right-2.5 btn btn-circle btn-sm btn-ghost flex items-center justify-center"
-					class:!right-12={context === 'popup'}
-					style="color: var(--resetButton);"
+				<button 
+					class="z-[1] absolute top-2.5 {context === 'popup' ? 'right-[45px]' : 'right-2'} btn btn-circle btn-sm btn-ghost flex items-center justify-center rotatable"
+					style="color: var(--resetButton); position:absolute right: 8px;"
 					title="Reset Chat"
 					on:click={resetChat}
 				>
@@ -310,7 +335,6 @@
 						/>
 					</svg>
 				</button>
-				<BotStatus id={modelId} bind:trainingStatus />
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<div class="p-2">
@@ -355,8 +379,8 @@
 								{/if} -->
 								</div>
 							</div>
-							{#if $currentBot && $currentBot.settings.useSourceUrls && msg.links?.length > 0}
-							<ChatLinks links={msg.links} />
+							{#if settings.useSourceUrls && msg.links?.length > 0}
+								<ChatLinks links={msg.links} {settings}/>
 							{/if}
 						{/each}
 					</slot>
@@ -438,11 +462,17 @@
 			<div>
 				<div class="relative">
 					{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
-						<div class="flex gap-1 mb-2 overflow-x-auto w-full">
+						<div class="flex gap-1 mb-2 overflow-x-auto w-full mx-1.5">
+							<!-- <Button
+								question={{value: 'transfer_to_crisp', label: settings.crispButtonText}}
+								bgColor={settings.theme.suggestedQuestionsBG}
+								hoverColor={settings.theme.botBubbleBG}
+								functionToCall={transferToCrisp}
+							/> -->
 							<button
-								class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
-								type="button"
-								on:click={() => transferToCrisp()}
+							class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
+							type="button"
+							on:click={() => transferToCrisp()}
 							>
 								{settings.crispButtonText}
 							</button>
@@ -451,12 +481,17 @@
 					{#if settings.suggestedQuestions}
 						<div class="relative">
 							<div class="absolute right-0 top-0 bottom-0 w-12 z-1" style="background: linear-gradient(90deg, {settings.theme.bg}00, var(--bg) 96%);" />
-							<div class="flex gap-1 mb-2 overflow-x-auto w-full">
+							<div class="flex gap-1 overflow-x-auto mb-2 w-full mx-1.5">
 								{#each settings.suggestedQuestions as question}
+									<!-- <Button
+										question={question}
+										bgColor={settings.theme.suggestedQuestionsBG}
+										functionToCall={askSuggestedQuestion}
+									/> -->
 									<button
 										class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
 										type="button"
-										on:click={() => askSuggestedQuestion(question.value)}
+										on:click={() => askSuggestedQuestion(question.value, question.label)}
 									>
 										{question.label}
 									</button>
@@ -475,7 +510,7 @@
 								submitQuery();
 							}
 						}}
-						class="textarea textarea-md text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
+						class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
 							? 'pr-12'
 							: ''}"
 						style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
@@ -627,5 +662,27 @@
 
 	.chat-bubble {
 		animation: message 0.3s ease-out 0s forwards;
+	}
+
+	.rotatable {
+        transition: transform 0.8s ease-in-out;
+    }
+
+	.rotatable:hover {
+			transform: rotate(360deg);
+  }
+
+	.button-shrink {
+		color: #65b5f6;
+		background-color: transparent;
+		border: 1px solid #65b5f6;
+		border-radius: 4px;
+		padding: 0 16px;
+		cursor: pointer;
+		transition: all 0.3s ease-in-out;
+	}
+
+	.button-shrink:hover {
+		transform: scale(0.8);
 	}
 </style>
