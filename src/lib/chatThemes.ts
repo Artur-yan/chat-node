@@ -23,7 +23,8 @@ const themes = {
 		popupButtonMessageTextColor: '#38BDF7',
 		popupButtonMessageGlowColor: '#ffffff4d',
 		suggestedQuestionsBG: '#898CF8',
-		suggestedQuestionsShadow: '#333333'
+		suggestedQuestionsShadow: '#333333',
+		feedbackIconColor: '#38BDF7'
 	},
 	'meta-dark': {
 		name: 'meta-dark',
@@ -49,7 +50,8 @@ const themes = {
 		popupButtonMessageTextColor: '#0084FF',
 		popupButtonMessageGlowColor: '#666768',
 		suggestedQuestionsBG: '#0084FF',
-		suggestedQuestionsShadow: '#333333'
+		suggestedQuestionsShadow: '#333333',
+		feedbackIconColor: '#0084FF'
 	},
 	'ios-dark': {
 		name: 'ios-dark',
@@ -75,7 +77,8 @@ const themes = {
 		popupButtonMessageTextColor: '#3093FF',
 		popupButtonMessageGlowColor: '#4A494E',
 		suggestedQuestionsBG: '#0084FF',
-		suggestedQuestionsShadow: '#333333'
+		suggestedQuestionsShadow: '#333333',
+		feedbackIconColor: '#3093FF'
 	},
 	'ios-light': {
 		name: 'ios-light',
@@ -101,7 +104,8 @@ const themes = {
 		popupButtonMessageTextColor: '#3194FE',
 		popupButtonMessageGlowColor: '#BBBBBE',
 		suggestedQuestionsBG: '#0084FF',
-		suggestedQuestionsShadow: '#4A494E'
+		suggestedQuestionsShadow: '#4A494E',
+		feedbackIconColor: '#3194FE'
 	},
 	neutral: {
 		name: 'neutral',
@@ -127,7 +131,8 @@ const themes = {
 		popupButtonMessageTextColor: '#333333',
 		popupButtonMessageGlowColor: '#00000060',
 		suggestedQuestionsBG: '#333333',
-		suggestedQuestionsShadow: '#4A494E'
+		suggestedQuestionsShadow: '#4A494E',
+		feedbackIconColor: '#333333'
 	},
 	custom: {
 		name: 'custom',
@@ -153,7 +158,8 @@ const themes = {
 		popupButtonMessageTextColor: '#FFFFFF',
 		popupButtonMessageGlowColor: '#00000060',
 		suggestedQuestionsBG: '#333333',
-		suggestedQuestionsShadow: '#4A494E'
+		suggestedQuestionsShadow: '#4A494E',
+		feedbackIconColor: '#333333'
 	}
 };
 
