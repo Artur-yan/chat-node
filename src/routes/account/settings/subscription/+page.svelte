@@ -212,6 +212,7 @@
 					plausible('Upgrade');
 					gtmTrackPurchase('Upgrade');
 					break;
+
 				case 'downgrade':
 					plausible('Downgrade');
 					gtmTrackPurchase('Downgrade');
