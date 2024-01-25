@@ -9,6 +9,7 @@
 	import Testimonials from '$lib/components/Testimonials.svelte';
 	import UpdatedPricing from '$lib/components/UpdatedPricing.svelte';
 	import Addon from '$lib/components/Addon.svelte';
+	import { v4 as uuidv4 } from 'uuid';
 	// import Plausible from 'plausible-tracker';
 	import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
 
