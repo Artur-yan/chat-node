@@ -188,6 +188,7 @@
 				case 'free_trial_standard_monthly':
 					plausible('Free Trial Standard Monthly');
 					amountSpent = 0
+					console.log('amountSpent', amountSpent)
 					gtmTrackPurchase('Free Trial Standard Monthly')
 					break;
 				case 'free_trial_growth_monthly':
