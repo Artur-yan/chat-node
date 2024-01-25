@@ -98,7 +98,8 @@
 				case 'cancel':
 					plausible('Cancel');
 					dataLayer.push({
-						event: 'Cancel'
+						event: 'Cancel',
+						userId : data.user.userId
 					});
 					break;
 			}
