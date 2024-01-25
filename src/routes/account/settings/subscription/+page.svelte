@@ -220,6 +220,7 @@
 				case 'cancel':
 					plausible('Cancel');
 					dataLayer.push({
+						userId : data.user.userId,
 						event: 'Cancel'
 					});
 					break;

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { PUBLIC_CHAT_API_URL } from '$env/static/public';
+  import { PUBLIC_CHAT_API_URL, PUBLIC_ENVIRONMENT } from '$env/static/public';
   import { goto, invalidateAll } from '$app/navigation';
   import { alert } from '$lib/stores';
   import { onMount } from 'svelte';
