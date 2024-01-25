@@ -70,6 +70,7 @@
 
 	async function updateBotSources(s3_keys: Array<string>) {
 		if (s3_keys.length === 0) {
+			trainingStatus = 'ready';
 			console.log('no sources to update');
 			return;
 		}
