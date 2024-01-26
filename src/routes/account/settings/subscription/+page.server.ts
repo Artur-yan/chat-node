@@ -38,7 +38,6 @@ export const load = async ({ locals, setHeaders }) => {
 
 export const actions = {
 	upgradeAppsumo: async ({ request, locals }) => {
-		console.log('upgradeAppsumo');
 		const session = await locals.auth.validate();
 
 		const subscription = await prismaClient.subscriptions.findFirst({
@@ -49,7 +48,6 @@ export const actions = {
 
 		const form = await request.formData();
 		const appsumoCodes = form.get('appsumo-codes');
-		console.log(appsumoCodes);
 		const email = form.get('email');
 
 		let tooManyCodes = false;
@@ -58,7 +56,6 @@ export const actions = {
 
 		if (appsumoCodes) {
 			const codes = appsumoCodes.split('\r\n');
-			console.log(codes);
 
 			const validateCodes = async () => {
 				if (codes.length > 7 - (subscription.plan - 1000)) {
