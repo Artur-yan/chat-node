@@ -12,6 +12,7 @@ model AuthUser {
   id                 String         @id @unique
   email              String         @unique
   status             String?
+  tracking_status    Boolean?       @default(false)
   verification_uuid  String?        @unique
   new_email          String?        @unique
   created            DateTime       @default(now())
@@ -228,6 +229,8 @@ model chatConversations {
   enduser_name  String?
   enduser_phone String?
   read          Boolean?  @default(false)
+  likes         Int?      @default(0)
+  dislikes      Int?      @default(0)
 
   @@map("chat_conversations")
 }
