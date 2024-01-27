@@ -229,7 +229,8 @@ model chatConversations {
   enduser_name  String?
   enduser_phone String?
   read          Boolean?  @default(false)
-  votes         Json?     @default("{\"like\": 0, \"dislike\": 0}")
+  likes         Int?      @default(0)
+  dislikes      Int?      @default(0)
 
   @@map("chat_conversations")
 }
