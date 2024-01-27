@@ -2,14 +2,16 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import Icon from '@iconify/svelte';
 	import { page } from '$app/stores';
-	import Plausible from 'plausible-tracker';
+	// import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 	import { deleteModel } from '$lib/models';
 	import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
+	import { PUBLIC_ENVIRONMENT, PUBLIC_CHAT_API_URL } from '$env/static/public';
+
 
 	export let data;
+	const userId = data.user.userId;
 	
-
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
 	let onTrial = data.subscription.status === 'trialing';
@@ -20,16 +22,57 @@
 
 	$: botUsage = data.bots.length / data.subscription.max_bot;
 
-	onMount(() => {
-		if ($page.url.searchParams.get('signup') === 'true') {
-			const { trackEvent } = Plausible({
-				domain: PUBLIC_PLAUSIBLE_DOMAIN,
-				apiHost: PUBLIC_PLAUSIBLE_API_HOST
+	console.log($page.url.hostname)
+
+	onMount(async () => {
+		if (
+				$page.url.searchParams.get('signup') === 'true' 
+				&& data.user.tracking_status === false
+				&& $page.url.hostname !== 'localhost'
+				) {
+			// const { trackEvent } = Plausible({
+			// 	domain: PUBLIC_PLAUSIBLE_DOMAIN,
+			// 	apiHost: PUBLIC_PLAUSIBLE_API_HOST
+			// });
+
+			// trackEvent('Signup');
+
+			plausible('Signup');
+
+			if(PUBLIC_ENVIRONMENT === 'production') {
+				dataLayer.push({
+					event: 'Signup'
+				});
+			}
+
+			fetch('/api/account/update-tracking-status', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				}
 			});
-			trackEvent('Signup');
-			dataLayer.push({
-				event: 'Signup'
+		}
+
+		if($page.url.searchParams.get('plan')) {
+			const plan = $page.url.searchParams.get('plan');
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					user_id: userId,
+					plan: plan
+				})
 			});
+
+			const data = await res.json();
+			const stripeLink = data.url;
+			goto(stripeLink);
+		}
+
+		if(data?.subscription?.plan === -1) {
+			goto('/account/settings/subscription')
 		}
 	});
 
@@ -318,7 +361,7 @@
 				</div>
 			</div>
 		</div>
-	{/if}
+{/if}
 </div>
 
 <!-- <input type="checkbox" id="delete-modal" class="modal-toggle" /> -->

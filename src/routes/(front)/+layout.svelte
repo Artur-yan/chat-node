@@ -2,7 +2,7 @@
 	import '../../app.postcss';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import Plausible from 'plausible-tracker';
+	// import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import {
@@ -12,11 +12,11 @@
 	} from "$env/static/public";
 
 	onMount(() => {
-		const { enableAutoPageviews } = Plausible({
-			domain: PUBLIC_PLAUSIBLE_DOMAIN,
-			apiHost: PUBLIC_PLAUSIBLE_API_HOST
-		});
-		enableAutoPageviews();
+		// const { enableAutoPageviews } = Plausible({
+		// 	domain: PUBLIC_PLAUSIBLE_DOMAIN,
+		// 	apiHost: PUBLIC_PLAUSIBLE_API_HOST
+		// });
+		// enableAutoPageviews();
 	});
 </script>
 

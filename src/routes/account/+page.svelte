@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { alert } from '$lib/stores';
-	import Plausible from 'plausible-tracker';
+	// import Plausible from 'plausible-tracker';
 	import { v4 as uuidv4 } from 'uuid';
 
 	export let data;
@@ -77,28 +77,29 @@
 		}
 
 		if (planChange) {
-			const { trackEvent } = Plausible({
-				domain: PUBLIC_PLAUSIBLE_DOMAIN,
-				apiHost: PUBLIC_PLAUSIBLE_API_HOST
-			});
+			// const { trackEvent } = Plausible({
+			// 	domain: PUBLIC_PLAUSIBLE_DOMAIN,
+			// 	apiHost: PUBLIC_PLAUSIBLE_API_HOST
+			// });
 
 			switch (planChange) {
 				case 'convert':
-					trackEvent('Convert to Paid');
+					plausible('Convert to Paid');
 					gtmTrackPurchase('Convert');
 					break;
 				case 'upgrade':
-					trackEvent('Upgrade');
+					plausible('Upgrade');
 					gtmTrackPurchase('Upgrade');
 					break;
 				case 'downgrade':
-					trackEvent('Downgrade');
+					plausible('Downgrade');
 					gtmTrackPurchase('Downgrade');
 					break;
 				case 'cancel':
-					trackEvent('Cancel');
+					plausible('Cancel');
 					dataLayer.push({
-						event: 'Cancel'
+						event: 'Cancel',
+						userId : data.user.userId
 					});
 					break;
 			}
