@@ -9,7 +9,7 @@
 	import '../../app.postcss';
 	import HeaderAdmin from '$lib/components/HeaderAdmin.svelte';
 	import Toast from '$lib/components/Toast.svelte';
-	import Plausible from 'plausible-tracker';
+	// import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 	import { alert } from '$lib/stores';
 	import { systemSettings } from '$lib/systemSettings';
@@ -18,11 +18,11 @@
 	export let data: LayoutData;
 
 	onMount(() => {
-		const { enableAutoPageviews } = Plausible({
-			domain: PUBLIC_PLAUSIBLE_DOMAIN,
-			apiHost: PUBLIC_PLAUSIBLE_API_HOST
-		});
-		enableAutoPageviews();
+		// const { enableAutoPageviews } = Plausible({
+		// 	domain: PUBLIC_PLAUSIBLE_DOMAIN,
+		// 	apiHost: PUBLIC_PLAUSIBLE_API_HOST
+		// });
+		// enableAutoPageviews();
 	});
 
 	if (systemSettings.maintenanceAlert) {

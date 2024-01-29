@@ -69,7 +69,9 @@
 	}
 
 	async function updateBotSources(s3_keys: Array<string>) {
+		console.log('updating sources', s3_keys);
 		if (s3_keys.length === 0) {
+			trainingStatus = 'ready';
 			console.log('no sources to update');
 			return;
 		}
@@ -154,7 +156,12 @@
 				return urlObj.s3_key;
 			});
 		}).flat();
-		updateBotSources(urlsToCheck);
+
+		if(data.modelData?.areTraining.length > 0) {
+			updateBotSources(urlsToCheck);
+		} else {
+			trainingStatus = 'ready';
+		}
 	});
 </script>
 

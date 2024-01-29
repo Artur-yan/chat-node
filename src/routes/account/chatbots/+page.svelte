@@ -2,14 +2,14 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import Icon from '@iconify/svelte';
 	import { page } from '$app/stores';
-	import Plausible from 'plausible-tracker';
+	// import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 	import { deleteModel } from '$lib/models';
 	import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
 	import { PUBLIC_ENVIRONMENT, PUBLIC_CHAT_API_URL } from '$env/static/public';
 
+
 	export let data;
-	console.log('user id ---->', data.user.userId)
 	const userId = data.user.userId;
 	
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
@@ -22,13 +22,22 @@
 
 	$: botUsage = data.bots.length / data.subscription.max_bot;
 
+	console.log($page.url.hostname)
+
 	onMount(async () => {
-		if ($page.url.searchParams.get('signup') === 'true' && data.user.tracking_status === false) {
-			const { trackEvent } = Plausible({
-				domain: PUBLIC_PLAUSIBLE_DOMAIN,
-				apiHost: PUBLIC_PLAUSIBLE_API_HOST
-			});
-			trackEvent('Signup');
+		if (
+				$page.url.searchParams.get('signup') === 'true' 
+				&& data.user.tracking_status === false
+				&& $page.url.hostname !== 'localhost'
+				) {
+			// const { trackEvent } = Plausible({
+			// 	domain: PUBLIC_PLAUSIBLE_DOMAIN,
+			// 	apiHost: PUBLIC_PLAUSIBLE_API_HOST
+			// });
+
+			// trackEvent('Signup');
+
+			plausible('Signup');
 
 			if(PUBLIC_ENVIRONMENT === 'production') {
 				dataLayer.push({

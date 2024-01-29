@@ -99,7 +99,7 @@ export const actions = {
 				let newPlanId;
 				if (subscription.plan > 1000) {
 					newPlanId = subscription.plan + codes.length;
-				} else if (subscription.plan === 0) {
+				} else if (subscription.plan === 0 || subscription.plan === -1) {
 					newPlanId = 1000 + codes.length;
 				} else {
 					return;

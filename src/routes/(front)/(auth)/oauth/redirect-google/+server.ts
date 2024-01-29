@@ -5,7 +5,7 @@ import { redirect } from '@sveltejs/kit';
 import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
 import { PUBLIC_SITE_URL } from '$env/static/public';
 import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-import Plausible from 'plausible-tracker';
+// import Plausible from 'plausible-tracker';
 import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
 import { v4 as uuidv4 } from 'uuid';
 

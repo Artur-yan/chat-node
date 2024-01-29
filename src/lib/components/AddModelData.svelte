@@ -19,6 +19,8 @@
 		| 'not started'
 		| 'cancelled'
 		| undefined;
+
+		$: console.log('trainingStatus', trainingStatus);	
 	export let name = 'Untitled';
 	export let existingTokenCount = 0;
 

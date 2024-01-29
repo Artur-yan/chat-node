@@ -54,7 +54,6 @@
 		"highlight.js": "^11.8.0",
 		"lucia": "^2.7.4",
 		"nodemailer": "^6.9.3",
-		"plausible-tracker": "^0.3.8",
 		"remarkable": "^2.0.1",
 		"svelte-youtube": "^0.0.2",
 		"uuid": "^9.0.0"

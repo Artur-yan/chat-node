@@ -3,7 +3,7 @@ import { auth } from '$lib/server/lucia';
 import { prismaClient } from '$lib/server/prisma';
 import { redirect } from '@sveltejs/kit';
 import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
-import Plausible from 'plausible-tracker';
+// import Plausible from 'plausible-tracker';
 
 export const GET: RequestHandler = async ({ params, url, locals }) => {
 	let update = url.searchParams.get('update');
