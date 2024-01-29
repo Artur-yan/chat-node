@@ -102,6 +102,12 @@
 	let newPlanName = '';
 
 	function gtmTrackPurchase(eventName) {
+		let item = 	{
+						item_id: newPlan,
+						item_name: newPlanName,
+						price: amountSpent,
+						quantity: 1
+					}
 		dataLayer.push({ ecommerce: null });
 		dataLayer.push({
 			userId : data.user.userId,
@@ -111,14 +117,12 @@
 				value: amountSpent,
 				currency: 'USD',
 				items: [
-					{
-						item_id: newPlan,
-						item_name: newPlanName,
-						price: amountSpent,
-						quantity: 1
-					}
+					item
 				]
-			}
+			},
+			eventCallback: function() {
+                console.log('DT pushed', item)
+            }
 		});
 	}
 

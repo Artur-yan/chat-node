@@ -122,7 +122,9 @@ const defaultSettings = {
 		popupButtonMessageTextColor: '#38BDF7',
 		popupButtonMessageGlowColor: '#ffffff4d',
 		suggestedQuestionsBG: '#898CF8',
-		suggestedQuestionsShadow: '#333333'
+		suggestedQuestionsShadow: '#333333',
+		feedbackBGColor: '#6467B2',
+		feedbackIconColor: '#FFFFFF'
 	},
 	openChatByDefault: false,
 	suggestedQuestions: []
