@@ -10,7 +10,7 @@
 	import ChatLinks from './ChatLinks.svelte';
 	import Button from './Button.svelte';
 	import { page } from '$app/stores';
-
+	import Feedback from './Feedback.svelte';
 
 	export let removeBranding = true;
 	export let modelId: string;
@@ -50,12 +50,14 @@
 		settings.theme = defaultSettings.theme;
 	}
 
+	let chatSessionId: string;
 	let inputVal = ``;
 	let customMessage = ``;
 
 	let collectUserInfo = false;
 	let userInfoReceived = false;
 	let links: string[] | undefined = [];
+	let messageId: string | null = '';
 
 	let endUserInfo = {
 		name: '',
@@ -142,6 +144,8 @@
 	};
 
 	const queryModel = async (chatKey: string, chatSessionId: string, message: string, customMessage: string = '') => {
+		messageId = null;
+		
 		if (customMessage) {
 			addMessage(customMessage, 'user');
 		} else {
@@ -170,6 +174,10 @@
 			// const data = await res.json();
 			isThinking = false;
 
+			messageId = res.headers.get('x-message-id');
+	
+			console.log(messageId);
+
 			const responseLinks = res.headers.get('urls');
 			if (responseLinks !== null) {
 				// Making the string parsable
@@ -193,6 +201,8 @@
 						hljs.highlightElement(el);
 					});
 					isResponding = false
+					messages[messages.length - 1].id = messageId;
+					messages[messages.length - 1].status = 'done';
 					return;
 				}
 				// Otherwise do something here to process current chunk
@@ -217,7 +227,7 @@
 	const generateNewSessionId = () => {
 		return Math.random().toString(36).slice(2, 9) + '-' + Date.now();
 	};
-	let chatSessionId = generateNewSessionId();
+	chatSessionId = generateNewSessionId();
 
 	const initConversation = async () => {
 		await fetch(`/api/chat-history/${chatSessionId}`, {
@@ -240,8 +250,10 @@
 		}
 		if (isThinking) {
 			addMessage('Please wait for me to finish thinking...');
+			inputVal = '';
 			return;
 		} else if (isResponding){
+			inputVal = '';
 			return
 		} else if (inputVal.trim() === '') {
 			return;
@@ -339,10 +351,10 @@
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<div class="p-2">
 					<slot>
-						{#each messages as msg}
+						{#each messages as msg, i}
 							<div
 								class="chat relative w-auto {msg.sender == 'bot'
-									? 'chat-start'
+									? 'chat-start my-4'
 									: 'chat-end'}"
 							>
 								{#if msg.sender === 'bot' && avatar}
@@ -361,22 +373,19 @@
 									<div class="message-body break-words">
 										{@html (postProcessMsgHTML(md.render(msg.text)))}
 									</div>
-									<!-- {#if msg.sender === 'bot'}
-									<div class="absolute dropdown dropdown-bottom dropdown-end -right-10 top-0 text-sm text-white">
-										<label tabindex="0" class="m-1 btn btn-sm btn-ghost btn-circle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3c-.825 0-1.5.675-1.5 1.5S11.175 6 12 6s1.5-.675 1.5-1.5S12.825 3 12 3Zm0 15c-.825 0-1.5.675-1.5 1.5S11.175 21 12 21s1.5-.675 1.5-1.5S12.825 18 12 18Zm0-7.5c-.825 0-1.5.675-1.5 1.5s.675 1.5 1.5 1.5s1.5-.675 1.5-1.5s-.675-1.5-1.5-1.5Z"/></svg></label>
-										<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded bg-neutral ">
-											<div class="">
-												<div class="text-right">
-													<CopyButton textToCopy={msg.text} />
-												</div>
-											<li><span>👍</span></li>
-											<li>
-																		<span>👎</span>
-																	</li>
+									{#if msg.sender === 'bot' && msg.status === 'done' && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
+										<div class="flex justify-end w-full mt-1.5">
+											<Feedback 
+											message={msg} 
+											messageId={msg.id}
+											sessionId={chatSessionId} 
+											iconColor={settings.theme.feedbackIconColor} 
+											bgColor={settings.theme.feedbackBGColor}
+											fallbackBGColor={settings.theme.botBubbleBG}
+											fallbackIconColor={settings.theme.botBubbleText}
+											/>
 										</div>
-										</ul>
-									</div>
-								{/if} -->
+									{/if}
 								</div>
 							</div>
 							{#if settings.useSourceUrls && msg.links?.length > 0}
