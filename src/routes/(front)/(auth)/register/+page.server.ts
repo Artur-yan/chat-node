@@ -185,22 +185,22 @@ export const actions: Actions = {
 			});
 
 			// Creating Stripe User
-			if (!appsumoCodes) {
-				const stripeUser = await fetch(`${PUBLIC_CHAT_API_URL}/create-stripe-user`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						Authorization: `Bearer sk-868f7d2e-9e8c-4a2f-ab70-757c9d04ccfb`
-					},
-					body: JSON.stringify({
-						record: {
-							id: user.userId,
-							email: email
-						}
-					})
-				});
+			const stripeUser = await fetch(`${PUBLIC_CHAT_API_URL}/create-stripe-user`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer sk-868f7d2e-9e8c-4a2f-ab70-757c9d04ccfb`
+				},
+				body: JSON.stringify({
+					record: {
+						id: user.userId,
+						email: email
+					}
+				})
+			});
 
-				// Updating plan to selected plan
+			// Updating plan to selected plan
+			if (!appsumoCodes) {
 				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
 					method: 'POST',
 					headers: {
