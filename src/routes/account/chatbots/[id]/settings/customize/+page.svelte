@@ -560,9 +560,12 @@
 				
 			</div>
 		</div>
-		{#if !$currentBot.cloudinary_public_id_popup}
-			<div class="my-2 font-bold">Button Color</div>
-			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
+			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-center">
+				<div style="display: flex; align-items: center; justify-content: center; width: 55px; height: 55px; border-radius: 50%; background-color: {$currentBot?.settings.theme.popupButtonBG}">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="{$currentBot?.settings.theme.popupButtonIcon}" class="w-8 h-8">
+						<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+					</svg>
+				</div>
 				<ColorPicker
 					bind:hex={$currentBot.settings.theme.popupButtonBG}
 					label="Background"
@@ -573,8 +576,7 @@
 					label="Icon"
 					on:input={checkIfThemeSaved}
 				/>
-				</div>
-		{/if}
+			</div>
 	</div>
 </div>
 
