@@ -489,7 +489,7 @@
 					{/if}
 					{#if settings.suggestedQuestions}
 						<div class="relative">
-							<div class="absolute right-0 top-0 bottom-0 w-12 z-1" style="background: linear-gradient(90deg, {settings.theme.bg}00, var(--bg) 96%);" />
+							<div class="absolute right-[-1rem] top-0 bottom-0 w-12 z-1" style="background: linear-gradient(90deg, {settings.theme.bg}00, var(--bg) 96%);" />
 							<div class="flex gap-1 overflow-x-auto mb-2 w-full mx-1.5">
 								{#each settings.suggestedQuestions as question}
 									<!-- <Button
