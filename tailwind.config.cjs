@@ -8,7 +8,10 @@ export default {
 				night: {
 					...require('daisyui/src/theming/themes')['[data-theme=night]'],
 					'base-200': '#0E1426',
-					'base-300': '#0C1222'
+					'base-300': '#0C1222',
+					primary: '#5256FD', // Custom primary color
+					secondary: '#FE4981',
+					tertiary: '#e5e7eb'
 				}
 			}
 		]
