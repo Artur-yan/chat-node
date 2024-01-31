@@ -7,11 +7,17 @@ export default {
 			{
 				night: {
 					...require('daisyui/src/theming/themes')['[data-theme=night]'],
+					primary: '#3ABFF8',
+					secondary: '#828DF8',
+					accent: '#F471B5',
+					neutral: '#1D283A',
+					'base-100': '#0F1729',
 					'base-200': '#0E1426',
 					'base-300': '#0C1222',
-					primary: '#5256FD', // Custom primary color
-					secondary: '#FE4981',
-					tertiary: '#e5e7eb'
+					info: '#0CA6E9',
+					success: '#2BD4BD',
+					warning: '#F4C152',
+					error: '#FB6F84'
 				}
 			}
 		]
