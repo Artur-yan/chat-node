@@ -16,6 +16,8 @@
 	export let data;
 	export let form;
 
+	console.log(data.subscription.cancel_at)
+
 	let billingTerm = 'yearly';
 	let busyChangingPlan;
 
@@ -398,6 +400,7 @@
 			includeMarketing={false} 
 			userId={data.user.userId}
 			currentPlan={currentPlan}
+			isCanceled={data.subscription.cancel_at}
 		/>
 	{/if}
 

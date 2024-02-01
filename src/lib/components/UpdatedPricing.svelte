@@ -8,6 +8,9 @@
   export let userId: string;
   export let currentPlan: number | undefined;
   export let referralCode: string = '';
+  export let isCanceled: string = '';
+
+  console.log('IsCanceled --->', isCanceled)
 
   let planToChangeTo: number;
   let isAnnual: boolean;
@@ -45,6 +48,7 @@
 	});
 
   const updatePlan = async (newPlan: number) => {
+    console.log('updating plan', newPlan);
 		try {
 			busyChangingPlan = true;
 			const res = await fetch('/api/account/plan', {
@@ -65,13 +69,9 @@
 			console.error(err);
 			$alert = { msg: 'Something went wrong', type: 'error' };
 		} 
-        //finally {
-		// 	busyChangingPlan = false;
-		// }
 	};
 
   const handleConfirmPlanChange = async (plan: number) => {
-    console.log('upgrading --->')
 		planToChangeTo = plan;
 
     if(currentPlan === -1 || currentPlan === 0) {
@@ -93,6 +93,12 @@
 			modalConfirmPlanChange.showModal();
 		}
 	};
+
+  const handleCancelPlan = () => {
+    modalCancelPlan.showModal();
+
+
+  }
 </script>
 
 <div id="pricing" class="isolate overflow-hidden bg-gray-900">
@@ -215,11 +221,11 @@
                 </li>
               </ul>
             </div>
-            {#if currentPlan === -1 || currentPlan === 0}
+            {#if currentPlan === -1 || currentPlan === 0 || isCanceled}
               <button 
                 on:click={() => handleConfirmPlanChange(isAnnual ? 105 : 5)}
                 disabled={currentPlan === standardPlanState}
-                class="flex w-full justify-center mt-10 bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600 {currentPlan === standardPlanState ? 'bg-indigo-600' : 'bg-black'}"
+                class="flex w-full justify-center mt-10 bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600 {currentPlan === standardPlanState && !isCanceled ? 'bg-indigo-600' : 'bg-black'}"
               >
                 <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
               </button>
@@ -232,8 +238,8 @@
             {:else}
               <button 
                 on:click={() => handleConfirmPlanChange(isAnnual ? 105 : 5)}
-                disabled={currentPlan === standardPlanState}
-                class="flex w-full justify-center mt-10 bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600 {currentPlan === standardPlanState ? 'bg-indigo-600' : 'bg-black'}"
+                disabled={currentPlan === standardPlanState && !isCanceled}
+                class="flex w-full justify-center mt-10 bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600 {currentPlan === standardPlanState && !isCanceled ? 'bg-indigo-600' : 'bg-black'}"
               >
                 <span class="mx-1 text-white font-bold text-xl">{currentPlan === standardPlanState ? 'Current Plan' : 'Change Plan'}</span>
               </button>  
@@ -290,11 +296,11 @@
                 </li>
               </ul>
             </div>
-            {#if currentPlan === -1 || currentPlan === 0}
+            {#if currentPlan === -1 || currentPlan === 0 || isCanceled}
               <button 
                 on:click={() => handleConfirmPlanChange(isAnnual ? 106 : 6)}
-                disabled={currentPlan === grownthPlanState}
-                class="flex w-full justify-center mt-10 bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600 {currentPlan === grownthPlanState ? 'bg-indigo-600' : 'bg-black'}"
+                disabled={currentPlan === grownthPlanState && !isCanceled}
+                class="flex w-full justify-center mt-10 bg-opacity-40 px-3.5 py-2.5 text-md font-semibold rounded-md border-2 border-indigo-600 {currentPlan === grownthPlanState && !isCanceled ? 'bg-indigo-600' : 'bg-black'}"
               >
                 <span class="mx-1 text-white font-bold text-xl">Start Free Trial</span>
               </button> 
@@ -359,8 +365,16 @@
             </a>       
           </div>
         </div>
+        <div class="grid grid-cols-3 text-center mx-16">
+          <div class="my-2 mx-auto text-center text-md text-gray-300">
+            {#if currentPlan !== -1 && currentPlan !== 0 && !isCanceled}
+              <button class="text-indigo-400 hover:text-indigo-500 p-2 rounded-lg bg-slate-700" on:click={handleCancelPlan}>Cancel</button>
+            {/if}
+          </div>
+          <p class="my-2 mx-auto text-center text-md text-gray-300">* 100 free messages during trial</p>
+          <p class="my-2 mx-auto text-center text-md text-gray-300"></p>
+        </div>
       </div>
-      <p class=" my-2 mx-auto md:w-1/3 text-center text-md text-gray-300">* 100 free messages during trial</p>
     </div>
   </div>
 </div>
@@ -389,4 +403,28 @@
 			<button>close</button>
 		</form>
 	</dialog>
+{/if}
+
+{#if currentPlan !== 0}
+<!-- Open the modal using ID.showModal() method -->
+  <dialog id="modalCancelPlan" class="modal">
+    <form method="dialog" class="modal-box shadow-xl shadow-slate-400">
+      <h3 class="font-bold text-lg mb-4">
+        Are you Sure?      
+      </h3>
+      <p class="mb-8">
+        Your plan will be canceled at the end of the billing cycle.
+      </p>
+
+      <div class="text-right">
+        <button class="btn">Close</button>
+        <button class="btn bg-indigo-500 hover:bg-indigo-600" on:click|preventDefault={() => updatePlan(0)}>
+          {busyChangingPlan ? 'Updating...' : 'Cancel Plan'}
+        </button>
+      </div>
+    </form>
+    <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
+  </dialog>
 {/if}
