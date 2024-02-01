@@ -146,7 +146,7 @@ window.requestIdleCallback(idleWrapper, {timeout: 10000});
 	{@html `<script src="${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js"></script>`}
 </svelte:head>
 
-<Header />
+<!-- <Header /> -->
 
 <main id="main" class="flex-1">
 	{#if PUBLIC_ENVIRONMENT === 'production'}
@@ -166,4 +166,4 @@ window.requestIdleCallback(idleWrapper, {timeout: 10000});
 	<slot />
 </main>
 
-<Footer />
+<!-- <Footer /> -->
