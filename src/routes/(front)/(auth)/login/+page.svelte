@@ -15,9 +15,10 @@
 	/>
 </svelte:head>
 
+<br><br><br><br><br>
 <section>
-	<div class="card w-96 bg-neutral text-neutral-content mx-auto md:my-16">
-		<div class="flex gap-2 mx-auto p-6 mt-4 -mb-6 items-end">
+	<div class="card w-96 bg-neutral text-neutral-content mx-auto md:my-16 shadow-lg shadow-indigo-900">
+		<a class="flex gap-2 mx-auto p-6 mt-4 -mb-6 items-end" href="https://chatnode.ai">
 			<div>
 				<svg
 					width="32"
@@ -34,9 +35,10 @@
 			</div>
 	
 			<span class="text-xl font-bold text-white tracking-wide leading-none">ChatNode</span>
-		</div>
+		</a>
+		<h2 class="card-title mx-auto my-2 text-2xl bg-gradient-to-r from-indigo-500 via-indigo-400 to-indigo-300 text-transparent bg-clip-text">Welcome Back!</h2>
+
 		<div class="card-body">
-			<h2 class="card-title mx-auto my-2">Welcome Back!</h2>
 			<a href="/oauth/google" class="my-4">
 				<button class="w-full -mt-4 flex items-center justify-center gap-2 rounded-lg border bg-white border-slate-700 px-4 py-2 text-slate-700 transition duration-150 hover:border-slate-400 hover:text-slate-900">
 					<img class="h-6 w-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"> 
