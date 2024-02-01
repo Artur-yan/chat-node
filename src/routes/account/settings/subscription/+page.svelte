@@ -119,10 +119,7 @@
 				items: [
 					item
 				]
-			},
-			eventCallback: function() {
-                console.log('DT pushed', item)
-            }
+			}
 		});
 	}
 
