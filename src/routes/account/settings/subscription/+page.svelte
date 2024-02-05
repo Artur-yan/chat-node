@@ -16,8 +16,6 @@
 	export let data;
 	export let form;
 
-	console.log(data.subscription.cancel_at)
-
 	let billingTerm = 'yearly';
 	let busyChangingPlan;
 
