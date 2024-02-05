@@ -146,7 +146,7 @@
 	const queryModel = async (chatKey: string, chatSessionId: string, message: string, customMessage: string = '') => {
 		messageId = null;
 		
-		if (customMessage) {
+		if (customMessage && !settings.showSuggestedQuestionsPrompt) {
 			addMessage(customMessage, 'user');
 		} else {
 			addMessage(message, 'user');
