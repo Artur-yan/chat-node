@@ -365,10 +365,10 @@
             </a>       
           </div>
         </div>
-        <div class="grid grid-cols-3 text-center mx-16">
-          <div class="my-2 mx-auto text-center text-md text-gray-300">
+        <div class="mx-auto grid max-w-lg grid-cols-1 lg:grid-cols-3 gap-8 lg:max-w-5xl">
+          <div class="mx-auto text-center text-md text-gray-300">
             {#if currentPlan !== -1 && currentPlan !== 0 && !isCanceled}
-              <button class="my-2 mx-auto text-center text-md text-gray-300 underline" on:click={handleCancelPlan}>Cancel</button>
+              <button class="my-2 mx-auto text-center text-md text-gray-300 underline" on:click={handleCancelPlan}>Cancel your subscription</button>
             {/if}
           </div>
           <p class="my-2 mx-auto text-center text-md text-gray-300">* 100 free messages during trial</p>
