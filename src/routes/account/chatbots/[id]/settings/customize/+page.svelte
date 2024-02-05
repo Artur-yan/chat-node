@@ -331,7 +331,7 @@
 </div>
 
 <!-- Policy Section -->
-<div class="card bg-neutral card-compact mb-4">
+<!-- <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<div class="flex gap-2">
 			<h2 class="card-title">Policy</h2>
@@ -365,7 +365,7 @@
 			/>
 		</div>
 	</div>
-</div>
+</div> -->
 
 
 <!-- Send Button Section -->
