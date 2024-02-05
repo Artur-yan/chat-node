@@ -4,6 +4,7 @@
 	export let data;
 </script>
 
+<!-- Collect User Info Section -->
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<div class="card-title">
@@ -91,5 +92,53 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+
+<!-- Policy Section -->
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="flex gap-2">
+			<h2 class="card-title">Privacy Policy</h2>
+			<label class="cursor-pointer label justify-start gap-2">
+				<span class="label-text">Enable</span>
+				<input
+					type="checkbox"
+					class="toggle toggle-sm"
+					class:toggle-success={$currentBot.settings.policyEnabled}
+					bind:checked={$currentBot.settings.policyEnabled}
+				/>
+			</label>
+		</div>
+
+		{#if $currentBot.settings.policyEnabled}
+			<div class="grid md:grid-cols-2 lg:grid-cols-2 gap-2 items-end">
+				<div>
+					<label for="public-title" class="label">
+						<span class="label-text">Message</span>
+					</label>
+					<input
+						class="input input-sm w-full"
+						type="text"
+						name="public-title"
+						placeholder="Type Privacy Message"
+						bind:value={$currentBot.settings.policyText}
+					/>
+				</div>
+
+				<div>
+					<label for="public-title" class="label">
+						<span class="label-text">Link</span>
+					</label>
+					<input
+						class="input input-sm w-full"
+						type="text"
+						name="public-title"
+						placeholder="Type Privacy Link"
+						bind:value={$currentBot.settings.policyLink}
+					/>
+				</div>
+			</div>
+		{/if}
 	</div>
 </div>
