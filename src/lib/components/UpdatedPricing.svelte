@@ -368,7 +368,7 @@
         <div class="grid grid-cols-3 text-center mx-16">
           <div class="my-2 mx-auto text-center text-md text-gray-300">
             {#if currentPlan !== -1 && currentPlan !== 0 && !isCanceled}
-              <button class="text-indigo-400 hover:text-indigo-500 p-2 rounded-lg bg-slate-700" on:click={handleCancelPlan}>Cancel</button>
+              <button class="my-2 mx-auto text-center text-md text-gray-300 underline" on:click={handleCancelPlan}>Cancel</button>
             {/if}
           </div>
           <p class="my-2 mx-auto text-center text-md text-gray-300">* 100 free messages during trial</p>
