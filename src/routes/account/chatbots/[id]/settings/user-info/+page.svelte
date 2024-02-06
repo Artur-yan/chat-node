@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { currentBot } from '$lib/stores.js';
+	import { onMount } from 'svelte';
 
 	export let data;
+
+	onMount(() => {
+		localStorage.setItem('submitted_info_3485', '');
+		localStorage.setItem('agreed_to_policy_3485', '');
+	});
 </script>
 
 <!-- Collect User Info Section -->
@@ -110,6 +116,8 @@
 				/>
 			</label>
 		</div>
+
+		<!-- on:click={() => localStorage.setItem('agreed_to_policy_3485', '')} -->
 
 		{#if $currentBot.settings.policyEnabled}
 			<div class="grid md:grid-cols-2 lg:grid-cols-2 gap-2 items-end">
