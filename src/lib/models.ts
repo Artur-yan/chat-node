@@ -66,6 +66,7 @@ const deleteModel = async (id: string) => {
 	}
 };
 
+
 const defaultSettings = {
 	greeting: 'What can I help you with?',
 	public: false,
