@@ -42,7 +42,7 @@
 	let maxFileSizeMB = 150;
 
 	if(plan > 1000) {
-		settings.gptVersion = '3.5';
+		settings.gptVersion = '3.5-june';
 	}
 	
 	function resetAddDataForm() {
