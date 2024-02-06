@@ -527,7 +527,7 @@
 							</div>
 						</div>
 					{/if}
-					{#if !settings.policyEnabled || (settings.policyEnabled && agreedToPolicy)}
+					{#if !settings.policyEnabled || (settings.policyEnabled && agreedToPolicy)} 
 						<textarea
 							placeholder={settings.inputPlaceholder}
 							oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
@@ -565,7 +565,7 @@
 							</button>
 						{/if}
 
-					{:else}
+					{:else if settings.policyEnabled && !agreedToPolicy && !collectUserInfo}
 						<div class="relative w-full">
 							<textarea
 								rows="1"
@@ -598,8 +598,42 @@
 				</div>
 			</div>
 		</form>
-	
+
+		
 		{#if collectUserInfo && !userInfoReceived && showUserInfoCollection && !submittedInfo}
+			{#if settings.policyEnabled && !agreedToPolicy}
+				<div 
+					class="@container absolute bottom-0 left-0 right-0 grid gap-1 p-8"
+					style="background-color: var(--bg); color: var(--inputText)"
+				>
+					<textarea
+						rows="1"
+						class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)]"
+						style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
+						disabled={true}
+					></textarea>
+					<div class="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex justify-center items-center">
+						<input 
+							type="checkbox" 
+							bind:checked={agreedToPolicy} 
+							on:click={() => localStorage.setItem('agreed_to_policy_3485', 'true')}
+							class="checkbox checkbox-sm mx-2 border-1 border-slate-300" 
+						/>
+						<a 
+							href="{settings.policyLink && settings.policyLink.startsWith('http') ? settings.policyLink : `https://${settings.policyLink}`}" 
+							on:click={(e) => {
+								if (!settings.policyLink) {
+									e.preventDefault();
+								}
+							}}
+							class="underline" 
+							target="_blank"
+						>
+							<span class="text-[1rem] text-white">{settings.policyText || "I agree with the terms and conditions"}</span>
+						</a>
+					</div>
+				</div>
+			{:else}
 			<form
 				class="@container absolute bottom-0 left-0 right-0 grid gap-1 p-8"
 				style="background-color: var(--bg); color: var(--inputText)"
@@ -647,6 +681,7 @@
 					/>
 				</div>
 			</form>
+			{/if}
 		{/if}
 	
 		<style>
