@@ -99,7 +99,7 @@
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
 		<div class="flex gap-2">
-			<h2 class="card-title">Privacy Policy</h2>
+			<h2 class="card-title">Privacy Policy / GDPR</h2>
 			<label class="cursor-pointer label justify-start gap-2">
 				<span class="label-text">Enable</span>
 				<input
