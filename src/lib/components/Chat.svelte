@@ -34,7 +34,6 @@
 	let agreedToPolicy = false;
 	let submittedInfo = false;
 
-
 	const md = new Remarkable();
 
 
@@ -587,7 +586,7 @@
 											e.preventDefault();
 										}
 									}}
-									class="underline" 
+									class="underline text-white" 
 									target="_blank"
 								>
 									<span class="text-[1rem] text-white">{settings.policyText || "I agree with the terms and conditions"}</span>
