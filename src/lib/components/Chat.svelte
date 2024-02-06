@@ -33,7 +33,7 @@
 
 	let agreedToPolicy = false;
 	let submittedInfo = false;
-
+  
 	const md = new Remarkable();
 
 
@@ -263,9 +263,13 @@
 	};
 
 	const submitQuery = () => {
+		//Initalizations
 		if (messages.length === 1 && !collectUserInfo) {
 			initConversation();
+		} else if(messages.length === 1 && collectUserInfo && localStorage.getItem('enduserInfo')) {
+			initConversation();
 		}
+
 		if (isThinking) {
 			addMessage('Please wait for me to finish thinking...');
 			inputVal = '';
@@ -586,10 +590,10 @@
 											e.preventDefault();
 										}
 									}}
-									class="underline text-white" 
+									class="underline" 
 									target="_blank"
 								>
-									<span class="text-[1rem] text-white">{settings.policyText || "I agree with the terms and conditions"}</span>
+									<span class="text-[1rem] underline text-white">{settings.policyText || "I agree with the terms and conditions"}</span>
 								</a>
 							</div>
 						</div>					
@@ -598,7 +602,6 @@
 			</div>
 		</form>
 
-		
 		{#if collectUserInfo && !userInfoReceived && showUserInfoCollection && !submittedInfo}
 			{#if settings.policyEnabled && !agreedToPolicy}
 				<div 
@@ -624,10 +627,10 @@
 									e.preventDefault();
 								}
 							}}
-							class="underline" 
+							class="underline text-white" 
 							target="_blank"
 						>
-							<span class="text-[1rem] text-white">{settings.policyText || "I agree with the terms and conditions"}</span>
+							<span class="text-[1rem] underline text-white">{settings.policyText || "I agree with the terms and conditions"}</span>
 						</a>
 					</div>
 				</div>
