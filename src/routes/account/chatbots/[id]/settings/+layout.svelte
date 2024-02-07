@@ -147,6 +147,7 @@
 				avatar={$currentBotAvatarImg}
 				userId={data.session.user.userId}
 				{showUserInfoCollection}
+				usedForPreview={true}
 			/>
 			{#if $currentBot.settings.collectUserEmail || $currentBot.settings.collectUserName || $currentBot.settings.collectUserPhone}
 				<div class="form-control">

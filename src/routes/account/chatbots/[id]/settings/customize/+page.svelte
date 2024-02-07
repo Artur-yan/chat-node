@@ -330,6 +330,43 @@
 	</div>
 </div>
 
+<!-- Policy Section -->
+<!-- <div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="flex gap-2">
+			<h2 class="card-title">Policy</h2>
+			<label class="cursor-pointer label justify-start gap-2">
+				<span class="label-text">Enable</span>
+				<input
+					type="checkbox"
+					class="toggle toggle-sm"
+					class:toggle-success={$currentBot.settings.sendButtonEnabled}
+					bind:checked={$currentBot.settings.sendButtonEnabled}
+				/>
+			</label>
+		</div>
+		<div class="grid md:grid-cols-2 lg:grid-cols-2 gap-2 items-end">
+			<div>
+				<label for="public-title" class="label">
+					<span class="label-text">Policy Text</span>
+				</label>
+				<input
+					class="input input-sm w-full"
+					type="text"
+					name="public-title"
+					placeholder="<none>"
+					bind:value={$currentBot.settings.inputPlaceholder}
+				/>
+			</div>
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.inputBG}
+				label=" Background"
+				on:input={checkIfThemeSaved}
+			/>
+		</div>
+	</div>
+</div> -->
+
 
 <!-- Send Button Section -->
 <div class="card bg-neutral card-compact mb-4">
