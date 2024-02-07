@@ -682,8 +682,6 @@
 				</div>
 			</form>
 			{/if}
-			{:else if collectUserInfo && !userInfoReceived && showUserInfoCollection && !submittedInfo}
-			<!-- Finish -->
 		{/if}
 	
 		<style>
