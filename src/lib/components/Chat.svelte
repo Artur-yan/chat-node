@@ -530,7 +530,7 @@
 							</div>
 						</div>
 					{/if}
-					{#if !settings.policyEnabled || (settings.policyEnabled && agreedToPolicy)} 
+					{#if !settings.policyEnabled || (settings.policyEnabled && agreedToPolicy) || (settings.policyEnabled && collectUserInfo && !showUserInfoCollection) || (settings.policyEnabled && !showUserInfoCollection)} 
 						<textarea
 							placeholder={settings.inputPlaceholder}
 							oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
