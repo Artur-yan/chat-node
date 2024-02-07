@@ -573,10 +573,9 @@
 							<textarea
 								rows="1"
 								class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)]"
-								style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
-								disabled={true}
+								style="background-color: var(--botBubbleBG); color: var(--inputText); border: 1px solid var(--inputBorder);"								disabled={true}
 							></textarea>
-							<div class="absolute top-0 left-0 right-0 bottom-0 rounded-xl bg-black bg-opacity-50 flex justify-center items-center">
+							<div class="absolute top-0 left-0 right-0 bottom-0 rounded-xl bg-black bg-opacity-0 flex justify-center items-center">
 								<input 
 									type="checkbox" 
 									bind:checked={agreedToPolicy} 
