@@ -68,6 +68,11 @@
 		$currentBot.settings.openChatByDefault = false;
 		$currentBot.settings.popupButtonMessageEnabled = true;
 	}
+
+	// Forcing Feedback by default
+	if ($currentBot.settings.feedbackEnabled === undefined) {
+		$currentBot.settings.feedbackEnabled = true;
+	}
 </script>
 
 <svelte:head>
@@ -330,44 +335,6 @@
 	</div>
 </div>
 
-<!-- Policy Section -->
-<!-- <div class="card bg-neutral card-compact mb-4">
-	<div class="card-body">
-		<div class="flex gap-2">
-			<h2 class="card-title">Policy</h2>
-			<label class="cursor-pointer label justify-start gap-2">
-				<span class="label-text">Enable</span>
-				<input
-					type="checkbox"
-					class="toggle toggle-sm"
-					class:toggle-success={$currentBot.settings.sendButtonEnabled}
-					bind:checked={$currentBot.settings.sendButtonEnabled}
-				/>
-			</label>
-		</div>
-		<div class="grid md:grid-cols-2 lg:grid-cols-2 gap-2 items-end">
-			<div>
-				<label for="public-title" class="label">
-					<span class="label-text">Policy Text</span>
-				</label>
-				<input
-					class="input input-sm w-full"
-					type="text"
-					name="public-title"
-					placeholder="<none>"
-					bind:value={$currentBot.settings.inputPlaceholder}
-				/>
-			</div>
-			<ColorPicker
-				bind:hex={$currentBot.settings.theme.inputBG}
-				label=" Background"
-				on:input={checkIfThemeSaved}
-			/>
-		</div>
-	</div>
-</div> -->
-
-
 <!-- Send Button Section -->
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
@@ -408,20 +375,33 @@
 	<div class="card-body">
 		<div class="flex gap-2">
 			<h2 class="card-title">Feedback</h2>
+			<div class="form-control inline-flex">
+				<label class="cursor-pointer label justify-start gap-2">
+					<span class="label-text">Enable</span>
+					<input
+						type="checkbox"
+						class="toggle toggle-sm"
+						class:toggle-success={$currentBot.settings.feedbackEnabled}
+						bind:checked={$currentBot.settings.feedbackEnabled}
+					/>
+				</label>
+			</div>
 		</div>
-		<div class="grid grid-cols-4 gap-2 items-end mt-4">
-			<ColorPicker
-			bind:hex={$currentBot.settings.theme.feedbackBGColor}
-			label="Background Color"
-			on:input={checkIfThemeSaved}
-			/>
-
-			<ColorPicker
-				bind:hex={$currentBot.settings.theme.feedbackIconColor}
-				label="Icon Color"
+		{#if $currentBot.settings.feedbackEnabled}
+			<div class="grid grid-cols-4 gap-2 items-end mt-4">
+				<ColorPicker
+				bind:hex={$currentBot.settings.theme.feedbackBGColor}
+				label="Background Color"
 				on:input={checkIfThemeSaved}
-			/>
-		</div>
+				/>
+
+				<ColorPicker
+					bind:hex={$currentBot.settings.theme.feedbackIconColor}
+					label="Icon Color"
+					on:input={checkIfThemeSaved}
+				/>
+			</div>
+		{/if}
 	</div>
 </div>
 
