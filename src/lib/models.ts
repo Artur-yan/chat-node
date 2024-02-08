@@ -66,7 +66,6 @@ const deleteModel = async (id: string) => {
 	}
 };
 
-
 const defaultSettings = {
 	greeting: 'What can I help you with?',
 	public: false,
@@ -95,6 +94,7 @@ const defaultSettings = {
 	popupButtonMessageEnabled: false,
 	popupButtonMessageText: 'Need help?',
 	popupButtonMessagePlacement: 'top',
+	feedbackEnabled: true,
 	msgLimitEnabled: false,
 	msgLimit: 200,
 	crispEnabled: false,
