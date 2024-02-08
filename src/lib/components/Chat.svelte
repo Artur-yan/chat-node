@@ -395,7 +395,7 @@
 									<div class="message-body break-words">
 										{@html (postProcessMsgHTML(md.render(msg.text)))}
 									</div>
-									{#if msg.sender === 'bot' && msg.status === 'done' && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
+									{#if (settings.feedbackEnabled || settings.feedbackEnabled === undefined) && msg.sender === 'bot' && msg.status === 'done' && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
 										<div class="flex justify-end w-full mt-1.5">
 											<Feedback 
 											message={msg} 
