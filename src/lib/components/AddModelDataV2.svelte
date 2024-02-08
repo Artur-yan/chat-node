@@ -10,26 +10,95 @@
 
 	let activeTab = 0;
 	let busyFetchingUrls = false;
+  let busyFetchingSitemapUrls = false;
 	let url: string | undefined;
+  const carbon_api_key = 'dc14fce440672b41417705d036cf5181d8df1b849c58c6e2c56e3dac1df66366';
+  let accessToken: string | undefined;
+  let sitemap: string | undefined;
 
+  async function initiateScraping() {
+    const urlsToScrape = await retrieveUrls() || [];
 
-	const fetchUrlsToScrape = async () => {
-    
-	};
+    console.log('Urls to scrape:', urlsToScrape);
+    console.log('Access token:', accessToken);
+    try {
+      //@ts-ignore
+      const response = await Carbon.submitScrapeRequest({
+        accessToken: accessToken,
+        urls: urlsToScrape,
+        recursionDepth: 1,
+        maxPagesToScrape: 5000,
+      });
 
-	const cancelFetchUrlsToScrape = () => {
+      if (response.status === 200) {
+        console.log('Scraping result:', response.data.files);
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
+    }
+  }
 
-	};
+  async function retrieveUrls() {
+    const params = {
+      accessToken: accessToken,
+      url: url,
+    };
+
+    try {
+      const response = await Carbon.fetchUrls(params);
+
+      if (response.status === 200) {
+        console.log('Fetched URLs successfully:', response.data.urls);
+        return response.data.urls;
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching URLs:', err.message);
+    }
+  }
+
+  async function fetchSitemapUrls() {
+    try {
+      const response = await Carbon.handleFetchSitemapUrls({
+        accessToken: accessToken,
+        sitemapUrl: sitemap,
+      });
+
+      if (response.status === 200) {
+        console.log('Retrieved URLs:', response.data.urls);
+        console.log('Total URLs:', response.data.count);
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
+    }
+  }
+  fetchSitemapUrls();
 
   onMount(async () => {
-    console.log('userId', userId);
-    const accessTokenResponse = await Carbon.generateAccessToken(
-      'dc14fce440672b41417705d036cf5181d8df1b849c58c6e2c56e3dac1df66366',
-      userId,
-    );
+    async function fetchAccessToken() {
+    try {
+      const response = await Carbon.generateAccessToken({
+        apiKey: 'dc14fce440672b41417705d036cf5181d8df1b849c58c6e2c56e3dac1df66366',
+        customerId: userId,
+      });
 
-    console.log(accessTokenResponse);
-    console.log(accessTokenResponse.data.access_token);
+      if (response.status === 200) {
+        console.log('Access token:', response.data);
+        accessToken = response.data.access_token; 
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err);
+    }
+  }
+
+  fetchAccessToken();
   });
 
 </script>
@@ -52,7 +121,7 @@
 
 	{#if activeTab == 3}
   <!-- URL -->
-		<form on:submit|preventDefault={() => fetchUrlsToScrape()}>
+		<form on:submit|preventDefault={() => initiateScraping()}>
 			<div class="form-control">
 				<div class="join">
 					<input
@@ -63,8 +132,7 @@
 						required
 						autofocus
 					/>
-					<button class="btn btn-primary join-item" type="submit" disabled={busyFetchingUrls}>
-						<span class={busyFetchingUrls ? 'loading loading-xs' : 'hidden'} />
+					<button class="btn btn-primary join-item" type="submit">
 						Scrape URLs
 					</button>
 				</div>
@@ -73,19 +141,18 @@
 
     <br><br><br>
     <!-- Sitemap -->
-    <form on:submit|preventDefault={() => fetchUrlsToScrape()}>
+    <form on:submit|preventDefault={() => fetchSitemapUrls()}>
 			<div class="form-control">
 				<div class="join">
 					<input
 						type="text"
 						class="input input-bordered w-full join-item placeholder:text-sm"
-						bind:value={url}
+						bind:value={sitemap}
 						placeholder="e.g. https://chatnode.ai https://chatnode.ai/sitemap.xml"
 						required
 						autofocus
 					/>
-					<button class="btn btn-primary join-item" type="submit" disabled={busyFetchingUrls}>
-						<span class={busyFetchingUrls ? 'loading loading-xs' : 'hidden'} />
+					<button class="btn btn-primary join-item" type="submit">
 						Scrape Sitemap
 					</button>
 				</div>
