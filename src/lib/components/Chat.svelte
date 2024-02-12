@@ -11,6 +11,7 @@
 	import Button from './Button.svelte';
 	import { page } from '$app/stores';
 	import Feedback from './Feedback.svelte';
+	import PoweredByChatNode from './PoweredByChatNode.svelte';
 
 	export let removeBranding = true;
 	export let modelId: string;
@@ -193,8 +194,6 @@
 			isThinking = false;
 
 			messageId = res.headers.get('x-message-id');
-	
-			console.log(messageId);
 
 			const responseLinks = res.headers.get('urls');
 			if (responseLinks !== null) {
@@ -338,9 +337,6 @@
 	>
 		{#if settings?.headerEnabled && settings.publicTitle !== ''}
 			<header style="background-color: var(--headerBG);" class="flex px-6 py-4 items-center gap-3 shadow-md shadow-[var(--headerShadow)]">
-				<!-- <div class="h-8">
-					<img src={avatar} alt="" class="h-full" />
-			</div> -->
 				<h1 class="font-bold text-lg" style="color: var(--headerTitle)">
 					{settings.publicTitle ? settings.publicTitle : ''}
 				</h1>
@@ -372,6 +368,9 @@
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<div class="p-2">
+					{#if !removeBranding}
+						<PoweredByChatNode textColor={settings.theme.poweredByChatNodeColor} />
+					{/if}
 					<slot>
 						{#each messages as msg, i}
 							<div
@@ -470,26 +469,6 @@
 			</div>
 		</div>
 		<form on:submit|preventDefault={submitQuery} class="form-control p-1">
-			{#if !removeBranding}
-				<div class="text-right text-xs mb-1.5 mr-2 flex justify-end gap-1 items-end leading-none">
-					<a href="https://www.chatnode.ai" target="_blank">
-						Powered by <svg
-							class="inline"
-							xmlns="http://www.w3.org/2000/svg"
-							width="10"
-							height="10"
-							viewBox="0 0 300 300"
-							fill="none"
-						>
-							<path
-								d="M207.498 117.156C207.498 125.748 200.538 132.713 191.951 132.713H186.769C178.183 132.713 171.222 125.748 171.222 117.156L171.222 22.3358C171.222 18.1376 168.693 14.3326 164.757 12.8725C142.316 4.54795 118.043 0 92.7083 0H13.1546C5.99932 0 0.19884 5.80432 0.19884 12.9643C0.19884 38.2283 -0.189051 63.5278 0.118701 88.7948C0.170219 93.0246 3.62267 96.413 7.85274 96.413L83.1231 96.413C91.7095 96.413 98.67 103.378 98.67 111.97V117.156C98.67 125.748 91.7095 132.713 83.1231 132.713H13.504C8.6203 132.713 4.94385 137.175 6.10095 141.92C10.8745 161.493 18.4236 179.979 28.3074 196.934C31.3972 202.235 37.165 205.313 43.3003 205.313H191.951C200.538 205.313 207.498 212.279 207.498 220.871V226.056C207.498 234.648 200.538 241.613 191.951 241.613H76.0908C71.4431 241.613 69.2283 247.191 72.7581 250.215C108.992 281.253 156.054 300 207.491 300H300V207.429C300 138.818 266.711 77.9878 215.413 40.2283C212.086 37.7792 207.498 40.215 207.498 44.3462L207.498 117.156Z"
-								fill="#818CF8"
-							/>
-						</svg>
-						 ChatNode
-					</a>
-				</div>
-			{/if}
 			<div>
 				<div class="relative">
 					{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
