@@ -23,11 +23,6 @@
 		messages[0].text = settings.greeting;
 	}
 	let trainingStatus: string | undefined = undefined;
-
-	// $: if (trainingStatus === 'complete') {
-	// 	console.log('Training complete ----->x');
-	// 	window.location.href = `/account/chatbots/${modelId}/settings`;
-	// }
 </script>
 
 <svelte:head>
