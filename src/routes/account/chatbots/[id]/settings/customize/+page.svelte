@@ -405,6 +405,29 @@
 	</div>
 </div>
 
+
+<!-- Powered By ChatNode -->
+{#if data.subscription.plan !== 0 && data.subscription.plan !== 1001 && data.subscription.plan !== 5 && data.subscription.plan !== 105 && data.subscription.plan !== 6 && data.subscription.plan !== 106}
+	<div class="card bg-neutral card-compact mb-4">
+		<div class="card-body">
+			<div class="flex gap-4 items-center">
+				<h2 class="card-title">Powered by ChatNode</h2>
+				<div class="form-control">
+					<label class="cursor-pointer label gap-2">
+						<span class="label-text">Show</span>
+						<input
+							type="checkbox"
+							class="toggle toggle-sm"
+							class:toggle-success={$currentBot.settings.removeBranding}
+							bind:checked={$currentBot.settings.removeBranding}
+						/>
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+{/if}
+
 <!-- Suggested Questions Section -->
 <!-- <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
