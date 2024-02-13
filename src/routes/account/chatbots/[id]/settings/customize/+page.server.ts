@@ -56,8 +56,8 @@ export const actions = {
 			await cloudinary.uploader
 				.upload(`data:${avatarImg.type};base64,${base64}`, {
 					folder: 'avatars',
-					width: 256,
-					height: 256,
+					width: 80,
+					height: 80,
 					crop: 'fit',
 					eager: [{ width: 80, height: 80 }]
 				})
@@ -123,8 +123,8 @@ export const actions = {
 			await cloudinary.uploader
 				.upload(`data:${popupImg.type};base64,${base64}`, {
 					folder: 'popups',
-					width: 256,
-					height: 256,
+					width: 110,
+					height: 110,
 					crop: 'fit',
 					eager: [{ width: 80, height: 80 }]
 				})
