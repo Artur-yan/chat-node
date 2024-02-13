@@ -7,6 +7,9 @@
 	import { onMount } from 'svelte';
 	import { PUBLIC_EMBED_URL } from '$env/static/public';
 	import BotStatus from '$lib/components/BotStatus.svelte';
+	import WebScraping from '$lib/components/data/WebScraping.svelte';
+	import Files from '$lib/components/data/Files.svelte';
+	import Text from '$lib/components/data/Text.svelte';
 
 	export let data;
 
@@ -169,21 +172,11 @@
 	<title>Data v2 | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container grid md:grid-cols-[auto_16rem] lg:grid-cols-[auto_32rem] gap-4 my-4">
-	<div>
-		<div class="card card-compact bg-neutral border-primary border mb-4">
-			<div class="card-body">
-				<div class="card-title">Add Data</div>
-				<AddModelDataV2
-					bind:modelId
-					userId={data.user.userId}
-					sessionId={data.session.sessionId}
-					subscription={data.subscription}
-					existingTokenCount={data.model.tocken_count}
-					bind:trainingStatus
-				/>
-			</div>
-		</div>
+<div class="container grid md:grid-cols-3 lg:grid-cols-[auto_32rem] gap-4 my-4">
+	<div class="grid grid-cols-3 gap-8 my-4">
+		<WebScraping />
+		<Files />
+		<Text />
 	</div>
 	<div>
 		<div
