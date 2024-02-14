@@ -2,7 +2,7 @@
   export let textColor = '#00000000';
 </script>
 
-<div class="text-right text-xs mb-1.5 mx-auto flex justify-center gap-1 items-end leading-none text-shadow" style="color: {textColor}">
+<div class="py-1.5 text-right text-xs mb-1 mx-auto flex justify-center gap-1 items-end leading-none text-shadow" style="color: {textColor}">
   <a href="https://www.chatnode.ai" target="_blank">
     Powered by <svg
       class="inline"
