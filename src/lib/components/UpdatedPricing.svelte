@@ -67,29 +67,27 @@
         // shouldn't stop them from cancelling.
         // The normal cancel flow goes here
         console.log('updating plan', newPlan);
-    try {
       busyChangingPlan = true;
-      const res = fetch('/api/account/plan', {
+      fetch('/api/account/plan', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ newPlan, referralCode })
-      });
-      const data = res.json();
-      setTimeout(() => {
+      }).then(response => response.json()) // Correctly calling .json() on the response object
+  .then(data => {
+     setTimeout(() => {
         invalidateAll();
         window.location.href = data.url;
         busyChangingPlan = false;
       }, 2000);
-
-    } catch (err) {
-      console.error(err);
-      $alert = { msg: 'Something went wrong', type: 'error' };
-    }
-
-      })
-    } else {
+  })
+  .catch(error => {
+    console.error('Error:', error); // Handling any errors that occur during the fetch
+          $alert = { msg: 'Something went wrong', type: 'error' };
+  });
+    } )}
+    else {
 
       console.log('updating plan', newPlan);
       try {
