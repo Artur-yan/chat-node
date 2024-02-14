@@ -49,7 +49,7 @@
 	});
 
   const updatePlan = async (newPlan: number, subscriptionId?: string) => {
-    if (newPlan === 0) {
+    if (newPlan === 0 && PUBLIC_ENVIRONMENT === 'production')  {
       //... Any pre-cancel logic
       profitwell('init_cancellation_flow', {subscription_id: subscriptionId}).then(result => {
         // This means the customer either aborted the flow (i.e.
@@ -117,8 +117,8 @@
 	};
 
   const handleCancelPlan = () => {
-    modalCancelPlan.showModal();
-
+    // modalCancelPlan.showModal();
+    updatePlan(0, subscriptionId)
 
   }
 </script>
