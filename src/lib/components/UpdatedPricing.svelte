@@ -66,13 +66,10 @@
         // some reason (for which case, `result.status` will be 'error'), but that
         // shouldn't stop them from cancelling.
         // The normal cancel flow goes here
-      })
-    }
-
-    console.log('updating plan', newPlan);
+        console.log('updating plan', newPlan);
     try {
       busyChangingPlan = true;
-      const res = await fetch('/api/account/plan', {
+      const res = fetch('/api/account/plan', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -89,6 +86,32 @@
     } catch (err) {
       console.error(err);
       $alert = { msg: 'Something went wrong', type: 'error' };
+    }
+
+      })
+    } else {
+
+      console.log('updating plan', newPlan);
+      try {
+        busyChangingPlan = true;
+        const res = await fetch('/api/account/plan', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ newPlan, referralCode })
+        });
+        const data = await res.json();
+        setTimeout(() => {
+          invalidateAll();
+          window.location.href = data.url;
+          busyChangingPlan = false;
+        }, 2000);
+
+      } catch (err) {
+        console.error(err);
+        $alert = { msg: 'Something went wrong', type: 'error' };
+      }
     }
 
   };
