@@ -17,5 +17,4 @@
   {@html `<script src="/stats/js/script.js" data-api="/stats/api/event" data-domain="${PUBLIC_PLAUSIBLE_DOMAIN}"></script>`}
 </svelte:head>
 
-
 <slot />

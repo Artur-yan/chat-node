@@ -25,6 +25,7 @@
 	let trainingStatus: string | undefined = undefined;
 
 	// $: if (trainingStatus === 'complete') {
+	// 	console.log('Training complete ----->x');
 	// 	window.location.href = `/account/chatbots/${modelId}/settings`;
 	// }
 </script>
@@ -57,6 +58,7 @@
 						userId={data.user.userId}
 						sessionId={data.session.sessionId}
 						subscription={data.subscription}
+						plan={data.subscription.plan}
 						bind:trainingStatus
 						bind:name
 					/>

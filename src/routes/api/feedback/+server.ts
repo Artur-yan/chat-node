@@ -2,6 +2,7 @@ import { prismaClient } from '$lib/server/prisma';
 import { json } from '@sveltejs/kit';
 
 async function updateVote(id: string, action: string) {
+
 	if (action === 'like' || action === 'undislike') {
 		await prismaClient.chatHistory.update({
 			where: {

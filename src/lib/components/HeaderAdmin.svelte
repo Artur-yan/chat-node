@@ -1,4 +1,5 @@
 <script>
+	import { PUBLIC_LANDING_PAGE_URL } from '$env/static/public';
 	import { redirectToStripeBilling } from '$lib/account';
 	import LoadingProgress from './LoadingProgress.svelte';
 
@@ -20,7 +21,7 @@
 	<nav class="container">
 		<div class="flex flex-wrap justify-between items-center">
 			<div class="flex items-center justify-center gap-10">
-				<a href="/" class="py-2 flex gap-2 items-center">
+				<a href="{PUBLIC_LANDING_PAGE_URL}" class="py-2 flex gap-2 items-center">
 					<div>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"

@@ -68,6 +68,11 @@
 		$currentBot.settings.openChatByDefault = false;
 		$currentBot.settings.popupButtonMessageEnabled = true;
 	}
+
+	// Forcing Feedback by default
+	if ($currentBot.settings.feedbackEnabled === undefined) {
+		$currentBot.settings.feedbackEnabled = true;
+	}
 </script>
 
 <svelte:head>
@@ -330,7 +335,6 @@
 	</div>
 </div>
 
-
 <!-- Send Button Section -->
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
@@ -371,20 +375,33 @@
 	<div class="card-body">
 		<div class="flex gap-2">
 			<h2 class="card-title">Feedback</h2>
+			<div class="form-control inline-flex">
+				<label class="cursor-pointer label justify-start gap-2">
+					<span class="label-text">Enable</span>
+					<input
+						type="checkbox"
+						class="toggle toggle-sm"
+						class:toggle-success={$currentBot.settings.feedbackEnabled}
+						bind:checked={$currentBot.settings.feedbackEnabled}
+					/>
+				</label>
+			</div>
 		</div>
-		<div class="grid grid-cols-4 gap-2 items-end mt-4">
-			<ColorPicker
-			bind:hex={$currentBot.settings.theme.feedbackBGColor}
-			label="Background Color"
-			on:input={checkIfThemeSaved}
-			/>
-
-			<ColorPicker
-				bind:hex={$currentBot.settings.theme.feedbackIconColor}
-				label="Icon Color"
+		{#if $currentBot.settings.feedbackEnabled}
+			<div class="grid grid-cols-4 gap-2 items-end mt-4">
+				<ColorPicker
+				bind:hex={$currentBot.settings.theme.feedbackBGColor}
+				label="Background Color"
 				on:input={checkIfThemeSaved}
-			/>
-		</div>
+				/>
+
+				<ColorPicker
+					bind:hex={$currentBot.settings.theme.feedbackIconColor}
+					label="Icon Color"
+					on:input={checkIfThemeSaved}
+				/>
+			</div>
+		{/if}
 	</div>
 </div>
 
@@ -582,9 +599,12 @@
 				
 			</div>
 		</div>
-		{#if !$currentBot.cloudinary_public_id_popup}
-			<div class="my-2 font-bold">Button Color</div>
-			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
+			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-center">
+				<div style="display: flex; align-items: center; justify-content: center; width: 55px; height: 55px; border-radius: 50%; background-color: {$currentBot?.settings.theme.popupButtonBG}">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="{$currentBot?.settings.theme.popupButtonIcon}" class="w-8 h-8">
+						<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+					</svg>
+				</div>
 				<ColorPicker
 					bind:hex={$currentBot.settings.theme.popupButtonBG}
 					label="Background"
@@ -595,8 +615,7 @@
 					label="Icon"
 					on:input={checkIfThemeSaved}
 				/>
-				</div>
-		{/if}
+			</div>
 	</div>
 </div>
 

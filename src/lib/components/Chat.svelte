@@ -27,9 +27,13 @@
 		}
 	];
 	export let userId: string;
+	export let usedForPreview: boolean = false;
 
 	let context = $page.url.searchParams.get('context');
 
+	let agreedToPolicy = false;
+	let submittedInfo = false;
+  
 	const md = new Remarkable();
 
 
@@ -120,6 +124,19 @@
 				endUserInfo.phone = '';
 			}
 		}
+
+		if(localStorage.getItem('agreed_to_policy_3485')) {
+			agreedToPolicy = true;
+		}
+
+		if(localStorage.getItem('submitted_info_3485')) {
+			submittedInfo = true;
+		}
+
+		if (usedForPreview) {
+			localStorage.setItem('submitted_info_3485', '');
+			localStorage.setItem('agreed_to_policy_3485', '');
+		}
 	});
 
 	const handleUserInfoSubmit = () => {
@@ -131,6 +148,7 @@
 			return;
 		}
 		userInfoReceived = true;
+		localStorage.setItem('submitted_info_3485', 'true');
 		initConversation();
 	};
 
@@ -146,7 +164,7 @@
 	const queryModel = async (chatKey: string, chatSessionId: string, message: string, customMessage: string = '') => {
 		messageId = null;
 		
-		if (customMessage) {
+		if (customMessage && !settings.showSuggestedQuestionsPrompt) {
 			addMessage(customMessage, 'user');
 		} else {
 			addMessage(message, 'user');
@@ -245,9 +263,13 @@
 	};
 
 	const submitQuery = () => {
+		//Initalizations
 		if (messages.length === 1 && !collectUserInfo) {
 			initConversation();
+		} else if(messages.length === 1 && collectUserInfo && localStorage.getItem('enduserInfo')) {
+			initConversation();
 		}
+
 		if (isThinking) {
 			addMessage('Please wait for me to finish thinking...');
 			inputVal = '';
@@ -335,7 +357,7 @@
 		<div class="flex-col-reverse flex flex-1 overflow-y-auto scroll-smooth h-0 basis-auto">
 			<div class="flex-1">
 				<button 
-					class="z-[1] absolute top-2.5 {context === 'popup' ? 'right-[45px]' : 'right-2'} btn btn-circle btn-sm btn-ghost flex items-center justify-center rotatable"
+					class="z-[1] absolute top-2.5 right-2 btn btn-circle btn-sm btn-ghost flex items-center justify-center rotatable"
 					style="color: var(--resetButton); position:absolute right: 8px;"
 					title="Reset Chat"
 					on:click={resetChat}
@@ -373,7 +395,7 @@
 									<div class="message-body break-words">
 										{@html (postProcessMsgHTML(md.render(msg.text)))}
 									</div>
-									{#if msg.sender === 'bot' && msg.status === 'done' && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
+									{#if (settings.feedbackEnabled || settings.feedbackEnabled === undefined) && msg.sender === 'bot' && msg.status === 'done' && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
 										<div class="flex justify-end w-full mt-1.5">
 											<Feedback 
 											message={msg} 
@@ -489,7 +511,7 @@
 					{/if}
 					{#if settings.suggestedQuestions}
 						<div class="relative">
-							<div class="absolute right-0 top-0 bottom-0 w-12 z-1" style="background: linear-gradient(90deg, {settings.theme.bg}00, var(--bg) 96%);" />
+							<div class="absolute right-[-1rem] top-0 bottom-0 w-12 z-1" style="background: linear-gradient(90deg, {settings.theme.bg}00, var(--bg) 96%);" />
 							<div class="flex gap-1 overflow-x-auto mb-2 w-full mx-1.5">
 								{#each settings.suggestedQuestions as question}
 									<!-- <Button
@@ -508,47 +530,110 @@
 							</div>
 						</div>
 					{/if}
-					<textarea
-						placeholder={settings.inputPlaceholder}
-						oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-						rows="1"
-						bind:value={inputVal}
-						on:keydown={(e) => {
-							if (e.key === 'Enter' && !e.shiftKey) {
-								e.preventDefault();
-								submitQuery();
-							}
-						}}
-						class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
-							? 'pr-12'
-							: ''}"
-						style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
-						{disabled}
-					/>
-					{#if settings.sendButtonEnabled}
-						<button
-							class="send-button btn btn-square btn-sm border-none rounded-lg join-item focus-within:outline-none absolute right-2 bottom-[0.4375rem]"
-							type="submit"
-							name="Send"
-							style="background-color: var(--sendButtonBG); color: var(--sendButtonIconColor);"
-						>
-							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M9.912 12H4L2.023 4.135A.662.662 0 0 1 2 3.995c-.022-.721.772-1.221 1.46-.891L22 12L3.46 20.896c-.68.327-1.464-.159-1.46-.867a.66.66 0 0 1 .033-.186L3.5 15"
+					{#if !settings.policyEnabled || (settings.policyEnabled && agreedToPolicy) || (settings.policyEnabled && collectUserInfo && !showUserInfoCollection) || (settings.policyEnabled && !showUserInfoCollection)} 
+						<textarea
+							placeholder={settings.inputPlaceholder}
+							oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+							rows="1"
+							bind:value={inputVal}
+							on:keydown={(e) => {
+								if (e.key === 'Enter' && !e.shiftKey) {
+									e.preventDefault();
+									submitQuery();
+								}
+							}}
+							class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
+								? 'pr-12'
+								: ''}"
+							style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
+							{disabled}
+						/>
+						{#if settings.sendButtonEnabled}
+							<button
+								class="send-button btn btn-square btn-sm border-none rounded-lg join-item focus-within:outline-none absolute right-2 bottom-[0.4375rem]"
+								type="submit"
+								name="Send"
+								style="background-color: var(--sendButtonBG); color: var(--sendButtonIconColor);"
+							>
+								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+									<path
+										fill="none"
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M9.912 12H4L2.023 4.135A.662.662 0 0 1 2 3.995c-.022-.721.772-1.221 1.46-.891L22 12L3.46 20.896c-.68.327-1.464-.159-1.46-.867a.66.66 0 0 1 .033-.186L3.5 15"
+									/>
+								</svg>
+							</button>
+						{/if}
+
+					{:else if settings.policyEnabled && !agreedToPolicy && !collectUserInfo}
+						<div class="relative w-full">
+							<textarea
+								rows="1"
+								class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)]"
+								style="background-color: var(--botBubbleBG); color: var(--inputText); border: 1px solid var(--inputBorder);"								disabled={true}
+							></textarea>
+							<div class="absolute top-0 left-0 right-0 bottom-0 rounded-xl bg-black bg-opacity-0 flex justify-center items-center">
+								<input 
+									type="checkbox" 
+									bind:checked={agreedToPolicy} 
+									on:click={() => localStorage.setItem('agreed_to_policy_3485', 'true')}
+									class="checkbox checkbox-sm mx-2 border-1 border-slate-300" 
 								/>
-							</svg>
-						</button>
+								<a 
+									href="{settings.policyLink && settings.policyLink.startsWith('http') ? settings.policyLink : `https://${settings.policyLink}`}" 
+									on:click={(e) => {
+										if (!settings.policyLink) {
+											e.preventDefault();
+										}
+									}}
+									class="underline" 
+									target="_blank"
+								>
+									<span class="text-[1rem] underline text-white">{settings.policyText || "I agree with the terms and conditions"}</span>
+								</a>
+							</div>
+						</div>					
 					{/if}
 				</div>
 			</div>
 		</form>
-	
-		{#if collectUserInfo && !userInfoReceived && showUserInfoCollection}
+
+		{#if collectUserInfo && !userInfoReceived && showUserInfoCollection && !submittedInfo}
+			{#if settings.policyEnabled && !agreedToPolicy}
+				<div 
+					class="@container absolute bottom-0 left-0 right-0 grid gap-1 p-8"
+					style="background-color: var(--bg); color: var(--inputText)"
+				>
+					<textarea
+						rows="1"
+						class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)]"
+						style="background-color: var(--botBubbleBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
+					></textarea>
+					<div class="absolute top-0 left-0 right-0 bottom-0 bg-black bg-transparent flex justify-center items-center">
+						<input 
+							type="checkbox" 
+							bind:checked={agreedToPolicy} 
+							on:click={() => localStorage.setItem('agreed_to_policy_3485', 'true')}
+							class="checkbox checkbox-sm mx-2 border-1 border-slate-300" 
+						/>
+						<a 
+							href="{settings.policyLink && settings.policyLink.startsWith('http') ? settings.policyLink : `https://${settings.policyLink}`}" 
+							on:click={(e) => {
+								if (!settings.policyLink) {
+									e.preventDefault();
+								}
+							}}
+							class="underline text-white" 
+							target="_blank"
+						>
+							<span class="text-[1rem] underline text-white">{settings.policyText || "I agree with the terms and conditions"}</span>
+						</a>
+					</div>
+				</div>
+			{:else}
 			<form
 				class="@container absolute bottom-0 left-0 right-0 grid gap-1 p-8"
 				style="background-color: var(--bg); color: var(--inputText)"
@@ -596,6 +681,7 @@
 					/>
 				</div>
 			</form>
+			{/if}
 		{/if}
 	
 		<style>

@@ -10,6 +10,7 @@
 
 	export let modelId: string = '';
 	export let userId: string;
+	export let plan: number;
 	export let sessionId: string;
 	export let subscription: string;
 	export let trainingStatus:
@@ -19,8 +20,6 @@
 		| 'not started'
 		| 'cancelled'
 		| undefined;
-
-		$: console.log('trainingStatus', trainingStatus);	
 	export let name = 'Untitled';
 	export let existingTokenCount = 0;
 
@@ -42,6 +41,10 @@
 	let selectAllUrlsCheckbox: HTMLInputElement;
 	let maxFileSizeMB = 150;
 
+	if(plan > 1000) {
+		settings.gptVersion = '3.5-june';
+	}
+	
 	function resetAddDataForm() {
 		activeTab = 0;
 		files = undefined;

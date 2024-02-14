@@ -6,100 +6,19 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
-
 <url>
-  <loc>https://www.chatnode.ai/</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/about</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
+  <loc>https://app.chatnode.ai/login</loc>
+  <lastmod>2024-01-31T08:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.chatnode.ai/blog</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
+  <loc>https://app.chatnode.ai/register</loc>
+  <lastmod>2024-01-31T08:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.chatnode.ai/login</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/register</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/customer-support</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/terms</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/privacy-policy</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/cookie-policy</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/blog/slack-integration</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/blog/your-own-openai-api-key</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/blog/api-access</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/blog/user-prompt</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/blog/branding-logo-colors</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/blog/streaming</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/blog/prompt-tips</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/blog/embed-chatbot</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/blog/tokens-messages-limits</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://www.chatnode.ai/login/forgot-password</loc>
-  <lastmod>2023-12-06T21:29:23+00:00</lastmod>
+  <loc>https://app.chatnode.ai/login/forgot-password</loc>
+  <lastmod>2024-01-31T08:00:00+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 

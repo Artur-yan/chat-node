@@ -131,7 +131,17 @@
 
 	<div class="card bg-neutral card-compact mt-8">
 		<div class="card-body">
-			<h2 class="card-title">Suggested Questions</h2>
+			<div class="flex gap-3">
+				<h2 class="card-title">Suggested Questions</h2>
+				<label class="label cursor-pointer justify-start gap-3">
+					<input
+						type="checkbox"
+						class="toggle toggle-sm bg-white"
+						bind:checked={$currentBot.settings.showSuggestedQuestionsPrompt}
+					/>
+					<span class="label-text">{$currentBot.settings.showSuggestedQuestionsPrompt ? 'Show Prompt' : 'Show  Label'}</span>
+				</label>
+			</div>
 
 			<div class="overflow-x-auto">
 				<table class="table table-sm">

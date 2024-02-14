@@ -147,8 +147,9 @@
 				avatar={$currentBotAvatarImg}
 				userId={data.session.user.userId}
 				{showUserInfoCollection}
+				usedForPreview={true}
 			/>
-			{#if $currentBot.settings.collectUserEmail || $currentBot.settings.collectUserName || $currentBot.settings.collectUserPhone}
+			{#if $currentBot.settings.collectUserEmail || $currentBot.settings.collectUserName || $currentBot.settings.collectUserPhone || $currentBot.settings.policyEnabled}
 				<div class="form-control">
 					<label class="label cursor-pointer justify-start gap-2">
 						<input
@@ -156,7 +157,7 @@
 							class="checkbox checkbox-sm"
 							bind:checked={showUserInfoCollection}
 						/>
-						<span class="label-text">Show User Info Form Preview</span>
+						<span class="label-text">Show User Info / Policy Form Preview</span>
 					</label>
 				</div>
 			{/if}
