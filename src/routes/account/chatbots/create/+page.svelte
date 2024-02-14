@@ -68,6 +68,7 @@
 					bind:trainingStatus
 					{settings}
 					userId={data.user.userId}
+					customDomain={data.subscription?.addons !== null ? data.subscription?.addons['10005'] : false}
 				/>
 			</div>
 		</div>
