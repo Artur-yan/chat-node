@@ -76,7 +76,7 @@
         },
         body: JSON.stringify({ newPlan, referralCode })
       });
-      const data = await res.json();
+      const data = res.json();
       setTimeout(() => {
         invalidateAll();
         window.location.href = data.url;
