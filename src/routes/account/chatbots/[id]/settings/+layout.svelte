@@ -148,6 +148,7 @@
 				userId={data.session.user.userId}
 				{showUserInfoCollection}
 				usedForPreview={true}
+				customDomain={data.subscription?.addons !== null ? data.subscription?.addons['10005'] : false}
 			/>
 			{#if $currentBot.settings.collectUserEmail || $currentBot.settings.collectUserName || $currentBot.settings.collectUserPhone || $currentBot.settings.policyEnabled}
 				<div class="form-control">
