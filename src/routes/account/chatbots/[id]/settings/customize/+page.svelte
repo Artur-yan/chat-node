@@ -414,12 +414,12 @@
 				<h2 class="card-title">Powered by ChatNode</h2>
 				<div class="form-control">
 					<label class="cursor-pointer label gap-2">
-						<span class="label-text">{$currentBot.removeBranding ? 'Hide' : 'Show'}</span>
+						<span class="label-text">{$currentBot.settings.removeBranding ? 'Hide' : 'Show'}</span>
 						<input
 							type="checkbox"
 							class="toggle toggle-sm"
-							class:toggle-success={$currentBot.removeBranding}
-							bind:checked={$currentBot.removeBranding}
+							class:toggle-success={$currentBot.settings.removeBranding}
+							bind:checked={$currentBot.settings.removeBranding}
 						/>
 					</label>
 				</div>
