@@ -72,7 +72,7 @@
     console.log('updating plan', newPlan);
     try {
       busyChangingPlan = true;
-      const res = fetch('/api/account/plan', {
+      const res = await fetch('/api/account/plan', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
