@@ -355,6 +355,9 @@
 				{/if}
 			</header>
 		{/if}
+		{#if !customDomain && !settings.removeBranding &&  settings.removeBranding !== undefined}
+			<PoweredByChatNode textColor={settings.theme.poweredByChatNodeColor} />
+		{/if}
 		<div class="flex-col-reverse flex flex-1 overflow-y-auto scroll-smooth h-0 basis-auto">
 			<div class="flex-1">
 				<button 
@@ -373,9 +376,6 @@
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<div class="p-2">
-					{#if !customDomain && !settings.removeBranding &&  settings.removeBranding !== undefined}
-						<PoweredByChatNode textColor={settings.theme.poweredByChatNodeColor} />
-					{/if}
 					<slot>
 						{#each messages as msg, i}
 							<div
