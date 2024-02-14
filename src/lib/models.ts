@@ -126,7 +126,8 @@ const defaultSettings = {
 		suggestedQuestionsBG: '#898CF8',
 		suggestedQuestionsShadow: '#333333',
 		feedbackBGColor: '#6467B2',
-		feedbackIconColor: '#FFFFFF'
+		feedbackIconColor: '#FFFFFF',
+		poweredByChatNodeColor: '#898CF8'
 	},
 	openChatByDefault: false,
 	suggestedQuestions: []
