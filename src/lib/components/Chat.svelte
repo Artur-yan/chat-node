@@ -750,18 +750,4 @@
 	.rotatable:hover {
 			transform: rotate(360deg);
   }
-
-	.button-shrink {
-		color: #65b5f6;
-		background-color: transparent;
-		border: 1px solid #65b5f6;
-		border-radius: 4px;
-		padding: 0 16px;
-		cursor: pointer;
-		transition: all 0.3s ease-in-out;
-	}
-
-	.button-shrink:hover {
-		transform: scale(0.8);
-	}
 </style>
