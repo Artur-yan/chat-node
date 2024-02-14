@@ -355,7 +355,7 @@
 				{/if}
 			</header>
 		{/if}
-		{#if !customDomain && !settings.removeBranding &&  settings.removeBranding !== undefined}
+		{#if !customDomain && !settings.removeBranding && (settings.removeBranding !== undefined || [5, 105, 6, 106].includes(plan))}
 			<PoweredByChatNode textColor={settings.theme.poweredByChatNodeColor} />
 		{/if}
 		<div class="flex-col-reverse flex flex-1 overflow-y-auto scroll-smooth h-0 basis-auto">
