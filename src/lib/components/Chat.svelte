@@ -13,7 +13,7 @@
 	import Feedback from './Feedback.svelte';
 	import PoweredByChatNode from './PoweredByChatNode.svelte';
 
-	export let removeBranding = true;
+	// export let removeBranding = true;
 	export let modelId: string;
 	export let disabled = false;
 	export let isThinking = false;
@@ -29,6 +29,12 @@
 	];
 	export let userId: string;
 	export let usedForPreview: boolean = false;
+	export let plan: number;
+	export let customDomain: boolean;
+
+	console.log('plan', plan);
+	console.log('customDomain', customDomain);
+	console.log('remove branding --->', settings.removeBranding);	
 
 	let context = $page.url.searchParams.get('context');
 
@@ -36,7 +42,6 @@
 	let submittedInfo = false;
   
 	const md = new Remarkable();
-
 
 	// Merge default settings with user settings
 	// Merge nested object
@@ -368,7 +373,7 @@
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<div class="p-2">
-					{#if !removeBranding}
+					{#if !customDomain && !settings.removeBranding &&  settings.removeBranding !== undefined}
 						<PoweredByChatNode textColor={settings.theme.poweredByChatNodeColor} />
 					{/if}
 					<slot>
@@ -745,18 +750,4 @@
 	.rotatable:hover {
 			transform: rotate(360deg);
   }
-
-	.button-shrink {
-		color: #65b5f6;
-		background-color: transparent;
-		border: 1px solid #65b5f6;
-		border-radius: 4px;
-		padding: 0 16px;
-		cursor: pointer;
-		transition: all 0.3s ease-in-out;
-	}
-
-	.button-shrink:hover {
-		transform: scale(0.8);
-	}
 </style>
