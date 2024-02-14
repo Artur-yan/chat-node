@@ -394,6 +394,7 @@
 		<UpdatedPricing 
 			includeMarketing={false} 
 			userId={data.user.userId}
+			subscriptionId={data.subscription?.stripe_subscription}
 			currentPlan={currentPlan}
 			isCanceled={data.subscription.cancel_at}
 		/>
