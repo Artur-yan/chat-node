@@ -1,4 +1,7 @@
 <script>
+  export let carbonAPIKey;
+  export let accessToken;
+  
 	let isModalOpen = false;
 </script>
 
