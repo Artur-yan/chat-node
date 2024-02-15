@@ -1,5 +1,6 @@
 <script>
 	let isModalOpen = false;
+  let activeTab = 'trained';
 </script>
 
 <label for="my-modal" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
@@ -18,6 +19,36 @@
   <div class="modal-box w-11/12 max-w-7xl h-screen bg-slate-700 shadow-lg shadow-indigo-400 grow-button raise-button">
     <div class="flex items-center justify-between">
       <h3 class="font-bold text-xl">Web Scraping</h3>
+
+      <!-- tabs -->
+      <div class="flex">
+        <div class="tabs tabs-boxed gap-2">
+            <button
+              class="tab"
+              on:click={() => activeTab = 'to-be-trained'}
+              class:tab-active={activeTab === 'to-be-trained'}
+            >
+              To be Trained
+            </button>
+
+            <button
+              class="tab"
+              on:click={() => activeTab = 'training'}
+              class:tab-active={activeTab === 'training'}
+            >
+              Training
+            </button>
+
+            <button
+            class="tab"
+            on:click={() => activeTab = 'trained'}
+            class:tab-active={activeTab === 'trained'}
+          >
+            Trained
+          </button>
+        </div>
+      </div>
+
       <div class="modal-action my-auto">
         <form method="dialog">
           <button class="btn btn-secondary my-auto" on:click|self={()=>isModalOpen = false}>Close</button>
@@ -25,7 +56,23 @@
       </div>
     </div>
     <section class="w-full h-5/6 bg-gray-800 rounded-xl my-4">
-      <!-- Content -->
+      {#if activeTab === 'to-be-trained'}
+        <div class="flex flex-col items-center justify-center h-full">
+          <p class="text-2xl text-gray-300">No data available 1</p>
+        </div>
+      {/if}
+
+      {#if activeTab === 'training'}
+        <div class="flex flex-col items-center justify-center h-full">
+          <p class="text-2xl text-gray-300">No data available 2</p>
+        </div>
+      {/if}
+
+      {#if activeTab === 'trained'}
+        <div class="flex flex-col items-center justify-center h-full">
+          <p class="text-2xl text-gray-300">No data available 3</p>
+        </div>
+      {/if}
     </section>
   </div>
 </div>
