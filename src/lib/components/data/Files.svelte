@@ -1,4 +1,7 @@
 <script>
+  import * as Carbon from 'carbon-connect-js';
+  export let accessToken;
+  
 	let isModalOpen = false;
 </script>
 
