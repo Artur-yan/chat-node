@@ -1,5 +1,5 @@
 <script>
-  export let carbonAPIKey;
+  import * as Carbon from 'carbon-connect-js';
   export let accessToken;
   
 	let isModalOpen = false;

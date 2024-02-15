@@ -1,6 +1,76 @@
-<script>
+<script lang="ts">
+  import * as Carbon from 'carbon-connect-js';
+  export let accessToken: string;
+
 	let isModalOpen = false;
   let activeTab = 'trained';
+
+  let baseUrl = '';
+  let sitemap = '';
+
+
+  async function initiateScraping() {
+    const urlsToScrape = await retrieveUrls() || [];
+
+    console.log('Urls to scrape:', urlsToScrape);
+    console.log('Access token:', accessToken);
+    try {
+      //@ts-ignore
+      const response = await Carbon.submitScrapeRequest({
+        accessToken: accessToken,
+        urls: urlsToScrape,
+        recursionDepth: 1,
+        maxPagesToScrape: 5000,
+      });
+
+      if (response?.status === 200) {
+        console.log('Scraping result:', response.data.files);
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
+    }
+  }
+
+  async function retrieveUrls() {
+    const params = {
+      accessToken: accessToken,
+      url: baseUrl,
+    };
+
+    try {
+      const response = await Carbon.fetchUrls(params);
+
+      if (response.status === 200) {
+        console.log('Fetched URLs successfully:', response.data.urls);
+        return response.data.urls;
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching URLs:', err.message);
+    }
+  }
+
+  async function fetchSitemapUrls() {
+    try {
+      const response = await Carbon.handleFetchSitemapUrls({
+        accessToken: accessToken,
+        sitemapUrl: sitemap,
+      });
+
+      if (response.status === 200) {
+        console.log('Retrieved URLs:', response.data.urls);
+        console.log('Total URLs:', response.data.count);
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
+    }
+  }
+  fetchSitemapUrls();
 </script>
 
 <label for="my-modal" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
