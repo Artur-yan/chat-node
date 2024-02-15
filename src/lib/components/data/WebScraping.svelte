@@ -4,16 +4,16 @@
 
   // state
 	let isModalOpen = false;
-  let activeTab = 'trained';
+  let activeTab: 'to-be-trained' | 'training' | 'trained' = 'trained';
   let isFetching = false;
 
   let baseUrl = '';
   let sitemap = '';
 
-  let urlsToBeTrained: string[] | [] = [];
-  let urlsInTraining = [];
-  let urlsTrained = [];
-  
+  let urlsToBeTrained: string[] | [] = [];  
+  let urlsApproved: string[] | [] = [];
+  let urlsInTraining: string[] | [] = [];
+  let urlsTrained: string[] | [] = [];
 
 
   if(isModalOpen) {
@@ -31,13 +31,13 @@
 
 
   async function initiateScraping() {
-    console.log('Urls to scrape:', urlsToScrape);
+    console.log('Urls to scrape:', urlsInTraining);
     console.log('Access token:', accessToken);
     try {
       //@ts-ignore
       const response = await Carbon.submitScrapeRequest({
         accessToken: accessToken,
-        urls: urlsToScrape,
+        urls: urlsInTraining,
         recursionDepth: 1,
         maxPagesToScrape: 5000,
       });
@@ -53,11 +53,14 @@
   }
 
   async function fetchUrls() {
+    urlsToBeTrained = [];
+    urlsApproved = [];
+
     isFetching = true;
-    console.log('fetching');
     console.log(baseUrl);
-    console.log(baseUrl.includes('sitemap.xml'));
     activeTab = 'to-be-trained';
+
+
     const params = {
       accessToken: accessToken,
       url: baseUrl,
@@ -69,6 +72,7 @@
       if (response.status === 200) {
         console.log('Fetched URLs successfully:', response.data.urls);
         urlsToBeTrained = response.data.urls;
+        urlsApproved = response.data.urls;
         return response.data.urls;
       } else {
         console.error('Error:', response.error);
@@ -176,31 +180,36 @@
         </div>
       </form>
     </div>
-    <section class="w-full h-5/6 bg-gray-800 rounded-xl my-4">
+    <section class="w-full h-5/6rounded-xl my-4 overflow-auto">
       {#if activeTab === 'to-be-trained'}
         {#if isFetching}
         <div class="flex flex-col items-center justify-center h-full">
-          <p class="text-2xl text-gray-300">No data available 1</p>
+          <p class="text-2xl text-gray-300">Enter a URL or Sitemap to fetch trainable urls.</p>
         </div>
         {:else}
           <div class="overflow-x-auto">
-            <table class="table">
+            <table class="table table-xs">
               <!-- head -->
               <thead>
                 <tr>
                   <th></th>
                   <th>url</th>
-                  <th>Job</th>
-                  <th>Favorite Color</th>
+                  <th>Scrape</th>
                 </tr>
               </thead>
               <tbody>
                 {#each urlsToBeTrained as url, i}
-                  <tr>
+                  <tr class="p-.05">
                     <th>{i}</th>
                     <td>{url}</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>
+                      <input 
+                        type="checkbox" 
+                        class="toggle toggle-sm" 
+                        on:click={(el) => urlsApproved = urlsApproved.filter((u) => u !== url)}
+                        checked 
+                      />
+                    </td>
                   </tr>
                 {/each}
               </tbody>
@@ -210,14 +219,49 @@
       {/if}
 
       {#if activeTab === 'training'}
-        <div class="flex flex-col items-center justify-center h-full">
-          <p class="text-2xl text-gray-300">No data available 2</p>
-        </div>
+        {#if urlsInTraining.length === 0}
+          <div class="flex flex-col items-center justify-center h-full">
+            <p class="text-2xl text-gray-300">No URLs in training</p>
+          </div>
+        {:else}
+        <table class="table table-xs">
+          <thead>
+            <tr>
+              <th></th>
+              <th>url</th>
+              <th>status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each urlsInTraining as url, i}
+              <tr class="p-.05">
+                <th>{i}</th>
+                <td>{url}</td>
+                <td>training</td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+        {/if}
       {/if}
 
       {#if activeTab === 'trained'}
         <div class="flex flex-col items-center justify-center h-full">
           <p class="text-2xl text-gray-300">No data available 3</p>
+        </div>
+      {/if}
+
+      {#if activeTab === 'to-be-trained' && !isFetching && urlsToBeTrained.length > 0}
+        <div class="flex">
+          <button class="btn btn-primary" on:click={() => {
+              activeTab = 'training';
+              urlsInTraining = urlsApproved;
+              urlsToBeTrained = [];
+              initiateScraping();
+            }}
+            >
+            Train Bot
+          </button>
         </div>
       {/if}
     </section>
