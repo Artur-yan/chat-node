@@ -20,7 +20,6 @@
 	}
 </script>
 
-<br><br><br><br><br>
 <svelte:head>
 	<title>Sign up for Free | ChatNode</title>
 	<meta
@@ -29,7 +28,7 @@
 	/>
 </svelte:head>
 
-<section>
+<section class="flex items-center justify-center">
 	<div class="card w-96 bg-neutral text-neutral-content mx-auto my-20 shadow-lg shadow-indigo-900">
 		<a class="flex gap-2 mx-auto p-6 mt-4 -mb-6 items-end" href="https://chatnode.ai">
 			<div>
