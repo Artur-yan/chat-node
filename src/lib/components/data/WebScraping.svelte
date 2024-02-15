@@ -2,20 +2,22 @@
   import * as Carbon from 'carbon-connect-js';
   export let accessToken: string;
 
+  // state
 	let isModalOpen = false;
   let activeTab = 'trained';
+  let isFetching = false;
 
   let baseUrl = '';
   let sitemap = '';
 
-  let urlsToBeTrained = [];
+  let urlsToBeTrained: string[] | [] = [];
   let urlsInTraining = [];
   let urlsTrained = [];
+  
 
 
   if(isModalOpen) {
     fetchTrainedData();
-
   }
 
   async function fetchTrainedData() {
@@ -51,6 +53,10 @@
   }
 
   async function fetchUrls() {
+    isFetching = true;
+    console.log('fetching');
+    console.log(baseUrl);
+    console.log(baseUrl.includes('sitemap.xml'));
     activeTab = 'to-be-trained';
     const params = {
       accessToken: accessToken,
@@ -62,12 +68,15 @@
 
       if (response.status === 200) {
         console.log('Fetched URLs successfully:', response.data.urls);
+        urlsToBeTrained = response.data.urls;
         return response.data.urls;
       } else {
         console.error('Error:', response.error);
       }
     } catch (err) {
       console.error('Unexpected error fetching URLs:', err.message);
+    } finally {
+      isFetching = false;
     }
   }
 
@@ -157,7 +166,11 @@
               autofocus
             />
             <button class="btn btn-primary join-item w-40" type="submit">
-              Fetch URLs
+              {#if isFetching}
+                <span class="loading loading-spinner loading-sm"></span>
+              {:else}
+                Fetch URLs
+              {/if}
             </button>
           </div>
         </div>
@@ -165,9 +178,35 @@
     </div>
     <section class="w-full h-5/6 bg-gray-800 rounded-xl my-4">
       {#if activeTab === 'to-be-trained'}
+        {#if isFetching}
         <div class="flex flex-col items-center justify-center h-full">
           <p class="text-2xl text-gray-300">No data available 1</p>
         </div>
+        {:else}
+          <div class="overflow-x-auto">
+            <table class="table">
+              <!-- head -->
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>url</th>
+                  <th>Job</th>
+                  <th>Favorite Color</th>
+                </tr>
+              </thead>
+              <tbody>
+                {#each urlsToBeTrained as url, i}
+                  <tr>
+                    <th>{i}</th>
+                    <td>{url}</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                {/each}
+              </tbody>
+            </table>
+          </div>
+        {/if}
       {/if}
 
       {#if activeTab === 'training'}

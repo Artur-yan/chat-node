@@ -12,6 +12,7 @@
 
   const carbonAPIKey = 'dc14fce440672b41417705d036cf5181d8df1b849c58c6e2c56e3dac1df66366';
 	let accessToken: string;
+	let userDataSource: any
 	let status = '';
 
 	async function fetchAccessToken() {
@@ -32,8 +33,35 @@
     }
   }
 
+	async function fetchUserDataSources() {
+  const params = {
+    accessToken: accessToken,
+    limit: 10
+  };
+
+  try {
+    const response = await Carbon.getUserDataSources(params);
+		console.log('response ---->', response);
+		userDataSource = response.data;
+		console.log('User data sources data:', response.data);
+
+    if (response.status === 200) {
+      console.log('User data sources data:', response.data);
+    } else {
+      console.error('Error:', response.error);
+    }
+  } catch (err) {
+    console.error(
+      'Unexpected error during user data sources fetch:',
+      err.message
+    );
+  }
+}
+	
+
   onMount(async () => {
-  	fetchAccessToken();
+  	await fetchAccessToken();
+		await fetchUserDataSources();
   });
 </script>
 
