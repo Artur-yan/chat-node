@@ -8,10 +8,27 @@
   let baseUrl = '';
   let sitemap = '';
 
+  let urlsToBeTrained = [];
+  let urlsInTraining = [];
+  let urlsTrained = [];
+
+
+  if(isModalOpen) {
+    fetchTrainedData();
+
+  }
+
+  async function fetchTrainedData() {
+    try {
+      //Sort urls by status
+      // Reassign variables
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
+    }
+  }
+
 
   async function initiateScraping() {
-    const urlsToScrape = await retrieveUrls() || [];
-
     console.log('Urls to scrape:', urlsToScrape);
     console.log('Access token:', accessToken);
     try {
@@ -33,7 +50,7 @@
     }
   }
 
-  async function retrieveUrls() {
+  async function fetchUrls() {
     const params = {
       accessToken: accessToken,
       url: baseUrl,
@@ -70,7 +87,6 @@
       console.error('Unexpected error:', err.message);
     }
   }
-  fetchSitemapUrls();
 </script>
 
 <label for="my-modal" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
@@ -125,6 +141,46 @@
         </form>
       </div>
     </div>
+
+    <div class="flex flex-col justify-start m-6 gap-4">
+      <!-- URL -->
+      <form on:submit|preventDefault={() => initiateScraping()}>
+        <div class="form-control">
+          <div class="join">
+            <input
+              type="text"
+              class="input input-bordered w-full join-item placeholder:text-sm"
+              bind:value={baseUrl}
+              placeholder="e.g. https://chatnode.ai https://chatnode.ai/sitemap.xml"
+              required
+              autofocus
+            />
+            <button class="btn btn-primary join-item w-40" type="submit">
+              Fetch URLs
+            </button>
+          </div>
+        </div>
+      </form>
+  
+      <!-- Sitemap -->
+      <form on:submit|preventDefault={() => fetchSitemapUrls()}>
+        <div class="form-control">
+          <div class="join">
+            <input
+              type="text"
+              class="input input-bordered w-full join-item placeholder:text-sm"
+              bind:value={sitemap}
+              placeholder="e.g. https://chatnode.ai https://chatnode.ai/sitemap.xml"
+              required
+              autofocus
+            />
+            <button class="btn btn-primary join-item w-40" type="submit">
+              Scrape Sitemap
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
     <section class="w-full h-5/6 bg-gray-800 rounded-xl my-4">
       {#if activeTab === 'to-be-trained'}
         <div class="flex flex-col items-center justify-center h-full">
@@ -146,13 +202,3 @@
     </section>
   </div>
 </div>
-
-<style>
-  .grow-button { 
-      transition: all .2s ease-in-out; 
-    }
-
-  .grow-button:hover { 
-    transform: scale(1.1); 
-  }
-</style>

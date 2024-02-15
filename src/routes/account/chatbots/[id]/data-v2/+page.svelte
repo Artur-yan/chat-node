@@ -33,8 +33,7 @@
   }
 
   onMount(async () => {
-
-  fetchAccessToken();
+  	fetchAccessToken();
   });
 </script>
 
