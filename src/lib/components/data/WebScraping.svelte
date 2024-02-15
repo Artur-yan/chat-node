@@ -51,6 +51,7 @@
   }
 
   async function fetchUrls() {
+    activeTab = 'to-be-trained';
     const params = {
       accessToken: accessToken,
       url: baseUrl,
@@ -103,7 +104,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="modal" on:click|self={()=>isModalOpen = false}>
   <div class="modal-box w-11/12 max-w-7xl h-screen bg-slate-700 shadow-lg shadow-indigo-400 grow-button raise-button">
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between mx-8">
       <h3 class="font-bold text-xl">Web Scraping</h3>
 
       <!-- tabs -->
@@ -144,7 +145,7 @@
 
     <div class="flex flex-col justify-start m-6 gap-4">
       <!-- URL -->
-      <form on:submit|preventDefault={() => initiateScraping()}>
+      <form on:submit|preventDefault={() => fetchUrls()}>
         <div class="form-control">
           <div class="join">
             <input
@@ -157,25 +158,6 @@
             />
             <button class="btn btn-primary join-item w-40" type="submit">
               Fetch URLs
-            </button>
-          </div>
-        </div>
-      </form>
-  
-      <!-- Sitemap -->
-      <form on:submit|preventDefault={() => fetchSitemapUrls()}>
-        <div class="form-control">
-          <div class="join">
-            <input
-              type="text"
-              class="input input-bordered w-full join-item placeholder:text-sm"
-              bind:value={sitemap}
-              placeholder="e.g. https://chatnode.ai https://chatnode.ai/sitemap.xml"
-              required
-              autofocus
-            />
-            <button class="btn btn-primary join-item w-40" type="submit">
-              Scrape Sitemap
             </button>
           </div>
         </div>
