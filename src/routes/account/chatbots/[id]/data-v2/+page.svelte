@@ -3,169 +3,105 @@
 	import AddModelDataV2 from '$lib/components/AddModelDataV2.svelte';
 	import { alert, currentBot } from '$lib/stores.js';
 	import Accordian from '$lib/components/Accordian.svelte';
-	import { getText, updateText } from '$lib/textSource';
 	import { onMount } from 'svelte';
 	import { PUBLIC_EMBED_URL } from '$env/static/public';
-	import BotStatus from '$lib/components/BotStatus.svelte';
 	import WebScraping from '$lib/components/data/WebScraping.svelte';
 	import Files from '$lib/components/data/Files.svelte';
 	import Text from '$lib/components/data/Text.svelte';
 
 	export let data;
 
-	let { urls } = data.modelData;
-	let trainingStatus: any = undefined;
-	let modelId = data.model.id;
-	let sourceToDelete: Object;
-	let activeDataTab: string;
-	let textSourceToEdit: Object;
-	let textSourceValue: string;
-	let selectedUrls: Array<string> = [];
-	let trainingOnLoad = data.modelData.areTraining.length > 0;
+  const carbonAPIKey = 'dc14fce440672b41417705d036cf5181d8df1b849c58c6e2c56e3dac1df66366';
+	let accessToken: string | undefined;
+	let status = '';
 
-	if (Object.keys(urls).length) {
-		activeDataTab = 'urls';
-	} else if (data.modelData?.files.length) {
-		activeDataTab = 'files';
-	} else if (data.modelData?.texts.length) {
-		activeDataTab = 'text';
-	} else if (data.modelData?.legacyUrls.length) {
-		activeDataTab = 'legacy-urls';
-	}
+	let url: string | undefined;
+  let sitemap: string | undefined;
 
-	function gatherSubUrlsS3Keys(base_url: string) {
-		let s3Keys = [];
-		data.modelData?.urls[base_url].forEach((urlObj) => {
-			s3Keys.push(urlObj.s3_key);
-		});
+  async function initiateScraping() {
+    const urlsToScrape = await retrieveUrls() || [];
 
-		return s3Keys;
-	}
+    console.log('Urls to scrape:', urlsToScrape);
+    console.log('Access token:', accessToken);
+    try {
+      //@ts-ignore
+      const response = await Carbon.submitScrapeRequest({
+        accessToken: accessToken,
+        urls: urlsToScrape,
+        recursionDepth: 1,
+        maxPagesToScrape: 5000,
+      });
 
-	function sanitizeS3KeyAsId(s3_key: string) {
-		return 'id-' + s3_key.replace(/\//g, '--');
-	};
+      if (response.status === 200) {
+        console.log('Scraping result:', response.data.files);
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
+    }
+  }
 
-	async function deleteBotSource(s3_keys: Array<string>, base_url: string | undefined) {
-		let body = new FormData();
-		body.append('user_id', data.model.user_id);
-		body.append('session_id', data.session.sessionId);
-		body.append('bot_id', data.model.id);
-		body.append('s3_keys', s3_keys);
+  async function retrieveUrls() {
+    const params = {
+      accessToken: accessToken,
+      url: url,
+    };
 
-		const res = await fetch(PUBLIC_CHAT_API_URL + '/api/delete-data', {
-			method: 'POST',
-			body
-		});
+    try {
+      const response = await Carbon.fetchUrls(params);
 
-		if (res.ok) {
-			$alert = { msg: 'Data deleted', type: 'success' };
+      if (response.status === 200) {
+        console.log('Fetched URLs successfully:', response.data.urls);
+        return response.data.urls;
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching URLs:', err.message);
+    }
+  }
 
-			if (base_url) {
-				const elem = document.getElementById(base_url);
-				elem.remove();
-			} else {
-				const elem = document.getElementById(sanitizeS3KeyAsId(sourceToDelete.s3_key));
-				elem.remove();
-			}
-		}
-	}
+  async function fetchSitemapUrls() {
+    try {
+      const response = await Carbon.handleFetchSitemapUrls({
+        accessToken: accessToken,
+        sitemapUrl: sitemap,
+      });
 
-	async function updateBotSources(s3_keys: Array<string>) {
-		console.log('updating sources', s3_keys);
-		if (s3_keys.length === 0) {
-			trainingStatus = 'ready';
-			console.log('no sources to update');
-			return;
-		}
-		trainingStatus = 'training';
+      if (response.status === 200) {
+        console.log('Retrieved URLs:', response.data.urls);
+        console.log('Total URLs:', response.data.count);
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
+    }
+  }
+  fetchSitemapUrls();
 
-		let incompleteSourcesS3Keys: Array<string> = [];
+  onMount(async () => {
+    async function fetchAccessToken() {
+    try {
+      const response = await Carbon.generateAccessToken({
+        apiKey: carbonAPIKey,
+        customerId: userId,
+      });
 
-		let res = await fetch('/api/data-sources/update', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				s3_keys
-			})
-		});
+      if (response.status === 200) {
+        console.log('Access token:', response.data);
+        accessToken = response.data.access_token; 
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err);
+    }
+  }
 
-		let updatedDataSources = await res.json();
-
-		updatedDataSources.forEach((source) => {
-			const row = document.getElementById(sanitizeS3KeyAsId(source.s3_key));
-			row.setAttribute('data-training-status', source.status);
-			row.querySelector('.training-status').innerHTML = source.status || 'error';
-			row.querySelector('.token-count').innerHTML = source.token_count || '-';
-			if (source.status !== 'trained') {
-				incompleteSourcesS3Keys.push(source.s3_key);
-			}
-		});
-
-		await new Promise((r) => setTimeout(r, 3000));
-
-		updateBotSources(incompleteSourcesS3Keys);
-	}
-
-	async function editTextSource(textObj) {
-		textSourceToEdit = null;
-		textSourceValue = null;
-		editTextSourceModal.showModal();
-
-		const res = await getText(
-			textObj.id,
-			new Array(textObj.s3_key),
-			data.model.user_id,
-			data.session.sessionId
-		);
-		textSourceToEdit = res;
-		textSourceValue = Object.values(res)[0];
-	}
-
-	async function handleTextUpdate(source_key: string, text: string) {
-		await updateText(source_key, data.model.id, text, data.model.user_id, data.session.sessionId);
-		updateBotSources([source_key])
-	}
-
-	async function retrainUrls(s3_keys: Array<string>) {
-		s3_keys.forEach((s3_key) => {
-			const row = document.getElementById(sanitizeS3KeyAsId(s3_key));
-			row?.setAttribute('data-training-status', 'starting');
-			row.querySelector('.training-status').innerHTML = 'starting';
-		});
-
-		let body = new FormData();
-		body.append('user_id', data.model.user_id);
-		body.append('session_id', data.session.sessionId);
-		body.append('chat_key', data.model.id);
-		body.append('source_keys', s3_keys);
-
-		const res = await fetch(PUBLIC_CHAT_API_URL + '/api/retrain-urls', {
-			method: 'POST',
-			body
-		});
-
-		if (res.ok) {
-			updateBotSources(s3_keys);
-		}
-	}
-
-	onMount(() => {
-		const objsToCheck = Object.values(data.modelData?.urls)
-		const urlsToCheck = objsToCheck.map((obj) => {
-			return obj.map((urlObj) => {
-				return urlObj.s3_key;
-			});
-		}).flat();
-
-		if(data.modelData?.areTraining.length > 0) {
-			updateBotSources(urlsToCheck);
-		} else {
-			trainingStatus = 'ready';
-		}
-	});
+  fetchAccessToken();
+  });
 </script>
 
 <svelte:head>
@@ -174,9 +110,9 @@
 
 <div class="container grid md:grid-cols-3 lg:grid-cols-[auto_32rem] gap-4 my-4">
 	<div class="grid grid-cols-3 gap-8 my-4">
-		<WebScraping />
-		<Files />
-		<Text />
+		<WebScraping {carbonAPIKey} {accessToken}/>
+		<Files {carbonAPIKey} {accessToken}/>
+		<Text {carbonAPIKey} {accessToken}/>
 	</div>
 	<div>
 		<div
