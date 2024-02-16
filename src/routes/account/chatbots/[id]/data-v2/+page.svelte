@@ -90,7 +90,7 @@ async function fetchUserData() {
 
 <div class="container grid md:grid-cols-3 lg:grid-cols-[auto_32rem] gap-4 my-4">
 	<div class="grid grid-cols-3 gap-8 my-4">
-		<WebScraping {accessToken} urlsTrained={webScrapingData}/>
+		<WebScraping {carbonAPIKey} {accessToken} urlsTrained={webScrapingData}/>
 		<Files {accessToken}/>
 		<Text {accessToken}/>
 	</div>
