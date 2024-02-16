@@ -77,7 +77,10 @@
       urlsGroupedByParent = parentUrls.map((parent: any) => {
         return {
           parent: parent.external_url,
-          children: data.results.filter((item: any) => item.parent_id === parent.id)
+          children: data.results.filter((item: any) => item.parent_id === parent.id),
+          readyCount: data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'READY').length,
+          pendingCount: data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'QUEUED_FOR_SYNC').length,
+          errorCount: data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'SYNC_ERROR').length
         }
       });
       console.log('Grouped URLs:', urlsGroupedByParent);
@@ -258,53 +261,64 @@
 
       {#if activeTab === 'trained'}
       <div class="overflow-x-auto">
-        <table class="table table-xs">
-          <!-- head -->
-          <thead>
-            <tr>
-              <th></th>
-              <th>URL</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {#each urlsGroupedByParent as parentUrl}
-            <div class="my-4">
-              <Accordian> 
-                <div slot="title" class="flex justify-between items-center">
-                  <td class="text-primary"> {parentUrl.parent} </td>
-                </div>
-                <div>
-
-                  <table class="table table-xs">
-                    <thead>
-                      <tr>
-                        <th>Url</th>
-                        <th>Status</th>
-                        <th>Id</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {#each parentUrl.children as childUrl}
-                      <tr class="p-.05">
-                        <td class="text-primary"> {childUrl.external_url} </td>
-                        <td class="text-primary"> {childUrl.sync_status} </td>
-                        <td class="text-primary"> {childUrl.id} </td>
-                        <td>
-                          <button class="btn btn-secondary btn-sm" on:click={() => submitWebScraping([childUrl.external_url])}>
-                            Remove
-                          </button>
-                        </td>
-                      </tr>
-                    {/each}
-                    </tbody>
-                  </table>
-                </div>
-              </Accordian>
+        {#each urlsGroupedByParent as parentUrl}
+        <div class="my-4">
+          <Accordian> 
+            <div slot="title" class="grid grid-cols-5 gap-2 items-center w-full">
+              <td class="text-primary">{parentUrl.parent} </td>
+              <div class="mx-8 flex gap-2">
+                {#if parentUrl.readyCount > 0}
+                <td class="text-primary">
+                  <div class="badge badge-success badge-outline">
+                    ready: {parentUrl.readyCount}
+                  </div>
+                </td>
+                {/if}
+                {#if parentUrl.pendingCount > 0}
+                <td class="text-primary">
+                  <div class="badge badge-warning badge-outline">
+                    pending: {parentUrl.readyCount}
+                  </div>
+                </td>
+                {/if}
+                {#if parentUrl.errorCount > 0}
+                <td class="text-primary">
+                  <div class="badge badge-error badge-outline">
+                    Error: {parentUrl.errorCount}
+                  </div>
+                </td>
+                {/if}
+              </div>
             </div>
-            {/each}
-          </tbody>
-        </table>
+            <div>
+
+              <table class="table table-xs">
+                <thead>
+                  <tr>
+                    <th>Url</th>
+                    <th>Status</th>
+                    <th>Id</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {#each parentUrl.children as childUrl}
+                  <tr class="p-.05">
+                    <td class="text-primary"> {childUrl.external_url} </td>
+                    <td class="text-primary"> {childUrl.sync_status} </td>
+                    <td class="text-primary"> {childUrl.id} </td>
+                    <td>
+                      <button class="btn btn-secondary btn-sm" on:click={() => submitWebScraping([childUrl.external_url])}>
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                {/each}
+                </tbody>
+              </table>
+            </div>
+          </Accordian>
+        </div>
+        {/each}
       </div>
       {/if}
 
