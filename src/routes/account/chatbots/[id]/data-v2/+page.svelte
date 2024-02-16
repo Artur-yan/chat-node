@@ -72,6 +72,8 @@ async function fetchUserData() {
     return data;
   } catch (error) {
     console.error('Error:', error);
+  } finally {
+    // HERE
   }
 }
 

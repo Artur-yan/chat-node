@@ -73,7 +73,6 @@
       }
       const data = await response.json();
       const parentUrls = data.results.filter((item: any) => item.parent_id === null);
-      console.log('Parent URLs:', parentUrls);
       urlsGroupedByParent = parentUrls.map((parent: any) => {
         return {
           parent: parent.external_url,
@@ -83,9 +82,25 @@
           errorCount: data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'SYNC_ERROR').length
         }
       });
+
       console.log('Grouped URLs:', urlsGroupedByParent);
       urlsTrained = urlsGroupedByParent;
-      console.log(data);
+
+      //Retry
+      const isPendingUrl = data.results.some((item: any) => {
+        console.log('Sync status:', item.sync_status, 'URL:', item.external_url);
+        item.sync_status === 'QUEUED_FOR_SYNC'
+      });
+
+      if (isPendingUrl) {
+        console.log('Pending URL found, fetching again in 45 seconds');
+        setTimeout(() => {
+          fetchUserData();
+        }, 45000);
+      } else {
+        console.log('No pending URL found');
+      }
+
       return data;
     } catch (error) {
       console.error('Error:', error);
@@ -146,6 +161,24 @@
       }
     } catch (err) {
       console.error('Unexpected error:', err.message);
+    }
+  }
+
+  async function removeFile(fileId: string) {
+    console.log('Removing file:', fileId);
+    try {
+      const response = await Carbon.deleteFile({
+        accessToken: accessToken,
+        fileId: fileId
+      });
+
+      if (response.status === 200) {
+        console.log('File successfully deleted:', response.data);
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error during file deletion:', err.message);
     }
   }
 </script>
@@ -302,12 +335,38 @@
                 </thead>
                 <tbody>
                   {#each parentUrl.children as childUrl}
-                  <tr class="p-.05">
+                  <tr id={childUrl.id} class="p-.05">
                     <td class="text-primary"> {childUrl.external_url} </td>
-                    <td class="text-primary"> {childUrl.sync_status} </td>
+                    {#if childUrl.sync_status === 'READY'}
+                    <td class="text-primary">
+                      <div class="badge badge-success badge-outline">
+                        ready
+                      </div>
+                    </td>
+                    {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC'}
+                    <td class="text-primary">
+                      <div class="badge badge-warning badge-outline">
+                        pending
+                      </div>
+                    </td>
+                    {:else if childUrl.sync_status === 'SYNC_ERROR'}
+                    <td class="text-primary">
+                      <div class="badge badge-error badge-outline">
+                        Error
+                      </div>
+                    </td>
+                    {/if}
                     <td class="text-primary"> {childUrl.id} </td>
                     <td>
-                      <button class="btn btn-secondary btn-sm" on:click={() => submitWebScraping([childUrl.external_url])}>
+                      <button class="btn btn-secondary btn-sm" on:click={() => {
+                        removeFile(childUrl.id);
+                        const elForDeletion = document.getElementById(childUrl.id);
+                        if (elForDeletion) {
+                          elForDeletion.remove();
+                        }
+                      }
+                        }
+                      >
                         Remove
                       </button>
                     </td>
