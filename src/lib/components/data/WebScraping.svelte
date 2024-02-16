@@ -17,33 +17,6 @@
   let urlsGroupedByParent: any[] = [];
   $: if (isModalOpen === true) {fetchUserData()}
 
-
-  // async function fetchUserData() {
-
-  //   try {
-  //     const response = await Carbon.getUserDataSources({
-  //       accessToken: accessToken,
-  //       sourceType: 'WEB_SCRAPE',
-  //       orderBy: "created_at",
-  //       orderDir: "desc",
-  //       limit: 250,
-  //       offset: 0
-  //     });
-
-  //     if (response?.status === 200) {
-  //       console.log('Scraping result:', response.data.results);
-  //       urlsTrained = response.data.results
-
-  //     } else {
-  //       console.error('Error:', response.error);
-  //     }
-  //   } catch (err) {
-  //     console.error('Unexpected error:', err.message);
-  //   } finally {
-  //     console.log('Scraping completed');
-  //   }
-  //   }
-
   async function fetchUserData() {
     const url = "https://api.carbon.ai/user_files_v2";
     const payload = {
@@ -107,15 +80,6 @@
     }
   }
 
-
-  // async function watchForStatuses() {
-  //   if(urlsInTraining.length > 0) {
-  //
-  //   } else {
-  //     watchForStatuses
-  //   }
-  // }
-
   async function submitWebScraping(urls: string[], recursionDepth: number = 10) {
     console.log('baseUrl to scrape:', baseUrl);
     try {
@@ -128,7 +92,10 @@
         chunkSize: 400,
         chunkOverlap: 20,
         skipEmbeddingGeneration: false,
-        enableAutoSync: false
+        enableAutoSync: false,
+        //Confirm with Sacha
+        //@ts-ignore
+        embedding_model: 'OPENAI_ADA_LARGE_3072'
       });
 
       if (response?.status === 200) {
@@ -205,10 +172,10 @@
         <div class="tabs tabs-boxed gap-2">
             <button
               class="tab"
-              on:click={() => activeTab = 'upload'}
-              class:tab-active={activeTab === 'upload'}
+              on:click={() => activeTab = 'submit'}
+              class:tab-active={activeTab === 'submit'}
             >
-              Upload
+              Submit
             </button>
 
             <button
