@@ -79,7 +79,7 @@ async function fetchUserData() {
   onMount(async () => {
   	await fetchAccessToken();
     const carbonUserData: {count: number, results: [], length: number} = await fetchUserData();
-    webScrapingData = carbonUserData.results.filter((item: any) => item.source === 'WEB_SCRAPE');
+    webScrapingData = carbonUserData.results.filter((item: any) => item.source === 'WEB_SCRAPE' && item.sync_status === 'READY');
     console.log('Web scraping data:', webScrapingData);
   });
 </script>

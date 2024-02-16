@@ -219,9 +219,9 @@
       </form>
     </div>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT --> 
     <section class="w-full h-5/6rounded-xl my-4 overflow-auto">
-      {#if activeTab === 'select'}
+      {#if activeTab === 'select' && urlsToBeTrained.length === 0}
         {#if isFetching}
           <div class="flex flex-col items-center justify-center h-full">
             <p class="text-2xl text-primary">Fetching urls</p>
@@ -252,7 +252,13 @@
                       <input 
                         type="checkbox" 
                         class="toggle toggle-sm" 
-                        on:click={(el) => urlsApproved = urlsApproved.filter((u) => u !== url)}
+                        on:change={(el) => {
+                          if (el.target.checked) {
+                            urlsApproved = [...urlsApproved, url];
+                          } else {
+                            urlsApproved = urlsApproved.filter((item) => item !== url);
+                          }
+                        }}
                         checked 
                       />
                     </td>
