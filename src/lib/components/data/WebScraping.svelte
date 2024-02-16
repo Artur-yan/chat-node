@@ -1,46 +1,93 @@
 <script lang="ts">
   import * as Carbon from 'carbon-connect-js';
   import { currentBot } from '$lib/stores.js';
+  import Accordian from '../Accordian.svelte';
+  export let carbonAPIKey: string;
   export let accessToken: string;
 
   // state
 	let isModalOpen = false;
-  let activeTab: 'submit' | 'trained' = 'trained';
+  let activeTab: 'submit' | 'trained' = 'submit';
   let isFetching = false;
 
   let baseUrl = '';
   let sitemap = '';
   let urlsTrained: string[] | [] = [];
+  let parentUrls: string[] | [] = [];
+  let urlsGroupedByParent: any[] = [];
   $: if (isModalOpen === true) {fetchUserData()}
 
 
+  // async function fetchUserData() {
+
+  //   try {
+  //     const response = await Carbon.getUserDataSources({
+  //       accessToken: accessToken,
+  //       sourceType: 'WEB_SCRAPE',
+  //       orderBy: "created_at",
+  //       orderDir: "desc",
+  //       limit: 250,
+  //       offset: 0
+  //     });
+
+  //     if (response?.status === 200) {
+  //       console.log('Scraping result:', response.data.results);
+  //       urlsTrained = response.data.results
+
+  //     } else {
+  //       console.error('Error:', response.error);
+  //     }
+  //   } catch (err) {
+  //     console.error('Unexpected error:', err.message);
+  //   } finally {
+  //     console.log('Scraping completed');
+  //   }
+  //   }
+
   async function fetchUserData() {
-
-    try {
-      //@ts-ignore
-      const response = await Carbon.getUserDataSources({
-        accessToken: accessToken,
-        sourceType: 'WEB_SCRAPE',
-        orderBy: "created_at",
-        orderDir: "desc",
+    const url = "https://api.carbon.ai/user_files_v2";
+    const payload = {
+      pagination: {
         limit: 250,
-        offset:0
+        offset: 0
+      },
+      order_by: "created_at",
+      order_dir: "desc",
+      include_raw_file: true,
+      include_parsed_text_file: true,
+      include_additional_files: true
+    };
+    const headers = {
+      Authorization: `Bearer ${carbonAPIKey}`,
+      "Content-Type": "application/json",
+      "customer-id": $currentBot.id
+    };
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(payload)
       });
-
-      if (response?.status === 200) {
-        console.log('Scraping result:', response.data.results);
-        urlsTrained = response.data.results
-
-      } else {
-        console.error('Error:', response.error);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    } catch (err) {
-      console.error('Unexpected error:', err.message);
-    } finally {
-      console.log('Scraping completed');
+      const data = await response.json();
+      const parentUrls = data.results.filter((item: any) => item.parent_id === null);
+      console.log('Parent URLs:', parentUrls);
+      urlsGroupedByParent = parentUrls.map((parent: any) => {
+        return {
+          parent: parent.external_url,
+          children: data.results.filter((item: any) => item.parent_id === parent.id)
+        }
+      });
+      console.log('Grouped URLs:', urlsGroupedByParent);
+      urlsTrained = urlsGroupedByParent;
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error('Error:', error);
     }
-    }
-
+  }
 
 
   // async function watchForStatuses() {
@@ -51,7 +98,7 @@
   //   }
   // }
 
-  async function submitWebScraping(urls: string[], recursionDepth: number = 100) {
+  async function submitWebScraping(urls: string[], recursionDepth: number = 10) {
     console.log('baseUrl to scrape:', baseUrl);
     try {
       //@ts-ignore
@@ -221,19 +268,40 @@
             </tr>
           </thead>
           <tbody>
-            {#each urlsTrained as url, i}
-              <tr class="p-.05">
-                <th>{i}</th>
-                <td>{url.external_url}</td>
-                <td>
-                  <div class="badge badge-primary badge-outline">{url.sync_status === 'READY' ? 'TRAINED' : 'TRAINING'}</div>
-                </td>
-                <td>
-                  <button class="btn btn-sm">
-                    Remove
-                  </button>
-                </td>
-              </tr>
+            {#each urlsGroupedByParent as parentUrl}
+            <div class="my-4">
+              <Accordian> 
+                <div slot="title" class="flex justify-between items-center">
+                  <td class="text-primary"> {parentUrl.parent} </td>
+                </div>
+                <div>
+
+                  <table class="table table-xs">
+                    <thead>
+                      <tr>
+                        <th>Url</th>
+                        <th>Status</th>
+                        <th>Id</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {#each parentUrl.children as childUrl}
+                      <tr class="p-.05">
+                        <td class="text-primary"> {childUrl.external_url} </td>
+                        <td class="text-primary"> {childUrl.sync_status} </td>
+                        <td class="text-primary"> {childUrl.id} </td>
+                        <td>
+                          <button class="btn btn-secondary btn-sm" on:click={() => submitWebScraping([childUrl.external_url])}>
+                            Remove
+                          </button>
+                        </td>
+                      </tr>
+                    {/each}
+                    </tbody>
+                  </table>
+                </div>
+              </Accordian>
+            </div>
             {/each}
           </tbody>
         </table>

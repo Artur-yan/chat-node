@@ -24,7 +24,6 @@
       });
 
       if (response.status === 200) {
-        console.log('Access token:', response.data);
         accessToken = response.data.access_token; 
       } else {
         console.error('Error:', response.error);
