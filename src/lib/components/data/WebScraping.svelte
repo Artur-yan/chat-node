@@ -1,41 +1,79 @@
 <script lang="ts">
   import * as Carbon from 'carbon-connect-js';
+  import { currentBot } from '$lib/stores.js';
+  export let carbonAPIKey: string;
   export let accessToken: string;
+  export let urlsTrained: string[] | [] = [];
 
+  // state
 	let isModalOpen = false;
-  let activeTab = 'trained';
+  let activeTab: 'select' | 'training' | 'trained' = 'trained';
+  let isFetching = false;
 
   let baseUrl = '';
   let sitemap = '';
 
-  let urlsToBeTrained = [];
-  let urlsInTraining = [];
-  let urlsTrained = [];
+  let urlsToBeTrained: string[] | [] = [];  
+  let urlsApproved: string[] | [] = [];
+  let urlsInTraining: string[] | [] = [];
 
 
-  if(isModalOpen) {
-    fetchTrainedData();
+  async function fetchUserData() {
 
-  }
+    const url = "https://api.carbon.ai/user_files_v2";
 
-  async function fetchTrainedData() {
+    const payload = {
+      pagination: {
+        limit: 250,
+        offset: 0
+      },
+      order_by: "created_at",
+      order_dir: "desc",
+      include_raw_file: true,
+      include_parsed_text_file: true,
+      include_additional_files: true
+    };
+
+    const headers = {
+      Authorization: `Bearer ${carbonAPIKey}`,
+      "Content-Type": "application/json",
+      "customer-id": $currentBot.id
+    };
+
     try {
-      //Sort urls by status
-      // Reassign variables
-    } catch (err) {
-      console.error('Unexpected error:', err.message);
+      const response = await fetch(url, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error('Error:', error);
     }
   }
 
+  async function watchForStatuses() {
+    if(urlsInTraining.length > 0) {
+      
+    } else {
+      watchForStatuses
+    }
+  }
 
   async function initiateScraping() {
-    console.log('Urls to scrape:', urlsToScrape);
-    console.log('Access token:', accessToken);
+    console.log('Urls to scrape:', urlsInTraining);
     try {
       //@ts-ignore
       const response = await Carbon.submitScrapeRequest({
         accessToken: accessToken,
-        urls: urlsToScrape,
+        urls: urlsInTraining,
         recursionDepth: 1,
         maxPagesToScrape: 5000,
       });
@@ -47,11 +85,20 @@
       }
     } catch (err) {
       console.error('Unexpected error:', err.message);
+    } finally {
+      console.log('Scraping completed');
     }
   }
 
   async function fetchUrls() {
-    activeTab = 'to-be-trained';
+    urlsToBeTrained = [];
+    urlsApproved = [];
+
+    isFetching = true;
+    console.log(baseUrl);
+    activeTab = 'select';
+
+
     const params = {
       accessToken: accessToken,
       url: baseUrl,
@@ -62,12 +109,16 @@
 
       if (response.status === 200) {
         console.log('Fetched URLs successfully:', response.data.urls);
+        urlsToBeTrained = response.data.urls;
+        urlsApproved = response.data.urls;
         return response.data.urls;
       } else {
         console.error('Error:', response.error);
       }
     } catch (err) {
       console.error('Unexpected error fetching URLs:', err.message);
+    } finally {
+      isFetching = false;
     }
   }
 
@@ -105,17 +156,17 @@
 <div class="modal" on:click|self={()=>isModalOpen = false}>
   <div class="modal-box w-11/12 max-w-7xl h-screen bg-slate-700 shadow-lg shadow-indigo-400 grow-button raise-button">
     <div class="flex items-center justify-between mx-8">
-      <h3 class="font-bold text-xl">Web Scraping</h3>
+      <h3 class="font-bold text-2xl bg-gradient-to-tr from-slate-300 to-slate-500 text-transparent bg-clip-text">Web Scraping</h3>
 
       <!-- tabs -->
       <div class="flex">
         <div class="tabs tabs-boxed gap-2">
             <button
               class="tab"
-              on:click={() => activeTab = 'to-be-trained'}
-              class:tab-active={activeTab === 'to-be-trained'}
+              on:click={() => activeTab = 'select'}
+              class:tab-active={activeTab === 'select'}
             >
-              To be Trained
+              Select
             </button>
 
             <button
@@ -143,7 +194,7 @@
       </div>
     </div>
 
-    <div class="flex flex-col justify-start m-6 gap-4">
+    <div class="flex flex-col justify-start m-6 gap-4 p-4 bg-slate-800 rounded-lg">
       <!-- URL -->
       <form on:submit|preventDefault={() => fetchUrls()}>
         <div class="form-control">
@@ -157,28 +208,130 @@
               autofocus
             />
             <button class="btn btn-primary join-item w-40" type="submit">
-              Fetch URLs
+              {#if isFetching}
+                <span class="loading loading-spinner loading-sm"></span>
+              {:else}
+                Fetch URLs
+              {/if}
             </button>
           </div>
         </div>
       </form>
     </div>
-    <section class="w-full h-5/6 bg-gray-800 rounded-xl my-4">
-      {#if activeTab === 'to-be-trained'}
-        <div class="flex flex-col items-center justify-center h-full">
-          <p class="text-2xl text-gray-300">No data available 1</p>
-        </div>
+
+    <!-- MAIN CONTENT -->
+    <section class="w-full h-5/6rounded-xl my-4 overflow-auto">
+      {#if activeTab === 'select'}
+        {#if isFetching}
+          <div class="flex flex-col items-center justify-center h-full">
+            <p class="text-2xl text-primary">Fetching urls</p>
+            <span class="loading loading-bars loading-lg text-secondary"></span>
+          </div>
+        {:else}
+          <div class="flex flex-col items-center justify-center h-full">
+            <p class="text-2xl text-gray-300">No URLs to be trained</p>
+          </div>
+        {/if}
+      {:else if activeTab === 'select' && urlsToBeTrained.length > 0}
+          <div class="overflow-x-auto">
+            <table class="table table-xs">
+              <!-- head -->
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>url</th>
+                  <th>Scrape</th>
+                </tr>
+              </thead>
+              <tbody>
+                {#each urlsToBeTrained as url, i}
+                  <tr class="p-.05">
+                    <th>{i}</th>
+                    <td>{url}</td>
+                    <td>
+                      <input 
+                        type="checkbox" 
+                        class="toggle toggle-sm" 
+                        on:click={(el) => urlsApproved = urlsApproved.filter((u) => u !== url)}
+                        checked 
+                      />
+                    </td>
+                  </tr>
+                {/each}
+              </tbody>
+            </table>
+          </div>
       {/if}
 
       {#if activeTab === 'training'}
-        <div class="flex flex-col items-center justify-center h-full">
-          <p class="text-2xl text-gray-300">No data available 2</p>
-        </div>
+        {#if urlsInTraining.length === 0}
+          <div class="flex flex-col items-center justify-center h-full">
+            <p class="text-2xl text-gray-300">No URLs in training</p>
+          </div>
+        {:else}
+          <table class="table table-xs">
+            <thead>
+              <tr>
+                <th></th>
+                <th>url</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {#each urlsInTraining as url, i}
+                <tr class="p-.05">
+                  <th>{i}</th>
+                  <td>{url}</td>
+                  <td><div class="badge badge-warning badge-outline">Pending</div></td>
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        {/if}
       {/if}
 
       {#if activeTab === 'trained'}
-        <div class="flex flex-col items-center justify-center h-full">
-          <p class="text-2xl text-gray-300">No data available 3</p>
+      <div class="overflow-x-auto">
+        <table class="table table-xs">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th></th>
+              <th>URL</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each urlsTrained as url, i}
+              <tr class="p-.05">
+                <th>{i}</th>
+                <td>{url.external_url}</td>
+                <td>
+                  <div class="badge badge-primary badge-outline">Trained</div>
+                </td>
+                <td>
+                  <button class="btn btn-sm">
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+      </div>
+      {/if}
+
+      {#if activeTab === 'select' && !isFetching && urlsToBeTrained.length > 0}
+        <div class="flex">
+          <button class="btn btn-primary" on:click={() => {
+              activeTab = 'training';
+              urlsInTraining = urlsApproved;
+              urlsToBeTrained = [];
+              initiateScraping();
+            }}
+            >
+            Train Bot
+          </button>
         </div>
       {/if}
     </section>

@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
-	import { alert, currentBot } from '$lib/stores.js';
+	import { currentBot } from '$lib/stores.js';
 	import { onMount } from 'svelte';
 	import { PUBLIC_EMBED_URL } from '$env/static/public';
 	import WebScraping from '$lib/components/data/WebScraping.svelte';
@@ -12,7 +11,10 @@
 
   const carbonAPIKey = 'dc14fce440672b41417705d036cf5181d8df1b849c58c6e2c56e3dac1df66366';
 	let accessToken: string;
+	let userDataSource: any
 	let status = '';
+
+  let webScrapingData: any = [];
 
 	async function fetchAccessToken() {
     try {
@@ -32,8 +34,53 @@
     }
   }
 
+
+async function fetchUserData() {
+
+  const url = "https://api.carbon.ai/user_files_v2";
+
+  const payload = {
+    pagination: {
+      limit: 250,
+      offset: 0
+    },
+    order_by: "created_at",
+    order_dir: "desc",
+    include_raw_file: true,
+    include_parsed_text_file: true,
+    include_additional_files: true
+  };
+
+  const headers = {
+    Authorization: `Bearer ${carbonAPIKey}`,
+    "Content-Type": "application/json",
+    "customer-id": $currentBot.id
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
   onMount(async () => {
-  	fetchAccessToken();
+  	await fetchAccessToken();
+    const carbonUserData: {count: number, results: [], length: number} = await fetchUserData();
+    webScrapingData = carbonUserData.results.filter((item: any) => item.source === 'WEB_SCRAPE');
+    console.log('Web scraping data:', webScrapingData);
   });
 </script>
 
@@ -43,7 +90,7 @@
 
 <div class="container grid md:grid-cols-3 lg:grid-cols-[auto_32rem] gap-4 my-4">
 	<div class="grid grid-cols-3 gap-8 my-4">
-		<WebScraping {accessToken}/>
+		<WebScraping {carbonAPIKey} {accessToken} urlsTrained={webScrapingData}/>
 		<Files {accessToken}/>
 		<Text {accessToken}/>
 	</div>
