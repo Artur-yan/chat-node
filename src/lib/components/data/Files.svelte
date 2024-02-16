@@ -18,10 +18,14 @@
   
   async function uploadFiles() {
   try {
-    const response = await Carbon.uploadFilesToCarbon({
+    const response = await Carbon.uploadFiles({
       accessToken: accessToken,
-      customerId: $currentBot.id,
       files: filesToUpload,
+      chunkSize: 400,
+      chunkOverlap: 20,
+      skipEmbeddingGeneration: false,
+      useOCR: true,
+      embeddingModel: 'OPENAI_ADA_LARGE_3072'
     });
 
     if (response.status === 200) {

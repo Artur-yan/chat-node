@@ -93,9 +93,7 @@
         chunkOverlap: 20,
         skipEmbeddingGeneration: false,
         enableAutoSync: false,
-        //Confirm with Sacha
-        //@ts-ignore
-        embedding_model: 'OPENAI_ADA_LARGE_3072'
+        embeddingModel: 'OPENAI_ADA_LARGE_3072'
       });
 
       if (response?.status === 200) {
