@@ -9,7 +9,7 @@
 
 	export let data;
 
-  const carbonAPIKey = 'dc14fce440672b41417705d036cf5181d8df1b849c58c6e2c56e3dac1df66366';
+  const carbonAPIKey = '752f7de712916611f49e01b4b34ac82727f112f17448a4f7e816595ccb47579c';
 	let accessToken: string;
 	let userDataSource: any
 	let status = '';
@@ -24,7 +24,6 @@
       });
 
       if (response.status === 200) {
-        console.log('Access token:', response.data);
         accessToken = response.data.access_token; 
       } else {
         console.error('Error:', response.error);
@@ -73,14 +72,13 @@ async function fetchUserData() {
     return data;
   } catch (error) {
     console.error('Error:', error);
+  } finally {
+    // HERE
   }
 }
 
   onMount(async () => {
   	await fetchAccessToken();
-    const carbonUserData: {count: number, results: [], length: number} = await fetchUserData();
-    webScrapingData = carbonUserData.results.filter((item: any) => item.source === 'WEB_SCRAPE' && item.sync_status === 'READY');
-    console.log('Web scraping data:', webScrapingData);
   });
 </script>
 
@@ -90,7 +88,7 @@ async function fetchUserData() {
 
 <div class="container grid md:grid-cols-3 lg:grid-cols-[auto_32rem] gap-4 my-4">
 	<div class="grid grid-cols-3 gap-8 my-4">
-		<WebScraping {carbonAPIKey} {accessToken} urlsTrained={webScrapingData}/>
+		<WebScraping {carbonAPIKey} {accessToken}/>
 		<Files {accessToken}/>
 		<Text {accessToken}/>
 	</div>
