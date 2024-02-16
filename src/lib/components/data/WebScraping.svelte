@@ -13,7 +13,9 @@
   let urlsToBeTrained: string[] | [] = [];  
   let urlsApproved: string[] | [] = [];
   let urlsInTraining: string[] | [] = [];
-  let urlsTrained: string[] | [] = [];
+  export let urlsTrained: string[] | [] = [];
+
+  $: console.log(urlsTrained, 'xxxx')
 
 
   if(isModalOpen) {
@@ -21,18 +23,40 @@
   }
 
   async function fetchTrainedData() {
-    try {
-      //Sort urls by status
-      // Reassign variables
-    } catch (err) {
-      console.error('Unexpected error:', err.message);
+    const params = {
+    accessToken: accessToken,
+    limit: 5, 
+    sourceType: 'web'
+  };
+
+  async function watchForStatuses() {
+    if(urlsInTraining.length > 0) {
+      
+    } else {
+      watchForStatuses
     }
   }
+
+  try {
+    const response = await Carbon.getUserDataSources(params);
+
+    if (response.status === 200) {
+      console.log('User data sources data:', response.data);
+    } else {
+      console.error('Error:', response.error);
+    }
+  } catch (err) {
+    console.error(
+      'Unexpected error during user data sources fetch:',
+      err.message
+    );
+  }
+  }
+
 
 
   async function initiateScraping() {
     console.log('Urls to scrape:', urlsInTraining);
-    console.log('Access token:', accessToken);
     try {
       //@ts-ignore
       const response = await Carbon.submitScrapeRequest({
@@ -49,6 +73,8 @@
       }
     } catch (err) {
       console.error('Unexpected error:', err.message);
+    } finally {
+      console.log('Scraping completed');
     }
   }
 
@@ -246,9 +272,34 @@
       {/if}
 
       {#if activeTab === 'trained'}
-        <div class="flex flex-col items-center justify-center h-full">
-          <p class="text-2xl text-gray-300">No data available 3</p>
-        </div>
+      <div class="overflow-x-auto">
+        <table class="table table-xs">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th></th>
+              <th>URL</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each urlsTrained as url, i}
+              <tr class="p-.05">
+                <th>{i}</th>
+                <td>{url.external_url}</td>
+                <td>
+                  <div class="badge badge-primary badge-outline">Trained</div>
+                </td>
+                <td>
+                  <button class="btn btn-sm">
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+      </div>
       {/if}
 
       {#if activeTab === 'to-be-trained' && !isFetching && urlsToBeTrained.length > 0}
