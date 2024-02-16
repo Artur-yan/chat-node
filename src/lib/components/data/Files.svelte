@@ -1,10 +1,41 @@
 <script lang="ts">
   import * as Carbon from 'carbon-connect-js';
-  export let accessToken;
+  import { currentBot } from '$lib/stores.js';
+  export let accessToken: string;
   
   // state
 	let isModalOpen = false;
   let activeTab: 'upload' | 'trained' = 'upload';
+
+  // files
+  let fileInput: any;
+  let filesToUpload: any = [];
+
+  function handleFilesChange(event: any) {
+    filesToUpload = Array.from(event.target.files);
+    console.log(filesToUpload);
+  }
+  
+  async function uploadFiles() {
+  try {
+    const response = await Carbon.uploadFilesToCarbon({
+      accessToken: accessToken,
+      customerId: $currentBot.id,
+      files: filesToUpload,
+    });
+
+    if (response.status === 200) {
+      console.log('Uploaded Files:', response.data.successfulUploads);
+      if (response.error) {
+        console.warn('Failed Uploads:', response.error.failedUploads);
+      }
+    } else {
+      console.error('Error:', response.error.message);
+    }
+  } catch (err) {
+    console.error('Unexpected error:', err.message);
+  }
+}
 </script>
 
 <label for="files" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
@@ -59,9 +90,9 @@
 					<input
 						name="chat-button-img"
 						type="file"
-						accept=".jpg, .png, .svg, .jpeg, .gif"
+						accept=".txt, .pdf, .doc, .docx"
 						class="join-item file-input file-input-bordered w-full"
-						on:change={() => console.log(true)}
+						on:change={() => handleFilesChange(event)}
 					/>
 					<input
 						name="existing-cloudinary-public-id-popup"
@@ -69,11 +100,14 @@
 						value={'hello'}
 					/>
 					<input
-						on:click={() => console.log(true)}
 						type="submit"
 						class="btn join-item border-primary"
 						value="Upload"
-						formaction="?/updatePopupImg"
+            on:click={(e) => {
+              e.preventDefault();
+              uploadFiles();
+            }
+          }
 					/>
 				</form>
     </section>
