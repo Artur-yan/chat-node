@@ -17,42 +17,29 @@
   let urlsGroupedByParent: any[] = [];
   $: if (isModalOpen === true) {fetchUserData()}
 
+
   async function fetchUserData() {
-    const url = "https://api.carbon.ai/user_files_v2";
-    const payload = {
-      pagination: {
+
+    try {
+      const response = await Carbon.getUserFiles({
+        accessToken: accessToken,
+        filters: {"source": "WEB_SCRAPE"} ,
+        orderBy: "created_at",
+        orderDir: "desc",
         limit: 250,
         offset: 0
-      },
-      order_by: "created_at",
-      order_dir: "desc",
-      include_raw_file: true,
-      include_parsed_text_file: true,
-      include_additional_files: true
-    };
-    const headers = {
-      Authorization: `Bearer ${carbonAPIKey}`,
-      "Content-Type": "application/json",
-      "customer-id": $currentBot.id
-    };
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(payload)
       });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      const parentUrls = data.results.filter((item: any) => item.parent_id === null);
+
+      if (response?.status === 200) {
+        console.log('Scraping result:', response);
+        const parentUrls = response.data.results.filter((item: any) => item.parent_id === null);
       urlsGroupedByParent = parentUrls.map((parent: any) => {
         return {
           parent: parent.external_url,
-          children: data.results.filter((item: any) => item.parent_id === parent.id),
-          readyCount: data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'READY').length,
-          pendingCount: data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'QUEUED_FOR_SYNC').length,
-          errorCount: data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'SYNC_ERROR').length
+          children: response.data.results.filter((item: any) => item.parent_id === parent.id),
+          readyCount: response.data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'READY').length,
+          pendingCount: response.data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'QUEUED_FOR_SYNC').length,
+          errorCount: response.data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'SYNC_ERROR').length
         }
       });
 
@@ -60,7 +47,7 @@
       urlsTrained = urlsGroupedByParent;
 
       //Retry
-      const isPendingUrl = data.results.some((item: any) => {
+      const isPendingUrl = response.data.results.some((item: any) => {
         console.log('Sync status:', item.sync_status, 'URL:', item.external_url);
         item.sync_status === 'QUEUED_FOR_SYNC'
       });
@@ -74,11 +61,78 @@
         console.log('No pending URL found');
       }
 
-      return data;
-    } catch (error) {
-      console.error('Error:', error);
+      return response.data;
+
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
+    } finally {
+      console.log('Scraping completed');
     }
-  }
+    }
+
+  // async function fetchUserData() {
+  //   const url = "https://api.carbon.ai/user_files_v2";
+  //   const payload = {
+  //     pagination: {
+  //       limit: 250,
+  //       offset: 0
+  //     },
+  //     order_by: "created_at",
+  //     order_dir: "desc",
+  //     sourceType: 'WEB_SCRAPE',
+  //   };
+  //   const headers = {
+  //     Authorization: `Bearer ${carbonAPIKey}`,
+  //     "Content-Type": "application/json",
+  //     "customer-id": $currentBot.id
+  //   };
+  //   try {
+  //     const response = await fetch(url, {
+  //       method: "POST",
+  //       headers: headers,
+  //       body: JSON.stringify(payload)
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+  //     const data = await response.json();
+  //     const parentUrls = data.results.filter((item: any) => item.parent_id === null);
+  //     urlsGroupedByParent = parentUrls.map((parent: any) => {
+  //       return {
+  //         parent: parent.external_url,
+  //         children: data.results.filter((item: any) => item.parent_id === parent.id),
+  //         readyCount: data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'READY').length,
+  //         pendingCount: data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'QUEUED_FOR_SYNC').length,
+  //         errorCount: data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'SYNC_ERROR').length
+  //       }
+  //     });
+  //
+  //     console.log('Grouped URLs:', urlsGroupedByParent);
+  //     urlsTrained = urlsGroupedByParent;
+  //
+  //     //Retry
+  //     const isPendingUrl = data.results.some((item: any) => {
+  //       console.log('Sync status:', item.sync_status, 'URL:', item.external_url);
+  //       item.sync_status === 'QUEUED_FOR_SYNC'
+  //     });
+  //
+  //     if (isPendingUrl) {
+  //       console.log('Pending URL found, fetching again in 45 seconds');
+  //       setTimeout(() => {
+  //         fetchUserData();
+  //       }, 45000);
+  //     } else {
+  //       console.log('No pending URL found');
+  //     }
+  //
+  //     return data;
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // }
 
   async function submitWebScraping(urls: string[], recursionDepth: number = 10) {
     console.log('baseUrl to scrape:', baseUrl);
