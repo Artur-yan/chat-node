@@ -14,6 +14,7 @@
   let filesTrained: any = [];
 
   $: if(isModalOpen) {
+    activeTab = 'upload';
     fetchUserData();
   }
 
