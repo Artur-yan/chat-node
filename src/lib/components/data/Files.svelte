@@ -6,10 +6,60 @@
   // state
 	let isModalOpen = false;
   let activeTab: 'upload' | 'trained' = 'upload';
+  let isUploading = false;
 
   // files
   let fileInput: any;
   let filesToUpload: any = [];
+  let filesTrained: any = [];
+
+  $: if(isModalOpen) {
+    fetchUserData();
+  }
+
+  async function fetchUserData() {
+  try {
+    const response = await Carbon.getUserFiles({
+      accessToken: accessToken,
+      filters: {"source": "PDF"} ,
+      orderBy: "created_at",
+      orderDir: "desc",
+      limit: 250,
+      offset: 0
+    });
+
+    if (response?.status === 200) {
+      filesTrained = response.data.results
+      console.log('Files:', filesTrained);
+
+      
+
+    //Retry
+    // const isPendingUrl = response.data.results.some((item: any) => {
+    //   console.log('Sync status:', item.sync_status, 'URL:', item.external_url);
+    //   item.sync_status === 'QUEUED_FOR_SYNC'
+    // });
+
+    // if (isPendingUrl) {
+    //   console.log('Pending URL found, fetching again in 45 seconds');
+    //   setTimeout(() => {
+    //     fetchUserData();
+    //   }, 45000);
+    // } else {
+    //   console.log('No pending URL found');
+    // }
+
+    return response.data;
+
+    } else {
+      console.error('Error:', response.error);
+    }
+  } catch (err) {
+    console.error('Unexpected error:', err.message);
+  } finally {
+    console.log('Files completed');
+  }
+}
 
   function handleFilesChange(event: any) {
     filesToUpload = Array.from(event.target.files);
@@ -30,6 +80,7 @@
 
     if (response.status === 200) {
       console.log('Uploaded Files:', response.data.successfulUploads);
+      return response.data.successfulUploads;
       if (response.error) {
         console.warn('Failed Uploads:', response.error.failedUploads);
       }
@@ -40,6 +91,24 @@
     console.error('Unexpected error:', err.message);
   }
 }
+
+async function removeFile(fileId: string) {
+    console.log('Removing file:', fileId);
+    try {
+      const response = await Carbon.deleteFile({
+        accessToken: accessToken,
+        fileId: fileId
+      });
+
+      if (response.status === 200) {
+        console.log('File successfully deleted:', response.data);
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error during file deletion:', err.message);
+    }
+  }
 </script>
 
 <label for="files" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
@@ -88,7 +157,8 @@
     <section class="w-full h-5/6 rounded-xl my-4">
       <!-- Content -->
 
-       <!-- Upload -->
+      <!-- Upload -->
+      {#if activeTab === 'upload'}
        <div class="flex-1 m-16">
 				<form method="post" enctype="multipart/form-data" class="join w-full">
 					<input
@@ -103,17 +173,71 @@
 						type="hidden"
 						value={'hello'}
 					/>
-					<input
-						type="submit"
-						class="btn join-item border-primary"
-						value="Upload"
-            on:click={(e) => {
-              e.preventDefault();
-              uploadFiles();
+          {#if isUploading}
+          <button class="btn join-item border-primary">
+            <span class="loading loading-spinner loading-md"></span>
+          </button>
+          {:else}
+            <input
+              type="submit"
+              class="btn join-item border-primary"
+              value="Upload"
+              on:click={async (e) => {
+                e.preventDefault();
+                isUploading = true;
+                const files = await uploadFiles();
+                filesTrained = [... filesTrained, files]
+                filesTrained = filesTrained.flat();
+                console.log('Files trained ---->:', files);
+
+                setTimeout(() => {
+                  isUploading = false;
+                  activeTab = 'trained';
+                }, 1000);
+              }
             }
-          }
-					/>
+            />
+          {/if}
 				</form>
+        </div>
+      {/if}
+
+      <!-- Trained -->
+      {#if activeTab === 'trained'}
+      <table class="table table-xs">
+        <thead>
+          <tr>
+            <th>Url</th>
+            <th>Status</th>
+            <th>Id</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each filesTrained as file}
+          <tr id={file.id} class="p-.05">
+            <td class="text-primary"> {file.name} </td>
+            <td class="text-primary">{file.sync_status}</td>
+            <td class="text-primary"> {file.id} </td>
+            <td>
+              <button 
+                class="btn btn-secondary btn-sm" 
+                on:click={() => {
+                  removeFile(file.id);
+                  const elForDeletion = document.getElementById(file.id);
+                  if (elForDeletion) { elForDeletion.remove() }
+                  //@ts-ignore
+                  filesTrained = filesTrained.filter((item) => item.id !== file.id);
+                }
+              }
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        {/each}
+        </tbody>
+      </table>
+      {/if}
     </section>
   </div>
 </div>
