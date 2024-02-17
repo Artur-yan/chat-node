@@ -3,6 +3,7 @@
   import { currentBot } from '$lib/stores.js';
   import Accordian from '../Accordian.svelte';
 	import { children } from 'svelte/internal';
+	import { base } from '$app/paths';
   export let carbonAPIKey: string;
   export let accessToken: string;
 
@@ -20,6 +21,11 @@
   $: if (isModalOpen === true) {
     activeTab = 'submit';
     fetchUserData()
+  }
+
+  $: if(activeTab === 'submit') {
+    baseUrl = '';
+    sitemap = '';
   }
 
   async function fetchUserData() {
@@ -272,8 +278,10 @@
     <div class="flex flex-col justify-start m-6 gap-4 p-4 bg-slate-800 rounded-lg">
       <!-- URL -->
       <form on:submit|preventDefault={async () => {
+          isFetching
           const response = await submitWebScraping([baseUrl])
           setTimeout(() => {
+            isFetching = false;
             activeTab = 'trained';
           }, 1000);
         }
@@ -284,7 +292,7 @@
               type="text"
               class="input input-bordered w-full join-item placeholder:text-sm"
               bind:value={baseUrl}
-              placeholder="e.g. https://chatnode.ai"
+              placeholder="e.g. chatnode.ai"
               required
               autofocus
             />
@@ -310,9 +318,8 @@
               type="text"
               class="input input-bordered w-full join-item placeholder:text-sm"
               bind:value={sitemap}
-              placeholder="e.g. https://chatnode.ai/sitemap.xml"
+              placeholder="e.g. chatnode.ai/sitemap.xml"
               required
-              autofocus
             />
             <button class="btn btn-primary join-item w-40" type="submit">
               {#if isFetching}
