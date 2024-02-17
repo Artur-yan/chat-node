@@ -13,16 +13,30 @@
   let filesToUpload: any = [];
   let filesTrained: any = [];
 
-  $: if(isModalOpen) {
+  $: if(isModalOpen === true) {
     activeTab = 'upload';
-    fetchUserData();
+    fetchAllFiles();
   }
 
-  async function fetchUserData() {
+  async function fetchAllFiles() {
+    const pdfResponse = await fetchUserData('PDF');
+    const txtResponse = await fetchUserData('TEXT');
+    const docResponse = await fetchUserData('DOC');
+    const docxResponse = await fetchUserData('DOCX');
+
+    const pdfFiles = pdfResponse?.results || [];
+    const txtFiles = txtResponse?.results || [];
+    const docFiles = docResponse?.results || [];
+    const docxFiles = docxResponse?.results || [];
+
+    filesTrained = [...pdfFiles, ...txtFiles, ...docFiles, ...docxFiles];
+  }
+
+  async function fetchUserData(type: string) {
   try {
     const response = await Carbon.getUserFiles({
       accessToken: accessToken,
-      filters: {"source": "PDF"} ,
+      filters: {"source": type} ,
       orderBy: "created_at",
       orderDir: "desc",
       limit: 250,
@@ -75,7 +89,7 @@
       chunkSize: 400,
       chunkOverlap: 20,
       skipEmbeddingGeneration: false,
-      useOCR: true,
+      // useOCR: true,
       embeddingModel: 'OPENAI_ADA_LARGE_3072'
     });
 
