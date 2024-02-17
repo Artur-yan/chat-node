@@ -2,6 +2,7 @@
   import * as Carbon from 'carbon-connect-js';
   import { currentBot } from '$lib/stores.js';
   import Accordian from '../Accordian.svelte';
+	import { children } from 'svelte/internal';
   export let carbonAPIKey: string;
   export let accessToken: string;
 
@@ -15,15 +16,19 @@
   let urlsTrained: string[] | [] = [];
   let parentUrls: string[] | [] = [];
   let urlsGroupedByParent: any[] = [];
-  $: if (isModalOpen === true) {fetchUserData()}
 
+  $: if (isModalOpen === true) {
+    activeTab = 'submit';
+    fetchUserData()
+  }
 
   async function fetchUserData() {
 
     try {
       const response = await Carbon.getUserFiles({
         accessToken: accessToken,
-        filters: {"source": "WEB_SCRAPE"} ,
+        filters: {"source": "WEB_SCRAPE"},
+        // @ts-ignore
         orderBy: "created_at",
         orderDir: "desc",
         limit: 250,
@@ -33,14 +38,15 @@
       if (response?.status === 200) {
         console.log('Scraping result:', response);
         const parentUrls = response.data.results.filter((item: any) => item.parent_id === null);
-      urlsGroupedByParent = parentUrls.map((parent: any) => {
-        return {
-          parent: parent.external_url,
-          children: response.data.results.filter((item: any) => item.parent_id === parent.id),
-          readyCount: response.data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'READY').length,
-          pendingCount: response.data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'QUEUED_FOR_SYNC').length,
-          errorCount: response.data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'SYNC_ERROR').length
-        }
+        urlsGroupedByParent = parentUrls.map((parent: any) => {
+          return {
+            parent: parent.external_url,
+            parentId: parent.id,
+            children: response.data.results.filter((item: any) => item.parent_id === parent.id),
+            readyCount: response.data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'READY').length,
+            pendingCount: response.data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'QUEUED_FOR_SYNC').length,
+            errorCount: response.data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'SYNC_ERROR').length
+          }
       });
 
       console.log('Grouped URLs:', urlsGroupedByParent);
@@ -152,8 +158,17 @@
 
       if (response?.status === 200) {
         console.log('Scraping result:', response.data.files);
-        urlsTrained.push(response.data?.files)
+        const parentObject = {
+          parent: response.data?.files[0]?.external_url,
+          parentId: response.data?.files[0]?.id,
+          children: [],
+          readyCount: 0,
+          pendingCount: 1,
+          errorCount: 0
+        }
+        urlsTrained.push(parentObject);
         urlsTrained = urlsTrained.flat()
+        console.log('Trained URLs after flat', urlsTrained);
       } else {
         console.error('Error:', response.error);
       }
@@ -250,7 +265,13 @@
     {#if activeTab === 'submit'}
     <div class="flex flex-col justify-start m-6 gap-4 p-4 bg-slate-800 rounded-lg">
       <!-- URL -->
-      <form on:submit|preventDefault={() => submitWebScraping([baseUrl])}>
+      <form on:submit|preventDefault={async () => {
+          const response = await submitWebScraping([baseUrl])
+          setTimeout(() => {
+            activeTab = 'trained';
+          }, 1000);
+        }
+      }>
         <div class="form-control">
           <div class="join">
             <input
@@ -265,7 +286,7 @@
               {#if isFetching}
                 <span class="loading loading-spinner loading-sm"></span>
               {:else}
-                Submit your Website
+                Submit Website
               {/if}
             </button>
           </div>
@@ -291,7 +312,7 @@
               {#if isFetching}
                 <span class="loading loading-spinner loading-sm"></span>
               {:else}
-                Submit your Sitemap
+                Submit Sitemap
               {/if}
             </button>
           </div>
@@ -314,7 +335,7 @@
       {#if activeTab === 'trained'}
       <div class="overflow-x-auto">
         {#each urlsGroupedByParent as parentUrl}
-        <div class="my-4">
+        <div id="{parentUrl.parentId}" class="my-4">
           <Accordian> 
             <div slot="title" class="grid grid-cols-5 gap-2 items-center w-full">
               <td class="text-primary">{parentUrl.parent} </td>
@@ -377,14 +398,29 @@
                     {/if}
                     <td class="text-primary"> {childUrl.id} </td>
                     <td>
-                      <button class="btn btn-secondary btn-sm" on:click={() => {
-                        removeFile(childUrl.id);
-                        const elForDeletion = document.getElementById(childUrl.id);
-                        if (elForDeletion) {
-                          elForDeletion.remove();
-                        }
-                      }
-                        }
+                      <button class="btn btn-secondary btn-sm" 
+                        on:click={() => {
+                          removeFile(childUrl.id);
+                          const elForDeletion = document.getElementById(childUrl.id);
+                          if (elForDeletion) {
+                            elForDeletion.remove();
+                          }
+
+                          // remove child from parent
+                          parentUrl.children = parentUrl.children.filter((item) => item.id !== childUrl.id);
+
+                          console.log('Parent URL children count:', parentUrl.children.length);
+
+                          // remove parent if no children
+                          if (parentUrl.children.length === 0) {
+                            removeFile(parentUrl.parentId);
+                            const parentElForDeletion = document.getElementById(parentUrl.parentId);
+                            if (parentElForDeletion) {
+                              parentElForDeletion.remove();
+                            }
+          
+                          }
+                        }}
                       >
                         Remove
                       </button>
