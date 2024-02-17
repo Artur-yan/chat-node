@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as Carbon from 'carbon-connect-js';
-  import { currentBot } from '$lib/stores.js';
+  import { currentBot, alert } from '$lib/stores.js';
   import Accordian from '../Accordian.svelte';
 	import { children } from 'svelte/internal';
 	import { base } from '$app/paths';
@@ -10,7 +10,8 @@
   // state
 	let isModalOpen = false;
   let activeTab: 'submit' | 'trained' = 'submit';
-  let isFetching = false;
+  let isFetchingUrls = false;
+  let isFetchingSitemap = false;
 
   let baseUrl = '';
   let sitemap = '';
@@ -26,6 +27,8 @@
   $: if(activeTab === 'submit') {
     baseUrl = '';
     sitemap = '';
+    isFetchingUrls = false;
+    isFetchingSitemap = false;
   }
 
   async function fetchUserData() {
@@ -159,7 +162,6 @@
   // }
 
   async function submitWebScraping(urls: string[], recursionDepth: number = 10) {
-    console.log('baseUrl to scrape:', baseUrl);
     try {
       //@ts-ignore
       const response = await Carbon.submitScrapeRequest({
@@ -174,8 +176,7 @@
         embeddingModel: 'OPENAI_ADA_LARGE_3072'
       });
 
-      if (response?.status === 200) {
-        console.log('Scraping result:', response.data.files);
+      if (response.status === 200) {
         const parentObject = {
           parent: response.data?.files[0]?.external_url,
           parentId: response.data?.files[0]?.id,
@@ -186,39 +187,42 @@
         }
 
         // add parent to array of parents if not already present
-
         if (!parentUrls.includes(parentObject.parent)) {
           parentUrls.push(parentObject.parent);
           urlsGroupedByParent.push(parentObject);
         }
-
-        console.log('Trained URLs after flat', urlsTrained);
+        return true
       } else {
         console.error('Error:', response.error);
       }
     } catch (err) {
       console.error('Unexpected error:', err.message);
+      return false;
     } finally {
       console.log('Scraping completed');
     }
   }
 
   async function submitSitemapUrl() {
+    console.log('Sitemap:', sitemap);
+  
     try {
       const response = await Carbon.processSitemapUrl({
         accessToken: accessToken,
         sitemapUrl: sitemap
       });
 
+      console.log('Sitemap response:', response); // @sacha, please take a look at this, and enter a bad sitemap, should return 400 like URLs, but returns 200
       if (response.status === 200) {
-        console.log('Retrieved URLs:', response.data.urls);
+        console.log('Sitemap came back --->x', response.status);
         await submitWebScraping(response.data?.urls, 1)
-        console.log('Total URLs:', response.data.count);
+        return true;
       } else {
         console.error('Error:', response.error);
       }
     } catch (err) {
       console.error('Unexpected error:', err.message);
+      return false;
     }
   }
 
@@ -290,10 +294,17 @@
     <div class="flex flex-col justify-start m-6 gap-4 p-4 bg-slate-800 rounded-lg">
       <!-- URL -->
       <form on:submit|preventDefault={async () => {
-          isFetching
+          isFetchingUrls = true;
           const response = await submitWebScraping([baseUrl])
+
+          if(!response) {
+            isFetchingUrls = false;
+            $alert = { type: 'error', msg: 'Please submit a valid URL', duration: 2500 };
+            baseUrl = '';
+            return;
+          }
           setTimeout(() => {
-            isFetching = false;
+            isFetchingUrls = false;
             activeTab = 'trained';
           }, 1000);
         }
@@ -309,7 +320,7 @@
               autofocus
             />
             <button class="btn btn-primary join-item w-40" type="submit">
-              {#if isFetching}
+              {#if isFetchingUrls}
                 <span class="loading loading-spinner loading-sm"></span>
               {:else}
                 Submit Website
@@ -323,7 +334,23 @@
 
     <div class="flex flex-col justify-start m-6 gap-4 p-4 bg-slate-800 rounded-lg">
       <!-- SITEMAP -->
-      <form on:submit|preventDefault={() => submitSitemapUrl()}>
+      <form on:submit|preventDefault={async () => {
+          isFetchingSitemap = true;
+          const response = await submitSitemapUrl()
+
+          if(!response) {
+            isFetchingSitemap = false;
+            $alert = { type: 'error', msg: 'Please submit a valid sitemap', duration: 2500 };
+            sitemap = '';
+            return;
+          }
+          setTimeout(() => {
+            isFetchingSitemap = false;
+            activeTab = 'trained';
+          }, 1000);
+        }
+      }
+      >
         <div class="form-control">
           <div class="join">
             <input
@@ -334,7 +361,7 @@
               required
             />
             <button class="btn btn-primary join-item w-40" type="submit">
-              {#if isFetching}
+              {#if isFetchingSitemap}
                 <span class="loading loading-spinner loading-sm"></span>
               {:else}
                 Submit Sitemap
@@ -349,9 +376,9 @@
     <!-- MAIN CONTENT --> 
     <section class="w-full h-5/6rounded-xl my-4 overflow-auto">
       {#if activeTab === 'submit'}
-        {#if isFetching}
+        {#if isFetchingUrls || isFetchingSitemap}
           <div class="flex flex-col items-center justify-center h-full">
-            <p class="text-2xl text-primary">Fetching urls</p>
+            <p class="text-2xl text-primary">Submiting</p>
             <span class="loading loading-bars loading-lg text-secondary"></span>
           </div>
         {/if}
