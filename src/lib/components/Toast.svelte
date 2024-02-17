@@ -51,6 +51,7 @@
 
 <style lang="postcss">
 	.toast.visible {
+		z-index: 9999999999;
 		/* @apply !translate-y-2; */
 	}
 </style>
