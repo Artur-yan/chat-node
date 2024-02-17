@@ -55,6 +55,17 @@
           }
       });
 
+      //include parent urls in its own children array but no counts and matches the structure of the children 
+      urlsGroupedByParent.forEach((parent: any) => {
+        parent.children.unshift({
+          external_url: parent.parent,
+          id: parent.parentId,
+          sync_status: 'READY'
+        });
+      });
+  
+
+
       console.log('Grouped URLs:', urlsGroupedByParent);
       urlsTrained = urlsGroupedByParent;
 
