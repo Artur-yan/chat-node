@@ -60,7 +60,8 @@
         parent.children.unshift({
           external_url: parent.parent,
           id: parent.parentId,
-          sync_status: 'READY'
+          sync_status: 'READY',
+          isParent: true
         });
       });
   
@@ -423,6 +424,7 @@
                     <td class="text-primary"> {childUrl.id} </td>
                     <td>
                       <button class="btn btn-secondary btn-sm" 
+                      disabled={childUrl.isParent && parentUrl.children.length !== 1}
                         on:click={() => {
                           removeFile(childUrl.id);
                           const elForDeletion = document.getElementById(childUrl.id);
