@@ -166,8 +166,14 @@
           pendingCount: 1,
           errorCount: 0
         }
-        urlsTrained.push(parentObject);
-        urlsTrained = urlsTrained.flat()
+
+        // add parent to array of parents if not already present
+
+        if (!parentUrls.includes(parentObject.parent)) {
+          parentUrls.push(parentObject.parent);
+          urlsGroupedByParent.push(parentObject);
+        }
+
         console.log('Trained URLs after flat', urlsTrained);
       } else {
         console.error('Error:', response.error);
