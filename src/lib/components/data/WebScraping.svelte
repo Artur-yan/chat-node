@@ -415,6 +415,11 @@
                           // remove child from parent
                           parentUrl.children = parentUrl.children.filter((item) => item.id !== childUrl.id);
 
+                          // update parent counts
+                          parentUrl.readyCount = parentUrl.children.filter((item) => item.sync_status === 'READY').length;
+                          parentUrl.pendingCount = parentUrl.children.filter((item) => item.sync_status === 'QUEUED_FOR_SYNC').length;
+                          parentUrl.errorCount = parentUrl.children.filter((item) => item.sync_status === 'SYNC_ERROR').length;
+
                           console.log('Parent URL children count:', parentUrl.children.length);
 
                           // remove parent if no children
