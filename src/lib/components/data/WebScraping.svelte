@@ -12,6 +12,9 @@
   let activeTab: 'submit' | 'trained' = 'submit';
   let isFetchingUrls = false;
   let isFetchingSitemap = false;
+  let hasQueuedFiles = false;
+  let counter: number;
+  let intervalId: any;
 
   let baseUrl = '';
   let sitemap = '';
@@ -48,44 +51,46 @@
         console.log('Scraping result:', response);
         const parentUrls = response.data.results.filter((item: any) => item.parent_id === null);
         urlsGroupedByParent = parentUrls.map((parent: any) => {
-          console.log('Parent:', parent);
+
+          const children = [parent, ...response.data.results.filter((item: any) => item.parent_id === parent.id)];
+          const readyCount = children.filter((item: any) => item.sync_status === 'READY').length;
+          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC').length;
+          const errorCount = children.filter((item: any) => item.sync_status === 'SYNC_ERROR').length
+          
           return {
             parent: parent.external_url,
             parentId: parent.id,
-            children: response.data.results.filter((item: any) => item.parent_id === parent.id),
-            readyCount: response.data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'READY').length,
-            pendingCount: response.data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'QUEUED_FOR_SYNC').length,
-            errorCount: response.data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'SYNC_ERROR').length
+            parentStatus: parent.sync_status,
+            children,
+            readyCount,
+            pendingCount,
+            errorCount
           }
       });
 
-      //include parent urls in its own children array but no counts and matches the structure of the children 
-      urlsGroupedByParent.forEach((parent: any) => {
-        parent.children.unshift({
-          external_url: parent.parent,
-          id: parent.parentId,
-          sync_status: 'READY',
-          isParent: true
-        });
-
-        parent.readyCount = parent.children.filter((item: any) => item.sync_status === 'READY').length;
-      });
+      
   
       console.log('Grouped URLs:', urlsGroupedByParent);
       urlsTrained = urlsGroupedByParent;
 
       //Retry
-      const isPendingUrl = response.data.results.some((item: any) => {
-        item.sync_status === 'QUEUED_FOR_SYNC'
+      console.log('Sync status on update:', response.data?.results);
+      hasQueuedFiles = response.data.results.some((item: any) => {
+        console.log(item)
+        console.log('Sync status:', item.sync_status, 'URL:', item.external_url);
+        return item.sync_status === 'QUEUED_FOR_SYNC'
       });
+      console.log('Has queued files:', hasQueuedFiles);
 
-      if (isPendingUrl) {
+      if (hasQueuedFiles) {
         console.log('Pending URL found, fetching again in 45 seconds');
+        countdownFrom40();
         setTimeout(() => {
           fetchUserData();
-        }, 45000);
+        }, 38000);
       } else {
         console.log('No pending URL found');
+        hasQueuedFiles = false;
       }
 
       return response.data;
@@ -180,18 +185,21 @@
         const parentObject = {
           parent: response.data?.files[0]?.external_url,
           parentId: response.data?.files[0]?.id,
-          children: [],
+          children: [response.data?.files[0]],
           readyCount: 0,
           pendingCount: 1,
           errorCount: 0
         }
 
+
         // add parent to array of parents if not already present
         if (!parentUrls.includes(parentObject.parent)) {
           parentUrls.push(parentObject.parent);
           urlsGroupedByParent.push(parentObject);
+          urlsTrained = urlsGroupedByParent;
         }
-        return true
+        console.log('')
+        return true;
       } else {
         console.error('Error:', response.error);
       }
@@ -244,6 +252,22 @@
       console.error('Unexpected error during file deletion:', err.message);
     }
   }
+
+  function countdownFrom40() {
+    counter = 40;
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+
+    intervalId = setInterval(() => {
+    counter--;
+
+    if (counter < 0) {
+      clearInterval(intervalId);
+    }
+    }, 1000);
+  }
+
 </script>
 
 <label for="web_scraping" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
@@ -304,10 +328,17 @@
             baseUrl = '';
             return;
           }
+
           setTimeout(() => {
             isFetchingUrls = false;
             activeTab = 'trained';
+            countdownFrom40();
+            hasQueuedFiles = true;
           }, 1000);
+
+          setTimeout(() => {
+            fetchUserData();
+          }, 38000);
         }
       }>
         <div class="form-control">
@@ -452,7 +483,8 @@
                     <td class="text-primary"> {childUrl.id} </td>
                     <td>
                       <button class="btn btn-secondary btn-sm" 
-                      disabled={childUrl.isParent && parentUrl.children.length !== 1}
+                      disabled={childUrl.parent_id === null && parentUrl.children.length !== 1}
+                      
                         on:click={(e) => {
                           removeFile(childUrl.id);
 
@@ -487,8 +519,10 @@
         </div>
         {/each}
       </div>
+      {#if hasQueuedFiles}
+        <span>Data will update in {counter} seconds</span>
       {/if}
-
+    {/if}
     </section>
   </div>
 </div>
