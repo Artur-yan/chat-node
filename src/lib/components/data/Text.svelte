@@ -47,7 +47,8 @@
       const response = await Carbon.uploadText({
         accessToken: accessToken,
         contents: text,
-        fileName: `${title}.txt`
+        fileName: `${title}.txt`,
+        embeddingModel: 'OPENAI_ADA_LARGE_3072'
       });
 
       if (response.status === 200) {
