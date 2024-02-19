@@ -53,7 +53,7 @@
   try {
     const response = await Carbon.getUserFiles({
       accessToken: accessToken,
-      filters: {"source": ["PDF", "TXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"]},
+      filters: {"source": ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"]},
       orderBy: "created_at",
       orderDir: "desc",
       limit: 250,
