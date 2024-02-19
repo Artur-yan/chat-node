@@ -8,6 +8,7 @@
   let hasQueuedFiles = false;
   let counter: number;
   let intervalId: any;
+  let timeoutId: any;
 
   let textTrained: [] = [];
 
@@ -33,9 +34,10 @@
         textTrained = response.data.results
 
         hasQueuedFiles = textTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_SYNC');
-        if (hasQueuedFiles) {
+        if (hasQueuedFiles && isModalOpen) {
           countdownFrom40();
-          setTimeout(() => {
+          if(timeoutId) clearTimeout(timeoutId);
+          timeoutId = setTimeout(() => {
             fetchUserData('RAW_TEXT');
           }, 40000);
         }
@@ -180,7 +182,8 @@ async function removeFile(fileId: string) {
                 title = '';
                 text = '';
 
-                setTimeout(() => {
+                if(timeoutId) clearTimeout(timeoutId);
+                timeoutId =setTimeout(() => {
                   fetchUserData('RAW_TEXT');
                 }, 40000);
               }

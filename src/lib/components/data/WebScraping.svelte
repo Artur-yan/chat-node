@@ -16,6 +16,7 @@
   let counter: number;
   let intervalId: any;
 
+
   let baseUrl = '';
   let sitemap = '';
   let urlsTrained: string[] | [] = [];
@@ -78,9 +79,10 @@
       });
       console.log('Has queued files:', hasQueuedFiles);
 
-      if (hasQueuedFiles) {
+      if (hasQueuedFiles && isModalOpen) {
         countdownFrom40();
-        setTimeout(() => {
+        if(timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
           fetchUserData();
         }, 40000);
       } else {
@@ -328,7 +330,8 @@
             hasQueuedFiles = true;
           }, 1000);
 
-          setTimeout(() => {
+          if(timeoutId) clearTimeout(timeoutId);
+          timeoutId = setTimeout(() => {
             fetchUserData();
           }, 40000);
         }
