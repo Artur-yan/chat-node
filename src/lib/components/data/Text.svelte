@@ -61,6 +61,9 @@
         accessToken: accessToken,
         contents: text,
         fileName: title,
+        chunkSize: 400,
+        chunkOverlap: 20,
+        skipEmbeddingGeneration: false,
         embeddingModel: 'OPENAI_ADA_LARGE_3072'
       });
 
