@@ -48,6 +48,7 @@
         console.log('Scraping result:', response);
         const parentUrls = response.data.results.filter((item: any) => item.parent_id === null);
         urlsGroupedByParent = parentUrls.map((parent: any) => {
+          console.log('Parent:', parent);
           return {
             parent: parent.external_url,
             parentId: parent.id,
@@ -68,14 +69,11 @@
         });
       });
   
-
-
       console.log('Grouped URLs:', urlsGroupedByParent);
       urlsTrained = urlsGroupedByParent;
 
       //Retry
       const isPendingUrl = response.data.results.some((item: any) => {
-        console.log('Sync status:', item.sync_status, 'URL:', item.external_url);
         item.sync_status === 'QUEUED_FOR_SYNC'
       });
 
@@ -212,7 +210,8 @@
         sitemapUrl: sitemap
       });
 
-      console.log('Sitemap response:', response); // @sacha, please take a look at this, and enter a bad sitemap, should return 400 like URLs, but returns 200
+      console.log('Sitemap response ----x:', response);
+      console.log('Sitemap response error----x:', response.error);
       if (response.status === 200) {
         console.log('Sitemap came back --->x', response.status);
         await submitWebScraping(response.data?.urls, 1)
@@ -402,7 +401,7 @@
                 {#if parentUrl.pendingCount > 0}
                 <td class="text-primary">
                   <div class="badge badge-warning badge-outline">
-                    pending: {parentUrl.readyCount}
+                    Processing
                   </div>
                 </td>
                 {/if}
@@ -466,8 +465,6 @@
                           parentUrl.readyCount = parentUrl.children.filter((item) => item.sync_status === 'READY').length;
                           parentUrl.pendingCount = parentUrl.children.filter((item) => item.sync_status === 'QUEUED_FOR_SYNC').length;
                           parentUrl.errorCount = parentUrl.children.filter((item) => item.sync_status === 'SYNC_ERROR').length;
-
-                          console.log('Parent URL children count:', parentUrl.children.length);
 
                           // remove parent if no children
                           if (parentUrl.children.length === 0) {

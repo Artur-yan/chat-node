@@ -1,10 +1,83 @@
 <script lang="ts">
   import * as Carbon from 'carbon-connect-js';
-  export let accessToken;
+  export let accessToken: string;
   
   // state
 	let isModalOpen = false;
   let activeTab: 'upload' | 'trained' = 'upload';
+
+  let textTrained: [] = [];
+
+  let title: string;
+  let text: string
+
+  $: if(isModalOpen === true) {
+    fetchUserData('RAW_TEXT');
+  }
+
+  async function fetchUserData(type: string) {
+    try {
+      const response = await Carbon.getUserFiles({
+        accessToken: accessToken,
+        filters: {"source": type} ,
+        orderBy: "created_at",
+        orderDir: "desc",
+        limit: 250,
+        offset: 0
+      });
+
+      if (response?.status === 200) {
+        textTrained = response.data.results
+        console.log('Files:', textTrained);
+
+        return response.data;
+
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
+    } finally {
+      console.log('Files completed');
+    }
+  }
+
+  async function uploadCustomText() {
+    try {
+      const response = await Carbon.uploadText({
+        accessToken: accessToken,
+        contents: text,
+        fileName: `${title}.txt`
+      });
+
+      if (response.status === 200) {
+        console.log('Uploaded file details:', response.data.file);
+        return response.data.file;
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error during upload:', err.message);
+    }
+  }
+
+async function removeFile(fileId: string) {
+    console.log('Removing file:', fileId);
+    try {
+      const response = await Carbon.deleteFile({
+        accessToken: accessToken,
+        fileId: fileId
+      });
+
+      if (response.status === 200) {
+        console.log('File successfully deleted:', response.data);
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error during file deletion:', err.message);
+    }
+  }
 </script>
 
 <label for="text" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1">  
@@ -52,29 +125,67 @@
     <section class="w-full h-5/6 rounded-xl my-4">
       <!-- Content -->
 
-      <!-- Upload -->
-      <div class="flex-1 m-16">
-				<form method="post" enctype="multipart/form-data" class="join w-full">
-					<input
-						name="chat-button-img"
-						type="file"
-						accept=".jpg, .png, .svg, .jpeg, .gif"
-						class="join-item file-input file-input-bordered w-full"
-						on:change={() => console.log(true)}
-					/>
-					<input
-						name="existing-cloudinary-public-id-popup"
-						type="hidden"
-						value={'hello'}
-					/>
-					<input
-						on:click={() => console.log(true)}
-						type="submit"
-						class="btn join-item border-primary"
-						value="Upload"
-						formaction="?/updatePopupImg"
-					/>
-				</form>
+      <!-- Input -->
+      {#if activeTab === 'upload'}
+        <div class="w-3/4 h-full my-12 mx-auto flex flex-col gap-4 bg-slate-800 p-8 rounded-xl">
+          <input bind:value={title} type="text" placeholder="Title" class="input input-bordered input-secondary w-full" />
+          <textarea bind:value={text} class="textarea textarea-bordered w-full h-full" placeholder="Text"></textarea>
+          <button 
+            class="btn btn-primary"
+            on:click={async () => {
+              if (!title || !text) {
+                console.error('Title and text are required');
+                return;
+              }
+              const response = await uploadCustomText();
+              console.log('Response:', response);
+              if(response) {
+                textTrained = [...textTrained, response];
+                activeTab = 'trained';
+              }
+            }}
+          >Train 
+          </button>
+        </div>
+      {/if}
+
+      <!-- Trained -->
+      {#if activeTab === 'trained'}
+      <table class="table table-xs">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Id</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each textTrained as file}
+          <tr id={file.id} class="p-.05">
+            <td class="text-primary"> {file.name} </td>
+            <td class="text-primary">{file.sync_status}</td>
+            <td class="text-primary"> {file.id} </td>
+            <td>
+              <button 
+                class="btn btn-secondary btn-sm" 
+                on:click={() => {
+                  removeFile(file.id);
+                  const elForDeletion = document.getElementById(file.id);
+                  if (elForDeletion) { elForDeletion.remove() }
+                  //@ts-ignore
+                  textTrained = textTrained.filter((item) => item.id !== file.id);
+                }
+              }
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        {/each}
+        </tbody>
+      </table>
+    {/if}
+
     </section>
   </div>
 </div>
