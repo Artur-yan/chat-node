@@ -5,6 +5,9 @@
   // state
 	let isModalOpen = false;
   let activeTab: 'upload' | 'trained' = 'upload';
+  let hasQueuedFiles = false;
+  let counter: number;
+  let intervalId: any;
 
   let textTrained: [] = [];
 
@@ -28,6 +31,14 @@
 
       if (response?.status === 200) {
         textTrained = response.data.results
+
+        hasQueuedFiles = textTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_SYNC');
+        if (hasQueuedFiles) {
+          countdownFrom40();
+          setTimeout(() => {
+            fetchUserData('RAW_TEXT');
+          }, 40000);
+        }
         console.log('Files:', textTrained);
 
         return response.data;
@@ -44,10 +55,12 @@
 
   async function uploadCustomText() {
     try {
+      console.log('Uploading text:', text);
+      console.log('Uploading title:', title);
       const response = await Carbon.uploadText({
         accessToken: accessToken,
         contents: text,
-        fileName: `${title}.txt`,
+        fileName: title,
         embeddingModel: 'OPENAI_ADA_LARGE_3072'
       });
 
@@ -79,6 +92,21 @@ async function removeFile(fileId: string) {
       console.error('Unexpected error during file deletion:', err.message);
     }
   }
+
+  function countdownFrom40() {
+    counter = 40;
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+
+    intervalId = setInterval(() => {
+    counter--;
+
+    if (counter < 0) {
+      clearInterval(intervalId);
+    }
+  }, 1000);
+}
 </script>
 
 <label for="text" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1">  
@@ -142,7 +170,16 @@ async function removeFile(fileId: string) {
               console.log('Response:', response);
               if(response) {
                 textTrained = [...textTrained, response];
+                hasQueuedFiles = true;
+                countdownFrom40();
                 activeTab = 'trained';
+                hasQueuedFiles = true;
+                title = '';
+                text = '';
+
+                setTimeout(() => {
+                  fetchUserData('RAW_TEXT');
+                }, 38000);
               }
             }}
           >Train 
@@ -171,8 +208,6 @@ async function removeFile(fileId: string) {
                 class="btn btn-secondary btn-sm" 
                 on:click={() => {
                   removeFile(file.id);
-                  const elForDeletion = document.getElementById(file.id);
-                  if (elForDeletion) { elForDeletion.remove() }
                   //@ts-ignore
                   textTrained = textTrained.filter((item) => item.id !== file.id);
                 }
@@ -185,6 +220,9 @@ async function removeFile(fileId: string) {
         {/each}
         </tbody>
       </table>
+      {#if hasQueuedFiles}
+        <span>Data will update in {counter} seconds</span>
+      {/if}
     {/if}
 
     </section>
