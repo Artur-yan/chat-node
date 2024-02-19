@@ -82,6 +82,7 @@
   }
   
   async function uploadFiles() {
+    console.log('file type --->', filesToUpload[0].type)
   try {
     const response = await Carbon.uploadFiles({
       accessToken: accessToken,
@@ -89,7 +90,7 @@
       chunkSize: 400,
       chunkOverlap: 20,
       skipEmbeddingGeneration: false,
-      // useOCR: true,
+      useOCR: filesToUpload[0].type === 'application/pdf' ? true : false, // **** assumses 1 file upload at a time
       embeddingModel: 'OPENAI_ADA_LARGE_3072'
     });
 
