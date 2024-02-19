@@ -67,6 +67,8 @@
           sync_status: 'READY',
           isParent: true
         });
+
+        parent.readyCount = parent.children.filter((item: any) => item.sync_status === 'READY').length;
       });
   
       console.log('Grouped URLs:', urlsGroupedByParent);
