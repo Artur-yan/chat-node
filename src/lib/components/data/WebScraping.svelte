@@ -224,8 +224,10 @@
       console.log('Sitemap response error----x:', response.error);
       if (response.status === 200) {
         console.log('Sitemap came back --->x', response.status);
-        await submitWebScraping(response.data?.urls, 1)
-        return true;
+        const webScrapingResponse = await submitWebScraping(response.data?.urls, 1)
+        if (webScrapingResponse) {
+          return true;
+        }
       } else {
         console.error('Error:', response.error);
       }
