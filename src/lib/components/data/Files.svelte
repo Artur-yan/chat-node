@@ -7,6 +7,9 @@
 	let isModalOpen = false;
   let activeTab: 'upload' | 'trained' = 'upload';
   let isUploading = false;
+  let hasQueuedFiles = false;
+  let counter: number;
+  let intervalId: any;
 
   // files
   let fileInput: any;
@@ -16,6 +19,10 @@
   $: if(isModalOpen === true) {
     activeTab = 'upload';
     fetchAllFiles();
+  }
+
+  $: if (filesTrained.length === 0) {
+    hasQueuedFiles = false;
   }
 
   async function fetchAllFiles() {
@@ -30,6 +37,14 @@
     const docxFiles = docxResponse?.results || [];
 
     filesTrained = [...pdfFiles, ...txtFiles, ...docFiles, ...docxFiles];
+
+    hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
+    if (hasQueuedFiles) {
+      countdownFrom40();
+      setTimeout(() => {
+        fetchAllFiles();
+      }, 40000);
+    }
   }
 
   async function fetchUserData(type: string) {
@@ -46,23 +61,6 @@
     if (response?.status === 200) {
       filesTrained = response.data.results
       console.log('Files:', filesTrained);
-
-      
-
-    //Retry
-    // const isPendingUrl = response.data.results.some((item: any) => {
-    //   console.log('Sync status:', item.sync_status, 'URL:', item.external_url);
-    //   item.sync_status === 'QUEUED_FOR_SYNC'
-    // });
-
-    // if (isPendingUrl) {
-    //   console.log('Pending URL found, fetching again in 45 seconds');
-    //   setTimeout(() => {
-    //     fetchUserData();
-    //   }, 45000);
-    // } else {
-    //   console.log('No pending URL found');
-    // }
 
     return response.data;
 
@@ -82,7 +80,6 @@
   }
   
   async function uploadFiles() {
-    console.log('file type --->', filesToUpload[0].type)
   try {
     const response = await Carbon.uploadFiles({
       accessToken: accessToken,
@@ -125,6 +122,23 @@ async function removeFile(fileId: string) {
       console.error('Unexpected error during file deletion:', err.message);
     }
   }
+
+  function countdownFrom40() {
+    counter = 40;
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+
+    intervalId = setInterval(() => {
+    counter--;
+
+    if (counter < 0) {
+      clearInterval(intervalId);
+    }
+  }, 1000);
+}
+
+
 </script>
 
 <label for="files" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
@@ -209,7 +223,13 @@ async function removeFile(fileId: string) {
                 setTimeout(() => {
                   isUploading = false;
                   activeTab = 'trained';
+                  hasQueuedFiles = true;
+                  countdownFrom40();
                 }, 1000);
+
+                setTimeout(() => {
+                  fetchAllFiles();
+                }, 38000);
               }
             }
             />
@@ -253,7 +273,10 @@ async function removeFile(fileId: string) {
         {/each}
         </tbody>
       </table>
+      {#if hasQueuedFiles}
+        <span>Data will update in {counter} seconds</span>
       {/if}
+    {/if}
     </section>
   </div>
 </div>
