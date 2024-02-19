@@ -48,7 +48,6 @@
       });
 
       if (response?.status === 200) {
-        console.log('Scraping result:', response);
         const parentUrls = response.data.results.filter((item: any) => item.parent_id === null);
         urlsGroupedByParent = parentUrls.map((parent: any) => {
 
@@ -74,10 +73,7 @@
       urlsTrained = urlsGroupedByParent;
 
       //Retry
-      console.log('Sync status on update:', response.data?.results);
       hasQueuedFiles = response.data.results.some((item: any) => {
-        console.log(item)
-        console.log('Sync status:', item.sync_status, 'URL:', item.external_url);
         return item.sync_status === 'QUEUED_FOR_SYNC'
       });
       console.log('Has queued files:', hasQueuedFiles);
@@ -89,7 +85,6 @@
           fetchUserData();
         }, 38000);
       } else {
-        console.log('No pending URL found');
         hasQueuedFiles = false;
       }
 
@@ -100,10 +95,8 @@
       }
     } catch (err) {
       console.error('Unexpected error:', err.message);
-    } finally {
-      console.log('Scraping completed');
-    }
-    }
+    } 
+  }
 
   // async function fetchUserData() {
   //   const url = "https://api.carbon.ai/user_files_v2";
@@ -206,8 +199,6 @@
     } catch (err) {
       console.error('Unexpected error:', err.message);
       return false;
-    } finally {
-      console.log('Scraping completed');
     }
   }
 
