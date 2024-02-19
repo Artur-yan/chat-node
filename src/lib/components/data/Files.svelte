@@ -51,7 +51,7 @@
   try {
     const response = await Carbon.getUserFiles({
       accessToken: accessToken,
-      filters: {"source": ["PDF", "TXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"]} ,
+      filters: {"source": ["PDF", "TXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"]},
       orderBy: "created_at",
       orderDir: "desc",
       limit: 250,
@@ -271,9 +271,6 @@ async function removeFile(fileId: string) {
         {/each}
         </tbody>
       </table>
-      {#if hasQueuedFiles}
-        <span>Data will update in {counter} seconds</span>
-      {/if}
     {/if}
     </section>
   </div>
