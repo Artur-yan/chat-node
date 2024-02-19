@@ -451,12 +451,8 @@
                     <td>
                       <button class="btn btn-secondary btn-sm" 
                       disabled={childUrl.isParent && parentUrl.children.length !== 1}
-                        on:click={() => {
+                        on:click={(e) => {
                           removeFile(childUrl.id);
-                          const elForDeletion = document.getElementById(childUrl.id);
-                          if (elForDeletion) {
-                            elForDeletion.remove();
-                          }
 
                           // remove child from parent
                           parentUrl.children = parentUrl.children.filter((item) => item.id !== childUrl.id);

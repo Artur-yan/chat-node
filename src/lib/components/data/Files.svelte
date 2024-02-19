@@ -259,8 +259,6 @@ async function removeFile(fileId: string) {
                 class="btn btn-secondary btn-sm" 
                 on:click={() => {
                   removeFile(file.id);
-                  const elForDeletion = document.getElementById(file.id);
-                  if (elForDeletion) { elForDeletion.remove() }
                   //@ts-ignore
                   filesTrained = filesTrained.filter((item) => item.id !== file.id);
                 }
