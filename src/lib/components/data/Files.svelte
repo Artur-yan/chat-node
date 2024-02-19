@@ -26,7 +26,7 @@
   }
 
   async function fetchAllFiles() {
-    const filesResponse = await fetchUserData('PDF');
+    const filesResponse = await fetchUserData();
     // const txtResponse = await fetchUserData('TEXT');
     // const docResponse = await fetchUserData('DOC');
     // const docxResponse = await fetchUserData('DOCX');
