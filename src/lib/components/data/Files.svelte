@@ -26,17 +26,17 @@
   }
 
   async function fetchAllFiles() {
-    const pdfResponse = await fetchUserData('PDF');
-    const txtResponse = await fetchUserData('TEXT');
-    const docResponse = await fetchUserData('DOC');
-    const docxResponse = await fetchUserData('DOCX');
+    const filesResponse = await fetchUserData();
+    // const txtResponse = await fetchUserData('TEXT');
+    // const docResponse = await fetchUserData('DOC');
+    // const docxResponse = await fetchUserData('DOCX');
 
-    const pdfFiles = pdfResponse?.results || [];
-    const txtFiles = txtResponse?.results || [];
-    const docFiles = docResponse?.results || [];
-    const docxFiles = docxResponse?.results || [];
+    const allFiles = filesResponse?.results || [];
+    // const txtFiles = txtResponse?.results || [];
+    // const docFiles = docResponse?.results || [];
+    // const docxFiles = docxResponse?.results || [];
 
-    filesTrained = [...pdfFiles, ...txtFiles, ...docFiles, ...docxFiles];
+    filesTrained = [...allFiles] //, ...txtFiles, ...docFiles, ...docxFiles];
 
     hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
     if (hasQueuedFiles) {
@@ -47,11 +47,11 @@
     }
   }
 
-  async function fetchUserData(type: string) {
+  async function fetchUserData() {
   try {
     const response = await Carbon.getUserFiles({
       accessToken: accessToken,
-      filters: {"source": type},
+      filters: {"source": ["PDF", "TXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"]},
       orderBy: "created_at",
       orderDir: "desc",
       limit: 250,
