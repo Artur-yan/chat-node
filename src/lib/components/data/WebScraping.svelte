@@ -15,6 +15,7 @@
   let hasQueuedFiles = false;
   let counter: number;
   let intervalId: any;
+  let timeoutId: any;
 
 
   let baseUrl = '';
