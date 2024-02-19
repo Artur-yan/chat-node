@@ -16,6 +16,7 @@
   let counter: number;
   let intervalId: any;
 
+
   let baseUrl = '';
   let sitemap = '';
   let urlsTrained: string[] | [] = [];
@@ -48,7 +49,6 @@
       });
 
       if (response?.status === 200) {
-        console.log('Scraping result:', response);
         const parentUrls = response.data.results.filter((item: any) => item.parent_id === null);
         urlsGroupedByParent = parentUrls.map((parent: any) => {
 
@@ -74,22 +74,18 @@
       urlsTrained = urlsGroupedByParent;
 
       //Retry
-      console.log('Sync status on update:', response.data?.results);
       hasQueuedFiles = response.data.results.some((item: any) => {
-        console.log(item)
-        console.log('Sync status:', item.sync_status, 'URL:', item.external_url);
         return item.sync_status === 'QUEUED_FOR_SYNC'
       });
       console.log('Has queued files:', hasQueuedFiles);
 
-      if (hasQueuedFiles) {
-        console.log('Pending URL found, fetching again in 45 seconds');
+      if (hasQueuedFiles && isModalOpen) {
         countdownFrom40();
-        setTimeout(() => {
+        if(timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
           fetchUserData();
-        }, 38000);
+        }, 40000);
       } else {
-        console.log('No pending URL found');
         hasQueuedFiles = false;
       }
 
@@ -100,10 +96,8 @@
       }
     } catch (err) {
       console.error('Unexpected error:', err.message);
-    } finally {
-      console.log('Scraping completed');
-    }
-    }
+    } 
+  }
 
   // async function fetchUserData() {
   //   const url = "https://api.carbon.ai/user_files_v2";
@@ -206,8 +200,6 @@
     } catch (err) {
       console.error('Unexpected error:', err.message);
       return false;
-    } finally {
-      console.log('Scraping completed');
     }
   }
 
@@ -224,8 +216,10 @@
       console.log('Sitemap response error----x:', response.error);
       if (response.status === 200) {
         console.log('Sitemap came back --->x', response.status);
-        await submitWebScraping(response.data?.urls, 1)
-        return true;
+        const webScrapingResponse = await submitWebScraping(response.data?.urls, 1)
+        if (webScrapingResponse) {
+          return true;
+        }
       } else {
         console.error('Error:', response.error);
       }
@@ -336,9 +330,10 @@
             hasQueuedFiles = true;
           }, 1000);
 
-          setTimeout(() => {
+          if(timeoutId) clearTimeout(timeoutId);
+          timeoutId = setTimeout(() => {
             fetchUserData();
-          }, 38000);
+          }, 40000);
         }
       }>
         <div class="form-control">

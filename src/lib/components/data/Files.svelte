@@ -10,6 +10,7 @@
   let hasQueuedFiles = false;
   let counter: number;
   let intervalId: any;
+  let timeoutId: any;
 
   // files
   let fileInput: any;
@@ -39,9 +40,10 @@
     filesTrained = [...allFiles] //, ...txtFiles, ...docFiles, ...docxFiles];
 
     hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
-    if (hasQueuedFiles) {
+    if (hasQueuedFiles && isModalOpen) {
       countdownFrom40();
-      setTimeout(() => {
+      if(timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
         fetchAllFiles();
       }, 40000);
     }
@@ -69,8 +71,6 @@
     }
   } catch (err) {
     console.error('Unexpected error:', err.message);
-  } finally {
-    console.log('Files completed');
   }
 }
 
@@ -87,16 +87,13 @@
       chunkSize: 400,
       chunkOverlap: 20,
       skipEmbeddingGeneration: false,
-      useOCR: filesToUpload[0].type === 'application/pdf' ? true : false, // **** assumses 1 file upload at a time
+      useOCR: filesToUpload[0].type === 'application/pdf' ? true : false, // * assumses 1 file upload at a time
       embeddingModel: 'OPENAI_ADA_LARGE_3072'
     });
 
     if (response.status === 200) {
       console.log('Uploaded Files:', response.data.successfulUploads);
       return response.data.successfulUploads;
-      if (response.error) {
-        console.warn('Failed Uploads:', response.error.failedUploads);
-      }
     } else {
       console.error('Error:', response.error.message);
     }
@@ -227,9 +224,10 @@ async function removeFile(fileId: string) {
                   countdownFrom40();
                 }, 1000);
 
-                setTimeout(() => {
+                if(timeoutId) clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
                   fetchAllFiles();
-                }, 38000);
+                }, 40000);
               }
             }
             />
@@ -271,6 +269,9 @@ async function removeFile(fileId: string) {
         {/each}
         </tbody>
       </table>
+      {#if hasQueuedFiles}
+        <span>Data will update in {counter} seconds</span>
+      {/if}
     {/if}
     </section>
   </div>
