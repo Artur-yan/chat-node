@@ -182,7 +182,7 @@ async function removeFile(fileId: string) {
 
                 setTimeout(() => {
                   fetchUserData('RAW_TEXT');
-                }, 38000);
+                }, 40000);
               }
             }}
           >Train 

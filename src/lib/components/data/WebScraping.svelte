@@ -79,11 +79,10 @@
       console.log('Has queued files:', hasQueuedFiles);
 
       if (hasQueuedFiles) {
-        console.log('Pending URL found, fetching again in 45 seconds');
         countdownFrom40();
         setTimeout(() => {
           fetchUserData();
-        }, 38000);
+        }, 40000);
       } else {
         hasQueuedFiles = false;
       }
@@ -331,7 +330,7 @@
 
           setTimeout(() => {
             fetchUserData();
-          }, 38000);
+          }, 40000);
         }
       }>
         <div class="form-control">

@@ -229,7 +229,7 @@ async function removeFile(fileId: string) {
 
                 setTimeout(() => {
                   fetchAllFiles();
-                }, 38000);
+                }, 40000);
               }
             }
             />
