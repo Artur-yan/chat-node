@@ -194,7 +194,7 @@ async function removeFile(fileId: string) {
 					<input
 						name="chat-button-img"
 						type="file"
-						accept=".txt, .pdf, .doc, .docx"
+						accept=".txt, .pdf, .doc, .docx, .csv, .xlsx, .md, .rtf, .tsv, .pptx, .json"
 						class="join-item file-input file-input-bordered w-full"
 						on:change={() => handleFilesChange(event)}
 					/>
