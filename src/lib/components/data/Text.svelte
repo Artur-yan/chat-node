@@ -1,5 +1,6 @@
 <script lang="ts">
   import * as Carbon from 'carbon-connect-js';
+  import { currentBot } from '$lib/stores.js';
   export let accessToken: string;
   
   // state
@@ -56,6 +57,9 @@
   }
 
   async function uploadCustomText() {
+    const chunkSize = $currentBot.settings.datafunnelSettings.rawText.chunkSize ? $currentBot.settings.datafunnelSettings.rawText.chunkSize : 400;
+    const chunkOverlap = $currentBot.settings.datafunnelSettings.rawText.chunkOverlap ? $currentBot.settings.datafunnelSettings.rawText.chunkOverlap : 20;
+    
     try {
       console.log('Uploading text:', text);
       console.log('Uploading title:', title);
@@ -63,8 +67,8 @@
         accessToken: accessToken,
         contents: text,
         fileName: title,
-        chunkSize: 400,
-        chunkOverlap: 20,
+        chunkSize: chunkSize,
+        chunkOverlap: chunkOverlap,
         skipEmbeddingGeneration: false,
         embeddingModel: 'OPENAI_ADA_LARGE_3072'
       });
