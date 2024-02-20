@@ -101,6 +101,23 @@ const defaultSettings = {
 	crispEnabled: false,
 	crispButtonText: 'Talk to a human',
 	dataFunnelV2: true,
+	dataFunnelSettings: {
+		webScraping: {
+			maxPageToScrape: 1000,
+			chunkSize: 400,
+			chunkOverlap: 20,
+			enableAutoSync: false
+		},
+		files: {
+			chunkSize: 400,
+			chunkOverlap: 20
+		},
+		rawText: {
+			chunkSize: 400,
+			chunkOverlap: 20
+		},
+		}
+	},
 	theme: {
 		name: 'default',
 		bg: '#0F172A',

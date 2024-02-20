@@ -163,16 +163,21 @@
 
   async function submitWebScraping(urls: string[], recursionDepth: number = 10) {
     try {
+
+      const maxPagesToScrape = $currentBot.settings.datafunnelSettings.webScraping.maxPagesToScrape ? $currentBot.settings.datafunnelSettings.webScraping.maxPagesToScrape : 1000;
+      const chunkSize = $currentBot.settings.datafunnelSettings.webScraping.chunkSize ? $currentBot.settings.datafunnelSettings.webScraping.chunkSize : 400;
+      const chunkOverlap = $currentBot.settings.datafunnelSettings.webScraping.chunkOverlap ? $currentBot.settings.datafunnelSettings.webScraping.chunkOverlap : 20;
+      const enableAutoSync = $currentBot.settings.datafunnelSettings.webScraping.enableAutoSync ? $currentBot.settings.datafunnelSettings.webScraping.enableAutoSync : false;
       //@ts-ignore
       const response = await Carbon.submitScrapeRequest({
         accessToken: accessToken,
         urls: urls,
         recursionDepth: recursionDepth,
-        maxPagesToScrape: 1000,
-        chunkSize: 400,
-        chunkOverlap: 20,
+        maxPagesToScrape: maxPagesToScrape,
+        chunkSize: chunkSize,
+        chunkOverlap: chunkOverlap,
         skipEmbeddingGeneration: false,
-        enableAutoSync: false,
+        enableAutoSync: enableAutoSync,
         embeddingModel: 'OPENAI_ADA_LARGE_3072'
       });
 
@@ -185,7 +190,6 @@
           pendingCount: 1,
           errorCount: 0
         }
-
 
         // add parent to array of parents if not already present
         if (!parentUrls.includes(parentObject.parent)) {

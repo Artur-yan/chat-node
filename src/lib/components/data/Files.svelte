@@ -80,12 +80,14 @@
   }
   
   async function uploadFiles() {
+    const chunkSize = $currentBot.settings.datafunnelSettings.files.chunkSize ? $currentBot.settings.datafunnelSettings.files.chunkSize : 400;
+    const chunkOverlap = $currentBot.settings.datafunnelSettings.files.chunkOverlap ? $currentBot.settings.datafunnelSettings.files.chunkOverlap : 20;
   try {
     const response = await Carbon.uploadFiles({
       accessToken: accessToken,
       files: filesToUpload,
-      chunkSize: 400,
-      chunkOverlap: 20,
+      chunkSize: chunkSize,
+      chunkOverlap: chunkOverlap,
       skipEmbeddingGeneration: false,
       useOCR: filesToUpload[0].type === 'application/pdf' ? true : false, // * assumses 1 file upload at a time
       embeddingModel: 'OPENAI_ADA_LARGE_3072'
