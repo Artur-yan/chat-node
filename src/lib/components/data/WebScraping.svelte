@@ -417,7 +417,7 @@
       {#if activeTab === 'trained'}
       <div class="overflow-x-auto">
         {#each urlsGroupedByParent as parentUrl}
-        <div id="{parentUrl.parentId}" class="my-4">
+        <div id="{parentUrl.parentId}" class="my-6">
           <Accordian> 
             <div slot="title" class="items-center w-full">
               <div class="flex justify-between">
@@ -443,7 +443,7 @@
             </div>
             <div>
 
-              <table class="table table-xs">
+              <table class="table table-xs w-full">
                 <thead>
                   <tr class="text-md font-bold text-secondary">
                     <th>Url</th>
@@ -454,7 +454,7 @@
                 <tbody>
                   {#each parentUrl.children as childUrl}
                   <tr id={childUrl.id} class="p-.05">
-                    <td class="text-primary"> {childUrl.external_url} </td>
+                    <td class="text-primary w-1/2 overflow-x-auto"> {childUrl.external_url} </td>
                     {#if childUrl.sync_status === 'READY'}
                     <td class="text-primary">
                       <div class="badge badge-success badge-outline">
@@ -474,11 +474,11 @@
                       </div>
                     </td>
                     {/if}
-                    <td class="text-primary"> {childUrl.id} </td>
+                    <td class="text-slate-400 font-semibold"> {childUrl.id} </td>
                     <td>
                       <button class="btn btn-secondary btn-sm" 
                       
-                        disabled={(childUrl.id === parentUrl.parentId && parentUrl.children.length !== 1) || childUrl.sync_status === 'QUEUED_FOR_SYNC'}
+                        disabled={(childUrl.id === parentUrl.parentId && parentUrl.children.length !== 1)}
                       
                         on:click={(e) => {
                           removeFile(childUrl.id);
