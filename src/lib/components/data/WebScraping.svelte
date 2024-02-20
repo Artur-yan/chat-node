@@ -280,9 +280,9 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="modal" on:click|self={()=>isModalOpen = false}>
-  <div class="modal-box w-11/12 max-w-7xl h-screen bg-slate-700 shadow-lg shadow-indigo-400 grow-button raise-button">
+  <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-400 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
     <div class="flex items-center justify-between mx-8">
-      <h3 class="font-bold text-2xl bg-gradient-to-tr from-slate-300 to-slate-500 text-transparent bg-clip-text">Web Scraping</h3>
+      <h3 class="px-2 py-1 font-bold text-2xl bg-gradient-to-tr from-neutral-600 to-slate-800 rounded-xl text-secondary">Web Scraping</h3>
 
       <!-- tabs -->
       <div class="flex">
@@ -307,7 +307,7 @@
 
       <div class="modal-action my-auto">
         <form method="dialog">
-          <button class="btn btn-secondary my-auto" on:click|self={()=>isModalOpen = false}>Close</button>
+          <button class="btn btn-secondary btn-sm my-auto" on:click|self={()=>isModalOpen = false}>Close</button>
         </form>
       </div>
     </div>
