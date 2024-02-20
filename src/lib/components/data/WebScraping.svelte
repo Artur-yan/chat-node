@@ -421,30 +421,32 @@
         {#each urlsGroupedByParent as parentUrl}
         <div id="{parentUrl.parentId}" class="my-4">
           <Accordian> 
-            <div slot="title" class="grid grid-cols-5 gap-2 items-center w-full">
-              <td class="text-primary">{parentUrl.parent} </td>
-              <div class="mx-8 flex gap-2">
-                {#if parentUrl.readyCount > 0}
-                <td class="text-primary">
-                  <div class="badge badge-success badge-outline">
-                    ready: {parentUrl.readyCount}
-                  </div>
-                </td>
-                {/if}
-                {#if parentUrl.pendingCount > 0}
-                <td class="text-primary">
-                  <div class="badge badge-warning badge-outline">
-                    Processing
-                  </div>
-                </td>
-                {/if}
-                {#if parentUrl.errorCount > 0}
-                <td class="text-primary">
-                  <div class="badge badge-error badge-outline">
-                    Error: {parentUrl.errorCount}
-                  </div>
-                </td>
-                {/if}
+            <div slot="title" class="items-center w-full">
+              <div class="flex justify-between">
+                <td class="text-primary">{parentUrl.parent} </td>
+                <div class="mx-8 flex gap-2">
+                  {#if parentUrl.readyCount > 0}
+                  <td class="text-primary">
+                    <div class="badge badge-success badge-outline w-28 w-min-16 p-3">
+                      ready: {parentUrl.readyCount}
+                    </div>
+                  </td>
+                  {/if}
+                  {#if parentUrl.pendingCount > 0}
+                  <td class="text-primary">
+                    <div class="badge badge-warning badge-outline w-28 w-min-16 p-3">
+                      Processing
+                    </div>
+                  </td>
+                  {/if}
+                  {#if parentUrl.errorCount > 0}
+                  <td class="text-primary">
+                    <div class="badge badge-error badge-outline  w-28 w-min-16 p-3">
+                      Error: {parentUrl.errorCount}
+                    </div>
+                  </td>
+                  {/if}
+                </div>
               </div>
             </div>
             <div>
