@@ -441,7 +441,7 @@
                   {/if}
                   {#if parentUrl.errorCount > 0}
                   <td class="text-primary">
-                    <div class="badge badge-error badge-outline  w-28 w-min-16 p-3">
+                    <div class="badge badge-error badge-outline w-28 w-min-16 p-3">
                       Error: {parentUrl.errorCount}
                     </div>
                   </td>
@@ -485,7 +485,8 @@
                     <td class="text-primary"> {childUrl.id} </td>
                     <td>
                       <button class="btn btn-secondary btn-sm" 
-                      disabled={childUrl.parent_id === null && parentUrl.children.length !== 1}
+                      
+                        disabled={(childUrl.id === parentUrl.parentId && parentUrl.children.length !== 1) || childUrl.sync_status === 'QUEUED_FOR_SYNC'}
                       
                         on:click={(e) => {
                           removeFile(childUrl.id);
@@ -509,7 +510,7 @@
                           }
                         }}
                       >
-                        Remove
+                        Remove                      
                       </button>
                     </td>
                   </tr>
