@@ -211,7 +211,7 @@ async function removeFile(fileId: string) {
 
       <!-- Trained -->
       {#if activeTab === 'trained'}
-      <table class="table table-xs">
+      <table class="table table-xs mx-8">
         <thead>
           <tr>
             <th>Title</th>

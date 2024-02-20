@@ -295,9 +295,6 @@ async function removeFile(fileId: string) {
         {/each}
         </tbody>
       </table>
-      {#if hasQueuedFiles}
-        <span>Data will update in {counter} seconds</span>
-      {/if}
     {/if}
     </section>
   </div>
