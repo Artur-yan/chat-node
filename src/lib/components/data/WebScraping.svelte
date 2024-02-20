@@ -2,6 +2,7 @@
   import * as Carbon from 'carbon-connect-js';
   import { currentBot, alert } from '$lib/stores.js';
   import Accordian from '../Accordian.svelte';
+	import { space } from 'postcss/lib/list';
   export let carbonAPIKey: string;
   export let accessToken: string;
 
@@ -280,9 +281,11 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="modal" on:click|self={()=>isModalOpen = false}>
-  <div class="modal-box w-11/12 max-w-7xl h-screen bg-slate-700 shadow-lg shadow-indigo-400 grow-button raise-button">
-    <div class="flex items-center justify-between mx-8">
-      <h3 class="font-bold text-2xl bg-gradient-to-tr from-slate-300 to-slate-500 text-transparent bg-clip-text">Web Scraping</h3>
+  <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-500 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
+    <div class="flex flex-grow-0 items-center justify-between mx-8">
+      <div class="flex flex-grow-0 items-center">
+        <h3 class=" py-1 font-bold text-3xl rounded-xl text-zinc-400">Web Scraping</h3>
+      </div>
 
       <!-- tabs -->
       <div class="flex">
@@ -307,7 +310,12 @@
 
       <div class="modal-action my-auto">
         <form method="dialog">
-          <button class="btn btn-secondary my-auto" on:click|self={()=>isModalOpen = false}>Close</button>
+          <button class="btn btn-secondary btn-sm my-auto" on:click|self={()=>isModalOpen = false}>
+            Close
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>       
+          </button>
         </form>
       </div>
     </div>
@@ -403,6 +411,10 @@
     </div>
       {/if}
 
+      {#if hasQueuedFiles && activeTab === 'trained'}
+        <span class="text-slate-400 mx-8">Refreshing in <span class="font-bold text-primary">{counter}</span> seconds</span>
+      {/if}
+
     <!-- MAIN CONTENT --> 
     <section class="w-full h-5/6rounded-xl my-4 overflow-auto">
       {#if activeTab === 'submit'}
@@ -413,7 +425,6 @@
           </div>
         {/if}
       {/if}
-
       {#if activeTab === 'trained'}
       <div class="overflow-x-auto">
         {#each urlsGroupedByParent as parentUrl}
@@ -421,7 +432,12 @@
           <Accordian> 
             <div slot="title" class="items-center w-full">
               <div class="flex justify-between">
-                <td class="text-primary">{parentUrl.parent} </td>
+                <td class="flex items-center gap-2 text-primary">
+                  {parentUrl.parent} 
+                  {#if parentUrl.pendingCount > 0}
+                    <span class="loading loading-spinner text-warning w-5"></span>
+                  {/if}
+                </td>
                 <div class="mx-8 grid grid-cols-3 gap-2">
                   <td class="text-primary">
                     <button class="{parentUrl.readyCount > 0 ? 'badge-success badge-outline' : 'badge-neutral text-slate-600'} badge w-28 w-min-16 p-3">
@@ -454,22 +470,22 @@
                 <tbody>
                   {#each parentUrl.children as childUrl}
                   <tr id={childUrl.id} class="p-.05">
-                    <td class="text-primary w-1/2 overflow-x-auto"> {childUrl.external_url} </td>
+                    <td class="text-primary w-1/2 overflow-x-auto"> <a class="underline-non" href="{childUrl.external_url}" target="_blank">{childUrl.external_url}</a></td>
                     {#if childUrl.sync_status === 'READY'}
                     <td class="text-primary">
-                      <div class="badge badge-success badge-outline">
+                      <div class="badge badge-success badge-outline w-20">
                         Ready
                       </div>
                     </td>
                     {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC'}
                     <td class="text-primary">
-                      <div class="badge badge-warning badge-outline">
+                      <div class="badge badge-warning badge-outline w-20">
                         Pending
                       </div>
                     </td>
                     {:else if childUrl.sync_status === 'SYNC_ERROR'}
                     <td class="text-primary">
-                      <div class="badge badge-error badge-outline">
+                      <div class="badge badge-error badge-outline w-20">
                         Error
                       </div>
                     </td>
@@ -514,9 +530,6 @@
         </div>
         {/each}
       </div>
-      {#if hasQueuedFiles}
-        <span>Data will update in {counter} seconds</span>
-      {/if}
     {/if}
     </section>
   </div>

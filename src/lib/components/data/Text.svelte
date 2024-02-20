@@ -131,9 +131,11 @@ async function removeFile(fileId: string) {
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="modal" on:click|self={()=>isModalOpen = false}>
-  <div class="modal-box w-11/12 max-w-7xl h-screen bg-slate-700 grow-button raise-button">
+  <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-500 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
     <div class="flex items-center justify-between">
-      <h3 class="font-bold text-xl">Text</h3>
+      <div class="flex gap-4 items-center mx-8">
+        <h3 class="py-1 font-bold text-3xl rounded-xl text-zinc-400">Text</h3>
+      </div>
             <!-- tabs -->
             <div class="flex">
               <div class="tabs tabs-boxed gap-2">
@@ -156,10 +158,20 @@ async function removeFile(fileId: string) {
             </div>
       <div class="modal-action my-auto">
         <form method="dialog">
-          <button class="btn btn-secondary my-auto" on:click|self={()=>isModalOpen = false}>Close</button>
+          <button class="btn btn-secondary btn-sm my-auto" on:click|self={()=>isModalOpen = false}>
+            Close
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>  
+          </button>
         </form>
       </div>
     </div>
+
+    {#if hasQueuedFiles && activeTab === 'trained'}
+      <span class="text-slate-400 mx-8">Refreshing in <span class="font-bold text-primary">{counter}</span> seconds</span>
+    {/if}
+
     <section class="w-full h-5/6 rounded-xl my-4">
       <!-- Content -->
 
@@ -230,9 +242,6 @@ async function removeFile(fileId: string) {
         {/each}
         </tbody>
       </table>
-      {#if hasQueuedFiles}
-        <span>Data will update in {counter} seconds</span>
-      {/if}
     {/if}
 
     </section>
