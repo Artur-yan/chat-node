@@ -2,6 +2,7 @@
   import * as Carbon from 'carbon-connect-js';
   import { currentBot, alert } from '$lib/stores.js';
   import Accordian from '../Accordian.svelte';
+	import { space } from 'postcss/lib/list';
   export let carbonAPIKey: string;
   export let accessToken: string;
 
@@ -280,9 +281,14 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="modal" on:click|self={()=>isModalOpen = false}>
-  <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-400 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
+  <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-500 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
     <div class="flex items-center justify-between mx-8">
-      <h3 class="px-2 py-1 font-bold text-2xl bg-gradient-to-tr from-neutral-600 to-slate-800 rounded-xl text-secondary">Web Scraping</h3>
+      <div class="flex gap-4 items-center">
+        <h3 class="px-2 py-1 font-bold text-3xl rounded-xl text-zinc-400">Web Scraping</h3>
+        {#if hasQueuedFiles && activeTab === 'trained'}
+          <span class="text-slate-400">Refreshing in <span class="font-bold text-primary">{counter}</span> seconds</span>
+        {/if}
+      </div>
 
       <!-- tabs -->
       <div class="flex">
@@ -518,9 +524,6 @@
         </div>
         {/each}
       </div>
-      {#if hasQueuedFiles}
-        <span>Data will update in {counter} seconds</span>
-      {/if}
     {/if}
     </section>
   </div>

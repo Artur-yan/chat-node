@@ -131,9 +131,14 @@ async function removeFile(fileId: string) {
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="modal" on:click|self={()=>isModalOpen = false}>
-  <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-400 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
+  <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-500 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
     <div class="flex items-center justify-between">
-      <h3 class="px-2 py-1 font-bold text-2xl bg-gradient-to-tr from-neutral-600 to-slate-800 rounded-xl text-secondary">Text</h3>
+      <div class="flex gap-4 items-center">
+        <h3 class="px-2 py-1 font-bold text-3xl rounded-xl text-zinc-400">Text</h3>
+        {#if hasQueuedFiles && activeTab === 'trained'}
+          <span class="text-slate-400">Refreshing in <span class="font-bold text-primary">{counter}</span> seconds</span>
+        {/if}
+      </div>
             <!-- tabs -->
             <div class="flex">
               <div class="tabs tabs-boxed gap-2">
@@ -230,9 +235,6 @@ async function removeFile(fileId: string) {
         {/each}
         </tbody>
       </table>
-      {#if hasQueuedFiles}
-        <span>Data will update in {counter} seconds</span>
-      {/if}
     {/if}
 
     </section>

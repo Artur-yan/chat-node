@@ -12,6 +12,8 @@
   let intervalId: any;
   let timeoutId: any;
 
+  let acceptableFileExtensions = ['pdf', 'txt', 'doc', 'docx', 'csv', 'xlsx', 'md', 'rtf', 'tsv', 'pptx', 'json'];
+
   // files
   let fileInput: any;
   let filesToUpload: any = [];
@@ -153,9 +155,14 @@ async function removeFile(fileId: string) {
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="modal" on:click|self={()=>isModalOpen = false}>
-  <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-400 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
-    <div class="flex items-center justify-between">
-      <h3 class="px-2 py-1 font-bold text-2xl bg-gradient-to-tr from-neutral-600 to-slate-800 rounded-xl text-secondary">Files</h3>
+  <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-500 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
+    <div class="flex items-center justify-between mx-8">
+      <div class="flex gap-4 items-center">
+        <h3 class="px-2 py-1 font-bold text-3xl rounded-xl text-zinc-400">Files</h3>
+        {#if hasQueuedFiles && activeTab === 'trained'}
+          <span class="text-slate-400">Refreshing in <span class="font-bold text-primary">{counter}</span> seconds</span>
+        {/if}
+      </div>
 
             <!-- tabs -->
             <div class="flex">
@@ -235,6 +242,17 @@ async function removeFile(fileId: string) {
             />
           {/if}
 				</form>
+
+        <div class="w-full my-24">
+          <h2 class="m-6 text-2xl text-center text-slate-400 font-semibold">Acceptable File Types</h2>
+          <div class=" grid grid-cols-3  gap-6">
+            {#each acceptableFileExtensions as file}
+              <div class="flex flex-col items-center justify-center p-8 rounded-xl bg-slate-800">
+                <span class="text-lg text-primary">.{file}</span>
+              </div>
+            {/each}
+          </div>
+        </div>
         </div>
       {/if}
 
