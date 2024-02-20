@@ -115,7 +115,6 @@ const defaultSettings = {
 		rawText: {
 			chunkSize: 400,
 			chunkOverlap: 20
-		},
 		}
 	},
 	theme: {
