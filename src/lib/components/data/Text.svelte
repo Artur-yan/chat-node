@@ -57,8 +57,8 @@
   }
 
   async function uploadCustomText() {
-    const chunkSize = $currentBot.settings.datafunnelSettings.rawText.chunkSize ? $currentBot.settings.datafunnelSettings.rawText.chunkSize : 400;
-    const chunkOverlap = $currentBot.settings.datafunnelSettings.rawText.chunkOverlap ? $currentBot.settings.datafunnelSettings.rawText.chunkOverlap : 20;
+    const chunkSize = $currentBot.settings.dataFunnelSettings?.rawText?.chunkSize ? $currentBot.settings.dataFunnelSettings?.rawText?.chunkSize : 400;
+    const chunkOverlap = $currentBot.settings.dataFunnelSettings?.rawText?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.rawText?.chunkOverlap : 20;
     
     try {
       console.log('Uploading text:', text);
