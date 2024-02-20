@@ -2,8 +2,6 @@
   import * as Carbon from 'carbon-connect-js';
   import { currentBot, alert } from '$lib/stores.js';
   import Accordian from '../Accordian.svelte';
-	import { children } from 'svelte/internal';
-	import { base } from '$app/paths';
   export let carbonAPIKey: string;
   export let accessToken: string;
 
@@ -447,7 +445,7 @@
 
               <table class="table table-xs">
                 <thead>
-                  <tr class="text-md">
+                  <tr class="text-md font-bold text-secondary">
                     <th>Url</th>
                     <th>Status</th>
                     <th>Id</th>
