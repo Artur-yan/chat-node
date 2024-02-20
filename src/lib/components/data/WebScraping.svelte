@@ -413,7 +413,6 @@
           </div>
         {/if}
       {/if}
-
       {#if activeTab === 'trained'}
       <div class="overflow-x-auto">
         {#each urlsGroupedByParent as parentUrl}
@@ -421,7 +420,12 @@
           <Accordian> 
             <div slot="title" class="items-center w-full">
               <div class="flex justify-between">
-                <td class="text-primary">{parentUrl.parent} </td>
+                <td class="flex items-center gap-2 text-primary">
+                  {parentUrl.parent} 
+                  {#if parentUrl.pendingCount > 0}
+                    <span class="loading loading-spinner text-warning w-5"></span>
+                  {/if}
+                </td>
                 <div class="mx-8 grid grid-cols-3 gap-2">
                   <td class="text-primary">
                     <button class="{parentUrl.readyCount > 0 ? 'badge-success badge-outline' : 'badge-neutral text-slate-600'} badge w-28 w-min-16 p-3">
@@ -454,22 +458,22 @@
                 <tbody>
                   {#each parentUrl.children as childUrl}
                   <tr id={childUrl.id} class="p-.05">
-                    <td class="text-primary w-1/2 overflow-x-auto"> {childUrl.external_url} </td>
+                    <td class="text-primary w-1/2 overflow-x-auto"> <a class="underline-non" href="{childUrl.external_url}" target="_blank">{childUrl.external_url}</a></td>
                     {#if childUrl.sync_status === 'READY'}
                     <td class="text-primary">
-                      <div class="badge badge-success badge-outline">
+                      <div class="badge badge-success badge-outline w-20">
                         Ready
                       </div>
                     </td>
                     {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC'}
                     <td class="text-primary">
-                      <div class="badge badge-warning badge-outline">
+                      <div class="badge badge-warning badge-outline w-20">
                         Pending
                       </div>
                     </td>
                     {:else if childUrl.sync_status === 'SYNC_ERROR'}
                     <td class="text-primary">
-                      <div class="badge badge-error badge-outline">
+                      <div class="badge badge-error badge-outline w-20">
                         Error
                       </div>
                     </td>
