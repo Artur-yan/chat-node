@@ -164,10 +164,10 @@
   async function submitWebScraping(urls: string[], recursionDepth: number = 10) {
     try {
 
-      const maxPagesToScrape = $currentBot.settings.datafunnelSettings.webScraping.maxPagesToScrape ? $currentBot.settings.datafunnelSettings.webScraping.maxPagesToScrape : 1000;
-      const chunkSize = $currentBot.settings.datafunnelSettings.webScraping.chunkSize ? $currentBot.settings.datafunnelSettings.webScraping.chunkSize : 400;
-      const chunkOverlap = $currentBot.settings.datafunnelSettings.webScraping.chunkOverlap ? $currentBot.settings.datafunnelSettings.webScraping.chunkOverlap : 20;
-      const enableAutoSync = $currentBot.settings.datafunnelSettings.webScraping.enableAutoSync ? $currentBot.settings.datafunnelSettings.webScraping.enableAutoSync : false;
+      const maxPagesToScrape = $currentBot.settings.dataFunnelSettings.webScraping.maxPagesToScrape ? $currentBot.settings.dataFunnelSettings.webScraping.maxPagesToScrape : 1000;
+      const chunkSize = $currentBot.settings.dataFunnelSettings.webScraping.chunkSize ? $currentBot.settings.dataFunnelSettings.webScraping.chunkSize : 400;
+      const chunkOverlap = $currentBot.settings.dataFunnelSettings.webScraping.chunkOverlap ? $currentBot.settings.dataFunnelSettings.webScraping.chunkOverlap : 20;
+      const enableAutoSync = $currentBot.settings.dataFunnelSettings.webScraping.enableAutoSync ? $currentBot.settings.dataFunnelSettings.webScraping.enableAutoSync : false;
       //@ts-ignore
       const response = await Carbon.submitScrapeRequest({
         accessToken: accessToken,

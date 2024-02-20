@@ -80,8 +80,8 @@
   }
   
   async function uploadFiles() {
-    const chunkSize = $currentBot.settings.datafunnelSettings.files.chunkSize ? $currentBot.settings.datafunnelSettings.files.chunkSize : 400;
-    const chunkOverlap = $currentBot.settings.datafunnelSettings.files.chunkOverlap ? $currentBot.settings.datafunnelSettings.files.chunkOverlap : 20;
+    const chunkSize = $currentBot.settings.dataFunnelSettings.files.chunkSize ? $currentBot.settings.dataFunnelSettings.files.chunkSize : 400;
+    const chunkOverlap = $currentBot.settings.dataFunnelSettings.files.chunkOverlap ? $currentBot.settings.dataFunnelSettings.files.chunkOverlap : 20;
   try {
     const response = await Carbon.uploadFiles({
       accessToken: accessToken,
