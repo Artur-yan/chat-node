@@ -13,6 +13,8 @@
 
 	let savedName = $currentBot.name;
 
+
+
 	const handleNameSave = async () => {
 		$state = 'saving';
 		try {
@@ -74,7 +76,7 @@
 				Integrations
 			</a> -->
 			<a
-				href="/account/chatbots/{$page.params.id}/data"
+				href="/account/chatbots/{$page.params.id}/{$currentBot.settings.dataFunnelV2? 'data-v2' : 'data'}"
 				class="tab"
 				class:tab-active={currentPath[1] === 'data'}
 			>
