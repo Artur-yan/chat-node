@@ -421,37 +421,33 @@
         {#each urlsGroupedByParent as parentUrl}
         <div id="{parentUrl.parentId}" class="my-4">
           <Accordian> 
-            <div slot="title" class="grid grid-cols-5 gap-2 items-center w-full">
-              <td class="text-primary">{parentUrl.parent} </td>
-              <div class="mx-8 flex gap-2">
-                {#if parentUrl.readyCount > 0}
-                <td class="text-primary">
-                  <div class="badge badge-success badge-outline">
-                    ready: {parentUrl.readyCount}
-                  </div>
-                </td>
-                {/if}
-                {#if parentUrl.pendingCount > 0}
-                <td class="text-primary">
-                  <div class="badge badge-warning badge-outline">
-                    Processing
-                  </div>
-                </td>
-                {/if}
-                {#if parentUrl.errorCount > 0}
-                <td class="text-primary">
-                  <div class="badge badge-error badge-outline">
-                    Error: {parentUrl.errorCount}
-                  </div>
-                </td>
-                {/if}
+            <div slot="title" class="items-center w-full">
+              <div class="flex justify-between">
+                <td class="text-primary">{parentUrl.parent} </td>
+                <div class="mx-8 grid grid-cols-3 gap-2">
+                  <td class="text-primary">
+                    <button class="{parentUrl.readyCount > 0 ? 'badge-success badge-outline' : 'badge-neutral text-slate-600'} badge w-28 w-min-16 p-3">
+                      Ready: {parentUrl.readyCount}
+                    </button>
+                  </td>
+                  <td class="text-primary">
+                    <div class="{parentUrl.pendingCount > 0 ? 'badge-warning badge-outline' : 'badge-neutral text-slate-600'} badge w-28 w-min-16 p-3">
+                      Pending: {parentUrl.pendingCount}
+                    </div>
+                  </td>
+                  <td class="text-primary">
+                    <div class="{parentUrl.errorCount > 0 ? 'badge-error badge-outline' : 'badge-neutral text-slate-600'} badge w-28 w-min-16 p-3">
+                      Error: {parentUrl.errorCount}
+                    </div>
+                  </td>
+                </div>
               </div>
             </div>
             <div>
 
               <table class="table table-xs">
                 <thead>
-                  <tr>
+                  <tr class="text-md">
                     <th>Url</th>
                     <th>Status</th>
                     <th>Id</th>
@@ -464,13 +460,13 @@
                     {#if childUrl.sync_status === 'READY'}
                     <td class="text-primary">
                       <div class="badge badge-success badge-outline">
-                        ready
+                        Ready
                       </div>
                     </td>
                     {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC'}
                     <td class="text-primary">
                       <div class="badge badge-warning badge-outline">
-                        pending
+                        Pending
                       </div>
                     </td>
                     {:else if childUrl.sync_status === 'SYNC_ERROR'}
@@ -483,7 +479,8 @@
                     <td class="text-primary"> {childUrl.id} </td>
                     <td>
                       <button class="btn btn-secondary btn-sm" 
-                      disabled={childUrl.parent_id === null && parentUrl.children.length !== 1}
+                      
+                        disabled={(childUrl.id === parentUrl.parentId && parentUrl.children.length !== 1) || childUrl.sync_status === 'QUEUED_FOR_SYNC'}
                       
                         on:click={(e) => {
                           removeFile(childUrl.id);
@@ -507,7 +504,7 @@
                           }
                         }}
                       >
-                        Remove
+                        Remove                      
                       </button>
                     </td>
                   </tr>
