@@ -100,6 +100,7 @@ const defaultSettings = {
 	msgLimit: 200,
 	crispEnabled: false,
 	crispButtonText: 'Talk to a human',
+	dataFunnelV2: true,
 	theme: {
 		name: 'default',
 		bg: '#0F172A',
