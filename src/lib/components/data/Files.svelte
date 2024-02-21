@@ -284,7 +284,7 @@ async function removeFile(fileId: string) {
                     Ready
                   </div>
                 </td>
-                {:else if file.sync_status === 'QUEUED_FOR_SYNC'}
+                {:else if file.sync_status === 'QUEUED_FOR_SYNC' || file.sync_status === 'QUEUED_FOR_OCR'}
                 <td class="text-primary">
                   <div class="badge badge-warning badge-outline w-20">
                     Pending
