@@ -18,6 +18,7 @@
   let totalFileCount: number;
   let numberOfPages: number;
   let pagesArray: number[] = [];
+  let currentPage: number = 1;
 
   $: console.log(numberOfPages, pagesArray)
 
@@ -107,6 +108,8 @@
         hasQueuedFiles = false;
       }
 
+      //Placing current page reassignment here to improve timing
+      currentPage = Math.ceil(offset / 250) + 1;
       return response.data;
 
       } else {
@@ -547,7 +550,7 @@
         {#if numberOfPages > 1}
         <div class=" flex justify-center gap-2">
           {#each pagesArray as number}
-            <button class="btn btn-secondary btn-sm" on:click={() => {
+            <button class="btn btn-sm {currentPage === number ? 'btn-indigo-600' : 'btn-secondary'}" on:click={() => {
               const offset = (number - 1) * 250;
               fetchUserData(offset);
             }}>{number}</button>
