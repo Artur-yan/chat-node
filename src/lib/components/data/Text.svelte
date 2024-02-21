@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as Carbon from 'carbon-connect-js';
-  import { currentBot } from '$lib/stores.js';
+  import { currentBot, alert } from '$lib/stores.js';
   export let accessToken: string;
   
   // state
@@ -180,16 +180,24 @@ async function removeFile(fileId: string) {
       <!-- Input -->
       {#if activeTab === 'upload'}
         <div class="w-3/4 h-full my-12 mx-auto flex flex-col gap-4 bg-slate-800 p-8 rounded-xl">
-          <input bind:value={title} type="text" placeholder="Title" class="input input-bordered input-secondary w-full" />
-          <textarea bind:value={text} class="textarea textarea-bordered w-full h-full" placeholder="Text"></textarea>
+          <input bind:value={title} type="text" placeholder="Enter a title" class="input input-bordered input-secondary w-full" />
+          <textarea bind:value={text} class="textarea textarea-bordered w-full h-full" placeholder="Teach your bot utilizing clear and direct text..."></textarea>
           <button 
             class="btn btn-primary w-24"
+            disabled={!text || !title}
             on:click={async () => {
-              isUploading = true;
-              if (!title || !text) {
-                console.error('Title and text are required');
+              if(!title && !text) {
+                $alert = { type: 'error', msg: 'Title and Text are required' };
+                return;
+              } else if (!title) {
+                $alert = { type: 'error', msg: 'Title is required' };
+                return;
+              } else if (!text) {
+                $alert = { type: 'error', msg: 'Text is required' };
                 return;
               }
+
+              isUploading = true;
               const response = await uploadCustomText();
               console.log('Response:', response);
               if(response) {

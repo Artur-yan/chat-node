@@ -15,7 +15,6 @@
   let acceptableFileExtensions = ['pdf', 'txt', 'doc', 'docx', 'csv', 'xlsx', 'md', 'rtf', 'tsv', 'pptx', 'json'];
 
   // files
-  let fileInput: any;
   let filesToUpload: any = [];
   let filesTrained: any = [];
 
@@ -223,7 +222,8 @@ async function removeFile(fileId: string) {
           {:else}
             <input
               type="submit"
-              class="btn join-item border-primary"
+              class="btn btn-primary join-item"
+              disabled={filesToUpload.length === 0}
               value="Upload"
               on:click={async (e) => {
                 e.preventDefault();
@@ -231,7 +231,9 @@ async function removeFile(fileId: string) {
                 const files = await uploadFiles();
                 filesTrained = [... filesTrained, files]
                 filesTrained = filesTrained.flat();
+                filesToUpload = [];
                 console.log('Files trained ---->:', files);
+                console.log('FilesToUpload ---->:', filesToUpload);
 
                 setTimeout(() => {
                   isUploading = false;
