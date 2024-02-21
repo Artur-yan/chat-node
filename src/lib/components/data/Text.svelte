@@ -133,8 +133,8 @@ async function removeFile(fileId: string) {
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="modal" on:click|self={()=>isModalOpen = false}>
   <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-500 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
-    <div class="flex items-center justify-between">
-      <div class="flex gap-4 items-center mx-8">
+    <div class="flex items-center justify-between mx-8">
+      <div class="flex gap-4 items-center">
         <h3 class="py-1 font-bold text-3xl rounded-xl text-zinc-400">Text</h3>
       </div>
             <!-- tabs -->
@@ -212,57 +212,58 @@ async function removeFile(fileId: string) {
 
       <!-- Trained -->
       {#if activeTab === 'trained'}
-      <table class="table table-xs w-full">
-        <thead>
-          <tr class="text-md font-bold text-secondary">
-            <th>Title</th>
-            <th>Status</th>
-            <th>Id</th>
-          </tr>
-        </thead>
-        <tbody>
-          {#each textTrained as file}
-          <tr id={file.id} class="p-.05">
-            <td class="text-primary w-1/2 flex flex-grow-0">{file.name} </td>
-            {#if file.sync_status === 'READY'}
-              <td class="text-primary">
-                <div class="badge badge-success badge-outline w-20">
-                  Ready
-                </div>
-              </td>
-              {:else if file.sync_status === 'QUEUED_FOR_SYNC'}
-              <td class="text-primary">
-                <div class="badge badge-warning badge-outline w-20">
-                  Pending
-                </div>
-              </td>
-              {:else if file.sync_status === 'SYNC_ERROR'}
-              <td class="text-primary">
-                <div class="badge badge-error badge-outline w-20">
-                  Error
-                </div>
-              </td>
-            {/if}
-            <td class="text-primary">{file.id}</td>
-            <td>
-              <button 
-                class="btn btn-secondary btn-sm" 
-                on:click={() => {
-                  removeFile(file.id);
-                  //@ts-ignore
-                  textTrained = textTrained.filter((item) => item.id !== file.id);
-                }
-              }
-              >
-                Remove
-              </button>
-            </td>
-          </tr>
-        {/each}
-        </tbody>
-      </table>
-    {/if}
-
+        <div class="w-full px-7">
+          <table class="table-fixed w-full table-xs">
+            <thead>
+              <tr class="text-md font-bold text-secondary text-left">
+                <th>Title</th>
+                <th>Status</th>
+                <th>Id</th>
+              </tr>
+            </thead>
+            <tbody>
+              {#each textTrained as file}
+              <tr id={file.id} class="p-.05 w-full">
+                <td class="text-primary w-1/2 overflow-x-auto">{file.name} </td>
+                {#if file.sync_status === 'READY'}
+                  <td class="text-primary">
+                    <div class="badge badge-success badge-outline w-20">
+                      Ready
+                    </div>
+                  </td>
+                  {:else if file.sync_status === 'QUEUED_FOR_SYNC'}
+                  <td class="text-primary">
+                    <div class="badge badge-warning badge-outline w-20">
+                      Pending
+                    </div>
+                  </td>
+                  {:else if file.sync_status === 'SYNC_ERROR'}
+                  <td class="text-primary">
+                    <div class="badge badge-error badge-outline w-20">
+                      Error
+                    </div>
+                  </td>
+                {/if}
+                <td class="text-primary">{file.id}</td>
+                <td>
+                  <button 
+                    class="btn btn-secondary btn-sm" 
+                    on:click={() => {
+                      removeFile(file.id);
+                      //@ts-ignore
+                      textTrained = textTrained.filter((item) => item.id !== file.id);
+                    }
+                  }
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            {/each}
+            </tbody>
+          </table>
+        </div>
+      {/if}
     </section>
   </div>
 </div>

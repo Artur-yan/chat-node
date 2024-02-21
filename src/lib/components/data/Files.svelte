@@ -40,6 +40,7 @@
     // const docxFiles = docxResponse?.results || [];
 
     filesTrained = [...allFiles] //, ...txtFiles, ...docFiles, ...docxFiles];
+    console.log('Files:', filesTrained);
 
     hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
     if (hasQueuedFiles && isModalOpen) {
@@ -264,11 +265,11 @@ async function removeFile(fileId: string) {
 
       <!-- Trained -->
       {#if activeTab === 'trained'}
-      <div class="w-full">
+      <div class="w-full px-7">
         <table class="table table-xs">
           <thead>
             <tr class="text-md font-bold text-secondary">
-              <th>Url</th>
+              <th>Title</th>
               <th>Status</th>
               <th>Id</th>
             </tr>
@@ -276,26 +277,26 @@ async function removeFile(fileId: string) {
           <tbody>
             {#each filesTrained as file}
             <tr id={file.id} class="p-.05">
-              <td class="text-primary w-1/2 flex flex-grow-0"> {file.name} </td>
+              <td class="text-primary w-1/2 /overflow-x-auto"> {file.name} </td>
               {#if file.sync_status === 'READY'}
-                    <td class="text-primary">
-                      <div class="badge badge-success badge-outline w-20">
-                        Ready
-                      </div>
-                    </td>
-                    {:else if file.sync_status === 'QUEUED_FOR_SYNC'}
-                    <td class="text-primary">
-                      <div class="badge badge-warning badge-outline w-20">
-                        Pending
-                      </div>
-                    </td>
-                    {:else if file.sync_status === 'SYNC_ERROR'}
-                    <td class="text-primary">
-                      <div class="badge badge-error badge-outline w-20">
-                        Error
-                      </div>
-                    </td>
-                    {/if}
+                <td class="text-primary">
+                  <div class="badge badge-success badge-outline w-20">
+                    Ready
+                  </div>
+                </td>
+                {:else if file.sync_status === 'QUEUED_FOR_SYNC'}
+                <td class="text-primary">
+                  <div class="badge badge-warning badge-outline w-20">
+                    Pending
+                  </div>
+                </td>
+                {:else if file.sync_status === 'SYNC_ERROR'}
+                <td class="text-primary">
+                  <div class="badge badge-error badge-outline w-20">
+                    Error
+                  </div>
+                </td>
+              {/if}
               <td class="text-primary"> {file.id} </td>
               <td>
                 <button 
