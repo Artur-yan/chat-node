@@ -17,6 +17,7 @@
   let text: string
 
   $: if(isModalOpen === true) {
+    activeTab = 'upload';
     fetchUserData('RAW_TEXT');
   }
 
@@ -211,9 +212,9 @@ async function removeFile(fileId: string) {
 
       <!-- Trained -->
       {#if activeTab === 'trained'}
-      <table class="table table-xs mx-8">
+      <table class="table table-xs w-full">
         <thead>
-          <tr>
+          <tr class="text-md font-bold text-secondary">
             <th>Title</th>
             <th>Status</th>
             <th>Id</th>
@@ -222,9 +223,27 @@ async function removeFile(fileId: string) {
         <tbody>
           {#each textTrained as file}
           <tr id={file.id} class="p-.05">
-            <td class="text-primary"> {file.name} </td>
-            <td class="text-primary">{file.sync_status}</td>
-            <td class="text-primary"> {file.id} </td>
+            <td class="text-primary w-1/2 flex flex-grow-0">{file.name} </td>
+            {#if file.sync_status === 'READY'}
+              <td class="text-primary">
+                <div class="badge badge-success badge-outline w-20">
+                  Ready
+                </div>
+              </td>
+              {:else if file.sync_status === 'QUEUED_FOR_SYNC'}
+              <td class="text-primary">
+                <div class="badge badge-warning badge-outline w-20">
+                  Pending
+                </div>
+              </td>
+              {:else if file.sync_status === 'SYNC_ERROR'}
+              <td class="text-primary">
+                <div class="badge badge-error badge-outline w-20">
+                  Error
+                </div>
+              </td>
+            {/if}
+            <td class="text-primary">{file.id}</td>
             <td>
               <button 
                 class="btn btn-secondary btn-sm" 
