@@ -15,6 +15,11 @@
   let counter: number;
   let intervalId: any;
   let timeoutId: any;
+  let totalFileCount: number;
+  let numberOfPages: number;
+  let pagesArray: number[] = [];
+
+  $: console.log(numberOfPages, pagesArray)
 
 
   let baseUrl = '';
@@ -35,7 +40,7 @@
     isFetchingSitemap = false;
   }
 
-  async function fetchUserData() {
+  async function fetchUserData(offset: number = 0) {
 
     try {
       const response = await Carbon.getUserFiles({
@@ -45,8 +50,21 @@
         orderBy: "created_at",
         orderDir: "desc",
         limit: 250,
-        offset: 0
+        offset: offset
       });
+
+      console.log('Response:', response.data?.count);
+      totalFileCount = response.data?.count || 0;
+      numberOfPages = Math.ceil(totalFileCount / 250);
+     
+      // Reset pages array
+      pagesArray = [];
+      for(let i = 1; i <= numberOfPages; i++) {
+        pagesArray.push(i);
+      }
+
+      console.log('Pages array:', pagesArray);
+
 
       if (response?.status === 200) {
         const parentUrls = response.data.results.filter((item: any) => item.parent_id === null);
@@ -526,6 +544,16 @@
           </Accordian>
         </div>
         {/each}
+        {#if numberOfPages > 1}
+        <div class=" flex justify-center gap-2">
+          {#each pagesArray as number}
+            <button class="btn btn-secondary btn-sm" on:click={() => {
+              const offset = (number - 1) * 250;
+              fetchUserData(offset);
+            }}>{number}</button>
+          {/each}
+        </div>
+      {/if}
       </div>
     {/if}
     </section>
