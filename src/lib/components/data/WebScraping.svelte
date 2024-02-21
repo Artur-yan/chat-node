@@ -18,6 +18,7 @@
   let totalFileCount: number;
   let numberOfPages: number;
   let pagesArray: number[] = [];
+  let currentPage: number = 1;
 
   $: console.log(numberOfPages, pagesArray)
 
@@ -101,12 +102,15 @@
         countdownFrom40();
         if(timeoutId) clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
-          fetchUserData();
+          offset = (currentPage - 1) * 250;
+          fetchUserData(offset);
         }, 40000);
       } else {
         hasQueuedFiles = false;
       }
 
+      //Placing current page reassignment here to improve timing
+      currentPage = Math.ceil(offset / 250) + 1;
       return response.data;
 
       } else {
@@ -116,67 +120,6 @@
       console.error('Unexpected error:', err.message);
     } 
   }
-
-  // async function fetchUserData() {
-  //   const url = "https://api.carbon.ai/user_files_v2";
-  //   const payload = {
-  //     pagination: {
-  //       limit: 250,
-  //       offset: 0
-  //     },
-  //     order_by: "created_at",
-  //     order_dir: "desc",
-  //     sourceType: 'WEB_SCRAPE',
-  //   };
-  //   const headers = {
-  //     Authorization: `Bearer ${carbonAPIKey}`,
-  //     "Content-Type": "application/json",
-  //     "customer-id": $currentBot.id
-  //   };
-  //   try {
-  //     const response = await fetch(url, {
-  //       method: "POST",
-  //       headers: headers,
-  //       body: JSON.stringify(payload)
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! status: ${response.status}`);
-  //     }
-  //     const data = await response.json();
-  //     const parentUrls = data.results.filter((item: any) => item.parent_id === null);
-  //     urlsGroupedByParent = parentUrls.map((parent: any) => {
-  //       return {
-  //         parent: parent.external_url,
-  //         children: data.results.filter((item: any) => item.parent_id === parent.id),
-  //         readyCount: data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'READY').length,
-  //         pendingCount: data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'QUEUED_FOR_SYNC').length,
-  //         errorCount: data.results.filter((item: any) => item.parent_id === parent.id && item.sync_status === 'SYNC_ERROR').length
-  //       }
-  //     });
-  //
-  //     console.log('Grouped URLs:', urlsGroupedByParent);
-  //     urlsTrained = urlsGroupedByParent;
-  //
-  //     //Retry
-  //     const isPendingUrl = data.results.some((item: any) => {
-  //       console.log('Sync status:', item.sync_status, 'URL:', item.external_url);
-  //       item.sync_status === 'QUEUED_FOR_SYNC'
-  //     });
-  //
-  //     if (isPendingUrl) {
-  //       console.log('Pending URL found, fetching again in 45 seconds');
-  //       setTimeout(() => {
-  //         fetchUserData();
-  //       }, 45000);
-  //     } else {
-  //       console.log('No pending URL found');
-  //     }
-  //
-  //     return data;
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // }
 
   async function submitWebScraping(urls: string[], recursionDepth: number = 10) {
     try {
@@ -547,7 +490,7 @@
         {#if numberOfPages > 1}
         <div class=" flex justify-center gap-2">
           {#each pagesArray as number}
-            <button class="btn btn-secondary btn-sm" on:click={() => {
+            <button class="btn btn-sm {currentPage === number ? 'btn-indigo-600' : 'btn-secondary'}" on:click={() => {
               const offset = (number - 1) * 250;
               fetchUserData(offset);
             }}>{number}</button>
