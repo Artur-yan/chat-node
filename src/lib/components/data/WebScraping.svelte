@@ -470,7 +470,7 @@
                 <tbody>
                   {#each parentUrl.children as childUrl}
                   <tr id={childUrl.id} class="p-.05">
-                    <td class="text-primary w-1/2 overflow-x-auto"> <a class="underline-non" href="{childUrl.external_url}" target="_blank">{childUrl.external_url}</a></td>
+                    <td class="text-primary w-1/2 overflow-x-auto"> <a class="hover:underline" href="{childUrl.external_url}" target="_blank">{childUrl.external_url}</a></td>
                     {#if childUrl.sync_status === 'READY'}
                     <td class="text-primary">
                       <div class="badge badge-success badge-outline w-20">
