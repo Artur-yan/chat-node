@@ -357,7 +357,7 @@
               required
               autofocus
             />
-            <button class="btn btn-primary join-item w-40" type="submit">
+            <button class="btn btn-primary join-item w-40" type="submit" disabled={!baseUrl}>
               {#if isFetchingUrls}
                 <span class="loading loading-spinner loading-sm"></span>
               {:else}
@@ -398,7 +398,7 @@
               placeholder="e.g. chatnode.ai/sitemap.xml"
               required
             />
-            <button class="btn btn-primary join-item w-40" type="submit">
+            <button class="btn btn-primary join-item w-40" type="submit" disabled={!sitemap}>
               {#if isFetchingSitemap}
                 <span class="loading loading-spinner loading-sm"></span>
               {:else}
