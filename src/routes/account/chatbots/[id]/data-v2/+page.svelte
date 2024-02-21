@@ -86,7 +86,7 @@ async function fetchUserData() {
 	<title>Data v2 | {data.model.name} | ChatNode</title>
 </svelte:head>
 
-<div class="container grid md:grid-cols-3 lg:grid-cols-[auto_32rem] gap-4 my-4">
+<div class="container grid md:grid-cols-2 lg:grid-cols-[auto_32rem] gap-4 my-4">
 	<div class="grid grid-cols-3 gap-8 my-4">
 		<WebScraping {carbonAPIKey} {accessToken}/>
 		<Files {accessToken}/>
@@ -96,7 +96,7 @@ async function fetchUserData() {
 		<div
 			class="h-[calc(100vh_-_16rem)] sticky top-4 mb-10 hidden sm:block rounded-2xl overflow-hidden"
 		>
-		<iframe class="w-full h-full" src="{PUBLIC_EMBED_URL}/{$currentBot.id}" frameborder="0" title=""></iframe>
+		  <iframe class="w-full h-full" src="{PUBLIC_EMBED_URL}/{$currentBot.id}" frameborder="0" title=""></iframe>
 		</div>
 	</div>
 </div>
