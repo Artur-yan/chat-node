@@ -7,6 +7,7 @@
 	let isModalOpen = false;
   let activeTab: 'upload' | 'trained' = 'upload';
   let hasQueuedFiles = false;
+  let isUploading = false;
   let counter: number;
   let intervalId: any;
   let timeoutId: any;
@@ -17,6 +18,7 @@
   let text: string
 
   $: if(isModalOpen === true) {
+    activeTab = 'upload';
     fetchUserData('RAW_TEXT');
   }
 
@@ -132,8 +134,8 @@ async function removeFile(fileId: string) {
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="modal" on:click|self={()=>isModalOpen = false}>
   <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-500 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
-    <div class="flex items-center justify-between">
-      <div class="flex gap-4 items-center mx-8">
+    <div class="flex items-center justify-between mx-8">
+      <div class="flex gap-4 items-center">
         <h3 class="py-1 font-bold text-3xl rounded-xl text-zinc-400">Text</h3>
       </div>
             <!-- tabs -->
@@ -181,8 +183,9 @@ async function removeFile(fileId: string) {
           <input bind:value={title} type="text" placeholder="Title" class="input input-bordered input-secondary w-full" />
           <textarea bind:value={text} class="textarea textarea-bordered w-full h-full" placeholder="Text"></textarea>
           <button 
-            class="btn btn-primary"
+            class="btn btn-primary w-24"
             on:click={async () => {
+              isUploading = true;
               if (!title || !text) {
                 console.error('Title and text are required');
                 return;
@@ -192,58 +195,87 @@ async function removeFile(fileId: string) {
               if(response) {
                 textTrained = [...textTrained, response];
                 hasQueuedFiles = true;
-                countdownFrom40();
-                activeTab = 'trained';
-                hasQueuedFiles = true;
-                title = '';
-                text = '';
+                
+                setTimeout(() => {
+                  countdownFrom40();
+                  activeTab = 'trained';
+                  hasQueuedFiles = true;
+                  isUploading = false;
+                  title = '';
+                  text = '';
 
-                if(timeoutId) clearTimeout(timeoutId);
-                timeoutId =setTimeout(() => {
-                  fetchUserData('RAW_TEXT');
-                }, 40000);
+                  if(timeoutId) clearTimeout(timeoutId);
+                  timeoutId =setTimeout(() => {
+                    fetchUserData('RAW_TEXT');
+                  }, 40000);
+                }, 1000);
               }
             }}
-          >Train 
+          >
+          
+          {#if isUploading}
+            <span class="loading loading-spinner loading-md"></span>
+          {:else}
+            Train
+          {/if}
           </button>
         </div>
       {/if}
 
       <!-- Trained -->
       {#if activeTab === 'trained'}
-      <table class="table table-xs mx-8">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Status</th>
-            <th>Id</th>
-          </tr>
-        </thead>
-        <tbody>
-          {#each textTrained as file}
-          <tr id={file.id} class="p-.05">
-            <td class="text-primary"> {file.name} </td>
-            <td class="text-primary">{file.sync_status}</td>
-            <td class="text-primary"> {file.id} </td>
-            <td>
-              <button 
-                class="btn btn-secondary btn-sm" 
-                on:click={() => {
-                  removeFile(file.id);
-                  //@ts-ignore
-                  textTrained = textTrained.filter((item) => item.id !== file.id);
-                }
-              }
-              >
-                Remove
-              </button>
-            </td>
-          </tr>
-        {/each}
-        </tbody>
-      </table>
-    {/if}
-
+        <div class="w-full h-full px-7 pt-8 bg-slate-900 bg-opacity-60 rounded-xl">
+          <table class="table w-full table-xs">
+            <thead>
+              <tr class="text-md font-bold text-secondary text-left">
+                <th>Title</th>
+                <th>Status</th>
+                <th>Id</th>
+              </tr>
+            </thead>
+            <tbody>
+              {#each textTrained as file}
+              <tr id={file.id} class="p-.05 w-full">
+                <td class="text-primary w-1/2 overflow-x-auto">{file.name} </td>
+                {#if file.sync_status === 'READY'}
+                  <td class="text-primary">
+                    <div class="badge badge-success badge-outline w-20">
+                      Ready
+                    </div>
+                  </td>
+                  {:else if file.sync_status === 'QUEUED_FOR_SYNC'}
+                  <td class="text-primary">
+                    <div class="badge badge-warning badge-outline w-20">
+                      Pending
+                    </div>
+                  </td>
+                  {:else if file.sync_status === 'SYNC_ERROR'}
+                  <td class="text-primary">
+                    <div class="badge badge-error badge-outline w-20">
+                      Error
+                    </div>
+                  </td>
+                {/if}
+                <td class="text-primary">{file.id}</td>
+                <td>
+                  <button 
+                    class="btn btn-secondary btn-sm" 
+                    on:click={() => {
+                      removeFile(file.id);
+                      //@ts-ignore
+                      textTrained = textTrained.filter((item) => item.id !== file.id);
+                    }
+                  }
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            {/each}
+            </tbody>
+          </table>
+        </div>
+      {/if}
     </section>
   </div>
 </div>

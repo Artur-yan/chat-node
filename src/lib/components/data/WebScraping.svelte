@@ -416,7 +416,7 @@
       {/if}
 
     <!-- MAIN CONTENT --> 
-    <section class="w-full h-5/6rounded-xl my-4 overflow-auto">
+    <section class="w-full h-5/6 rounded-xl my-4">
       {#if activeTab === 'submit'}
         {#if isFetchingUrls || isFetchingSitemap}
           <div class="flex flex-col items-center justify-center h-full">

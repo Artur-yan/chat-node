@@ -40,6 +40,7 @@
     // const docxFiles = docxResponse?.results || [];
 
     filesTrained = [...allFiles] //, ...txtFiles, ...docFiles, ...docxFiles];
+    console.log('Files:', filesTrained);
 
     hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
     if (hasQueuedFiles && isModalOpen) {
@@ -196,7 +197,7 @@ async function removeFile(fileId: string) {
       <span class="text-slate-400 mx-8">Refreshing in <span class="font-bold text-primary">{counter}</span> seconds</span>
     {/if}
     
-    <section class="w-full h-5/6 rounded-xl my-4 mx-8">
+    <section class="w-full h-5/6 rounded-xl my-4">
       <!-- Content -->
 
       <!-- Upload -->
@@ -251,10 +252,10 @@ async function removeFile(fileId: string) {
 
         <div class="w-full my-24">
           <h2 class="m-6 text-2xl text-center text-slate-400 font-semibold">Acceptable File Types</h2>
-          <div class=" grid grid-cols-3  gap-6">
+          <div class=" grid grid-cols-3 gap-6">
             {#each acceptableFileExtensions as file}
               <div class="flex flex-col items-center justify-center p-6 rounded-xl bg-slate-800">
-                <span class="text-lg text-primary">.{file}</span>
+                <span class="bg-gradient-to-tr from-slate-600 to-cyan-300 text-transparent bg-clip-text text-xl">.{file}</span>
               </div>
             {/each}
           </div>
@@ -264,37 +265,57 @@ async function removeFile(fileId: string) {
 
       <!-- Trained -->
       {#if activeTab === 'trained'}
-      <table class="table table-xs">
-        <thead>
-          <tr>
-            <th>Url</th>
-            <th>Status</th>
-            <th>Id</th>
-          </tr>
-        </thead>
-        <tbody>
-          {#each filesTrained as file}
-          <tr id={file.id} class="p-.05">
-            <td class="text-primary"> {file.name} </td>
-            <td class="text-primary">{file.sync_status}</td>
-            <td class="text-primary"> {file.id} </td>
-            <td>
-              <button 
-                class="btn btn-secondary btn-sm" 
-                on:click={() => {
-                  removeFile(file.id);
-                  //@ts-ignore
-                  filesTrained = filesTrained.filter((item) => item.id !== file.id);
+      <div class="w-full h-full px-7 pt-8 bg-slate-900 bg-opacity-60 rounded-xl">
+        <table class="table table-xs">
+          <thead>
+            <tr class="text-md font-bold text-secondary">
+              <th>Title</th>
+              <th>Status</th>
+              <th>Id</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each filesTrained as file}
+            <tr id={file.id} class="p-.05">
+              <td class="text-primary w-1/2 /overflow-x-auto"> {file.name} </td>
+              {#if file.sync_status === 'READY'}
+                <td class="text-primary">
+                  <div class="badge badge-success badge-outline w-20">
+                    Ready
+                  </div>
+                </td>
+                {:else if file.sync_status === 'QUEUED_FOR_SYNC' || file.sync_status === 'QUEUED_FOR_OCR'}
+                <td class="text-primary">
+                  <div class="badge badge-warning badge-outline w-20">
+                    Pending
+                  </div>
+                </td>
+                {:else if file.sync_status === 'SYNC_ERROR'}
+                <td class="text-primary">
+                  <div class="badge badge-error badge-outline w-20">
+                    Error
+                  </div>
+                </td>
+              {/if}
+              <td class="text-primary"> {file.id} </td>
+              <td>
+                <button 
+                  class="btn btn-secondary btn-sm" 
+                  on:click={() => {
+                    removeFile(file.id);
+                    //@ts-ignore
+                    filesTrained = filesTrained.filter((item) => item.id !== file.id);
+                  }
                 }
-              }
-              >
-                Remove
-              </button>
-            </td>
-          </tr>
-        {/each}
-        </tbody>
-      </table>
+                >
+                  Remove
+                </button>
+              </td>
+            </tr>
+          {/each}
+          </tbody>
+        </table>
+      </div>
     {/if}
     </section>
   </div>
