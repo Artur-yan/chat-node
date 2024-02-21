@@ -255,7 +255,7 @@ async function removeFile(fileId: string) {
           <div class=" grid grid-cols-3 gap-6">
             {#each acceptableFileExtensions as file}
               <div class="flex flex-col items-center justify-center p-6 rounded-xl bg-slate-800">
-                <span class="text-lg text-primary">.{file}</span>
+                <span class="bg-gradient-to-tr from-slate-600 to-cyan-300 text-transparent bg-clip-text text-xl">.{file}</span>
               </div>
             {/each}
           </div>

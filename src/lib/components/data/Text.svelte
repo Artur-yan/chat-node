@@ -7,6 +7,7 @@
 	let isModalOpen = false;
   let activeTab: 'upload' | 'trained' = 'upload';
   let hasQueuedFiles = false;
+  let isUploading = false;
   let counter: number;
   let intervalId: any;
   let timeoutId: any;
@@ -182,8 +183,9 @@ async function removeFile(fileId: string) {
           <input bind:value={title} type="text" placeholder="Title" class="input input-bordered input-secondary w-full" />
           <textarea bind:value={text} class="textarea textarea-bordered w-full h-full" placeholder="Text"></textarea>
           <button 
-            class="btn btn-primary"
+            class="btn btn-primary w-24"
             on:click={async () => {
+              isUploading = true;
               if (!title || !text) {
                 console.error('Title and text are required');
                 return;
@@ -193,19 +195,29 @@ async function removeFile(fileId: string) {
               if(response) {
                 textTrained = [...textTrained, response];
                 hasQueuedFiles = true;
-                countdownFrom40();
-                activeTab = 'trained';
-                hasQueuedFiles = true;
-                title = '';
-                text = '';
+                
+                setTimeout(() => {
+                  countdownFrom40();
+                  activeTab = 'trained';
+                  hasQueuedFiles = true;
+                  isUploading = false;
+                  title = '';
+                  text = '';
 
-                if(timeoutId) clearTimeout(timeoutId);
-                timeoutId =setTimeout(() => {
-                  fetchUserData('RAW_TEXT');
-                }, 40000);
+                  if(timeoutId) clearTimeout(timeoutId);
+                  timeoutId =setTimeout(() => {
+                    fetchUserData('RAW_TEXT');
+                  }, 40000);
+                }, 1000);
               }
             }}
-          >Train 
+          >
+          
+          {#if isUploading}
+            <span class="loading loading-spinner loading-md"></span>
+          {:else}
+            Train
+          {/if}
           </button>
         </div>
       {/if}
