@@ -213,7 +213,7 @@ async function removeFile(fileId: string) {
       <!-- Trained -->
       {#if activeTab === 'trained'}
         <div class="w-full px-7">
-          <table class="table-fixed w-full table-xs">
+          <table class="table w-full table-xs">
             <thead>
               <tr class="text-md font-bold text-secondary text-left">
                 <th>Title</th>
