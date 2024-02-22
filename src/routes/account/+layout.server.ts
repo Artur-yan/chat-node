@@ -4,7 +4,6 @@ import { prismaClient } from '$lib/server/prisma';
 export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (session) {
-
 		const [subscription, bots] = await prismaClient.$transaction([
 			prismaClient.subscriptions.findUnique({
 				where: {
@@ -23,7 +22,7 @@ export const load = async ({ locals }) => {
 			})
 		]);
 
-		return { user: session.user, subscription, bots, scripts: '' };
+		return { user: session.user, subscription, bots, scripts: '', session: session };
 	} else {
 		throw redirect(303, '/login');
 	}
