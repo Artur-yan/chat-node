@@ -74,16 +74,29 @@ async function fetchUserData() {
   }
 }
 
-function fetchTotalFileCount() {
-  fetchUserData().then((data) => {
-    totalFileCount = data.total_count;
-  });
+async function fetchTotalFileCount() {
+  try {
+    const response = await Carbon.getUserFiles({
+      accessToken: accessToken,
+      limit: 1,
+      offset: 0
+    });
+
+    if (response?.status === 200) {
+      totalFileCount = response.data?.count || 0;
+    } else {
+      console.error('Error:', response.error);
+    }
+  } catch (err) {
+    console.error('Unexpected error:', err.message);
+  }
 }
 
 
 
   onMount(async () => {
   	await fetchAccessToken();
+    await fetchTotalFileCount();
   });
 </script>
 

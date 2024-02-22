@@ -7,6 +7,9 @@
   export let accessToken: string;
   export let totalFileCount: number;
 
+  $: console.log('webscraping ---->x', totalFileCount);
+
+
   // state
 	let isModalOpen = false;
   let activeTab: 'submit' | 'trained' = 'submit';
@@ -57,7 +60,7 @@
 
       console.log('Response total count:', response.data?.count);
       console.log('Response:', response);
-      
+
       totalFileCount = response.data?.count || 0;
       numberOfPages = Math.ceil(totalFileCount / 250);
      
