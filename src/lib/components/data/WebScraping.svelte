@@ -2,7 +2,7 @@
   import * as Carbon from 'carbon-connect-js';
   import { currentBot, alert } from '$lib/stores.js';
   import Accordian from '../Accordian.svelte';
-	import { space } from 'postcss/lib/list';
+  import { v4 as uuidv4 } from 'uuid';
   export let carbonAPIKey: string;
   export let accessToken: string;
   export let totalFileCount: number;
@@ -32,6 +32,7 @@
   let urlsTrained: string[] | [] = [];
   let parentUrls: string[] | [] = [];
   let urlsGroupedByParent: any[] = [];
+  let urlsGroupedByDerivedParent: any[] = [];
 
   $: if (isModalOpen === true) {
     activeTab = 'submit';
@@ -52,7 +53,7 @@
         accessToken: accessToken,
         filters: {"source": "WEB_SCRAPE"},
         // @ts-ignore
-        orderBy: "created_at",
+        orderBy: "parent_id",
         orderDir: "desc",
         limit: 250,
         offset: offset
@@ -74,8 +75,54 @@
 
 
       if (response?.status === 200) {
-        const parentUrls = response.data.results.filter((item: any) => item.parent_id === null);
-        //Restructure finding parent urls @ HUNTER 
+        let parentUrls = response.data.results.filter((item: any) => item.parent_id === null);
+        console.log('Parent URLs:', parentUrls);
+
+        let parentIds = parentUrls.map((item: any) => item.id);
+        console.log('Parent IDs:', parentIds);
+
+        const parentlessChildren = response.data.results.filter((item: any) => {
+          if(item.parent_id !== null && !parentIds.includes(item.parent_id)) {
+            return item;
+          }
+        });
+
+        console.log('Parentless children:', parentlessChildren);
+
+        const derivedParentUrls: string[] = [];
+
+        for(let i = 0; i < parentlessChildren.length; i++) {
+          const item = parentlessChildren[i];
+          const url = new URL(item.external_url);
+          const origin = url.origin;
+          if(!derivedParentUrls.includes(origin)) {
+            derivedParentUrls.push(origin);
+          }
+        }
+
+        console.log('Derived parent URLs:', derivedParentUrls);
+
+        urlsGroupedByDerivedParent  = derivedParentUrls.map((parent: any) => {
+          const children = [...response.data.results.filter((item: any) => {
+            const url = new URL(item.external_url);
+            return url.origin === parent;
+          })];
+          const readyCount = children.filter((item: any) => item.sync_status === 'READY').length;
+          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC').length;
+          const errorCount = children.filter((item: any) => item.sync_status === 'SYNC_ERROR').length
+          
+          return {
+            parent: parent,
+            parentId: 4,
+            parentStatus: 'READY',
+            children,
+            readyCount,
+            pendingCount,
+            errorCount
+          }
+        });
+
+        console.log('Grouped Dervied URLs:', urlsGroupedByDerivedParent);
 
         urlsGroupedByParent = parentUrls.map((parent: any) => {
 
@@ -95,10 +142,11 @@
           }
       });
 
-      
-  
       console.log('Grouped URLs:', urlsGroupedByParent);
+
+      urlsGroupedByParent = [...urlsGroupedByDerivedParent, ...urlsGroupedByParent];
       urlsTrained = urlsGroupedByParent;
+      console.log('urlsTrained:', urlsTrained);
 
       //Retry
       hasQueuedFiles = response.data.results.some((item: any) => {

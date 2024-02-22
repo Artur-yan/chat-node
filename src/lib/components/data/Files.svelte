@@ -6,7 +6,6 @@
   export let totalFileCount: number;
 
   $: console.log('files ---->x', totalFileCount);
-
   
   // state
 	let isModalOpen = false;
@@ -136,7 +135,6 @@ async function removeFile(fileId: string) {
     }
   }, 1000);
 }
-
 
 </script>
 

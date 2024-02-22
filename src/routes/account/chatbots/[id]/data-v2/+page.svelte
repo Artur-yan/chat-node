@@ -30,69 +30,23 @@
     }
   }
 
+  async function fetchTotalFileCount() {
+    try {
+      const response = await Carbon.getUserFiles({
+        accessToken: accessToken,
+        limit: 1,
+        offset: 0
+      });
 
-async function fetchUserData() {
-
-  const url = "https://api.carbon.ai/user_files_v2";
-
-  const payload = {
-    pagination: {
-      limit: 250,
-      offset: 0
-    },
-    order_by: "created_at",
-    order_dir: "desc",
-    include_raw_file: true,
-    include_parsed_text_file: true,
-    include_additional_files: true
-  };
-
-  const headers = {
-    Authorization: `Bearer ${carbonAPIKey}`,
-    "Content-Type": "application/json",
-    "customer-id": $currentBot.id
-  };
-
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      if (response?.status === 200) {
+        totalFileCount = response.data?.count || 0;
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
     }
-
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error('Error:', error);
-  } finally {
-    // HERE
   }
-}
-
-async function fetchTotalFileCount() {
-  try {
-    const response = await Carbon.getUserFiles({
-      accessToken: accessToken,
-      limit: 1,
-      offset: 0
-    });
-
-    if (response?.status === 200) {
-      totalFileCount = response.data?.count || 0;
-    } else {
-      console.error('Error:', response.error);
-    }
-  } catch (err) {
-    console.error('Unexpected error:', err.message);
-  }
-}
-
-
 
   onMount(async () => {
   	await fetchAccessToken();
