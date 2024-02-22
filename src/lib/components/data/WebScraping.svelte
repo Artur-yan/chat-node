@@ -487,18 +487,18 @@
           </Accordian>
         </div>
         {/each}
-        {#if numberOfPages > 1}
-        <div class=" flex justify-center gap-2">
-          {#each pagesArray as number}
-            <button class="btn btn-sm {currentPage === number ? 'btn-indigo-600' : 'btn-secondary'}" on:click={() => {
-              const offset = (number - 1) * 250;
-              fetchUserData(offset);
-            }}>{number}</button>
-          {/each}
-        </div>
-      {/if}
       </div>
     {/if}
     </section>
+    {#if numberOfPages > 1}
+    <div class=" flex justify-center gap-2">
+      {#each pagesArray as number}
+        <button class="btn btn-sm {currentPage === number ? 'btn-indigo-600' : 'btn-secondary'}" on:click={() => {
+          const offset = (number - 1) * 250;
+          fetchUserData(offset);
+        }}>{number}</button>
+      {/each}
+    </div>
+  {/if}
   </div>
 </div>
