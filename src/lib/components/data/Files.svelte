@@ -249,7 +249,7 @@ async function removeFile(fileId: string) {
           {/if}
 				</form>
 
-        <div class="w-full my-24">
+        <div class="w-full my-8">
           <h2 class="m-6 text-2xl text-center text-slate-400 font-semibold">Acceptable File Types</h2>
           <div class=" grid grid-cols-3 gap-6">
             {#each acceptableFileExtensions as file}
