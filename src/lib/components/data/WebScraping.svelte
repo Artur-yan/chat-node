@@ -54,7 +54,9 @@
         offset: offset
       });
 
-      console.log('Response:', response.data?.count);
+      console.log('Response total count:', response.data?.count);
+      console.log('Response payload count', response.data?.results.length);
+      console.log('Response:', response);
       totalFileCount = response.data?.count || 0;
       numberOfPages = Math.ceil(totalFileCount / 250);
      
@@ -69,6 +71,8 @@
 
       if (response?.status === 200) {
         const parentUrls = response.data.results.filter((item: any) => item.parent_id === null);
+        //Restructure finding parent urls @ HUNTER 
+
         urlsGroupedByParent = parentUrls.map((parent: any) => {
 
           const children = [parent, ...response.data.results.filter((item: any) => item.parent_id === parent.id)];
@@ -491,7 +495,7 @@
     {/if}
     </section>
     {#if numberOfPages > 1}
-    <div class="flex justify-center gap-2 mt-12">
+    <div class="flex justify-center gap-2">
       {#each pagesArray as number}
         <button class="btn btn-sm {currentPage === number ? 'btn-indigo-600' : 'btn-secondary'}" on:click={() => {
           const offset = (number - 1) * 250;
