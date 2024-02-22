@@ -31,16 +31,9 @@
 
   async function fetchAllFiles() {
     const filesResponse = await fetchUserData();
-    // const txtResponse = await fetchUserData('TEXT');
-    // const docResponse = await fetchUserData('DOC');
-    // const docxResponse = await fetchUserData('DOCX');
-
     const allFiles = filesResponse?.results || [];
-    // const txtFiles = txtResponse?.results || [];
-    // const docFiles = docResponse?.results || [];
-    // const docxFiles = docxResponse?.results || [];
 
-    filesTrained = [...allFiles] //, ...txtFiles, ...docFiles, ...docxFiles];
+    filesTrained = [...allFiles]
     console.log('Files:', filesTrained);
 
     hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
