@@ -269,7 +269,7 @@
 					<div class="card-body p-6">
 						<div class="flex justify-between items-center">
 							<h2 class="card-title">
-								{#if bot.status === 'training'}
+								<!-- {#if bot.status === 'training'}
 									<div class="text-warning">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -328,7 +328,7 @@
 											</g>
 										</svg>
 									</div>
-								{/if}
+								{/if} -->
 								<a
 									href="chatbots/{bot.id}"
 									class="text-primary text-base truncate"
