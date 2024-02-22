@@ -1,7 +1,9 @@
 <script lang="ts">
   import * as Carbon from 'carbon-connect-js';
   import { currentBot } from '$lib/stores.js';
+
   export let accessToken: string;
+  export let totalFileCount: number;
   
   // state
 	let isModalOpen = false;
@@ -63,8 +65,8 @@
     });
 
     if (response?.status === 200) {
-      filesTrained = response.data.results
-      console.log('Files:', filesTrained);
+      totalFileCount = response.data?.count || 0;
+      filesTrained = response.data?.results
 
     return response.data;
 

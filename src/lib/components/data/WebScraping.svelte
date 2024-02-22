@@ -5,6 +5,7 @@
 	import { space } from 'postcss/lib/list';
   export let carbonAPIKey: string;
   export let accessToken: string;
+  export let totalFileCount: number;
 
   // state
 	let isModalOpen = false;
@@ -15,10 +16,10 @@
   let counter: number;
   let intervalId: any;
   let timeoutId: any;
-  let totalFileCount: number;
   let numberOfPages: number;
   let pagesArray: number[] = [];
   let currentPage: number = 1;
+
 
   $: console.log(numberOfPages, pagesArray)
 
@@ -55,8 +56,8 @@
       });
 
       console.log('Response total count:', response.data?.count);
-      console.log('Response payload count', response.data?.results.length);
       console.log('Response:', response);
+      
       totalFileCount = response.data?.count || 0;
       numberOfPages = Math.ceil(totalFileCount / 250);
      
