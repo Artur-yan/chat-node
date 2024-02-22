@@ -1,7 +1,12 @@
 <script lang="ts">
   import * as Carbon from 'carbon-connect-js';
   import { currentBot } from '$lib/stores.js';
+
   export let accessToken: string;
+  export let totalFileCount: number;
+
+  $: console.log('files ---->x', totalFileCount);
+
   
   // state
 	let isModalOpen = false;
@@ -29,16 +34,9 @@
 
   async function fetchAllFiles() {
     const filesResponse = await fetchUserData();
-    // const txtResponse = await fetchUserData('TEXT');
-    // const docResponse = await fetchUserData('DOC');
-    // const docxResponse = await fetchUserData('DOCX');
-
     const allFiles = filesResponse?.results || [];
-    // const txtFiles = txtResponse?.results || [];
-    // const docFiles = docResponse?.results || [];
-    // const docxFiles = docxResponse?.results || [];
 
-    filesTrained = [...allFiles] //, ...txtFiles, ...docFiles, ...docxFiles];
+    filesTrained = [...allFiles]
     console.log('Files:', filesTrained);
 
     hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
@@ -63,8 +61,8 @@
     });
 
     if (response?.status === 200) {
-      filesTrained = response.data.results
-      console.log('Files:', filesTrained);
+      totalFileCount = response.data?.count || 0;
+      filesTrained = response.data?.results
 
     return response.data;
 
@@ -249,7 +247,7 @@ async function removeFile(fileId: string) {
           {/if}
 				</form>
 
-        <div class="w-full my-24">
+        <div class="w-full my-8">
           <h2 class="m-6 text-2xl text-center text-slate-400 font-semibold">Acceptable File Types</h2>
           <div class=" grid grid-cols-3 gap-6">
             {#each acceptableFileExtensions as file}

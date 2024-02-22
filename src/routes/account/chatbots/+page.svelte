@@ -93,6 +93,7 @@
 	let botName = '';
 	let newModelId = '';
 	let settings = defaultSettings;
+	let creatingBot = false;
 
 	// AppSumo plans
 	if(plan > 1000) {
@@ -122,10 +123,7 @@
 			});
 
 			const resJson = await res.json();
-			console.log('resJson', resJson);
-
 			newModelId = resJson.chat_key;
-			console.log('newModelId', newModelId);
 			await addModel(newModelId, botName, defaultSettings);
 			goto(`/account/chatbots/${newModelId}/data-v2`);
 
@@ -152,10 +150,15 @@
 				class="btn btn-primary"
 				disabled={!botName}
 				on:click={() => {
+					creatingBot = true;
 					createModel();
 				}}
 			>
+			{#if creatingBot}
+			<span class="loading loading-spinner loading-md"></span>
+			{:else}
 				Create
+			{/if}
 			</button>
       <label for="my_modal_6" class="btn btn-secondary">Close</label>
     </div>
@@ -167,18 +170,20 @@
 		<div>
 			<h1 class="font-bold">Dashboard</h1>
 		</div>
-		<!-- <button
-			on:click={() => goto('/account/chatbots/create')}
+		{#if data.user.status !== 'active' || botUsage >= 1}
+		<button
 			class="btn btn-primary btn-sm btn-outline text-xs pr-1"
 			disabled={data.user.status !== 'active' || botUsage >= 1}
 		>
-			New Bot <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+			New Bot 
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 				<path
 					fill="currentColor"
 					d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m2-8H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"
 				/>
 			</svg>
-		</button> -->
+		</button>
+		{:else}
 		<label for="my_modal_6" class="btn btn-primary btn-sm btn-outline text-xs pr-1">			
 			New Bot 
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -188,6 +193,7 @@
 				/>
 			</svg>
 		</label>
+		{/if}
 	</div>
 </div>
 
@@ -263,7 +269,7 @@
 					<div class="card-body p-6">
 						<div class="flex justify-between items-center">
 							<h2 class="card-title">
-								{#if bot.status === 'training'}
+								<!-- {#if bot.status === 'training'}
 									<div class="text-warning">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -322,7 +328,7 @@
 											</g>
 										</svg>
 									</div>
-								{/if}
+								{/if} -->
 								<a
 									href="chatbots/{bot.id}"
 									class="text-primary text-base truncate"

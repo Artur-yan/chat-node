@@ -11,10 +11,7 @@
 
   const carbonAPIKey = '752f7de712916611f49e01b4b34ac82727f112f17448a4f7e816595ccb47579c';
 	let accessToken: string;
-	let userDataSource: any
-	let status = '';
-
-  let webScrapingData: any = [];
+  let totalFileCount:number;
 
 	async function fetchAccessToken() {
     try {
@@ -77,8 +74,29 @@ async function fetchUserData() {
   }
 }
 
+async function fetchTotalFileCount() {
+  try {
+    const response = await Carbon.getUserFiles({
+      accessToken: accessToken,
+      limit: 1,
+      offset: 0
+    });
+
+    if (response?.status === 200) {
+      totalFileCount = response.data?.count || 0;
+    } else {
+      console.error('Error:', response.error);
+    }
+  } catch (err) {
+    console.error('Unexpected error:', err.message);
+  }
+}
+
+
+
   onMount(async () => {
   	await fetchAccessToken();
+    await fetchTotalFileCount();
   });
 </script>
 
@@ -88,9 +106,9 @@ async function fetchUserData() {
 
 <div class="container grid md:grid-cols-2 lg:grid-cols-[auto_32rem] gap-4 my-4">
 	<div class="grid grid-cols-3 gap-8 my-4">
-		<WebScraping {carbonAPIKey} {accessToken}/>
-		<Files {accessToken}/>
-		<Text {accessToken}/>
+		<WebScraping {carbonAPIKey} {accessToken} {totalFileCount}/>
+		<Files {accessToken} {totalFileCount}/>
+		<Text {accessToken} {totalFileCount}/>
 	</div>
 	<div>
 		<div

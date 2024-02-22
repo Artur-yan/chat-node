@@ -1,7 +1,12 @@
 <script lang="ts">
   import * as Carbon from 'carbon-connect-js';
   import { currentBot, alert } from '$lib/stores.js';
+
   export let accessToken: string;
+  export let totalFileCount: number;
+
+  $: console.log('text ---->x', totalFileCount);
+
   
   // state
 	let isModalOpen = false;
@@ -34,7 +39,8 @@
       });
 
       if (response?.status === 200) {
-        textTrained = response.data.results
+        totalFileCount = response.data?.count || 0;
+        textTrained = response.data?.results
 
         hasQueuedFiles = textTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_SYNC');
         if (hasQueuedFiles && isModalOpen) {
