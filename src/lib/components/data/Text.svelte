@@ -4,9 +4,6 @@
 
   export let accessToken: string;
   export let totalFileCount: number;
-
-  $: console.log('text ---->x', totalFileCount);
-
   
   // state
 	let isModalOpen = false;

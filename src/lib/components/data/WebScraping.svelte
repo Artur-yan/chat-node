@@ -7,9 +7,6 @@
   export let accessToken: string;
   export let totalFileCount: number;
 
-  $: console.log('webscraping ---->x', totalFileCount);
-
-
   // state
 	let isModalOpen = false;
   let activeTab: 'submit' | 'trained' = 'submit';
@@ -23,10 +20,7 @@
   let pagesArray: number[] = [];
   let currentPage: number = 1;
 
-
-  $: console.log(numberOfPages, pagesArray)
-
-
+  // Values
   let baseUrl = '';
   let sitemap = '';
   let urlsTrained: string[] | [] = [];
@@ -34,6 +28,7 @@
   let urlsGroupedByParent: any[] = [];
   let urlsGroupedByDerivedParent: any[] = [];
 
+  //Conditions
   $: if (isModalOpen === true) {
     activeTab = 'submit';
     fetchUserData()
@@ -59,36 +54,34 @@
         offset: offset
       });
 
-      console.log('Response total count:', response.data?.count);
       console.log('Response:', response);
 
-      totalFileCount = response.data?.count || 0;
-      numberOfPages = Math.ceil(totalFileCount / 250);
-     
-      // Reset pages array
-      pagesArray = [];
-      for(let i = 1; i <= numberOfPages; i++) {
-        pagesArray.push(i);
-      }
-
-      console.log('Pages array:', pagesArray);
 
 
+  
       if (response?.status === 200) {
+
+        // Pagination
+        totalFileCount = response.data?.count || 0;
+        numberOfPages = Math.ceil(totalFileCount / 250);
+      
+        // Variable to store the number of pages for rendering
+        pagesArray = [];
+        for(let i = 1; i <= numberOfPages; i++) {
+          pagesArray.push(i);
+        }
+
         let parentUrls = response.data.results.filter((item: any) => item.parent_id === null);
-        console.log('Parent URLs:', parentUrls);
-
         let parentIds = parentUrls.map((item: any) => item.id);
-        console.log('Parent IDs:', parentIds);
-
+  
+        // Children URLs without parent url present in the response
         const parentlessChildren = response.data.results.filter((item: any) => {
           if(item.parent_id !== null && !parentIds.includes(item.parent_id)) {
             return item;
           }
         });
 
-        console.log('Parentless children:', parentlessChildren);
-
+        // Derived parents are fake parents that are created on the fly in order to group parentless children
         const derivedParentUrls: string[] = [];
 
         for(let i = 0; i < parentlessChildren.length; i++) {
@@ -99,8 +92,6 @@
             derivedParentUrls.push(origin);
           }
         }
-
-        console.log('Derived parent URLs:', derivedParentUrls);
 
         urlsGroupedByDerivedParent  = derivedParentUrls.map((parent: any) => {
           const children = [...response.data.results.filter((item: any) => {
@@ -113,16 +104,14 @@
           
           return {
             parent: parent,
-            parentId: 4,
-            parentStatus: 'READY',
+            parentId: null,
+            parentStatus: null,
             children,
             readyCount,
             pendingCount,
             errorCount
           }
         });
-
-        console.log('Grouped Dervied URLs:', urlsGroupedByDerivedParent);
 
         urlsGroupedByParent = parentUrls.map((parent: any) => {
 
@@ -142,17 +131,17 @@
           }
       });
 
-      console.log('Grouped URLs:', urlsGroupedByParent);
-
+      // Merge derived parents with parents (Derived parents need to be placed first)
       urlsGroupedByParent = [...urlsGroupedByDerivedParent, ...urlsGroupedByParent];
       urlsTrained = urlsGroupedByParent;
-      console.log('urlsTrained:', urlsTrained);
+      console.log('<Final>urlsTrained:', urlsTrained);
 
       //Retry
       hasQueuedFiles = response.data.results.some((item: any) => {
         return item.sync_status === 'QUEUED_FOR_SYNC'
       });
-      console.log('Has queued files:', hasQueuedFiles);
+
+      console.log('Has queued files & will be attempted again --->', hasQueuedFiles);
 
       if (hasQueuedFiles && isModalOpen) {
         countdownFrom40();
@@ -165,7 +154,7 @@
         hasQueuedFiles = false;
       }
 
-      //Placing current page reassignment here to improve timing
+      //Placing current page reassignment here to improve timing, otherwise it will be too soon
       currentPage = Math.ceil(offset / 250) + 1;
       return response.data;
 
@@ -179,7 +168,6 @@
 
   async function submitWebScraping(urls: string[], recursionDepth: number = 10) {
     try {
-
       const maxPagesToScrape = $currentBot.settings.dataFunnelSettings?.webScraping?.maxPagesToScrape ? $currentBot.settings.dataFunnelSettings?.webScraping?.maxPagesToScrape : 1000;
       const chunkSize = $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize ? $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize : 400;
       const chunkOverlap = $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap : 20;
@@ -233,10 +221,7 @@
         sitemapUrl: sitemap
       });
 
-      console.log('Sitemap response ----x:', response);
-      console.log('Sitemap response error----x:', response.error);
       if (response.status === 200) {
-        console.log('Sitemap came back --->x', response.status);
         const webScrapingResponse = await submitWebScraping(response.data?.urls, 1)
         if (webScrapingResponse) {
           return true;
@@ -270,16 +255,10 @@
 
   function countdownFrom40() {
     counter = 40;
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
-
+    if (intervalId) clearInterval(intervalId);
     intervalId = setInterval(() => {
-    counter--;
-
-    if (counter < 0) {
-      clearInterval(intervalId);
-    }
+      counter--;
+      if (counter < 0) clearInterval(intervalId);
     }, 1000);
   }
 
@@ -336,7 +315,7 @@
 
     {#if activeTab === 'submit'}
     <div class="flex flex-col justify-start m-6 gap-4 p-4 bg-slate-800 rounded-lg">
-      <!-- URL -->
+      <!-- URL Input-->
       <form on:submit|preventDefault={async () => {
           isFetchingUrls = true;
           const response = await submitWebScraping([baseUrl])
@@ -385,7 +364,7 @@
 
 
     <div class="flex flex-col justify-start m-6 gap-4 p-4 bg-slate-800 rounded-lg">
-      <!-- SITEMAP -->
+      <!-- SITEMAP input-->
       <form on:submit|preventDefault={async () => {
           isFetchingSitemap = true;
           const response = await submitSitemapUrl()
