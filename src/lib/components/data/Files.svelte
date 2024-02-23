@@ -4,8 +4,6 @@
 
   export let accessToken: string;
   export let totalFileCount: number;
-
-  $: console.log('files ---->x', totalFileCount);
   
   // state
 	let isModalOpen = false;
@@ -16,62 +14,57 @@
   let intervalId: any;
   let timeoutId: any;
 
+  // values
   let acceptableFileExtensions = ['pdf', 'txt', 'doc', 'docx', 'csv', 'xlsx', 'md', 'rtf', 'tsv', 'pptx', 'json'];
 
   // files
   let filesToUpload: any = [];
   let filesTrained: any = [];
 
+  // conditions
   $: if(isModalOpen === true) {
     activeTab = 'upload';
-    fetchAllFiles();
+    fetchUserData();
   }
 
   $: if (filesTrained.length === 0) {
     hasQueuedFiles = false;
   }
 
-  async function fetchAllFiles() {
-    const filesResponse = await fetchUserData();
-    const allFiles = filesResponse?.results || [];
-
-    filesTrained = [...allFiles]
-    console.log('Files:', filesTrained);
-
-    hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
-    if (hasQueuedFiles && isModalOpen) {
-      countdownFrom40();
-      if(timeoutId) clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        fetchAllFiles();
-      }, 40000);
-    }
-  }
-
   async function fetchUserData() {
-  try {
-    const response = await Carbon.getUserFiles({
-      accessToken: accessToken,
-      filters: {"source": ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"]},
-      orderBy: "created_at",
-      orderDir: "desc",
-      limit: 250,
-      offset: 0
-    });
+    try {
+      const response = await Carbon.getUserFiles({
+        accessToken: accessToken,
+        filters: {"source": ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"]},
+        limit: 250,
+        offset: 0
+      });
 
-    if (response?.status === 200) {
-      totalFileCount = response.data?.count || 0;
-      filesTrained = response.data?.results
+      if (response?.status === 200) {
+        totalFileCount = response.data?.count || 0;
+        filesTrained = response.data?.results || [];
 
-    return response.data;
+        // Retry
+        hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
+        console.log('Has queued files & will be attempted again --->', hasQueuedFiles);
 
-    } else {
-      console.error('Error:', response.error);
+        if (hasQueuedFiles && isModalOpen) {
+          countdownFrom40();
+          if(timeoutId) clearTimeout(timeoutId);
+          timeoutId = setTimeout(() => {
+            fetchUserData();
+          }, 40000);
+        }
+
+      return response.data;
+
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
     }
-  } catch (err) {
-    console.error('Unexpected error:', err.message);
   }
-}
 
   function handleFilesChange(event: any) {
     filesToUpload = Array.from(event.target.files);
@@ -81,29 +74,29 @@
   async function uploadFiles() {
     const chunkSize = $currentBot.settings.dataFunnelSettings?.files?.chunkSize ? $currentBot.settings.dataFunnelSettings?.files?.chunkSize : 400;
     const chunkOverlap = $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap : 20;
-  try {
-    const response = await Carbon.uploadFiles({
-      accessToken: accessToken,
-      files: filesToUpload,
-      chunkSize: chunkSize,
-      chunkOverlap: chunkOverlap,
-      skipEmbeddingGeneration: false,
-      useOCR: filesToUpload[0].type === 'application/pdf' ? true : false, // * assumses 1 file upload at a time
-      embeddingModel: 'OPENAI_ADA_LARGE_3072'
-    });
+    try {
+      const response = await Carbon.uploadFiles({
+        accessToken: accessToken,
+        files: filesToUpload,
+        chunkSize: chunkSize,
+        chunkOverlap: chunkOverlap,
+        skipEmbeddingGeneration: false,
+        useOCR: filesToUpload[0].type === 'application/pdf' ? true : false, // * assumses 1 file upload at a time
+        embeddingModel: 'OPENAI_ADA_LARGE_3072'
+      });
 
-    if (response.status === 200) {
-      console.log('Uploaded Files:', response.data.successfulUploads);
-      return response.data.successfulUploads;
-    } else {
-      console.error('Error:', response.error.message);
+      if (response.status === 200) {
+        console.log('Uploaded Files:', response.data.successfulUploads);
+        return response.data.successfulUploads;
+      } else {
+        console.error('Error:', response.error.message);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
     }
-  } catch (err) {
-    console.error('Unexpected error:', err.message);
   }
-}
 
-async function removeFile(fileId: string) {
+  async function removeFile(fileId: string) {
     console.log('Removing file:', fileId);
     try {
       const response = await Carbon.deleteFile({
@@ -128,14 +121,13 @@ async function removeFile(fileId: string) {
     }
 
     intervalId = setInterval(() => {
-    counter--;
+      counter--;
 
-    if (counter < 0) {
-      clearInterval(intervalId);
-    }
-  }, 1000);
-}
-
+      if (counter < 0) {
+        clearInterval(intervalId);
+      }
+    }, 1000);
+  }
 </script>
 
 <label for="files" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
@@ -226,7 +218,6 @@ async function removeFile(fileId: string) {
                 filesTrained = filesTrained.flat();
                 filesToUpload = [];
                 console.log('Files trained ---->:', files);
-                console.log('FilesToUpload ---->:', filesToUpload);
 
                 setTimeout(() => {
                   isUploading = false;
@@ -237,7 +228,7 @@ async function removeFile(fileId: string) {
 
                 if(timeoutId) clearTimeout(timeoutId);
                 timeoutId = setTimeout(() => {
-                  fetchAllFiles();
+                  fetchUserData();
                 }, 40000);
               }
             }
