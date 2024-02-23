@@ -129,7 +129,7 @@
             pendingCount,
             errorCount
           }
-      });
+        });
 
       // Merge derived parents with parents (Derived parents need to be placed first)
       urlsGroupedByParent = [...urlsGroupedByDerivedParent, ...urlsGroupedByParent];
