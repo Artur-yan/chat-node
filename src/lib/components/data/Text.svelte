@@ -4,6 +4,7 @@
 
   export let accessToken: string;
   export let totalFileCount: number;
+  $: console.log('Total file count:', totalFileCount);
   
   // state
 	let isModalOpen = false;
@@ -22,6 +23,30 @@
   $: if(isModalOpen === true) {
     activeTab = 'upload';
     fetchUserData('RAW_TEXT');
+    //@ts-ignore
+    (async () => {
+      totalFileCount = await fetchTotalFileCount() || 0;
+    })();
+  }
+
+  async function fetchTotalFileCount() {
+    try {
+      const response = await Carbon.getUserFiles({
+        accessToken: accessToken,
+        filters: {"source": ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON", "RAW_TEXT"]},
+        limit: 1,
+        offset: 0
+      });
+
+      if (response?.status === 200) {
+        totalFileCount = response.data?.count || 0;
+        return totalFileCount;
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
+    }
   }
 
   async function fetchUserData(type: string) {
@@ -62,7 +87,6 @@
   async function uploadCustomText() {
     const chunkSize = $currentBot.settings.dataFunnelSettings?.rawText?.chunkSize ? $currentBot.settings.dataFunnelSettings?.rawText?.chunkSize : 400;
     const chunkOverlap = $currentBot.settings.dataFunnelSettings?.rawText?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.rawText?.chunkOverlap : 20;
-    
     try {
       console.log('Uploading text:', text);
       console.log('Uploading title:', title);
@@ -78,6 +102,7 @@
 
       if (response.status === 200) {
         console.log('Uploaded file details:', response.data.file);
+        totalFileCount += 1;
         return response.data.file;
       } else {
         console.error('Error:', response.error);
@@ -97,6 +122,7 @@ async function removeFile(fileId: string) {
 
       if (response.status === 200) {
         console.log('File successfully deleted:', response.data);
+        totalFileCount -= 1;
       } else {
         console.error('Error:', response.error);
       }
@@ -148,7 +174,7 @@ async function removeFile(fileId: string) {
                   on:click={() => activeTab = 'trained'}
                   class:tab-active={activeTab === 'trained'}
                 >
-                  Trained
+                  Trained <span class="{totalFileCount >= 30 ? 'text-red-500' : ''}">({totalFileCount}/30)</span>
                 </button>
               </div>
             </div>
@@ -230,14 +256,16 @@ async function removeFile(fileId: string) {
           <table class="table w-full table-xs">
             <thead>
               <tr class="text-md font-bold text-secondary text-left">
+                <th>No.</th>
                 <th>Title</th>
                 <th>Status</th>
                 <th>Id</th>
               </tr>
             </thead>
             <tbody>
-              {#each textTrained as file}
+              {#each textTrained as file, i}
               <tr id={file.id} class="p-.05 w-full">
+                <td class="text-primary">{i + 1}</td>
                 <td class="text-primary w-1/2 overflow-x-auto">{file.name} </td>
                 {#if file.sync_status === 'READY'}
                   <td class="text-primary">

@@ -280,7 +280,7 @@
             on:click={() => activeTab = 'trained'}
             class:tab-active={activeTab === 'trained'}
           >
-            Trained ({totalUrlCount}/1000)
+            Trained <span class="{totalUrlCount >= 1000 ? 'text-red-500' : ''}"> ({totalUrlCount}/1000)</span>
           </button>
         </div>
       </div>

@@ -25,10 +25,34 @@
   $: if(isModalOpen === true) {
     activeTab = 'upload';
     fetchUserData();
+        //@ts-ignore
+    (async () => {
+      totalFileCount = await fetchTotalFileCount() || 0;
+    })();
   }
 
   $: if (filesTrained.length === 0) {
     hasQueuedFiles = false;
+  }
+
+  async function fetchTotalFileCount() {
+    try {
+      const response = await Carbon.getUserFiles({
+        accessToken: accessToken,
+        filters: {"source": ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON", "RAW_TEXT"]},
+        limit: 1,
+        offset: 0
+      });
+
+      if (response?.status === 200) {
+        totalFileCount = response.data?.count || 0;
+        return totalFileCount;
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err.message);
+    }
   }
 
   async function fetchUserData() {
@@ -106,6 +130,7 @@
 
       if (response.status === 200) {
         console.log('File successfully deleted:', response.data);
+        totalFileCount -= 1;
       } else {
         console.error('Error:', response.error);
       }
@@ -158,7 +183,7 @@
                   on:click={() => activeTab = 'trained'}
                   class:tab-active={activeTab === 'trained'}
                 >
-                  Trained
+                  Trained <span class="{totalFileCount >= 30 ? 'text-red-500' : ''}">({totalFileCount}/30)</span>
                 </button>
               </div>
             </div>
