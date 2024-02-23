@@ -47,9 +47,6 @@
       const response = await Carbon.getUserFiles({
         accessToken: accessToken,
         filters: {"source": "WEB_SCRAPE"},
-        // @ts-ignore
-        orderBy: "parent_id",
-        orderDir: "desc",
         limit: 250,
         offset: offset
       });

@@ -28,9 +28,7 @@
     try {
       const response = await Carbon.getUserFiles({
         accessToken: accessToken,
-        filters: {"source": type} ,
-        orderBy: "created_at",
-        orderDir: "desc",
+        filters: {"source": type},
         limit: 250,
         offset: 0
       });
