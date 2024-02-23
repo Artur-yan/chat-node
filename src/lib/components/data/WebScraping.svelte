@@ -5,7 +5,6 @@
   import { v4 as uuidv4 } from 'uuid';
   export let carbonAPIKey: string;
   export let accessToken: string;
-  export let totalFileCount: number;
 
   // state
 	let isModalOpen = false;
@@ -19,6 +18,9 @@
   let numberOfPages: number;
   let pagesArray: number[] = [];
   let currentPage: number = 1;
+  let totalUrlCount: number = 0;
+  
+  $: remainingUrlBudget = 1000 - totalUrlCount; // derived state
 
   // Values
   let baseUrl = '';
@@ -42,12 +44,11 @@
   }
 
   async function fetchUserData(offset: number = 0) {
-
     try {
       const response = await Carbon.getUserFiles({
         accessToken: accessToken,
         filters: {"source": "WEB_SCRAPE"},
-        limit: 250,
+        limit: remainingUrlBudget > 250 ? 250 : remainingUrlBudget,
         offset: offset
       });
 
@@ -56,8 +57,8 @@
       if (response?.status === 200) {
 
         // Pagination
-        totalFileCount = response.data?.count || 0;
-        numberOfPages = Math.ceil(totalFileCount / 250);
+        totalUrlCount = response.data?.count || 0;
+        numberOfPages = Math.ceil(totalUrlCount / 250);
       
         // Variable to store the number of pages for rendering
         pagesArray = [];
@@ -180,7 +181,7 @@
       });
 
       if (response.status === 200) {
-        const lastPage = Math.ceil(totalFileCount / 250);
+        const lastPage = Math.ceil(totalUrlCount / 250);
         await fetchUserData((lastPage - 1) * 250);
 
         return true;
@@ -226,6 +227,7 @@
 
       if (response.status === 200) {
         console.log('File successfully deleted:', response.data);
+        totalUrlCount -= 1;
       } else {
         console.error('Error:', response.error);
       }
@@ -278,7 +280,7 @@
             on:click={() => activeTab = 'trained'}
             class:tab-active={activeTab === 'trained'}
           >
-            Trained
+            Trained ({totalUrlCount}/1000)
           </button>
         </div>
       </div>
@@ -318,7 +320,7 @@
 
           if(timeoutId) clearTimeout(timeoutId);
           timeoutId = setTimeout(() => {
-            const lastPage = Math.ceil(totalFileCount / 250);
+            const lastPage = Math.ceil(totalUrlCount / 250);
             fetchUserData((lastPage - 1) * 250);
           }, 40000);
         }
