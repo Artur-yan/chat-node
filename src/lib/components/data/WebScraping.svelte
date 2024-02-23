@@ -236,13 +236,14 @@
 
   function countdownFrom40() {
     counter = 40;
-    if (intervalId) clearInterval(intervalId);
     intervalId = setInterval(() => {
-      counter--;
-      if (counter < 0) clearInterval(intervalId);
+      if (counter <= 0) {
+        clearInterval(intervalId);
+      } else {
+        counter--;
+      }
     }, 1000);
   }
-
 </script>
 
 <label for="web_scraping" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 

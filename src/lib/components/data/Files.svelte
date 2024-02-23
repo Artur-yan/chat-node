@@ -116,15 +116,11 @@
 
   function countdownFrom40() {
     counter = 40;
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
-
     intervalId = setInterval(() => {
-      counter--;
-
-      if (counter < 0) {
+      if (counter <= 0) {
         clearInterval(intervalId);
+      } else {
+        counter--;
       }
     }, 1000);
   }
