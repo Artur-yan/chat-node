@@ -180,24 +180,8 @@
       });
 
       if (response.status === 200) {
-        // const parentObject = {
-        //   parent: response.data?.files[0]?.external_url,
-        //   parentId: response.data?.files[0]?.id,
-        //   children: [response.data?.files[0]],
-        //   readyCount: 0,
-        //   pendingCount: 1,
-        //   errorCount: 0
-        // }
-
         const lastPage = Math.ceil(totalFileCount / 250);
         await fetchUserData((lastPage - 1) * 250);
-
-        // add parent to array of parents if not already present
-        // if (!parentUrls.includes(parentObject.parent)) {
-        //   parentUrls.push(parentObject.parent);
-        //   urlsGroupedByParent.push(parentObject);
-        //   urlsTrained = urlsGroupedByParent;
-        // }
 
         return true;
       } else {
@@ -333,7 +317,8 @@
 
           if(timeoutId) clearTimeout(timeoutId);
           timeoutId = setTimeout(() => {
-            fetchUserData();
+            const lastPage = Math.ceil(totalFileCount / 250);
+            fetchUserData((lastPage - 1) * 250);
           }, 40000);
         }
       }>
