@@ -53,9 +53,6 @@
 
       console.log('Response:', response);
 
-
-
-  
       if (response?.status === 200) {
 
         // Pagination
@@ -183,22 +180,9 @@
       });
 
       if (response.status === 200) {
-        const parentObject = {
-          parent: response.data?.files[0]?.external_url,
-          parentId: response.data?.files[0]?.id,
-          children: [response.data?.files[0]],
-          readyCount: 0,
-          pendingCount: 1,
-          errorCount: 0
-        }
+        const lastPage = Math.ceil(totalFileCount / 250);
+        await fetchUserData((lastPage - 1) * 250);
 
-        // add parent to array of parents if not already present
-        if (!parentUrls.includes(parentObject.parent)) {
-          parentUrls.push(parentObject.parent);
-          urlsGroupedByParent.push(parentObject);
-          urlsTrained = urlsGroupedByParent;
-        }
-        console.log('')
         return true;
       } else {
         console.error('Error:', response.error);
@@ -276,7 +260,7 @@
       <div class="flex flex-grow-0 items-center">
         <h3 class=" py-1 font-bold text-3xl rounded-xl text-zinc-400">Web Scraping</h3>
       </div>
-
+      
       <!-- tabs -->
       <div class="flex">
         <div class="tabs tabs-boxed gap-2">
@@ -333,7 +317,8 @@
 
           if(timeoutId) clearTimeout(timeoutId);
           timeoutId = setTimeout(() => {
-            fetchUserData();
+            const lastPage = Math.ceil(totalFileCount / 250);
+            fetchUserData((lastPage - 1) * 250);
           }, 40000);
         }
       }>
