@@ -6,7 +6,6 @@ export const POST = async ({ request, locals }) => {
     chunkOverlap, enableAutoSync
   } = await request.json();
 
-
   const options = {
     method: 'POST',
     headers: { authorization: CB_TOKEN, 'Content-Type': 'application/json', 'customer-id': bot_id },
