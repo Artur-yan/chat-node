@@ -96,7 +96,7 @@
             return url.origin === parent;
           })];
           const readyCount = children.filter((item: any) => item.sync_status === 'READY').length;
-          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC').length;
+          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC' || item.sync_status === 'SYNCING').length;
           const errorCount = children.filter((item: any) => item.sync_status === 'SYNC_ERROR').length
           
           return {
@@ -114,7 +114,7 @@
 
           const children = [parent, ...response.data.results.filter((item: any) => item.parent_id === parent.id)];
           const readyCount = children.filter((item: any) => item.sync_status === 'READY').length;
-          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC').length;
+          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC' || item.sync_status === 'SYNCING').length;
           const errorCount = children.filter((item: any) => item.sync_status === 'SYNC_ERROR').length
           
           return {
@@ -475,7 +475,7 @@
                         Ready
                       </div>
                     </td>
-                    {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC'}
+                    {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC' || childUrl.sync_status === 'SYNCING'}
                     <td class="text-primary">
                       <div class="badge badge-warning badge-outline w-20">
                         Pending
@@ -502,7 +502,7 @@
 
                           // update parent counts
                           parentUrl.readyCount = parentUrl.children.filter((item) => item.sync_status === 'READY').length;
-                          parentUrl.pendingCount = parentUrl.children.filter((item) => item.sync_status === 'QUEUED_FOR_SYNC').length;
+                          parentUrl.pendingCount = parentUrl.children.filter((item) => item.sync_status === 'QUEUED_FOR_SYNC' || item.sync_status === 'SYNCING').length;
                           parentUrl.errorCount = parentUrl.children.filter((item) => item.sync_status === 'SYNC_ERROR').length;
 
                           // remove parent if no children
