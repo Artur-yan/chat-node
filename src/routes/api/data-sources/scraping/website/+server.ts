@@ -1,4 +1,5 @@
 import { CB_TOKEN } from '$env/static/private';
+import { json } from "@sveltejs/kit";
 
 export const POST = async ({ request, locals }) => {
   const {
@@ -21,7 +22,9 @@ export const POST = async ({ request, locals }) => {
     })
   };
 
-  await fetch('https://api.carbon.ai/web_scrape', options)
+  const response = await fetch('https://api.carbon.ai/web_scrape', options)
     .then(response => response.json())
     .catch(err => console.error(err));
+
+  return json(response)
 }
