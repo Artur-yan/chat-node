@@ -33,31 +33,22 @@ function transformConfigToSingleUrlList(config: ScrapeConfig): ScrapeConfigSingl
 
 export const POST = async ({ request, locals }) => {
   const {
-    bot_id, urls, recursionDepth, maxPagesToScrape, chunkSize,
-    chunkOverlap, enableAutoSync
+    bot_id, sitemapUrl
   } = await request.json();
-
-  const listOfConfigsWithSingleUrl = transformConfigToSingleUrlList({
-      urls: urls,
-      recursionDepth: recursionDepth,
-      maxPagesToScrape: maxPagesToScrape,
-      chunkSize: chunkSize,
-      chunkOverlap: chunkOverlap,
-      skipEmbeddingGeneration: false,
-      enableAutoSync: enableAutoSync,
-      embeddingModel: 'OPENAI_ADA_LARGE_3072'
-    });
 
 
   const options = {
     method: 'POST',
     headers: { authorization: `Bearer ${CB_TOKEN}`, 'Content-Type': 'application/json', 'customer-id': bot_id },
-    body: JSON.stringify(listOfConfigsWithSingleUrl)
+    body: JSON.stringify(
+      {url: sitemapUrl}
+    )
   };
 
-  const response = await fetch('https://api.carbon.ai/web_scrape', options)
+  const response = await fetch('https://api.carbon.ai/scrape_sitemap', options)
     .then(response => response.json())
     .catch(err => console.error(err));
+
 
   console.log(json(response))
   return json(response)
