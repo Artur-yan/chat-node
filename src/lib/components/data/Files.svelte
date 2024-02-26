@@ -45,8 +45,7 @@
       });
 
       if (response?.status === 200) {
-        totalFileCount = response.data?.count || 0;
-        return totalFileCount;
+        return response.data?.count || 0
       } else {
         console.error('Error:', response.error);
       }
@@ -65,7 +64,6 @@
       });
 
       if (response?.status === 200) {
-        totalFileCount = response.data?.count || 0;
         filesTrained = response.data?.results || [];
 
         // Retry
@@ -111,6 +109,7 @@
 
       if (response.status === 200) {
         console.log('Uploaded Files:', response.data.successfulUploads);
+        totalFileCount += 1;
         return response.data.successfulUploads;
       } else {
         console.error('Error:', response.error.message);
@@ -183,7 +182,7 @@
                   on:click={() => activeTab = 'trained'}
                   class:tab-active={activeTab === 'trained'}
                 >
-                  Trained <span class="{totalFileCount < 30 ? '' : 'text-red-500'}">({totalFileCount}/30)</span>
+                  Trained <span class="{totalFileCount < 30 || totalFileCount === undefined ? '' : 'text-red-500'}">({totalFileCount}/30)</span>
                 </button>
               </div>
             </div>
