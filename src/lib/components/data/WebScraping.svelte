@@ -168,17 +168,29 @@
       const chunkOverlap = $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap : 20;
       const enableAutoSync = $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync ? $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync : false;
       //@ts-ignore
-      const response = await Carbon.submitScrapeRequest({
-        accessToken: accessToken,
-        urls: urls,
-        recursionDepth: recursionDepth,
-        maxPagesToScrape: maxPagesToScrape,
-        chunkSize: chunkSize,
-        chunkOverlap: chunkOverlap,
-        skipEmbeddingGeneration: false,
-        enableAutoSync: enableAutoSync,
-        embeddingModel: 'OPENAI_ADA_LARGE_3072'
-      });
+      const response = await fetch(`/api/data-sources/scraping/website`, {
+					method: 'POST',
+					body: JSON.stringify({
+            bot_id: $currentBot.id,
+						urls: urls,
+            recursionDepth: recursionDepth,
+            maxPagesToScrape: maxPagesToScrape,
+            chunkSize: chunkSize,
+            chunkOverlap: chunkOverlap,
+            enableAutoSync: enableAutoSync,
+
+					})
+				});
+      // const response = await Carbon.submitScrapeRequest({
+      //   accessToken: accessToken,
+      //   urls: urls,
+      //   recursionDepth: recursionDepth,
+      //   maxPagesToScrape: maxPagesToScrape,
+      //   chunkSize: chunkSize,
+      //   chunkOverlap: chunkOverlap,
+      //   skipEmbeddingGeneration: false,
+      //   embeddingModel: 'OPENAI_ADA_LARGE_3072'
+      // });
 
       if (response.status === 200) {
         const lastPage = Math.ceil(totalUrlCount / 250);
