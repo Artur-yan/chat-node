@@ -141,6 +141,7 @@
       console.log('Has queued files & will be attempted again --->', hasQueuedFiles);
 
       if (hasQueuedFiles && isModalOpen) {
+        //x marks the spot
         countdownFrom40();
         if(timeoutId) clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
@@ -321,15 +322,20 @@
     <div class="flex flex-col justify-start m-6 gap-4 p-4 bg-slate-800 rounded-lg">
       <!-- URL Input-->
       <form on:submit|preventDefault={async () => {
+        if(totalUrlCount >= 1000) {
+          $alert = { type: 'error', msg: 'You have reached the maximum URL limit of 1000', duration: 2500 };
+          return;
+        }
+        
+        console.log('timeout id ---->',timeoutId)
           isFetchingUrls = true;
           const response = await submitWebScraping([baseUrl])
-
-          if(!response) {
-            isFetchingUrls = false;
-            $alert = { type: 'error', msg: 'Please submit a valid URL', duration: 2500 };
-            baseUrl = '';
-            return;
-          }
+          // if(!response) {
+          //   isFetchingUrls = false;
+          //   $alert = { type: 'error', msg: 'Please submit a valid URL', duration: 2500 };
+          //   baseUrl = '';
+          //   return;
+          // }
 
           setTimeout(() => {
             isFetchingUrls = false;
