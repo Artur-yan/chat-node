@@ -89,20 +89,31 @@
     try {
       console.log('Uploading text:', text);
       console.log('Uploading title:', title);
-      const response = await Carbon.uploadText({
-        accessToken: accessToken,
-        contents: text,
-        fileName: title,
-        chunkSize: chunkSize,
-        chunkOverlap: chunkOverlap,
-        skipEmbeddingGeneration: false,
-        embeddingModel: 'OPENAI_ADA_LARGE_3072'
-      });
+      const response = await fetch(`/api/data-sources/training/text`, {
+					method: 'POST',
+					body: JSON.stringify({
+            bot_id: $currentBot.id,
+						text: text,
+            title: title,
+            chunkSize: chunkSize,
+            chunkOverlap: chunkOverlap
+					})
+				});
+
+      // const response = await Carbon.uploadText({
+      //   accessToken: accessToken,
+      //   contents: text,
+      //   fileName: title,
+      //   chunkSize: chunkSize,
+      //   chunkOverlap: chunkOverlap,
+      //   skipEmbeddingGeneration: false,
+      //   embeddingModel: 'OPENAI_ADA_LARGE_3072'
+      // });
 
       if (response.status === 200) {
-        console.log('Uploaded file details:', response.data.file);
+        console.log('Uploaded file details:', response);
         totalFileCount += 1;
-        return response.data.file;
+        return response;
       } else {
         console.error('Error:', response.error);
       }
