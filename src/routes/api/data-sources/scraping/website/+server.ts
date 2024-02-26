@@ -9,7 +9,7 @@ export const POST = async ({ request, locals }) => {
 
   const options = {
     method: 'POST',
-    headers: { authorization: CB_TOKEN, 'Content-Type': 'application/json', 'customer-id': bot_id },
+    headers: { authorization: `Bearer ${CB_TOKEN}`, 'Content-Type': 'application/json', 'customer-id': bot_id },
     body: JSON.stringify({
       urls: urls,
       recursionDepth: recursionDepth,
