@@ -183,7 +183,7 @@
                   on:click={() => activeTab = 'trained'}
                   class:tab-active={activeTab === 'trained'}
                 >
-                  Trained <span class="{totalFileCount >= 30 ? 'text-red-500' : ''}">({totalFileCount}/30)</span>
+                  Trained <span class="{totalFileCount < 30 ? '' : 'text-red-500'}">({totalFileCount}/30)</span>
                 </button>
               </div>
             </div>
@@ -276,14 +276,16 @@
         <table class="table table-xs">
           <thead>
             <tr class="text-md font-bold text-secondary">
+              <th>No.</th>
               <th>Title</th>
               <th>Status</th>
               <th>Id</th>
             </tr>
           </thead>
           <tbody>
-            {#each filesTrained as file}
+            {#each filesTrained as file, i}
             <tr id={file.id} class="p-.05">
+              <td class="text-primary"> {i + 1} </td>
               <td class="text-primary w-1/2 /overflow-x-auto"> {file.name} </td>
               {#if file.sync_status === 'READY'}
                 <td class="text-primary">
