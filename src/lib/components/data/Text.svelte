@@ -111,9 +111,10 @@
       // });
 
       if (response.status === 200) {
-        console.log('Uploaded file details:', response);
+        const data = await response.json()
+        console.log('Uploaded file details:', data);
         totalFileCount += 1;
-        return response;
+        return data;
       } else {
         console.error('Error:', response.error);
       }

@@ -51,20 +51,27 @@ export const POST = async ({ request, locals }) => {
 		embeddingModel: 'OPENAI_ADA_LARGE_3072'
 	});
 
-	const options = {
-		method: 'POST',
-		headers: {
-			authorization: `Bearer ${CB_TOKEN}`,
-			'Content-Type': 'application/json',
-			'customer-id': bot_id
-		},
-		body: JSON.stringify(listOfConfigsWithSingleUrl)
-	};
+	const session = await locals.auth.validate();
 
-	const response = await fetch('https://api.carbon.ai/web_scrape', options)
-		.then((response) => response.json())
-		.catch((err) => console.error(err));
+	if (session) {
+		const options = {
+			method: 'POST',
+			headers: {
+				authorization: `Bearer ${CB_TOKEN}`,
+				'Content-Type': 'application/json',
+				'customer-id': bot_id
+			},
+			body: JSON.stringify(listOfConfigsWithSingleUrl)
+		};
 
-	console.log(response);
-	return json(response);
-};
+		const response = await fetch('https://api.carbon.ai/web_scrape', options)
+			.then((response) => response.json())
+			.catch((err) => console.error(err));
+
+		console.log(response);
+		return json(response);
+	} else {
+		return new Response(JSON.stringify({ status: 401 }));
+	}
+
+}
