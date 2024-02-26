@@ -183,6 +183,8 @@
 
 					})
 				});
+
+        
       // const response = await Carbon.submitScrapeRequest({
       //   accessToken: accessToken,
       //   urls: urls,
@@ -193,6 +195,8 @@
       //   skipEmbeddingGeneration: false,
       //   embeddingModel: 'OPENAI_ADA_LARGE_3072'
       // });
+
+      console.log('Responding --->x:', response);
 
       if (response.status === 200) {
         const lastPage = Math.ceil(totalUrlCount / 250);

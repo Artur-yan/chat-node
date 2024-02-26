@@ -182,7 +182,7 @@
                   on:click={() => activeTab = 'trained'}
                   class:tab-active={activeTab === 'trained'}
                 >
-                  Trained <span class="{totalFileCount < 30 || totalFileCount === undefined ? 'mx-1' : 'text-red-500 mx-1'}">({totalFileCount}/30)</span>
+                  Trained <span class="{totalFileCount < 30 || totalFileCount === undefined ? 'mx-1' : 'text-red-500 mx-1'}">({totalFileCount}/30 Total Files)</span>
                 </button>
               </div>
             </div>
