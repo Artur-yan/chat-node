@@ -96,12 +96,12 @@
             return url.origin === parent;
           })];
           const readyCount = children.filter((item: any) => item.sync_status === 'READY').length;
-          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC').length;
+          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC' || item.sync_status === 'SYNCING').length;
           const errorCount = children.filter((item: any) => item.sync_status === 'SYNC_ERROR').length
           
           return {
             parent: parent,
-            parentId: null,
+            parentId: 'derived',
             parentStatus: null,
             children,
             readyCount,
@@ -114,7 +114,7 @@
 
           const children = [parent, ...response.data.results.filter((item: any) => item.parent_id === parent.id)];
           const readyCount = children.filter((item: any) => item.sync_status === 'READY').length;
-          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC').length;
+          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC' || item.sync_status === 'SYNCING').length;
           const errorCount = children.filter((item: any) => item.sync_status === 'SYNC_ERROR').length
           
           return {
@@ -141,6 +141,7 @@
       console.log('Has queued files & will be attempted again --->', hasQueuedFiles);
 
       if (hasQueuedFiles && isModalOpen) {
+        //x marks the spot
         countdownFrom40();
         if(timeoutId) clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
@@ -180,7 +181,6 @@
             chunkSize: chunkSize,
             chunkOverlap: chunkOverlap,
             enableAutoSync: enableAutoSync,
-
 					})
 				});
 
@@ -199,8 +199,11 @@
       console.log('Responding --->x:', response);
 
       if (response.status === 200) {
-        const lastPage = Math.ceil(totalUrlCount / 250);
-        await fetchUserData((lastPage - 1) * 250);
+        const lastPage = Math.ceil(totalUrlCount / 250) || 1;
+        console.log('Last Page:', lastPage);
+        const offset = (lastPage - 1) * 250;
+        console.log('Offset:', offset);
+        await fetchUserData(offset);
 
         return true;
       } else {
@@ -327,15 +330,20 @@
     <div class="flex flex-col justify-start m-6 gap-4 p-4 bg-slate-800 rounded-lg">
       <!-- URL Input-->
       <form on:submit|preventDefault={async () => {
+        if(totalUrlCount >= 1000) {
+          $alert = { type: 'error', msg: 'You have reached the maximum URL limit of 1000', duration: 2500 };
+          return;
+        }
+        
+        console.log('timeout id ---->',timeoutId)
           isFetchingUrls = true;
           const response = await submitWebScraping([baseUrl])
-
-          if(!response) {
-            isFetchingUrls = false;
-            $alert = { type: 'error', msg: 'Please submit a valid URL', duration: 2500 };
-            baseUrl = '';
-            return;
-          }
+          // if(!response) {
+          //   isFetchingUrls = false;
+          //   $alert = { type: 'error', msg: 'Please submit a valid URL', duration: 2500 };
+          //   baseUrl = '';
+          //   return;
+          // }
 
           setTimeout(() => {
             isFetchingUrls = false;
@@ -481,7 +489,7 @@
                         Ready
                       </div>
                     </td>
-                    {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC'}
+                    {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC' || childUrl.sync_status === 'SYNCING'}
                     <td class="text-primary">
                       <div class="badge badge-warning badge-outline w-20">
                         Pending
@@ -508,17 +516,15 @@
 
                           // update parent counts
                           parentUrl.readyCount = parentUrl.children.filter((item) => item.sync_status === 'READY').length;
-                          parentUrl.pendingCount = parentUrl.children.filter((item) => item.sync_status === 'QUEUED_FOR_SYNC').length;
+                          parentUrl.pendingCount = parentUrl.children.filter((item) => item.sync_status === 'QUEUED_FOR_SYNC' || item.sync_status === 'SYNCING').length;
                           parentUrl.errorCount = parentUrl.children.filter((item) => item.sync_status === 'SYNC_ERROR').length;
 
                           // remove parent if no children
                           if (parentUrl.children.length === 0) {
-                            removeFile(parentUrl.parentId);
                             const parentElForDeletion = document.getElementById(parentUrl.parentId);
                             if (parentElForDeletion) {
                               parentElForDeletion.remove();
                             }
-          
                           }
                         }}
                       >

@@ -25,11 +25,11 @@ const session = await locals.auth.validate();
     };
 
     const response = await fetch('https://api.carbon.ai/upload_text', options)
-      .then(response => response.json())
-      .catch(err => console.error(err));
-
+      //.then(response => response.json())
+      //.catch(err => console.error(err));
+    const data = response.;
     console.log(response)
-    return json(response)
+    return json(data)
   }
     else {
       		return new Response(JSON.stringify({ status: 401 }));
