@@ -101,7 +101,7 @@
           
           return {
             parent: parent,
-            parentId: null,
+            parentId: 'derived',
             parentStatus: null,
             children,
             readyCount,
@@ -180,7 +180,6 @@
             chunkSize: chunkSize,
             chunkOverlap: chunkOverlap,
             enableAutoSync: enableAutoSync,
-
 					})
 				});
 
@@ -199,8 +198,11 @@
       console.log('Responding --->x:', response);
 
       if (response.status === 200) {
-        const lastPage = Math.ceil(totalUrlCount / 250);
-        await fetchUserData((lastPage - 1) * 250);
+        const lastPage = Math.ceil(totalUrlCount / 250) || 1;
+        console.log('Last Page:', lastPage);
+        const offset = (lastPage - 1) * 250;
+        console.log('Offset:', offset);
+        await fetchUserData(offset);
 
         return true;
       } else {
@@ -505,12 +507,10 @@
 
                           // remove parent if no children
                           if (parentUrl.children.length === 0) {
-                            removeFile(parentUrl.parentId);
                             const parentElForDeletion = document.getElementById(parentUrl.parentId);
                             if (parentElForDeletion) {
                               parentElForDeletion.remove();
                             }
-          
                           }
                         }}
                       >
