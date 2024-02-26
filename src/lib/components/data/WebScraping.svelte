@@ -195,8 +195,8 @@
       //   skipEmbeddingGeneration: false,
       //   embeddingModel: 'OPENAI_ADA_LARGE_3072'
       // });
-
-      console.log('Responding --->x:', response);
+      const data = await response.json()
+      console.log('Responding --->x:', data);
 
       if (response.status === 200) {
         const lastPage = Math.ceil(totalUrlCount / 250) || 1;
@@ -219,13 +219,22 @@
     console.log('Sitemap:', sitemap);
   
     try {
-      const response = await Carbon.processSitemapUrl({
-        accessToken: accessToken,
-        sitemapUrl: sitemap
-      });
+       const response = await fetch(`/api/data-sources/scraping/sitemap`, {
+					method: 'POST',
+					body: JSON.stringify({
+            bot_id: $currentBot.id,
+						sitemapUrl: sitemap
+
+					})
+				});
+      // const response = await Carbon.processSitemapUrl({
+      //   accessToken: accessToken,
+      //   sitemapUrl: sitemap
+      // });
+      const data = await response.json();
 
       if (response.status === 200) {
-        const webScrapingResponse = await submitWebScraping(response.data?.urls, 1)
+        const webScrapingResponse = await submitWebScraping(data?.urls, 1)
         if (webScrapingResponse) {
           return true;
         }
