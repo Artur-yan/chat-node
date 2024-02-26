@@ -59,7 +59,6 @@
       });
 
       if (response?.status === 200) {
-        totalFileCount = response.data?.count || 0;
         textTrained = response.data?.results
 
         hasQueuedFiles = textTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_SYNC');
@@ -174,7 +173,7 @@ async function removeFile(fileId: string) {
                   on:click={() => activeTab = 'trained'}
                   class:tab-active={activeTab === 'trained'}
                 >
-                  Trained <span class="{totalFileCount >= 30 ? 'text-red-500' : ''}">({totalFileCount}/30)</span>
+                  Trained <span class="{totalFileCount < 30 || totalFileCount === undefined ? 'mx-1' : 'text-red-500 mx-1'}">({totalFileCount}/30)</span>
                 </button>
               </div>
             </div>
@@ -217,6 +216,11 @@ async function removeFile(fileId: string) {
                 return;
               }
 
+              if(totalFileCount >= 30) {
+                $alert = { msg: 'You have reached the 30 file limit', type: 'error' };
+                return;
+              }
+
               isUploading = true;
               const response = await uploadCustomText();
               console.log('Response:', response);
@@ -252,7 +256,7 @@ async function removeFile(fileId: string) {
 
       <!-- Trained -->
       {#if activeTab === 'trained'}
-        <div class="w-full h-full px-7 pt-8 bg-slate-900 bg-opacity-60 rounded-xl">
+        <div class="w-full h-full px-7 pt-8 overflow-y-auto bg-slate-900 bg-opacity-60 rounded-xl">
           <table class="table w-full table-xs">
             <thead>
               <tr class="text-md font-bold text-secondary text-left">
