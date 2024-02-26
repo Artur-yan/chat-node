@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as Carbon from 'carbon-connect-js';
-  import { currentBot } from '$lib/stores.js';
+  import { currentBot, alert } from '$lib/stores.js';
 
   export let accessToken: string;
   export let totalFileCount: number;
@@ -45,8 +45,7 @@
       });
 
       if (response?.status === 200) {
-        totalFileCount = response.data?.count || 0;
-        return totalFileCount;
+        return response.data?.count || 0
       } else {
         console.error('Error:', response.error);
       }
@@ -65,7 +64,6 @@
       });
 
       if (response?.status === 200) {
-        totalFileCount = response.data?.count || 0;
         filesTrained = response.data?.results || [];
 
         // Retry
@@ -111,6 +109,7 @@
 
       if (response.status === 200) {
         console.log('Uploaded Files:', response.data.successfulUploads);
+        totalFileCount += 1;
         return response.data.successfulUploads;
       } else {
         console.error('Error:', response.error.message);
@@ -183,7 +182,7 @@
                   on:click={() => activeTab = 'trained'}
                   class:tab-active={activeTab === 'trained'}
                 >
-                  Trained <span class="{totalFileCount >= 30 ? 'text-red-500' : ''}">({totalFileCount}/30)</span>
+                  Trained <span class="{totalFileCount < 30 || totalFileCount === undefined ? 'mx-1' : 'text-red-500 mx-1'}">({totalFileCount}/30)</span>
                 </button>
               </div>
             </div>
@@ -233,6 +232,12 @@
               value="Upload"
               on:click={async (e) => {
                 e.preventDefault();
+
+                if(totalFileCount >= 30) {
+                  $alert = { msg: 'You have reached the 30 file limit', type: 'error' };
+                  return;
+                }
+
                 isUploading = true;
                 const files = await uploadFiles();
                 filesTrained = [... filesTrained, files]
@@ -272,18 +277,20 @@
 
       <!-- Trained -->
       {#if activeTab === 'trained'}
-      <div class="w-full h-full px-7 pt-8 bg-slate-900 bg-opacity-60 rounded-xl">
+      <div class="w-full h-full px-7 pt-8 overflow-y-auto bg-slate-900 bg-opacity-60 rounded-xl">
         <table class="table table-xs">
           <thead>
             <tr class="text-md font-bold text-secondary">
+              <th>No.</th>
               <th>Title</th>
               <th>Status</th>
               <th>Id</th>
             </tr>
           </thead>
           <tbody>
-            {#each filesTrained as file}
+            {#each filesTrained as file, i}
             <tr id={file.id} class="p-.05">
+              <td class="text-primary"> {i + 1} </td>
               <td class="text-primary w-1/2 /overflow-x-auto"> {file.name} </td>
               {#if file.sync_status === 'READY'}
                 <td class="text-primary">

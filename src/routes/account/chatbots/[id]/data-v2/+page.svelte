@@ -34,6 +34,7 @@
     try {
       const response = await Carbon.getUserFiles({
         accessToken: accessToken,
+        filters: {"source": ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON", "RAW_TEXT"]},
         limit: 1,
         offset: 0
       });
