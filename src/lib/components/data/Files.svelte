@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as Carbon from 'carbon-connect-js';
-  import { currentBot } from '$lib/stores.js';
+  import { currentBot, alert } from '$lib/stores.js';
 
   export let accessToken: string;
   export let totalFileCount: number;
@@ -182,7 +182,7 @@
                   on:click={() => activeTab = 'trained'}
                   class:tab-active={activeTab === 'trained'}
                 >
-                  Trained <span class="{totalFileCount < 30 || totalFileCount === undefined ? '' : 'text-red-500'}">({totalFileCount}/30)</span>
+                  Trained <span class="{totalFileCount < 30 || totalFileCount === undefined ? 'mx-1' : 'text-red-500 mx-1'}">({totalFileCount}/30)</span>
                 </button>
               </div>
             </div>
@@ -232,6 +232,12 @@
               value="Upload"
               on:click={async (e) => {
                 e.preventDefault();
+
+                if(totalFileCount >= 30) {
+                  $alert = { msg: 'You have reached the 30 file limit', type: 'error' };
+                  return;
+                }
+
                 isUploading = true;
                 const files = await uploadFiles();
                 filesTrained = [... filesTrained, files]
@@ -271,7 +277,7 @@
 
       <!-- Trained -->
       {#if activeTab === 'trained'}
-      <div class="w-full h-full px-7 pt-8 bg-slate-900 bg-opacity-60 rounded-xl">
+      <div class="w-full h-full px-7 pt-8 overflow-y-auto bg-slate-900 bg-opacity-60 rounded-xl">
         <table class="table table-xs">
           <thead>
             <tr class="text-md font-bold text-secondary">
