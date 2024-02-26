@@ -19,8 +19,7 @@
   let pagesArray: number[] = [];
   let currentPage: number = 1;
   let totalUrlCount: number = 0;
-  
-  $: remainingUrlBudget = 1000 - totalUrlCount; // derived state
+  let remainingUrlBudget: number = 1000;
 
   // Values
   let baseUrl = '';
@@ -48,7 +47,7 @@
       const response = await Carbon.getUserFiles({
         accessToken: accessToken,
         filters: {"source": "WEB_SCRAPE"},
-        limit: remainingUrlBudget > 250 ? 250 : remainingUrlBudget,
+        limit: 250,
         offset: offset
       });
 
@@ -59,7 +58,10 @@
         // Pagination
         totalUrlCount = response.data?.count || 0;
         numberOfPages = Math.ceil(totalUrlCount / 250);
-      
+
+        // Remaining URL budget
+        remainingUrlBudget = 1000 - totalUrlCount;
+
         // Variable to store the number of pages for rendering
         pagesArray = [];
         for(let i = 1; i <= numberOfPages; i++) {
@@ -163,7 +165,7 @@
 
   async function submitWebScraping(urls: string[], recursionDepth: number = 10) {
     try {
-      const maxPagesToScrape = $currentBot.settings.dataFunnelSettings?.webScraping?.maxPagesToScrape ? $currentBot.settings.dataFunnelSettings?.webScraping?.maxPagesToScrape : 1000;
+      const maxPagesToScrape = remainingUrlBudget;
       const chunkSize = $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize ? $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize : 400;
       const chunkOverlap = $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap : 20;
       const enableAutoSync = $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync ? $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync : false;
