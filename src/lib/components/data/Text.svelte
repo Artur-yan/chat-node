@@ -127,25 +127,19 @@
   }
 
   async function editFile(fileId: string) {
-    console.log('Editing file:', fileId);
-
-    const options = {
+    const response = await fetch(`/api/data-sources/training/text-retrieval`, {
       method: 'POST',
       headers: {
-        authorization: 'Bearer 752f7de712916611f49e01b4b34ac82727f112f17448a4f7e816595ccb47579c',
-        'customer-id': '2594136c22ff8f76',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: `{"include_raw_file":true,"filters":{"ids":[${fileId}]}}`
-    };
+      body: JSON.stringify({
+        bot_id: $currentBot.id,
+        fileId: fileId
+      })
+    });
 
-    const response = await fetch('https://api.carbon.ai/user_files_v2', options)
-    const data = await response.json()
-    const file = data.results[0];
-
-    const presignedUrl = file.presigned_url;
-    const presignedResponse = await fetch(presignedUrl);
-    const presignedText = await presignedResponse.text();
+    const file = await response.json();
+    const presignedText = file.text;
 
     title = file.name;
     text = presignedText;
@@ -288,7 +282,7 @@
               if(retrainId) {
                 textTrained = textTrained.filter((item) => item.id !== retrainId);
               }
-              
+
               console.log('Response:', response);
               if(response) {
                 textTrained = [...textTrained, response];
