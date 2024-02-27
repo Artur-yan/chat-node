@@ -217,21 +217,20 @@
 
   async function submitSitemapUrl() {
     console.log('Sitemap:', sitemap);
-  
     try {
        const response = await fetch(`/api/data-sources/scraping/sitemap`, {
 					method: 'POST',
 					body: JSON.stringify({
             bot_id: $currentBot.id,
 						sitemapUrl: sitemap
-
-					})
+          })
 				});
       // const response = await Carbon.processSitemapUrl({
       //   accessToken: accessToken,
       //   sitemapUrl: sitemap
       // });
       const data = await response.json();
+      console.log(data)
 
       if (response.status === 200) {
         const webScrapingResponse = await submitWebScraping(data?.urls, 1)
