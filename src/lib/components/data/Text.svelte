@@ -33,15 +33,20 @@
 
   async function fetchTotalFileCount() {
     try {
-      const response = await Carbon.getUserFiles({
-        accessToken: accessToken,
-        filters: {"source": ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON", "RAW_TEXT"]},
-        limit: 1,
-        offset: 0
+      const response = await fetch('/api/data-sources/user-files', {
+        method: 'POST',
+        body: JSON.stringify({
+          customerId: $currentBot.id,
+          fileTypes: ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON", "RAW_TEXT"],
+          limit: 1,
+          offset: 0
+        })
       });
 
+      const data = await response.json();
+
       if (response?.status === 200) {
-        totalFileCount = response.data?.count || 0;
+        totalFileCount = data?.count || 0;
         return totalFileCount;
       } else {
         console.error('Error:', response.error);
@@ -53,15 +58,20 @@
 
   async function fetchUserData(type: string) {
     try {
-      const response = await Carbon.getUserFiles({
-        accessToken: accessToken,
-        filters: {"source": type},
-        limit: 250,
-        offset: 0
+      const response = await fetch('/api/data-sources/user-files', {
+        method: 'POST',
+        body: JSON.stringify({
+          customerId: $currentBot.id,
+          fileTypes: ["RAW_TEXT"],
+          limit: 1,
+          offset: 0
+        })
       });
 
+      const data = await response.json();
+
       if (response?.status === 200) {
-        textTrained = response.data?.results
+        textTrained = data?.results
 
         hasQueuedFiles = textTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_SYNC');
         if (hasQueuedFiles && isModalOpen) {
@@ -73,7 +83,7 @@
         }
         console.log('Files:', textTrained);
 
-        return response.data;
+        return data;
 
       } else {
         console.error('Error:', response.error);
