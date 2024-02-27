@@ -43,6 +43,7 @@
   }
 
   async function fetchUserData(offset: number = 0) {
+    if(timeoutId) clearTimeout(timeoutId);
     try {
       const response = await Carbon.getUserFiles({
         accessToken: accessToken,
@@ -141,7 +142,6 @@
       console.log('Has queued files & will be attempted again --->', hasQueuedFiles);
 
       if (hasQueuedFiles && isModalOpen) {
-        //x marks the spot
         countdownFrom40();
         if(timeoutId) clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
@@ -268,6 +268,7 @@
 
   function countdownFrom40() {
     counter = 40;
+    if(intervalId) clearInterval(intervalId);
     intervalId = setInterval(() => {
       if (counter <= 0) {
         clearInterval(intervalId);
