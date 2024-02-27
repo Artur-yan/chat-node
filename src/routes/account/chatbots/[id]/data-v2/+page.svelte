@@ -15,16 +15,20 @@
 
 	async function fetchAccessToken() {
     try {
-      const response = await Carbon.generateAccessToken({
-        apiKey: carbonAPIKey,
-        customerId: $currentBot.id,
+      const response = await fetch('/api/data-sources/access-token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          customerId: $currentBot.id,
+        }),
       });
 
-      if (response.status === 200) {
-        accessToken = response.data.access_token; 
-      } else {
-        console.error('Error:', response.error);
-      }
+      console.log('response ahhh', response);
+      const data = await response.json();
+      console.log('data ahhh', data);
+      accessToken = data.access_token;
     } catch (err) {
       console.error('Unexpected error:', err);
     }

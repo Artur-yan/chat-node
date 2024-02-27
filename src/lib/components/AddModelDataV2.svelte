@@ -12,7 +12,7 @@
 	let busyFetchingUrls = false;
   let busyFetchingSitemapUrls = false;
 	let url: string | undefined;
-  const carbon_api_key = 'dc14fce440672b41417705d036cf5181d8df1b849c58c6e2c56e3dac1df66366';
+  const carbon_api_key = '752f7de712916611f49e01b4b34ac82727f112f17448a4f7e816595ccb47579c';
   let accessToken: string | undefined;
   let sitemap: string | undefined;
 
