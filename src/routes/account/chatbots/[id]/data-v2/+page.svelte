@@ -13,44 +13,23 @@
 	let accessToken: string;
   let totalFileCount:number;
 
-	// async function fetchAccessToken() {
+  // async function fetchAccessToken() {
   //   try {
-  //     const response = await fetch('/api/data-sources/access-token', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         customerId: $currentBot.id,
-  //       }),
+  //     const response = await Carbon.generateAccessToken({
+  //       apiKey: carbonAPIKey,
+  //       customerId: $currentBot.id,
   //     });
 
-  //     const data = await response.json();
-  //     accessToken = data.access_token;
-
-  //     console.log('Access token:', accessToken);
+  //     if (response.status === 200) {
+  //       accessToken = response.data.access_token; 
+  //       console.log('Access token:', accessToken);
+  //     } else {
+  //       console.error('Error:', response.error);
+  //     }
   //   } catch (err) {
   //     console.error('Unexpected error:', err);
   //   }
   // }
-
-  async function fetchAccessToken() {
-    try {
-      const response = await Carbon.generateAccessToken({
-        apiKey: carbonAPIKey,
-        customerId: $currentBot.id,
-      });
-
-      if (response.status === 200) {
-        accessToken = response.data.access_token; 
-        console.log('Access token:', accessToken);
-      } else {
-        console.error('Error:', response.error);
-      }
-    } catch (err) {
-      console.error('Unexpected error:', err);
-    }
-  }
 
   async function fetchTotalFileCount() {
     try {
@@ -79,7 +58,7 @@
   }
 
   onMount(async () => {
-  	await fetchAccessToken();
+  	// await fetchAccessToken();
     await fetchTotalFileCount();
   });
 </script>

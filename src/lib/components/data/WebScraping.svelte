@@ -45,19 +45,24 @@
   async function fetchUserData(offset: number = 0) {
     if(timeoutId) clearTimeout(timeoutId);
     try {
-      const response = await Carbon.getUserFiles({
-        accessToken: accessToken,
-        filters: {"source": "WEB_SCRAPE"},
-        limit: 250,
-        offset: offset
+      const response = await fetch('/api/data-sources/user-files', {
+        method: 'POST',
+        body: JSON.stringify({
+          customerId: $currentBot.id,
+          fileTypes: ['WEB_SCRAPE'],
+          limit: 250,
+          offset: offset
+        })
       });
 
-      console.log('Response, fetching user data --->', response);
+      const data = await response.json();
+      console.log('Responding --->', data);
+      console.log('sub', data.results);
 
       if (response?.status === 200) {
 
         // Pagination
-        totalUrlCount = response.data?.count || 0;
+        totalUrlCount = data?.count || 0;
         numberOfPages = Math.ceil(totalUrlCount / 250);
 
         // Remaining URL budget
@@ -69,11 +74,11 @@
           pagesArray.push(i);
         }
 
-        let parentUrls = response.data.results.filter((item: any) => item.parent_id === null);
+        let parentUrls = data.results.filter((item: any) => item.parent_id === null);
         let parentIds = parentUrls.map((item: any) => item.id);
   
         // Children URLs without parent url present in the response
-        const parentlessChildren = response.data.results.filter((item: any) => {
+        const parentlessChildren = data.results.filter((item: any) => {
           if(item.parent_id !== null && !parentIds.includes(item.parent_id)) {
             return item;
           }
@@ -92,7 +97,7 @@
         }
 
         urlsGroupedByDerivedParent  = derivedParentUrls.map((parent: any) => {
-          const children = [...response.data.results.filter((item: any) => {
+          const children = [... data.results.filter((item: any) => {
             const url = new URL(item.external_url);
             return url.origin === parent;
           })];
@@ -113,7 +118,7 @@
 
         urlsGroupedByParent = parentUrls.map((parent: any) => {
 
-          const children = [parent, ...response.data.results.filter((item: any) => item.parent_id === parent.id)];
+          const children = [parent, ...data.results.filter((item: any) => item.parent_id === parent.id)];
           const readyCount = children.filter((item: any) => item.sync_status === 'READY').length;
           const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC' || item.sync_status === 'SYNCING').length;
           const errorCount = children.filter((item: any) => item.sync_status === 'SYNC_ERROR').length
@@ -135,7 +140,7 @@
       console.log('<Final>urlsTrained:', urlsTrained);
 
       //Retry
-      hasQueuedFiles = response.data.results.some((item: any) => {
+      hasQueuedFiles = data.results.some((item: any) => {
         return item.sync_status === 'QUEUED_FOR_SYNC'
       });
 
@@ -154,7 +159,7 @@
 
       //Placing current page reassignment here to improve timing, otherwise it will be too soon
       currentPage = Math.ceil(offset / 250) + 1;
-      return response.data;
+      return data;
 
       } else {
         console.error('Error:', response.error);
