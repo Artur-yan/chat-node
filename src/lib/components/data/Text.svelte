@@ -132,6 +132,7 @@ async function removeFile(fileId: string) {
 
   function countdownFrom40() {
     counter = 40;
+    if(intervalId) clearInterval(intervalId);
     intervalId = setInterval(() => {
       if (counter <= 0) {
         clearInterval(intervalId);
