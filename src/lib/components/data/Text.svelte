@@ -85,7 +85,7 @@
     }
   }
 
-  async function uploadCustomText() {
+  async function uploadCustomText(fileId: string | null = null) {
     const chunkSize = $currentBot.settings.dataFunnelSettings?.rawText?.chunkSize ? $currentBot.settings.dataFunnelSettings?.rawText?.chunkSize : 400;
     const chunkOverlap = $currentBot.settings.dataFunnelSettings?.rawText?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.rawText?.chunkOverlap : 20;
     try {
@@ -97,6 +97,7 @@
             bot_id: $currentBot.id,
 						text: text,
             title: title,
+            fileId: fileId,
             chunkSize: chunkSize,
             chunkOverlap: chunkOverlap
 					})
@@ -147,7 +148,7 @@
     const presignedText = await presignedResponse.text();
 
     title = file.name;
-    text = presignedText
+    text = presignedText;
     retrainId = file.id;
 
     isEditing = true;
@@ -281,7 +282,13 @@
               // Finish here passing in the the file Id and improving the uploadCustomText function
 
               isUploading = true;
-              const response = await uploadCustomText();
+              const response = await uploadCustomText(retrainId);
+
+              //remove preedited file from trained files
+              if(retrainId) {
+                textTrained = textTrained.filter((item) => item.id !== retrainId);
+              }
+              
               console.log('Response:', response);
               if(response) {
                 textTrained = [...textTrained, response];
@@ -292,6 +299,7 @@
                   activeTab = 'trained';
                   hasQueuedFiles = true;
                   isUploading = false;
+                  isEditing = false;
                   title = '';
                   text = '';
 
