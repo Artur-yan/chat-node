@@ -95,8 +95,8 @@
             bot_id: $currentBot.id,
 						text: text,
             title: title,
-            chunkSize: chunkSize,
-            chunkOverlap: chunkOverlap
+            chunk_size: chunkSize,
+            chunk_overlap: chunkOverlap
 					})
 				});
 
