@@ -27,21 +27,14 @@ export const POST = async ({ request, locals }) => {
 	if (session) {
 
   const options = {
-    method: 'POST',
-    headers: { authorization: `Bearer ${CB_TOKEN}`, 'Content-Type': 'application/json', 'customer-id': bot_id },
-    body: JSON.stringify(
-      {
-        url: sitemapUrl
-
-      }
-    )
+    method: 'GET',
+    headers: { authorization: `Bearer ${CB_TOKEN}`, 'Content-Type': 'application/json', 'customer-id': bot_id }
   };
 
-  const response = await fetch('https://api.carbon.ai/scrape_sitemap', options)
+  const response = await fetch(`https://api.carbon.ai/process_sitemap?url=${sitemapUrl}`, options)
     .then(response => response.json())
     .catch(err => console.error(err));
 
-  console.log(response)
   return json(response)
 }
   else
