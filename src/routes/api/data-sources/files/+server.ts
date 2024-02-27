@@ -1,6 +1,5 @@
 import { CB_TOKEN } from '$env/static/private';
 import { json } from "@sveltejs/kit";
-import { currentBot } from "$lib/stores";
 
 
 
