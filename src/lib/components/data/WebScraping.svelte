@@ -52,7 +52,7 @@
         offset: offset
       });
 
-      console.log('Response:', response);
+      console.log('Response, fetching user data --->', response);
 
       if (response?.status === 200) {
 
