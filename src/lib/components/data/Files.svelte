@@ -90,27 +90,39 @@
 
   function handleFilesChange(event: any) {
     filesToUpload = Array.from(event.target.files);
-    console.log(filesToUpload);
   }
   
   async function uploadFiles() {
     const chunkSize = $currentBot.settings.dataFunnelSettings?.files?.chunkSize ? $currentBot.settings.dataFunnelSettings?.files?.chunkSize : 400;
     const chunkOverlap = $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap : 20;
     try {
-      const response = await Carbon.uploadFiles({
-        accessToken: accessToken,
-        files: filesToUpload,
-        chunkSize: chunkSize,
-        chunkOverlap: chunkOverlap,
-        skipEmbeddingGeneration: false,
-        useOCR: filesToUpload[0].type === 'application/pdf' ? true : false, // * assumses 1 file upload at a time
-        embeddingModel: 'OPENAI_ADA_LARGE_3072'
-      });
+      // const response = await Carbon.uploadFiles({
+      //   accessToken: accessToken,
+      //   files: filesToUpload,
+      //   chunkSize: chunkSize,
+      //   chunkOverlap: chunkOverlap,
+      //   skipEmbeddingGeneration: false,
+      //   useOCR: filesToUpload[0].type === 'application/pdf' ? true : false, // * assumses 1 file upload at a time
+      //   embeddingModel: 'OPENAI_ADA_LARGE_3072'
+      // });
+    const form = new FormData();
+
+    form.append("file", filesToUpload[0]);
+    form.append('bot_id', $currentBot.id)
+    form.append('chunkSize', chunkSize)
+    form.append('chunkOverlap', chunkOverlap)
+
+     const response = await fetch(`/api/data-sources/files`, {
+					method: 'POST',
+					body: form
+				});
+
+    const data = await response.json()
 
       if (response.status === 200) {
-        console.log('Uploaded Files:', response.data.successfulUploads);
+        console.log('Uploaded Files:', data);
         totalFileCount += 1;
-        return response.data.successfulUploads;
+        return data;
       } else {
         console.error('Error:', response.error.message);
       }
