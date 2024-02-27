@@ -4,19 +4,21 @@
 
   export let accessToken: string;
   export let totalFileCount: number;
-  $: console.log('Total file count:', totalFileCount);
+  console.log($currentBot.id)
+
   
   // state
 	let isModalOpen = false;
+  let isUploading = false;
+  let isEditing = false;
   let activeTab: 'upload' | 'trained' = 'upload';
   let hasQueuedFiles = false;
-  let isUploading = false;
   let counter: number;
   let intervalId: any;
   let timeoutId: any;
+  let retrainId: any;
 
   let textTrained: [] = [];
-
   let title: string;
   let text: string
 
@@ -123,7 +125,48 @@
     }
   }
 
-async function removeFile(fileId: string) {
+  async function editFile(fileId: string) {
+    console.log('Editing file:', fileId);
+
+    const options = {
+      method: 'POST',
+      headers: {
+        authorization: 'Bearer 752f7de712916611f49e01b4b34ac82727f112f17448a4f7e816595ccb47579c',
+        'customer-id': '2594136c22ff8f76',
+        'Content-Type': 'application/json'
+      },
+      body: `{"include_raw_file":true,"filters":{"ids":[${fileId}]}}`
+    };
+
+    const response = await fetch('https://api.carbon.ai/user_files_v2', options)
+    const data = await response.json()
+    const file = data.results[0];
+
+    const presignedUrl = file.presigned_url;
+    const presignedResponse = await fetch(presignedUrl);
+    const presignedText = await presignedResponse.text();
+
+    title = file.name;
+    text = presignedText
+    retrainId = file.id;
+
+    isEditing = true;
+    activeTab = 'upload';
+
+
+    try {
+
+      if (response.status === 200) {
+        console.log('File successfully edited:', response.data);
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error during file edit:', err.message);
+    }
+  }
+
+  async function removeFile(fileId: string) {
     console.log('Removing file:', fileId);
     try {
       const response = await Carbon.deleteFile({
@@ -229,10 +272,13 @@ async function removeFile(fileId: string) {
                 return;
               }
 
+
               if(totalFileCount >= 30) {
                 $alert = { msg: 'You have reached the 30 file limit', type: 'error' };
                 return;
               }
+
+              // Finish here passing in the the file Id and improving the uploadCustomText function
 
               isUploading = true;
               const response = await uploadCustomText();
@@ -260,6 +306,8 @@ async function removeFile(fileId: string) {
           
           {#if isUploading}
             <span class="loading loading-spinner loading-md"></span>
+          {:else if isEditing}
+            Retrain 
           {:else}
             Train
           {/if}
@@ -304,6 +352,18 @@ async function removeFile(fileId: string) {
                   </td>
                 {/if}
                 <td class="text-primary">{file.id}</td>
+                <td class="text-primary">
+                  <button 
+                    class="btn btn-secondary btn-sm" 
+                    on:click={() => {
+                      editFile(file.id);
+                      //@ts-ignore
+                    }
+                  }
+                  >
+                    Edit
+                  </button>
+                </td>
                 <td>
                   <button 
                     class="btn btn-secondary btn-sm" 
