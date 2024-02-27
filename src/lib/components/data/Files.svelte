@@ -37,15 +37,27 @@
 
   async function fetchTotalFileCount() {
     try {
-      const response = await Carbon.getUserFiles({
-        accessToken: accessToken,
-        filters: {"source": ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON", "RAW_TEXT"]},
-        limit: 1,
-        offset: 0
+      // const response = await Carbon.getUserFiles({
+      //   accessToken: accessToken,
+      //   filters: {"source": ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON", "RAW_TEXT"]},
+      //   limit: 1,
+      //   offset: 0
+      // });
+
+      const response = await fetch('/api/data-sources/user-files', {
+        method: 'POST',
+        body: JSON.stringify({
+          customerId: $currentBot.id,
+          fileTypes: ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON", "RAW_TEXT"],
+          limit: 1,
+          offset: 0
+        })
       });
 
+      const data = await response.json();
+
       if (response?.status === 200) {
-        return response.data?.count || 0
+        return data?.count || 0
       } else {
         console.error('Error:', response.error);
       }
@@ -56,15 +68,30 @@
 
   async function fetchUserData() {
     try {
-      const response = await Carbon.getUserFiles({
-        accessToken: accessToken,
-        filters: {"source": ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"]},
-        limit: 250,
-        offset: 0
+      // const response = await Carbon.getUserFiles({
+      //   accessToken: accessToken,
+      //   filters: {"source": ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"]},
+      //   limit: 250,
+      //   offset: 0
+      // });
+
+      const response = await fetch('/api/data-sources/user-files', {
+        method: 'POST',
+        body: JSON.stringify({
+          customerId: $currentBot.id,
+          fileTypes: ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"],
+          limit: 250,
+          offset: 0
+        })
       });
 
+      const data = await response.json();
+      console.log('Responding --->', data);
+      console.log('sub', data.results);
+
       if (response?.status === 200) {
-        filesTrained = response.data?.results || [];
+        filesTrained = data?.results || [];
+        console.log('Files trained:', filesTrained);
 
         // Retry
         hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
@@ -78,7 +105,7 @@
           }, 40000);
         }
 
-      return response.data;
+      return data;
 
       } else {
         console.error('Error:', response.error);
