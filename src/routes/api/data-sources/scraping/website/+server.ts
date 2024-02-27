@@ -3,13 +3,13 @@ import { json } from '@sveltejs/kit';
 
 interface ScrapeConfig {
 	urls: string[];
-	recursionDepth: number;
-	maxPagesToScrape: number;
-	chunkSize: number;
-	chunkOverlap: number;
-	skipEmbeddingGeneration: boolean;
-	enableAutoSync: boolean;
-	embeddingModel: string;
+	recursion_depth: number;
+	max_pages_to_scrape: number;
+	chunk_size: number;
+	chunk_overlap: number;
+	skip_embedding_generation: boolean;
+	enable_auto_sync: boolean;
+	embedding_model: string;
 }
 
 interface ScrapeConfigSingleUrl extends Omit<ScrapeConfig, 'urls'> {
@@ -19,13 +19,13 @@ interface ScrapeConfigSingleUrl extends Omit<ScrapeConfig, 'urls'> {
 function transformConfigToSingleUrlList(config: ScrapeConfig): ScrapeConfigSingleUrl[] {
 	return config.urls.map((url) => ({
 		url,
-		recursionDepth: config.recursionDepth,
-		maxPagesToScrape: config.maxPagesToScrape,
-		chunkSize: config.chunkSize,
-		chunkOverlap: config.chunkOverlap,
-		skipEmbeddingGeneration: config.skipEmbeddingGeneration,
-		enableAutoSync: config.enableAutoSync,
-		embeddingModel: config.embeddingModel
+		recursion_depth: config.recursion_depth,
+		max_pages_to_scrape: config.max_pages_to_scrape,
+		chunk_size: config.chunk_size,
+		chunk_overlap: config.chunk_overlap,
+		skip_embedding_generation: config.skip_embedding_generation,
+		enable_auto_sync: config.enable_auto_sync,
+		embedding_model: config.embedding_model
 	}));
 }
 
@@ -42,29 +42,36 @@ export const POST = async ({ request, locals }) => {
 
 	const listOfConfigsWithSingleUrl = transformConfigToSingleUrlList({
 		urls: urls,
-		recursionDepth: recursionDepth,
-		maxPagesToScrape: maxPagesToScrape,
-		chunkSize: chunkSize,
-		chunkOverlap: chunkOverlap,
-		skipEmbeddingGeneration: false,
-		enableAutoSync: enableAutoSync,
-		embeddingModel: 'OPENAI_ADA_LARGE_3072'
+		recursion_depth: recursionDepth,
+		max_pages_to_scrape: maxPagesToScrape,
+		chunk_size: chunkSize,
+		chunk_overlap: chunkOverlap,
+		skip_embedding_generation: false,
+		enable_auto_sync: enableAutoSync,
+		embedding_model: 'OPENAI_ADA_LARGE_3072'
 	});
 
-	const options = {
-		method: 'POST',
-		headers: {
-			authorization: `Bearer ${CB_TOKEN}`,
-			'Content-Type': 'application/json',
-			'customer-id': bot_id
-		},
-		body: JSON.stringify(listOfConfigsWithSingleUrl)
-	};
+	const session = await locals.auth.validate();
 
-	const response = await fetch('https://api.carbon.ai/web_scrape', options)
-		.then((response) => response.json())
-		.catch((err) => console.error(err));
+	if (session) {
+		const options = {
+			method: 'POST',
+			headers: {
+				authorization: `Bearer ${CB_TOKEN}`,
+				'Content-Type': 'application/json',
+				'customer-id': bot_id
+			},
+			body: JSON.stringify(listOfConfigsWithSingleUrl)
+		};
 
-	console.log(response);
-	return json(response);
-};
+		const response = await fetch('https://api.carbon.ai/web_scrape', options)
+			.then((response) => response.json())
+			.catch((err) => console.error(err));
+
+		console.log(response);
+		return json(response);
+	} else {
+		return new Response(JSON.stringify({ status: 401 }));
+	}
+
+}
