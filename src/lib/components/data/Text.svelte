@@ -110,7 +110,9 @@
       if (response.status === 200) {
         const data = await response.json()
         console.log('Uploaded file details:', data);
-        totalFileCount += 1;
+
+        // increment total file count if not editing
+        if(!isEditing) totalFileCount += 1;
         return data;
       } else {
         console.error('Error:', response.error);
