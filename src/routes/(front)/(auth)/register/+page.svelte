@@ -20,10 +20,10 @@
 		goto('/chatbots');
 	}
 
-	if($page.url.searchParams.get('plan') === null && PUBLIC_ENVIRONMENT !== 'dev') {
-		console.log(`${PUBLIC_LANDING_PAGE_URL}/#pricing`)
-		goto(`${PUBLIC_LANDING_PAGE_URL}/#pricing`)
-	}
+	// if($page.url.searchParams.get('plan') === null && PUBLIC_ENVIRONMENT !== 'dev') {
+	// 	console.log(`${PUBLIC_LANDING_PAGE_URL}/#pricing`)
+	// 	goto(`${PUBLIC_LANDING_PAGE_URL}/#pricing`)
+	// }
 </script>
 
 <br><br><br><br><br>
