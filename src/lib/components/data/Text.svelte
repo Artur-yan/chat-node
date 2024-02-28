@@ -1,6 +1,5 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
-	import Error from '../../../routes/+error.svelte';
 
   export let totalFileCount: number;
   
