@@ -49,7 +49,7 @@
 	});
 
   const updatePlan = async (newPlan: number, subscriptionId?: string) => {
-    if (newPlan === 0) {
+    if (newPlan === 0 && PUBLIC_ENVIRONMENT === 'production')  {
       //... Any pre-cancel logic
       profitwell('init_cancellation_flow', {subscription_id: subscriptionId}).then(result => {
         // This means the customer either aborted the flow (i.e.
@@ -66,29 +66,50 @@
         // some reason (for which case, `result.status` will be 'error'), but that
         // shouldn't stop them from cancelling.
         // The normal cancel flow goes here
-      })
-    }
-
-    console.log('updating plan', newPlan);
-    try {
+        console.log('updating plan', newPlan);
       busyChangingPlan = true;
-      const res = fetch('/api/account/plan', {
+      fetch('/api/account/plan', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ newPlan, referralCode })
-      });
-      const data = await res.json();
-      setTimeout(() => {
+      }).then(response => response.json()) // Correctly calling .json() on the response object
+  .then(data => {
+     setTimeout(() => {
         invalidateAll();
         window.location.href = data.url;
         busyChangingPlan = false;
       }, 2000);
+  })
+  .catch(error => {
+    console.error('Error:', error); // Handling any errors that occur during the fetch
+          $alert = { msg: 'Something went wrong', type: 'error' };
+  });
+    } )}
+    else {
 
-    } catch (err) {
-      console.error(err);
-      $alert = { msg: 'Something went wrong', type: 'error' };
+      console.log('updating plan', newPlan);
+      try {
+        busyChangingPlan = true;
+        const res = await fetch('/api/account/plan', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ newPlan, referralCode })
+        });
+        const data = await res.json();
+        setTimeout(() => {
+          invalidateAll();
+          window.location.href = data.url;
+          busyChangingPlan = false;
+        }, 2000);
+
+      } catch (err) {
+        console.error(err);
+        $alert = { msg: 'Something went wrong', type: 'error' };
+      }
     }
 
   };
@@ -117,8 +138,8 @@
 	};
 
   const handleCancelPlan = () => {
-    modalCancelPlan.showModal();
-
+    // modalCancelPlan.showModal();
+    updatePlan(0, subscriptionId)
 
   }
 </script>

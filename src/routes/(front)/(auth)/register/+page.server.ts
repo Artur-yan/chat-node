@@ -7,7 +7,7 @@ import { sendAccountEmailConfirmation } from '$lib/server/messenger';
 import { v4 as uuidv4 } from 'uuid';
 import { domainBlacklist } from '$lib/systemSettings';
 import type { PageServerLoad } from './$types';
-import { PUBLIC_CHAT_API_URL } from '$env/static/public';
+import { PUBLIC_CHAT_API_URL, PUBLIC_ENVIRONMENT, PUBLIC_SITE_URL } from "$env/static/public";
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -87,7 +87,7 @@ export const actions: Actions = {
 		const email = form.get('email');
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
-		const selectedPlan: string = url.searchParams.get('plan') || '5';
+		const selectedPlan: string | undefined = url.searchParams.get('plan') || undefined;
 
 		let codes: Array<string> = [];
 
@@ -96,6 +96,10 @@ export const actions: Actions = {
 		let codesAlreadyRedeemed = false;
 		let codesDontExist = false;
 		let stripeLink: string;
+
+		if (selectedPlan === undefined && PUBLIC_ENVIRONMENT !== 'dev'){
+			redirect(302, PUBLIC_SITE_URL)
+		}
 
 		if (domainBlacklist.includes(email.split('@')[1])) {
 			return fail(400, {

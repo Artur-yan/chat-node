@@ -41,8 +41,19 @@
 	let selectAllUrlsCheckbox: HTMLInputElement;
 	let maxFileSizeMB = 150;
 
+	//On creation - Appsumo bots are set to 3.5-june
 	if(plan > 1000) {
 		settings.gptVersion = '3.5-june';
+	}
+
+	//On creation - Free plan and 1001 plan HAS branding
+	if(plan === 0 || plan === 1001) {
+		settings.removeBranding = false;
+	}
+
+	//On creation - Current Plan HAVE branding
+	if(plan === 5 || plan === 105 || plan === 6 || plan === 106) {
+		settings.removeBranding = false;
 	}
 	
 	function resetAddDataForm() {

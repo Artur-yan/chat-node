@@ -19,6 +19,7 @@
 	const handleSourceUrlChange = () => {
 		console.log($currentBot.settings.useSourceUrls)
 	};
+	let hasSuggestedQuestions = $currentBot.settings.suggestedQuestions && $currentBot.settings.suggestedQuestions.length > 0;
 </script>
 
 <div>
@@ -153,6 +154,7 @@
 						</tr>
 					</thead>
 					<tbody>
+					{#if hasSuggestedQuestions}
 						{#each $currentBot.settings.suggestedQuestions as question, i}
 							<tr>
 								<td class="w-2/5">
@@ -190,6 +192,11 @@
 								</td>
 							</tr>
 						{/each}
+						{:else}
+    <!-- Handle the case where suggestedQuestions doesn't exist or is empty -->
+    <!-- This could be a message or even a default set of inputs -->
+    <p>No suggested questions available.</p>
+{/if}
 					</tbody>
 				</table>
 				<button class="btn btn-sm mt-4" on:click={addSuggestedQuestion}>Add</button>
