@@ -3,14 +3,14 @@ import { CB_TOKEN } from '$env/static/private';
 export const POST = async ({ request, locals }) => {
 	const { customerId, fileTypes, limit, offset } = await request.json();
 	const bodyJson = JSON.stringify({
-		limit,
-		offset,
+		pagination: {
+			limit,
+			offset
+		},
 		filters: {
 			source: fileTypes
 		}
 	});
-
-	console.log('bodyJson:', bodyJson);
 
 	const session = await locals.auth.validate();
 
@@ -27,8 +27,8 @@ export const POST = async ({ request, locals }) => {
 			};
 
 			const response = await fetch('https://api.carbon.ai/user_files_v2', options);
+
 			const data = await response.json();
-			console.log('data:', data);
 			const results = data.results;
 			const count = data.results.length;
 
