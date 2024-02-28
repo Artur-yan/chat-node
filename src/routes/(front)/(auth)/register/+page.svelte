@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { alert } from '$lib/stores';
 
 	export let form: { message?: string; submitted: false; success: false };
 
-	import { page } from '$app/stores';
-	import { alert } from '$lib/stores';
 
 	const promo = $page.url.searchParams.get('promo');
 
@@ -17,6 +17,10 @@
 	$: if (form?.success) {
 		$alert = form?.message;
 		goto('/chatbots');
+	}
+
+	if($page.url.searchParams.get('plan') === null) {
+		goto('https://chatnode.ai/#pricing')
 	}
 </script>
 
