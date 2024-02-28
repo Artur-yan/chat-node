@@ -12,8 +12,6 @@ export const POST = async ({ request, locals }) => {
 		}
 	});
 
-	console.log('bodyJson:', bodyJson);
-
 	const session = await locals.auth.validate();
 
 	if (session) {
@@ -29,6 +27,7 @@ export const POST = async ({ request, locals }) => {
 			};
 
 			const response = await fetch('https://api.carbon.ai/user_files_v2', options);
+
 			const data = await response.json();
 			const results = data.results;
 			const count = data.results.length;

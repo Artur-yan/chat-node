@@ -37,13 +37,10 @@
 
   async function fetchTotalFileCount() {
     try {
-      const response = await fetch('/api/data-sources/user-files', {
+      const response = await fetch('/api/data-sources/total-file-count', {
         method: 'POST',
         body: JSON.stringify({
           customerId: $currentBot.id,
-          fileTypes: ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON", "RAW_TEXT"],
-          limit: 1,
-          offset: 0
         })
       });
 
