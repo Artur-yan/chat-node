@@ -2,7 +2,6 @@
   import * as Carbon from 'carbon-connect-js';
   import { currentBot, alert } from '$lib/stores.js';
 
-  export let accessToken: string;
   export let totalFileCount: number;
   
   // state

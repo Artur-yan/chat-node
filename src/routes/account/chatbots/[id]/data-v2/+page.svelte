@@ -9,7 +9,6 @@
 
 	export let data;
 
-  const carbonAPIKey = '752f7de712916611f49e01b4b34ac82727f112f17448a4f7e816595ccb47579c';
 	let accessToken: string;
   let totalFileCount:number;
 
@@ -69,9 +68,9 @@
 
 <div class="container grid md:grid-cols-2 lg:grid-cols-[auto_32rem] gap-4 my-4">
 	<div class="grid grid-cols-3 gap-8 my-4">
-		<WebScraping {carbonAPIKey} {accessToken}/>
-		<Files {accessToken} {totalFileCount}/>
-		<Text {accessToken} {totalFileCount}/>
+		<WebScraping />
+		<Files {totalFileCount}/>
+		<Text {totalFileCount}/>
 	</div>
 	<div>
 		<div

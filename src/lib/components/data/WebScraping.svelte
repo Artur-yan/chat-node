@@ -2,9 +2,6 @@
   import * as Carbon from 'carbon-connect-js';
   import { currentBot, alert } from '$lib/stores.js';
   import Accordian from '../Accordian.svelte';
-  import { v4 as uuidv4 } from 'uuid';
-  export let carbonAPIKey: string;
-  export let accessToken: string;
 
   // state
 	let isModalOpen = false;
@@ -56,7 +53,6 @@
       });
 
       const data = await response.json();
-      console.log('Response --->', data);
 
       if (response?.status === 200) {
 
@@ -189,7 +185,6 @@
 				});
 
       const data = await response.json()
-      console.log('Responding --->x:', data);
 
       if (response.status === 200) {
         const lastPage = Math.ceil(totalUrlCount / 250) || 1;
