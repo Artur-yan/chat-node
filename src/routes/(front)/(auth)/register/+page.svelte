@@ -21,6 +21,7 @@
 	}
 
 	if($page.url.searchParams.get('plan') === null && PUBLIC_ENVIRONMENT !== 'dev') {
+		console.log(`${PUBLIC_SITE_URL}/#pricing`)
 		goto(`${PUBLIC_SITE_URL}/#pricing`)
 	}
 </script>
