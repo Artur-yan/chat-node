@@ -228,15 +228,21 @@
   }
 
   async function removeFile(fileId: string) {
-    console.log('Removing file:', fileId);
     try {
-      const response = await Carbon.deleteFile({
-        accessToken: accessToken,
-        fileId: fileId
+      const response = await fetch(`/api/data-sources/delete-file`, {
+        method: 'POST',
+        body: JSON.stringify({
+          customerId: $currentBot.id,
+          fileId
+        })
       });
 
+      console.log('Response:', response);
+
+      const data = await response.json();
+
       if (response.status === 200) {
-        console.log('File successfully deleted:', response.data);
+        console.log('File successfully deleted:', data );
         totalUrlCount -= 1;
       } else {
         console.error('Error:', response.error);
