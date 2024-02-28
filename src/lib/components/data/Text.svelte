@@ -81,7 +81,6 @@
             fetchUserData('RAW_TEXT');
           }, 40000);
         }
-        console.log('Files:', textTrained);
 
         return data;
 
@@ -99,8 +98,6 @@
     const chunkSize = $currentBot.settings.dataFunnelSettings?.rawText?.chunkSize ? $currentBot.settings.dataFunnelSettings?.rawText?.chunkSize : 400;
     const chunkOverlap = $currentBot.settings.dataFunnelSettings?.rawText?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.rawText?.chunkOverlap : 20;
     try {
-      console.log('Uploading text:', text);
-      console.log('Uploading title:', title);
       const response = await fetch(`/api/data-sources/training/text`, {
 					method: 'POST',
 					body: JSON.stringify({
@@ -112,16 +109,6 @@
             chunkOverlap: chunkOverlap
 					})
 				});
-
-      // const response = await Carbon.uploadText({
-      //   accessToken: accessToken,
-      //   contents: text,
-      //   fileName: title,
-      //   chunkSize: chunkSize,
-      //   chunkOverlap: chunkOverlap,
-      //   skipEmbeddingGeneration: false,
-      //   embeddingModel: 'OPENAI_ADA_LARGE_3072'
-      // });
 
       if (response.status === 200) {
         const data = await response.json()

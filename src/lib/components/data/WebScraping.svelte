@@ -56,8 +56,7 @@
       });
 
       const data = await response.json();
-      console.log('Responding --->', data);
-      console.log('sub', data.results);
+      console.log('Response --->', data);
 
       if (response?.status === 200) {
 
@@ -189,25 +188,12 @@
 					})
 				});
 
-        
-      // const response = await Carbon.submitScrapeRequest({
-      //   accessToken: accessToken,
-      //   urls: urls,
-      //   recursionDepth: recursionDepth,
-      //   maxPagesToScrape: maxPagesToScrape,
-      //   chunkSize: chunkSize,
-      //   chunkOverlap: chunkOverlap,
-      //   skipEmbeddingGeneration: false,
-      //   embeddingModel: 'OPENAI_ADA_LARGE_3072'
-      // });
       const data = await response.json()
       console.log('Responding --->x:', data);
 
       if (response.status === 200) {
         const lastPage = Math.ceil(totalUrlCount / 250) || 1;
-        console.log('Last Page:', lastPage);
         const offset = (lastPage - 1) * 250;
-        console.log('Offset:', offset);
         await fetchUserData(offset);
 
         return true;
@@ -221,7 +207,6 @@
   }
 
   async function submitSitemapUrl() {
-    console.log('Sitemap:', sitemap);
     try {
        const response = await fetch(`/api/data-sources/scraping/sitemap`, {
 					method: 'POST',
@@ -230,10 +215,7 @@
 						sitemapUrl: sitemap
           })
 				});
-      // const response = await Carbon.processSitemapUrl({
-      //   accessToken: accessToken,
-      //   sitemapUrl: sitemap
-      // });
+
       const data = await response.json();
       console.log(data)
 
@@ -341,15 +323,8 @@
           return;
         }
         
-        console.log('timeout id ---->',timeoutId)
           isFetchingUrls = true;
           const response = await submitWebScraping([baseUrl])
-          // if(!response) {
-          //   isFetchingUrls = false;
-          //   $alert = { type: 'error', msg: 'Please submit a valid URL', duration: 2500 };
-          //   baseUrl = '';
-          //   return;
-          // }
 
           setTimeout(() => {
             isFetchingUrls = false;

@@ -10,6 +10,8 @@ export const POST = async ({ request, locals }) => {
 		}
 	});
 
+	console.log('bodyJson:', bodyJson);
+
 	const session = await locals.auth.validate();
 
 	if (session) {
