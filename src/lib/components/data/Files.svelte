@@ -1,8 +1,6 @@
 <script lang="ts">
-  import * as Carbon from 'carbon-connect-js';
   import { currentBot, alert } from '$lib/stores.js';
-
-  export let accessToken: string;
+  
   export let totalFileCount: number;
   
   // state
@@ -52,7 +50,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error:', err.message);
+      console.error('Unexpected error:', (err as Error).message);
     }
   }
 
@@ -69,7 +67,6 @@
       });
 
       const data = await response.json();
-      console.log('Responding --->', data);
 
       if (response?.status === 200) {
         filesTrained = data?.results || [];
@@ -93,7 +90,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error:', err.message);
+      console.error('Unexpected error:', (err as Error).message);
     }
   }
 
@@ -105,15 +102,7 @@
     const chunkSize = $currentBot.settings.dataFunnelSettings?.files?.chunkSize ? $currentBot.settings.dataFunnelSettings?.files?.chunkSize : 400;
     const chunkOverlap = $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap : 20;
     try {
-      // const response = await Carbon.uploadFiles({
-      //   accessToken: accessToken,
-      //   files: filesToUpload,
-      //   chunkSize: chunkSize,
-      //   chunkOverlap: chunkOverlap,
-      //   skipEmbeddingGeneration: false,
-      //   useOCR: filesToUpload[0].type === 'application/pdf' ? true : false, // * assumses 1 file upload at a time
-      //   embeddingModel: 'OPENAI_ADA_LARGE_3072'
-      // });
+
     const form = new FormData();
 
     form.append("file", filesToUpload[0]);
@@ -135,7 +124,7 @@
         console.error('Error:', response.error.message);
       }
     } catch (err) {
-      console.error('Unexpected error:', err.message);
+      console.error('Unexpected error:', (err as Error).message);
     }
   }
 
@@ -154,7 +143,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error during file deletion:', err.message);
+      console.error('Unexpected error during file deletion:', (err as Error).message);
     }
   }
 

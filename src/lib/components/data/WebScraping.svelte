@@ -1,10 +1,7 @@
 <script lang="ts">
-  import * as Carbon from 'carbon-connect-js';
   import { currentBot, alert } from '$lib/stores.js';
+	import Error from '../../../routes/+error.svelte';
   import Accordian from '../Accordian.svelte';
-  import { v4 as uuidv4 } from 'uuid';
-  export let carbonAPIKey: string;
-  export let accessToken: string;
 
   // state
 	let isModalOpen = false;
@@ -56,7 +53,6 @@
       });
 
       const data = await response.json();
-      console.log('Response --->', data);
 
       if (response?.status === 200) {
 
@@ -136,7 +132,6 @@
       // Merge derived parents with parents (Derived parents need to be placed first)
       urlsGroupedByParent = [...urlsGroupedByDerivedParent, ...urlsGroupedByParent];
       urlsTrained = urlsGroupedByParent;
-      console.log('<Final>urlsTrained:', urlsTrained);
 
       //Retry
       hasQueuedFiles = data.results.some((item: any) => {
@@ -164,7 +159,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error:', err.message);
+      console.error('Unexpected error:', (err as Error).message);
     } 
   }
 
@@ -189,7 +184,6 @@
 				});
 
       const data = await response.json()
-      console.log('Responding --->x:', data);
 
       if (response.status === 200) {
         const lastPage = Math.ceil(totalUrlCount / 250) || 1;
@@ -201,7 +195,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error:', err.message);
+      console.error('Unexpected error:', (err as Error).message);
       return false;
     }
   }
@@ -228,7 +222,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error:', err.message);
+      console.error('Unexpected error:', (err as Error).message);
       return false;
     }
   }
@@ -248,7 +242,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error during file deletion:', err.message);
+      console.error('Unexpected error during file deletion:', (err as Error).message);
     }
   }
 
