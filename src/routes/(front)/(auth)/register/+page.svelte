@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { alert } from '$lib/stores';
+	import { PUBLIC_ENVIRONMENT, PUBLIC_SITE_URL } from "$env/static/public";
 
 	export let form: { message?: string; submitted: false; success: false };
 
-	import { page } from '$app/stores';
-	import { alert } from '$lib/stores';
 
 	const promo = $page.url.searchParams.get('promo');
 
@@ -17,6 +18,10 @@
 	$: if (form?.success) {
 		$alert = form?.message;
 		goto('/chatbots');
+	}
+
+	if($page.url.searchParams.get('plan') === null && PUBLIC_ENVIRONMENT !== 'dev') {
+		goto(`${PUBLIC_SITE_URL}/#pricing`)
 	}
 </script>
 
