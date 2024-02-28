@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { alert } from '$lib/stores';
-	import { PUBLIC_ENVIRONMENT, PUBLIC_SITE_URL } from "$env/static/public";
+	import { PUBLIC_ENVIRONMENT, PUBLIC_LANDING_PAGE_URL } from "$env/static/public";
 
 	export let form: { message?: string; submitted: false; success: false };
 
@@ -21,8 +21,8 @@
 	}
 
 	if($page.url.searchParams.get('plan') === null && PUBLIC_ENVIRONMENT !== 'dev') {
-		console.log(`${PUBLIC_SITE_URL}/#pricing`)
-		goto(`${PUBLIC_SITE_URL}/#pricing`)
+		console.log(`${PUBLIC_LANDING_PAGE_URL}/#pricing`)
+		goto(`${PUBLIC_LANDING_PAGE_URL}/#pricing`)
 	}
 </script>
 
