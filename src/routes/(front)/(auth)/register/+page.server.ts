@@ -97,10 +97,6 @@ export const actions: Actions = {
 		let codesDontExist = false;
 		let stripeLink: string;
 
-		if (selectedPlan === undefined && PUBLIC_ENVIRONMENT !== 'dev'){
-			redirect(302, PUBLIC_SITE_URL)
-		}
-
 		if (domainBlacklist.includes(email.split('@')[1])) {
 			return fail(400, {
 				message: 'Invalid input',

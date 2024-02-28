@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { alert } from '$lib/stores';
+	import { PUBLIC_ENVIRONMENT } from "$env/static/public";
 
 	export let form: { message?: string; submitted: false; success: false };
 
@@ -19,7 +20,7 @@
 		goto('/chatbots');
 	}
 
-	if($page.url.searchParams.get('plan') === null) {
+	if($page.url.searchParams.get('plan') === null && PUBLIC_ENVIRONMENT !== 'dev') {
 		goto('https://chatnode.ai/#pricing')
 	}
 </script>
