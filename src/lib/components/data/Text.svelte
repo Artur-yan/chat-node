@@ -1,5 +1,4 @@
 <script lang="ts">
-  import * as Carbon from 'carbon-connect-js';
   import { currentBot, alert } from '$lib/stores.js';
 
   export let totalFileCount: number;

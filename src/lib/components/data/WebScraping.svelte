@@ -1,5 +1,4 @@
 <script lang="ts">
-  import * as Carbon from 'carbon-connect-js';
   import { currentBot, alert } from '$lib/stores.js';
   import Accordian from '../Accordian.svelte';
 
@@ -132,7 +131,6 @@
       // Merge derived parents with parents (Derived parents need to be placed first)
       urlsGroupedByParent = [...urlsGroupedByDerivedParent, ...urlsGroupedByParent];
       urlsTrained = urlsGroupedByParent;
-      console.log('<Final>urlsTrained:', urlsTrained);
 
       //Retry
       hasQueuedFiles = data.results.some((item: any) => {
