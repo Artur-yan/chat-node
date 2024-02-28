@@ -1,5 +1,6 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
+	import Error from '../../../routes/+error.svelte';
   import Accordian from '../Accordian.svelte';
 
   // state
@@ -158,7 +159,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error:', err.message);
+      console.error('Unexpected error:', (err as Error).message);
     } 
   }
 
@@ -194,7 +195,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error:', err.message);
+      console.error('Unexpected error:', (err as Error).message);
       return false;
     }
   }
@@ -221,7 +222,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error:', err.message);
+      console.error('Unexpected error:', (err as Error).message);
       return false;
     }
   }
@@ -241,7 +242,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error during file deletion:', err.message);
+      console.error('Unexpected error during file deletion:', (err as Error).message);
     }
   }
 

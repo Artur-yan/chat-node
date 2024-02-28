@@ -1,5 +1,6 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
+	import Error from '../../../routes/+error.svelte';
 
   export let totalFileCount: number;
   
@@ -45,7 +46,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error:', err.message);
+      console.error('Unexpected error:', (err as Error).message);
     }
   }
 
@@ -81,7 +82,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error:', err.message);
+      console.error('Unexpected error:', (err as Error).message);
     } finally {
       console.log('Files completed');
     }
@@ -114,42 +115,34 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error during upload:', err.message);
+      console.error('Unexpected error during upload:', (err as Error).message);
     }
   }
 
   async function editFile(fileId: string) {
-    const response = await fetch(`/api/data-sources/training/text-retrieval`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        bot_id: $currentBot.id,
-        fileId: fileId
-      })
-    });
-
-    const file = await response.json();
-    const presignedText = file.text;
-
-    title = file.name;
-    text = presignedText;
-    retrainId = file.id;
-
-    isEditing = true;
-    activeTab = 'upload';
-
-
     try {
+      const response = await fetch(`/api/data-sources/training/text-retrieval`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          bot_id: $currentBot.id,
+          fileId: fileId
+        })
+      });
 
-      if (response.status === 200) {
-        console.log('File successfully edited:', response.data);
-      } else {
-        console.error('Error:', response.error);
-      }
+      const file = await response.json();
+      const presignedText = file.text;
+
+      title = file.name;
+      text = presignedText;
+      retrainId = file.id;
+
+      isEditing = true;
+      activeTab = 'upload';
     } catch (err) {
-      console.error('Unexpected error during file edit:', err.message);
+      console.error('Unexpected error during file edit:', (err as Error).message);
     }
   }
 
@@ -168,7 +161,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error during file deletion:', err.message);
+      console.error('Unexpected error during file deletion:', (err as Error).message);
     }
   }
 

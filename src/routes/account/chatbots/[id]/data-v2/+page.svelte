@@ -28,7 +28,7 @@
         console.error('Error:', response.error);
       }
     } catch (err) {
-      console.error('Unexpected error:', err.message);
+      console.error('Unexpected error:', (err as Error).message);
     }
   }
 
