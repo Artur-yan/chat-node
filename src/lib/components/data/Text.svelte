@@ -57,7 +57,7 @@
         body: JSON.stringify({
           customerId: $currentBot.id,
           fileTypes: ["RAW_TEXT"],
-          limit: 1,
+          limit: 250,
           offset: 0
         })
       });
