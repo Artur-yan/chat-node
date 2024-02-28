@@ -69,9 +69,9 @@ export const POST = async ({ request, locals }) => {
 			.catch((err) => console.error(err));
 
 		console.log(response);
+
 		return json(response);
 	} else {
 		return new Response(JSON.stringify({ status: 401 }));
 	}
-
-}
+};

@@ -37,13 +37,6 @@
 
   async function fetchTotalFileCount() {
     try {
-      // const response = await Carbon.getUserFiles({
-      //   accessToken: accessToken,
-      //   filters: {"source": ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON", "RAW_TEXT"]},
-      //   limit: 1,
-      //   offset: 0
-      // });
-
       const response = await fetch('/api/data-sources/user-files', {
         method: 'POST',
         body: JSON.stringify({
@@ -68,13 +61,6 @@
 
   async function fetchUserData() {
     try {
-      // const response = await Carbon.getUserFiles({
-      //   accessToken: accessToken,
-      //   filters: {"source": ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"]},
-      //   limit: 250,
-      //   offset: 0
-      // });
-
       const response = await fetch('/api/data-sources/user-files', {
         method: 'POST',
         body: JSON.stringify({
@@ -87,7 +73,6 @@
 
       const data = await response.json();
       console.log('Responding --->', data);
-      console.log('sub', data.results);
 
       if (response?.status === 200) {
         filesTrained = data?.results || [];
@@ -147,7 +132,6 @@
     const data = await response.json()
 
       if (response.status === 200) {
-        console.log('Uploaded Files:', data);
         totalFileCount += 1;
         return data;
       } else {
