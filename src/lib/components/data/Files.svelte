@@ -314,7 +314,7 @@
                     Ready
                   </div>
                 </td>
-                {:else if file.sync_status === 'QUEUED_FOR_SYNC' || file.sync_status === 'QUEUED_FOR_OCR'}
+                {:else if file.sync_status === 'QUEUED_FOR_SYNC' || file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'SYNCING'}
                 <td class="text-primary">
                   <div class="badge badge-warning badge-outline w-20">
                     Pending
