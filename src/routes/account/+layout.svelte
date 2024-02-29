@@ -17,6 +17,8 @@
 
 	export let data: LayoutData;
 
+
+
 	onMount(() => {
 		// const { enableAutoPageviews } = Plausible({
 		// 	domain: PUBLIC_PLAUSIBLE_DOMAIN,
@@ -36,6 +38,25 @@
 
 <svelte:head>
 	{#if PUBLIC_ENVIRONMENT === 'production'}
+		<!-- RAAFT -->
+		<script>
+   var RAAFT_APP_ID="K3fm9LVP3aDkgRTzSt33"; // YOUR PROD ENVIRONMENT"
+   (function(r,aa,f,t,dot,i,o) {
+      r[dot] =
+          r[dot] ||
+          function() {
+              (r[dot].q = r[dot].q || []).push(arguments);
+          };
+      r[dot].l = 1 * new Date();
+      i = aa.createElement(f);
+      o = aa.getElementsByTagName(f)[0];
+      i.id = 'raaftScript';
+      i.async = 1;
+      i.src = t;
+      o.parentNode.insertBefore(i, o);
+   })(window, document, 'script', '//app.raaft.io/include.js?appId='+RAAFT_APP_ID, 'raaft');
+</script>
+
 		<!-- Google Tag Manager -->
 		<!-- Google Tag Manager -->
 		<script>
@@ -126,6 +147,8 @@
 <!--		data-color-1="#0E1729"-->
 <!--		data-color-2="#3ABFF7"-->
 <!--	></script>-->
+
+
 	{@html `<script src="${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js"></script>`}
 
 	<script>

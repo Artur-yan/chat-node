@@ -231,7 +231,7 @@
 			$alert = 'Plan changed successfully!';
 		}
 	});
-	
+
 </script>
 
 <svelte:head>
@@ -395,6 +395,7 @@
 			includeMarketing={false} 
 			userId={data.user.userId}
 			subscriptionId={data.subscription?.stripe_subscription}
+			raaft_key={data.raaft_key}
 			currentPlan={currentPlan}
 			isCanceled={data.subscription.cancel_at}
 		/>
