@@ -143,7 +143,14 @@
 <input type="checkbox" id="my_modal_6" class="modal-toggle" />
 <div class="modal" role="dialog">
   <div class="modal-box shadow-lg shadow-zinc-600">
-    <h3 class="font-bold text-xl text-primary">Name your bot</h3>
+		<div class="flex justify-between items-center">
+			<h3 class="font-bold text-xl text-primary">Name your bot</h3>
+			<label for="my_modal_6" class="cursor-pointer text-secondary">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+				</svg>				
+			</label>
+		</div>
     <input bind:value={botName} type="text" placeholder="Type here" class="input input-bordered w-full my-4 border-primary" />
     <div class="modal-action">
 			<button
@@ -160,7 +167,6 @@
 				Create
 			{/if}
 			</button>
-      <label for="my_modal_6" class="btn btn-secondary">Close</label>
     </div>
   </div>
 </div>
