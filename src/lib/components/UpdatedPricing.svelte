@@ -55,8 +55,19 @@
 
       raaft('startCancelFlow', {
         authKey: raaft_key, // generated in step 2
-        subscriptionId: subscriptionId // same from step 2
+        subscriptionId: subscriptionId, // same from step 2
+        onComplete: function (result) {
+        return new Promise(function (resolve, reject) {
+            // example: retrieve new data and update UI
+          //if ( result.outcome === "aborted")
+          invalidateAll();
+          if (result.outcome === "saved" || result.outcome === "aborted") {
+            return
+          }
+        });
+    }
       })
+
       //... Any pre-cancel logic
   //     profitwell('init_cancellation_flow', {subscription_id: subscriptionId}).then(result => {
   //       // This means the customer either aborted the flow (i.e.
