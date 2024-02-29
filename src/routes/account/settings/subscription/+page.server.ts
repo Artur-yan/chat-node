@@ -1,8 +1,18 @@
-import { CMS_API_KEY } from '$env/static/private';
+import { CMS_API_KEY, RAAFT_KEY } from '$env/static/private';
 import { PUBLIC_CMS_PATH } from '$env/static/public';
 import { prismaClient } from '$lib/server/prisma';
 import { fail } from '@sveltejs/kit';
 import tiersMap from '$lib/data/tiers.js';
+import * as crypto from "crypto";
+
+
+async function fetchRaaft(subscription_id: any) {
+
+		return crypto.createHmac(
+			 'sha256',
+			 RAAFT_KEY
+		).update(subscription_id).digest('hex');
+}
 
 async function fetchTestimonials() {
 	const testimonials = await fetch(`${PUBLIC_CMS_PATH}/api/content/tree/testimonials`, {
@@ -17,6 +27,13 @@ async function fetchTestimonials() {
 export const load = async ({ locals, setHeaders }) => {
 	const session = await locals.auth.validate();
 	if (!session) return;
+	const subscription = await prismaClient.subscriptions.findFirst({
+			where: {
+				user_id: session.user.userId
+			}
+		});
+	const sub_id = subscription.stripe_subscription
+	const raaft_key = await fetchRaaft(sub_id)
 
 	setHeaders({
 		'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -29,7 +46,8 @@ export const load = async ({ locals, setHeaders }) => {
 			session,
 			streamed: {
 				testimonials: fetchTestimonials()
-			}
+			},
+			raaft_key
 		};
 	} catch (err) {
 		console.error(err);

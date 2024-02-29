@@ -4,8 +4,10 @@
   import { alert } from '$lib/stores';
   import { onMount } from 'svelte';
 
+
   export let includeMarketing: Boolean;
   export let userId: string;
+  export let raaft_key: string;
   export let subscriptionId: string;
   export let currentPlan: number | undefined;
   export let referralCode: string = '';
@@ -49,44 +51,67 @@
 	});
 
   const updatePlan = async (newPlan: number, subscriptionId?: string) => {
-    if (newPlan === 0 && PUBLIC_ENVIRONMENT === 'production')  {
-      //... Any pre-cancel logic
-      profitwell('init_cancellation_flow', {subscription_id: subscriptionId}).then(result => {
-        // This means the customer either aborted the flow (i.e.
-        // they clicked on "never mind, I don't want to cancel"), or
-        // accepted a salvage attempt or salvage offer.
-        // Thus, do nothing since they won't cancel.
-        if (result.status === 'retained' || result.status === 'aborted') {
-          return
-        }
+    if (newPlan === 0 && PUBLIC_ENVIRONMENT === 'production') {
 
-        // At this point, the customer ended deciding to cancel (i.e.
-        // they rejected the salvage attempts and the salvage offer).
-        // It could also be the case the widget couldn't be shown properly for
-        // some reason (for which case, `result.status` will be 'error'), but that
-        // shouldn't stop them from cancelling.
-        // The normal cancel flow goes here
-        console.log('updating plan', newPlan);
-      busyChangingPlan = true;
-      fetch('/api/account/plan', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ newPlan, referralCode })
-      }).then(response => response.json()) // Correctly calling .json() on the response object
-  .then(data => {
-     setTimeout(() => {
-        invalidateAll();
-        window.location.href = data.url;
-        busyChangingPlan = false;
-      }, 2000);
-  })
-  .catch(error => {
-    console.error('Error:', error); // Handling any errors that occur during the fetch
-          $alert = { msg: 'Something went wrong', type: 'error' };
-  });
-    } )}
+      raaft('startCancelFlow', {
+        authKey: raaft_key, // generated in step 2
+        subscriptionId: subscriptionId, // same from step 2
+        onComplete: function (result) {
+        return new Promise(function (resolve, reject) {
+            // example: retrieve new data and update UI
+          //if ( result.outcome === "aborted")
+          invalidateAll();
+          if (result.outcome === "saved" || result.outcome === "aborted") {
+            return
+          }
+        });
+    }
+      })
+
+      //... Any pre-cancel logic
+  //     profitwell('init_cancellation_flow', {subscription_id: subscriptionId}).then(result => {
+  //       // This means the customer either aborted the flow (i.e.
+  //       // they clicked on "never mind, I don't want to cancel"), or
+  //       // accepted a salvage attempt or salvage offer.
+  //       // Thus, do nothing since they won't cancel.
+  //       if (result.status === 'retained' || result.status === 'aborted') {
+  //         return
+  //       }
+  //
+  //
+  //
+  //
+  //
+  //       // At this point, the customer ended deciding to cancel (i.e.
+  //       // they rejected the salvage attempts and the salvage offer).
+  //       // It could also be the case the widget couldn't be shown properly for
+  //       // some reason (for which case, `result.status` will be 'error'), but that
+  //       // shouldn't stop them from cancelling.
+  //       // The normal cancel flow goes here
+  //       console.log('updating plan', newPlan);
+  //     busyChangingPlan = true;
+  //     fetch('/api/account/plan', {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({ newPlan, referralCode })
+  //     }).then(response => response.json()) // Correctly calling .json() on the response object
+  // .then(data => {
+  //    setTimeout(() => {
+  //       invalidateAll();
+  //       window.location.href = data.url;
+  //       busyChangingPlan = false;
+  //     }, 2000);
+  // })
+  // .catch(error => {
+  //   console.error('Error:', error); // Handling any errors that occur during the fetch
+  //         $alert = { msg: 'Something went wrong', type: 'error' };
+  // });
+  //   }
+  //   )
+
+    }
     else {
 
       console.log('updating plan', newPlan);
