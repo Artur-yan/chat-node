@@ -424,7 +424,7 @@
           <Accordian> 
             <div slot="title" class="items-center w-full">
               <div class="flex justify-between">
-                <td class="flex items-center gap-2 text-primary">
+                <td class="flex items-center gap-2 text-primary w-1/2 overflow-x-auto">
                   {parentUrl.parent} 
                   {#if parentUrl.pendingCount > 0}
                     <span class="loading loading-spinner text-warning w-5"></span>
