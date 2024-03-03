@@ -56,16 +56,17 @@
       const yearlyPlans = [6, 106]
       let flow = undefined
       if (yearlyPlans.includes(newPlan)){
-        flow = "Monthly"
+        flow = "wQnbhKvWkdL0AJYxwSIW"
       } else if (monthlyPlans.includes(newPlan)) {
-        flow = "Yearly"
+        flow = "waA8DAPhdyccWN4IjRcF"
       } else {
-        flow = "Monthly"
+        flow = "waA8DAPhdyccWN4IjRcF"
       }
 
 
-      raaft(flow, {
+      raaft("startCancelFlow", {
         authKey: raaft_key, // generated in step 2
+        flowId: flow,
         subscriptionId: subscriptionId, // same from step 2
         onComplete: function (result) {
         return new Promise(function (resolve, reject) {
