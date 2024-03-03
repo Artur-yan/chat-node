@@ -52,8 +52,16 @@
 
   const updatePlan = async (newPlan: number, subscriptionId?: string) => {
     if (newPlan === 0 && PUBLIC_ENVIRONMENT === 'production') {
+      const monthlyPlans = [5, 6]
+      const yearlyPlans = [6, 106]
+      let flow = undefined
+      if (yearlyPlans.includes(newPlan)){
+        flow = "wQnbhKvWkdL0AJYxwSIW"
+      } else if (monthlyPlans.includes(newPlan)) {
+        flow = "waA8DAPhdyccWN4IjRcF"
+      }
 
-      raaft('startCancelFlow', {
+      raaft(flow, {
         authKey: raaft_key, // generated in step 2
         subscriptionId: subscriptionId, // same from step 2
         onComplete: function (result) {
