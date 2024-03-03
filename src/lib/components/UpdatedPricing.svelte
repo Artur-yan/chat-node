@@ -59,7 +59,10 @@
         flow = "wQnbhKvWkdL0AJYxwSIW"
       } else if (monthlyPlans.includes(newPlan)) {
         flow = "waA8DAPhdyccWN4IjRcF"
+      } else {
+        flow = "waA8DAPhdyccWN4IjRcF"
       }
+
 
       raaft(flow, {
         authKey: raaft_key, // generated in step 2
