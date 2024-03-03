@@ -7,11 +7,16 @@ import * as crypto from "crypto";
 
 
 async function fetchRaaft(subscription_id: string | undefined) {
-
+	if (subscription_id !== null) {
 		return crypto.createHmac(
-			 'sha256',
-			 RAAFT_KEY
-		).update(subscription_id).digest('hex');
+				 'sha256',
+				 RAAFT_KEY
+			).update(subscription_id).digest('hex');
+	} else {
+		console.log("no sub_id")
+		return ""
+	}
+
 }
 
 async function fetchTestimonials() {
