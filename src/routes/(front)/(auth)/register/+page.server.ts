@@ -209,7 +209,7 @@ export const actions: Actions = {
 			});
 
 			// Updating plan to selected plan
-			if (!appsumoCodes || selectedPlan === '-1') {
+			if (!appsumoCodes || selectedPlan !== '-1') {
 				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
 					method: 'POST',
 					headers: {
