@@ -220,7 +220,6 @@ export const actions: Actions = {
 						plan: selectedPlan
 					})
 				});
-				console.log('yolo3')
 
 				const data = await res.json();
 				stripeLink = data.url;
