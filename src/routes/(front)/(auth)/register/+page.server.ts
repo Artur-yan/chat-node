@@ -96,7 +96,7 @@ export const actions: Actions = {
 		const email = form.get('email');
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
-		const selectedPlan: string | undefined = url.searchParams.get('plan') || "-1";
+		const selectedPlan: number = url.searchParams.get('plan') || -1;
 
 		let codes: Array<string> = [];
 
@@ -209,7 +209,7 @@ export const actions: Actions = {
 			});
 
 			// Updating plan to selected plan
-			if (!appsumoCodes || selectedPlan !== '-1') {
+			if (!appsumoCodes || selectedPlan !== -1) {
 				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
 					method: 'POST',
 					headers: {
