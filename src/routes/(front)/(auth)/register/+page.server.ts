@@ -14,10 +14,10 @@ import {
 } from '$env/static/public';
 
 export const load: PageServerLoad = async ({ locals, url }) => {
-	if (url.searchParams.get('plan') === null && PUBLIC_ENVIRONMENT !== 'dev') {
-		console.log(`${PUBLIC_LANDING_PAGE_URL}/#pricing`);
-		throw redirect(302, `${PUBLIC_LANDING_PAGE_URL}/#pricing`);
-	}
+	// if (url.searchParams.get('plan') === null && PUBLIC_ENVIRONMENT !== 'dev') {
+	// 	console.log(`${PUBLIC_LANDING_PAGE_URL}/#pricing`);
+	// 	throw redirect(302, `${PUBLIC_LANDING_PAGE_URL}/#pricing`);
+	// }
 
 	const session = await locals.auth.validate();
 	if (session) throw redirect(302, '/account/chatbots');
@@ -96,7 +96,7 @@ export const actions: Actions = {
 		const email = form.get('email');
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
-		const selectedPlan: string | undefined = url.searchParams.get('plan') || undefined;
+		const selectedPlan: number = url.searchParams.get('plan') || undefined;
 
 		let codes: Array<string> = [];
 
@@ -209,7 +209,7 @@ export const actions: Actions = {
 			});
 
 			// Updating plan to selected plan
-			if (!appsumoCodes) {
+			if (!appsumoCodes || !selectedPlan) {
 				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
 					method: 'POST',
 					headers: {
@@ -279,7 +279,8 @@ export const actions: Actions = {
 			});
 			throw redirect(302, '/account/chatbots');
 		}
-
-		throw redirect(302, stripeLink);
+		if (selectedPlan){
+				throw redirect(302, stripeLink);
+		}
 	}
 };
