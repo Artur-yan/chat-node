@@ -96,7 +96,7 @@ export const actions: Actions = {
 		const email = form.get('email');
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
-		const selectedPlan: number = url.searchParams.get('plan') || -1;
+		const selectedPlan: number = url.searchParams.get('plan') || undefined;
 
 		let codes: Array<string> = [];
 
@@ -209,7 +209,7 @@ export const actions: Actions = {
 			});
 
 			// Updating plan to selected plan
-			if (!appsumoCodes || selectedPlan !== -1) {
+			if (!appsumoCodes || !selectedPlan) {
 				const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/update-plan`, {
 					method: 'POST',
 					headers: {
@@ -220,6 +220,7 @@ export const actions: Actions = {
 						plan: selectedPlan
 					})
 				});
+				console.log('yolo3')
 
 				const data = await res.json();
 				stripeLink = data.url;
@@ -279,7 +280,8 @@ export const actions: Actions = {
 			});
 			throw redirect(302, '/account/chatbots');
 		}
-
-		throw redirect(302, stripeLink);
+		if (selectedPlan){
+				throw redirect(302, stripeLink);
+		}
 	}
 };
