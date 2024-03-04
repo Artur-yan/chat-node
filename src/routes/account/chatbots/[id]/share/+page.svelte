@@ -36,10 +36,10 @@
 
 
 	$: if (customDomain) {
-		iframeEmbedCode = `<iframe src="${shareURL}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
+		iframeEmbedCode = `<iframe src="${shareURL}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';" allow="clipboard-read; clipboard-write"></iframe>`;
 	} else {
 		// iframeEmbedCode = `<iframe src="${PUBLIC_SITE_URL}/embed/${data.model.id}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
-		iframeEmbedCode = `<iframe src="${shareURL}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';"></iframe>`;
+		iframeEmbedCode = `<iframe src="${shareURL}" width="100%" height="700" style="visibility: hidden; border: none;" onload="this.style.visibility='visible';" allow="clipboard-read; clipboard-write"></iframe>`;
 	}
 
 	// $: jsEmbedCode = `<script src="${

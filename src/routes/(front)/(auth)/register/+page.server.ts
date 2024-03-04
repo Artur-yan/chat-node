@@ -96,6 +96,7 @@ export const actions: Actions = {
 		const email = form.get('email');
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
+
 		const selectedPlan: string | undefined = url.searchParams.get('plan') || "-1";
 
 		let codes: Array<string> = [];
@@ -279,7 +280,8 @@ export const actions: Actions = {
 			});
 			throw redirect(302, '/account/chatbots');
 		}
-
-		throw redirect(302, stripeLink);
+		if (selectedPlan){
+				throw redirect(302, stripeLink);
+		}
 	}
 };

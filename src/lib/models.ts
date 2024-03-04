@@ -90,6 +90,7 @@ const defaultSettings = {
 	useChatNodeMsgs: true,
 	useSourceUrls: false,
 	customDomain: '',
+	removeBranding: true,
 	popupButtonRight: true,
 	popupButtonMessageEnabled: false,
 	popupButtonMessageText: 'Need help?',
@@ -99,6 +100,23 @@ const defaultSettings = {
 	msgLimit: 200,
 	crispEnabled: false,
 	crispButtonText: 'Talk to a human',
+	dataFunnelV2: true,
+	dataFunnelSettings: {
+		webScraping: {
+			maxPageToScrape: 1000,
+			chunkSize: 400,
+			chunkOverlap: 20,
+			enableAutoSync: false
+		},
+		files: {
+			chunkSize: 400,
+			chunkOverlap: 20
+		},
+		rawText: {
+			chunkSize: 400,
+			chunkOverlap: 20
+		}
+	},
 	theme: {
 		name: 'default',
 		bg: '#0F172A',
@@ -125,7 +143,8 @@ const defaultSettings = {
 		suggestedQuestionsBG: '#898CF8',
 		suggestedQuestionsShadow: '#333333',
 		feedbackBGColor: '#6467B2',
-		feedbackIconColor: '#FFFFFF'
+		feedbackIconColor: '#FFFFFF',
+		poweredByChatNodeColor: '#898CF8'
 	},
 	openChatByDefault: false,
 	suggestedQuestions: []
