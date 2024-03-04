@@ -7,9 +7,18 @@ import { sendAccountEmailConfirmation } from '$lib/server/messenger';
 import { v4 as uuidv4 } from 'uuid';
 import { domainBlacklist } from '$lib/systemSettings';
 import type { PageServerLoad } from './$types';
-import { PUBLIC_CHAT_API_URL } from '$env/static/public';
+import {
+	PUBLIC_CHAT_API_URL,
+	PUBLIC_ENVIRONMENT,
+	PUBLIC_LANDING_PAGE_URL
+} from '$env/static/public';
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals, url }) => {
+	if (url.searchParams.get('plan') === null && PUBLIC_ENVIRONMENT !== 'dev') {
+		console.log(`${PUBLIC_LANDING_PAGE_URL}/#pricing`);
+		throw redirect(302, `${PUBLIC_LANDING_PAGE_URL}/#pricing`);
+	}
+
 	const session = await locals.auth.validate();
 	if (session) throw redirect(302, '/account/chatbots');
 };
@@ -87,7 +96,7 @@ export const actions: Actions = {
 		const email = form.get('email');
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
-		const selectedPlan: string = url.searchParams.get('plan') || '5';
+		const selectedPlan: string | undefined = url.searchParams.get('plan') || undefined;
 
 		let codes: Array<string> = [];
 
