@@ -23,7 +23,8 @@
 <svelte:head>
 		<script data-termly-config>
 		window.TERMLY_CUSTOM_BLOCKING_MAP = {
-			"embed.chatnode.ai": "essential"
+			"embed.chatnode.ai": "essential",
+			"app.raaft.io": "essential"
 		}
 	</script>
 	

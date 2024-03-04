@@ -517,7 +517,7 @@
 		<div
 			class="h-[calc(100vh_-_16rem)] sticky top-4 mb-10 hidden sm:block rounded-2xl overflow-hidden"
 		>
-		<iframe class="w-full h-full" src="{PUBLIC_EMBED_URL}/{$currentBot.id}" frameborder="0"></iframe>
+		<iframe class="w-full h-full" src="{PUBLIC_EMBED_URL}/{$currentBot.id}" frameborder="0" allow="clipboard-read; clipboard-write"></iframe>
 		</div>
 	</div>
 </div>
