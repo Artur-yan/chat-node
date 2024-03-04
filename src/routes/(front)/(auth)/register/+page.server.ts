@@ -14,10 +14,10 @@ import {
 } from '$env/static/public';
 
 export const load: PageServerLoad = async ({ locals, url }) => {
-	if (url.searchParams.get('plan') === null && PUBLIC_ENVIRONMENT !== 'dev') {
-		console.log(`${PUBLIC_LANDING_PAGE_URL}/#pricing`);
-		throw redirect(302, `${PUBLIC_LANDING_PAGE_URL}/#pricing`);
-	}
+	// if (url.searchParams.get('plan') === null && PUBLIC_ENVIRONMENT !== 'dev') {
+	// 	console.log(`${PUBLIC_LANDING_PAGE_URL}/#pricing`);
+	// 	throw redirect(302, `${PUBLIC_LANDING_PAGE_URL}/#pricing`);
+	// }
 
 	const session = await locals.auth.validate();
 	if (session) throw redirect(302, '/account/chatbots');
@@ -96,7 +96,7 @@ export const actions: Actions = {
 		const email = form.get('email');
 		const password = form.get('password');
 		const appsumoCodes = form.get('appsumo-codes');
-		const selectedPlan: string | undefined = url.searchParams.get('plan') || undefined;
+		const selectedPlan: string | undefined = url.searchParams.get('plan') || -1;
 
 		let codes: Array<string> = [];
 
