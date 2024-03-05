@@ -352,6 +352,7 @@
 						</div>
 
 						<div class="flex items-center justify-between">
+							{#if !bot.settings.dataFunnelV2}
 							<div class="flex items-baseline gap-4">
 								<h3 class="text-xs font-bold">Token usage</h3>
 								<div>
@@ -366,6 +367,12 @@
 									<div class="badge badge-warning">GPT-4</div>
 								{/if}
 							</div>
+							{:else}
+							<div class="flex items-baseline gap-4">
+								<h3 class="text-xs font-bold">New Data Funnel</h3>
+								<div class="badge badge-secondary">Beta</div>
+							</div>
+							{/if}
 
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
 							<div class="dropdown dropdown-left dropdown-start z-[1]">
