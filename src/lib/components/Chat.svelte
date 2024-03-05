@@ -11,6 +11,7 @@
 	import Button from './Button.svelte';
 	import { page } from '$app/stores';
 	import Feedback from './Feedback.svelte';
+	import { json } from '@sveltejs/kit';
 
 	export let removeBranding = true;
 	export let modelId: string;
@@ -26,10 +27,12 @@
 			links: []
 		}
 	];
+
 	export let userId: string;
 	export let usedForPreview: boolean = false;
 
 	let context = $page.url.searchParams.get('context');
+	let previousConversationId: string | null | undefined;
 
 	let agreedToPolicy = false;
 	let submittedInfo = false;
@@ -111,13 +114,38 @@
 		collectUserInfo = false;
 	}
 
+		// Generate a random ID
+	const generateNewSessionId = () => {
+		return Math.random().toString(36).slice(2, 9) + '-' + Date.now();
+	};
+
 	onMount(() => {
+			const previousConversationJSON = localStorage.getItem('previous_convo_3495')
+			let previousConversationId;
+
+			if(previousConversationJSON) {
+				const previousConversationObj = JSON.parse(previousConversationJSON);
+				previousConversationId = previousConversationObj?.[modelId];
+			}
+
+		if(previousConversationJSON && previousConversationId) {
+			console.log('Previous conversation found');
+			chatSessionId = previousConversationId;
+			continueConversation();
+		} else if (previousConversationJSON && !previousConversationId) {
+			console.log('No previous conversation found');
+			chatSessionId = generateNewSessionId();
+		} else if (!previousConversationJSON){
+			console.log('No previous conversation found at all');
+			chatSessionId = generateNewSessionId();
+		}
+
 		if (collectUserInfo) {
 			endUserInfo = JSON.parse(localStorage.getItem('enduserInfo')) || {};
 			if (!settings.collectUserName) {
 				endUserInfo.name = '';
 			}
-			if (!settings.collectUserEmail) {
+			if (!settings.collectUserEmail) {	
 				endUserInfo.email = '';
 			}
 			if (!settings.collectUserPhone) {
@@ -193,8 +221,6 @@
 			isThinking = false;
 
 			messageId = res.headers.get('x-message-id');
-	
-			console.log(messageId);
 
 			const responseLinks = res.headers.get('urls');
 			if (responseLinks !== null) {
@@ -241,12 +267,6 @@
 		}
 	};
 
-	// Generate a random ID
-	const generateNewSessionId = () => {
-		return Math.random().toString(36).slice(2, 9) + '-' + Date.now();
-	};
-	chatSessionId = generateNewSessionId();
-
 	const initConversation = async () => {
 		await fetch(`/api/chat-history/${chatSessionId}`, {
 			method: 'POST',
@@ -260,6 +280,49 @@
 			})
 		});
 		localStorage.setItem('enduserInfo', JSON.stringify(endUserInfo));
+		
+		const previousConversationJSON = localStorage.getItem('previous_convo_3495');
+		let conversationObj;
+		
+		if(previousConversationJSON) {
+			conversationObj = JSON.parse(previousConversationJSON);
+		}
+
+		if(conversationObj) {
+			conversationObj[modelId] = chatSessionId;
+			localStorage.setItem('previous_convo_3495', JSON.stringify(conversationObj));
+		} else {
+			localStorage.setItem('previous_convo_3495', JSON.stringify({[modelId]: chatSessionId}));
+		}
+	};
+
+	const continueConversation = async () => {
+		messages = [];
+		const response = await fetch(`/api/chat-history/${chatSessionId}`, {
+			method: 'GET',
+			headers: {
+				'Accept': 'application/json' 
+			}
+		});
+
+		const data = await response.json();
+
+		const processableMessages = data.map((msg: object) => {
+			return {
+				id: msg.id,
+				text: msg.message.data.content,
+				sender: msg.message.data.type === 'human' ? 'user' : 'bot',
+				vote: msg.vote,
+				status: 'done',
+				links: msg.data?.links || []
+			};
+		});
+
+		if(processableMessages.length === 0) {
+			addMessage(settings.greeting);
+		} else {
+			messages = processableMessages;
+		}
 	};
 
 	const submitQuery = () => {
@@ -289,17 +352,32 @@
 		}
 	};
 
-	// $: messages && scrollToBottom();
-
 	const resetChat = () => {
 		messages = [];
 		addMessage(settings.greeting);
 		chatSessionId = generateNewSessionId();
+		
+		
+		const previousConversationJSON = localStorage.getItem('previous_convo_3495');
+		let conversationObj;
+		
+		if(previousConversationJSON) {
+			conversationObj = JSON.parse(previousConversationJSON);
+		}
+
+		if(conversationObj) {
+			conversationObj[modelId] = null;
+			localStorage.setItem('previous_convo_3495', JSON.stringify(conversationObj));
+		} else {
+			localStorage.setItem('previous_convo_3495', JSON.stringify({[modelId]: null}));
+		}
+
 		isThinking = false;
 	};
 
 	const askSuggestedQuestion = (question: string, label:string) => {
 		inputVal = question;
+		
 		customMessage = label;
 		submitQuery();
 	};
@@ -338,9 +416,6 @@
 	>
 		{#if settings?.headerEnabled && settings.publicTitle !== ''}
 			<header style="background-color: var(--headerBG);" class="flex px-6 py-4 items-center gap-3 shadow-md shadow-[var(--headerShadow)]">
-				<!-- <div class="h-8">
-					<img src={avatar} alt="" class="h-full" />
-			</div> -->
 				<h1 class="font-bold text-lg" style="color: var(--headerTitle)">
 					{settings.publicTitle ? settings.publicTitle : ''}
 				</h1>
@@ -400,7 +475,8 @@
 											<Feedback 
 											message={msg} 
 											messageId={msg.id}
-											sessionId={chatSessionId} 
+											sessionId={chatSessionId}
+											vote={msg.vote} 
 											iconColor={settings.theme.feedbackIconColor} 
 											bgColor={settings.theme.feedbackBGColor}
 											fallbackBGColor={settings.theme.botBubbleBG}
@@ -494,12 +570,6 @@
 				<div class="relative">
 					{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
 						<div class="flex gap-1 mb-2 overflow-x-auto w-full mx-1.5">
-							<!-- <Button
-								question={{value: 'transfer_to_crisp', label: settings.crispButtonText}}
-								bgColor={settings.theme.suggestedQuestionsBG}
-								hoverColor={settings.theme.botBubbleBG}
-								functionToCall={transferToCrisp}
-							/> -->
 							<button
 							class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
 							type="button"
@@ -742,7 +812,6 @@
 		0% {
 			opacity: 0.5;
 			transform: scale(0.75);
-			/* max-height: 100vmax; */
 		}
 		60% {
 			transform: scale(1.05);
@@ -750,7 +819,6 @@
 		100% {
 			opacity: 1;
 			transform: scale(1);
-			/* max-height: 100vmax; */
 			overflow: visible;
 		}
 	}
@@ -766,18 +834,4 @@
 	.rotatable:hover {
 			transform: rotate(360deg);
   }
-
-	.button-shrink {
-		color: #65b5f6;
-		background-color: transparent;
-		border: 1px solid #65b5f6;
-		border-radius: 4px;
-		padding: 0 16px;
-		cursor: pointer;
-		transition: all 0.3s ease-in-out;
-	}
-
-	.button-shrink:hover {
-		transform: scale(0.8);
-	}
 </style>
