@@ -125,19 +125,24 @@
 	};
 
 	onMount(() => {
-			const previousConversationJSON = localStorage.getItem('previous_convo_3495') || '';
-			const previousConversationObj = JSON.parse(previousConversationJSON);
-			previousConversationId = previousConversationObj?.[modelId];
+			const previousConversationJSON = localStorage.getItem('previous_convo_3495')
+			let previousConversationId;
 
-		if(previousConversationId) {
+			if(previousConversationJSON) {
+				const previousConversationObj = JSON.parse(previousConversationJSON);
+				previousConversationId = previousConversationObj?.[modelId];
+			}
+
+		if(previousConversationJSON && previousConversationId) {
 			console.log('Previous conversation found');
 			chatSessionId = previousConversationId;
 			continueConversation();
-		} else {
+		} else if (previousConversationJSON && !previousConversationId) {
 			console.log('No previous conversation found');
-			addMessage(settings.greeting);
 			chatSessionId = generateNewSessionId();
-			localStorage.setItem('previous_convo_3495', JSON.stringify({[modelId]: chatSessionId}));
+		} else if (!previousConversationJSON){
+			console.log('No previous conversation found at all');
+			chatSessionId = generateNewSessionId();
 		}
 
 		if (collectUserInfo) {
@@ -280,6 +285,20 @@
 			})
 		});
 		localStorage.setItem('enduserInfo', JSON.stringify(endUserInfo));
+		
+		const previousConversationJSON = localStorage.getItem('previous_convo_3495');
+		let conversationObj;
+		
+		if(previousConversationJSON) {
+			conversationObj = JSON.parse(previousConversationJSON);
+		}
+
+		if(conversationObj) {
+			conversationObj[modelId] = chatSessionId;
+			localStorage.setItem('previous_convo_3495', JSON.stringify(conversationObj));
+		} else {
+			localStorage.setItem('previous_convo_3495', JSON.stringify({[modelId]: chatSessionId}));
+		}
 	};
 
 	const continueConversation = async () => {
@@ -342,12 +361,28 @@
 		messages = [];
 		addMessage(settings.greeting);
 		chatSessionId = generateNewSessionId();
-		localStorage.setItem('previous_convo_3495', JSON.stringify({[modelId]: chatSessionId}));
+		
+		
+		const previousConversationJSON = localStorage.getItem('previous_convo_3495');
+		let conversationObj;
+		
+		if(previousConversationJSON) {
+			conversationObj = JSON.parse(previousConversationJSON);
+		}
+
+		if(conversationObj) {
+			conversationObj[modelId] = null;
+			localStorage.setItem('previous_convo_3495', JSON.stringify(conversationObj));
+		} else {
+			localStorage.setItem('previous_convo_3495', JSON.stringify({[modelId]: null}));
+		}
+
 		isThinking = false;
 	};
 
 	const askSuggestedQuestion = (question: string, label:string) => {
 		inputVal = question;
+		
 		customMessage = label;
 		submitQuery();
 	};
