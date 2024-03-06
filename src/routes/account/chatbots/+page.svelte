@@ -26,6 +26,7 @@
 
 	$: botUsage = data.bots.length / data.subscription.max_bot;
 
+	
 	onMount(async () => {
 		if (
 				$page.url.searchParams.get('signup') === 'true' 
