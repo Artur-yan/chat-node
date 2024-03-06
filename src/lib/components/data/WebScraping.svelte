@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
   import { currentBot, alert } from '$lib/stores.js';
   import Accordian from '../Accordian.svelte';
 
@@ -28,6 +29,7 @@
   //Conditions
   $: if (isModalOpen === true) {
     activeTab = 'submit';
+    console.log('Fetching user data');
     fetchUserData()
   }
 
@@ -54,6 +56,8 @@
       const data = await response.json();
 
       if (response?.status === 200) {
+
+        console.log('Data:', data);
 
         // Pagination
         totalUrlCount = data?.count || 0;
@@ -162,13 +166,14 @@
     } 
   }
 
-  async function submitWebScraping(urls: string[], recursionDepth: number = 10) {
+  async function submitWebScraping(urls: string[], recursionDepth: number = 10, baseSitemapOrigin: string = '') {
     try {
       const maxPagesToScrape = remainingUrlBudget;
       const chunkSize = $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize ? $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize : 400;
       const chunkOverlap = $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap : 20;
       const enableAutoSync = $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync ? $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync : false;
       //@ts-ignore
+
       const response = await fetch(`/api/data-sources/scraping/website`, {
 					method: 'POST',
 					body: JSON.stringify({
@@ -179,6 +184,9 @@
             chunkSize: chunkSize,
             chunkOverlap: chunkOverlap,
             enableAutoSync: enableAutoSync,
+            tags: {
+              parentUrl: baseSitemapOrigin
+            }
 					})
 				});
 
@@ -212,8 +220,11 @@
       const data = await response.json();
       console.log(data)
 
+      let baseSitemapUrl = new URL(sitemap);
+      let baseSitemapOrigin = baseSitemapUrl.origin;
+
       if (response.status === 200) {
-        const webScrapingResponse = await submitWebScraping(data?.urls, 1)
+        const webScrapingResponse = await submitWebScraping(data?.urls, 1, baseSitemapOrigin)
         if (webScrapingResponse) {
           return true;
         }
