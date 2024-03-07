@@ -56,11 +56,11 @@
       const yearlyPlans = [6, 106]
       let flow = undefined
       if (yearlyPlans.includes(newPlan)){
-        flow = "wQnbhKvWkdL0AJYxwSIW"
+        flow = "waA8DAPhdyccWN4IjRcF"
       } else if (monthlyPlans.includes(newPlan)) {
-        flow = "waA8DAPhdyccWN4IjRcF"
+        flow = "wQnbhKvWkdL0AJYxwSIW"
       } else {
-        flow = "waA8DAPhdyccWN4IjRcF"
+        flow = "wQnbhKvWkdL0AJYxwSIW"
       }
 
 
