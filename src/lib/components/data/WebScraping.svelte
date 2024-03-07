@@ -74,9 +74,7 @@
 
         let parentUrls = data.results.filter((item: any) => item.parent_id === null && item.tags?.parentUrl === '');
         let parentIds = parentUrls.map((item: any) => item.id);
-
         let sitemapUrls = data.results.filter((item: any) => item.parent_id === null && item.tags?.parentUrl !== '');
-        console.log('Sitemap urls:', sitemapUrls);
   
         // Children URLs without parent url present in the response
         const parentlessChildren = data.results.filter((item: any) => {
@@ -91,6 +89,16 @@
         for(let i = 0; i < parentlessChildren.length; i++) {
           const item = parentlessChildren[i];
           const url = new URL(item.external_url);
+          const origin = url.origin;
+          if(!derivedParentUrls.includes(origin)) {
+            derivedParentUrls.push(origin);
+          }
+        }
+
+        // Derived parents from sitemap urls
+        for(let i = 0; i < sitemapUrls.length; i++) {
+          const item = sitemapUrls[i];
+          const url = new URL(item.tags?.parentUrl);
           const origin = url.origin;
           if(!derivedParentUrls.includes(origin)) {
             derivedParentUrls.push(origin);
