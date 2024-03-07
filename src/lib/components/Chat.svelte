@@ -390,6 +390,8 @@
 	const transferToCrisp = () => {
 		goto('https://go.crisp.chat/chat/embed/?website_id=' + settings.crispWebsiteId);
 	};
+
+	console.log('settings', settings);
 </script>
 
 <svelte:head>
@@ -434,7 +436,7 @@
 				{/if}
 			</header>
 		{/if}
-		{#if !customDomain && !settings.removeBranding && (settings.removeBranding !== undefined || [5, 105, 6, 106].includes(plan))}
+		{#if settings.dataFunnelV2 && !customDomain && !settings.removeBranding && (settings.removeBranding !== undefined || [5, 105, 6, 106].includes(plan))}
 			<PoweredByChatNode textColor={settings.theme.poweredByChatNodeColor} />
 		{/if}
 		<div class="flex-col-reverse flex flex-1 overflow-y-auto scroll-smooth h-0 basis-auto">
