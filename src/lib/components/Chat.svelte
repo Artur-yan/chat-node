@@ -27,6 +27,7 @@
 			links: []
 		}
 	];
+
 	export let userId: string;
 	export let usedForPreview: boolean = false;
 	export let plan: number;
@@ -37,6 +38,7 @@
 	console.log('remove branding --->', settings.removeBranding);	
 
 	let context = $page.url.searchParams.get('context');
+	let previousConversationId: string | null | undefined;
 
 	let agreedToPolicy = false;
 	let submittedInfo = false;
@@ -117,13 +119,38 @@
 		collectUserInfo = false;
 	}
 
+		// Generate a random ID
+	const generateNewSessionId = () => {
+		return Math.random().toString(36).slice(2, 9) + '-' + Date.now();
+	};
+
 	onMount(() => {
+			const previousConversationJSON = localStorage.getItem('previous_convo_3495')
+			let previousConversationId;
+
+			if(previousConversationJSON) {
+				const previousConversationObj = JSON.parse(previousConversationJSON);
+				previousConversationId = previousConversationObj?.[modelId];
+			}
+
+		if(previousConversationJSON && previousConversationId) {
+			console.log('Previous conversation found');
+			chatSessionId = previousConversationId;
+			continueConversation();
+		} else if (previousConversationJSON && !previousConversationId) {
+			console.log('No previous conversation found');
+			chatSessionId = generateNewSessionId();
+		} else if (!previousConversationJSON){
+			console.log('No previous conversation found at all');
+			chatSessionId = generateNewSessionId();
+		}
+
 		if (collectUserInfo) {
 			endUserInfo = JSON.parse(localStorage.getItem('enduserInfo')) || {};
 			if (!settings.collectUserName) {
 				endUserInfo.name = '';
 			}
-			if (!settings.collectUserEmail) {
+			if (!settings.collectUserEmail) {	
 				endUserInfo.email = '';
 			}
 			if (!settings.collectUserPhone) {
@@ -245,12 +272,6 @@
 		}
 	};
 
-	// Generate a random ID
-	const generateNewSessionId = () => {
-		return Math.random().toString(36).slice(2, 9) + '-' + Date.now();
-	};
-	chatSessionId = generateNewSessionId();
-
 	const initConversation = async () => {
 		await fetch(`/api/chat-history/${chatSessionId}`, {
 			method: 'POST',
@@ -264,6 +285,49 @@
 			})
 		});
 		localStorage.setItem('enduserInfo', JSON.stringify(endUserInfo));
+		
+		const previousConversationJSON = localStorage.getItem('previous_convo_3495');
+		let conversationObj;
+		
+		if(previousConversationJSON) {
+			conversationObj = JSON.parse(previousConversationJSON);
+		}
+
+		if(conversationObj) {
+			conversationObj[modelId] = chatSessionId;
+			localStorage.setItem('previous_convo_3495', JSON.stringify(conversationObj));
+		} else {
+			localStorage.setItem('previous_convo_3495', JSON.stringify({[modelId]: chatSessionId}));
+		}
+	};
+
+	const continueConversation = async () => {
+		messages = [];
+		const response = await fetch(`/api/chat-history/${chatSessionId}`, {
+			method: 'GET',
+			headers: {
+				'Accept': 'application/json' 
+			}
+		});
+
+		const data = await response.json();
+
+		const processableMessages = data.map((msg: object) => {
+			return {
+				id: msg.id,
+				text: msg.message.data.content,
+				sender: msg.message.data.type === 'human' ? 'user' : 'bot',
+				vote: msg.vote,
+				status: 'done',
+				links: msg.data?.links || []
+			};
+		});
+
+		if(processableMessages.length === 0) {
+			addMessage(settings.greeting);
+		} else {
+			messages = processableMessages;
+		}
 	};
 
 	const submitQuery = () => {
@@ -293,17 +357,32 @@
 		}
 	};
 
-	// $: messages && scrollToBottom();
-
 	const resetChat = () => {
 		messages = [];
 		addMessage(settings.greeting);
 		chatSessionId = generateNewSessionId();
+		
+		
+		const previousConversationJSON = localStorage.getItem('previous_convo_3495');
+		let conversationObj;
+		
+		if(previousConversationJSON) {
+			conversationObj = JSON.parse(previousConversationJSON);
+		}
+
+		if(conversationObj) {
+			conversationObj[modelId] = null;
+			localStorage.setItem('previous_convo_3495', JSON.stringify(conversationObj));
+		} else {
+			localStorage.setItem('previous_convo_3495', JSON.stringify({[modelId]: null}));
+		}
+
 		isThinking = false;
 	};
 
 	const askSuggestedQuestion = (question: string, label:string) => {
 		inputVal = question;
+		
 		customMessage = label;
 		submitQuery();
 	};
@@ -404,7 +483,8 @@
 											<Feedback 
 											message={msg} 
 											messageId={msg.id}
-											sessionId={chatSessionId} 
+											sessionId={chatSessionId}
+											vote={msg.vote} 
 											iconColor={settings.theme.feedbackIconColor} 
 											bgColor={settings.theme.feedbackBGColor}
 											fallbackBGColor={settings.theme.botBubbleBG}
@@ -478,12 +558,6 @@
 				<div class="relative">
 					{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
 						<div class="flex gap-1 mb-2 overflow-x-auto w-full mx-1.5">
-							<!-- <Button
-								question={{value: 'transfer_to_crisp', label: settings.crispButtonText}}
-								bgColor={settings.theme.suggestedQuestionsBG}
-								hoverColor={settings.theme.botBubbleBG}
-								functionToCall={transferToCrisp}
-							/> -->
 							<button
 							class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
 							type="button"
@@ -726,7 +800,6 @@
 		0% {
 			opacity: 0.5;
 			transform: scale(0.75);
-			/* max-height: 100vmax; */
 		}
 		60% {
 			transform: scale(1.05);
@@ -734,7 +807,6 @@
 		100% {
 			opacity: 1;
 			transform: scale(1);
-			/* max-height: 100vmax; */
 			overflow: visible;
 		}
 	}

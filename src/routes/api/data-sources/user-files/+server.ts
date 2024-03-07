@@ -30,7 +30,7 @@ export const POST = async ({ request, locals }) => {
 
 			const data = await response.json();
 			const results = data.results;
-			const count = data.results.length;
+			const count = data.count;
 
 			return new Response(JSON.stringify({ results, count }));
 		} catch (err) {

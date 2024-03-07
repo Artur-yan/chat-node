@@ -20,6 +20,7 @@ export const POST = async ({ request, locals }) => {
 			const response = await fetch('https://api.carbon.ai/delete_files', options);
 
 			const data = await response.json();
+			console.log(data);
 
 			return new Response(JSON.stringify({ data }));
 		} catch (err) {

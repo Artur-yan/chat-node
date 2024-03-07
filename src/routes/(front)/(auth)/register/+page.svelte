@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { alert } from '$lib/stores';
+	import { PUBLIC_ENVIRONMENT, PUBLIC_LANDING_PAGE_URL } from "$env/static/public";
 
 	export let form: { message?: string; submitted: false; success: false };
 
-	import { page } from '$app/stores';
-	import { alert } from '$lib/stores';
 
 	const promo = $page.url.searchParams.get('promo');
 
@@ -18,8 +19,14 @@
 		$alert = form?.message;
 		goto('/chatbots');
 	}
+
+	// if($page.url.searchParams.get('plan') === null && PUBLIC_ENVIRONMENT !== 'dev') {
+	// 	console.log(`${PUBLIC_LANDING_PAGE_URL}/#pricing`)
+	// 	goto(`${PUBLIC_LANDING_PAGE_URL}/#pricing`)
+	// }
 </script>
 
+<br><br><br><br><br>
 <svelte:head>
 	<title>Sign up for Free | ChatNode</title>
 	<meta
@@ -28,7 +35,7 @@
 	/>
 </svelte:head>
 
-<section class="flex items-center justify-center">
+<section>
 	<div class="card w-96 bg-neutral text-neutral-content mx-auto my-20 shadow-lg shadow-indigo-900">
 		<a class="flex gap-2 mx-auto p-6 mt-4 -mb-6 items-end" href="https://chatnode.ai">
 			<div>

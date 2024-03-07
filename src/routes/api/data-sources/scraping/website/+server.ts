@@ -10,6 +10,7 @@ interface ScrapeConfig {
 	skip_embedding_generation: boolean;
 	enable_auto_sync: boolean;
 	embedding_model: string;
+	tags: any;
 }
 
 interface ScrapeConfigSingleUrl extends Omit<ScrapeConfig, 'urls'> {
@@ -25,7 +26,8 @@ function transformConfigToSingleUrlList(config: ScrapeConfig): ScrapeConfigSingl
 		chunk_overlap: config.chunk_overlap,
 		skip_embedding_generation: config.skip_embedding_generation,
 		enable_auto_sync: config.enable_auto_sync,
-		embedding_model: config.embedding_model
+		embedding_model: config.embedding_model,
+		tags: config.tags
 	}));
 }
 
@@ -37,8 +39,11 @@ export const POST = async ({ request, locals }) => {
 		maxPagesToScrape,
 		chunkSize,
 		chunkOverlap,
-		enableAutoSync
+		enableAutoSync,
+		tags
 	} = await request.json();
+
+	console.log('tags ---->', tags);
 
 	const listOfConfigsWithSingleUrl = transformConfigToSingleUrlList({
 		urls: urls,
@@ -48,7 +53,8 @@ export const POST = async ({ request, locals }) => {
 		chunk_overlap: chunkOverlap,
 		skip_embedding_generation: false,
 		enable_auto_sync: enableAutoSync,
-		embedding_model: 'OPENAI_ADA_LARGE_3072'
+		embedding_model: 'OPENAI_ADA_LARGE_3072',
+		tags: tags
 	});
 
 	const session = await locals.auth.validate();
