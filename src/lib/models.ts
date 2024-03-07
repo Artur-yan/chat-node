@@ -90,7 +90,7 @@ const defaultSettings = {
 	useChatNodeMsgs: true,
 	useSourceUrls: false,
 	customDomain: '',
-	removeBranding: true,
+	removeBranding: false,
 	popupButtonRight: true,
 	popupButtonMessageEnabled: false,
 	popupButtonMessageText: 'Need help?',
