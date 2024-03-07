@@ -19,6 +19,10 @@
 			visibility: hidden;
 		}
 
+		#chatbot-befbfc87e25911db-chat {
+			visibility: hidden;
+		}
+
 		#chat-popup-tooltip {
 			visibility: hidden;
 		}

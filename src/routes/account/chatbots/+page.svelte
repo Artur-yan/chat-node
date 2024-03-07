@@ -2,6 +2,8 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import Icon from '@iconify/svelte';
 	import { page } from '$app/stores';
+	import { alert } from '$lib/stores.js';
+	import { addModel, defaultSettings } from '$lib/models';
 	// import Plausible from 'plausible-tracker';
 	import { onMount } from 'svelte';
 	import { deleteModel } from '$lib/models';
@@ -11,6 +13,8 @@
 
 	export let data;
 	const userId = data.user.userId;
+	const plan = data.subscription.plan;
+	console.log(data)
 	
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
@@ -22,6 +26,7 @@
 
 	$: botUsage = data.bots.length / data.subscription.max_bot;
 
+	
 	onMount(async () => {
 		if (
 				$page.url.searchParams.get('signup') === 'true' 
@@ -86,31 +91,121 @@
 		startDate.setMonth(startDate.getMonth() - 1);
 	}
 
+	let botName = '';
+	let newModelId = '';
+	let settings = defaultSettings;
+	let creatingBot = false;
+
+	// AppSumo plans
+	if(plan > 1000) {
+		settings.gptVersion = '3.5-june';
+	}
+
+	//On creation - Free plan and 1001 plan HAS branding
+	if(plan === 0 || plan === 1001) {
+		settings.removeBranding = false;
+	}
+
+	//On creation - Current Plan HAVE branding
+	if(plan === 5 || plan === 105 || plan === 6 || plan === 106) {
+		settings.removeBranding = false;
+	}
+	
+
+	async function createModel() {
+		let body = new FormData();
+		body.append('user_id', userId);
+		body.append('session_id', data.session.sessionId);
+
+		try {
+			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
+				method: 'POST',
+				body
+			});
+
+			const resJson = await res.json();
+			newModelId = resJson.chat_key;
+			await addModel(newModelId, botName, defaultSettings);
+			goto(`/account/chatbots/${newModelId}/data-v2`);
+
+		} catch (err) {
+			$alert = { msg: 'Something went wrong.', type: 'error' };
+			console.error(err);
+		}
+	};
+
 </script>
 
 <svelte:head>
 	<title>My Chatbots | ChatNode</title>
 </svelte:head>
 
+<!-- Create bot modal -->
+<input type="checkbox" id="my_modal_6" class="modal-toggle" />
+<div class="modal" role="dialog">
+  <div class="modal-box shadow-lg shadow-zinc-600">
+		<div class="flex justify-between items-center">
+			<h3 class="font-bold text-xl text-primary">Name your bot</h3>
+			<label for="my_modal_6" class="cursor-pointer text-secondary">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+				</svg>				
+			</label>
+		</div>
+    <input bind:value={botName} type="text" placeholder="Type here" class="input input-bordered w-full my-4 border-primary" />
+    <div class="modal-action">
+			<button
+				class="btn btn-primary"
+				disabled={!botName}
+				on:click={() => {
+					creatingBot = true;
+					createModel();
+				}}
+			>
+			{#if creatingBot}
+			<span class="loading loading-spinner loading-md"></span>
+			{:else}
+				Create
+			{/if}
+			</button>
+    </div>
+  </div>
+</div>
+
 <div class="bg-neutral py-2">
 	<div class="container flex justify-between items-center">
 		<div>
 			<h1 class="font-bold">Dashboard</h1>
 		</div>
+		{#if data.user.status !== 'active' || botUsage >= 1}
 		<button
-			on:click={() => goto('/account/chatbots/create')}
 			class="btn btn-primary btn-sm btn-outline text-xs pr-1"
 			disabled={data.user.status !== 'active' || botUsage >= 1}
 		>
-			New Bot <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+			New Bot 
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 				<path
 					fill="currentColor"
 					d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m2-8H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"
 				/>
 			</svg>
 		</button>
+		{:else}
+		<label for="my_modal_6" class="btn btn-primary btn-sm btn-outline text-xs pr-1">			
+			New Bot 
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+				<path
+					fill="currentColor"
+					d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m2-8H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"
+				/>
+			</svg>
+		</label>
+		{/if}
 	</div>
 </div>
+
+
+
 
 <div class="container pt-4 pb-20">
 	<div class="card card-compact card-bordered border-neutral mb-4">
@@ -181,7 +276,7 @@
 					<div class="card-body p-6">
 						<div class="flex justify-between items-center">
 							<h2 class="card-title">
-								{#if bot.status === 'training'}
+								<!-- {#if bot.status === 'training'}
 									<div class="text-warning">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -240,7 +335,7 @@
 											</g>
 										</svg>
 									</div>
-								{/if}
+								{/if} -->
 								<a
 									href="chatbots/{bot.id}"
 									class="text-primary text-base truncate"
@@ -258,6 +353,7 @@
 						</div>
 
 						<div class="flex items-center justify-between">
+							{#if !bot.settings.dataFunnelV2}
 							<div class="flex items-baseline gap-4">
 								<h3 class="text-xs font-bold">Token usage</h3>
 								<div>
@@ -272,6 +368,12 @@
 									<div class="badge badge-warning">GPT-4</div>
 								{/if}
 							</div>
+							{:else}
+							<div class="flex items-baseline gap-4">
+								<h3 class="text-xs font-bold">New Data Funnel</h3>
+								<div class="badge badge-secondary">Beta</div>
+							</div>
+							{/if}
 
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
 							<div class="dropdown dropdown-left dropdown-start z-[1]">

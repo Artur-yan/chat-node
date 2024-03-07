@@ -23,11 +23,6 @@
 		messages[0].text = settings.greeting;
 	}
 	let trainingStatus: string | undefined = undefined;
-
-	// $: if (trainingStatus === 'complete') {
-	// 	console.log('Training complete ----->x');
-	// 	window.location.href = `/account/chatbots/${modelId}/settings`;
-	// }
 </script>
 
 <svelte:head>
@@ -73,6 +68,7 @@
 					bind:trainingStatus
 					{settings}
 					userId={data.user.userId}
+					customDomain={data.subscription?.addons !== null ? data.subscription?.addons['10005'] : false}
 				/>
 			</div>
 		</div>
