@@ -74,9 +74,7 @@
 
         let parentUrls = data.results.filter((item: any) => item.parent_id === null && item.tags?.parentUrl === '');
         let parentIds = parentUrls.map((item: any) => item.id);
-
         let sitemapUrls = data.results.filter((item: any) => item.parent_id === null && item.tags?.parentUrl !== '');
-        console.log('Sitemap urls:', sitemapUrls);
   
         // Children URLs without parent url present in the response
         const parentlessChildren = data.results.filter((item: any) => {
@@ -91,6 +89,16 @@
         for(let i = 0; i < parentlessChildren.length; i++) {
           const item = parentlessChildren[i];
           const url = new URL(item.external_url);
+          const origin = url.origin;
+          if(!derivedParentUrls.includes(origin)) {
+            derivedParentUrls.push(origin);
+          }
+        }
+
+        // Derived parents from sitemap urls
+        for(let i = 0; i < sitemapUrls.length; i++) {
+          const item = sitemapUrls[i];
+          const url = new URL(item.tags?.parentUrl);
           const origin = url.origin;
           if(!derivedParentUrls.includes(origin)) {
             derivedParentUrls.push(origin);
@@ -446,17 +454,17 @@
                 </td>
                 <div class="mx-8 grid grid-cols-3 gap-2">
                   <td class="text-primary">
-                    <button class="{parentUrl.readyCount > 0 ? 'badge-success badge-outline' : 'badge-neutral text-slate-600'} badge w-28 w-min-16 p-3">
+                    <button class="{parentUrl.readyCount > 0 ? 'badge-success badge-outline' : 'badge-neutral text-slate-600'} badge w-32 min-w-32 p-3">
                       Ready: {parentUrl.readyCount}
                     </button>
                   </td>
                   <td class="text-primary">
-                    <div class="{parentUrl.pendingCount > 0 ? 'badge-warning badge-outline' : 'badge-neutral text-slate-600'} badge w-28 w-min-16 p-3">
+                    <div class="{parentUrl.pendingCount > 0 ? 'badge-warning badge-outline' : 'badge-neutral text-slate-600'} badge w-32 min-w-32 p-3">
                       Pending: {parentUrl.pendingCount}
                     </div>
                   </td>
                   <td class="text-primary">
-                    <div class="{parentUrl.errorCount > 0 ? 'badge-error badge-outline' : 'badge-neutral text-slate-600'} badge w-28 w-min-16 p-3">
+                    <div class="{parentUrl.errorCount > 0 ? 'badge-error badge-outline' : 'badge-neutral text-slate-600'} badge w-32 min-w-32 p-3">
                       Error: {parentUrl.errorCount}
                     </div>
                   </td>
