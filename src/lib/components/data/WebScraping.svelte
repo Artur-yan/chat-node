@@ -72,8 +72,11 @@
           pagesArray.push(i);
         }
 
-        let parentUrls = data.results.filter((item: any) => item.parent_id === null);
+        let parentUrls = data.results.filter((item: any) => item.parent_id === null && item.tags?.parentUrl === '');
         let parentIds = parentUrls.map((item: any) => item.id);
+
+        let sitemapUrls = data.results.filter((item: any) => item.parent_id === null && item.tags?.parentUrl !== '');
+        console.log('Sitemap urls:', sitemapUrls);
   
         // Children URLs without parent url present in the response
         const parentlessChildren = data.results.filter((item: any) => {
@@ -100,7 +103,7 @@
             return url.origin === parent;
           })];
           const readyCount = children.filter((item: any) => item.sync_status === 'READY').length;
-          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC' || item.sync_status === 'SYNCING').length;
+          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC' || item.sync_status === 'SYNCING' || item.sync_status === 'DELAYED').length;
           const errorCount = children.filter((item: any) => item.sync_status === 'SYNC_ERROR').length
           
           return {
@@ -118,7 +121,7 @@
 
           const children = [parent, ...data.results.filter((item: any) => item.parent_id === parent.id)];
           const readyCount = children.filter((item: any) => item.sync_status === 'READY').length;
-          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC' || item.sync_status === 'SYNCING').length;
+          const pendingCount = children.filter((item: any) => item.sync_status === 'QUEUED_FOR_SYNC' || item.sync_status === 'SYNCING' || item.sync_status === 'DELAYED').length;
           const errorCount = children.filter((item: any) => item.sync_status === 'SYNC_ERROR').length
           
           return {
@@ -480,7 +483,7 @@
                         Ready
                       </div>
                     </td>
-                    {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC' || childUrl.sync_status === 'SYNCING'}
+                    {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC' || childUrl.sync_status === 'SYNCING' || childUrl.sync_status === 'DELAYED'}
                     <td class="text-primary">
                       <div class="badge badge-warning badge-outline w-20">
                         Pending
@@ -507,7 +510,7 @@
 
                           // update parent counts
                           parentUrl.readyCount = parentUrl.children.filter((item) => item.sync_status === 'READY').length;
-                          parentUrl.pendingCount = parentUrl.children.filter((item) => item.sync_status === 'QUEUED_FOR_SYNC' || item.sync_status === 'SYNCING').length;
+                          parentUrl.pendingCount = parentUrl.children.filter((item) => item.sync_status === 'QUEUED_FOR_SYNC' || item.sync_status === 'SYNCING' || item.sync_status === 'DELAYED').length;
                           parentUrl.errorCount = parentUrl.children.filter((item) => item.sync_status === 'SYNC_ERROR').length;
 
                           // remove parent if no children
