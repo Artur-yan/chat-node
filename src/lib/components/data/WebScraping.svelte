@@ -446,17 +446,17 @@
                 </td>
                 <div class="mx-8 grid grid-cols-3 gap-2">
                   <td class="text-primary">
-                    <button class="{parentUrl.readyCount > 0 ? 'badge-success badge-outline' : 'badge-neutral text-slate-600'} badge w-28 w-min-16 p-3">
+                    <button class="{parentUrl.readyCount > 0 ? 'badge-success badge-outline' : 'badge-neutral text-slate-600'} badge w-32 min-w-32 p-3">
                       Ready: {parentUrl.readyCount}
                     </button>
                   </td>
                   <td class="text-primary">
-                    <div class="{parentUrl.pendingCount > 0 ? 'badge-warning badge-outline' : 'badge-neutral text-slate-600'} badge w-28 w-min-16 p-3">
+                    <div class="{parentUrl.pendingCount > 0 ? 'badge-warning badge-outline' : 'badge-neutral text-slate-600'} badge w-32 min-w-32 p-3">
                       Pending: {parentUrl.pendingCount}
                     </div>
                   </td>
                   <td class="text-primary">
-                    <div class="{parentUrl.errorCount > 0 ? 'badge-error badge-outline' : 'badge-neutral text-slate-600'} badge w-28 w-min-16 p-3">
+                    <div class="{parentUrl.errorCount > 0 ? 'badge-error badge-outline' : 'badge-neutral text-slate-600'} badge w-32 min-w-32 p-3">
                       Error: {parentUrl.errorCount}
                     </div>
                   </td>
