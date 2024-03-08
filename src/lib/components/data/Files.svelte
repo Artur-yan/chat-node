@@ -73,7 +73,7 @@
         console.log('Files trained:', filesTrained);
 
         // Retry
-        hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
+        hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC' || file.sync_status === 'SYNCING' || file.sync_status === 'DELAYED');
         console.log('Has queued files & will be attempted again --->', hasQueuedFiles);
 
         if (hasQueuedFiles && isModalOpen) {
