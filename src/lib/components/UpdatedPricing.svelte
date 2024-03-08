@@ -50,14 +50,14 @@
 		}
 	});
 
-  const updatePlan = async (newPlan: number, subscriptionId?: string) => {
+  const updatePlan = async (newPlan: number, subscriptionId?: string, oldPlan?: number) => {
     if (newPlan === 0 && PUBLIC_ENVIRONMENT === 'production') {
       const monthlyPlans = [5, 6]
       const yearlyPlans = [6, 106]
       let flow = undefined
-      if (yearlyPlans.includes(newPlan)){
+      if (yearlyPlans.includes(oldPlan)){
         flow = "waA8DAPhdyccWN4IjRcF"
-      } else if (monthlyPlans.includes(newPlan)) {
+      } else if (monthlyPlans.includes(oldPlan)) {
         flow = "wQnbhKvWkdL0AJYxwSIW"
       } else {
         flow = "wQnbhKvWkdL0AJYxwSIW"
@@ -172,7 +172,7 @@
 
   const handleCancelPlan = () => {
     // modalCancelPlan.showModal();
-    updatePlan(0, subscriptionId)
+    updatePlan(0, subscriptionId, currentPlan)
 
   }
 </script>
