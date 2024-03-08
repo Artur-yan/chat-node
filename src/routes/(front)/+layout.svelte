@@ -162,7 +162,7 @@ window.requestIdleCallback(idleWrapper, {timeout: 10000});
 		</noscript>
 		<!-- End Google Tag Manager (noscript) -->
 		<iframe
-		 src="https://chatnode.ai/termly-consent-sync.html"
+		 src="https://www.chatnode.ai/termly-consent-sync.html"
 		 style="display: none"
 	  ></iframe>
 	{/if}
