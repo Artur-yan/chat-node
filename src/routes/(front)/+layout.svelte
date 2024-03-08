@@ -25,7 +25,8 @@
 		window.TERMLY_CUSTOM_BLOCKING_MAP = {
 			"embed.chatnode.ai": "essential",
 			"app.raaft.io": "essential",
-			"chatnode.ai": "essential"
+			"chatnode.ai": "essential",
+			"plausible.io": "essential"
 		}
 	</script>
 	
