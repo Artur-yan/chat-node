@@ -546,7 +546,7 @@
     {/if}
     </section>
     {#if numberOfPages > 1}
-    <div class="flex justify-center gap-2">
+    <div class="flex {numberOfPages >= 25 ? 'justify-start' : 'justify-center'} gap-2 overflow-x-auto">
       {#each pagesArray as number}
         <button class="btn btn-sm {currentPage === number ? 'btn-indigo-600' : 'btn-secondary'}" on:click={() => {
           const offset = (number - 1) * 250;
