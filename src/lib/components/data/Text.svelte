@@ -66,7 +66,7 @@
       if (response?.status === 200) {
         textTrained = data?.results
 
-        hasQueuedFiles = textTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_SYNC');
+        hasQueuedFiles = textTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_SYNC' || file.sync_status === 'SYNCING' || file.sync_status === 'DELAYED');
         if (hasQueuedFiles && isModalOpen) {
           countdownFrom40();
           if(timeoutId) clearTimeout(timeoutId);
