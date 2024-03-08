@@ -78,7 +78,7 @@ const defaultSettings = {
 	gptVersion: '4-preview',
 	temperature: 0.1,
 	inputPlaceholder: 'Type your message',
-	sendButtonEnabled: false,
+	sendButtonEnabled: true,
 	headerEnabled: true,
 	collectUserName: false,
 	collectUserNameLabel: 'Name',
@@ -100,6 +100,7 @@ const defaultSettings = {
 	msgLimit: 200,
 	crispEnabled: false,
 	crispButtonText: 'Talk to a human',
+	statusEnabled: true,
 	dataFunnelV2: true,
 	dataFunnelSettings: {
 		webScraping: {
