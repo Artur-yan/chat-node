@@ -24,16 +24,15 @@
 		<script data-termly-config>
 		window.TERMLY_CUSTOM_BLOCKING_MAP = {
 			"embed.chatnode.ai": "essential",
-			"app.raaft.io": "essential"
+			"app.raaft.io": "essential",
+			"chatnode.ai": "essential"
 		}
 	</script>
 	
 <script>
 	const script = document.createElement('script');
 	script.type = 'text/javascript';
-	script.src = 'https://app.termly.io/embed.min.js';
-	script.setAttribute('data-auto-block', 'on');
-	script.setAttribute('data-website-uuid', '4f4e94f0-314b-43e8-a338-6dbd736a0242');	
+	script.src = 'https://app.termly.io/resource-blocker/4f4e94f0-314b-43e8-a338-6dbd736a0242?autoBlock=YOUR_AUTO_BLOCK_SETTING&masterConsentsOrigin=https://chatnode.ai';
 	script.onload = () => {
     const checkAndModifyElement = () => {
         const cookieConsentElement = document.querySelector('div[aria-label="Cookie Consent Prompt"]');
@@ -162,6 +161,10 @@ window.requestIdleCallback(idleWrapper, {timeout: 10000});
 			/>
 		</noscript>
 		<!-- End Google Tag Manager (noscript) -->
+		<iframe
+		 src="https://chatnode.ai/termly-consent-sync.html"
+		 style="display: none"
+	  ></iframe>
 	{/if}
 
 	<slot />
