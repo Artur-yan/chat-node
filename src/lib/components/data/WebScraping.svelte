@@ -319,7 +319,7 @@
             on:click={() => activeTab = 'trained'}
             class:tab-active={activeTab === 'trained'}
           >
-            Trained <span class="{totalUrlCount >= 1000 ? 'text-red-500' : ''}"> ({totalUrlCount}/1000)</span>
+            Trained <span class="{totalUrlCount >= 1000 ? 'text-red-500' : ''}"> ({totalUrlCount}/{$currentBot.settings.dataFunnelSettings?.webScraping?.maxPageToScrape})</span>
           </button>
         </div>
       </div>
