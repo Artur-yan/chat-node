@@ -32,7 +32,7 @@
 <script>
 	const script = document.createElement('script');
 	script.type = 'text/javascript';
-	script.src = 'https://app.termly.io/resource-blocker/4f4e94f0-314b-43e8-a338-6dbd736a0242?autoBlock=YOUR_AUTO_BLOCK_SETTING&masterConsentsOrigin=https://chatnode.ai';
+	script.src = 'https://app.termly.io/resource-blocker/4f4e94f0-314b-43e8-a338-6dbd736a0242?autoBlock=on&masterConsentsOrigin=https://chatnode.ai';
 	script.onload = () => {
     const checkAndModifyElement = () => {
         const cookieConsentElement = document.querySelector('div[aria-label="Cookie Consent Prompt"]');
