@@ -7,8 +7,7 @@ import * as crypto from "crypto";
 
 
 async function fetchRaaft(subscription_id: any | undefined) {
-	console.log(subscription_id)
-	if (subscription_id === undefined || subscription_id === "") {
+	if (subscription_id === null || subscription_id === "") {
 		return ""
 	} else {
 		return crypto.createHmac(
