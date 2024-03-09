@@ -7,9 +7,9 @@ import * as crypto from "crypto";
 
 
 async function fetchRaaft(subscription_id: any | undefined) {
-	if (subscription_id === undefined) {
+	if (subscription_id === null || subscription_id === "") {
 		return ""
-	}else {
+	} else {
 		return crypto.createHmac(
 			 'sha256',
 			 RAAFT_KEY
