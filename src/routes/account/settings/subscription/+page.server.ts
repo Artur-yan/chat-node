@@ -6,12 +6,15 @@ import tiersMap from '$lib/data/tiers.js';
 import * as crypto from "crypto";
 
 
-async function fetchRaaft(subscription_id: any) {
-
+async function fetchRaaft(subscription_id: any | undefined) {
+	if (subscription_id === undefined) {
+		return ""
+	}else {
 		return crypto.createHmac(
 			 'sha256',
 			 RAAFT_KEY
 		).update(subscription_id).digest('hex');
+	}
 }
 
 async function fetchTestimonials() {
