@@ -1,7 +1,12 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
+  import { SupabaseClient, createClient } from '@supabase/supabase-js';
 
   export let totalFileCount: number;
+  export let credentials: any;
+
+  const supabase = createClient(credentials.PUBLIC_SUPABASE_URL, credentials.SUPABASE_KEY);
+  console.log('Supabase:', supabase);
   
   // state
 	let isModalOpen = false;
@@ -97,8 +102,29 @@
   function handleFilesChange(event: any) {
     filesToUpload = Array.from(event.target.files);
   }
+
+  async function getFileUrl() {
+    console.log('Files to upload:', filesToUpload);
+    const { data, error } = await supabase.storage.from('files').upload(filesToUpload[0]?.name, filesToUpload[0]);
+    console.log('Data:', data);
+
+    if (error) {
+      // Handle error
+      console.error('Error:', error);
+    } else {
+      // Handle success
+      console.log('File uploaded successfully:', data);
+      const { data: signedUrlData, error: signedUrlError } = await supabase.storage
+      .from('files')
+      .createSignedUrl(data.path, 60 * 15); // Expires in 15 minutes
+
+      console.log('Signed url:', signedUrlData);
+      console.log('Signed url error:', signedUrlError);
+    }
+  }
   
-  async function uploadFiles() {
+  async function uploadFiles(url: string) {
+    //TODO implement url
     const chunkSize = $currentBot.settings.dataFunnelSettings?.files?.chunkSize ? $currentBot.settings.dataFunnelSettings?.files?.chunkSize : 400;
     const chunkOverlap = $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap : 20;
     try {
@@ -255,7 +281,10 @@
                 }
 
                 isUploading = true;
-                const files = await uploadFiles();
+                const fileUrl = await getFileUrl();
+                return;
+                console.log('File url:', fileUrl);
+                const files = await uploadFiles(fileUrl);
                 filesTrained = [... filesTrained, files]
                 filesTrained = filesTrained.flat();
                 filesToUpload = [];

@@ -1,5 +1,7 @@
 import type { PageServerLoad } from './$types';
 import { prismaClient } from '$lib/server/prisma';
+import { SUPABASE_KEY } from '$env/static/private';
+import { PUBLIC_SUPABASE_URL } from '$env/static/public';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const model = await prismaClient.bots.findUnique({
@@ -44,5 +46,11 @@ export const load: PageServerLoad = async ({ params }) => {
 		}
 	});
 
-	return { modelData };
+	return {
+		modelData,
+		cred: {
+			PUBLIC_SUPABASE_URL,
+			SUPABASE_KEY
+		}
+	};
 };
