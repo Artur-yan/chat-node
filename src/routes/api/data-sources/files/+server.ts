@@ -33,6 +33,8 @@ export const POST = async ({ request, locals }) => {
 			.then((response) => response.json())
 			.catch((err) => console.error('FROM source --->', err));
 
+		console.log('Response --->', response);
+
 		return json(response);
 	} else {
 		return new Response(JSON.stringify({ status: 401 }));
