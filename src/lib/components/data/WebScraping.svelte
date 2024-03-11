@@ -181,7 +181,11 @@
 
   async function submitWebScraping(urls: string[], recursionDepth: number = 10, baseSitemapOrigin: string = '') {
     try {
-      const maxPagesToScrape = remainingUrlBudget;
+      let maxPagesToScrape = remainingUrlBudget;
+      if (recursionDepth === 0) { // we are using sitemap
+        maxPagesToScrape = 1
+      }
+
       const chunkSize = $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize ? $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize : 400;
       const chunkOverlap = $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap : 20;
       const enableAutoSync = $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync ? $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync : false;
