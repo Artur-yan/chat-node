@@ -6,7 +6,6 @@
   export let credentials: any;
 
   const supabase = createClient(credentials.PUBLIC_SUPABASE_URL, credentials.SUPABASE_KEY);
-  console.log('Supabase:', supabase);
   
   // state
 	let isModalOpen = false;
@@ -116,15 +115,13 @@
       console.log('File uploaded successfully:', data);
       const { data: signedUrlData, error: signedUrlError } = await supabase.storage
       .from('files')
-      .createSignedUrl(data.path, 60 * 15); // Expires in 15 minutes
+      .createSignedUrl(data.path, 60 * 15); 
 
-      console.log('Signed url:', signedUrlData);
-      console.log('Signed url error:', signedUrlError);
+      return signedUrlData?.signedUrl || '';
     }
   }
   
   async function uploadFiles(url: string) {
-    //TODO implement url
     const chunkSize = $currentBot.settings.dataFunnelSettings?.files?.chunkSize ? $currentBot.settings.dataFunnelSettings?.files?.chunkSize : 400;
     const chunkOverlap = $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap : 20;
     try {
@@ -135,6 +132,7 @@
     form.append('bot_id', $currentBot.id)
     form.append('chunkSize', chunkSize)
     form.append('chunkOverlap', chunkOverlap)
+    form.append('url', url)
 
      const response = await fetch(`/api/data-sources/files`, {
 					method: 'POST',
@@ -282,7 +280,6 @@
 
                 isUploading = true;
                 const fileUrl = await getFileUrl();
-                return;
                 console.log('File url:', fileUrl);
                 const files = await uploadFiles(fileUrl);
                 filesTrained = [... filesTrained, files]
