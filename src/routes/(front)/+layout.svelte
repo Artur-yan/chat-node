@@ -21,31 +21,36 @@
 </script>
 
 <svelte:head>
+	<script
+  type="text/javascript"
+  src="https://app.termly.io/resource-blocker/4f4e94f0-314b-43e8-a338-6dbd736a0242?autoBlock=on&masterConsentsOrigin=https://www.chatnode.ai"
+></script>
 		<script data-termly-config>
 		window.TERMLY_CUSTOM_BLOCKING_MAP = {
 			"embed.chatnode.ai": "essential",
 			"app.raaft.io": "essential",
 			"chatnode.ai": "essential",
+			"www.chatnode.ai": "essential",
 			"plausible.io": "essential"
 		}
 	</script>
 	
-<script>
-	const script = document.createElement('script');
-	script.type = 'text/javascript';
-	script.src = 'https://app.termly.io/resource-blocker/4f4e94f0-314b-43e8-a338-6dbd736a0242?autoBlock=on&masterConsentsOrigin=https://chatnode.ai';
-	script.onload = () => {
-    const checkAndModifyElement = () => {
-        const cookieConsentElement = document.querySelector('div[aria-label="Cookie Consent Prompt"]');
-        if (cookieConsentElement) {
-            cookieConsentElement.style.zIndex = '999999999';
-            clearInterval(intervalId); 
-        }
-    };
-    const intervalId = setInterval(checkAndModifyElement, 500);
-};
-	document.head.appendChild(script);
-</script>
+<!--<script>-->
+<!--	const script = document.createElement('script');-->
+<!--	script.type = 'text/javascript';-->
+<!--	script.src = 'https://app.termly.io/resource-blocker/4f4e94f0-314b-43e8-a338-6dbd736a0242?autoBlock=on&masterConsentsOrigin=https://chatnode.ai';-->
+<!--	script.onload = () => {-->
+<!--    const checkAndModifyElement = () => {-->
+<!--        const cookieConsentElement = document.querySelector('div[aria-label="Cookie Consent Prompt"]');-->
+<!--        if (cookieConsentElement) {-->
+<!--            cookieConsentElement.style.zIndex = '999999999';-->
+<!--            clearInterval(intervalId); -->
+<!--        }-->
+<!--    };-->
+<!--    const intervalId = setInterval(checkAndModifyElement, 500);-->
+<!--};-->
+<!--	document.head.appendChild(script);-->
+<!--</script>-->
 
 
 	<link rel="canonical" href="https://www.chatnode.ai{$page.url.pathname}" />
@@ -162,10 +167,12 @@ window.requestIdleCallback(idleWrapper, {timeout: 10000});
 			/>
 		</noscript>
 		<!-- End Google Tag Manager (noscript) -->
+		<noscript>
 		<iframe
 		 src="https://www.chatnode.ai/termly-consent-sync-html"
 		 style="display: none"
 	  ></iframe>
+			</noscript>
 	{/if}
 
 	<slot />
