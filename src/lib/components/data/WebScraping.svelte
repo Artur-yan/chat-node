@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
   import { currentBot, alert } from '$lib/stores.js';
+	import { web } from 'lucia/middleware';
   import Accordian from '../Accordian.svelte';
 
   // state
@@ -340,7 +341,7 @@
     <div class="flex flex-col justify-start m-6 gap-4 p-4 bg-slate-800 rounded-lg">
       <!-- URL Input-->
       <form on:submit|preventDefault={async () => {
-        if(totalUrlCount >= 1000) {
+        if(totalUrlCount >= $currentBot.settings.dataFunnelSettings?.webScraping?.maxPageToScrape) {
           $alert = { type: 'error', msg: 'You have reached the maximum URL limit of 1000', duration: 2500 };
           return;
         }
