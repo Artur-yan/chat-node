@@ -340,8 +340,8 @@
     <div class="flex flex-col justify-start m-6 gap-4 p-4 bg-slate-800 rounded-lg">
       <!-- URL Input-->
       <form on:submit|preventDefault={async () => {
-        if(totalUrlCount >= 1000) {
-          $alert = { type: 'error', msg: 'You have reached the maximum URL limit of 1000', duration: 2500 };
+        if(totalUrlCount >= $currentBot.settings.dataFunnelSettings?.webScraping?.maxPageToScrape) {
+          $alert = { type: 'error', msg: `You have reached the maximum URL limit of ${$currentBot.settings.dataFunnelSettings?.webScraping?.maxPageToScrape}`, duration: 2500 };
           return;
         }
         
