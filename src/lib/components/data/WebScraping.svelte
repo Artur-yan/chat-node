@@ -342,7 +342,7 @@
       <!-- URL Input-->
       <form on:submit|preventDefault={async () => {
         if(totalUrlCount >= $currentBot.settings.dataFunnelSettings?.webScraping?.maxPageToScrape) {
-          $alert = { type: 'error', msg: 'You have reached the maximum URL limit of 1000', duration: 2500 };
+          $alert = { type: 'error', msg: `You have reached the maximum URL limit of ${$currentBot.settings.dataFunnelSettings?.webScraping?.maxPageToScrape}`, duration: 2500 };
           return;
         }
         
