@@ -177,5 +177,4 @@ window.requestIdleCallback(idleWrapper, {timeout: 10000});
 
 	<slot />
 </main>
-
 <!-- <Footer /> -->
