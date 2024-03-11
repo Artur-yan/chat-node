@@ -236,7 +236,7 @@
       let baseSitemapOrigin = baseSitemapUrl.origin;
 
       if (response.status === 200) {
-        const webScrapingResponse = await submitWebScraping(data?.urls, 1, baseSitemapOrigin)
+        const webScrapingResponse = await submitWebScraping(data?.urls, 0, baseSitemapOrigin)
         if (webScrapingResponse) {
           return true;
         }
