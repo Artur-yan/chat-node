@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
   import { currentBot, alert } from '$lib/stores.js';
+	import { web } from 'lucia/middleware';
   import Accordian from '../Accordian.svelte';
 
   // state
@@ -184,6 +185,7 @@
       if (recursionDepth === 0) { // we are using sitemap
         maxPagesToScrape = 1
       }
+
       const chunkSize = $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize ? $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize : 400;
       const chunkOverlap = $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap : 20;
       const enableAutoSync = $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync ? $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync : false;
@@ -239,12 +241,14 @@
 
       if (response.status === 200) {
         // Assuming data?.urls is an array of strings containing URLs
+
       const filteredUrls = data?.urls.filter(url =>
           !url.toLowerCase().endsWith('.jpg') &&
           !url.toLowerCase().endsWith('.png') &&
           !url.toLowerCase().endsWith('.jpeg') &&
           !url.toLowerCase().endsWith('.svg') &&
           !url.toLowerCase().endsWith('.gif'));
+
         // Now, filteredUrls will contain all URLs except those ending with .jpg or .png
         console.log(filteredUrls)
 
@@ -252,6 +256,8 @@
         if (webScrapingResponse) {
           return true;
         }
+      } else if (response.status === 408 || response.status === 503) {
+        $alert = { type: 'success', msg: 'Your site was successfully submitted', duration: 2500 };
       } else {
         console.error('Error:', response.error);
       }

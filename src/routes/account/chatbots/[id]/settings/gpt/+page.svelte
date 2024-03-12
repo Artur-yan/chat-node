@@ -153,8 +153,9 @@
 
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
-		<div class="card-title">
+		<div class="card-title flex items-center gap-2">
 			<h2>Enable Message Limit</h2>
+			<div class="badge badge-primary">Message Count: {$currentBot.msg_count}</div>
 		</div>
 		<p class="text-sm leading-6">
 			Limit the number of messages this bot can send within each usage period.

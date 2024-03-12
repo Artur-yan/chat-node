@@ -43,8 +43,8 @@
 
 <div class="container grid md:grid-cols-2 lg:grid-cols-[auto_32rem] gap-4 my-4">
 	<div class="grid grid-cols-3 gap-8 my-4">
-		<WebScraping />
-		<Files {totalFileCount}/>
+		<WebScraping/>
+		<Files {totalFileCount} credentials={data.cred}/>
 		<Text {totalFileCount}/>
 	</div>
 	<div>

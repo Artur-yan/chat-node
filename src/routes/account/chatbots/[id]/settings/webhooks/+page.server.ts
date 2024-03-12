@@ -9,7 +9,6 @@ export const load = async ({ locals, params }) => {
 		}
 	});
 
-	const allWebhooks = await prismaClient.webhook.findMany();
 	return {
 		webhooks
 	};
