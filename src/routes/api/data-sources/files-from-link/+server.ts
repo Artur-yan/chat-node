@@ -20,13 +20,10 @@ export const POST = async ({ request, locals }) => {
 		file_name: fileName,
 		chunk_size: chunkSize,
 		chunk_overlap: chunkOverlap,
-		skip_embedding_generation: true,
-		set_page_as_boundary: true,
-		embedding_model: 'OPENAI_ADA_LARGE_3072',
+		skip_embedding_generation: false,
+		embedding_model: 'OPENAI_ADA_LARGE_3072'
 		// generate_sparse_vectors: true,
 		// use_textract: true,
-		prepend_filename_to_chunks: true,
-		max_items_per_chunk: 123
 	});
 
 	if (session) {
