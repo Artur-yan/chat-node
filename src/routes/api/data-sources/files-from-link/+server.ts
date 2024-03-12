@@ -12,6 +12,9 @@ export const POST = async ({ request, locals }) => {
 	const fileName = data.file_name;
 	const fileType = data.file_type;
 
+	//NOTE: leaving out the 'use_ocr' field for now
+	// const use_ocr = fileType === 'pdf'; // * assumses 1 file upload at a time
+
 	const jsonData = JSON.stringify({
 		url: presigned_url,
 		file_name: fileName,
@@ -26,8 +29,6 @@ export const POST = async ({ request, locals }) => {
 		max_items_per_chunk: 123
 	});
 
-	//NOTE: leaving out the 'use_ocr' field for now
-
 	if (session) {
 		const options = {
 			method: 'POST',
@@ -39,14 +40,10 @@ export const POST = async ({ request, locals }) => {
 			body: jsonData
 		};
 
-		const use_ocr = fileType === 'pdf'; // * assumses 1 file upload at a time
-
 		const response = await fetch(`https://api.carbon.ai/upload_file_from_url`, options);
-
 		const responseData = await response.json();
-		console.log('Data --->', responseData);
 
-		return json(response);
+		return json(responseData);
 	} else {
 		return new Response(JSON.stringify({ status: 401 }));
 	}

@@ -280,6 +280,7 @@
                 isUploading = true;
                 const fileUrl = await getFileUrl();
                 const files = await uploadFiles(fileUrl);
+                console.log('Files uploaded:', files);
                 filesTrained = [... filesTrained, files]
                 filesTrained = filesTrained.flat();
                 filesToUpload = [];
