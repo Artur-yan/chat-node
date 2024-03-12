@@ -181,7 +181,7 @@
 
   async function submitWebScraping(urls: string[], recursionDepth: number = 10, baseSitemapOrigin: string = '') {
     try {
-      let maxPagesToScrape = remainingUrlBudget;
+      let maxPagesToScrape = remainingUrlBudget < 0 ? 0 : remainingUrlBudget;
       if (recursionDepth === 0) { // we are using sitemap
         maxPagesToScrape = 1
       }
