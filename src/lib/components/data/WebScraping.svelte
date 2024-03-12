@@ -242,7 +242,7 @@
 
       if (response.status === 200) {
         // Assuming data?.urls is an array of strings containing URLs
-        const filteredUrls = data?.urls.filter(url => !url.endsWith('.jpg') && !url.endsWith('.png'));
+        const filteredUrls = data?.urls.filter(url => !url.endsWith('.jpg') && !url.endsWith('.png') && !url.endsWith('.jpeg'));
 
         // Now, filteredUrls will contain all URLs except those ending with .jpg or .png
 
