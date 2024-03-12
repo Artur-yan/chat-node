@@ -1,7 +1,11 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
+  import { SupabaseClient, createClient } from '@supabase/supabase-js';
 
   export let totalFileCount: number;
+  export let credentials: any;
+
+  const supabase = createClient(credentials.PUBLIC_SUPABASE_URL, credentials.SUPABASE_KEY);
   
   // state
 	let isModalOpen = false;
@@ -97,22 +101,41 @@
   function handleFilesChange(event: any) {
     filesToUpload = Array.from(event.target.files);
   }
+
+  async function getFileUrl() {
+    const { data, error } = await supabase.storage.from('files').upload(filesToUpload[0]?.name, filesToUpload[0]);
+
+    if (error) {
+      // Handle error
+      console.error('Error:', error);
+    } else {
+      // Handle success
+      const { data: signedUrlData, error: signedUrlError } = await supabase.storage
+      .from('files')
+      .createSignedUrl(data.path, 60 * 15); 
+
+      return signedUrlData?.signedUrl || '';
+    }
+  }
   
-  async function uploadFiles() {
+  async function uploadFiles(url: string) {
     const chunkSize = $currentBot.settings.dataFunnelSettings?.files?.chunkSize ? $currentBot.settings.dataFunnelSettings?.files?.chunkSize : 400;
     const chunkOverlap = $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap : 20;
     try {
 
-    const form = new FormData();
+    const jsonData = JSON.stringify({
+      bot_id: $currentBot.id,
+      chunk_size : chunkSize,
+      chunk_overlap : chunkOverlap,
+      url,
+      file_name: filesToUpload[0].name,
+      file_type: filesToUpload[0].name.split('.').pop(),
+    });
 
-    form.append("file", filesToUpload[0]);
-    form.append('bot_id', $currentBot.id)
-    form.append('chunkSize', chunkSize)
-    form.append('chunkOverlap', chunkOverlap)
 
-     const response = await fetch(`/api/data-sources/files`, {
+     const response = await fetch(`/api/data-sources/files-from-link`, {
 					method: 'POST',
-					body: form
+					body: jsonData
 				});
 
     const data = await response.json()
@@ -255,7 +278,13 @@
                 }
 
                 isUploading = true;
-                const files = await uploadFiles();
+                const fileUrl = await getFileUrl();
+                if(!fileUrl) {
+                  $alert = { msg: 'This file name already exists', type: 'error' };
+                  isUploading = false;
+                  return
+                }
+                const files = await uploadFiles(fileUrl);
                 filesTrained = [... filesTrained, files]
                 filesTrained = filesTrained.flat();
                 filesToUpload = [];
