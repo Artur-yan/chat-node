@@ -279,6 +279,11 @@
 
                 isUploading = true;
                 const fileUrl = await getFileUrl();
+                if(!fileUrl) {
+                  $alert = { msg: 'This file name already exists', type: 'error' };
+                  isUploading = false;
+                  return
+                }
                 const files = await uploadFiles(fileUrl);
                 console.log('Files uploaded:', files);
                 filesTrained = [... filesTrained, files]
