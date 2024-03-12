@@ -241,7 +241,7 @@
         if (webScrapingResponse) {
           return true;
         }
-      } else if (response.status === 400 || response.status === 500) {
+      } else if (response.status === 408 || response.status === 503) {
         $alert = { type: 'success', msg: 'Your site was successfully submitted', duration: 2500 };
       } else {
         console.error('Error:', response.error);
