@@ -103,16 +103,13 @@
   }
 
   async function getFileUrl() {
-    console.log('Files to upload:', filesToUpload);
     const { data, error } = await supabase.storage.from('files').upload(filesToUpload[0]?.name, filesToUpload[0]);
-    console.log('Data:', data);
 
     if (error) {
       // Handle error
       console.error('Error:', error);
     } else {
       // Handle success
-      console.log('File uploaded successfully:', data);
       const { data: signedUrlData, error: signedUrlError } = await supabase.storage
       .from('files')
       .createSignedUrl(data.path, 60 * 15); 
@@ -282,7 +279,6 @@
 
                 isUploading = true;
                 const fileUrl = await getFileUrl();
-                console.log('File url:', fileUrl);
                 const files = await uploadFiles(fileUrl);
                 filesTrained = [... filesTrained, files]
                 filesTrained = filesTrained.flat();

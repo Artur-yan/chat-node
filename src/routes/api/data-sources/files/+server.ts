@@ -10,6 +10,7 @@ export const POST = async ({ request, locals }) => {
 	const bot_id = form.get('bot_id');
 	const chunkSize = form.get('chunkSize');
 	const chunkOverlap = form.get('chunkOverlap');
+	const presigned_url = form.get('url');
 
 	//Assuming 'files' is an array of File objects
 	const form_tmp = new FormData();

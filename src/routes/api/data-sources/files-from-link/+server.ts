@@ -5,15 +5,12 @@ export const POST = async ({ request, locals }) => {
 	const session = await locals.auth.validate();
 	const data = await request.json();
 
-	console.log('json ---->', data);
-
 	const bot_id = data.bot_id;
 	const chunkSize = data.chunk_size;
 	const chunkOverlap = data.chunk_overlap;
 	const presigned_url = data.url;
 	const fileName = data.file_name;
 	const fileType = data.file_type;
-	//Assuming 'files' is an array of File objects
 
 	const jsonData = JSON.stringify({
 		url: presigned_url,
@@ -23,33 +20,30 @@ export const POST = async ({ request, locals }) => {
 		skip_embedding_generation: true,
 		set_page_as_boundary: true,
 		embedding_model: 'OPENAI_ADA_LARGE_3072',
-		generate_sparse_vectors: true,
-		use_textract: true,
+		// generate_sparse_vectors: true,
+		// use_textract: true,
 		prepend_filename_to_chunks: true,
 		max_items_per_chunk: 123
 	});
 
 	//NOTE: leaving out the 'use_ocr' field for now
 
-	console.log('jsonData --->', jsonData);
-	console.log(CB_TOKEN);
-	console.log(bot_id);
-
 	if (session) {
 		const options = {
 			method: 'POST',
-			headers: { authorization: `Bearer ${CB_TOKEN}`, 'customer-id': bot_id },
+			headers: {
+				authorization: `Bearer ${CB_TOKEN}`,
+				'customer-id': bot_id,
+				'Content-Type': 'application/json'
+			},
 			body: jsonData
 		};
-
-		// '{"url":"https://jujvtfpjsjluscabbyic.supabase.co/storage/v1/object/sign/files/hunter.txt?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJmaWxlcy9odW50ZXIudHh0IiwiaWF0IjoxNzEwMjAyMzA0LCJleHAiOjE3MTAyMDMyMDR9.FooSRBe5UIGJK5Poy1BgUgKnAl-OXQwtf3uNldWa5pI","file_name":"hunter.txt","chunk_size":400,"chunk_overlap":20,"skip_embedding_generation":true,"set_page_as_boundary":true,"embedding_model":"AZURE_ADA_LARGE_3072","generate_sparse_vectors":true,"use_textract":true,"prepend_filename_to_chunks":true,"max_items_per_chunk":123}'
 
 		const use_ocr = fileType === 'pdf'; // * assumses 1 file upload at a time
 
 		const response = await fetch(`https://api.carbon.ai/upload_file_from_url`, options);
 
 		const responseData = await response.json();
-		console.log('Response --->', response);
 		console.log('Data --->', responseData);
 
 		return json(response);
