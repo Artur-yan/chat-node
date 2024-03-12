@@ -35,7 +35,7 @@
   type="text/javascript"
   src="https://app.termly.io/resource-blocker/4f4e94f0-314b-43e8-a338-6dbd736a0242?autoBlock=on&masterConsentsOrigin=https://www.chatnode.ai"
 ></script>
-	
+
 <!--<script>-->
 <!--	const script = document.createElement('script');-->
 <!--	script.type = 'text/javascript';-->
@@ -178,5 +178,4 @@ window.requestIdleCallback(idleWrapper, {timeout: 10000});
 
 	<slot />
 </main>
-
 <!-- <Footer /> -->
