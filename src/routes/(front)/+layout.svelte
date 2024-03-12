@@ -21,10 +21,7 @@
 </script>
 
 <svelte:head>
-	<script
-  type="text/javascript"
-  src="https://app.termly.io/resource-blocker/4f4e94f0-314b-43e8-a338-6dbd736a0242?autoBlock=on&masterConsentsOrigin=https://www.chatnode.ai"
-></script>
+
 		<script data-termly-config>
 		window.TERMLY_CUSTOM_BLOCKING_MAP = {
 			"embed.chatnode.ai": "essential",
@@ -34,6 +31,10 @@
 			"plausible.io": "essential"
 		}
 	</script>
+		<script
+  type="text/javascript"
+  src="https://app.termly.io/resource-blocker/4f4e94f0-314b-43e8-a338-6dbd736a0242?autoBlock=on&masterConsentsOrigin=https://www.chatnode.ai"
+></script>
 
 <!--<script>-->
 <!--	const script = document.createElement('script');-->
