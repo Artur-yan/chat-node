@@ -1,6 +1,7 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
   import { SupabaseClient, createClient } from '@supabase/supabase-js';
+  import { v4 as uuidv4 } from 'uuid';
 
   export let totalFileCount: number;
   export let credentials: any;
@@ -103,7 +104,7 @@
   }
 
   async function getFileUrl() {
-    const { data, error } = await supabase.storage.from('files').upload(filesToUpload[0]?.name, filesToUpload[0]);
+    const { data, error } = await supabase.storage.from('files').upload(`${$currentBot.id}/${uuidv4()}-` + filesToUpload[0]?.name, filesToUpload[0]);
 
     if (error) {
       // Handle error
