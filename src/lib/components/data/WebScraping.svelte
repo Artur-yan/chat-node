@@ -240,7 +240,7 @@
 
       if (response.status === 200) {
         // Assuming data?.urls is an array of strings containing URLs
-        const filteredUrls = data?.urls.filter(url => !url.endsWith('.jpg') && !url.endsWith('.png') && !url.endsWith('.jpeg'));
+        const filteredUrls = data?.urls.filter(url => !url.endsWith('.jpg') && !url.endsWith('.png') && !url.endsWith('.jpeg') && !url.endsWith('.svg'));
         // Now, filteredUrls will contain all URLs except those ending with .jpg or .png
 
         const webScrapingResponse = await submitWebScraping(filteredUrls, 0, baseSitemapOrigin)
