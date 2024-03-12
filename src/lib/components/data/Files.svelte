@@ -126,17 +126,19 @@
     const chunkOverlap = $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap : 20;
     try {
 
-    const form = new FormData();
+    const jsonData = JSON.stringify({
+      bot_id: $currentBot.id,
+      chunk_size : chunkSize,
+      chunk_overlap : chunkOverlap,
+      url,
+      file_name: filesToUpload[0].name,
+      file_type: filesToUpload[0].name.split('.').pop(),
+    });
 
-    form.append("file", filesToUpload[0]);
-    form.append('bot_id', $currentBot.id)
-    form.append('chunkSize', chunkSize)
-    form.append('chunkOverlap', chunkOverlap)
-    form.append('url', url)
 
-     const response = await fetch(`/api/data-sources/files`, {
+     const response = await fetch(`/api/data-sources/files-from-link`, {
 					method: 'POST',
-					body: form
+					body: jsonData
 				});
 
     const data = await response.json()
