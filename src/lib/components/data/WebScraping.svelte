@@ -510,12 +510,24 @@
                         Ready
                       </div>
                     </td>
-                    {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC' || childUrl.sync_status === 'SYNCING' || childUrl.sync_status === 'DELAYED'}
-                    <td class="text-primary">
-                      <div class="badge badge-warning badge-outline w-20">
-                        Pending
-                      </div>
-                    </td>
+                    {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC'}
+                      <td class="text-primary">
+                        <div class="badge badge-warning badge-outline w-20">
+                          Queued for Sync
+                        </div>
+                      </td>
+                    {:else if childUrl.sync_status === 'SYNCING'}
+                      <td class="text-primary">
+                        <div class="badge badge-warning badge-outline w-20">
+                          Syncing
+                        </div>
+                      </td>
+                    {:else if childUrl.sync_status === 'DELAYED'}
+                      <td class="text-primary">
+                        <div class="badge badge-warning badge-outline w-20">
+                          Delayed
+                        </div>
+                      </td>
                     {:else if childUrl.sync_status === 'SYNC_ERROR'}
                     <td class="text-primary">
                       <div class="badge badge-error badge-outline w-20">
