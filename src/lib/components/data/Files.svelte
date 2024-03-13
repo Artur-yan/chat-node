@@ -347,7 +347,7 @@
               {:else if file.sync_status === 'QUEUED_FOR_SYNC'}
                 <td class="text-primary">
                   <div class="badge badge-warning badge-outline w-20">
-                    Pending
+                    Queued for Sync
                   </div>
                 </td>
               {:else if file.sync_status === 'SYNCING'}
