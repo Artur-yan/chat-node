@@ -226,11 +226,12 @@
 
   async function submitSitemapUrl() {
     try {
-       const response = await fetch(`/api/data-sources/scraping/sitemap`, {
+       const response = await fetch(`/api/data-sources/scraping/sitemap-2`, {
 					method: 'POST',
 					body: JSON.stringify({
             bot_id: $currentBot.id,
-						sitemapUrl: sitemap
+						sitemapUrl: sitemap,
+            maxPagesToScrape: $currentBot.settings.dataFunnelSettings?.webScraping?.maxPageToScrape
           })
 				});
 
