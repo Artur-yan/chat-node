@@ -506,31 +506,31 @@
                     <td class="text-primary w-1/2 overflow-x-auto"> <a class="hover:underline" href="{childUrl.external_url}" target="_blank">{childUrl.external_url}</a></td>
                     {#if childUrl.sync_status === 'READY'}
                     <td class="text-primary">
-                      <div class="badge badge-success badge-outline w-20">
+                      <div class="badge badge-success badge-outline w-32 min-w-32">
                         Ready
                       </div>
                     </td>
                     {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC'}
                       <td class="text-primary">
-                        <div class="badge badge-warning badge-outline w-20">
+                        <div class="badge badge-warning badge-outline text-xs w-32 min-w-32">
                           Queued for Sync
                         </div>
                       </td>
                     {:else if childUrl.sync_status === 'SYNCING'}
                       <td class="text-primary">
-                        <div class="badge badge-warning badge-outline w-20">
+                        <div class="badge badge-warning badge-outline w-32 min-w-32">
                           Syncing
                         </div>
                       </td>
                     {:else if childUrl.sync_status === 'DELAYED'}
                       <td class="text-primary">
-                        <div class="badge badge-warning badge-outline w-20">
+                        <div class="badge badge-warning badge-outline w-32 min-w-32">
                           Delayed
                         </div>
                       </td>
                     {:else if childUrl.sync_status === 'SYNC_ERROR'}
                     <td class="text-primary">
-                      <div class="badge badge-error badge-outline w-20">
+                      <div class="badge badge-error badge-outline w-32 min-w-32">
                         Error
                       </div>
                     </td>
