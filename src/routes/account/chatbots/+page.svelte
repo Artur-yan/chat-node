@@ -456,11 +456,15 @@
 		<div class="card bg-base-300">
 			<div class="card-body items-center py-[10vh]">
 				<h2 class="card-title font-bold text-2xl">Get Started</h2>
-				<div class="card-actions justify-center">
-					<button on:click={() => goto('/account/chatbots/create')} class="btn btn-accent">
-						Create a chatbot
-					</button>
-				</div>
+				<label for="my_modal_6" class="btn btn-accent btn-sm btn-outline text-xs pr-1">
+									Create a chatbot
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+				<path
+					fill="currentColor"
+					d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m2-8H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"
+				/>
+			</svg>
+		</label>
 			</div>
 		</div>
 {/if}
