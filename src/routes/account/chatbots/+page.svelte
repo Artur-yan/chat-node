@@ -9,6 +9,7 @@
 	import { deleteModel } from '$lib/models';
 	import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API_HOST } from '$env/static/public';
 	import { PUBLIC_ENVIRONMENT, PUBLIC_CHAT_API_URL } from '$env/static/public';
+	import { v4 as uuidv4 } from "uuid";
 
 
 	export let data;
@@ -113,18 +114,19 @@
 	
 
 	async function createModel() {
-		let body = new FormData();
-		body.append('user_id', userId);
-		body.append('session_id', data.session.sessionId);
+		// let body = new FormData();
+		// body.append('user_id', userId);
+		// body.append('session_id', data.session.sessionId);
 
 		try {
-			const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
-				method: 'POST',
-				body
-			});
-
-			const resJson = await res.json();
-			newModelId = resJson.chat_key;
+			// const res = await fetch(`${PUBLIC_CHAT_API_URL}/api/create-model`, {
+			// 	method: 'POST',
+			// 	body
+			// });
+			//
+			// const resJson = await res.json();
+			// newModelId = resJson.chat_key;
+			newModelId = uuidv4();
 			await addModel(newModelId, botName, defaultSettings);
 			goto(`/account/chatbots/${newModelId}/data-v2`);
 
