@@ -65,7 +65,7 @@
         method: 'POST',
         body: JSON.stringify({
           customerId: $currentBot.id,
-          fileTypes: ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"],
+          fileTypes: ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "DOC", "MD", "RTF", "TSV", "PPTX", "JSON"],
           limit: 250,
           offset: 0
         })
@@ -340,7 +340,7 @@
               <td class="text-primary w-1/2 /overflow-x-auto"> {file.name} </td>
               {#if file.sync_status === 'READY'}
                 <td class="text-primary">
-                  <div class="badge badge-success badge-outline w-32 min-w-32">
+                  <div class="badge badge-success badge-outline w-20">
                     Ready
                   </div>
                 </td>
