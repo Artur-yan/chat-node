@@ -33,10 +33,6 @@
 	export let plan: number;
 	export let customDomain: boolean;
 
-	console.log('plan', plan);
-	console.log('customDomain', customDomain);
-	console.log('remove branding --->', settings.removeBranding);	
-
 	let context = $page.url.searchParams.get('context');
 	let previousConversationId: string | null | undefined;
 
@@ -391,7 +387,6 @@
 		goto('https://go.crisp.chat/chat/embed/?website_id=' + settings.crispWebsiteId);
 	};
 
-	console.log('settings', settings);
 </script>
 
 <svelte:head>
