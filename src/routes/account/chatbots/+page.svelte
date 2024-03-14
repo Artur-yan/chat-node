@@ -102,6 +102,12 @@
 		settings.gptVersion = '3.5-june';
 	}
 
+	//On creation - 1005 plan and 1006 plan have upgraded data limits
+	if(plan === 1005 || plan === 1006) {
+		settings.dataFunnelSettings.webScraping.maxPageToScrape = 1500;
+		settings.dataFunnelSettings.files.maxFiles = 200;
+	}
+
 	//On creation - Free plan and 1001 plan HAS branding
 	if(plan === 0 || plan === 1001) {
 		settings.removeBranding = false;

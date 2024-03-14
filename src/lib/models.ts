@@ -110,6 +110,7 @@ const defaultSettings = {
 			enableAutoSync: false
 		},
 		files: {
+			maxFiles: 30,
 			chunkSize: 400,
 			chunkOverlap: 20
 		},
