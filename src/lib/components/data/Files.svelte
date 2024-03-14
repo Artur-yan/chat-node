@@ -281,7 +281,7 @@
                 isUploading = true;
                 const fileUrl = await getFileUrl();
                 if(!fileUrl) {
-                  $alert = { msg: 'This file name already exists', type: 'error' };
+                  $alert = { msg: 'The file failed to upload', type: 'error' };
                   isUploading = false;
                   return
                 }
