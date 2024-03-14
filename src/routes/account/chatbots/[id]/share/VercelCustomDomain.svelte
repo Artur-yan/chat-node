@@ -138,6 +138,7 @@
         });
 
         customDomainConfig = await res.json()
+        console.log('customDomainConfig', customDomainConfig)
         busyCheckingDomainConfig = false
 
     }
