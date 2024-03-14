@@ -14,7 +14,7 @@ export const POST = async ({ locals }) => {
 		}
 	}
 
-	if (PUBLIC_ENVIRONMENT === 'dev') {
+	if (PUBLIC_ENVIRONMENT === 'dev' || PUBLIC_ENVIRONMENT === 'preview') {
 		throw redirect(302, '/login');
 	} else {
 		throw redirect(302, PUBLIC_LANDING_PAGE_URL);
