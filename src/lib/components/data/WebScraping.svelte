@@ -226,11 +226,15 @@
 
   async function submitSitemapUrl() {
     try {
-       const response = await fetch(`/api/data-sources/scraping/sitemap`, {
+       const response = await fetch(`/api/data-sources/scraping/sitemap-2`, {
 					method: 'POST',
 					body: JSON.stringify({
             bot_id: $currentBot.id,
-						sitemapUrl: sitemap
+						sitemapUrl: sitemap,
+            maxPagesToScrape: $currentBot.settings.dataFunnelSettings?.webScraping?.maxPageToScrape,
+            chunkSize: $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize ?? 400,
+            chunkOverlap: $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap ?? 20,
+            enableAutoSync: $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync ?? true
           })
 				});
 
@@ -242,23 +246,26 @@
       if (response.status === 200) {
         // Assuming data?.urls is an array of strings containing URLs
 
-      const filteredUrls = data?.urls.filter(url =>
-          !url.toLowerCase().endsWith('.jpg') &&
-          !url.toLowerCase().endsWith('.png') &&
-          !url.toLowerCase().endsWith('.jpeg') &&
-          !url.toLowerCase().endsWith('.svg') &&
-          !url.toLowerCase().endsWith('.gif'));
+      // const filteredUrls = data?.urls.filter(url =>
+      //     !url.toLowerCase().endsWith('.jpg') &&
+      //     !url.toLowerCase().endsWith('.png') &&
+      //     !url.toLowerCase().endsWith('.jpeg') &&
+      //     !url.toLowerCase().endsWith('.svg') &&
+      //     !url.toLowerCase().endsWith('.gif'));
 
-        // Now, filteredUrls will contain all URLs except those ending with .jpg or .png
-        console.log(filteredUrls)
+      //   // Now, filteredUrls will contain all URLs except those ending with .jpg or .png
+      //   console.log(filteredUrls)
 
-        const webScrapingResponse = await submitWebScraping(filteredUrls, 0, baseSitemapOrigin)
-        if (webScrapingResponse) {
-          return true;
-        }
-      } else if (response.status === 408 || response.status === 503) {
-        $alert = { type: 'success', msg: 'Your site was successfully submitted', duration: 2500 };
-      } else {
+      //   const webScrapingResponse = await submitWebScraping(filteredUrls, 0, baseSitemapOrigin)
+      //   if (webScrapingResponse) {
+      //     return true;
+      //   }
+      const lastPage = Math.ceil(totalUrlCount / 250) || 1;
+      const offset = (lastPage - 1) * 250;
+      await fetchUserData(offset);
+      return true;
+      }
+       else {
         console.error('Error:', response.error);
       }
     } catch (err) {
@@ -408,6 +415,7 @@
       <form on:submit|preventDefault={async () => {
           isFetchingSitemap = true;
           const response = await submitSitemapUrl()
+          console.log('Response: ---->x', response);
 
           if(!response) {
             isFetchingSitemap = false;
@@ -510,12 +518,24 @@
                         Ready
                       </div>
                     </td>
-                    {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC' || childUrl.sync_status === 'SYNCING' || childUrl.sync_status === 'DELAYED'}
-                    <td class="text-primary">
-                      <div class="badge badge-warning badge-outline w-20">
-                        Pending
-                      </div>
-                    </td>
+                    {:else if childUrl.sync_status === 'QUEUED_FOR_SYNC'}
+                      <td class="text-primary">
+                        <div class="badge badge-warning badge-outline w-20">
+                          Queued
+                        </div>
+                      </td>
+                    {:else if childUrl.sync_status === 'SYNCING'}
+                      <td class="text-primary">
+                        <div class="badge badge-warning badge-outline w-20">
+                          Syncing
+                        </div>
+                      </td>
+                    {:else if childUrl.sync_status === 'DELAYED'}
+                      <td class="text-primary">
+                        <div class="badge badge-warning badge-outline w-20">
+                          Delayed
+                        </div>
+                      </td>
                     {:else if childUrl.sync_status === 'SYNC_ERROR'}
                     <td class="text-primary">
                       <div class="badge badge-error badge-outline w-20">

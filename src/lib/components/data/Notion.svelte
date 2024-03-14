@@ -1,12 +1,7 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
-  import { SupabaseClient, createClient } from '@supabase/supabase-js';
-  import { v4 as uuidv4 } from 'uuid';
 
   export let totalFileCount: number;
-  export let credentials: any;
-
-  const supabase = createClient(credentials.PUBLIC_SUPABASE_URL, credentials.SUPABASE_KEY);
   
   // state
 	let isModalOpen = false;
@@ -78,7 +73,7 @@
         console.log('Files trained:', filesTrained);
 
         // Retry
-        hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC' || file.sync_status === 'SYNCING' || file.sync_status === 'DELAYED');
+        hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
         console.log('Has queued files & will be attempted again --->', hasQueuedFiles);
 
         if (hasQueuedFiles && isModalOpen) {
@@ -102,41 +97,22 @@
   function handleFilesChange(event: any) {
     filesToUpload = Array.from(event.target.files);
   }
-
-  async function getFileUrl() {
-    const { data, error } = await supabase.storage.from('files').upload(`${$currentBot.id}/${uuidv4()}-` + filesToUpload[0]?.name, filesToUpload[0]);
-
-    if (error) {
-      // Handle error
-      console.error('Error:', error);
-    } else {
-      // Handle success
-      const { data: signedUrlData, error: signedUrlError } = await supabase.storage
-      .from('files')
-      .createSignedUrl(data.path, 60 * 15); 
-
-      return signedUrlData?.signedUrl || '';
-    }
-  }
   
-  async function uploadFiles(url: string) {
+  async function uploadFiles() {
     const chunkSize = $currentBot.settings.dataFunnelSettings?.files?.chunkSize ? $currentBot.settings.dataFunnelSettings?.files?.chunkSize : 400;
     const chunkOverlap = $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap : 20;
     try {
 
-    const jsonData = JSON.stringify({
-      bot_id: $currentBot.id,
-      chunk_size : chunkSize,
-      chunk_overlap : chunkOverlap,
-      url,
-      file_name: filesToUpload[0].name,
-      file_type: filesToUpload[0].name.split('.').pop(),
-    });
+    const form = new FormData();
 
+    form.append("file", filesToUpload[0]);
+    form.append('bot_id', $currentBot.id)
+    form.append('chunkSize', chunkSize)
+    form.append('chunkOverlap', chunkOverlap)
 
-     const response = await fetch(`/api/data-sources/files-from-link`, {
+     const response = await fetch(`/api/data-sources/files`, {
 					method: 'POST',
-					body: jsonData
+					body: form
 				});
 
     const data = await response.json()
@@ -188,15 +164,43 @@
       }
     }, 1000);
   }
+
+  async function fetchOAuthUrl(service: string) {
+    console.log('Fetching OAuth URL for:', service);
+    console.log('Current bot:', $currentBot.id);
+    try {
+      const response = await fetch(`/api/data-sources/oauth-url`, {
+        method: 'POST',
+        body: JSON.stringify({
+          customerId: $currentBot.id,
+          service
+        })
+      });
+
+      const data = await response.json();
+      const url = data?.oauth_url;
+      console.log('OAuth URL:', url);
+
+
+      if (response.status === 200) {
+        
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', (err as Error).message);
+    }
+  }
 </script>
 
-<label for="files" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
+<label for="notion" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
   <div class="bg-gradient-to-tr from-slate-300 to-slate-500 text-transparent bg-clip-text text-xl">
-    + Files
+    <!-- <img src="/notion.png" class="max-w-full max-h-full object-contain" alt=""> -->
+    Notion
   </div>
 </label>
 
-<input type="checkbox" id="files" class="modal-toggle" bind:checked={isModalOpen}>
+<input type="checkbox" id="notion" class="modal-toggle" bind:checked={isModalOpen}>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="modal" on:click|self={()=>isModalOpen = false}>
@@ -246,79 +250,15 @@
 
       <!-- Upload -->
       {#if activeTab === 'upload'}
-       <div class="flex-1 m-16">
-				<form method="post" enctype="multipart/form-data" class="join w-full">
-					<input
-						name="chat-button-img"
-						type="file"
-						accept=".txt, .pdf, .doc, .docx, .csv, .xlsx, .md, .rtf, .tsv, .pptx, .json"
-						class="join-item file-input file-input-bordered w-full"
-						on:change={() => handleFilesChange(event)}
-					/>
-					<input
-						name="existing-cloudinary-public-id-popup"
-						type="hidden"
-						value={'hello'}
-					/>
-          {#if isUploading}
-          <button class="btn join-item border-primary">
-            <span class="loading loading-spinner loading-md"></span>
-          </button>
-          {:else}
-            <input
-              type="submit"
-              class="btn btn-primary join-item"
-              disabled={filesToUpload.length === 0}
-              value="Upload"
-              on:click={async (e) => {
-                e.preventDefault();
-
-                if(totalFileCount >= 30) {
-                  $alert = { msg: 'You have reached the 30 file limit', type: 'error' };
-                  return;
-                }
-
-                isUploading = true;
-                const fileUrl = await getFileUrl();
-                if(!fileUrl) {
-                  $alert = { msg: 'This file name already exists', type: 'error' };
-                  isUploading = false;
-                  return
-                }
-                const files = await uploadFiles(fileUrl);
-                filesTrained = [... filesTrained, files]
-                filesTrained = filesTrained.flat();
-                filesToUpload = [];
-                console.log('Files trained ---->:', files);
-
-                setTimeout(() => {
-                  isUploading = false;
-                  activeTab = 'trained';
-                  hasQueuedFiles = true;
-                  countdownFrom40();
-                }, 1000);
-
-                if(timeoutId) clearTimeout(timeoutId);
-                timeoutId = setTimeout(() => {
-                  fetchUserData();
-                }, 40000);
-              }
-            }
-            />
-          {/if}
-				</form>
-
-        <div class="w-full my-8">
-          <h2 class="m-6 text-2xl text-center text-slate-400 font-semibold">Acceptable File Types</h2>
-          <div class=" grid grid-cols-3 gap-6">
-            {#each acceptableFileExtensions as file}
-              <div class="flex flex-col items-center justify-center p-6 rounded-xl bg-slate-800">
-                <span class="bg-gradient-to-tr from-slate-600 to-cyan-300 text-transparent bg-clip-text text-xl">.{file}</span>
-              </div>
-            {/each}
-          </div>
-        </div>
-        </div>
+       
+      <button 
+        class="btn btn-primary"
+        on:click={() => {
+          fetchOAuthUrl('NOTION');
+        }}
+      >
+        Connect to Notion
+      </button>
       {/if}
 
       <!-- Trained -->
@@ -340,35 +280,17 @@
               <td class="text-primary w-1/2 /overflow-x-auto"> {file.name} </td>
               {#if file.sync_status === 'READY'}
                 <td class="text-primary">
-                  <div class="badge badge-success badge-outline w-32 min-w-32">
+                  <div class="badge badge-success badge-outline w-20">
                     Ready
                   </div>
                 </td>
-              {:else if file.sync_status === 'QUEUED_FOR_SYNC'}
+                {:else if file.sync_status === 'QUEUED_FOR_SYNC' || file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'SYNCING'}
                 <td class="text-primary">
                   <div class="badge badge-warning badge-outline w-20">
-                    Queued
+                    Pending
                   </div>
                 </td>
-              {:else if file.sync_status === 'SYNCING'}
-                <td class="text-primary">
-                  <div class="badge badge-warning badge-outline w-20">
-                    Syncing
-                  </div>
-                </td>
-              {:else if file.sync_status === 'QUEUED_FOR_OCR'}
-                <td class="text-primary">
-                  <div class="badge badge-warning badge-outline w-20">
-                    Queued
-                  </div>
-                </td>
-              {:else if file.sync_status === 'DELAYED'}
-                <td class="text-primary">
-                  <div class="badge badge-warning badge-outline w-20">
-                    Delayed
-                  </div>
-                </td>
-              {:else if file.sync_status === 'SYNC_ERROR'}
+                {:else if file.sync_status === 'SYNC_ERROR'}
                 <td class="text-primary">
                   <div class="badge badge-error badge-outline w-20">
                     Error
