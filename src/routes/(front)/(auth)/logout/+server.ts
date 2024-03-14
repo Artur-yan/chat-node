@@ -1,4 +1,4 @@
-import { PUBLIC_LANDING_PAGE_URL } from '$env/static/public';
+import { PUBLIC_ENVIRONMENT, PUBLIC_LANDING_PAGE_URL } from '$env/static/public';
 import { auth } from '$lib/server/lucia';
 import { redirect } from '@sveltejs/kit';
 
@@ -14,5 +14,9 @@ export const POST = async ({ locals }) => {
 		}
 	}
 
-	throw redirect(302, PUBLIC_LANDING_PAGE_URL);
+	if (PUBLIC_ENVIRONMENT === 'dev') {
+		throw redirect(302, '/login');
+	} else {
+		throw redirect(302, PUBLIC_LANDING_PAGE_URL);
+	}
 };
