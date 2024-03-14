@@ -12,7 +12,7 @@
   let counter: number;
   let intervalId: any;
   let timeoutId: any;
-  let retrainId: any;
+  let retrainId: string | null = null;
 
   let textTrained: [] = [];
   let title: string;
@@ -273,6 +273,7 @@
               }
 
               console.log('Response:', response);
+              retrainId = null;
               if(response) {
                 textTrained = [...textTrained, response];
                 hasQueuedFiles = true;
