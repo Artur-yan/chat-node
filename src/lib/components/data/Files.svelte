@@ -340,7 +340,7 @@
               <td class="text-primary w-1/2 /overflow-x-auto"> {file.name} </td>
               {#if file.sync_status === 'READY'}
                 <td class="text-primary">
-                  <div class="badge badge-success badge-outline w-32 min-w-32">
+                  <div class="badge badge-success badge-outline w-20">
                     Ready
                   </div>
                 </td>
