@@ -18,7 +18,7 @@
   let timeoutId: any;
 
   // values
-  let acceptableFileExtensions = ['pdf', 'txt', 'doc', 'docx', 'csv', 'xlsx', 'md', 'rtf', 'tsv', 'pptx', 'json'];
+  let acceptableFileExtensions = ['pdf', 'txt', 'docx', 'csv', 'xlsx', 'md', 'rtf', 'tsv', 'pptx', 'json'];
 
   // files
   let filesToUpload: any = [];
@@ -65,7 +65,7 @@
         method: 'POST',
         body: JSON.stringify({
           customerId: $currentBot.id,
-          fileTypes: ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "DOC", "MD", "RTF", "TSV", "PPTX", "JSON"],
+          fileTypes: ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"],
           limit: 250,
           offset: 0
         })
@@ -251,7 +251,7 @@
 					<input
 						name="chat-button-img"
 						type="file"
-						accept=".txt, .pdf, .doc, .docx, .csv, .xlsx, .md, .rtf, .tsv, .pptx, .json"
+						accept=".txt, .pdf, .docx, .csv, .xlsx, .md, .rtf, .tsv, .pptx, .json"
 						class="join-item file-input file-input-bordered w-full"
 						on:change={() => handleFilesChange(event)}
 					/>
