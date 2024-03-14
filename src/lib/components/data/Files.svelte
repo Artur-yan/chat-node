@@ -18,7 +18,7 @@
   let timeoutId: any;
 
   // values
-  let acceptableFileExtensions = ['pdf', 'txt', 'doc', 'docx', 'csv', 'xlsx', 'md', 'rtf', 'tsv', 'pptx', 'json'];
+  let acceptableFileExtensions = ['pdf', 'txt', 'docx', 'csv', 'xlsx', 'md', 'rtf', 'tsv', 'pptx', 'json'];
 
   // files
   let filesToUpload: any = [];
@@ -251,7 +251,7 @@
 					<input
 						name="chat-button-img"
 						type="file"
-						accept=".txt, .pdf, .doc, .docx, .csv, .xlsx, .md, .rtf, .tsv, .pptx, .json"
+						accept=".txt, .pdf, .docx, .csv, .xlsx, .md, .rtf, .tsv, .pptx, .json"
 						class="join-item file-input file-input-bordered w-full"
 						on:change={() => handleFilesChange(event)}
 					/>
@@ -281,7 +281,7 @@
                 isUploading = true;
                 const fileUrl = await getFileUrl();
                 if(!fileUrl) {
-                  $alert = { msg: 'This file name already exists', type: 'error' };
+                  $alert = { msg: 'The file failed to upload', type: 'error' };
                   isUploading = false;
                   return
                 }
@@ -340,7 +340,7 @@
               <td class="text-primary w-1/2 /overflow-x-auto"> {file.name} </td>
               {#if file.sync_status === 'READY'}
                 <td class="text-primary">
-                  <div class="badge badge-success badge-outline w-32 min-w-32">
+                  <div class="badge badge-success badge-outline w-20">
                     Ready
                   </div>
                 </td>
