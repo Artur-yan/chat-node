@@ -65,7 +65,7 @@
         method: 'POST',
         body: JSON.stringify({
           customerId: $currentBot.id,
-          fileTypes: ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"],
+          fileTypes: ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "DOC", "MD", "RTF", "TSV", "PPTX", "JSON"],
           limit: 250,
           offset: 0
         })
