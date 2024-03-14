@@ -214,7 +214,7 @@
                   on:click={() => activeTab = 'trained'}
                   class:tab-active={activeTab === 'trained'}
                 >
-                  Trained <span class="{totalFileCount < ($currentBot.settings.dataFunnelSettings?.files?.maxFiles ?? 30) || totalFileCount === undefined ? 'mx-1' : 'text-red-500 mx-1'}">({totalFileCount}/{$currentBot.settings.dataFunnelSettings.files.maxFiles} Total Files)</span>
+                  Trained <span class="{totalFileCount < ($currentBot.settings.dataFunnelSettings?.files?.maxFiles ?? 30) || totalFileCount === undefined ? 'mx-1' : 'text-red-500 mx-1'}">({totalFileCount}/{$currentBot.settings.dataFunnelSettings.files.maxFiles ?? 30} Total Files)</span>
                 </button>
               </div>
             </div>
@@ -258,8 +258,8 @@
               }
 
 
-              if(totalFileCount >= $currentBot.settings.dataFunnelSettings.files.maxFiles) {
-                $alert = { msg: `You have reached the ${$currentBot.settings.dataFunnelSettings.files.maxFiles} file limit`, type: 'error' };
+              if(totalFileCount >= $currentBot.settings.dataFunnelSettings.files.maxFiles ?? 30) {
+                $alert = { msg: `You have reached the ${$currentBot.settings.dataFunnelSettings.files.maxFiles ?? 30} file limit`, type: 'error' };
                 return;
               }
               // Finish here passing in the the file Id and improving the uploadCustomText function
