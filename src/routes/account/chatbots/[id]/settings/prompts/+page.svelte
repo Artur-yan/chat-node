@@ -19,7 +19,7 @@
 	const handleSourceUrlChange = () => {
 		console.log($currentBot.settings.useSourceUrls)
 	};
-	let hasSuggestedQuestions = $currentBot.settings.suggestedQuestions && $currentBot.settings.suggestedQuestions.length > 0;
+	$: hasSuggestedQuestions = $currentBot.settings.suggestedQuestions && $currentBot.settings.suggestedQuestions.length > 0;
 </script>
 
 <div>
