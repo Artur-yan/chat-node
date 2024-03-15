@@ -3,8 +3,6 @@
 	import { personalities } from '$lib/models.js';
 	import Modal from '$lib/components/Modal.svelte';
 
-	$: console.log($currentBot.settings.suggestedQuestions);
-
 	const addSuggestedQuestion = () => {
 		$currentBot.settings.suggestedQuestions = [
 			...$currentBot.settings.suggestedQuestions,
