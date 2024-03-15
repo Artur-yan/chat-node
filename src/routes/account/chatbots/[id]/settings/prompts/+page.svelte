@@ -3,6 +3,8 @@
 	import { personalities } from '$lib/models.js';
 	import Modal from '$lib/components/Modal.svelte';
 
+	$: console.log($currentBot.settings.suggestedQuestions);
+
 	const addSuggestedQuestion = () => {
 		$currentBot.settings.suggestedQuestions = [
 			...$currentBot.settings.suggestedQuestions,
@@ -19,7 +21,7 @@
 	const handleSourceUrlChange = () => {
 		console.log($currentBot.settings.useSourceUrls)
 	};
-	let hasSuggestedQuestions = $currentBot.settings.suggestedQuestions && $currentBot.settings.suggestedQuestions.length > 0;
+	$: hasSuggestedQuestions = $currentBot.settings.suggestedQuestions && $currentBot.settings.suggestedQuestions.length > 0;
 </script>
 
 <div>
