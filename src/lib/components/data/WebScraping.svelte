@@ -17,7 +17,8 @@
   let pagesArray: number[] = [];
   let currentPage: number = 1;
   let totalUrlCount: number = 0;
-  let remainingUrlBudget: number = 1000;
+  $: remainingUrlBudget = ($currentBot.settings.dataFunnelSettings?.webScraping?.maxPageToScrape ?? 1000) - totalUrlCount;
+  $: console.log('Remaining URL Budget:', remainingUrlBudget);
 
   // Values
   let baseUrl = '';
@@ -63,9 +64,6 @@
         // Pagination
         totalUrlCount = data?.count || 0;
         numberOfPages = Math.ceil(totalUrlCount / 250);
-
-        // Remaining URL budget
-        remainingUrlBudget = 1000 - totalUrlCount;
 
         // Variable to store the number of pages for rendering
         pagesArray = [];
@@ -181,7 +179,6 @@
 
   async function submitWebScraping(urls: string[], recursionDepth: number = 10, baseSitemapOrigin: string = '') {
     try {
-      let maxPagesToScrape = remainingUrlBudget < 0 ? 0 : remainingUrlBudget;
       if (recursionDepth === 0) { // we are using sitemap
         maxPagesToScrape = 1
       }
@@ -197,7 +194,7 @@
             bot_id: $currentBot.id,
 						urls: urls,
             recursionDepth: recursionDepth,
-            maxPagesToScrape: maxPagesToScrape,
+            maxPageToScrape: remainingUrlBudget,
             chunkSize: chunkSize,
             chunkOverlap: chunkOverlap,
             enableAutoSync: enableAutoSync,
@@ -231,7 +228,7 @@
 					body: JSON.stringify({
             bot_id: $currentBot.id,
 						sitemapUrl: sitemap,
-            maxPagesToScrape: $currentBot.settings.dataFunnelSettings?.webScraping?.maxPageToScrape,
+            maxPageToScrape: remainingUrlBudget,
             chunkSize: $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize ?? 400,
             chunkOverlap: $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap ?? 20,
             enableAutoSync: $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync ?? true

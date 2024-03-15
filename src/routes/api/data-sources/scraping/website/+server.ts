@@ -36,19 +36,17 @@ export const POST = async ({ request, locals }) => {
 		bot_id,
 		urls,
 		recursionDepth,
-		maxPagesToScrape,
+		maxPageToScrape,
 		chunkSize,
 		chunkOverlap,
 		enableAutoSync,
 		tags
 	} = await request.json();
 
-	console.log('tags ---->', tags);
-
 	const listOfConfigsWithSingleUrl = transformConfigToSingleUrlList({
 		urls: urls,
 		recursion_depth: recursionDepth,
-		max_pages_to_scrape: maxPagesToScrape,
+		max_pages_to_scrape: maxPageToScrape,
 		chunk_size: chunkSize,
 		chunk_overlap: chunkOverlap,
 		skip_embedding_generation: false,
@@ -73,8 +71,6 @@ export const POST = async ({ request, locals }) => {
 		const response = await fetch('https://api.carbon.ai/web_scrape', options)
 			.then((response) => response.json())
 			.catch((err) => console.error(err));
-
-		console.log(response);
 
 		return json(response);
 	} else {
