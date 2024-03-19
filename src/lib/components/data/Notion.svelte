@@ -1,7 +1,6 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
-
-  export let totalFileCount: number;
+	import Instructions from '../Instructions.svelte';
   
   // state
 	let isModalOpen = false;
@@ -21,182 +20,19 @@
 
   // conditions
   $: if(isModalOpen === true) {
-    activeTab = 'upload';
-    fetchUserData();
-        //@ts-ignore
-    (async () => {
-      totalFileCount = await fetchTotalFileCount() || 0;
-    })();
+   
   }
 
   $: if (filesTrained.length === 0) {
     hasQueuedFiles = false;
   }
 
-  async function fetchTotalFileCount() {
-    try {
-      const response = await fetch('/api/data-sources/total-file-count', {
-        method: 'POST',
-        body: JSON.stringify({
-          customerId: $currentBot.id,
-        })
-      });
 
-      const data = await response.json();
-
-      if (response?.status === 200) {
-        return data?.count || 0
-      } else {
-        console.error('Error:', response.error);
-      }
-    } catch (err) {
-      console.error('Unexpected error:', (err as Error).message);
-    }
-  }
-
-  async function fetchUserData() {
-    try {
-      const response = await fetch('/api/data-sources/user-files', {
-        method: 'POST',
-        body: JSON.stringify({
-          customerId: $currentBot.id,
-          fileTypes: ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"],
-          limit: 250,
-          offset: 0
-        })
-      });
-
-      const data = await response.json();
-
-      if (response?.status === 200) {
-        filesTrained = data?.results || [];
-        console.log('Files trained:', filesTrained);
-
-        // Retry
-        hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
-        console.log('Has queued files & will be attempted again --->', hasQueuedFiles);
-
-        if (hasQueuedFiles && isModalOpen) {
-          countdownFrom40();
-          if(timeoutId) clearTimeout(timeoutId);
-          timeoutId = setTimeout(() => {
-            fetchUserData();
-          }, 40000);
-        }
-
-      return data;
-
-      } else {
-        console.error('Error:', response.error);
-      }
-    } catch (err) {
-      console.error('Unexpected error:', (err as Error).message);
-    }
-  }
-
-  function handleFilesChange(event: any) {
-    filesToUpload = Array.from(event.target.files);
-  }
-  
-  async function uploadFiles() {
-    const chunkSize = $currentBot.settings.dataFunnelSettings?.files?.chunkSize ? $currentBot.settings.dataFunnelSettings?.files?.chunkSize : 400;
-    const chunkOverlap = $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap : 20;
-    try {
-
-    const form = new FormData();
-
-    form.append("file", filesToUpload[0]);
-    form.append('bot_id', $currentBot.id)
-    form.append('chunkSize', chunkSize)
-    form.append('chunkOverlap', chunkOverlap)
-
-     const response = await fetch(`/api/data-sources/files`, {
-					method: 'POST',
-					body: form
-				});
-
-    const data = await response.json()
-
-      if (response.status === 200) {
-        totalFileCount += 1;
-        return data;
-      } else {
-        console.error('Error:', response.error.message);
-      }
-    } catch (err) {
-      console.error('Unexpected error:', (err as Error).message);
-    }
-  }
-
-  async function removeFile(fileId: string) {
-    try {
-      const response = await fetch(`/api/data-sources/delete-file`, {
-        method: 'POST',
-        body: JSON.stringify({
-          customerId: $currentBot.id,
-          fileId
-        })
-      });
-
-      console.log('Response:', response);
-
-      const data = await response.json();
-
-      if (response.status === 200) {
-        console.log('File successfully deleted:', data );
-        totalFileCount -= 1;
-      } else {
-        console.error('Error:', response.error);
-      }
-    } catch (err) {
-      console.error('Unexpected error during file deletion:', (err as Error).message);
-    }
-  }
-
-  function countdownFrom40() {
-    counter = 40;
-    if(intervalId) clearInterval(intervalId);
-    intervalId = setInterval(() => {
-      if (counter <= 0) {
-        clearInterval(intervalId);
-      } else {
-        counter--;
-      }
-    }, 1000);
-  }
-
-  async function fetchOAuthUrl(service: string) {
-    console.log('Fetching OAuth URL for:', service);
-    console.log('Current bot:', $currentBot.id);
-    try {
-      const response = await fetch(`/api/data-sources/oauth-url`, {
-        method: 'POST',
-        body: JSON.stringify({
-          customerId: $currentBot.id,
-          service
-        })
-      });
-
-      const data = await response.json();
-      const url = data?.oauth_url;
-      console.log('OAuth URL:', url);
-
-
-      if (response.status === 200) {
-        
-      } else {
-        console.error('Error:', response.error);
-      }
-    } catch (err) {
-      console.error('Unexpected error:', (err as Error).message);
-    }
-  }
 </script>
 
-<label for="notion" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
+<label for="notion" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-full modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
   <div class="bg-gradient-to-tr from-slate-300 to-slate-500 text-transparent bg-clip-text text-xl">
-    <!-- <img src="/notion.png" class="max-w-full max-h-full object-contain" alt=""> -->
-    Notion
+    <img src="/notion-white.png" class="w-48 -m-8 mx-auto" alt="">
   </div>
 </label>
 
@@ -207,7 +43,7 @@
   <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-500 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
     <div class="flex items-center justify-between mx-8">
       <div class="flex">
-        <h3 class="py-1 font-bold text-3xl rounded-xl text-zinc-400">Files</h3>
+        <h3 class="py-1 font-bold text-3xl rounded-xl text-zinc-400">Notion</h3>
       </div>
 
             <!-- tabs -->
@@ -226,7 +62,7 @@
                   on:click={() => activeTab = 'trained'}
                   class:tab-active={activeTab === 'trained'}
                 >
-                  Trained <span class="{totalFileCount < 30 || totalFileCount === undefined ? 'mx-1' : 'text-red-500 mx-1'}">({totalFileCount}/30 Total Files)</span>
+                  Trained <span class=""></span>
                 </button>
               </div>
             </div>
@@ -246,77 +82,21 @@
     {/if}
     
     <section class="w-full h-5/6 rounded-xl my-4">
-      <!-- Content -->
-
-      <!-- Upload -->
-      {#if activeTab === 'upload'}
-       
-      <button 
-        class="btn btn-primary"
-        on:click={() => {
-          fetchOAuthUrl('NOTION');
-        }}
-      >
-        Connect to Notion
+     
+<div class="rounded-lg border-1 border-slate-900 bg-slate-700 text-card-foreground shadow-sm">
+  <div class="flex flex-col space-y-1.5 p-6">
+    <h3 class="text-2xl text-secondary font-semibold whitespace-nowrap leading-none tracking-tight">Connect Your Notion Account</h3>
+    <div class="py-2">
+      <button class="inline-flex gap-2 items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-black hover:bg-primary/90 h-10 px-4 py-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cable"><path d="M4 9a2 2 0 0 1-2-2V5h6v2a2 2 0 0 1-2 2Z"/><path d="M3 5V3"/><path d="M7 5V3"/><path d="M19 15V6.5a3.5 3.5 0 0 0-7 0v11a3.5 3.5 0 0 1-7 0V9"/><path d="M17 21v-2"/><path d="M21 21v-2"/><path d="M22 19h-6v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2Z"/></svg>
+        Connect
       </button>
-      {/if}
-
-      <!-- Trained -->
-      {#if activeTab === 'trained'}
-      <div class="w-full h-full px-7 pt-8 overflow-y-auto bg-slate-900 bg-opacity-60 rounded-xl">
-        <table class="table table-xs">
-          <thead>
-            <tr class="text-md font-bold text-secondary">
-              <th>No.</th>
-              <th>Title</th>
-              <th>Status</th>
-              <th>Id</th>
-            </tr>
-          </thead>
-          <tbody>
-            {#each filesTrained as file, i}
-            <tr id={file.id} class="p-.05">
-              <td class="text-primary"> {i + 1} </td>
-              <td class="text-primary w-1/2 /overflow-x-auto"> {file.name} </td>
-              {#if file.sync_status === 'READY'}
-                <td class="text-primary">
-                  <div class="badge badge-success badge-outline w-20">
-                    Ready
-                  </div>
-                </td>
-                {:else if file.sync_status === 'QUEUED_FOR_SYNC' || file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'SYNCING'}
-                <td class="text-primary">
-                  <div class="badge badge-warning badge-outline w-20">
-                    Pending
-                  </div>
-                </td>
-                {:else if file.sync_status === 'SYNC_ERROR'}
-                <td class="text-primary">
-                  <div class="badge badge-error badge-outline w-20">
-                    Error
-                  </div>
-                </td>
-              {/if}
-              <td class="text-primary"> {file.id} </td>
-              <td>
-                <button 
-                  class="btn btn-secondary btn-sm" 
-                  on:click={() => {
-                    removeFile(file.id);
-                    //@ts-ignore
-                    filesTrained = filesTrained.filter((item) => item.id !== file.id);
-                  }
-                }
-                >
-                  Remove
-                </button>
-              </td>
-            </tr>
-          {/each}
-          </tbody>
-        </table>
-      </div>
-    {/if}
+    </div>
+    <div class="">
+      <Instructions/>
+    </div>
+  </div>
+</div>
     </section>
   </div>
 </div>
