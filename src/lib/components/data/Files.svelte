@@ -17,6 +17,7 @@
   let counter: number;
   let intervalId: any;
   let timeoutId: any;
+  $: remainingFilesBudget = ($currentBot.settings.dataFunnelSettings?.files?.maxFiles ?? 30) - totalFileCount;
 
   // values
   let acceptableFileExtensions = ['pdf', 'txt', 'docx', 'csv', 'xlsx', 'md', 'rtf', 'tsv', 'pptx', 'json'];
@@ -131,8 +132,7 @@
     const result = [];
     try {
 
-      console.log('Urls:', urls);
-      console.log('length:', urls.length);
+
       for(let i = 0; i < urls.length; i++) {
         const url = urls[i];
         const jsonData = JSON.stringify({
@@ -289,6 +289,9 @@
 
                 if(totalFileCount >= ($currentBot.settings.dataFunnelSettings?.files?.maxFiles ?? 30)) {
                   $alert = { msg: `You have reached the ${$currentBot.settings.dataFunnelSettings?.files?.maxFiles ?? 30} file limit`, type: 'error' };
+                  return;
+                } else if(filesToUpload.length > remainingFilesBudget) {
+                  $alert = { msg: `You can only upload ${remainingFilesBudget} files remaining and currently there are ${filesToUpload.length} selected to be uploaded`, type: 'error' };
                   return;
                 }
 
