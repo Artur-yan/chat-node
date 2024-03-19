@@ -26,7 +26,7 @@
 		</svg>
 	</button>
 	<div class="body grid transition-all duration-500 opacity-0 bg-slate-800" aria-hidden>
-		<div class="overflow-hidden">
+		<div class="overflow-x-hidden">
 			<slot />
 		</div>
 	</div>
