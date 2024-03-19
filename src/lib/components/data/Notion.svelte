@@ -1,6 +1,7 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
 	import Instructions from '../Instructions.svelte';
+	import Instructions2 from '../Instructions2.svelte';
   
   // state
 	let isModalOpen = false;
@@ -25,6 +26,28 @@
 
   $: if (filesTrained.length === 0) {
     hasQueuedFiles = false;
+  }
+
+  async function fetchOAuthUrl() {
+    console.log('fetchOAuthUrl');
+    try {
+      const response = await fetch('/api/data-sources/generate-oauth-link', {
+        method: 'POST',
+        body: JSON.stringify({
+          botId: $currentBot.id,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 200) {
+        console.log('data:', data);
+      } else {
+        alert.set({ message: data.error, type: 'error' });
+      }
+    } catch (err) {
+      alert.set({ message: (err as Error).message, type: 'error' });
+    }
   }
 
 
@@ -87,15 +110,18 @@
   <div class="flex flex-col space-y-1.5 p-6">
     <h3 class="text-2xl text-secondary font-semibold whitespace-nowrap leading-none tracking-tight">Connect Your Notion Account</h3>
     <div class="py-2">
-      <button class="inline-flex gap-2 items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-black hover:bg-primary/90 h-10 px-4 py-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cable"><path d="M4 9a2 2 0 0 1-2-2V5h6v2a2 2 0 0 1-2 2Z"/><path d="M3 5V3"/><path d="M7 5V3"/><path d="M19 15V6.5a3.5 3.5 0 0 0-7 0v11a3.5 3.5 0 0 1-7 0V9"/><path d="M17 21v-2"/><path d="M21 21v-2"/><path d="M22 19h-6v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2Z"/></svg>
+      <a href="https://www.notion.so/install-integration?response_type=code&client_id=3ba2da6c-b5d9-44c2-802f-03b5465a8349&redirect_uri=https%3A%2F%2Fintegrations.chatnode.ai%2Fintegrations%2Fnotion&owner=user" target="_blank">
+        <button 
+        class="inline-flex gap-2 items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-black hover:bg-primary/90 h-10 px-4 py-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cable"><path d="M4 9a2 2 0 0 1-2-2V5h6v2a2 2 0 0 1-2 2Z"/><path d="M3 5V3"/><path d="M7 5V3"/><path d="M19 15V6.5a3.5 3.5 0 0 0-7 0v11a3.5 3.5 0 0 1-7 0V9"/><path d="M17 21v-2"/><path d="M21 21v-2"/><path d="M22 19h-6v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2Z"/></svg>
         Connect
       </button>
-    </div>
-    <div class="">
-      <Instructions/>
-    </div>
+    </a>
   </div>
+</div>
+<div class="mx-auto">
+  <Instructions/>
+</div>
 </div>
     </section>
   </div>
