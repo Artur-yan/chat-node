@@ -291,7 +291,7 @@
                   $alert = { msg: `You have reached the ${$currentBot.settings.dataFunnelSettings?.files?.maxFiles ?? 30} file limit`, type: 'error' };
                   return;
                 } else if(filesToUpload.length > remainingFilesBudget) {
-                  $alert = { msg: `You can only upload ${remainingFilesBudget} files remaining and currently there are ${filesToUpload.length} selected to be uploaded`, type: 'error' };
+                  $alert = { msg: `Remaining file budget: ${remainingFilesBudget} and currently there are ${filesToUpload.length} selected to be uploaded`, type: 'error' };
                   return;
                 }
 
