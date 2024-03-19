@@ -1,7 +1,5 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
-
-  export let totalFileCount: number;
   
   // state
 	let isModalOpen = false;
@@ -21,176 +19,14 @@
 
   // conditions
   $: if(isModalOpen === true) {
-    activeTab = 'upload';
-    fetchUserData();
-        //@ts-ignore
-    (async () => {
-      totalFileCount = await fetchTotalFileCount() || 0;
-    })();
+   
   }
 
   $: if (filesTrained.length === 0) {
     hasQueuedFiles = false;
   }
 
-  async function fetchTotalFileCount() {
-    try {
-      const response = await fetch('/api/data-sources/total-file-count', {
-        method: 'POST',
-        body: JSON.stringify({
-          customerId: $currentBot.id,
-        })
-      });
 
-      const data = await response.json();
-
-      if (response?.status === 200) {
-        return data?.count || 0
-      } else {
-        console.error('Error:', response.error);
-      }
-    } catch (err) {
-      console.error('Unexpected error:', (err as Error).message);
-    }
-  }
-
-  async function fetchUserData() {
-    try {
-      const response = await fetch('/api/data-sources/user-files', {
-        method: 'POST',
-        body: JSON.stringify({
-          customerId: $currentBot.id,
-          fileTypes: ["PDF", "TEXT", "XLSX", "CSV", "DOCX", "MD", "RTF", "TSV", "PPTX", "JSON"],
-          limit: 250,
-          offset: 0
-        })
-      });
-
-      const data = await response.json();
-
-      if (response?.status === 200) {
-        filesTrained = data?.results || [];
-        console.log('Files trained:', filesTrained);
-
-        // Retry
-        hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC');
-        console.log('Has queued files & will be attempted again --->', hasQueuedFiles);
-
-        if (hasQueuedFiles && isModalOpen) {
-          countdownFrom40();
-          if(timeoutId) clearTimeout(timeoutId);
-          timeoutId = setTimeout(() => {
-            fetchUserData();
-          }, 40000);
-        }
-
-      return data;
-
-      } else {
-        console.error('Error:', response.error);
-      }
-    } catch (err) {
-      console.error('Unexpected error:', (err as Error).message);
-    }
-  }
-
-  function handleFilesChange(event: any) {
-    filesToUpload = Array.from(event.target.files);
-  }
-  
-  async function uploadFiles() {
-    const chunkSize = $currentBot.settings.dataFunnelSettings?.files?.chunkSize ? $currentBot.settings.dataFunnelSettings?.files?.chunkSize : 400;
-    const chunkOverlap = $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap : 20;
-    try {
-
-    const form = new FormData();
-
-    form.append("file", filesToUpload[0]);
-    form.append('bot_id', $currentBot.id)
-    form.append('chunkSize', chunkSize)
-    form.append('chunkOverlap', chunkOverlap)
-
-     const response = await fetch(`/api/data-sources/files`, {
-					method: 'POST',
-					body: form
-				});
-
-    const data = await response.json()
-
-      if (response.status === 200) {
-        totalFileCount += 1;
-        return data;
-      } else {
-        console.error('Error:', response.error.message);
-      }
-    } catch (err) {
-      console.error('Unexpected error:', (err as Error).message);
-    }
-  }
-
-  async function removeFile(fileId: string) {
-    try {
-      const response = await fetch(`/api/data-sources/delete-file`, {
-        method: 'POST',
-        body: JSON.stringify({
-          customerId: $currentBot.id,
-          fileId
-        })
-      });
-
-      console.log('Response:', response);
-
-      const data = await response.json();
-
-      if (response.status === 200) {
-        console.log('File successfully deleted:', data );
-        totalFileCount -= 1;
-      } else {
-        console.error('Error:', response.error);
-      }
-    } catch (err) {
-      console.error('Unexpected error during file deletion:', (err as Error).message);
-    }
-  }
-
-  function countdownFrom40() {
-    counter = 40;
-    if(intervalId) clearInterval(intervalId);
-    intervalId = setInterval(() => {
-      if (counter <= 0) {
-        clearInterval(intervalId);
-      } else {
-        counter--;
-      }
-    }, 1000);
-  }
-
-  async function fetchOAuthUrl(service: string) {
-    console.log('Fetching OAuth URL for:', service);
-    console.log('Current bot:', $currentBot.id);
-    try {
-      const response = await fetch(`/api/data-sources/oauth-url`, {
-        method: 'POST',
-        body: JSON.stringify({
-          customerId: $currentBot.id,
-          service
-        })
-      });
-
-      const data = await response.json();
-      const url = data?.oauth_url;
-      console.log('OAuth URL:', url);
-
-
-      if (response.status === 200) {
-        
-      } else {
-        console.error('Error:', response.error);
-      }
-    } catch (err) {
-      console.error('Unexpected error:', (err as Error).message);
-    }
-  }
 </script>
 
 <label for="notion" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-1/6 modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
@@ -226,7 +62,7 @@
                   on:click={() => activeTab = 'trained'}
                   class:tab-active={activeTab === 'trained'}
                 >
-                  Trained <span class="{totalFileCount < 30 || totalFileCount === undefined ? 'mx-1' : 'text-red-500 mx-1'}">({totalFileCount}/30 Total Files)</span>
+                  Trained <span class=""></span>
                 </button>
               </div>
             </div>
