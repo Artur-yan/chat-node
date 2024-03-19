@@ -1,6 +1,7 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
   import { SupabaseClient, createClient } from '@supabase/supabase-js';
+	import { Result } from 'postcss';
   import { v4 as uuidv4 } from 'uuid';
 
   export let totalFileCount: number;
@@ -103,50 +104,62 @@
     filesToUpload = Array.from(event.target.files);
   }
 
-  async function getFileUrl() {
-    const { data, error } = await supabase.storage.from('files').upload(`${$currentBot.id}/${uuidv4()}-` + filesToUpload[0]?.name, filesToUpload[0]);
+  async function getFileUrl(files: [] = filesToUpload) {
+    const result = [];
 
-    if (error) {
+    for(let i = 0; i < files.length; i++) {
+      const { data, error } = await supabase.storage.from('files').upload(`${$currentBot.id}/${uuidv4()}-` + filesToUpload[i]?.name, filesToUpload[i]);
+      if (error) {
       // Handle error
       console.error('Error:', error);
-    } else {
-      // Handle success
-      const { data: signedUrlData, error: signedUrlError } = await supabase.storage
-      .from('files')
-      .createSignedUrl(data.path, 60 * 15); 
+      } else {
+        // Handle success
+        const { data: signedUrlData, error: signedUrlError } = await supabase.storage
+        .from('files')
+        .createSignedUrl(data.path, 60 * 15); 
 
-      return signedUrlData?.signedUrl || '';
+        // return signedUrlData?.signedUrl || '';
+        result.push(signedUrlData?.signedUrl);
+      }
     }
+    return result;
   }
   
-  async function uploadFiles(url: string) {
+  async function uploadFiles(urls: []) {
     const chunkSize = $currentBot.settings.dataFunnelSettings?.files?.chunkSize ? $currentBot.settings.dataFunnelSettings?.files?.chunkSize : 400;
     const chunkOverlap = $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.files?.chunkOverlap : 20;
+    const result = [];
     try {
 
-    const jsonData = JSON.stringify({
-      bot_id: $currentBot.id,
-      chunk_size : chunkSize,
-      chunk_overlap : chunkOverlap,
-      url,
-      file_name: filesToUpload[0].name,
-      file_type: filesToUpload[0].name.split('.').pop(),
-    });
+      console.log('Urls:', urls);
+      console.log('length:', urls.length);
+      for(let i = 0; i < urls.length; i++) {
+        const url = urls[i];
+        const jsonData = JSON.stringify({
+          bot_id: $currentBot.id,
+          chunk_size : chunkSize,
+          chunk_overlap : chunkOverlap,
+          url,
+          file_name: filesToUpload[i].name,
+          file_type: filesToUpload[i].name.split('.').pop(),
+        });
 
+        const response = await fetch(`/api/data-sources/files-from-link`, {
+          method: 'POST',
+          body: jsonData
+        });
 
-     const response = await fetch(`/api/data-sources/files-from-link`, {
-					method: 'POST',
-					body: jsonData
-				});
+       const data = await response.json()
+       result.push(data);
 
-    const data = await response.json()
-
-      if (response.status === 200) {
-        totalFileCount += 1;
-        return data;
-      } else {
-        console.error('Error:', response.error.message);
+        if (response.status === 200) {
+          totalFileCount += 1;
+          // return data;
+        } else {
+          console.error('Error:', response.error.message);
+        }
       }
+      return result;
     } catch (err) {
       console.error('Unexpected error:', (err as Error).message);
     }
@@ -249,8 +262,9 @@
        <div class="flex-1 m-16">
 				<form method="post" enctype="multipart/form-data" class="join w-full">
 					<input
-						name="chat-button-img"
+						name="file-in-question"
 						type="file"
+            multiple
 						accept=".txt, .pdf, .docx, .csv, .xlsx, .md, .rtf, .tsv, .pptx, .json"
 						class="join-item file-input file-input-bordered w-full"
 						on:change={() => handleFilesChange(event)}
@@ -279,13 +293,13 @@
                 }
 
                 isUploading = true;
-                const fileUrl = await getFileUrl();
-                if(!fileUrl) {
+                const fileUrls = await getFileUrl();
+                if(!fileUrls || fileUrls.length === 0) {
                   $alert = { msg: 'The file failed to upload', type: 'error' };
                   isUploading = false;
                   return
                 }
-                const files = await uploadFiles(fileUrl);
+                const files = await uploadFiles(fileUrls);
                 filesTrained = [... filesTrained, files]
                 filesTrained = filesTrained.flat();
                 filesToUpload = [];

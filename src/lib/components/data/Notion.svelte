@@ -32,7 +32,7 @@
 
 <label for="notion" class="btn bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 w-full h-full modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1"> 
   <div class="bg-gradient-to-tr from-slate-300 to-slate-500 text-transparent bg-clip-text text-xl">
-    <img src="/notion-white.png" class="-m-8 mx-auto" alt="">
+    <img src="/notion-white.png" class="w-48 -m-8 mx-auto" alt="">
   </div>
 </label>
 
