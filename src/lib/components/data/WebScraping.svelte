@@ -465,7 +465,7 @@
           <Accordian> 
             <div slot="title" class="items-center w-full">
               <div class="flex justify-between">
-                <td class="flex items-center gap-2 text-primary w-1/2 overflow-x-auto">
+                <td class="flex items-center gap-2 text-primary w-1/2" style="word-break: break-all;">
                   {parentUrl.parent} 
                   {#if parentUrl.pendingCount > 0}
                     <span class="loading loading-spinner text-warning w-5"></span>
@@ -503,7 +503,11 @@
                 <tbody>
                   {#each parentUrl.children as childUrl}
                   <tr id={childUrl.id} class="p-.05">
-                    <td class="text-primary w-1/2 overflow-x-auto"> <a class="hover:underline" href="{childUrl.external_url}" target="_blank">{childUrl.external_url}</a></td>
+                    <td class="text-primary w-1/2 overflow-x-auto text-wrap" style="word-break: break-all;"> 
+                      <a class="hover:underline" href="{childUrl.external_url}" target="_blank">
+                        {childUrl.external_url}
+                      </a>
+                    </td>
                     {#if childUrl.sync_status === 'READY'}
                     <td class="text-primary">
                       <div class="badge badge-success badge-outline w-20">
