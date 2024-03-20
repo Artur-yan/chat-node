@@ -150,7 +150,7 @@
 	}
 
 	onMount(() => {
-		if('pinecone instance' && 'etc') {
+		if(!$currentBot.settings.dataFunnelV2 && $currentBot.pinecone_info.PINECONE_INDEX === 'f19ba9da0989bc650ed2ffc95ad798df') {
 			my_modal_1.showModal();
 		}
 
