@@ -203,9 +203,9 @@
   }
 </script>
 
-<label for="files" class="btn bg-gradient-to-r from-slate-400 to-slate-600 hover:bg-slate-700 w-full h-full modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1 border-1 border-slate-600"> 
-  <div class="bg-gradient-to-tr from-slate-900 to-slate-950 text-transparent bg-clip-text text-xl">
-    + Files
+<label for="files" class="btn bg-gradient-to-r from-slate-400 to-slate-500 hover:bg-slate-700 w-full h-full modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1 border-1 border-slate-600"> 
+  <div class="bg-gradient-to-tr from-slate-900 to-slate-950 text-transparent bg-clip-text text-2xl">
+    Files
   </div>
 </label>
 

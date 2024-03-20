@@ -53,7 +53,7 @@
 
 </script>
 
-<label for="notion" class="btn bg-gradient-to-r from-slate-400 to-slate-600 hover:bg-slate-700 w-full h-full modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1 border-1 border-slate-600"> 
+<label for="notion" class="btn bg-gradient-to-r from-slate-400 to-slate-500 hover:bg-slate-700 w-full h-full modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1 border-1 border-slate-600"> 
   <div class="bg-gradient-to-tr from-slate-300 to-slate-500 text-transparent bg-clip-text text-xl">
     <img src="/notion.png" class="w-40 -m-8 mx-auto my-auto" alt="">
   </div>

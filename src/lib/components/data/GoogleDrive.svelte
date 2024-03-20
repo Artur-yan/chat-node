@@ -53,7 +53,7 @@
 
 </script>
 
-<label for="google-drive" class="btn bg-gradient-to-r from-slate-400 to-slate-600 hover:bg-slate-700 w-full h-full modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1 border-1 border-slate-600"> 
+<label for="google-drive" class="btn bg-gradient-to-r from-slate-400 to-slate-500 hover:bg-slate-700 w-full h-full modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1 border-1 border-slate-600"> 
   <div class="bg-gradient-to-tr from-slate-300 to-slate-500 text-transparent bg-clip-text text-xl">
     <img src="/google-drive-logo.png" class="w-40 -m-8 mx-auto my-auto" alt="">
   </div>
@@ -66,7 +66,7 @@
   <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-500 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
     <div class="flex items-center justify-between mx-8">
       <div class="flex">
-        <h3 class="py-1 font-bold text-3xl rounded-xl text-zinc-400">Notion</h3>
+        <h3 class="py-1 font-bold text-3xl rounded-xl text-zinc-400">Google Drive</h3>
       </div>
 
             <!-- tabs -->
@@ -108,7 +108,7 @@
      
 <div class="rounded-lg border-1 border-slate-900 bg-slate-700 text-card-foreground shadow-sm">
   <div class="flex flex-col space-y-1.5 p-6">
-    <h3 class="text-2xl text-secondary font-semibold whitespace-nowrap leading-none tracking-tight">Connect Your Notion Account</h3>
+    <h3 class="text-2xl text-secondary font-semibold whitespace-nowrap leading-none tracking-tight">Connect Your Google Drive Account</h3>
     <div class="py-2">
       <a href="https://www.notion.so/install-integration?response_type=code&client_id=3ba2da6c-b5d9-44c2-802f-03b5465a8349&redirect_uri=https%3A%2F%2Fintegrations.chatnode.ai%2Fintegrations%2Fnotion&owner=user" target="_blank">
         <button 
