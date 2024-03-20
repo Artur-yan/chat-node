@@ -18,7 +18,6 @@
   let currentPage: number = 1;
   let totalUrlCount: number = 0;
   $: remainingUrlBudget = ($currentBot.settings.dataFunnelSettings?.webScraping?.maxPageToScrape ?? 1000) - totalUrlCount;
-  $: console.log('Remaining URL Budget:', remainingUrlBudget);
 
   // Values
   let baseUrl = '';
@@ -179,10 +178,6 @@
 
   async function submitWebScraping(urls: string[], recursionDepth: number = 10, baseSitemapOrigin: string = '') {
     try {
-      if (recursionDepth === 0) { // we are using sitemap
-        maxPagesToScrape = 1
-      }
-
       const chunkSize = $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize ? $currentBot.settings.dataFunnelSettings?.webScraping?.chunkSize : 400;
       const chunkOverlap = $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap ? $currentBot.settings.dataFunnelSettings?.webScraping?.chunkOverlap : 20;
       const enableAutoSync = $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync ? $currentBot.settings.dataFunnelSettings?.webScraping?.enableAutoSync : false;
