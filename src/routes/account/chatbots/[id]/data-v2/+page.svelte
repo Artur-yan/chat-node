@@ -48,8 +48,8 @@
 		<WebScraping/>
 		<Files {totalFileCount} credentials={data.cred}/>
 		<Text {totalFileCount}/>
-    <Notion />
-    <GoogleDrive />
+    <!-- <Notion />
+    <GoogleDrive /> -->
 	</div>
 	<div>
 		<div
