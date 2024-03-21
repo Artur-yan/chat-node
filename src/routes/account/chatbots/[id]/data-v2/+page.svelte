@@ -6,6 +6,7 @@
 	import Files from '$lib/components/data/Files.svelte';
 	import Text from '$lib/components/data/Text.svelte';
 	import Notion from '$lib/components/data/Notion.svelte';
+	import GoogleDrive from '$lib/components/data/GoogleDrive.svelte';
 
 	export let data;
 
@@ -43,11 +44,12 @@
 </svelte:head>
 
 <div class="container grid md:grid-cols-2 lg:grid-cols-[auto_32rem] gap-4 my-4">
-	<div class="grid grid-cols-3 gap-6 my-4 max-h-[100px]">
+	<div class="grid grid-cols-3 gap-6 my-4 max-h-[125px]">
 		<WebScraping/>
 		<Files {totalFileCount} credentials={data.cred}/>
 		<Text {totalFileCount}/>
-    <!-- <Notion /> -->
+    <!-- <Notion />
+    <GoogleDrive /> -->
 	</div>
 	<div>
 		<div

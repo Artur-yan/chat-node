@@ -100,6 +100,9 @@ const defaultSettings = {
 	msgLimit: 200,
 	crispEnabled: false,
 	crispButtonText: 'Talk to a human',
+	policyEnabled: false,
+	policyLink: '',
+	policyText: '',
 	statusEnabled: true,
 	dataFunnelV2: true,
 	dataFunnelSettings: {
