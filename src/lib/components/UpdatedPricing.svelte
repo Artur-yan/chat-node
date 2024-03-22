@@ -239,31 +239,25 @@
                 <span class="text-4xl font-bold tracking-tight text-gray-100">{isAnnual ? "$50" : "$59"}</span>
                 <span class="text-base font-semibold leading-7 text-gray-100">/ Month</span>
               </div>
-              <p class="mt-6 text-base leading-7 text-gray-800 font-bold">14-days free trial</p>
+              <p class="mt-6 text-base leading-7 text-gray-800 font-bold">2-week free trial</p>
               <ul class="mt-10 space-y-4 text-sm leading-6 text-gray-600">
                 <li class="flex items-center gap-x-3 text-white">
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                   </svg>
-                  5,000 messages credit*
+                  1 user
                 </li>
                 <li class="flex gap-x-3 text-white">
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                   </svg>
-                  500,000 tokens per bot
+                  5,000 bot answers
                 </li>
                 <li class="flex gap-x-3 text-white">
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                   </svg>
                   3 chatbots
-                </li>
-                <li class="flex gap-x-3 text-white">
-                  <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                  </svg>
-                  Unlimited data sources
                 </li>
                 <li class="flex gap-x-3 text-white">
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -293,7 +287,13 @@
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                   </svg>
-                  Customize chatbot design
+                  Customise chatbot design
+                </li>
+                <li class="flex gap-x-3 text-white">
+                  <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                  API access
                 </li>
               </ul>
             </div>
@@ -332,7 +332,7 @@
                 <span class="text-4xl font-bold tracking-tight text-gray-100">{isAnnual ? "$83" : "$99"}</span>
                 <span class="text-base font-semibold leading-7 text-gray-100">/ Month</span>
               </div>
-              <p class="mt-4 text-base leading-7 text-gray-800 font-bold">14-days free trial</p>
+              <p class="mt-4 text-base leading-7 text-gray-800 font-bold">2-week free trial</p>
               <ul class="mt-10 space-y-4 text-sm leading-6 text-gray-100">
                 <li class="flex gap-x-3">
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -344,15 +344,15 @@
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                   </svg>
-                  10,000 messages credit*
+                  10,000 bot answers
                 </li>
                 <li class="flex gap-x-3">
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                   </svg>
-                  Unlimited messages with OpenAI key
+                  5 chatbots
                 </li>
-                <li class="flex gap-x-3">
+                <!-- <li class="flex gap-x-3">
                   <svg class="h-6 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                   </svg>
@@ -369,7 +369,7 @@
                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                   </svg>
                   Remove "Powered by ChatNode"
-                </li>
+                </li> -->
               </ul>
             </div>
             {#if currentPlan === -1 || currentPlan === 0 || isCanceled}
