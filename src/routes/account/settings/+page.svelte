@@ -154,7 +154,7 @@
 				{/if}
 			</div>
 		</div>
-		{#if ![0, 1, 101].includes(data.subscription.plan)}
+		{#if [1001, 1002, 1003, 1004, 1005, 1006].includes(data.subscription.plan)}
 			<form class="card bg-neutral">
 				<div class="card-body">
 					<h2 class="card-title">Default OpenAI API Key</h2>
