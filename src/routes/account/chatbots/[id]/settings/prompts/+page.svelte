@@ -2,6 +2,17 @@
 	import { currentBot } from '$lib/stores.js';
 	import { personalities } from '$lib/models.js';
 	import Modal from '$lib/components/Modal.svelte';
+	import AdditionalSystemPrompts from '$lib/components/AdditionalSystemPrompts.svelte';
+
+	let newPromptName = '';
+
+	if ($currentBot.id === '873866e8012e60bd' && !$currentBot.settings.systemPrompts) {
+		$currentBot.settings.systemPrompts = {
+			'1': 'I am a language model AI assistant. I am here to help you with your queries. Please ask me anything.',
+			'2': 'I am a language model AI assistant. I am here to help you with your queries. Please ask me anything.',
+			'3': 'I am a language model AI assistant. I am here to help you with your queries. Please ask me anything.'
+		};
+	}
 
 	const addSuggestedQuestion = () => {
 		$currentBot.settings.suggestedQuestions = [
@@ -39,13 +50,69 @@
 	<div>
 		<label for="system-prompt" class="label">
 			<span class="label-text">
-				System Prompt <span
+				{$currentBot.id === '873866e8012e60bd' ? 'Default System Prompt' : 'System Prompt'} <span
 					class="tooltip tooltip-right badge"
 					data-tip="The system prompt helps set the behavior of the assistant. If properly crafted, the system prompt can be used to set the tone and the kind of response by the model. The default system prompt prevents hallucination from the assistant and replies only based on the trained data"
 				>
 					?
 				</span>
 			</span>
+
+			<!-- dropdown
+			<details class="dropdown">
+				<summary class="m-1 btn font-medium">Additional Prompts</summary>
+				<ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+				{#if $currentBot.settings.systemPrompts && Object.keys($currentBot.settings.systemPrompts).length > 0}
+						{#each $currentBot.settings.systemPrompts as prompt}
+							<li>
+								{prompt}
+								hey
+							</li>
+						{/each}
+					{/if} 
+				</ul>
+			</details> -->
+
+		{#if $currentBot.id === '873866e8012e60bd'}
+			<label for="prompt_modal" class="btn btn-primary btn-sm btn-outline text-xs pr-1">			
+				New Prompt
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+					<path
+						fill="currentColor"
+						d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m2-8H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"
+					/>
+				</svg>
+			</label>
+		{/if}
+
+		<input type="checkbox" id="prompt_modal" class="modal-toggle" />
+		<div class="modal" role="dialog">
+			<div class="modal-box shadow-lg shadow-zinc-600">
+				<div class="flex justify-between items-center">
+					<h3 class="font-bold text-xl text-primary">Name your bot</h3>
+					<label for="prompt_modal" class="cursor-pointer text-secondary">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+						</svg>				
+					</label>
+				</div>
+				<input bind:value={newPromptName} type="text" placeholder="Type here" class="input input-bordered w-full my-4 border-primary" />
+				<div class="modal-action">
+					<button
+						class="btn btn-primary"
+						disabled={!newPromptName}
+						on:click={() => {
+							$currentBot.settings.systemPrompts[newPromptName] = '';
+							newPromptName = '';
+
+						}}
+					>
+					Create
+					</button>
+				</div>
+			</div>
+		</div>
+
 			<button
 				type="button"
 				class="btn btn-xs text-secondary"
@@ -83,6 +150,9 @@
 			/>
 		</div>
 	{/if}
+
+	<AdditionalSystemPrompts />
+	
 	<div>
 		<label for="temp" class="label">
 			<span class="label-text">
