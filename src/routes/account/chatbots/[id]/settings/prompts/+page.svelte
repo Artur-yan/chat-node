@@ -4,7 +4,11 @@
 	import Modal from '$lib/components/Modal.svelte';
 	import AdditionalSystemPrompts from '$lib/components/AdditionalSystemPrompts.svelte';
 
+	let promptModal: HTMLDialogElement
+	let checkBox: HTMLInputElement
 	let newPromptName = '';
+
+	$:console.log($currentBot.settings.systemPrompts);
 
 	if ($currentBot.id === '873866e8012e60bd' && !$currentBot.settings.systemPrompts) {
 		$currentBot.settings.systemPrompts = {
@@ -58,38 +62,11 @@
 				</span>
 			</span>
 
-			<!-- dropdown
-			<details class="dropdown">
-				<summary class="m-1 btn font-medium">Additional Prompts</summary>
-				<ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-				{#if $currentBot.settings.systemPrompts && Object.keys($currentBot.settings.systemPrompts).length > 0}
-						{#each $currentBot.settings.systemPrompts as prompt}
-							<li>
-								{prompt}
-								hey
-							</li>
-						{/each}
-					{/if} 
-				</ul>
-			</details> -->
-
-		{#if $currentBot.id === '873866e8012e60bd'}
-			<label for="prompt_modal" class="btn btn-primary btn-sm btn-outline text-xs pr-1">			
-				New Prompt
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-					<path
-						fill="currentColor"
-						d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m2-8H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"
-					/>
-				</svg>
-			</label>
-		{/if}
-
-		<input type="checkbox" id="prompt_modal" class="modal-toggle" />
-		<div class="modal" role="dialog">
+		<input type="checkbox" id="prompt_modal" class="modal-toggle" bind:this={checkBox}/>
+		<dialog class="modal" bind:this={promptModal}>
 			<div class="modal-box shadow-lg shadow-zinc-600">
 				<div class="flex justify-between items-center">
-					<h3 class="font-bold text-xl text-primary">Name your bot</h3>
+					<h3 class="font-bold text-xl text-primary">New Prompt's Title</h3>
 					<label for="prompt_modal" class="cursor-pointer text-secondary">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -104,14 +81,14 @@
 						on:click={() => {
 							$currentBot.settings.systemPrompts[newPromptName] = '';
 							newPromptName = '';
-
+							checkBox.checked = false;
 						}}
 					>
 					Create
 					</button>
 				</div>
 			</div>
-		</div>
+		</dialog>
 
 			<button
 				type="button"
@@ -149,6 +126,18 @@
 				maxlength="2400"
 			/>
 		</div>
+	{/if}
+
+	{#if $currentBot.id === '873866e8012e60bd'}
+		<label for="prompt_modal" class="btn btn-primary btn-sm btn-outline text-xs my-4 pr-1">			
+			Create Additional Prompt
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+				<path
+					fill="currentColor"
+					d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m2-8H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"
+				/>
+			</svg>
+		</label>
 	{/if}
 
 	<AdditionalSystemPrompts />

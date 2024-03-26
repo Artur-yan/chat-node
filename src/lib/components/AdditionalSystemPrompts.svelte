@@ -3,10 +3,10 @@
 </script>
 
 {#each Object.entries($currentBot.settings.systemPrompts) as prompt}
-  <div class="flex">
+  <div class="flex items-center gap-3 m-4">
     <h2 class="my-3">{prompt[0]}</h2>
   <button
-    class="btn btn-sm btn-primary"
+    class="btn btn-xs btn-primary"
     on:click={() => {
       delete $currentBot.settings.systemPrompts[prompt[0]];
       $currentBot.settings.systemPrompts = { ...$currentBot.settings.systemPrompts };
