@@ -1,44 +1,48 @@
 <script lang="ts">
 	import { PUBLIC_ENCODED_CHAT_API_URL } from '$env/static/public';
-	import { defaultSettings } from '$lib/models';
 	import { Remarkable } from 'remarkable';
-	import hljs from 'highlight.js';
-	import 'highlight.js/styles/github-dark.css';
-	import { goto } from '$app/navigation';
+	import { defaultSettings, type Message, type SuggestedQuestion } from '$lib/models';
 	import { onMount } from 'svelte';
+	import 'highlight.js/styles/github-dark.css';
+	import hljs from 'highlight.js';
 	import '$lib/assets/css/chat.postcss';
-	import ChatLinks from './ChatLinks.svelte';
-	import Button from './Button.svelte';
-	import { page } from '$app/stores';
-	import Feedback from './Feedback.svelte';
-	import PoweredByChatNode from './PoweredByChatNode.svelte';
+	import { v4 as uuidv4 } from 'uuid';
 
-	// export let removeBranding = true;
+	import ChatLinks from './chat/ChatLinks.svelte';
+	import Feedback from './chat/Feedback.svelte';
+	import PBCN from './chat/PBCN.svelte';
+	import ChatHeader from './chat/ChatHeader.svelte';
+	import Crisp from './chat/Crisp.svelte';
+	import SuggestedQuestions from './chat/SuggestedQuestions.svelte';
+	import Thinking from './chat/Thinking.svelte';
+	import SubmitButton from './chat/SubmitButton.svelte';
+
 	export let modelId: string;
 	export let disabled = false;
 	export let isThinking = false;
 	export let isResponding = false;
 	export let settings = defaultSettings;
 	export let showUserInfoCollection = true;
-	export let messages = [
+	export let messages: Message[] = [
 		{
+			id: uuidv4(),
 			text: settings.greeting,
 			sender: 'bot',
-			links: []
+			links: [],
+			status: 'done',
+			vote: 0
 		}
 	];
-
+	export let avatar: string | undefined = undefined;
 	export let userId: string;
 	export let usedForPreview: boolean = false;
 	export let plan: number;
 	export let customDomain: boolean;
 
-	let context = $page.url.searchParams.get('context');
-	let previousConversationId: string | null | undefined;
-
 	let agreedToPolicy = false;
 	let submittedInfo = false;
-  
+
+	// Initialize the markdown parser
 	const md = new Remarkable();
 
 	// Merge default settings with user settings
@@ -52,7 +56,6 @@
 		...settings
 	};
 
-	export let avatar: string | undefined = undefined;
 
 	if (!settings.theme) {
 		settings.theme = defaultSettings.theme;
@@ -66,6 +69,7 @@
 	let userInfoReceived = false;
 	let links: string[] | undefined = [];
 	let messageId: string | null = '';
+	const suggestedQuestions: SuggestedQuestion[] = settings.suggestedQuestions;
 
 	let endUserInfo = {
 		name: '',
@@ -115,34 +119,26 @@
 		collectUserInfo = false;
 	}
 
-		// Generate a random ID
-	const generateNewSessionId = () => {
-		return Math.random().toString(36).slice(2, 9) + '-' + Date.now();
-	};
-
 	onMount(() => {
-			const previousConversationJSON = localStorage.getItem('previous_convo_3495')
-			let previousConversationId;
+		const previousConversationJSON = localStorage.getItem('previous_convo_3495')
+		let previousConversationId: string | null | undefined;
 
-			if(previousConversationJSON) {
-				const previousConversationObj = JSON.parse(previousConversationJSON);
-				previousConversationId = previousConversationObj?.[modelId];
-			}
+		if(previousConversationJSON) {
+			const previousConversationObj = JSON.parse(previousConversationJSON);
+			previousConversationId = previousConversationObj?.[modelId];
+		}
 
 		if(previousConversationJSON && previousConversationId) {
-			console.log('Previous conversation found');
 			chatSessionId = previousConversationId;
 			continueConversation();
 		} else if (previousConversationJSON && !previousConversationId) {
-			console.log('No previous conversation found');
 			chatSessionId = generateNewSessionId();
 		} else if (!previousConversationJSON){
-			console.log('No previous conversation found at all');
 			chatSessionId = generateNewSessionId();
 		}
 
 		if (collectUserInfo) {
-			endUserInfo = JSON.parse(localStorage.getItem('enduserInfo')) || {};
+			endUserInfo = JSON.parse(localStorage.getItem('enduserInfo') || '{}');
 			if (!settings.collectUserName) {
 				endUserInfo.name = '';
 			}
@@ -168,7 +164,12 @@
 		}
 	});
 
-	const handleUserInfoSubmit = () => {
+	// Generate a random ID
+	const generateNewSessionId = (): string => {
+		return Math.random().toString(36).slice(2, 9) + '-' + Date.now();
+	};
+
+	const handleUserInfoSubmit = (): void => {
 		if (
 			(settings.collectUserName && !nameInputIsValid) ||
 			(settings.collectUserEmail && !emailInputIsValid) ||
@@ -181,16 +182,18 @@
 		initConversation();
 	};
 
-	const postProcessMsgHTML = (msgHTML) => {
+	const postProcessMsgHTML = (msgHTML: string): string => {
 		msgHTML = msgHTML.replace(/<a href=/g, '<a target="_blank" href=');
 		return msgHTML;
 	};
 
-	const addMessage = (message: string, sender = 'bot', links: string[]  = []) => {
-		messages = [...messages, { text: message, sender: sender, links: links}];
+	const addMessage = (message: string, sender: 'user' | 'human' | 'bot' = 'bot', links: string[]  = []): void => {
+		messages = [...messages, 
+			{ id: uuidv4(), text: message, sender: sender, links: links, status: 'done', vote: 0}
+		];
 	};
 
-	const queryModel = async (chatKey: string, chatSessionId: string, message: string, customMessage: string = '') => {
+	const queryModel = async (chatKey: string, chatSessionId: string, message: string, customMessage: string = ''): Promise<ReadableStreamDefaultReader<Uint8Array> | undefined> => {
 		messageId = null;
 		
 		if (customMessage && !settings.showSuggestedQuestionsPrompt) {
@@ -204,7 +207,6 @@
 		links = [];
 
 		let streamedMsg = '';
-
 		let chunksCount = 0;
 
 		try {
@@ -218,7 +220,6 @@
 					chat_session_id: chatSessionId
 				})
 			});
-			// const data = await res.json();
 			isThinking = false;
 
 			messageId = res.headers.get('x-message-id');
@@ -237,16 +238,16 @@
 			}
 
 			const data = res.body;
-			const reader = data.getReader();
-			reader.read().then(function pump({ done, value }) {
+			const reader = data?.getReader() as ReadableStreamDefaultReader<Uint8Array>;
+			reader.read().then(function pump({ done, value }): any{
 				isResponding = true;
 				if (done) {
 					// Do something with last chunk of data then exit reader
-					document.querySelectorAll('.message-body:last-child code').forEach((el) => {
+					document.querySelectorAll('.message-body:last-child code').forEach((el: any) => {
 						hljs.highlightElement(el);
 					});
 					isResponding = false
-					messages[messages.length - 1].id = messageId;
+					messages[messages.length - 1].id = messageId as string;
 					messages[messages.length - 1].status = 'done';
 					return;
 				}
@@ -268,7 +269,7 @@
 		}
 	};
 
-	const initConversation = async () => {
+	const initConversation = async (): Promise<void> => {
 		await fetch(`/api/chat-history/${chatSessionId}`, {
 			method: 'POST',
 			headers: {
@@ -297,7 +298,7 @@
 		}
 	};
 
-	const continueConversation = async () => {
+	const continueConversation = async (): Promise<void> => {
 		messages = [];
 		const response = await fetch(`/api/chat-history/${chatSessionId}`, {
 			method: 'GET',
@@ -308,7 +309,7 @@
 
 		const data = await response.json();
 
-		const processableMessages = data.map((msg: object) => {
+		const processableMessages: Message[] = data.map((msg: any) => {
 			return {
 				id: msg.id,
 				text: msg.message.data.content,
@@ -326,7 +327,7 @@
 		}
 	};
 
-	const submitQuery = () => {
+	const submitQuery = (): void => {
 		//Initalizations
 		if (messages.length === 1 && !collectUserInfo) {
 			initConversation();
@@ -353,11 +354,10 @@
 		}
 	};
 
-	const resetChat = () => {
+	const resetChat = (): void => {
 		messages = [];
 		addMessage(settings.greeting);
 		chatSessionId = generateNewSessionId();
-		
 		
 		const previousConversationJSON = localStorage.getItem('previous_convo_3495');
 		let conversationObj;
@@ -376,22 +376,16 @@
 		isThinking = false;
 	};
 
-	const askSuggestedQuestion = (question: string, label:string) => {
+	const askSuggestedQuestion = (question: string, label:string): void => {
 		inputVal = question;
-		
 		customMessage = label;
 		submitQuery();
 	};
-
-	const transferToCrisp = () => {
-		goto('https://go.crisp.chat/chat/embed/?website_id=' + settings.crispWebsiteId);
-	};
-
 </script>
 
 <svelte:head>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preconnect" href="https://fonts.gstatic.com"  crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap" rel="stylesheet">
 </svelte:head>
 
@@ -416,23 +410,14 @@
 		font-family: 'Mulish', sans-serif;"
 		class="flex h-full flex-col justify-between overflow-hidden flex-1 relative transition-colors ease-in-out duration-500"
 	>
+		<!-- Header -->
 		{#if settings?.headerEnabled && settings.publicTitle !== ''}
-			<header style="background-color: var(--headerBG);" class="flex px-6 py-4 items-center gap-3 shadow-md shadow-[var(--headerShadow)]">
-				<h1 class="font-bold text-lg" style="color: var(--headerTitle)">
-					{settings.publicTitle ? settings.publicTitle : ''}
-				</h1>
-				{#if settings.statusEnabled}
-				<span class="inline-flex items-center gap-x-1.5 rounded-md text-sm font-medium text-[--statusColor]">
-					<svg class="h-1.5 w-1.5 fill-[--statusColor]" viewBox="0 0 6 6" aria-hidden="true">
-						<circle cx="3" cy="3" r="3" />
-					</svg>
-					{settings.theme.statusMessage}
-				</span>
-				{/if}
-			</header>
+			<ChatHeader {settings} />
 		{/if}
-		{#if settings.dataFunnelV2 && !customDomain && !settings.removeBranding && (settings.removeBranding !== undefined || [5, 105, 6, 106].includes(plan))}
-			<PoweredByChatNode textColor={settings.theme.poweredByChatNodeColor} />
+
+		<!-- PBCN -->
+    {#if settings.dataFunnelV2 && !customDomain && !settings.removeBranding && (settings.removeBranding !== undefined && [0, 1001, 5, 105, 6, 106].includes(plan)) && plan !== 1006 && plan !== 1005}
+			<PBCN textColor={settings.theme.poweredByChatNodeColor} />
 		{/if}
 		<div class="flex-col-reverse flex flex-1 overflow-y-auto scroll-smooth h-0 basis-auto">
 			<div class="flex-1">
@@ -478,14 +463,14 @@
 									{#if (settings.feedbackEnabled || settings.feedbackEnabled === undefined) && msg.sender === 'bot' && msg.status === 'done' && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
 										<div class="flex justify-end w-full mt-1.5">
 											<Feedback 
-											message={msg} 
-											messageId={msg.id}
-											sessionId={chatSessionId}
-											vote={msg.vote} 
-											iconColor={settings.theme.feedbackIconColor} 
-											bgColor={settings.theme.feedbackBGColor}
-											fallbackBGColor={settings.theme.botBubbleBG}
-											fallbackIconColor={settings.theme.botBubbleText}
+												message={msg} 
+												messageId={msg.id}
+												sessionId={chatSessionId}
+												vote={msg.vote} 
+												iconColor={settings.theme.feedbackIconColor} 
+												bgColor={settings.theme.feedbackBGColor}
+												fallbackBGColor={settings.theme.botBubbleBG}
+												fallbackIconColor={settings.theme.botBubbleText}
 											/>
 										</div>
 									{/if}
@@ -497,54 +482,7 @@
 						{/each}
 					</slot>
 					{#if isThinking}
-						<div class="chat chat-start">
-							{#if avatar}
-								<div class="chat-image avatar">
-									<div class="w-10 rounded-full">
-										<img src={avatar} alt="" />
-									</div>
-								</div>
-							{/if}
-							<div
-								class="chat-bubble"
-								style="background-color: var(--botBubbleBG); color: var(--botBubbleText)"
-							>
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-									<circle cx="4" cy="12" r="3" fill="currentColor">
-										<animate
-											id="svgSpinners3DotsBounce0"
-											attributeName="cy"
-											begin="0;svgSpinners3DotsBounce1.end+0.25s"
-											calcMode="spline"
-											dur="0.6s"
-											keySplines=".33,.66,.66,1;.33,0,.66,.33"
-											values="12;6;12"
-										/>
-									</circle>
-									<circle cx="12" cy="12" r="3" fill="currentColor">
-										<animate
-											attributeName="cy"
-											begin="svgSpinners3DotsBounce0.begin+0.1s"
-											calcMode="spline"
-											dur="0.6s"
-											keySplines=".33,.66,.66,1;.33,0,.66,.33"
-											values="12;6;12"
-										/>
-									</circle>
-									<circle cx="20" cy="12" r="3" fill="currentColor">
-										<animate
-											id="svgSpinners3DotsBounce1"
-											attributeName="cy"
-											begin="svgSpinners3DotsBounce0.begin+0.2s"
-											calcMode="spline"
-											dur="0.6s"
-											keySplines=".33,.66,.66,1;.33,0,.66,.33"
-											values="12;6;12"
-										/>
-									</circle>
-								</svg>
-							</div>
-						</div>
+						<Thinking {avatar} />
 					{/if}
 				</div>
 				<div id="chat-bottom" class="h-1" />
@@ -554,41 +492,16 @@
 			<div>
 				<div class="relative">
 					{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
-						<div class="flex gap-1 mb-2 overflow-x-auto w-full mx-1.5">
-							<button
-							class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
-							type="button"
-							on:click={() => transferToCrisp()}
-							>
-								{settings.crispButtonText}
-							</button>
-						</div>
+						<Crisp {settings} />
 					{/if}
-					{#if settings.suggestedQuestions}
-						<div class="relative">
-							<div class="absolute right-[-1rem] top-0 bottom-0 w-12 z-1" style="background: linear-gradient(90deg, {settings.theme.bg}00, var(--bg) 96%);" />
-							<div class="flex gap-1 overflow-x-auto mb-2 w-full mx-1.5">
-								{#each settings.suggestedQuestions as question}
-									<!-- <Button
-										question={question}
-										bgColor={settings.theme.suggestedQuestionsBG}
-										functionToCall={askSuggestedQuestion}
-									/> -->
-									<button
-										class="btn btn-sm text-xs normal-case bg-[var(--inputBG)] text-[var(--inputText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
-										type="button"
-										on:click={() => askSuggestedQuestion(question.value, question.label)}
-									>
-										{question.label}
-									</button>
-								{/each}
-							</div>
-						</div>
+					{#if suggestedQuestions}
+						<SuggestedQuestions {suggestedQuestions} {settings} askSuggestedQuestion={askSuggestedQuestion} />
 					{/if}
 					{#if !settings.policyEnabled || (settings.policyEnabled && agreedToPolicy) || (settings.policyEnabled && collectUserInfo && !showUserInfoCollection) || (settings.policyEnabled && !showUserInfoCollection)} 
-						<textarea
+					<!--keep code below!  -->
+					<!--oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'  -->
+					<textarea
 							placeholder={settings.inputPlaceholder}
-							oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
 							rows="1"
 							bind:value={inputVal}
 							on:keydown={(e) => {
@@ -604,23 +517,7 @@
 							{disabled}
 						/>
 						{#if settings.sendButtonEnabled}
-							<button
-								class="send-button btn btn-square btn-sm border-none rounded-lg join-item focus-within:outline-none absolute right-2 bottom-[0.4375rem]"
-								type="submit"
-								name="Send"
-								style="background-color: var(--sendButtonBG); color: var(--sendButtonIconColor);"
-							>
-								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-									<path
-										fill="none"
-										stroke="currentColor"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M9.912 12H4L2.023 4.135A.662.662 0 0 1 2 3.995c-.022-.721.772-1.221 1.46-.891L22 12L3.46 20.896c-.68.327-1.464-.159-1.46-.867a.66.66 0 0 1 .033-.186L3.5 15"
-									/>
-								</svg>
-							</button>
+							<SubmitButton />
 						{/if}
 
 					{:else if settings.policyEnabled && !agreedToPolicy && !collectUserInfo}
@@ -789,25 +686,6 @@
 	</div>
 
 <style lang="postcss">
-	.send-button:focus {
-		background-color: var(--sendButtonIconColor) !important;
-		color: var(--sendButtonBG) !important;
-	}
-	@keyframes message {
-		0% {
-			opacity: 0.5;
-			transform: scale(0.75);
-		}
-		60% {
-			transform: scale(1.05);
-		}
-		100% {
-			opacity: 1;
-			transform: scale(1);
-			overflow: visible;
-		}
-	}
-
 	.chat-bubble {
 		animation: message 0.3s ease-out 0s forwards;
 	}

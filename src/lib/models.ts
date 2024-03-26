@@ -28,11 +28,6 @@ const addModel = async (id: string, name: string, settings?: Object) => {
 };
 
 const updateModel = async (id: string, name: string, settings?: Object) => {
-	// Value checks
-	if (!settings.crispButtonText) {
-		settings.crispButtonText = defaultSettings.crispButtonText;
-	}
-
 	try {
 		const res = await fetch('/api/models', {
 			method: 'PATCH',
@@ -192,5 +187,19 @@ const personalities = {
 			'I want you to act as "YOUR NAME". You are a LAWYER/PODCASTER/CELEBRITY that I am having a conversation with. Your name is "<your personal brand name>". You will provide me with answers related to LAW/PODCAST TOPIC in a FRIENDLY/PROFESSIONAL style. You will be as detailed as possible. Refuse to answer any question not about the text or related to YOUR NAME/TOPIC. Never break character. Do NOT say "Based on the given information." Always answer in the language of my message. Please use simple and clear formatting'
 	}
 };
+
+export interface Message {
+	id: string;
+	sender: 'user' | 'human' | 'bot';
+	text: string;
+	links: string[];
+	status: 'done' | undefined;
+	vote: number;
+}
+
+export interface SuggestedQuestion {
+	value: string;
+	label: string;
+}
 
 export { addModel, updateModel, deleteModel, getModel, defaultSettings, personalities };
