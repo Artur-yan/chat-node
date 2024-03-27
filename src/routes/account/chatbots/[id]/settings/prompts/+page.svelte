@@ -62,6 +62,12 @@
 				</span>
 			</span>
 
+			{#if $currentBot.id === '873866e8012e60bd'}
+			<label for="prompt_modal" class="btn btn-sm text-xs my-4 pr-1 text-secondary">			
+				+ Create Additional Prompt
+			</label>
+		{/if}
+
 		<input type="checkbox" id="prompt_modal" class="modal-toggle" bind:this={checkBox}/>
 		<dialog class="modal" bind:this={promptModal}>
 			<div class="modal-box shadow-lg shadow-zinc-600">
@@ -126,18 +132,6 @@
 				maxlength="2400"
 			/>
 		</div>
-	{/if}
-
-	{#if $currentBot.id === '873866e8012e60bd'}
-		<label for="prompt_modal" class="btn btn-primary btn-sm btn-outline text-xs my-4 pr-1">			
-			Create Additional Prompt
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-				<path
-					fill="currentColor"
-					d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m2-8H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"
-				/>
-			</svg>
-		</label>
 	{/if}
 
 	<AdditionalSystemPrompts />
