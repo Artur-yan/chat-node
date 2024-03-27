@@ -150,7 +150,7 @@
 	}
 
 	onMount(() => {
-		if(!$currentBot.settings.dataFunnelV2 && $currentBot.pinecone_info.PINECONE_INDEX === 'f19ba9da0989bc650ed2ffc95ad798df') {
+		if(!$currentBot.settings.dataFunnelV2 && $currentBot.pinecone_info.PINECONE_INDEX === '') {
 			my_modal_1.showModal();
 		}
 
@@ -172,6 +172,19 @@
 <svelte:head>
 	<title>Data | {data.model.name} | ChatNode</title>
 </svelte:head>
+
+<!-- Modal that cannot close-->
+<dialog id="my_modal_1" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg text-warning">Data Migration</h3>
+    <p class="py-4">We are currently migrating your chatbot's data for improved performance. Please check back soon. Thank you for your patience! </p>
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+      </form>
+    </div>
+  </div>
+</dialog>
 
 <div class="container grid md:grid-cols-[auto_16rem] lg:grid-cols-[auto_32rem] gap-4 my-4">
 	<div>
