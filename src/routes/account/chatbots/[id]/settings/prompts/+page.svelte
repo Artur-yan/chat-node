@@ -11,11 +11,7 @@
 	$:console.log($currentBot.settings.systemPrompts);
 
 	if ($currentBot.id === '873866e8012e60bd' && !$currentBot.settings.systemPrompts) {
-		$currentBot.settings.systemPrompts = {
-			'1': 'I am a language model AI assistant. I am here to help you with your queries. Please ask me anything.',
-			'2': 'I am a language model AI assistant. I am here to help you with your queries. Please ask me anything.',
-			'3': 'I am a language model AI assistant. I am here to help you with your queries. Please ask me anything.'
-		};
+		$currentBot.settings.systemPrompts = {};
 	}
 
 	const addSuggestedQuestion = () => {
