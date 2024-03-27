@@ -8,8 +8,6 @@
 	let checkBox: HTMLInputElement
 	let newPromptName = '';
 
-	$:console.log($currentBot.settings.systemPrompts);
-
 	if ($currentBot.id === '873866e8012e60bd' && !$currentBot.settings.systemPrompts) {
 		$currentBot.settings.systemPrompts = {};
 	}
