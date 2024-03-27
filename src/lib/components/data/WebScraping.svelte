@@ -236,26 +236,10 @@
       let baseSitemapOrigin = baseSitemapUrl.origin;
 
       if (response.status === 200) {
-        // Assuming data?.urls is an array of strings containing URLs
-
-      // const filteredUrls = data?.urls.filter(url =>
-      //     !url.toLowerCase().endsWith('.jpg') &&
-      //     !url.toLowerCase().endsWith('.png') &&
-      //     !url.toLowerCase().endsWith('.jpeg') &&
-      //     !url.toLowerCase().endsWith('.svg') &&
-      //     !url.toLowerCase().endsWith('.gif'));
-
-      //   // Now, filteredUrls will contain all URLs except those ending with .jpg or .png
-      //   console.log(filteredUrls)
-
-      //   const webScrapingResponse = await submitWebScraping(filteredUrls, 0, baseSitemapOrigin)
-      //   if (webScrapingResponse) {
-      //     return true;
-      //   }
-      const lastPage = Math.ceil(totalUrlCount / 250) || 1;
-      const offset = (lastPage - 1) * 250;
-      await fetchUserData(offset);
-      return true;
+        const lastPage = Math.ceil(totalUrlCount / 250) || 1;
+        const offset = (lastPage - 1) * 250;
+        await fetchUserData(offset);
+        return true;
       }
        else {
         console.error('Error:', response.error);
