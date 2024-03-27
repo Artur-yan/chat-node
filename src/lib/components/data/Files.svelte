@@ -302,7 +302,21 @@
                   isUploading = false;
                   return
                 }
-                const files = await uploadFiles(fileUrls);
+
+                const files = await uploadFiles(fileUrls) || [];
+
+                //Handling files that exceed 20 mb
+                const problematicFiles = files.filter(file => file.detail);
+                if(problematicFiles.length === 1) {
+                  $alert = { msg: 'There was 1 file that exceeded 20 mb and failed to upload', type: 'error', duration: 4000 };
+                  isUploading = false;
+                  return;
+                } else if(problematicFiles.length > 1) {
+                  $alert = { msg: `There were ${problematicFiles.length} files that exceeded 20 mb and failed to upload`, type: 'error', duration: 4000};
+                  isUploading = false;
+                  return;
+                }
+
                 filesTrained = [... filesTrained, files]
                 filesTrained = filesTrained.flat();
                 filesToUpload = [];
@@ -326,7 +340,8 @@
 				</form>
 
         <div class="w-full my-8">
-          <h2 class="m-6 text-2xl text-center text-slate-400 font-semibold">Acceptable File Types</h2>
+          <h2 class="my-2 text-2xl text-center text-slate-400 font-semibold">Acceptable File Types</h2>
+          <h4 class="mb-2 text-md text-center text-slate-400 font-semibold">*20 mb size limit</h4>
           <div class=" grid grid-cols-3 gap-6">
             {#each acceptableFileExtensions as file}
               <div class="flex flex-col items-center justify-center p-6 rounded-xl bg-slate-800">
