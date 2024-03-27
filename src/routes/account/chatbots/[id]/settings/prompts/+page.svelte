@@ -2,6 +2,15 @@
 	import { currentBot } from '$lib/stores.js';
 	import { personalities } from '$lib/models.js';
 	import Modal from '$lib/components/Modal.svelte';
+	import AdditionalSystemPrompts from '$lib/components/AdditionalSystemPrompts.svelte';
+
+	let promptModal: HTMLDialogElement
+	let checkBox: HTMLInputElement
+	let newPromptName = '';
+
+	if ($currentBot.id === '873866e8012e60bd' && !$currentBot.settings.systemPrompts) {
+		$currentBot.settings.systemPrompts = {};
+	}
 
 	const addSuggestedQuestion = () => {
 		$currentBot.settings.suggestedQuestions = [
@@ -39,13 +48,48 @@
 	<div>
 		<label for="system-prompt" class="label">
 			<span class="label-text">
-				System Prompt <span
+				{$currentBot.id === '873866e8012e60bd' ? 'Default System Prompt' : 'System Prompt'} <span
 					class="tooltip tooltip-right badge"
 					data-tip="The system prompt helps set the behavior of the assistant. If properly crafted, the system prompt can be used to set the tone and the kind of response by the model. The default system prompt prevents hallucination from the assistant and replies only based on the trained data"
 				>
 					?
 				</span>
 			</span>
+
+			{#if $currentBot.id === '873866e8012e60bd'}
+			<label for="prompt_modal" class="btn btn-sm text-xs my-4 pr-1 text-secondary">			
+				+ Create Additional Prompt
+			</label>
+		{/if}
+
+		<input type="checkbox" id="prompt_modal" class="modal-toggle" bind:this={checkBox}/>
+		<dialog class="modal" bind:this={promptModal}>
+			<div class="modal-box shadow-lg shadow-zinc-600">
+				<div class="flex justify-between items-center">
+					<h3 class="font-bold text-xl text-primary">New Prompt's Title</h3>
+					<label for="prompt_modal" class="cursor-pointer text-secondary">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+						</svg>				
+					</label>
+				</div>
+				<input bind:value={newPromptName} type="text" placeholder="Type here" class="input input-bordered w-full my-4 border-primary" />
+				<div class="modal-action">
+					<button
+						class="btn btn-primary"
+						disabled={!newPromptName}
+						on:click={() => {
+							$currentBot.settings.systemPrompts[newPromptName] = '';
+							newPromptName = '';
+							checkBox.checked = false;
+						}}
+					>
+					Create
+					</button>
+				</div>
+			</div>
+		</dialog>
+
 			<button
 				type="button"
 				class="btn btn-xs text-secondary"
@@ -83,6 +127,9 @@
 			/>
 		</div>
 	{/if}
+
+	<AdditionalSystemPrompts />
+	
 	<div>
 		<label for="temp" class="label">
 			<span class="label-text">
