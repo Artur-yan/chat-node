@@ -102,54 +102,56 @@
 	</div>
 </div>
 
-<div class="card bg-neutral card-compact mb-4">
-	<div class="card-body">
-		<div class="card-title">
-			<h2>Personal OpenAI API Key</h2>
-		</div>
-		{#if !canUseCustomAPIKey}
-			<div class="alert text-warning mb-2 font-bold">
-				This feature is available on the Pro plan or greater.
+{#if [1001, 1002, 1003, 1004, 1005, 1006].includes(plan)}
+	<div class="card bg-neutral card-compact mb-4">
+		<div class="card-body">
+			<div class="card-title">
+				<h2>Personal OpenAI API Key</h2>
 			</div>
-		{/if}
-		<div>
-			<input
-				class="input w-full"
-				type="text"
-				bind:value={$currentBot.settings.openai_api_key}
-				placeholder={data.user.default_openai_key
-					? 'Using Default Open AI Key'
-					: 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'}
-				class:placeholder:text-success={data.user.default_openai_key}
-				disabled={!canUseCustomAPIKey}
-			/>
-			<!-- <p class="mt-2 max-w-md text-sm leading-6">
-				Input your own secret api key from OpenAI and when you exhaust your messages in your
-				ChatNode account, we will use your OpenAI credits to complete your requests.
-			</p> -->
-		</div>
-		<div class="mt-4">
-			<h3 class="text-lg font-bold">Use ChatNode Messages</h3>
-			<div class="form-control items-start">
-				<label class="cursor-pointer label justify-start gap-4">
-					<span class="label-text">OFF</span>
-					<input
-						type="checkbox"
-						class="toggle"
-						class:toggle-success={$currentBot.settings.useChatNodeMsgs}
-						disabled={!canToggleChatNodeMsgs}
-						bind:checked={$currentBot.settings.useChatNodeMsgs}
-					/>
-					<span class="label-text">ON</span>
-				</label>
+			{#if !canUseCustomAPIKey}
+				<div class="alert text-warning mb-2 font-bold">
+					This feature is available on the Pro plan or greater.
+				</div>
+			{/if}
+			<div>
+				<input
+					class="input w-full"
+					type="text"
+					bind:value={$currentBot.settings.openai_api_key}
+					placeholder={data.user.default_openai_key
+						? 'Using Default Open AI Key'
+						: 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'}
+					class:placeholder:text-success={data.user.default_openai_key}
+					disabled={!canUseCustomAPIKey}
+				/>
+				<!-- <p class="mt-2 max-w-md text-sm leading-6">
+					Input your own secret api key from OpenAI and when you exhaust your messages in your
+					ChatNode account, we will use your OpenAI credits to complete your requests.
+				</p> -->
 			</div>
-			<p class="mt-2 max-w-md text-sm leading-6">
-				If turned on, we will use your ChatNode messages first and then use your OpenAI credits. You
-				can turn this off and this bot will only use your OpenAI credits.
-			</p>
+			<div class="mt-4">
+				<h3 class="text-lg font-bold">Use ChatNode Messages</h3>
+				<div class="form-control items-start">
+					<label class="cursor-pointer label justify-start gap-4">
+						<span class="label-text">OFF</span>
+						<input
+							type="checkbox"
+							class="toggle"
+							class:toggle-success={$currentBot.settings.useChatNodeMsgs}
+							disabled={!canToggleChatNodeMsgs}
+							bind:checked={$currentBot.settings.useChatNodeMsgs}
+						/>
+						<span class="label-text">ON</span>
+					</label>
+				</div>
+				<p class="mt-2 max-w-md text-sm leading-6">
+					If turned on, we will use your ChatNode messages first and then use your OpenAI credits. You
+					can turn this off and this bot will only use your OpenAI credits.
+				</p>
+			</div>
 		</div>
 	</div>
-</div>
+{/if}
 
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
