@@ -341,7 +341,7 @@
 
         <div class="w-full my-8">
           <h2 class="my-2 text-2xl text-center text-slate-400 font-semibold">Acceptable File Types</h2>
-          <h4 class="mb-2 text-md text-center text-slate-400 font-semibold">*20 mb size limit</h4>
+          <h4 class="mb-2 text-md text-center text-gray-500 font-semibold">*20 mb size limit</h4>
           <div class=" grid grid-cols-3 gap-6">
             {#each acceptableFileExtensions as file}
               <div class="flex flex-col items-center justify-center p-6 rounded-xl bg-slate-800">
