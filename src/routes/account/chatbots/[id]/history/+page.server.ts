@@ -27,19 +27,23 @@ export const load = async ({ locals, params }) => {
 		}
 	});
 
-	console.log(chats);
-
 	const messages = await prismaClient.chatHistory.count({
 		where: {
 			bot_id: params.id,
 			created_at: {
 				gt: historyStartDate
+			},
+			message: {
+				path: ['type'],
+				equals: 'human'
 			}
 		},
 		orderBy: {
 			created_at: 'asc'
 		}
 	});
+
+	console.log('messages', messages);
 
 	const numberOfChats = chats.length;
 	const averageMessagesPerChat = numberOfChats > 0 ? messages / numberOfChats : 0;
