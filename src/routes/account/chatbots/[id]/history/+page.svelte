@@ -102,7 +102,7 @@
 </script>
 
 <div class="w-full">
-	<div class="w-full mx-auto overflow-x-auto">
+	<div class="w-full ml-4 overflow-x-auto">
 		<div class="stats shadow">
 
 			<div class="stat">
