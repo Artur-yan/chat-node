@@ -41,12 +41,12 @@
 			if (url.includes(troubleString)) {
 				return {
 					warning: true,
-					msg: "Consider removing prefixes (like 'http://' or 'www.') from the url if your bot will not load."
+					msg: "Remove prefixes (like 'http://' or 'www.') from the url if your bot WILL NOT load."
 				};
 			} else if (url.slice(-1) == '/') {
 				return {
 					warning: true,
-					msg: "Consider removing the trailing slash ('/') from the end of url if your bot will not load."
+					msg: "Remove the trailing slash ('/') from the end of url if your bot WILL NOT load."
 				};
 			}
 		}
@@ -135,7 +135,10 @@
 					everywhere.
 				</p>
 				{#if $currentBot.settings.allowedUrls.length == 0}
-					<div class="alert alert-warning">
+					<div class="alert alert-warning text-lg">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 animate-bounce">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+						</svg>						
 						You have not added any allowed URLs. This bot will only be accessible via the public
 						url.
 					</div>
@@ -169,7 +172,10 @@
 							</button>
 						</div>
 						{#if checkUrlTroubleSigns(url).warning}
-							<div class="alert alert-warning">
+							<div class="alert alert-error border-4 border-red-600 font-bold text-lg">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 animate-bounce">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+								</svg>
 								{checkUrlTroubleSigns(url).msg}
 							</div>
 						{/if}
