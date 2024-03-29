@@ -32,11 +32,11 @@ export const load = async ({ locals, params }) => {
 			bot_id: params.id,
 			created_at: {
 				gt: historyStartDate
-			},
-			message: {
-				path: ['type'],
-				equals: 'human'
 			}
+			// message: {
+			// 	path: ['type'],
+			// 	equals: 'human'
+			// }
 		},
 		orderBy: {
 			created_at: 'asc'
