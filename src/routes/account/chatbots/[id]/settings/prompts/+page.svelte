@@ -4,11 +4,13 @@
 	import Modal from '$lib/components/Modal.svelte';
 	import AdditionalSystemPrompts from '$lib/components/AdditionalSystemPrompts.svelte';
 
+	const specialUser = '873866e8012e60bd'
+
 	let promptModal: HTMLDialogElement
 	let checkBox: HTMLInputElement
 	let newPromptName = '';
 
-	if ($currentBot.id === '873866e8012e60bd' && !$currentBot.settings.systemPrompts) {
+	if ($currentBot.user_id === specialUser && !$currentBot.settings.systemPrompts) {
 		$currentBot.settings.systemPrompts = {};
 	}
 
@@ -48,7 +50,7 @@
 	<div>
 		<label for="system-prompt" class="label">
 			<span class="label-text">
-				{$currentBot.id === '873866e8012e60bd' ? 'Default System Prompt' : 'System Prompt'} <span
+				{$currentBot.user_id === specialUser ? 'Default System Prompt' : 'System Prompt'} <span
 					class="tooltip tooltip-right badge"
 					data-tip="The system prompt helps set the behavior of the assistant. If properly crafted, the system prompt can be used to set the tone and the kind of response by the model. The default system prompt prevents hallucination from the assistant and replies only based on the trained data"
 				>
@@ -56,7 +58,7 @@
 				</span>
 			</span>
 
-			{#if $currentBot.id === '873866e8012e60bd'}
+			{#if $currentBot.user_id === specialUser}
 			<label for="prompt_modal" class="btn btn-sm text-xs my-4 pr-1 text-secondary">			
 				+ Create Additional Prompt
 			</label>
