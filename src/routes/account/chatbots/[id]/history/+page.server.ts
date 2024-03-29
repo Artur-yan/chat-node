@@ -32,27 +32,32 @@ export const load = async ({ locals, params }) => {
 			bot_id: params.id,
 			created_at: {
 				gt: historyStartDate
-			},
-			message: {
-				path: ['type'],
-				equals: 'human'
 			}
+			// message: {
+			// 	path: ['type'],
+			// 	equals: 'human'
+			// }
 		},
 		orderBy: {
 			created_at: 'asc'
 		}
 	});
 
-	console.log('messages', messages);
-
 	const numberOfChats = chats.length;
 	const averageMessagesPerChat = numberOfChats > 0 ? messages / numberOfChats : 0;
 	const numberOfLikes = chats.reduce((acc, chat) => acc + (chat.likes || 0), 0);
 	const numberOfDislikes = chats.reduce((acc, chat) => acc + (chat.dislikes || 0), 0);
 
+	const supportHoursSaved = messages / 2 / 60;
+	const hours = Math.floor(supportHoursSaved);
+	const minutes = Math.round((supportHoursSaved - hours) * 60);
+	const supportHoursSavedFormated = `${hours} Hours ${minutes} Mins`;
+
 	return {
 		chats,
+		messages,
 		numberOfChats,
+		supportHoursSavedFormated,
 		averageMessagesPerChat,
 		numberOfLikes,
 		numberOfDislikes
