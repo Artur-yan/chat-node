@@ -12,6 +12,10 @@ export const GET = async ({ url }) => {
 
 	const botId = url.searchParams.get('botId') as string;
 
+	if (!botId) {
+		return json({ error: 'Bot ID is required' });
+	}
+
 	const bot = await prismaClient.bots.findMany({
 		where: {
 			id: botId
