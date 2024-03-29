@@ -27,7 +27,34 @@ export const load = async ({ locals, params }) => {
 		}
 	});
 
+	const messages = await prismaClient.chatHistory.count({
+		where: {
+			bot_id: params.id,
+			created_at: {
+				gt: historyStartDate
+			},
+			message: {
+				path: ['type'],
+				equals: 'human'
+			}
+		},
+		orderBy: {
+			created_at: 'asc'
+		}
+	});
+
+	console.log('messages', messages);
+
+	const numberOfChats = chats.length;
+	const averageMessagesPerChat = numberOfChats > 0 ? messages / numberOfChats : 0;
+	const numberOfLikes = chats.reduce((acc, chat) => acc + (chat.likes || 0), 0);
+	const numberOfDislikes = chats.reduce((acc, chat) => acc + (chat.dislikes || 0), 0);
+
 	return {
-		chats
+		chats,
+		numberOfChats,
+		averageMessagesPerChat,
+		numberOfLikes,
+		numberOfDislikes
 	};
 };
