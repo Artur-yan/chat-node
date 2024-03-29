@@ -4,7 +4,7 @@
 	import Modal from '$lib/components/Modal.svelte';
 	import AdditionalSystemPrompts from '$lib/components/AdditionalSystemPrompts.svelte';
 
-	const specialUser = '873866e8012e60bd'
+	const specialUser = 'eletu7djath3fz7'
 
 	let promptModal: HTMLDialogElement
 	let checkBox: HTMLInputElement

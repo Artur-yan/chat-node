@@ -15,7 +15,6 @@
 	export let data;
 	const userId = data.user.userId;
 	const plan = data.subscription.plan;
-	console.log(data)
 	
 	let msgUsage: number = data.subscription.msg_count / data.subscription.max_msg;
 	let botUsage: number = data.bots.length / data.subscription.max_bot;
@@ -116,6 +115,11 @@
 	//On creation - Current Plan HAVE branding
 	if(plan === 5 || plan === 105 || plan === 6 || plan === 106) {
 		settings.removeBranding = false;
+	}
+
+	//custom plan use his openAI key
+	if (userId === 'eletu7djath3fz7') {
+		settings.useChatNodeMsgs = false;
 	}
 	
 
