@@ -18,6 +18,7 @@ model AuthUser {
   created            DateTime       @default(now())
   api_key            String?        @unique
   default_openai_key String?
+  first_active_login Boolean?       @default(false)
   auth_key           AuthKey?
   auth_session       AuthSession[]
   bots               Bots[]
