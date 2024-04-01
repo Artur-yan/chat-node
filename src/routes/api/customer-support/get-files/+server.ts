@@ -10,6 +10,10 @@ export const GET = async ({ url }) => {
 	const includeUrls = url.searchParams.get('url');
 	const verbose = url.searchParams.get('verbose');
 
+	if (passcode !== SUPPORT_PASSCODE) {
+		return json({ error: 'Invalid passcode' });
+	}
+
 	let source: string[];
 	if (includeUrls === 'true') {
 		source = ['WEB_SCRAPE'];
