@@ -7,15 +7,11 @@
   // state
 	let isModalOpen = false;
   let activeTab: 'instructions' | 'trained' = 'instructions';
-  let isUploading = false;
   let isRedirecting = false;
   let hasQueuedFiles = false;
   let counter: number;
   let intervalId: any;
   let timeoutId: any;
-
-  // values
-  let acceptableFileExtensions = ['pdf', 'txt', 'doc', 'docx', 'csv', 'xlsx', 'md', 'rtf', 'tsv', 'pptx', 'json'];
 
   // files
   let filesTrained: any = [];
