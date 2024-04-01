@@ -45,7 +45,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 		}
 	}
 
-	return { user, subscription };
+	//return { user, subscription };
 
 	// if (subscription?.plan === -1) {
 	// 	throw redirect(302, '/account/settings/subscription');
