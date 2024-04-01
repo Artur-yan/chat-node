@@ -1,7 +1,8 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
 	import Instructions from '../Instructions.svelte';
-	import Instructions2 from '../Instructions2.svelte';
+
+  export let totalFileCount: number;
   
   // state
 	let isModalOpen = false;
@@ -12,13 +13,11 @@
   let counter: number;
   let intervalId: any;
   let timeoutId: any;
-  let totalFileCount: number = 0;
 
   // values
   let acceptableFileExtensions = ['pdf', 'txt', 'doc', 'docx', 'csv', 'xlsx', 'md', 'rtf', 'tsv', 'pptx', 'json'];
 
   // files
-  let filesToUpload: any = [];
   let filesTrained: any = [];
 
   // conditions
