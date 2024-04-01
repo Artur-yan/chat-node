@@ -126,6 +126,31 @@
     window.open(notionUrl, '_blank');
   }
 
+  async function removeFile(fileId: string) {
+    try {
+      const response = await fetch(`/api/data-sources/delete-file`, {
+        method: 'POST',
+        body: JSON.stringify({
+          customerId: $currentBot.id,
+          fileId
+        })
+      });
+
+      console.log('Response:', response);
+
+      const data = await response.json();
+
+      if (response.status === 200) {
+        console.log('File successfully deleted:', data );
+        totalFileCount -= 1;
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error during file deletion:', (err as Error).message);
+    }
+  }
+
   function countdownFrom40() {
     counter = 40;
     if(intervalId) clearInterval(intervalId);
@@ -269,7 +294,7 @@
           {/if}
           <td class="text-primary"> {file.id} </td>
           <td>
-            <!-- <button 
+            <button 
               class="btn btn-secondary btn-sm" 
               on:click={() => {
                 removeFile(file.id);
@@ -279,7 +304,7 @@
             }
             >
               Remove
-            </button> -->
+            </button>
           </td>
         </tr>
       {/each}
