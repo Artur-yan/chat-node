@@ -29,7 +29,6 @@
   }
 
   async function fetchOAuthUrl() {
-    console.log('fetchOAuthUrl');
     try {
       const response = await fetch('/api/data-sources/generate-oauth-link', {
         method: 'POST',
@@ -54,7 +53,7 @@
   async function connectToNotion() {
     const data = await fetchOAuthUrl();
     const notionUrl = data.oauth_url;
-    console.log('notionUrl:', notionUrl);
+    window.open(notionUrl, '_blank');
   }
 
 </script>
