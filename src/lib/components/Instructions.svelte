@@ -46,7 +46,8 @@
           </div>
           <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
             <div>
-              <p class="text-lg text-gray-300 ml-4">Your files will now asynchronous sync with your chatbot ✅</p>
+              <p class="text-lg text-gray-300 ml-4 mb-4">Your files will now asynchronous sync with your chatbot ✅</p>
+              <img class="w-1/2 rounded-lg" src="/notion-step-3.png" alt="">
               <br><br><br><br>
             </div>
           </div>

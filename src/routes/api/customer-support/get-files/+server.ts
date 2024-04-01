@@ -18,7 +18,20 @@ export const GET = async ({ url }) => {
 	if (includeUrls === 'true') {
 		source = ['WEB_SCRAPE'];
 	} else {
-		source = ['PDF', 'TEXT', 'XLSX', 'CSV', 'DOCX', 'MD', 'RTF', 'TSV', 'PPTX', 'JSON', 'RAW_TEXT'];
+		source = [
+			'PDF',
+			'TEXT',
+			'XLSX',
+			'CSV',
+			'DOCX',
+			'MD',
+			'RTF',
+			'TSV',
+			'PPTX',
+			'JSON',
+			'RAW_TEXT',
+			'NOTION'
+		];
 	}
 
 	const bodyJson = JSON.stringify({
