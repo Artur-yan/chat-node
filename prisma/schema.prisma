@@ -85,6 +85,7 @@ model Subscriptions {
   msg_count           Int       @default(0)
   stripe_subscription String?   @unique
   status              String?
+  first_active_login  Boolean   @default(false)
   max_tocken          Int       @default(100000)
   cancel_at           DateTime? @db.Date
   created_datetime    DateTime? @default(dbgenerated("(now() AT TIME ZONE 'utc'::text)")) @db.Timestamptz(6)
