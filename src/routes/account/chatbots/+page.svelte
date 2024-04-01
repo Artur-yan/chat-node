@@ -11,7 +11,6 @@
 	import { PUBLIC_ENVIRONMENT, PUBLIC_CHAT_API_URL } from '$env/static/public';
 	import { v4 as uuidv4 } from "uuid";
 
-
 	export let data;
 	const userId = data.user.userId;
 	const plan = data.subscription.plan;

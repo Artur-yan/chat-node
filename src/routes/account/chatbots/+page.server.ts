@@ -16,18 +16,12 @@ export const load: PageServerLoad = async ({ locals }) => {
 		}
 	});
 
-	const user = await prismaClient.authUser.findUnique({
-		where: {
-			id: session.user.userId
-		}
-	});
-
 	if (
 		[5, 105, 6, 106].includes(subscription?.plan) &&
-		user?.first_active_login === true &&
+		subscription?.first_active_login === true &&
 		PUBLIC_ENVIRONMENT === 'production'
 	) {
-		await prismaClient.authUser.update({
+		await prismaClient.subscriptions.update({
 			where: {
 				id: session.user.userId
 			},
