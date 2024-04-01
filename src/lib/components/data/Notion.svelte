@@ -101,6 +101,7 @@
         method: 'POST',
         body: JSON.stringify({
           botId: $currentBot.id,
+          service: 'NOTION'
         }),
       });
 
