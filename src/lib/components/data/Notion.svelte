@@ -5,13 +5,14 @@
   
   // state
 	let isModalOpen = false;
-  let activeTab: 'upload' | 'trained' = 'upload';
+  let activeTab: 'instructions' | 'trained' = 'instructions';
   let isUploading = false;
   let isRedirecting = false;
   let hasQueuedFiles = false;
   let counter: number;
   let intervalId: any;
   let timeoutId: any;
+  let totalFileCount: number = 0;
 
   // values
   let acceptableFileExtensions = ['pdf', 'txt', 'doc', 'docx', 'csv', 'xlsx', 'md', 'rtf', 'tsv', 'pptx', 'json'];
@@ -22,11 +23,77 @@
 
   // conditions
   $: if(isModalOpen === true) {
-   
+    activeTab = 'instructions';
+    fetchUserData();
+        //@ts-ignore
+    (async () => {
+      totalFileCount = await fetchTotalFileCount() || 0;
+    })();
   }
 
   $: if (filesTrained.length === 0) {
     hasQueuedFiles = false;
+  }
+
+  async function fetchTotalFileCount() {
+    try {
+      const response = await fetch('/api/data-sources/total-file-count', {
+        method: 'POST',
+        body: JSON.stringify({
+          customerId: $currentBot.id,
+        })
+      });
+
+      const data = await response.json();
+
+      if (response?.status === 200) {
+        return data?.count || 0
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', (err as Error).message);
+    }
+  }
+
+  async function fetchUserData() {
+    try {
+      const response = await fetch('/api/data-sources/user-files', {
+        method: 'POST',
+        body: JSON.stringify({
+          customerId: $currentBot.id,
+          fileTypes: ["NOTION"],
+          limit: 250,
+          offset: 0
+        })
+      });
+
+      const data = await response.json();
+
+      if (response?.status === 200) {
+        filesTrained = data?.results || [];
+        console.log('Files trained:', filesTrained);
+
+        // Retry
+        hasQueuedFiles = filesTrained.some((file: any) => file.sync_status === 'QUEUED_FOR_OCR' || file.sync_status === 'QUEUED_FOR_SYNC' || file.sync_status === 'SYNCING' || file.sync_status === 'DELAYED');
+        console.log('Has queued files & will be attempted again --->', hasQueuedFiles);
+
+        if (hasQueuedFiles && isModalOpen) {
+          countdownFrom40();
+          if(timeoutId) clearTimeout(timeoutId);
+          timeoutId = setTimeout(() => {
+            fetchUserData();
+          }, 40000);
+        }
+
+      return data;
+
+      } else {
+        console.error('Error:', response.error);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', (err as Error).message);
+    }
   }
 
   async function fetchOAuthUrl() {
@@ -59,6 +126,17 @@
     window.open(notionUrl, '_blank');
   }
 
+  function countdownFrom40() {
+    counter = 40;
+    if(intervalId) clearInterval(intervalId);
+    intervalId = setInterval(() => {
+      if (counter <= 0) {
+        clearInterval(intervalId);
+      } else {
+        counter--;
+      }
+    }, 1000);
+  }
 </script>
 
 <label for="notion" class="btn bg-gradient-to-r from-slate-400 to-slate-500 hover:bg-slate-700 w-full h-full modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1 border-1 border-slate-600"> 
@@ -82,10 +160,10 @@
               <div class="tabs tabs-boxed gap-2">
                   <button
                     class="tab"
-                    on:click={() => activeTab = 'upload'}
-                    class:tab-active={activeTab === 'upload'}
+                    on:click={() => activeTab = 'instructions'}
+                    class:tab-active={activeTab === 'instructions'}
                   >
-                    Upload
+                    Instructions
                   </button>
       
                   <button
@@ -93,7 +171,7 @@
                   on:click={() => activeTab = 'trained'}
                   class:tab-active={activeTab === 'trained'}
                 >
-                  Trained <span class=""></span>
+                  Trained<span class="{totalFileCount < ($currentBot.settings.dataFunnelSettings?.files?.maxFiles ?? 30) || totalFileCount === undefined ? 'mx-1' : 'text-red-500 mx-1'}">({totalFileCount}/{$currentBot.settings.dataFunnelSettings?.files?.maxFiles ?? 30} Total Files)</span>
                 </button>
               </div>
             </div>
@@ -111,32 +189,106 @@
     {#if hasQueuedFiles && activeTab === 'trained'}
       <span class="text-slate-400 mx-8">Refreshing in <span class="font-bold text-primary">{counter}</span> seconds</span>
     {/if}
-    
-    <section class="w-full h-5/6 rounded-xl my-4">
-     
-<div class="rounded-lg border-1 border-slate-900 bg-slate-700 text-card-foreground shadow-sm">
-  <div class="flex flex-col space-y-1.5 p-6">
-    <h3 class="text-2xl text-secondary font-semibold whitespace-nowrap leading-none tracking-tight">Connect Your Notion Account</h3>
-    <div class="py-2">
-      <button 
-        class="inline-flex gap-2 w-28 min-w-28 items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-black hover:bg-primary/90 h-10 px-4 py-2"
-        on:click={connectToNotion}
-      >
-      {#if isRedirecting}
-        <span class="loading loading-spinner loading-md"></span>
-      {:else }
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cable"><path d="M4 9a2 2 0 0 1-2-2V5h6v2a2 2 0 0 1-2 2Z"/><path d="M3 5V3"/><path d="M7 5V3"/><path d="M19 15V6.5a3.5 3.5 0 0 0-7 0v11a3.5 3.5 0 0 1-7 0V9"/><path d="M17 21v-2"/><path d="M21 21v-2"/><path d="M22 19h-6v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2Z"/></svg>
-        Connect
+<section class="w-full h-5/6 rounded-xl my-4">
+  {#if activeTab === 'instructions'}
+    <div class="rounded-lg border-1 border-slate-900 bg-slate-700 text-card-foreground shadow-sm">
+      <div class="flex flex-col space-y-1.5 p-6">
+        <h3 class="text-2xl text-secondary font-semibold whitespace-nowrap leading-none tracking-tight">Connect Your Notion Account</h3>
+        <div class="py-2">
+          <button 
+            class="inline-flex gap-2 w-28 min-w-28 items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-black hover:bg-primary/90 h-10 px-4 py-2"
+            on:click={connectToNotion}
+          >
+            {#if isRedirecting}
+              <span class="loading loading-spinner loading-md"></span>
+            {:else }
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cable"><path d="M4 9a2 2 0 0 1-2-2V5h6v2a2 2 0 0 1-2 2Z"/><path d="M3 5V3"/><path d="M7 5V3"/><path d="M19 15V6.5a3.5 3.5 0 0 0-7 0v11a3.5 3.5 0 0 1-7 0V9"/><path d="M17 21v-2"/><path d="M21 21v-2"/><path d="M22 19h-6v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2Z"/></svg>
+              Connect
+            {/if}
+         </button>
+        </div>
+      </div>
+      <div class="mx-auto">
+        <Instructions/>
+      </div>
+    </div>
+  {/if}
+  <!-- Trained -->
+  {#if activeTab === 'trained'}
+  <div class="w-full h-full px-7 pt-8 overflow-y-auto bg-slate-900 bg-opacity-60 rounded-xl">
+    <table class="table table-xs">
+      <thead>
+        <tr class="text-md font-bold text-secondary">
+          <th>No.</th>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Id</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each filesTrained as file, i}
+        <tr id={file.id} class="p-.05">
+          <td class="text-primary"> {i + 1} </td>
+          <td class="text-primary w-1/2 /overflow-x-auto"> {file.name} </td>
+          {#if file.sync_status === 'READY'}
+            <td class="text-primary">
+              <div class="badge badge-success badge-outline w-20">
+                Ready
+              </div>
+            </td>
+          {:else if file.sync_status === 'QUEUED_FOR_SYNC'}
+            <td class="text-primary">
+              <div class="badge badge-warning badge-outline w-20">
+                Queued
+              </div>
+            </td>
+          {:else if file.sync_status === 'SYNCING'}
+            <td class="text-primary">
+              <div class="badge badge-warning badge-outline w-20">
+                Syncing
+              </div>
+            </td>
+          {:else if file.sync_status === 'QUEUED_FOR_OCR'}
+            <td class="text-primary">
+              <div class="badge badge-warning badge-outline w-20">
+                Queued
+              </div>
+            </td>
+          {:else if file.sync_status === 'DELAYED'}
+            <td class="text-primary">
+              <div class="badge badge-warning badge-outline w-20">
+                Delayed
+              </div>
+            </td>
+          {:else if file.sync_status === 'SYNC_ERROR'}
+            <td class="text-primary">
+              <div class="badge badge-error badge-outline w-20">
+                Error
+              </div>
+            </td>
+          {/if}
+          <td class="text-primary"> {file.id} </td>
+          <td>
+            <!-- <button 
+              class="btn btn-secondary btn-sm" 
+              on:click={() => {
+                removeFile(file.id);
+                //@ts-ignore
+                filesTrained = filesTrained.filter((item) => item.id !== file.id);
+              }
+            }
+            >
+              Remove
+            </button> -->
+          </td>
+        </tr>
+      {/each}
+      </tbody>
+    </table>
+   </div>
       {/if}
-    </button>
-  </div>
+</section>
 </div>
-<div class="mx-auto">
-  <Instructions/>
-</div>
-</div>
-    </section>
-  </div>
 </div>
 
 <style>

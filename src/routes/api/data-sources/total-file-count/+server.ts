@@ -10,7 +10,20 @@ export const POST = async ({ request, locals }) => {
 			offset: 0
 		},
 		filters: {
-			source: ['PDF', 'TEXT', 'XLSX', 'CSV', 'DOCX', 'MD', 'RTF', 'TSV', 'PPTX', 'JSON', 'RAW_TEXT']
+			source: [
+				'PDF',
+				'TEXT',
+				'XLSX',
+				'CSV',
+				'DOCX',
+				'MD',
+				'RTF',
+				'TSV',
+				'PPTX',
+				'JSON',
+				'RAW_TEXT',
+				'NOTION'
+			]
 		}
 	});
 
