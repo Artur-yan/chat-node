@@ -1,3 +1,4 @@
+import { PUBLIC_ENVIRONMENT } from '$env/static/public';
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 import { prismaClient } from '$lib/server/prisma';
@@ -21,7 +22,11 @@ export const load: PageServerLoad = async ({ locals }) => {
 		}
 	});
 
-	if ([5, 105, 6, 106].includes(subscription?.plan) && user?.first_active_login === true) {
+	if (
+		[5, 105, 6, 106].includes(subscription?.plan) &&
+		user?.first_active_login === true &&
+		PUBLIC_ENVIRONMENT === 'production'
+	) {
 		await prismaClient.authUser.update({
 			where: {
 				id: session.user.userId
