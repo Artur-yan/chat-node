@@ -3,6 +3,10 @@ import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 import { prismaClient } from '$lib/server/prisma';
 
+/**
+ * If the user is not authenticated, it redirects to the home page.
+ * If the user is transitioning from trial to active subscription, it redirects to a thank you page based on the subscription plan.
+ */
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
 
@@ -15,10 +19,10 @@ export const load: PageServerLoad = async ({ locals }) => {
 			user_id: session.user.userId
 		}
 	});
-
+    
 	if (
 		[5, 105, 6, 106].includes(subscription?.plan) &&
-		subscription?.first_active_login === true &&
+		subscription?.first_active_login === false && subscription?.status === "active" &&
 		PUBLIC_ENVIRONMENT === 'production'
 	) {
 		await prismaClient.subscriptions.update({
@@ -26,7 +30,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 				id: session.user.userId
 			},
 			data: {
-				first_active_login: false
+				first_active_login: true
 			}
 		});
 
