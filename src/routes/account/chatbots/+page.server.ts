@@ -27,7 +27,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	) {
 		await prismaClient.subscriptions.update({
 			where: {
-				id: session.user.userId
+				user_id: session.user.userId
 			},
 			data: {
 				first_active_login: true
