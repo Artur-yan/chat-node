@@ -45,6 +45,8 @@ export const load = async ({ locals, params }) => {
 
 	const numberOfChats = chats.length;
 	const averageMessagesPerChat = numberOfChats > 0 ? messages / numberOfChats : 0;
+	const safeAverage = isNaN(averageMessagesPerChat) ? 0 : averageMessagesPerChat;
+
 	const numberOfLikes = chats.reduce((acc, chat) => acc + (chat.likes || 0), 0);
 	const numberOfDislikes = chats.reduce((acc, chat) => acc + (chat.dislikes || 0), 0);
 
@@ -58,7 +60,7 @@ export const load = async ({ locals, params }) => {
 		messages,
 		numberOfChats,
 		supportHoursSavedFormated,
-		averageMessagesPerChat,
+		safeAverage,
 		numberOfLikes,
 		numberOfDislikes
 	};
