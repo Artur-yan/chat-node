@@ -162,10 +162,10 @@
     }, 1000);
   }
 
-  function onTabFocus() {
+  async function onTabFocus() {
     if (document.visibilityState === 'visible') {
-      console.log('hi');
-      fetchUserData();
+      await fetchUserData();
+      totalFileCount = await fetchTotalFileCount() || 0;
     }
   }
 
