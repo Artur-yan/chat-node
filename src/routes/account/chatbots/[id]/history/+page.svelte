@@ -137,24 +137,7 @@
 
 <div class="w-full">
 	<div class="w-full ml-4 overflow-x-auto">
-
-		<div class="flex justify-start items-center gap-3 my-4">
-			<!-- Dropdown -->
-			<select class="select select-bordered select-tiny w-full max-w-xs ml-4" bind:this={dropdown} on:change={() => {
-				timeSpan = dropdown.value;
-				getStats();
-			}}>
-				<!-- <option disabled selected>Duration</option> -->
-				<option>Last 24 Hours</option>
-				<option>Last 7 Days</option>
-				<option selected>Last 30 Days</option>
-			</select>
-	
-			{#if isFetchingStats}
-				<div class="loading loading-spinner loading-md text-primary"></div>
-			{/if}
-		</div>
-
+		<!-- Row 1 -->
 		<div class="stats shadow">
 			<div class="stat">
 				<div class="stat-figure text-secondary">
@@ -221,16 +204,33 @@
 				<div class="stat-value">{numberOfDislikes}</div>
 				<div class="stat-desc">{timeSpan}</div>
 			</div>
-			
 		</div>
 	</div>
 </div>
-<div class="container md:grid md:grid-cols-[320px_auto] gap-4 min-h-0 h-full flex-1 basis-0 my-4">
+<div class="container md:grid md:grid-cols-[400px_auto] gap-4 min-h-0 h-full flex-1 basis-0 my-4">
 	<div class="h-full flex flex-col flex-1 overflow-hidden">
-		<div class="flex items-center justify-between p-2 pl-4 border-b border-neutral bg-neutral rounded-t-lg">
-			<h3 class="font-bold text-xs">Conversations</h3>
+		<div class="flex items-center justify-evenly p-2 pl-4 border-b border-neutral bg-neutral rounded-t-lg">
+			<h3 class="font-bold text-sm">Conversations</h3>
+
+			<div class="flex justify-start items-center gap-3 my-4">
+				<!-- Dropdown -->
+				<select class="select select-bordered select-xs w-full max-w-xs text-primary" bind:this={dropdown} on:change={() => {
+					timeSpan = dropdown.value;
+					getStats();
+				}}>
+					<!-- <option disabled selected>Duration</option> -->
+					<option>Last 24 Hours</option>
+					<option>Last 7 Days</option>
+					<option selected>Last 30 Days</option>
+				</select>
+		
+				{#if isFetchingStats}
+					<div class="loading loading-spinner loading-md text-primary"></div>
+				{/if}
+			</div>
+
 			<label for="sort" class="hidden">By Date</label>
-			<select class="select select-bordered select-xs" name="sort" on:change={reverseSort}>
+			<select class="select select-bordered select-xs text-primary" name="sort" on:change={reverseSort}>
 				<option>Newest First</option>
 				<option>Oldest First</option>
 			</select>
