@@ -49,7 +49,7 @@
 		<Files {totalFileCount} credentials={data.cred}/>
 		<Text {totalFileCount}/>
     <Notion {totalFileCount} />  
-    <GoogleDrive {totalFileCount} /> 
+    <!-- <GoogleDrive />  -->
 	</div>
 	<div>
 		<div
