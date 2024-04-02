@@ -14,14 +14,13 @@
 	let supportHoursSavedFormated = data.supportHoursSavedFormated;
 	let numberOfChats = data.numberOfChats;
 	let messages = data.messages;
-	let averageMessagesPerChat = data.messages / data.numberOfChats;
+	let safeAverage = data.safeAverage;
 	let numberOfLikes = data.numberOfLikes;
 	let numberOfDislikes = data.numberOfDislikes;
 
 	
 	let dropdown: HTMLSelectElement;
 	let timeSpan = 'Last 30 Days';
-	$: console.log(timeSpan);
 
 	const md = new Remarkable();
 
@@ -125,11 +124,11 @@
 		};
 		const response = await fetch(`/api/stats`, options);
 		const data = await response.json();
-		console.log(data);
+		chatHistory = data.chats;
 		supportHoursSavedFormated = data.supportHoursSavedFormated;
 		numberOfChats = data.numberOfChats;
 		messages = data.messages;
-		averageMessagesPerChat = data.averageMessagesPerChat;
+		safeAverage = data.safeAverage;
 		numberOfLikes = data.numberOfLikes;
 		numberOfDislikes = data.numberOfDislikes;
 		isFetchingStats = false;
@@ -157,7 +156,6 @@
 		</div>
 
 		<div class="stats shadow">
-
 			<div class="stat">
 				<div class="stat-figure text-secondary">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -166,7 +164,7 @@
 				</div>
 				<div class="stat-title">Support Hours Saved</div>
 				<div class="stat-value">{supportHoursSavedFormated}</div>
-				<div class="stat-desc">Last 30 days</div>
+				<div class="stat-desc">{timeSpan}</div>
 			</div>
   
 			<div class="stat">
@@ -177,7 +175,7 @@
 				</div>
 				<div class="stat-title">Conversations</div>
 				<div class="stat-value">{numberOfChats}</div>
-				<div class="stat-desc">Last 30 days</div>
+				<div class="stat-desc">{timeSpan}</div>
 			</div>
 
 			<div class="stat">
@@ -188,7 +186,7 @@
 				</div>
 				<div class="stat-title">Total Messages</div>
 				<div class="stat-value">{messages}</div>
-				<div class="stat-desc">Last 30 days</div>
+				<div class="stat-desc">{timeSpan}</div>
 			</div>
 			
 			<div class="stat">
@@ -198,8 +196,8 @@
 					</svg>				
 				</div>
 				<div class="stat-title">Average # of Messages</div>
-				<div class="stat-value">{averageMessagesPerChat.toFixed(2)}</div>
-				<div class="stat-desc">Last 30 days</div>
+				<div class="stat-value">{safeAverage.toFixed(2)}</div>
+				<div class="stat-desc">{timeSpan}</div>
 			</div>
 			
 			<div class="stat">
@@ -210,7 +208,7 @@
 				</div>
 				<div class="stat-title"># of Likes</div>
 				<div class="stat-value">{numberOfLikes}</div>
-				<div class="stat-desc">Last 30 days</div>
+				<div class="stat-desc">{timeSpan}</div>
 			</div>
 
 			<div class="stat">
@@ -221,7 +219,7 @@
 				</div>
 				<div class="stat-title"># of Dislikes</div>
 				<div class="stat-value">{numberOfDislikes}</div>
-				<div class="stat-desc">Last 30 days</div>
+				<div class="stat-desc">{timeSpan}</div>
 			</div>
 			
 		</div>
