@@ -44,11 +44,11 @@
 </svelte:head>
 
 <div class="container grid md:grid-cols-2 lg:grid-cols-[auto_32rem] gap-4 my-4">
-	<div class="grid grid-cols-3 gap-6 my-4 max-h-[125px]">
+	<div class="grid grid-cols-3 gap-6 my-4 max-h-[250px]">
 		<WebScraping/>
 		<Files {totalFileCount} credentials={data.cred}/>
 		<Text {totalFileCount}/>
-    <!-- <Notion {totalFileCount} />   -->
+    <Notion {totalFileCount} />  
     <!-- <GoogleDrive />  -->
 	</div>
 	<div>
