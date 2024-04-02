@@ -1,5 +1,6 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
+	import { onMount } from 'svelte';
 	import Instructions from '../Instructions.svelte';
 
   export let totalFileCount: number;
@@ -97,7 +98,9 @@
         method: 'POST',
         body: JSON.stringify({
           botId: $currentBot.id,
-          service: 'NOTION'
+          service: 'NOTION',
+          chunkSize: `${$currentBot.settings.dataFunnelSettings?.files?.chunkSize ?? 400}`,
+          chunkOverlap: `${$currentBot.settings.dataFunnelSettings?.files?.chunkOverlap ?? 20}`
         }),
       });
 
@@ -158,6 +161,21 @@
       }
     }, 1000);
   }
+
+  function onTabFocus() {
+    if (document.visibilityState === 'visible') {
+      console.log('hi');
+      fetchUserData();
+    }
+  }
+
+  onMount(async () => {
+    document.addEventListener('visibilitychange', onTabFocus);
+
+    return () => {
+      document.removeEventListener('visibilitychange', onTabFocus);
+    };
+  });
 </script>
 
 <label for="notion" class="btn bg-gradient-to-r from-slate-400 to-slate-500 hover:bg-slate-700 w-full h-full modal-button shadow-lg shadow-zinc-400 hover:shadow-lg hover:shadow-stone-200 hover:-mt-1 border-1 border-slate-600"> 
