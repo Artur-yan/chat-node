@@ -7,6 +7,7 @@
 	import Text from '$lib/components/data/Text.svelte';
 	import Notion from '$lib/components/data/Notion.svelte';
 	import GoogleDrive from '$lib/components/data/GoogleDrive.svelte';
+	import tiersMap from '$lib/data/tiers.js';
 
 	export let data;
 
@@ -37,6 +38,7 @@
   onMount(async () => {
     await fetchTotalFileCount();
   });
+
 </script>
 
 <svelte:head>
@@ -44,11 +46,14 @@
 </svelte:head>
 
 <div class="container grid md:grid-cols-2 lg:grid-cols-[auto_32rem] gap-4 my-4">
-	<div class="grid grid-cols-3 gap-6 my-4 max-h-[250px]">
+	<div class="grid grid-cols-3 gap-6 my-4 max-h-[200px]">
 		<WebScraping/>
 		<Files {totalFileCount} credentials={data.cred}/>
 		<Text {totalFileCount}/>
+    {#if tiersMap[data.subscription.plan].features.notion?.included}
+     <!-- Notion component goes here -->
     <Notion {totalFileCount} />  
+    {/if}
     <!-- <GoogleDrive />  -->
 	</div>
 	<div>

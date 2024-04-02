@@ -17,6 +17,9 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: false,
 				label: 'Remove ChatNode Branding'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -38,6 +41,9 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: false,
 				label: 'Remove ChatNode Branding'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -59,6 +65,9 @@ const tiersMap = {
 			remove_chatnode_branding: {
 				included: false,
 				label: 'Remove ChatNode Branding'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -84,6 +93,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -109,6 +121,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -138,6 +153,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -167,6 +185,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -196,6 +217,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -225,6 +249,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -250,6 +277,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: true,
 			}
 		}
 	},
@@ -275,6 +305,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: true,
 			}
 		}
 	},
@@ -300,6 +333,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: true,
 			}
 		}
 	},
@@ -325,6 +361,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion : {
+				included: true,
 			}
 		}
 	},
@@ -354,6 +393,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -383,6 +425,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -416,6 +461,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -449,6 +497,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -482,6 +533,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	},
@@ -515,6 +569,9 @@ const tiersMap = {
 			crisp: {
 				included: true,
 				label: 'Let users talk to a real person via a Crisp integration'
+			},
+			notion: {
+				included: false,
 			}
 		}
 	}
