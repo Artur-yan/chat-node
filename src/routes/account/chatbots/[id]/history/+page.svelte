@@ -5,9 +5,23 @@
 	import { PUBLIC_CHAT_API_URL } from '$env/static/public';
 	let busyExporting = false;
 	import { alert } from '$lib/stores';
-	import { stringify } from 'postcss';
+	import { currentBot } from '$lib/stores';
 
 	export let data;
+
+	let isFetchingStats = false;
+
+	let supportHoursSavedFormated = data.supportHoursSavedFormated;
+	let numberOfChats = data.numberOfChats;
+	let messages = data.messages;
+	let averageMessagesPerChat = data.messages / data.numberOfChats;
+	let numberOfLikes = data.numberOfLikes;
+	let numberOfDislikes = data.numberOfDislikes;
+
+	
+	let dropdown: HTMLSelectElement;
+	let timeSpan = 'Last 30 Days';
+	$: console.log(timeSpan);
 
 	const md = new Remarkable();
 
@@ -99,10 +113,49 @@
 			minute: '2-digit'
 		});
 	};
+
+	async function getStats() {
+		isFetchingStats = true;
+		const options = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			}, 
+			body: JSON.stringify({botId: $currentBot.id, timeSpan})
+		};
+		const response = await fetch(`/api/stats`, options);
+		const data = await response.json();
+		console.log(data);
+		supportHoursSavedFormated = data.supportHoursSavedFormated;
+		numberOfChats = data.numberOfChats;
+		messages = data.messages;
+		averageMessagesPerChat = data.averageMessagesPerChat;
+		numberOfLikes = data.numberOfLikes;
+		numberOfDislikes = data.numberOfDislikes;
+		isFetchingStats = false;
+	}
 </script>
 
 <div class="w-full">
 	<div class="w-full ml-4 overflow-x-auto">
+
+		<div class="flex justify-start items-center gap-3 my-4">
+			<!-- Dropdown -->
+			<select class="select select-bordered select-tiny w-full max-w-xs ml-4" bind:this={dropdown} on:change={() => {
+				timeSpan = dropdown.value;
+				getStats();
+			}}>
+				<!-- <option disabled selected>Duration</option> -->
+				<option>Last 24 Hours</option>
+				<option>Last 7 Days</option>
+				<option selected>Last 30 Days</option>
+			</select>
+	
+			{#if isFetchingStats}
+				<div class="loading loading-spinner loading-md text-primary"></div>
+			{/if}
+		</div>
+
 		<div class="stats shadow">
 
 			<div class="stat">
@@ -112,7 +165,7 @@
 					</svg>								
 				</div>
 				<div class="stat-title">Support Hours Saved</div>
-				<div class="stat-value">{data.supportHoursSavedFormated}</div>
+				<div class="stat-value">{supportHoursSavedFormated}</div>
 				<div class="stat-desc">Last 30 days</div>
 			</div>
   
@@ -123,7 +176,7 @@
 					</svg>					
 				</div>
 				<div class="stat-title">Conversations</div>
-				<div class="stat-value">{data.numberOfChats}</div>
+				<div class="stat-value">{numberOfChats}</div>
 				<div class="stat-desc">Last 30 days</div>
 			</div>
 
@@ -134,7 +187,7 @@
 					</svg>									
 				</div>
 				<div class="stat-title">Total Messages</div>
-				<div class="stat-value">{data.messages}</div>
+				<div class="stat-value">{messages}</div>
 				<div class="stat-desc">Last 30 days</div>
 			</div>
 			
@@ -145,7 +198,7 @@
 					</svg>				
 				</div>
 				<div class="stat-title">Average # of Messages</div>
-				<div class="stat-value">{data.averageMessagesPerChat.toFixed(2)}</div>
+				<div class="stat-value">{averageMessagesPerChat.toFixed(2)}</div>
 				<div class="stat-desc">Last 30 days</div>
 			</div>
 			
@@ -156,7 +209,7 @@
 					</svg>	
 				</div>
 				<div class="stat-title"># of Likes</div>
-				<div class="stat-value">{data.numberOfLikes}</div>
+				<div class="stat-value">{numberOfLikes}</div>
 				<div class="stat-desc">Last 30 days</div>
 			</div>
 
@@ -167,7 +220,7 @@
 					</svg>
 				</div>
 				<div class="stat-title"># of Dislikes</div>
-				<div class="stat-value">{data.numberOfDislikes}</div>
+				<div class="stat-value">{numberOfDislikes}</div>
 				<div class="stat-desc">Last 30 days</div>
 			</div>
 			
