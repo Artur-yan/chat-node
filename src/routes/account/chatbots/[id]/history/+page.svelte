@@ -247,9 +247,6 @@
 							class="chat-{chat.session_id} border border-base-200 my-2 p-2 w-full flex items-center cursor-pointer"
 							on:click={(e) => getChatConversation(chat)}
 							>
-								{#if !chat.read}
-									<div class="read-indicator bg-primary rounded-full w-1 h-1"></div>
-								{/if}
 								<div>
 									{#if chat.enduser_name || chat.enduser_email}
 										<div class="text-secondary/70">
@@ -275,6 +272,9 @@
 										</div>
 									{/if}
 								</div>
+								{#if !chat.read}
+									<div class="badge badge-accent badge-outline read-indicator">Unread</div>
+								{/if}
 							</button>
 						</li>
 					{/each}
