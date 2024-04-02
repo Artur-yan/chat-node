@@ -256,6 +256,12 @@
 									{/if}
 									{formatDate(chat.created_at)}
 								</div>
+								{#if !chat.read}
+									<div class="badge badge-accent badge-outline read-indicator">Unread</div>
+								{:else}
+									<!-- IMPLEMENTION COMMENT: :else condition to avoid refactoring into a table -->
+									<div class="badge badge-accent badge-outline invisible">Unread</div>
+								{/if}
 								<div class="m-1">
 									{#if chat.likes !== 0 || chat.dislikes !== 0}
 										<div class="flex gap-2">
@@ -272,9 +278,6 @@
 										</div>
 									{/if}
 								</div>
-								{#if !chat.read}
-									<div class="badge badge-accent badge-outline read-indicator">Unread</div>
-								{/if}
 							</button>
 						</li>
 					{/each}
