@@ -21,7 +21,6 @@
 	
 	let dropdown: HTMLSelectElement;
 	let timeSpan = 'Last 30 Days';
-	$: console.log(timeSpan);
 
 	const md = new Remarkable();
 
@@ -125,7 +124,7 @@
 		};
 		const response = await fetch(`/api/stats`, options);
 		const data = await response.json();
-		console.log(data);
+		chatHistory = data.chats;
 		supportHoursSavedFormated = data.supportHoursSavedFormated;
 		numberOfChats = data.numberOfChats;
 		messages = data.messages;
