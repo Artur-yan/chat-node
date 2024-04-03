@@ -254,7 +254,7 @@
 											<span>{chat.enduser_email ? '<' + chat.enduser_email + '>' : ''}</span>
 										</div>
 									{/if}
-									{formatDate(chat.created_at)}
+									{formatDate(new Date(chat.created_at))}
 								</div>
 								{#if !chat.read}
 									<div class="badge badge-accent badge-outline read-indicator">Unread</div>
