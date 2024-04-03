@@ -135,7 +135,7 @@
 	}
 </script>
 
-<div class="w-full">
+<div class="container">
 	<div class="w-full ml-4 overflow-x-auto">
 		<!-- Row 1 -->
 		<div class="stats shadow">
