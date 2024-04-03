@@ -6,6 +6,7 @@
   // state
 	let isModalOpen = false;
   let isUploading = false;
+  let isFetching = false;
   let isEditing = false;
   let activeTab: 'upload' | 'trained' = 'upload';
   let hasQueuedFiles = false;
@@ -231,7 +232,30 @@
     </div>
 
     {#if hasQueuedFiles && activeTab === 'trained'}
-      <span class="text-slate-400 mx-8">Refreshing in <span class="font-bold text-primary">{counter}</span> seconds</span>
+      <div class="flex justify-start items-center gap-2 ml-4 my-4">
+        <button 
+          class="btn btn-sm btn-active btn-primary w-32 min-w-32 h-8"
+          on:click={async () => {
+            isFetching = true;
+            await fetchUserData('RAW_TEXT');
+            isFetching = false;
+            if(timeoutId) clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+              fetchUserData('RAW_TEXT');
+            }, 40000);
+          }}
+        >
+        {#if isFetching}
+          <span class="loading loading-spinner loading-sm"></span>
+        {:else}
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+          </svg>
+          Refresh
+        {/if}
+        </button>
+        <span class="text-slate-400">Refreshing in <span class="font-bold text-primary">{counter}</span> seconds</span>
+      </div>
     {/if}
 
     <section class="w-full h-5/6 rounded-xl my-4">

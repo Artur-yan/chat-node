@@ -9,6 +9,7 @@
   let activeTab: 'submit' | 'trained' = 'submit';
   let isFetchingUrls = false;
   let isFetchingSitemap = false;
+  let isFetchingData = false;
   let hasQueuedFiles = false;
   let counter: number;
   let intervalId: any;
@@ -428,9 +429,37 @@
     </div>
       {/if}
 
-      {#if hasQueuedFiles && activeTab === 'trained'}
+      <!-- {#if hasQueuedFiles && activeTab === 'trained'}
         <span class="text-slate-400 mx-8">Refreshing in <span class="font-bold text-primary">{counter}</span> seconds</span>
-      {/if}
+      {/if} -->
+
+      {#if hasQueuedFiles && activeTab === 'trained'}
+      <div class="flex justify-start items-center gap-2 ml-4 my-4">
+        <button 
+          class="btn btn-sm btn-active btn-primary w-32 min-w-32 h-8"
+          on:click={async () => {
+            isFetchingData = true;
+            const offset = (currentPage - 1) * 250;
+            await fetchUserData(offset);
+            isFetchingData = false;
+            if(timeoutId) clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+              fetchUserData();
+            }, 40000);
+          }}
+        >
+        {#if isFetchingData}
+          <span class="loading loading-spinner loading-sm"></span>
+        {:else}
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+          </svg>
+          Refresh
+        {/if}
+        </button>
+        <span class="text-slate-400">Refreshing in <span class="font-bold text-primary">{counter}</span> seconds</span>
+      </div>
+    {/if}
 
     <!-- MAIN CONTENT --> 
     <section class="w-full h-5/6 rounded-xl my-4 overflow-y-auto">
