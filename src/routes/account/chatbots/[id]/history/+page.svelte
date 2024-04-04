@@ -31,7 +31,6 @@
 
 	let drawer: HTMLInputElement;
 	let docsInReview: any[] = [];
-	$: console.log(docsInReview);
 
 	const postProcessMsgHTML = (msgHTML) => {
 		msgHTML = msgHTML.replace(/<a href=/g, '<a target="_blank" href=');
@@ -382,9 +381,9 @@
     <ul class="menu p-4 w-[35vw] min-h-full bg-base-200 text-base-content">
 			<!-- <h2>Context</h2> -->
 				{#each docsInReview as doc}
-				<div class="my-4 w-[30vw]">
-					<h3 class="my-2 text-lg font-bold text-secondary break-words">{doc.source}</h3>
-					<p class="outline outline-primary rounded-md">{doc.doc}</p>
+				<div class="my-4 w-[33vw]">
+					<h3 class="my-2 px-4 pt-2 bg-gray-700 rounded-md text-lg font-bold text-primary break-words">{doc.source}</h3>
+					<p class="p-4 outline outline-secondary rounded-md">{doc.doc}</p>
 				</div>
 				{/each}
     </ul>
