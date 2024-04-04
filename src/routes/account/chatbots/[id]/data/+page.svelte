@@ -150,7 +150,7 @@
 	}
 
 	onMount(() => {
-		if(!$currentBot.settings.dataFunnelV2 && $currentBot.pinecone_info.PINECONE_INDEX === '') {
+		if(!$currentBot.settings.dataFunnelV2 && $currentBot.pinecone_info.PINECONE_INDEX === 'chatnode-3') {
 			my_modal_1.showModal();
 		}
 
