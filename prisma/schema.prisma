@@ -216,7 +216,6 @@ model ChatHistory {
   session_id String?
   user_id    String?
   bot_id     String?
-  docs       Json?
   vote       Int?      @default(0)
   docs       Json?
 
