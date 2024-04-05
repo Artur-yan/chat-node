@@ -472,10 +472,46 @@
 {/if}
 
 <!-- Suggested Questions Section -->
-<!-- <div class="card bg-neutral card-compact mb-4">
+<div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
-		<h2 class="card-title">Suggested Questions Button</h2>
-		<div class="flex gap-2 items-center mt-2">
+		<h2 class="card-title">Suggested Questions Buttons</h2>
+
+		<div class="flex gap-16">
+			<div class="flex-col">
+				<h5 class="font-bold">Orientation</h5>
+				<div class="form-control mt-3">
+					<label class="cursor-pointer label justify-start gap-2">
+						<span class="label-text">Horizontal</span>
+						<input
+							type="checkbox"
+							class="toggle toggle-sm"
+							class:toggle-success={$currentBot.settings.suggestedQuestionsStacked}
+							bind:checked={$currentBot.settings.suggestedQuestionsStacked}
+						/>
+						<span class="label-text">Stacked</span>
+					</label>
+				</div>	
+			</div>
+
+			<div>
+				<h5 class="font-bold">Disappear after click</h5>
+				<div class="form-control mt-3">
+					<label class="cursor-pointer label justify-start gap-2">
+						<span class="label-text">Off</span>
+						<input
+							type="checkbox"
+							class="toggle toggle-sm"
+							class:toggle-success={$currentBot.settings.suggestedQuestionsDisappear}
+							bind:checked={$currentBot.settings.suggestedQuestionsDisappear}
+						/>
+						<span class="label-text">On</span>
+					</label>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- <div class="flex gap-2 items-center mt-2">
 			<ColorPicker
 				bind:hex={$currentBot.settings.theme.suggestedQuestionsBG}
 				label="Button Color"
@@ -487,9 +523,9 @@
 				label="Button Shadow"
 				on:input={checkIfThemeSaved}
 			/>
-		</div>
+		</div> -->
 	</div>
-</div> -->
+</div>
 
 
 <!-- Avatar Section -->
