@@ -65,7 +65,7 @@ model Bots {
   cloudinary_public_id       String?
   openai_api_key             String?
   use_chatnode_msgs          Boolean? @default(true)
-  pinecone_info              Json     @default("{\"PINECONE_ENV\": \"eu-west1-gcp\", \"PINECONE_INDEX\": \"chatnode-3\"}")
+  pinecone_info              Json     @default("{\"PINECONE_ENV\": \"us-east-1\", \"PINECONE_INDEX\": \"chatnode-3-serverless-bis\"}")
   custom_domain              String?  @unique
   msg_count                  Int      @default(0)
   cloudinary_public_id_popup String?
