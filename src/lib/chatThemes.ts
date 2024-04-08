@@ -143,6 +143,34 @@ const themes = {
 		feedbackIconColor: '#333333',
 		poweredByChatNodeColor: '#ffffff'
 	},
+	dracula: {
+		name: 'dracula',
+		bg: '#282A36', // Background color
+		headerBG: '#44475A', // Current Line color for header background
+		headerTitle: '#F8F8F2', // Foreground color for header title
+		headerShadow: '#6272A4', // Comment color for header shadow
+		statusMessage: 'Online',
+		statusColor: '#50FA7B', // Green color for status
+		resetButton: '#FF5555', // Red color for reset button
+		botBubbleBG: '#44475A', // Current Line color for bot bubble background
+		botBubbleText: '#F8F8F2', // Foreground color for bot bubble text
+		userBubbleBG: '#BD93F9', // Background color for user bubble
+		userBubbleText: '#F8F8F2', // Foreground color for user bubble text
+		inputBG: '#F8F8F2', // Foreground color for input background
+		inputText: '#282A36', // Background color for input text
+		inputBorder: '#6272A4', // Comment color for input border
+		sendButtonBG: '#BD93F9', // Purple color for send button background
+		sendButtonIconColor: '#F8F8F2', // Foreground color for send button icon
+		popupButtonBG: '#FF79C6', // Pink color for popup button background
+		popupButtonIcon: '#F8F8F2', // Foreground color for popup button icon
+		popupButtonMessageBG: '#F8F8F2', // Foreground color for popup message background
+		popupButtonMessageTextColor: '#282A36', // Background color for popup message text
+		popupButtonMessageGlowColor: '#FF79C6', // Pink color for popup message glow
+		suggestedQuestionsBG: '#BD93F9', // Purple color for suggested questions background
+		suggestedQuestionsShadow: '#6272A4', // Comment color for suggested questions shadow
+		feedbackIconColor: '#8BE9FD', // Cyan color for feedback icon
+		poweredByChatNodeColor: '#F8F8F2' // Foreground color for 'Powered By' text
+	},
 	custom: {
 		name: 'custom',
 		bg: '#666666',
