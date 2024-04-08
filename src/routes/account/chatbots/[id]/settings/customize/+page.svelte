@@ -158,23 +158,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="card-body">
-		<h3 class="font-bold">Misc.</h3>
-
-		<div class="grid grid-cols-4 gap-2 items-end">
-			<ColorPicker
-				bind:hex={$currentBot.settings.theme.bg}
-				label="Chat Background"
-				on:input={checkIfThemeSaved}
-			/>
-
-			<ColorPicker
-				bind:hex={$currentBot.settings.theme.resetButton}
-				label="Reset Button"
-				on:input={checkIfThemeSaved}
-			/>
-		</div>
-	</div>
 </div>
 
 <!-- Header Section -->
@@ -195,24 +178,28 @@
 			</div>
 		</div>
 		{#if $currentBot.settings.headerEnabled}
-		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
-			<div>
-				<label for="public-title" class="label">
-					<span class="label-text">Header Title</span>
-				</label>
-				<input
-					class="input input-sm w-full"
-					type="text"
-					name="public-title"
-					bind:value={$currentBot.settings.publicTitle}
-				/>
+			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 items-end">
+				<div>
+					<label for="public-title" class="label">
+						<span class="label-text">Header Title</span>
+					</label>
+					<input
+						class="input input-sm w-full"
+						type="text"
+						name="public-title"
+						bind:value={$currentBot.settings.publicTitle}
+					/>
+				</div>
+				<div class="mb-1">
+					<ColorPicker
+						bind:hex={$currentBot.settings.theme.headerTitle}
+						label="Title Text"
+						on:input={checkIfThemeSaved}
+					/>
+				</div>
 			</div>
-			<ColorPicker
-				bind:hex={$currentBot.settings.theme.headerTitle}
-				label="Title Text"
-				on:input={checkIfThemeSaved}
-			/>
-			<ColorPicker
+			<div class="flex gap-6 my-8">
+				<ColorPicker
 				bind:hex={$currentBot.settings.theme.headerBG}
 				label="Background"
 				on:input={checkIfThemeSaved}
@@ -222,8 +209,14 @@
 			label="Header Shadow"
 			on:input={checkIfThemeSaved}
 			/>
-		</div>
-	{/if}
+
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.resetButton}
+				label="Reset Button"
+				on:input={checkIfThemeSaved}
+			/>
+			</div>
+		{/if}
 	</div>
 </div>
 
@@ -264,6 +257,22 @@
 				/>
 			</div>
 		{/if}
+	</div>
+</div>
+
+<!-- Background Section -->
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="flex gap-4 items-center">
+			<h2 class="card-title">Background</h2>
+		</div>
+		<div class="grid grid-cols-4 gap-2 items-end">
+			<ColorPicker
+				bind:hex={$currentBot.settings.theme.bg}
+				label="Chat Background"
+				on:input={checkIfThemeSaved}
+			/>
+		</div>
 	</div>
 </div>
 
@@ -367,6 +376,26 @@
 			/>
 		</div>
 	{/if}
+	</div>
+</div>
+
+<!-- Sound Effects Section -->
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="flex gap-4 items-center">
+			<h2 class="card-title">Sound Effects</h2>
+			<div class="form-control">
+				<label class="cursor-pointer label gap-2">
+					<span class="label-text">Enable</span>
+					<input
+						type="checkbox"
+						class="toggle toggle-sm"
+						class:toggle-success={$currentBot.settings.soundEffects}
+						bind:checked={$currentBot.settings.soundEffects}
+					/>
+				</label>
+			</div>
+		</div>
 	</div>
 </div>
 
