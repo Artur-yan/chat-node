@@ -10,7 +10,7 @@
 </svelte:head>
 
 <div class="flex flex-col flex-1 overflow-hidden rounded-lg m-2 md:m-8">
-	<iframe class="w-full h-[80vh]" src="{PUBLIC_EMBED_URL}/{$currentBot.id}" allow="clipboard-read; clipboard-write" frameborder="0" title=""></iframe>
+	<iframe class="w-full h-[80vh]" src="{PUBLIC_EMBED_URL}/{$currentBot.id}" allow="autoplay; clipboard-read; clipboard-write" frameborder="0" title=""></iframe>
 </div>
 
 <div>
