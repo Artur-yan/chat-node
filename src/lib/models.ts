@@ -100,6 +100,7 @@ const defaultSettings = {
 	policyEnabled: false,
 	policyLink: '',
 	policyText: '',
+	soundEffects: true,
 	showSuggestedQuestionsPrompt: false,
 	suggestedQuestionsStacked: true,
 	suggestedQuestionsDisappear: true,

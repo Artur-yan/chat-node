@@ -379,6 +379,26 @@
 	</div>
 </div>
 
+<!-- Sound Effects Section -->
+<div class="card bg-neutral card-compact mb-4">
+	<div class="card-body">
+		<div class="flex gap-4 items-center">
+			<h2 class="card-title">Sound Effects</h2>
+			<div class="form-control">
+				<label class="cursor-pointer label gap-2">
+					<span class="label-text">Enable</span>
+					<input
+						type="checkbox"
+						class="toggle toggle-sm"
+						class:toggle-success={$currentBot.settings.soundEffects}
+						bind:checked={$currentBot.settings.soundEffects}
+					/>
+				</label>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!-- Feedback Section -->
 <div class="card bg-neutral card-compact mb-4">
 	<div class="card-body">
