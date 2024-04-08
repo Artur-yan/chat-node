@@ -2,7 +2,6 @@
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import themes from '$lib/chatThemes';
 	import { currentBot, currentBotAvatarImg, currentBotPopupImg } from '$lib/stores.js';
-	import { enhance } from '$app/forms';
 	import { alert } from '$lib/stores';
 
 	export let data;
@@ -144,6 +143,18 @@
 				/>
 				<label for="neutral" class="!bg-[#666666] !text-[#333333]">Neutral</label>
 			</div>
+			<!-- <div>
+				<input
+					class="hidden"
+					type="radio"
+					id="dracula"
+					name="theme"
+					value="dracula"
+					bind:group={$currentBot.settings.theme.name}
+					on:input={() => changeTheme('dracula')}
+				/>
+				<label for="dracula" class="!bg-[#282a36] !text-[#bd93f9]">Dracula</label>
+			</div> -->
 			<div>
 				<input
 					class="hidden"
