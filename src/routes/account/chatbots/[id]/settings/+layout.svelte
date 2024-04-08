@@ -143,9 +143,9 @@
 	<div class="h-full min-h-[24rem] relative hidden sm:block">
 		<div class="sticky flex flex-col top-4 h-[75vh] flex-1 max-h-[40rem] rounded-2xl overflow-hidden">
 			<Chat
+				plan={data.subscription.plan || 0}
 				modelId={data.model.id}
 				settings={$currentBot.settings}
-				trainingStatus={data.model.status}
 				avatar={$currentBotAvatarImg}
 				userId={data.session.user.userId}
 				{showUserInfoCollection}
