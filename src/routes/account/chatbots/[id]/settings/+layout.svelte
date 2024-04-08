@@ -142,8 +142,7 @@
 
 	<div class="h-full min-h-[24rem] relative hidden sm:block">
 		<div class="sticky flex flex-col top-4 h-[75vh] flex-1 max-h-[40rem] rounded-2xl overflow-hidden">
-			<iframe class="w-full h-[80vh]" src="{PUBLIC_EMBED_URL}/{$currentBot.id}" allow="autoplay; clipboard-read; clipboard-write" frameborder="0" title=""></iframe>
-			<!-- <Chat
+			<Chat
 				modelId={data.model.id}
 				settings={$currentBot.settings}
 				trainingStatus={data.model.status}
@@ -152,7 +151,7 @@
 				{showUserInfoCollection}
 				usedForPreview={true}
 				customDomain={data.subscription?.addons !== null ? data.subscription?.addons['10005'] : false}
-			/> -->
+			/>
 		</div>
 	</div>
 	{#if $currentBot.settings.collectUserEmail || $currentBot.settings.collectUserName || $currentBot.settings.collectUserPhone || $currentBot.settings.policyEnabled}
