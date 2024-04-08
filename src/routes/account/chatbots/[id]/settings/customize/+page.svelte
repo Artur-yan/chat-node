@@ -429,11 +429,11 @@
 		</div>
 		{#if $currentBot.settings.feedbackEnabled}
 			<div class="grid grid-cols-4 gap-2 items-end mt-4">
-				<ColorPicker
+				<!-- <ColorPicker
 				bind:hex={$currentBot.settings.theme.feedbackBGColor}
 				label="Background Color"
 				on:input={checkIfThemeSaved}
-				/>
+				/> -->
 
 				<ColorPicker
 					bind:hex={$currentBot.settings.theme.feedbackIconColor}
