@@ -148,8 +148,8 @@ const defaultSettings = {
 		popupButtonMessageGlowColor: '#ffffff4d',
 		// suggestedQuestionsBG: '#898CF8',
 		// suggestedQuestionsShadow: '#333333',
-		feedbackBGColor: '#6467B2',
-		feedbackIconColor: '#FFFFFF',
+		// feedbackBGColor: '#6467B2',
+		feedbackIconColor: '#0F172A',
 		poweredByChatNodeColor: '#898CF8'
 	},
 	openChatByDefault: false,
