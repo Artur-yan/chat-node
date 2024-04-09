@@ -16,6 +16,8 @@
 	import SuggestedQuestions from './chat/SuggestedQuestions.svelte';
 	import Thinking from './chat/Thinking.svelte';
 	import SubmitButton from './chat/SubmitButton.svelte';
+	import { fade } from 'svelte/transition';
+	import { browser } from '$app/environment';
 
 	export let modelId: string;
 	export let disabled = false;
@@ -39,6 +41,10 @@
 	export let plan: number;
 	export let customDomain: boolean;
 
+	$: if(browser && messages.length) {
+		scrollToBottom();
+	}
+
 	let agreedToPolicy = false;
 	let submittedInfo = false;
 
@@ -56,7 +62,6 @@
 		...settings
 	};
 
-
 	if (!settings.theme) {
 		settings.theme = defaultSettings.theme;
 	}
@@ -69,7 +74,8 @@
 	let userInfoReceived = false;
 	let links: string[] | undefined = [];
 	let messageId: string | null = '';
-	const suggestedQuestions: SuggestedQuestion[] = settings.suggestedQuestions;
+	let suggestedQuestions: SuggestedQuestion[] = settings.suggestedQuestions;
+	const lockedSuggestedQuestions = JSON.parse(JSON.stringify(suggestedQuestions));
 
 	let endUserInfo = {
 		name: '',
@@ -189,7 +195,7 @@
 
 	const addMessage = (message: string, sender: 'user' | 'human' | 'bot' = 'bot', links: string[]  = []): void => {
 		messages = [...messages, 
-			{ id: uuidv4(), text: message, sender: sender, links: links, status: 'done', vote: 0}
+			{ id: uuidv4(), text: message, sender: sender, links: links, status: undefined, vote: 0}
 		];
 	};
 
@@ -249,6 +255,7 @@
 					isResponding = false
 					messages[messages.length - 1].id = messageId as string;
 					messages[messages.length - 1].status = 'done';
+					playDoublePop();
 					return;
 				}
 				// Otherwise do something here to process current chunk
@@ -328,6 +335,7 @@
 	};
 
 	const submitQuery = (): void => {
+		playSingleClick();
 		//Initalizations
 		if (messages.length === 1 && !collectUserInfo) {
 			initConversation();
@@ -358,6 +366,7 @@
 		messages = [];
 		addMessage(settings.greeting);
 		chatSessionId = generateNewSessionId();
+		suggestedQuestions = JSON.parse(JSON.stringify(lockedSuggestedQuestions));
 		
 		const previousConversationJSON = localStorage.getItem('previous_convo_3495');
 		let conversationObj;
@@ -381,6 +390,31 @@
 		customMessage = label;
 		submitQuery();
 	};
+
+	function playDoublePop() :void {
+		if(settings.soundEffects) {
+			const audio = new Audio('/multiple-pops.mp3');
+			audio.play();
+		}
+	}
+
+	function playSingleClick() :void {
+		if(settings.soundEffects) {
+			const audio = new Audio('/click.mp3');
+			audio.play();
+		}
+	}
+
+	const scrollToBottom = () => {
+    setTimeout(() => {
+			const chatBottom = document.getElementById('chat-bottom');
+			if (chatBottom) {
+				chatBottom.scrollIntoView({ behavior: 'smooth' });
+			}
+		}, 100);
+	};
+
+	$: console.log(messages.length);
 </script>
 
 <svelte:head>
@@ -406,13 +440,14 @@
 		--sendButtonBG: {settings.theme.sendButtonBG};
 		--sendButtonIconColor: {settings.theme.sendButtonIconColor};
 		--statusColor: {settings.theme.statusColor};
+		--feedbackIconColor: {settings.theme.feedbackIconColor};
 		background-color: var(--bg);
 		font-family: 'Mulish', sans-serif;"
 		class="flex h-full flex-col justify-between overflow-hidden flex-1 relative transition-colors ease-in-out duration-500"
 	>
 		<!-- Header -->
 		{#if settings?.headerEnabled && settings.publicTitle !== ''}
-			<ChatHeader {settings} />
+			<ChatHeader {settings} {resetChat} />
 		{/if}
 
 		<!-- PBCN -->
@@ -421,28 +456,14 @@
 		{/if}
 		<div class="flex-col-reverse flex flex-1 overflow-y-auto scroll-smooth h-0 basis-auto">
 			<div class="flex-1">
-				<button 
-					class="z-[1] absolute top-2.5 right-2 btn btn-circle btn-sm btn-ghost flex items-center justify-center rotatable"
-					style="color: var(--resetButton); position:absolute right: 8px;"
-					title="Reset Chat"
-					on:click={resetChat}
-				>
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-						<path
-							fill="currentColor"
-							d="M17.65 6.35a7.95 7.95 0 0 0-6.48-2.31c-3.67.37-6.69 3.35-7.1 7.02C3.52 15.91 7.27 20 12 20a7.98 7.98 0 0 0 7.21-4.56c.32-.67-.16-1.44-.9-1.44c-.37 0-.72.2-.88.53a5.994 5.994 0 0 1-6.8 3.31c-2.22-.49-4.01-2.3-4.48-4.52A6.002 6.002 0 0 1 12 6c1.66 0 3.14.69 4.22 1.78l-1.51 1.51c-.63.63-.19 1.71.7 1.71H19c.55 0 1-.45 1-1V6.41c0-.89-1.08-1.34-1.71-.71l-.64.65z"
-						/>
-					</svg>
-				</button>
+
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<div class="p-2">
 					<slot>
 						{#each messages as msg, i}
 							<div
-								class="chat relative w-auto {msg.sender == 'bot'
-									? 'chat-start my-4'
-									: 'chat-end'}"
+								class="chat relative w-auto {msg.sender == 'bot' ? 'chat-start my-1.5' : ''} {msg.sender !== 'bot' && i === 1 ? 'chat-end mt-0 mb-2' : ''} {msg.sender !== 'bot' && i !== 1 ? 'chat-end mt-6 mb-2' : ''}" 
 							>
 								{#if msg.sender === 'bot' && avatar}
 									<div class="chat-image avatar">
@@ -452,7 +473,7 @@
 									</div>
 								{/if}
 								<div
-									class="chat-bubble w-auto relative transition-colors"
+									class="chat-bubble relative w-auto transition-colors"
 									style={msg.sender == 'bot'
 										? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
 										: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
@@ -460,21 +481,33 @@
 									<div class="message-body break-words">
 										{@html (postProcessMsgHTML(md.render(msg.text)))}
 									</div>
-									{#if (settings.feedbackEnabled || settings.feedbackEnabled === undefined) && msg.sender === 'bot' && msg.status === 'done' && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
-										<div class="flex justify-end w-full mt-1.5">
-											<Feedback 
-												message={msg} 
-												messageId={msg.id}
-												sessionId={chatSessionId}
-												vote={msg.vote} 
-												iconColor={settings.theme.feedbackIconColor} 
-												bgColor={settings.theme.feedbackBGColor}
-												fallbackBGColor={settings.theme.botBubbleBG}
-												fallbackIconColor={settings.theme.botBubbleText}
-											/>
-										</div>
-									{/if}
+									{#if msg.sender === 'bot' && msg.status === 'done'  && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
+									<div class="absolute my-2.5 -ml-3 flex justify-between items-center w-full z-0">
+										<span in:fade={{ delay: 300, duration: 1000}} class="my-1 text-[14px] {i !== messages.length - 1 ? 'invisible' : ''}">Bot · Just now.</span>
+										<Feedback 
+											message={msg} 
+											messageId={msg.id}
+											sessionId={chatSessionId}
+											vote={msg.vote} 
+										/>
+									</div>
+								{/if}
 								</div>
+								<!-- {#if msg.sender === 'bot' && msg.status === 'done'  && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
+								<div class="flex justify-between items-center -mt-2.5 gap-2 w-10/12 mx-auto">
+									<span in:fade={{ delay: 300, duration: 1000}} class="my-1 mx-2.5 text-[14px] {i !== messages.length - 1 ? 'invisible' : ''}">Bot · Just now.</span>
+									<Feedback 
+										message={msg} 
+										messageId={msg.id}
+										sessionId={chatSessionId}
+										vote={msg.vote} 
+										iconColor={settings.theme.feedbackIconColor} 
+										bgColor={settings.theme.feedbackBGColor}
+										fallbackBGColor={settings.theme.botBubbleBG}
+										fallbackIconColor={settings.theme.botBubbleText}
+									/>
+								</div>
+							{/if} -->
 							</div>
 							{#if settings.useSourceUrls && msg.links?.length > 0}
 								<ChatLinks links={msg.links} {settings}/>
@@ -485,21 +518,20 @@
 						<Thinking {avatar} />
 					{/if}
 				</div>
-				<div id="chat-bottom" class="h-1" />
+				<div id="chat-bottom" class="h-6" />
 			</div>
 		</div>
-		<form on:submit|preventDefault={submitQuery} class="form-control p-1">
+		<form on:submit|preventDefault={submitQuery} class="form-control p-0">
 			<div>
 				<div class="relative">
 					{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
 						<Crisp {settings} />
 					{/if}
 					{#if suggestedQuestions}
-						<SuggestedQuestions {suggestedQuestions} {settings} askSuggestedQuestion={askSuggestedQuestion} />
+						<SuggestedQuestions {suggestedQuestions} {settings} askSuggestedQuestion={askSuggestedQuestion} {isThinking} />
 					{/if}
 					{#if !settings.policyEnabled || (settings.policyEnabled && agreedToPolicy) || (settings.policyEnabled && collectUserInfo && !showUserInfoCollection) || (settings.policyEnabled && !showUserInfoCollection)} 
-					<!--keep code below!  -->
-					<!--oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'  -->
+					
 					<textarea
 							placeholder={settings.inputPlaceholder}
 							rows="1"
@@ -510,7 +542,7 @@
 									submitQuery();
 								}
 							}}
-							class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
+							class="textarea textarea-lg resize-none text-[14px] placeholder:text-[14px] min-h-0 max-h-32 w-full leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
 								? 'pr-12'
 								: ''}"
 							style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
@@ -524,10 +556,10 @@
 						<div class="relative w-full">
 							<textarea
 								rows="1"
-								class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)]"
+								class="textarea textarea-lg resize-none text-[14px] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)]"
 								style="background-color: var(--botBubbleBG); color: var(--inputText); border: 1px solid var(--inputBorder);"								disabled={true}
 							></textarea>
-							<div class="absolute top-0 left-0 right-0 bottom-0 rounded-xl bg-black bg-opacity-0 flex justify-center items-center">
+							<div class="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-0 flex justify-center items-center">
 								<input 
 									type="checkbox" 
 									bind:checked={agreedToPolicy} 
@@ -544,7 +576,7 @@
 									class="underline" 
 									target="_blank"
 								>
-									<span class="text-[1rem] underline text-white">{settings.policyText || "I agree with the terms and conditions"}</span>
+									<span class="text-[14px] underline text-white">{settings.policyText || "I agree with the terms and conditions"}</span>
 								</a>
 							</div>
 						</div>					
@@ -559,9 +591,11 @@
 					class="@container absolute bottom-0 left-0 right-0 grid gap-1 p-8"
 					style="background-color: var(--bg); color: var(--inputText)"
 				>
+
+				<!--	oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'" -->
 					<textarea
 						rows="1"
-						class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)]"
+						class="textarea textarea-lg resize-none text-[14px] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)]"
 						style="background-color: var(--botBubbleBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
 					></textarea>
 					<div class="absolute top-0 left-0 right-0 bottom-0 bg-black bg-transparent flex justify-center items-center">
@@ -648,14 +682,34 @@
 			.message-body th {
 				text-align: left;
 			}
+
+			.chat {
+				column-gap: 0rem;
+			}
 	
 			.chat-start .chat-bubble {
 				transform-origin: left center;
 			}
 			.chat-end .chat-bubble {
 				transform-origin: right;
+				margin-right: 20px;
 			}
-	
+
+			.chat-bubble::before {
+				content: none !important;
+				border-radius: 0.25rem;
+			}
+
+			.chat-bubble {
+				/* border-bottom-left-radius: 0.50rem !important; */
+				border-radius: 0.50rem !important;
+			}
+
+			.message-body {
+				font-size: 14px;
+				margin-top: 0.2em;
+			}
+
 			.message-body a {
 				text-decoration: underline !important;
 				overflow-wrap: break-word;
@@ -681,6 +735,11 @@
 				transition-property: background-color, padding;
 				transition-duration: 300ms;
 				overflow-x: auto;
+			}
+
+			.textarea-lg {
+				border-radius: 0px !important;'
+				font-size: 14px;
 			}
 		</style>
 	</div>
