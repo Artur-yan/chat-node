@@ -413,8 +413,6 @@
 			}
 		}, 100);
 	};
-
-	$: console.log(messages.length);
 </script>
 
 <svelte:head>
@@ -463,7 +461,7 @@
 					<slot>
 						{#each messages as msg, i}
 							<div
-								class="chat relative w-auto {msg.sender == 'bot' ? 'chat-start my-1.5' : ''} {msg.sender !== 'bot' && i === 1 ? 'chat-end mt-0 mb-2' : ''} {msg.sender !== 'bot' && i !== 1 ? 'chat-end mt-6 mb-2' : ''}" 
+								class="chat relative w-auto {msg.sender == 'bot' ? 'chat-start my-1.5' : ''} {msg.sender !== 'bot' && i === 1 ? 'chat-end mt-0 mb-2' : ''} {msg.sender !== 'bot' && i !== 1 && messages[i - 1].links.length === 0 ? 'chat-end mt-6 mb-2' : ''} {msg.sender !== 'bot' && i !== 1 && messages[i - 1].links.length > 0 ? 'chat-end mt-4 mb-2' : ''}" 
 							>
 								{#if msg.sender === 'bot' && avatar}
 									<div class="chat-image avatar">
@@ -483,7 +481,7 @@
 									</div>
 									{#if msg.sender === 'bot' && msg.status === 'done'  && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
 									<div class="absolute my-2.5 -ml-3 flex justify-between items-center w-full z-0">
-										<span in:fade={{ delay: 300, duration: 1000}} class="my-1 text-[14px] {i !== messages.length - 1 ? 'invisible' : ''}">Bot · Just now.</span>
+										<span in:fade={{ delay: 300, duration: 1000}} class="my-1 text-[14px] text-[--feedbackIconColor] {i !== messages.length - 1 ? 'invisible' : ''}">Bot · Just now.</span>
 										<Feedback 
 											message={msg} 
 											messageId={msg.id}
@@ -509,7 +507,7 @@
 								</div>
 							{/if} -->
 							</div>
-							{#if settings.useSourceUrls && msg.links?.length > 0}
+							{#if settings.useSourceUrls && msg.links?.length > 0 && msg.status === 'done' }
 								<ChatLinks links={msg.links} {settings}/>
 							{/if}
 						{/each}
@@ -523,7 +521,7 @@
 		</div>
 		<form on:submit|preventDefault={submitQuery} class="form-control p-0">
 			<div>
-				<div class="relative">
+				<div>
 					{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
 						<Crisp {settings} />
 					{/if}
@@ -553,7 +551,7 @@
 						{/if}
 
 					{:else if settings.policyEnabled && !agreedToPolicy && !collectUserInfo}
-						<div class="relative w-full">
+						<div class="relative w-full rounded-lg">
 							<textarea
 								rows="1"
 								class="textarea textarea-lg resize-none text-[14px] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)]"
@@ -739,6 +737,10 @@
 
 			.textarea-lg {
 				border-radius: 0px !important;'
+				/* border-top-left-radius: 0px;
+				border-top-right-radius: 0px;
+				border-bottom-left-radius: 16px;
+				border-bottom-right-radius: 16px; */
 				font-size: 14px;
 			}
 		</style>
