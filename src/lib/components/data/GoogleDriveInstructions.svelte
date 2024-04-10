@@ -67,7 +67,7 @@
             <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
               <div>
                 <p class="text-lg text-gray-300 ml-4 mb-4">Click "Select Files from Google"</p>
-                <img class="w-1/2 rounded-lg" src="/google-drive-step-3.png" alt="">
+                <img class="w-1/2 rounded-lg" src="/google-drive-step-4.png" alt="">
               </div>
             </div>
           </div>
@@ -75,6 +75,7 @@
       </li>
       <li>
       <div class="relative pb-8">
+        <span class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-primary" aria-hidden="true"></span>
         <div class="relative flex space-x-3">
           <div>
             <span class="h-8 w-8 rounded-full bg-secondary flex items-center justify-center">
@@ -83,8 +84,25 @@
           </div>
           <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
             <div>
-              <p class="text-lg text-gray-300 ml-4 mb-4">Click "Select Files from Google"</p>
-              <img class="w-1/2 rounded-lg" src="/google-drive-step-4.png" alt="">
+              <p class="text-lg text-gray-300 ml-4 mb-4">Choose your files</p>
+              <img class="w-1/2 rounded-lg" src="/google-drive-step-5.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="relative pb-8">
+        <div class="relative flex space-x-3">
+          <div>
+            <span class="h-8 w-8 rounded-full bg-secondary flex items-center justify-center">
+              6
+            </span>
+          </div>
+          <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+            <div>
+              <p class="text-lg text-gray-300 ml-4 mb-4">Your Files have been added, all set! ✅ </p>
+              <img class="w-1/2 rounded-lg" src="/google-drive-step-6.png" alt="">
             </div>
           </div>
         </div>
