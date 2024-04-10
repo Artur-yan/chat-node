@@ -1,7 +1,7 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
 	import { onMount } from 'svelte';
-	import Instructions from '../Instructions.svelte';
+	import NotionInstructions from './NotionInstructions.svelte';
 
   export let totalFileCount: number;
   
@@ -278,7 +278,7 @@
         </div>
       </div>
       <div class="mx-auto">
-        <Instructions/>
+        <NotionInstructions/>
       </div>
     </div>
   {/if}
