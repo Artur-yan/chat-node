@@ -543,7 +543,7 @@
 							class="textarea textarea-lg resize-none text-[14px] placeholder:text-[14px] min-h-0 max-h-32 w-full leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
 								? 'pr-12'
 								: ''}"
-							style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
+							style="background-color: var(--inputBG); color: var(--inputText); border-top: 1px solid var(--inputBorder); border-bottom: 0px; border-left: 0px; border-right: 0px;"
 							{disabled}
 						/>
 						{#if settings.sendButtonEnabled}
