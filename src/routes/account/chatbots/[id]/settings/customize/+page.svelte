@@ -548,6 +548,14 @@
 					</label>
 				</div>
 			</div>
+
+			<div class="flex flex-col justify-end mb-2">
+				<ColorPicker
+					bind:hex={$currentBot.settings.theme.suggestedQuestionsBorder}
+					label="Border"
+					on:input={checkIfThemeSaved}
+				/>
+			</div>
 		</div>
 
 
