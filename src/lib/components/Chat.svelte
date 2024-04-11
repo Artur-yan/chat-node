@@ -439,6 +439,7 @@
 		--sendButtonIconColor: {settings.theme.sendButtonIconColor};
 		--statusColor: {settings.theme.statusColor};
 		--feedbackIconColor: {settings.theme.feedbackIconColor};
+		--suggestedQuestionsBorder: {settings.theme.suggestedQuestionsBorder};
 		background-color: var(--bg);
 		font-family: 'Mulish', sans-serif;"
 		class="flex h-full flex-col justify-between overflow-hidden flex-1 relative transition-colors ease-in-out duration-500"
