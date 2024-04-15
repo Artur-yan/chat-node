@@ -51,10 +51,9 @@
 		<Files {totalFileCount} credentials={data.cred}/>
 		<Text {totalFileCount}/>
     {#if tiersMap[data.subscription.plan].features.notion?.included}
-     <!-- Notion component goes here -->
-    <Notion {totalFileCount} />  
+      <Notion {totalFileCount} />  
     {/if}
-    <!-- <GoogleDrive />  -->
+    <GoogleDrive {totalFileCount} /> 
 	</div>
 	<div>
 		<div

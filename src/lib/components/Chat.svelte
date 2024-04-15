@@ -16,7 +16,7 @@
 	import SuggestedQuestions from './chat/SuggestedQuestions.svelte';
 	import Thinking from './chat/Thinking.svelte';
 	import SubmitButton from './chat/SubmitButton.svelte';
-	import { fade } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
 	import { browser } from '$app/environment';
 
 	export let modelId: string;
@@ -40,6 +40,8 @@
 	export let usedForPreview: boolean = false;
 	export let plan: number;
 	export let customDomain: boolean;
+
+	$: console.log(messages);
 
 	$: if(browser && messages.length) {
 		scrollToBottom();
@@ -69,6 +71,9 @@
 	let chatSessionId: string;
 	let inputVal = ``;
 	let customMessage = ``;
+	
+	$: hoveredMessageIndex = undefined;
+	$: console.log('HMI --->', hoveredMessageIndex);
 
 	let collectUserInfo = false;
 	let userInfoReceived = false;
@@ -195,7 +200,7 @@
 
 	const addMessage = (message: string, sender: 'user' | 'human' | 'bot' = 'bot', links: string[]  = []): void => {
 		messages = [...messages, 
-			{ id: uuidv4(), text: message, sender: sender, links: links, status: undefined, vote: 0}
+			{ id: uuidv4(), text: message, sender: sender, links: links, time: new Date().toLocaleString(), status: undefined, vote: 0}
 		];
 	};
 
@@ -239,7 +244,7 @@
 
 			if (res.headers.get('content-type') === 'application/json') {
 				const data = await res.json();
-				addMessage(data.message, 'bot', links);
+				addMessage(data.message, 'bot', links, displayTime);
 				return;
 			}
 
@@ -323,7 +328,8 @@
 				sender: msg.message.data.type === 'human' ? 'user' : 'bot',
 				vote: msg.vote,
 				status: 'done',
-				links: msg.data?.links || []
+				links: msg.data?.links || [],
+				time: msg.created_at
 			};
 		});
 
@@ -413,6 +419,32 @@
 			}
 		}, 100);
 	};
+
+	function formatTimestamp(timestamp) {
+		const timestampDate = new Date(timestamp);
+		const now = new Date();
+
+		// Calculate the difference in milliseconds
+		const diffMs = now - timestampDate;
+		// Convert difference from milliseconds to days
+		const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+		// If the timestamp is more than 24 hours ago, return "x days ago"
+		if (diffDays >= 1) {
+			return `${diffDays}d ago`;
+		}
+
+		// Otherwise, format the timestamp without seconds
+		let hours = timestampDate.getHours();
+		let minutes = timestampDate.getMinutes();
+		const ampm = hours >= 12 ? 'PM' : 'AM';
+		
+		hours = hours % 12;
+		hours = hours ? hours : 12; // Convert 0 hours to 12 for 12 AM
+		minutes = minutes < 10 ? '0' + minutes : minutes; // Add leading zero to minutes if needed
+
+		return `${hours}:${minutes} ${ampm}`;
+	}
 </script>
 
 <svelte:head>
@@ -439,6 +471,7 @@
 		--sendButtonIconColor: {settings.theme.sendButtonIconColor};
 		--statusColor: {settings.theme.statusColor};
 		--feedbackIconColor: {settings.theme.feedbackIconColor};
+		--suggestedQuestionBorder: {settings.theme.suggestedQuestionsBorder};
 		background-color: var(--bg);
 		font-family: 'Mulish', sans-serif;"
 		class="flex h-full flex-col justify-between overflow-hidden flex-1 relative transition-colors ease-in-out duration-500"
@@ -457,11 +490,13 @@
 
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 				<div class="p-2">
 					<slot>
 						{#each messages as msg, i}
 							<div
-								class="chat relative w-auto {msg.sender == 'bot' ? 'chat-start my-1.5' : ''} {msg.sender !== 'bot' && i === 1 ? 'chat-end mt-0 mb-2' : ''} {msg.sender !== 'bot' && i !== 1 && messages[i - 1].links.length === 0 ? 'chat-end mt-6 mb-2' : ''} {msg.sender !== 'bot' && i !== 1 && messages[i - 1].links.length > 0 ? 'chat-end mt-4 mb-2' : ''}" 
+								in:fly={{ y: 20, duration: 300, delay: 0 }}
+								class="chat relative w-auto {msg.sender == 'bot' ? 'chat-start my-1.5' : ''} {msg.sender !== 'bot' && i === 1 ? 'chat-end mt-0 mb-3.5' : ''} {msg.sender !== 'bot' && i !== 1 && messages[i - 1].links.length === 0 ? 'chat-end mt-6 mb-3.5' : ''} {msg.sender !== 'bot' && i !== 1 && messages[i - 1].links.length > 0 ? 'chat-end mt-4 mb-3.5' : ''}" 
 							>
 								{#if msg.sender === 'bot' && avatar}
 									<div class="chat-image avatar">
@@ -475,10 +510,20 @@
 									style={msg.sender == 'bot'
 										? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
 										: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
+									on:mouseover={() => {
+										hoveredMessageIndex = i
+									}}
+										on:mouseout={() => hoveredMessageIndex = undefined}
 								>
 									<div class="message-body break-words">
 										{@html (postProcessMsgHTML(md.render(msg.text)))}
 									</div>
+									{#if hoveredMessageIndex === i && msg.time && i !== 0 && i !== messages.length - 1}
+										<div 
+											in:fade={{ duration: 600}}
+											class="absolute { msg.sender === 'bot' ? 'top-full left-0 -mr-2 -mb-3.5' : 'top-full right-0 -ml-2 -mb-3.5'} p-0.5 min-w-16 w-16 rounded-md text-xs text-center text-[--feedbackIconColor]"
+										>{formatTimestamp(msg.time)}</div>
+									{/if}
 									{#if msg.sender === 'bot' && msg.status === 'done'  && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
 									<div class="absolute my-2.5 -ml-3 flex justify-between items-center w-full z-0">
 										<span in:fade={{ delay: 300, duration: 1000}} class="my-1 text-[14px] text-[--feedbackIconColor] {i !== messages.length - 1 ? 'invisible' : ''}">Bot · Just now.</span>
@@ -491,21 +536,6 @@
 									</div>
 								{/if}
 								</div>
-								<!-- {#if msg.sender === 'bot' && msg.status === 'done'  && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
-								<div class="flex justify-between items-center -mt-2.5 gap-2 w-10/12 mx-auto">
-									<span in:fade={{ delay: 300, duration: 1000}} class="my-1 mx-2.5 text-[14px] {i !== messages.length - 1 ? 'invisible' : ''}">Bot · Just now.</span>
-									<Feedback 
-										message={msg} 
-										messageId={msg.id}
-										sessionId={chatSessionId}
-										vote={msg.vote} 
-										iconColor={settings.theme.feedbackIconColor} 
-										bgColor={settings.theme.feedbackBGColor}
-										fallbackBGColor={settings.theme.botBubbleBG}
-										fallbackIconColor={settings.theme.botBubbleText}
-									/>
-								</div>
-							{/if} -->
 							</div>
 							{#if settings.useSourceUrls && msg.links?.length > 0 && msg.status === 'done' }
 								<ChatLinks links={msg.links} {settings}/>
@@ -543,7 +573,7 @@
 							class="textarea textarea-lg resize-none text-[14px] placeholder:text-[14px] min-h-0 max-h-32 w-full leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
 								? 'pr-12'
 								: ''}"
-							style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
+							style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder); border-bottom: 0px; border-left: 0px; border-right: 0px;"
 							{disabled}
 						/>
 						{#if settings.sendButtonEnabled}

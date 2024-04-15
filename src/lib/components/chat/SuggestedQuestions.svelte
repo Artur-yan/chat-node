@@ -20,7 +20,7 @@
             suggestedQuestions = newSuggestedQuestions;
           }
         }}
-        class="btn btn-sm text-xs rounded-md normal-case bg-[var(--userBubbleBG)] text-[var(--userBubbleText)] border-[var(--inputBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
+        class="btn btn-sm text-xs rounded-md normal-case bg-[var(--userBubbleBG)] text-[var(--userBubbleText)] border-[var(--suggestedQuestionsBorder)] hover:bg-[var(--botBubbleBG)] hover:text-[var(--botBubbleText)]"
         type="button"
       >
         {question.label}

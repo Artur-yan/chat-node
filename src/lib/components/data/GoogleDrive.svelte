@@ -1,7 +1,6 @@
 <script lang="ts">
   import { currentBot, alert } from '$lib/stores.js';
-	import Instructions from '../Instructions.svelte';
-
+	import GoogleDriveInstructions from './GoogleDriveInstructions.svelte';
   export let totalFileCount: number;
   
   // state
@@ -97,7 +96,9 @@
         method: 'POST',
         body: JSON.stringify({
           botId: $currentBot.id,
-          service: 'GOOGLE_DRIVE'
+          service: 'GOOGLE_DRIVE',
+          chunkSize: `${$currentBot.settings.dataFunnelSettings?.files?.chunkSize ?? 400}`,
+          chunkOverlap: `${$currentBot.settings.dataFunnelSettings?.files?.chunkOverlap ?? 20}`
         }),
       });
 
@@ -167,7 +168,6 @@
 </label>
 
 <input type="checkbox" id="google_drive" class="modal-toggle" bind:checked={isModalOpen}>
-
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="modal" on:click|self={()=>isModalOpen = false}>
   <div class="modal-box w-11/12 max-w-7xl h-screen bg-gradient-to-tr from-slate-500 to-slate-700 shadow-xl shadow-zinc-400 grow-button raise-button">
@@ -230,7 +230,7 @@
         </div>
       </div>
       <div class="mx-auto">
-        <Instructions/>
+        <GoogleDriveInstructions />
       </div>
     </div>
   {/if}

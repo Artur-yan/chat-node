@@ -146,6 +146,7 @@ const defaultSettings = {
 		popupButtonMessageBG: '#0F172A',
 		popupButtonMessageTextColor: '#38BDF7',
 		popupButtonMessageGlowColor: '#ffffff4d',
+		suggestedQuestionsBorder: '#808080',
 		// suggestedQuestionsBG: '#898CF8',
 		// suggestedQuestionsShadow: '#333333',
 		// feedbackBGColor: '#6467B2',
