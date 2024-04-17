@@ -32,7 +32,8 @@
 			sender: 'bot',
 			links: [],
 			status: 'done',
-			vote: 0
+			vote: 0,
+			time: ''
 		}
 	];
 	export let avatar: string | undefined = undefined;
@@ -40,8 +41,6 @@
 	export let usedForPreview: boolean = false;
 	export let plan: number;
 	export let customDomain: boolean;
-
-	$: console.log(messages);
 
 	$: if(browser && messages.length) {
 		scrollToBottom();
@@ -71,9 +70,18 @@
 	let chatSessionId: string;
 	let inputVal = ``;
 	let customMessage = ``;
+
+	function checkLastMessageTimestamp() {
+		const lastMessage = messages[messages.length - 1]
+		const lastMessageHTML: HTMLSpanElement | null = document?.getElementById(lastMessageIndex);
+
+		if(lastMessageHTML) {
+			lastMessageHTML.textContent = formatTimestamp(lastMessage);
+		}
+	}
 	
+	$: lastMessageIndex = (messages.length - 1).toLocaleString();
 	$: hoveredMessageIndex = undefined;
-	$: console.log('HMI --->', hoveredMessageIndex);
 
 	let collectUserInfo = false;
 	let userInfoReceived = false;
@@ -173,6 +181,10 @@
 			localStorage.setItem('submitted_info_3485', '');
 			localStorage.setItem('agreed_to_policy_3485', '');
 		}
+
+		setInterval(() => {
+			checkLastMessageTimestamp();
+		}, 60000);
 	});
 
 	// Generate a random ID
@@ -244,7 +256,7 @@
 
 			if (res.headers.get('content-type') === 'application/json') {
 				const data = await res.json();
-				addMessage(data.message, 'bot', links, displayTime);
+				addMessage(data.message, 'bot', links);
 				return;
 			}
 
@@ -338,6 +350,10 @@
 		} else {
 			messages = processableMessages;
 		}
+		
+		setTimeout(() => {
+			checkLastMessageTimestamp();
+		}, 200);
 	};
 
 	const submitQuery = (): void => {
@@ -420,31 +436,40 @@
 		}, 100);
 	};
 
-	function formatTimestamp(timestamp) {
+	function formatTimestamp(msg: any) {
+		const timestamp = msg.time;
 		const timestampDate = new Date(timestamp);
 		const now = new Date();
 
 		// Calculate the difference in milliseconds
 		const diffMs = now - timestampDate;
-		// Convert difference from milliseconds to days
+		// Convert difference from milliseconds to minutes, hours, and days
+		const diffMins = Math.floor(diffMs / (1000 * 60));
+		const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
 		const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-		// If the timestamp is more than 24 hours ago, return "x days ago"
-		if (diffDays >= 1) {
+		// Less than a month but more than a day
+		if (diffDays >= 1 && diffDays < 30) {
 			return `${diffDays}d ago`;
 		}
-
-		// Otherwise, format the timestamp without seconds
-		let hours = timestampDate.getHours();
-		let minutes = timestampDate.getMinutes();
-		const ampm = hours >= 12 ? 'PM' : 'AM';
-		
-		hours = hours % 12;
-		hours = hours ? hours : 12; // Convert 0 hours to 12 for 12 AM
-		minutes = minutes < 10 ? '0' + minutes : minutes; // Add leading zero to minutes if needed
-
-		return `${hours}:${minutes} ${ampm}`;
+		// More than 60 minutes but less than 24 hours
+		else if (diffHours >= 1 && diffHours < 24) {
+			return `${diffHours}h ago`;
+		}
+		// More than 60 seconds but less than 60 minutes
+		else if (diffMins >= 1 && diffMins < 60) {
+			return `${diffMins}m ago`;
+		}
+		// Less than 60 seconds
+		else {
+			if(msg.sender === 'bot') {
+				return 'Bot · Just now.';
+			} else {
+				return 'Just now.';
+			}
+		}
 	}
+
 </script>
 
 <svelte:head>
@@ -486,7 +511,7 @@
 			<PBCN textColor={settings.theme.poweredByChatNodeColor} />
 		{/if}
 		<div class="flex-col-reverse flex flex-1 overflow-y-auto scroll-smooth h-0 basis-auto">
-			<div class="flex-1">
+			<div class="flex flex-col flex-1 overflow-y-auto">
 
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -496,7 +521,7 @@
 						{#each messages as msg, i}
 							<div
 								in:fly={{ y: 20, duration: 300, delay: 0 }}
-								class="chat relative w-auto {msg.sender == 'bot' ? 'chat-start my-1.5' : ''} {msg.sender !== 'bot' && i === 1 ? 'chat-end mt-0 mb-3.5' : ''} {msg.sender !== 'bot' && i !== 1 && messages[i - 1].links.length === 0 ? 'chat-end mt-6 mb-3.5' : ''} {msg.sender !== 'bot' && i !== 1 && messages[i - 1].links.length > 0 ? 'chat-end mt-4 mb-3.5' : ''}" 
+								class="chat relative w-auto {msg.sender == 'bot' ? 'chat-start my-1.5' : ''} {msg.sender !== 'bot' && i === 1 ? 'chat-end mt-0 mb-5' : ''} {msg.sender !== 'bot' && i !== 1 && messages[i - 1].links.length === 0 ? 'chat-end mt-6 mb-4' : ''} {msg.sender !== 'bot' && i !== 1 && messages[i - 1].links.length > 0 ? 'chat-end mt-4 mb-5' : ''}" 
 							>
 								{#if msg.sender === 'bot' && avatar}
 									<div class="chat-image avatar">
@@ -521,12 +546,16 @@
 									{#if hoveredMessageIndex === i && msg.time && i !== 0 && i !== messages.length - 1}
 										<div 
 											in:fade={{ duration: 600}}
-											class="absolute { msg.sender === 'bot' ? 'top-full left-0 -mr-2 -mb-3.5' : 'top-full right-0 -ml-2 -mb-3.5'} p-0.5 min-w-16 w-16 rounded-md text-xs text-center text-[--feedbackIconColor]"
-										>{formatTimestamp(msg.time)}</div>
+											class="absolute { msg.sender === 'bot' ? 'top-full left-0 -mr-2 -mb-3.5' : 'top-full right-0 -ml-2 -mb-3.5'} p-0.5 min-w-24 w-24 rounded-md text-sm text-center text-[--feedbackIconColor]"
+										>
+										{#if settings.feedbackEnabled}
+											{formatTimestamp(msg)}
+										{/if}
+									</div>
 									{/if}
-									{#if msg.sender === 'bot' && msg.status === 'done'  && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
+									{#if settings.feedbackEnabled && msg.sender === 'bot' && msg.status === 'done'  && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
 									<div class="absolute my-2.5 -ml-3 flex justify-between items-center w-full z-0">
-										<span in:fade={{ delay: 300, duration: 1000}} class="my-1 text-[14px] text-[--feedbackIconColor] {i !== messages.length - 1 ? 'invisible' : ''}">Bot · Just now.</span>
+											<span id="{i.toLocaleString()}" in:fade={{ delay: 300, duration: 1000}} class="my-1 text-[14px] text-[--feedbackIconColor] {i !== messages.length - 1 ? 'invisible' : ''}">Bot · Just now.</span>
 										<Feedback 
 											message={msg} 
 											messageId={msg.id}
@@ -547,20 +576,30 @@
 					{/if}
 				</div>
 				<div id="chat-bottom" class="h-6" />
+				<!-- I need a div that will be greedy and take all the remaining space in the container but will collapse if there are more elements -->
+					<div class="flex flex-col justify-end grow shrink mt-6">
+						{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
+							<Crisp {settings} />
+						{/if}
+						{#if suggestedQuestions}
+							<SuggestedQuestions {suggestedQuestions} {settings} askSuggestedQuestion={askSuggestedQuestion} {isThinking} />
+						{/if}
+					</div>
 			</div>
 		</div>
-		<form on:submit|preventDefault={submitQuery} class="form-control p-0">
+		<form on:submit|preventDefault={submitQuery} class="form-control p-0 bg-transparent">
 			<div>
 				<div>
-					{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
+					<!-- {#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
 						<Crisp {settings} />
 					{/if}
 					{#if suggestedQuestions}
 						<SuggestedQuestions {suggestedQuestions} {settings} askSuggestedQuestion={askSuggestedQuestion} {isThinking} />
-					{/if}
+					{/if} -->
 					{#if !settings.policyEnabled || (settings.policyEnabled && agreedToPolicy) || (settings.policyEnabled && collectUserInfo && !showUserInfoCollection) || (settings.policyEnabled && !showUserInfoCollection)} 
 					
 					<textarea
+							id="primary-input"
 							placeholder={settings.inputPlaceholder}
 							rows="1"
 							bind:value={inputVal}
@@ -568,6 +607,7 @@
 								if (e.key === 'Enter' && !e.shiftKey) {
 									e.preventDefault();
 									submitQuery();
+									e.target.style.height = 'auto';
 								}
 							}}
 							class="textarea textarea-lg resize-none text-[14px] placeholder:text-[14px] min-h-0 max-h-32 w-full leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
@@ -575,6 +615,7 @@
 								: ''}"
 							style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder); border-bottom: 0px; border-left: 0px; border-right: 0px;"
 							{disabled}
+							oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"
 						/>
 						{#if settings.sendButtonEnabled}
 							<SubmitButton />
@@ -585,7 +626,9 @@
 							<textarea
 								rows="1"
 								class="textarea textarea-lg resize-none text-[14px] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)]"
-								style="background-color: var(--botBubbleBG); color: var(--inputText); border: 1px solid var(--inputBorder);"								disabled={true}
+								style="background-color: var(--botBubbleBG); color: var(--inputText); border: 1px solid var(--inputBorder);"								
+								disabled={true}
+								oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"
 							></textarea>
 							<div class="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-0 flex justify-center items-center">
 								<input 
@@ -625,6 +668,7 @@
 						rows="1"
 						class="textarea textarea-lg resize-none text-[14px] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)]"
 						style="background-color: var(--botBubbleBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
+						oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"
 					></textarea>
 					<div class="absolute top-0 left-0 right-0 bottom-0 bg-black bg-transparent flex justify-center items-center">
 						<input 
@@ -780,12 +824,4 @@
 	.chat-bubble {
 		animation: message 0.3s ease-out 0s forwards;
 	}
-
-	.rotatable {
-        transition: transform 0.8s ease-in-out;
-    }
-
-	.rotatable:hover {
-			transform: rotate(360deg);
-  }
 </style>
