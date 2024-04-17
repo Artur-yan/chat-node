@@ -7,8 +7,7 @@ export const actions: Actions = {
 	default: async ({ request }) => {
 		const form = await request.formData();
 		const email = form.get('email');
-		//@ts-ignore
-		console.log(email, typeof email, email.toLowerCase());
+
 		if (!email || typeof email !== 'string') {
 			return fail(400, {
 				message: 'Invalid input'
@@ -19,7 +18,7 @@ export const actions: Actions = {
 			const uuid = uuidv4();
 			await prismaClient.authUser.update({
 				where: {
-					email: email.toLowerCase()
+					email: email.toLowerCase().trim()
 				},
 				data: {
 					verification_uuid: uuid
