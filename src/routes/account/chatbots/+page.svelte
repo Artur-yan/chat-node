@@ -364,25 +364,27 @@
 						</div>
 
 						<div class="flex items-center justify-between">
-							<!-- <div class="flex items-baseline gap-4"> -->
-								<!-- <h3 class="text-xs font-bold">Token usage</h3>
+							{#if !bot.settings.dataFunnelV2}
+							<div class="flex items-baseline gap-4">
+								<h3 class="text-xs font-bold">Token usage</h3>
 								<div>
 									<span class="text-xs font-bold text-secondary">{usage}%</span>
 									<span
 										class="radial-progress bg-base-100 text-secondary border-2 border-base-100"
 										style="--value:{usage}; --size: 0.875rem; --thickness: 3px;"
 									/>
-								</div> -->
-<!-- 
-							{#if bot.settings.gptVersion === '4'}
-								<div class="badge badge-warning">GPT-4</div>
-							{/if} -->
-							<!-- </div> -->
+								</div>
 
-								<div class="flex items-baseline gap-4 {bot.settings?.dataFunnelV2 ? '' : 'invisible'}">
+								{#if bot.settings.gptVersion === '4'}
+									<div class="badge badge-warning">GPT-4</div>
+								{/if}
+							</div>
+							{:else}
+								<div class="flex items-baseline gap-4">
 									<h3 class="text-xs font-bold">New Data Funnel</h3>
 									<div class="badge badge-secondary">New</div>
 								</div>
+							{/if}
 
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
 							<div class="dropdown dropdown-left dropdown-start z-[1]">
