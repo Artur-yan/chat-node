@@ -576,7 +576,6 @@
 						<Thinking {avatar} />
 					{/if}
 				</div>
-				<div id="chat-bottom" class="h-6" />
 				<!-- I need a div that will be greedy and take all the remaining space in the container but will collapse if there are more elements -->
 					<div class="flex flex-col justify-end grow shrink mt-6">
 						{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
@@ -586,6 +585,7 @@
 							<SuggestedQuestions {suggestedQuestions} {settings} askSuggestedQuestion={askSuggestedQuestion} {isThinking} />
 						{/if}
 					</div>
+					<div id="chat-bottom" class="h-6" />
 			</div>
 		</div>
 		<form on:submit|preventDefault={submitQuery} class="form-control p-0 bg-transparent">
