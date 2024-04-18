@@ -431,7 +431,7 @@
     setTimeout(() => {
 			const chatBottom = document.getElementById('chat-bottom');
 			if (chatBottom) {
-				chatBottom.scrollIntoView({ behavior: 'smooth', block: 'end'});
+				chatBottom.scrollIntoView({ behavior: 'smooth', block: 'nearest'});
 			}
 		}, 100);
 	};
