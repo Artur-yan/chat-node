@@ -604,7 +604,7 @@
 							<SuggestedQuestions {suggestedQuestions} {settings} askSuggestedQuestion={askSuggestedQuestion} {isThinking} />
 						{/if}
 					</div>
-					<div id="chat-bottom" class="h-6" />
+					<div id="chat-bottom" class="h-1" />
 			</div>
 		</div>
 		<form on:submit|preventDefault={submitQuery} class="form-control p-0 bg-transparent">
