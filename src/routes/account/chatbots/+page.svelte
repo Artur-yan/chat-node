@@ -378,10 +378,11 @@
 								<div class="badge badge-warning">GPT-4</div>
 							{/if} -->
 							<!-- </div> -->
-							<div class="flex items-baseline gap-4">
-								<h3 class="text-xs font-bold">New Data Funnel</h3>
-								<div class="badge badge-secondary">New</div>
-							</div>
+
+								<div class="flex items-baseline gap-4 {bot.settings?.dataFunnelV2 ? '' : 'invisible'}">
+									<h3 class="text-xs font-bold">New Data Funnel</h3>
+									<div class="badge badge-secondary">New</div>
+								</div>
 
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
 							<div class="dropdown dropdown-left dropdown-start z-[1]">
