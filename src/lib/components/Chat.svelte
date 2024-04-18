@@ -42,10 +42,9 @@
 	export let plan: number;
 	export let customDomain: boolean;
 
+	// Scroll to the bottom of the chat when a new message is added and the user is focused on the input
 	$: if(browser && messages.length) {
 		const primary_input = document.getElementById('primary-input');
-		console.log(document.activeElement == primary_input);
-		
 		if(primary_input && document.activeElement == primary_input) {
 			scrollToBottom();
 		}
@@ -185,6 +184,14 @@
 		if (usedForPreview) {
 			localStorage.setItem('submitted_info_3485', '');
 			localStorage.setItem('agreed_to_policy_3485', '');
+		}
+
+		// Focus the input when the top div is clicked
+		const topDiv = document.getElementById('top-div');
+		if (topDiv) {
+			topDiv.addEventListener('click', () => {
+				focusInput();
+			});
 		}
 
 		setInterval(() => {
@@ -441,6 +448,13 @@
 		}, 100);
 	};
 
+	function focusInput() {
+		const input = document.getElementById('primary-input');
+		if (input) {
+			input.focus();
+		}
+	}
+ 
 	function formatTimestamp(msg: any) {
 		const timestamp = msg.time;
 		const timestampDate = new Date(timestamp);
@@ -516,8 +530,8 @@
     {#if settings.dataFunnelV2 && !customDomain && !settings.removeBranding && (settings.removeBranding !== undefined && [0, 1001, 5, 105, 6, 106].includes(plan)) && plan !== 1006 && plan !== 1005}
 			<PBCN textColor={settings.theme.poweredByChatNodeColor} />
 		{/if}
-		<div class="flex-col-reverse flex flex-1 overflow-y-auto scroll-smooth h-0 basis-auto">
-			<div class="flex flex-col flex-1 overflow-y-auto">
+		<div id="messages-box" class="flex-col-reverse flex flex-1 overflow-y-auto scroll-smooth h-0 basis-auto">
+			<div class="flex flex-col flex-1">
 
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -590,7 +604,7 @@
 							<SuggestedQuestions {suggestedQuestions} {settings} askSuggestedQuestion={askSuggestedQuestion} {isThinking} />
 						{/if}
 					</div>
-					<div id="chat-bottom" class="h-6" />
+					<div id="chat-bottom" class="h-1" />
 			</div>
 		</div>
 		<form on:submit|preventDefault={submitQuery} class="form-control p-0 bg-transparent">
