@@ -431,7 +431,7 @@
     setTimeout(() => {
 			const chatBottom = document.getElementById('chat-bottom');
 			if (chatBottom) {
-				chatBottom.scrollIntoView({ behavior: 'smooth' });
+				chatBottom.scrollIntoView({ behavior: 'smooth', block: 'end'});
 			}
 		}, 100);
 	};
@@ -479,6 +479,7 @@
 </svelte:head>
 
 	<div
+		id="top-div"
 		style="
 		--bg: {settings.theme.bg};
 		--headerBG: {settings.theme.headerBG};
