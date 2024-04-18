@@ -43,7 +43,12 @@
 	export let customDomain: boolean;
 
 	$: if(browser && messages.length) {
-		scrollToBottom();
+		const primary_input = document.getElementById('primary-input');
+		console.log(document.activeElement == primary_input);
+		
+		if(primary_input && document.activeElement == primary_input) {
+			scrollToBottom();
+		}
 	}
 
 	let agreedToPolicy = false;
