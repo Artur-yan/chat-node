@@ -52,8 +52,8 @@
 		<Text {totalFileCount}/>
     {#if tiersMap[data.subscription.plan].features.notion?.included}
       <Notion {totalFileCount} />  
+      <!-- <GoogleDrive {totalFileCount} />  -->
     {/if}
-    <GoogleDrive {totalFileCount} /> 
 	</div>
 	<div>
 		<div
