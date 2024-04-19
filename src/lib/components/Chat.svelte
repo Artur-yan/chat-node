@@ -42,16 +42,16 @@
 	export let plan: number;
 	export let customDomain: boolean;
 
-	// Scroll to the bottom of the chat when a new message is added and the user is focused on the input
+	// Scroll to the bottom of the chat when a new message is added and the user is focused on the bot
 	$: if(browser && messages.length) {
-		const primary_input = document.getElementById('primary-input');
-		if(primary_input && document.activeElement == primary_input) {
+		if(isBotActive) {
 			scrollToBottom();
 		}
 	}
 
 	let agreedToPolicy = false;
 	let submittedInfo = false;
+	let isBotActive = false;
 
 	// Initialize the markdown parser
 	const md = new Remarkable();
@@ -186,13 +186,21 @@
 			localStorage.setItem('agreed_to_policy_3485', '');
 		}
 
-		// Focus the input when the top div is clicked
+		// Set isBotActive to true when the user clicks on the chat
 		const topDiv = document.getElementById('top-div');
 		if (topDiv) {
 			topDiv.addEventListener('click', () => {
-				focusInput();
+				isBotActive = true;
 			});
 		}
+
+		// Set isBotActive to false when the user clicks outside the chat
+		document.addEventListener('click', (e) => {
+			const topDiv = document.getElementById('top-div');
+			if (topDiv && !topDiv.contains(e.target)) {
+				isBotActive = false;
+			}
+		});
 
 		setInterval(() => {
 			checkLastMessageTimestamp();
@@ -447,13 +455,6 @@
 			}
 		}, 100);
 	};
-
-	function focusInput() {
-		const input = document.getElementById('primary-input');
-		if (input) {
-			input.focus();
-		}
-	}
  
 	function formatTimestamp(msg: any) {
 		const timestamp = msg.time;
