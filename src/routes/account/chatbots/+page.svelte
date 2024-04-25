@@ -380,10 +380,10 @@
 								{/if}
 							</div>
 							{:else}
-							<div class="flex items-baseline gap-4">
-								<h3 class="text-xs font-bold">New Data Funnel</h3>
-								<div class="badge badge-secondary">Beta</div>
-							</div>
+								<div class="flex items-baseline gap-4">
+									<h3 class="text-xs font-bold">New Data Funnel</h3>
+									<div class="badge badge-secondary">New</div>
+								</div>
 							{/if}
 
 							<!-- svelte-ignore a11y-click-events-have-key-events -->

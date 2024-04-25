@@ -8,6 +8,8 @@
 	import { defaultSettings } from '$lib/models.js';
 	import themes from '$lib/chatThemes.js';
 
+	import { PUBLIC_EMBED_URL } from '$env/static/public';
+
 	export let data;
 
 	$currentBotAvatarImg = $currentBot.avatar_img;
@@ -141,30 +143,29 @@
 	<div class="h-full min-h-[24rem] relative hidden sm:block">
 		<div class="sticky flex flex-col top-4 h-[75vh] flex-1 max-h-[40rem] rounded-2xl overflow-hidden">
 			<Chat
+				plan={data.subscription.plan || 0}
 				modelId={data.model.id}
 				settings={$currentBot.settings}
-				trainingStatus={data.model.status}
 				avatar={$currentBotAvatarImg}
 				userId={data.session.user.userId}
 				{showUserInfoCollection}
 				usedForPreview={true}
-				plan={data.subscription?.plan}
 				customDomain={data.subscription?.addons !== null ? data.subscription?.addons['10005'] : false}
 			/>
-			{#if $currentBot.settings.collectUserEmail || $currentBot.settings.collectUserName || $currentBot.settings.collectUserPhone || $currentBot.settings.policyEnabled}
-				<div class="form-control">
-					<label class="label cursor-pointer justify-start gap-2">
-						<input
-							type="checkbox"
-							class="checkbox checkbox-sm"
-							bind:checked={showUserInfoCollection}
-						/>
-						<span class="label-text">Show User Info / Policy Form Preview</span>
-					</label>
-				</div>
-			{/if}
 		</div>
 	</div>
+	{#if $currentBot.settings.collectUserEmail || $currentBot.settings.collectUserName || $currentBot.settings.collectUserPhone || $currentBot.settings.policyEnabled}
+		<div class="form-control">
+			<label class="label cursor-pointer justify-start gap-2">
+				<input
+					type="checkbox"
+					class="checkbox checkbox-sm"
+					bind:checked={showUserInfoCollection}
+				/>
+				<span class="label-text">Show User Info / Policy Form Preview</span>
+			</label>
+		</div>
+	{/if}
 </div>
 
 <Modal id="confirmUnsavedNavigate" title="You have unsaved changes">

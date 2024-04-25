@@ -14,9 +14,14 @@ import { json } from '@sveltejs/kit';
 
 export const POST = async ({ request }) => {
 	const { botId, service, chunkSize, chunkOverlap } = await request.json();
+	console.log('botId', botId);
+	console.log('service', service);
+	console.log('chunkSize', chunkSize);
+	console.log('chunkOverlap', chunkOverlap);
+
 	// isWhiteLabel(botId);
 
-	const bodyJSON = `{"service":"${service}","chunk_size":${chunkSize},"chunk_overlap":${chunkOverlap},"skip_embedding_generation":true,"embedding_model":"OPENAI_ADA_LARGE_3072"}`;
+	const bodyJSON = `{"service":"${service}","chunk_size":${chunkSize},"chunk_overlap":${chunkOverlap},"skip_embedding_generation":true,"embedding_model":"OPENAI_ADA_LARGE_3072", "data_source_id": 1}`;
 
 	const options = {
 		method: 'POST',

@@ -4,18 +4,15 @@
   export let message: any;
   export let messageId: string | null;
   export let sessionId: string | null;
-  export let iconColor: string | undefined
-  export let bgColor: string | undefined
-  export let fallbackBGColor: string | undefined;
-  export let fallbackIconColor: string | undefined;
-  let fallbackState: boolean | undefined;
+  export let vote: number | undefined;
+
   let state: string = '';
   let copied: boolean = false;
 
-  if(bgColor === undefined) {
-    fallbackState = true
-    bgColor = fallbackBGColor
-    iconColor = fallbackIconColor
+  if(vote === 1) {
+    state = 'liked'
+  } else if(vote === -1) {
+    state = 'disliked'
   }
 
   
@@ -45,8 +42,9 @@
 
 <div 
   in:fade={{duration: 800}}
-  class="absolute flex gap-2 -mt-1 bg-slate-400 p-0.5 rounded-lg {fallbackState ? 'darker' : ''}" 
-  style="background-color:{bgColor}; color: {iconColor};">
+  class="flex gap-2 -mt-1 p-1 rounded-md text-[--feedbackIconColor]" 
+>
+<!-- style="background-color:{bgColor}; color: {iconColor};" -->
   <!-- Clipboard icon -->
   {#if !copied}
   <button
@@ -145,12 +143,7 @@
     filter: brightness(60%); /* Darken color */
   }
 
-  .darker {
-    filter: brightness(80%); /* Darken color */
-  }
-
   .tilted {
     transform: rotate(15deg);
   }
-
 </style>

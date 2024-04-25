@@ -16,6 +16,8 @@
 	import SuggestedQuestions from './chat/SuggestedQuestions.svelte';
 	import Thinking from './chat/Thinking.svelte';
 	import SubmitButton from './chat/SubmitButton.svelte';
+	import { fade, fly } from 'svelte/transition';
+	import { browser } from '$app/environment';
 
 	export let modelId: string;
 	export let disabled = false;
@@ -30,7 +32,8 @@
 			sender: 'bot',
 			links: [],
 			status: 'done',
-			vote: 0
+			vote: 0,
+			time: ''
 		}
 	];
 	export let avatar: string | undefined = undefined;
@@ -39,8 +42,16 @@
 	export let plan: number;
 	export let customDomain: boolean;
 
+	// Scroll to the bottom of the chat when a new message is added and the user is focused on the bot
+	$: if(browser && messages.length) {
+		if(isBotActive) {
+			scrollToBottom();
+		}
+	}
+
 	let agreedToPolicy = false;
 	let submittedInfo = false;
+	let isBotActive = false;
 
 	// Initialize the markdown parser
 	const md = new Remarkable();
@@ -56,7 +67,6 @@
 		...settings
 	};
 
-
 	if (!settings.theme) {
 		settings.theme = defaultSettings.theme;
 	}
@@ -65,11 +75,24 @@
 	let inputVal = ``;
 	let customMessage = ``;
 
+	function checkLastMessageTimestamp() {
+		const lastMessage = messages[messages.length - 1]
+		const lastMessageHTML: HTMLSpanElement | null = document?.getElementById(lastMessageIndex);
+
+		if(lastMessageHTML) {
+			lastMessageHTML.textContent = formatTimestamp(lastMessage);
+		}
+	}
+	
+	$: lastMessageIndex = (messages.length - 1).toLocaleString();
+	$: hoveredMessageIndex = undefined;
+
 	let collectUserInfo = false;
 	let userInfoReceived = false;
 	let links: string[] | undefined = [];
 	let messageId: string | null = '';
-	const suggestedQuestions: SuggestedQuestion[] = settings.suggestedQuestions;
+	let suggestedQuestions: SuggestedQuestion[] = settings.suggestedQuestions;
+	const lockedSuggestedQuestions = JSON.parse(JSON.stringify(suggestedQuestions));
 
 	let endUserInfo = {
 		name: '',
@@ -162,6 +185,26 @@
 			localStorage.setItem('submitted_info_3485', '');
 			localStorage.setItem('agreed_to_policy_3485', '');
 		}
+
+		// Set isBotActive to true when the user clicks on the chat
+		const topDiv = document.getElementById('top-div');
+		if (topDiv) {
+			topDiv.addEventListener('click', () => {
+				isBotActive = true;
+			});
+		}
+
+		// Set isBotActive to false when the user clicks outside the chat
+		document.addEventListener('click', (e) => {
+			const topDiv = document.getElementById('top-div');
+			if (topDiv && !topDiv.contains(e.target)) {
+				isBotActive = false;
+			}
+		});
+
+		setInterval(() => {
+			checkLastMessageTimestamp();
+		}, 60000);
 	});
 
 	// Generate a random ID
@@ -189,7 +232,7 @@
 
 	const addMessage = (message: string, sender: 'user' | 'human' | 'bot' = 'bot', links: string[]  = []): void => {
 		messages = [...messages, 
-			{ id: uuidv4(), text: message, sender: sender, links: links, status: 'done', vote: 0}
+			{ id: uuidv4(), text: message, sender: sender, links: links, time: new Date().toLocaleString(), status: undefined, vote: 0}
 		];
 	};
 
@@ -249,6 +292,7 @@
 					isResponding = false
 					messages[messages.length - 1].id = messageId as string;
 					messages[messages.length - 1].status = 'done';
+					playDoublePop();
 					return;
 				}
 				// Otherwise do something here to process current chunk
@@ -316,7 +360,8 @@
 				sender: msg.message.data.type === 'human' ? 'user' : 'bot',
 				vote: msg.vote,
 				status: 'done',
-				links: msg.data?.links || []
+				links: msg.data?.links || [],
+				time: msg.created_at
 			};
 		});
 
@@ -325,9 +370,14 @@
 		} else {
 			messages = processableMessages;
 		}
+		
+		setTimeout(() => {
+			checkLastMessageTimestamp();
+		}, 200);
 	};
 
 	const submitQuery = (): void => {
+		playSingleClick();
 		//Initalizations
 		if (messages.length === 1 && !collectUserInfo) {
 			initConversation();
@@ -358,6 +408,7 @@
 		messages = [];
 		addMessage(settings.greeting);
 		chatSessionId = generateNewSessionId();
+		suggestedQuestions = JSON.parse(JSON.stringify(lockedSuggestedQuestions));
 		
 		const previousConversationJSON = localStorage.getItem('previous_convo_3495');
 		let conversationObj;
@@ -381,6 +432,64 @@
 		customMessage = label;
 		submitQuery();
 	};
+
+	function playDoublePop() :void {
+		if(settings.soundEffects) {
+			const audio = new Audio('/multiple-pops.mp3');
+			audio.play();
+		}
+	}
+
+	function playSingleClick() :void {
+		if(settings.soundEffects) {
+			const audio = new Audio('/click.mp3');
+			audio.play();
+		}
+	}
+
+	const scrollToBottom = () => {
+    setTimeout(() => {
+			const chatBottom = document.getElementById('chat-bottom');
+			if (chatBottom) {
+				chatBottom.scrollIntoView({ behavior: 'smooth', block: 'nearest'});
+			}
+		}, 100);
+	};
+ 
+	function formatTimestamp(msg: any) {
+		const timestamp = msg.time;
+		const timestampDate = new Date(timestamp);
+		const now = new Date();
+
+		// Calculate the difference in milliseconds
+		const diffMs = now - timestampDate;
+		// Convert difference from milliseconds to minutes, hours, and days
+		const diffMins = Math.floor(diffMs / (1000 * 60));
+		const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+		const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+		// Less than a month but more than a day
+		if (diffDays >= 1 && diffDays < 30) {
+			return `${diffDays}d ago`;
+		}
+		// More than 60 minutes but less than 24 hours
+		else if (diffHours >= 1 && diffHours < 24) {
+			return `${diffHours}h ago`;
+		}
+		// More than 60 seconds but less than 60 minutes
+		else if (diffMins >= 1 && diffMins < 60) {
+			return `${diffMins}m ago`;
+		}
+		// Less than 60 seconds
+		else {
+			if(msg.sender === 'bot') {
+				return 'Bot · Just now.';
+			} else {
+				return 'Just now.';
+			}
+		}
+	}
+
 </script>
 
 <svelte:head>
@@ -390,6 +499,7 @@
 </svelte:head>
 
 	<div
+		id="top-div"
 		style="
 		--bg: {settings.theme.bg};
 		--headerBG: {settings.theme.headerBG};
@@ -406,43 +516,33 @@
 		--sendButtonBG: {settings.theme.sendButtonBG};
 		--sendButtonIconColor: {settings.theme.sendButtonIconColor};
 		--statusColor: {settings.theme.statusColor};
+		--feedbackIconColor: {settings.theme.feedbackIconColor};
+		--suggestedQuestionBorder: {settings.theme.suggestedQuestionsBorder};
 		background-color: var(--bg);
 		font-family: 'Mulish', sans-serif;"
 		class="flex h-full flex-col justify-between overflow-hidden flex-1 relative transition-colors ease-in-out duration-500"
 	>
 		<!-- Header -->
 		{#if settings?.headerEnabled && settings.publicTitle !== ''}
-			<ChatHeader {settings} />
+			<ChatHeader {settings} {resetChat} />
 		{/if}
 
 		<!-- PBCN -->
     {#if settings.dataFunnelV2 && !customDomain && !settings.removeBranding && (settings.removeBranding !== undefined && [0, 1001, 5, 105, 6, 106].includes(plan)) && plan !== 1006 && plan !== 1005}
 			<PBCN textColor={settings.theme.poweredByChatNodeColor} />
 		{/if}
-		<div class="flex-col-reverse flex flex-1 overflow-y-auto scroll-smooth h-0 basis-auto">
-			<div class="flex-1">
-				<button 
-					class="z-[1] absolute top-2.5 right-2 btn btn-circle btn-sm btn-ghost flex items-center justify-center rotatable"
-					style="color: var(--resetButton); position:absolute right: 8px;"
-					title="Reset Chat"
-					on:click={resetChat}
-				>
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-						<path
-							fill="currentColor"
-							d="M17.65 6.35a7.95 7.95 0 0 0-6.48-2.31c-3.67.37-6.69 3.35-7.1 7.02C3.52 15.91 7.27 20 12 20a7.98 7.98 0 0 0 7.21-4.56c.32-.67-.16-1.44-.9-1.44c-.37 0-.72.2-.88.53a5.994 5.994 0 0 1-6.8 3.31c-2.22-.49-4.01-2.3-4.48-4.52A6.002 6.002 0 0 1 12 6c1.66 0 3.14.69 4.22 1.78l-1.51 1.51c-.63.63-.19 1.71.7 1.71H19c.55 0 1-.45 1-1V6.41c0-.89-1.08-1.34-1.71-.71l-.64.65z"
-						/>
-					</svg>
-				</button>
+		<div id="messages-box" class="flex-col-reverse flex flex-1 overflow-y-auto scroll-smooth h-0 basis-auto">
+			<div class="flex flex-col flex-1">
+
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 				<div class="p-2">
 					<slot>
 						{#each messages as msg, i}
 							<div
-								class="chat relative w-auto {msg.sender == 'bot'
-									? 'chat-start my-4'
-									: 'chat-end'}"
+								in:fly={{ y: 20, duration: 300, delay: 0 }}
+								class="chat relative w-auto {msg.sender == 'bot' ? 'chat-start my-1.5' : ''} {msg.sender !== 'bot' && i === 1 ? 'chat-end mt-0 mb-5' : ''} {msg.sender !== 'bot' && i !== 1 && messages[i - 1].links.length === 0 ? 'chat-end mt-6 mb-4' : ''} {msg.sender !== 'bot' && i !== 1 && messages[i - 1].links.length > 0 ? 'chat-end mt-4 mb-5' : ''}" 
 							>
 								{#if msg.sender === 'bot' && avatar}
 									<div class="chat-image avatar">
@@ -452,31 +552,42 @@
 									</div>
 								{/if}
 								<div
-									class="chat-bubble w-auto relative transition-colors"
+									class="chat-bubble relative w-auto transition-colors"
 									style={msg.sender == 'bot'
 										? 'background-color: var(--botBubbleBG); color: var(--botBubbleText)'
 										: 'background-color: var(--userBubbleBG); color: var(--userBubbleText)'}
+									on:mouseover={() => {
+										hoveredMessageIndex = i
+									}}
+										on:mouseout={() => hoveredMessageIndex = undefined}
 								>
 									<div class="message-body break-words">
 										{@html (postProcessMsgHTML(md.render(msg.text)))}
 									</div>
-									{#if (settings.feedbackEnabled || settings.feedbackEnabled === undefined) && msg.sender === 'bot' && msg.status === 'done' && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
-										<div class="flex justify-end w-full mt-1.5">
-											<Feedback 
-												message={msg} 
-												messageId={msg.id}
-												sessionId={chatSessionId}
-												vote={msg.vote} 
-												iconColor={settings.theme.feedbackIconColor} 
-												bgColor={settings.theme.feedbackBGColor}
-												fallbackBGColor={settings.theme.botBubbleBG}
-												fallbackIconColor={settings.theme.botBubbleText}
-											/>
-										</div>
+									{#if hoveredMessageIndex === i && msg.time && i !== 0 && i !== messages.length - 1}
+										<div 
+											in:fade={{ duration: 600}}
+											class="absolute { msg.sender === 'bot' ? 'top-full left-0 -mr-2 -mb-3.5' : 'top-full right-0 -ml-2 -mb-3.5'} p-0.5 min-w-24 w-24 rounded-md text-sm text-center text-[--feedbackIconColor]"
+										>
+										{#if settings.feedbackEnabled}
+											{formatTimestamp(msg)}
+										{/if}
+									</div>
 									{/if}
+									{#if settings.feedbackEnabled && msg.sender === 'bot' && msg.status === 'done'  && i !== 0 && msg.text !== 'Please wait for me to finish thinking...'}
+									<div class="absolute my-2.5 -ml-3 flex justify-between items-center w-full z-0">
+											<span id="{i.toLocaleString()}" in:fade={{ delay: 300, duration: 1000}} class="my-1 text-[14px] text-[--feedbackIconColor] {i !== messages.length - 1 ? 'invisible' : ''}">Bot · Just now.</span>
+										<Feedback 
+											message={msg} 
+											messageId={msg.id}
+											sessionId={chatSessionId}
+											vote={msg.vote} 
+										/>
+									</div>
+								{/if}
 								</div>
 							</div>
-							{#if settings.useSourceUrls && msg.links?.length > 0}
+							{#if settings.useSourceUrls && msg.links?.length > 0 && msg.status === 'done' }
 								<ChatLinks links={msg.links} {settings}/>
 							{/if}
 						{/each}
@@ -485,22 +596,31 @@
 						<Thinking {avatar} />
 					{/if}
 				</div>
-				<div id="chat-bottom" class="h-1" />
+				<!-- I need a div that will be greedy and take all the remaining space in the container but will collapse if there are more elements -->
+					<div class="flex flex-col justify-end grow shrink mt-6">
+						{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
+							<Crisp {settings} />
+						{/if}
+						{#if suggestedQuestions}
+							<SuggestedQuestions {suggestedQuestions} {settings} askSuggestedQuestion={askSuggestedQuestion} {isThinking} />
+						{/if}
+					</div>
+					<div id="chat-bottom" class="h-1" />
 			</div>
 		</div>
-		<form on:submit|preventDefault={submitQuery} class="form-control p-1">
+		<form on:submit|preventDefault={submitQuery} class="form-control p-0 bg-transparent">
 			<div>
-				<div class="relative">
-					{#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
+				<div>
+					<!-- {#if settings.crispEnabled && settings.crispButtonText && settings.crispWebsiteId}
 						<Crisp {settings} />
 					{/if}
 					{#if suggestedQuestions}
-						<SuggestedQuestions {suggestedQuestions} {settings} askSuggestedQuestion={askSuggestedQuestion} />
-					{/if}
+						<SuggestedQuestions {suggestedQuestions} {settings} askSuggestedQuestion={askSuggestedQuestion} {isThinking} />
+					{/if} -->
 					{#if !settings.policyEnabled || (settings.policyEnabled && agreedToPolicy) || (settings.policyEnabled && collectUserInfo && !showUserInfoCollection) || (settings.policyEnabled && !showUserInfoCollection)} 
-					<!--keep code below!  -->
-					<!--oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'  -->
+					
 					<textarea
+							id="primary-input"
 							placeholder={settings.inputPlaceholder}
 							rows="1"
 							bind:value={inputVal}
@@ -508,26 +628,30 @@
 								if (e.key === 'Enter' && !e.shiftKey) {
 									e.preventDefault();
 									submitQuery();
+									e.target.style.height = 'auto';
 								}
 							}}
-							class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
+							class="textarea textarea-lg resize-none text-[14px] placeholder:text-[14px] min-h-0 max-h-32 w-full leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)] {settings.sendButtonEnabled
 								? 'pr-12'
 								: ''}"
-							style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
+							style="background-color: var(--inputBG); color: var(--inputText); border: 1px solid var(--inputBorder); border-bottom: 0px; border-left: 0px; border-right: 0px;"
 							{disabled}
+							oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"
 						/>
 						{#if settings.sendButtonEnabled}
 							<SubmitButton />
 						{/if}
 
 					{:else if settings.policyEnabled && !agreedToPolicy && !collectUserInfo}
-						<div class="relative w-full">
+						<div class="relative w-full rounded-lg">
 							<textarea
 								rows="1"
-								class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)]"
-								style="background-color: var(--botBubbleBG); color: var(--inputText); border: 1px solid var(--inputBorder);"								disabled={true}
+								class="textarea textarea-lg resize-none text-[14px] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)]"
+								style="background-color: var(--botBubbleBG); color: var(--inputText); border: 1px solid var(--inputBorder);"								
+								disabled={true}
+								oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"
 							></textarea>
-							<div class="absolute top-0 left-0 right-0 bottom-0 rounded-xl bg-black bg-opacity-0 flex justify-center items-center">
+							<div class="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-0 flex justify-center items-center">
 								<input 
 									type="checkbox" 
 									bind:checked={agreedToPolicy} 
@@ -544,7 +668,7 @@
 									class="underline" 
 									target="_blank"
 								>
-									<span class="text-[1rem] underline text-white">{settings.policyText || "I agree with the terms and conditions"}</span>
+									<span class="text-[14px] underline text-white">{settings.policyText || "I agree with the terms and conditions"}</span>
 								</a>
 							</div>
 						</div>					
@@ -559,10 +683,13 @@
 					class="@container absolute bottom-0 left-0 right-0 grid gap-1 p-8"
 					style="background-color: var(--bg); color: var(--inputText)"
 				>
+
+				<!--	oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'" -->
 					<textarea
 						rows="1"
-						class="textarea textarea-md resize-none text-[1rem] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item rounded-xl focus-within:outline-none placeholder:text-[var(--inputText)]"
+						class="textarea textarea-lg resize-none text-[14px] placeholder:text-[1rem] min-h-0 max-h-32 w-full leading-5 join-item focus-within:outline-none placeholder:text-[var(--inputText)]"
 						style="background-color: var(--botBubbleBG); color: var(--inputText); border: 1px solid var(--inputBorder);"
+						oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"
 					></textarea>
 					<div class="absolute top-0 left-0 right-0 bottom-0 bg-black bg-transparent flex justify-center items-center">
 						<input 
@@ -648,14 +775,34 @@
 			.message-body th {
 				text-align: left;
 			}
+
+			.chat {
+				column-gap: 0rem;
+			}
 	
 			.chat-start .chat-bubble {
 				transform-origin: left center;
 			}
 			.chat-end .chat-bubble {
 				transform-origin: right;
+				margin-right: 20px;
 			}
-	
+
+			.chat-bubble::before {
+				content: none !important;
+				border-radius: 0.25rem;
+			}
+
+			.chat-bubble {
+				/* border-bottom-left-radius: 0.50rem !important; */
+				border-radius: 0.50rem !important;
+			}
+
+			.message-body {
+				font-size: 14px;
+				margin-top: 0.2em;
+			}
+
 			.message-body a {
 				text-decoration: underline !important;
 				overflow-wrap: break-word;
@@ -682,6 +829,15 @@
 				transition-duration: 300ms;
 				overflow-x: auto;
 			}
+
+			.textarea-lg {
+				border-radius: 0px !important;'
+				/* border-top-left-radius: 0px;
+				border-top-right-radius: 0px;
+				border-bottom-left-radius: 16px;
+				border-bottom-right-radius: 16px; */
+				font-size: 14px;
+			}
 		</style>
 	</div>
 
@@ -689,12 +845,4 @@
 	.chat-bubble {
 		animation: message 0.3s ease-out 0s forwards;
 	}
-
-	.rotatable {
-        transition: transform 0.8s ease-in-out;
-    }
-
-	.rotatable:hover {
-			transform: rotate(360deg);
-  }
 </style>
