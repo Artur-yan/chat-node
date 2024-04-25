@@ -51,7 +51,7 @@
 	// }><\/script>`;
 
 	
-	$: jsEmbedCode = `<script type="text/javascript" 
+	$: jsEmbedCode = `<script type="text/javascript">
 script = document.createElement('script')
 script.src = "${shareURL}/popup.js";
 script.async = true;
