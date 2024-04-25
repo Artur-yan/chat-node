@@ -386,7 +386,7 @@
 					<div class="my-4 w-full px-2">
 						<h2 class="text-xl font-bold text-primary my-1">Context {i + 1}</h2>
 						{#if doc.source}
-							<h5 class="my-2 px-4 pt-2 bg-gray-700 rounded-md text-sm font-bold text-white break-words">Source</h5>
+							<h5 class="my-2 px-4 pt-2 bg-gray-700 rounded-md text-sm font-bold text-white break-words">Source : {doc.source}</h5>
 						{/if}
 						<p class="p-4 outline outline-secondary rounded-md">{doc.doc.replace('\n', ' ')}</p>
 					</div>
