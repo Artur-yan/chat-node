@@ -49,9 +49,14 @@
 	// }" data-color-2="${$currentBot.settings.theme.popupButtonBG}" ${
 	// 	$currentBot.settings.openChatByDefault ? 'data-open' : ''
 	// }><\/script>`;
-	$: jsEmbedCode = `<script src="${
-		shareURL
-	}/popup.js"><\/script>`;
+
+	
+	$: jsEmbedCode = `<script type="text/javascript" 
+script = document.createElement('script')
+script.src = "${shareURL}/popup.js";
+script.async = true;
+document.head.appendChild(script);
+<\/script>`;
 
 	const makePublic = () => {
 		$currentBot.settings.public = true;
@@ -191,7 +196,7 @@
 							<Code code={jsEmbedCode} />
 						</div>
 						<div class="flex justify-between text-sm mt-2">
-							<p>Place this code in your &lt;head&gt; tag.</p>
+							<p>Place this code in your &lt;head&gt; tag or in your google tag manager</p>
 							<a class="btn btn-xs btn-primary" href="settings/customize">Customize</a>
 						</div>
 					</div>
