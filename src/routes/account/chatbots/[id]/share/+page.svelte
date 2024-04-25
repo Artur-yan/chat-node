@@ -52,10 +52,10 @@
 
 	
 	$: jsEmbedCode = `<script type="text/javascript">
-script = document.createElement('script')
-script.src = "${shareURL}/popup.js";
-script.async = true;
-document.head.appendChild(script);
+	script = document.createElement('script')
+	script.src = "${shareURL}/popup.js";
+	script.async = true;
+	document.head.appendChild(script);
 <\/script>`;
 
 	const makePublic = () => {
