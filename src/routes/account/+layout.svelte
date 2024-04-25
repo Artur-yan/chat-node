@@ -149,7 +149,15 @@
 <!--	></script>-->
 
 
-	{@html `<script src="${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js"></script>`}
+		<!--{@html `<script src="${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js"></script>`}-->
+		
+		{@html `<script type="text/javascript">
+			script = document.createElement('script')
+			script.src = '${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js';
+			script.async = true;
+			document.head.appendChild(script);
+		</script>` }
+			
 
 	<script>
     (function(h,o,t,j,a,r){

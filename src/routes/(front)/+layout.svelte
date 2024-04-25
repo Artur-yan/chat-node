@@ -150,7 +150,13 @@ window.requestIdleCallback(idleWrapper, {timeout: 10000});
 <!--		data-color-1="#0E1729"-->
 <!--		data-color-2="#3ABFF7"-->
 <!--	></script>-->
-	{@html `<script src="${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js"></script>`}
+		<!--{@html `<script src="${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js"></script>`}-->
+		{@html `<script type="text/javascript">
+			script = document.createElement('script')
+			script.src = '${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js';
+			script.async = true;
+			document.head.appendChild(script);
+		</script>` }
 </svelte:head>
 
 <!-- <Header /> -->

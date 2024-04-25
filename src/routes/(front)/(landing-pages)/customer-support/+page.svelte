@@ -46,8 +46,14 @@
 <!--		data-color-1="#0E1729"-->
 <!--		data-color-2="#3ABFF7"-->
 <!--	></script>-->
-<!--	<script src="https://embed.chatnode.ai/befbfc87e25911db/popup.js"></script>-->
-	{@html `<script src="${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js"></script>`}
+<!--	<script src="https://dev.embed.chatnode.ai/de3c08d9c1fff938/popup.js"></script>-->
+	<!--{@html `<script src="${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js"></script>`}-->
+	{@html `<script type="text/javascript">
+		script = document.createElement('script')
+		script.src = '${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js';
+		script.async = true;
+		document.head.appendChild(script);
+	</script>` }
 
 </svelte:head>
 
