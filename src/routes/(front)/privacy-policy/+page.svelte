@@ -6240,6 +6240,22 @@
 																																										<div
 																																											style="line-height: 1.5;"
 																																										>
+																																											<span
+																																												style="font-size: 15px; color: rgb(89, 89, 89);"
+																																											>
+																																												<span
+																																													style="font-size: 15px; color: rgb(89, 89, 89);"
+																																												>
+																																													<span
+																																														data-custom-class="body_text"
+																																													>
+																																													Google Workspace APIs are not used to develop, improve, or train generalized AI and/or ML models.																																													</span>
+																																												</span>
+																																											</span>
+																																										</div>
+																																										<div
+																																											style="line-height: 1.5;"
+																																										>
 																																											<br />
 																																										</div>
 																																										<div
