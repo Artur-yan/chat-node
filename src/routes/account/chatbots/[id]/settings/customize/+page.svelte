@@ -473,17 +473,16 @@
 			<h2 class="card-title">Powered by ChatNode</h2>
 			<div class="form-control">
 				<label class="cursor-pointer label gap-2">
-					<span class="label-text">Hide</span>
+					<span class="label-text">{$currentBot.settings.removeBranding ? 'Hide' : 'Show'}</span>
 					<input
 						type="checkbox"
 						class="toggle toggle-sm"
-						class:toggle-success={true}
-						checked
-						disabled={true}
+						class:toggle-success={$currentBot.settings.removeBranding}
+						bind:checked={$currentBot.settings.removeBranding}
 					/>
 				</label>
 			</div>
-			<a href="/account/settings/subscription" class="btn btn-info btn-sm disabled">Installed: Custom Domain Addon</a>
+			<!-- <a href="/account/settings/subscription" class="btn btn-info btn-sm disabled">Installed: Custom Domain Addon</a> -->
 
 		</div>
 	</div>
