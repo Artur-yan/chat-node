@@ -153,7 +153,7 @@ window.requestIdleCallback(idleWrapper, {timeout: 10000});
 		<!--{@html `<script src="${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js"></script>`}-->
 		{@html `<script type="text/javascript">
 			script = document.createElement('script')
-			script.src = '${PUBLIC_EMBED_URL}/${PUBLIC_BOT_ID}/popup.js';
+			script.src = 'http://localhost:5174/de3c08d9c1fff938/popup.js';
 			script.async = true;
 			document.head.appendChild(script);
 		</script>` }
