@@ -6,6 +6,7 @@
 	export let data;
 
 	let settings = data.bot.settings;
+	let conf = data.bot.config;
 	let context: string | null;
 	let wrapper: HTMLDivElement;
 	const { removeBranding } = data;
@@ -40,6 +41,7 @@
 	<Chat
 		modelId={data.bot.id}
 		{settings}
+		{conf}
 		avatar={data.bot.avatar_img}
 		userId={data.bot.user_id}
 		{removeBranding}
